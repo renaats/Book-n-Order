@@ -10,7 +10,7 @@ Add your own name (do not add the names for others!) to the section below.
 
 | 📸 | Name | Email |
 |---|---|---|
-| ![](https://media-exp1.licdn.com/dms/image/C5603AQH144D-heIjVQ/profile-displayphoto-shrink_200_200/0?e=1586995200&v=beta&t=6J9UPGplKkFj1OCqpPZTBZF1LomIVry6ON6o729CeRw) | Jorit de Weerdt | vj.c.h.p.deweerdt@student.tudelft.nl |
+| ![](https://imgur.com/0YcH9ah) | Jorit de Weerdt | j.c.h.p.deweerdt@student.tudelft.nl |
 | ![](https://eu.ui-avatars.com/api/?name=OOPP&length=4&size=50&color=DDD&background=777&font-size=0.325) | Your Name Here | Y.NameHere@student.tudelft.nl |
 
 <!-- Instructions (remove once assignment has been completed -->
