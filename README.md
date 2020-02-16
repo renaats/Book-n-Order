@@ -1,4 +1,4 @@
-# Starting template
+﻿# Starting template
 
 This README will need to contain a description of your project, how to run it, how to set up the development environment, and who worked on it.
 This information can be added throughout the course, except for the names of the group members.
@@ -15,6 +15,7 @@ A java desktop application that allows students of TU Delft to book study rooms,
 | ![](https://imgur.com/nbPNECF.png) | Liselotte Jongejans | l.j.jongejans@student.tudelft.nl |
 | ![](https://i.imgur.com/eK3Wqb0.jpg) | Alto Delia | a.delia@student.tudelft.nl |
 | ![](https://eu.ui-avatars.com/api/?name=OOPP&length=4&size=50&color=DDD&background=777&font-size=0.325) | Your Name Here | Y.NameHere@student.tudelft.nl |
+| ![](https://i.imgur.com/kBzTAHD.jpg?1) | Mihail Spasov | m.b.spasov@student.tudelft.nl |
 
 <!-- Instructions (remove once assignment has been completed -->
 <!-- - Add (only!) your own name to the table above (use Markdown formatting) -->
