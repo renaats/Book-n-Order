@@ -5,6 +5,7 @@ This information can be added throughout the course, except for the names of the
 Add your own name (do not add the names for others!) to the section below.
 
 ## Description of project
+A java desktop application that allows students of TU Delft to book study rooms, rent bikes and purchase food all in one location.
 
 ## Group members
 
