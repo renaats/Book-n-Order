@@ -5,12 +5,17 @@ This information can be added throughout the course, except for the names of the
 Add your own name (do not add the names for others!) to the section below.
 
 ## Description of project
+A java desktop application that allows students of TU Delft to book study rooms, rent bikes and purchase food all in one location.
 
 ## Group members
 
 | 📸 | Name | Email |
 |---|---|---|
 | ![](https://i.imgur.com/QOx3q2W.png) | Jorit de Weerdt | j.c.h.p.deweerdt@student.tudelft.nl |
+| ![](https://imgur.com/nbPNECF.png) | Liselotte Jongejans | l.j.jongejans@student.tudelft.nl |
+| ![](https://i.imgur.com/eK3Wqb0.jpg) | Alto Delia | a.delia@student.tudelft.nl |
+| ![](https://imgur.com/3WRsugD) | Amber S | h.k.slapczynski@student.tudelft.nl |
+| ![](https://i.imgur.com/kBzTAHD.jpg?1) | Mihail Spasov | m.b.spasov@student.tudelft.nl |
 | ![](https://eu.ui-avatars.com/api/?name=OOPP&length=4&size=50&color=DDD&background=777&font-size=0.325) | Your Name Here | Y.NameHere@student.tudelft.nl |
 | ![](https://imgur.com/EorTzz5) | Mihail Spasov | m.b.spasov@student.tudelft.nl |
 | ![]() | Alex De Los Santos | A.DeLosSantosSubirats@student.tudelft.nl |
