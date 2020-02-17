@@ -18,6 +18,7 @@ A java desktop application that allows students of TU Delft to book study rooms,
 | ![](https://i.imgur.com/kBzTAHD.jpg?1) | Mihail Spasov | m.b.spasov@student.tudelft.nl |
 | ![](https://imgur.com/EorTzz5) | Mihail Spasov | m.b.spasov@student.tudelft.nl |
 | ![]() | Alex De Los Santos | A.DeLosSantosSubirats@student.tudelft.nl |
+| ![]() | Renāts Jurševskis | r.jursevskis@student.tudelft.nl |
 
 <!-- Instructions (remove once assignment has been completed -->
 <!-- - Add (only!) your own name to the table above (use Markdown formatting) -->
