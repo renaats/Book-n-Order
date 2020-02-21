@@ -7,7 +7,7 @@ build/
 gradle-app.setting
 
 # Ignore application.properties so we don't upload passwords to git
-src/main/resrouces/application.properties
+server/src/main/resrouces/application.properties
 
 ### JetBrains template
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm
