@@ -8,11 +8,18 @@ public class MainSceneController {
     /**
      * Handles clicking the button.
      */
-    public void buttonClicked() {
+    public void quoteButtonClicked() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Quote for you");
         alert.setHeaderText(null);
         alert.setContentText(ServerCommunication.getQuote());
+        alert.showAndWait();
+    }
+    public void userButtonClicked() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("User for you");
+        alert.setHeaderText(null);
+        alert.setContentText(ServerCommunication.getUser());
         alert.showAndWait();
     }
 }
