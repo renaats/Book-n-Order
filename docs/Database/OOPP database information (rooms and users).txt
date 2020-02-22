@@ -1,0 +1,15 @@
+What to store:
+-User information:
+	- Account mail -&-> Student/faculty member.
+	- Name.
+	-What Bachelor/faculty is he/she attending.
+
+-All the rooms and their characteristics:
+	-Room name/ID.
+	-Building where it's located.
+	-Faculty.
+	-Does the room have any special equipment (AKA: should people outside the faculty have access to it).
+	-Number of people that fit in the room.
+	-Does it have a screen (how many).
+	-How many plugs?
+	-Sound proof (Can you make a bit of noise in it?). For group study sessions.
