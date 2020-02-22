@@ -11,4 +11,6 @@
     <Label text="This is a simple demo application."/>
     <Button fx:id="quoteButton" text="Quote!" onAction="#quoteButtonClicked"/>
     <Button fx:id="testButton" text="User!" onAction="#userButtonClicked"/>
+    <Button fx:id="addBuildingButton" text="Add a building!" onAction="#addBuildingButtonClicked"/>
+    <Button fx:id="listBuildingsButton" text="See all buildings!" onAction="#listBuildingsButtonClicked"/>
 </VBox>
