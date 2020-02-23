@@ -48,4 +48,15 @@ public class MainSceneController {
         alert.setContentText(ServerCommunication.getBuilding());
         alert.showAndWait();
     }
+
+    /**
+     * Handles clicking the remove button
+     */
+    public void deleteBuildingButtonClicked() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Removed a building ");
+        alert.setHeaderText(null);
+        alert.setContentText(ServerCommunication.deleteBuilding());
+        alert.showAndWait();
+    }
 }

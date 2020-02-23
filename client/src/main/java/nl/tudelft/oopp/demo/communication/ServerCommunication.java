@@ -54,7 +54,7 @@ public class ServerCommunication {
      * @throws Exception if communication with the server fails.
      */
     public static String postBuilding() {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/demo/add?name=EWI")).POST(HttpRequest.BodyPublishers.noBody()).build();
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/demo/add?name=EWI&email=ewi@tudelft.nl")).POST(HttpRequest.BodyPublishers.noBody()).build();
         HttpResponse<String> response = null;
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
@@ -84,6 +84,22 @@ public class ServerCommunication {
             return "Communication with server failed";
         }
         if (response.statusCode() != 200) {
+            System.out.println("Status: " + response.statusCode());
+        }
+        return response.body();
+    }
+
+    public static String deleteBuilding() {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/demo/delete?id=7")).POST(HttpRequest.BodyPublishers.noBody()).build();
+        HttpResponse<String> response = null;
+        try {
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Communication with server failed";
+        }
+        if (response.statusCode() != 200) {
+            System.out.println(response.body());
             System.out.println("Status: " + response.statusCode());
         }
         return response.body();

@@ -13,4 +13,5 @@
     <Button fx:id="testButton" text="User!" onAction="#userButtonClicked"/>
     <Button fx:id="addBuildingButton" text="Add a building!" onAction="#addBuildingButtonClicked"/>
     <Button fx:id="listBuildingsButton" text="See all buildings!" onAction="#listBuildingsButtonClicked"/>
+    <Button fx:id="deleteBuilding" text="Remove building with ID 7" onAction="#deleteBuildingButtonClicked"/>
 </VBox>

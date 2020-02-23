@@ -12,6 +12,7 @@ public class Building {
     private Integer id;
 
     private String name;
+    private String email;
 
     public Integer getId() {
         return id;
@@ -29,4 +30,9 @@ public class Building {
         this.name = name;
     }
 
+    public void setEmail(String email) { this.email = email; }
+
+    public String getEmail() {
+        return email;
+    }
 }
