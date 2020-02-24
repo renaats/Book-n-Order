@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Optional;
-
 @Repository
 @RestController // This means that this class is a Controller
 @RequestMapping(path = "/demo") // This means URL's start with /demo (after Application path)
@@ -53,6 +51,12 @@ public class BuildingController {
         return "Deleted!";
     }
 
+    /**
+     * Updates a database attribute
+     * @param id
+     * @param email
+     * @return message if it passes
+     */
      @PostMapping(path = "/update")
      @ResponseBody
      public String updateBuilding(@RequestParam int id, @RequestParam String email) {
