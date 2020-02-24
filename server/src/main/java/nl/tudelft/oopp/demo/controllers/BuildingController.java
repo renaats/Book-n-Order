@@ -44,7 +44,7 @@ public class BuildingController {
     @PostMapping(path = "/delete")
     @ResponseBody
     public String deleteBuilding(@RequestParam int id) {
-        if(!buildingRepository.existsById(id)) {
+        if (!buildingRepository.existsById(id)) {
             return "Building with ID: " + id + " Does not exist!";
         }
         buildingRepository.deleteById(id);
@@ -52,13 +52,13 @@ public class BuildingController {
     }
 
     // Does not work yet!
-    //    @PostMapping(path = "/update")
-    //    public @ResponseBody String updateBuilding(@RequestParam int id, @RequestParam String email) {
-    //        Optional<Building> building = buildingRepository.findById(id);
-    //        String old = building.get().getEmail();
-    //        building.get().setEmail(email);
-    //        return old + " is now " + email + " for building ID: " + id;
-    //    }
+    // @PostMapping(path = "/update")
+    // public @ResponseBody String updateBuilding(@RequestParam int id, @RequestParam String email) {
+    //    Optional<Building> building = buildingRepository.findById(id);
+    //    String old = building.get().getEmail();
+    //    building.get().setEmail(email);
+    //    return old + " is now " + email + " for building ID: " + id;
+    // }
 
     /**
      * Lists all buildings.
