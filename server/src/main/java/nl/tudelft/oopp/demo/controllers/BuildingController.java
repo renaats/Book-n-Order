@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Optional;
+
 @Repository
 @RestController // This means that this class is a Controller
 @RequestMapping(path = "/demo") // This means URL's start with /demo (after Application path)
@@ -51,15 +53,15 @@ public class BuildingController {
         return "Deleted!";
     }
 
-    // Does not work yet!
-    // @PostMapping(path = "/update")
-    // @ResponseBody 
-    // public String updateBuilding(@RequestParam int id, @RequestParam String email) {
-    //    Optional<Building> building = buildingRepository.findById(id);
-    //    String old = building.get().getEmail();
-    //    building.get().setEmail(email);
-    //    return old + " is now " + email + " for building ID: " + id;
-    // }
+     @PostMapping(path = "/update")
+     @ResponseBody
+     public String updateBuilding(@RequestParam int id, @RequestParam String email) {
+        Building building = buildingRepository.getOne(id);
+        String old = building.getEmail();
+        building.setEmail(email);
+        buildingRepository.save(building);
+        return old + " changed to " + email + " for building ID: " + id;
+     }
 
     /**
      * Lists all buildings.
