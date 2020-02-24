@@ -52,20 +52,20 @@ public class BuildingController {
     }
 
     /**
-     * Updates a database attribute
-     * @param id
-     * @param email
+     * Updates a database attribute.
+     * @param id = the building id
+     * @param email = The building contact email
      * @return message if it passes
      */
-     @PostMapping(path = "/update")
-     @ResponseBody
-     public String updateBuilding(@RequestParam int id, @RequestParam String email) {
+    @PostMapping(path = "/update")
+    @ResponseBody
+    public String updateBuilding(@RequestParam int id, @RequestParam String email) {
         Building building = buildingRepository.getOne(id);
         String old = building.getEmail();
         building.setEmail(email);
         buildingRepository.save(building);
         return old + " changed to " + email + " for building ID: " + id;
-     }
+    }
 
     /**
      * Lists all buildings.
