@@ -53,7 +53,8 @@ public class BuildingController {
 
     // Does not work yet!
     // @PostMapping(path = "/update")
-    // public @ResponseBody String updateBuilding(@RequestParam int id, @RequestParam String email) {
+    // @ResponseBody 
+    // public String updateBuilding(@RequestParam int id, @RequestParam String email) {
     //    Optional<Building> building = buildingRepository.findById(id);
     //    String old = building.get().getEmail();
     //    building.get().setEmail(email);
