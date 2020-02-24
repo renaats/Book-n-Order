@@ -48,6 +48,7 @@ public class ServerCommunication {
         }
         return response.body();
     }
+
     /**
      * Adds a building to the database.
      * @return the body of a get request to the server.
@@ -89,6 +90,11 @@ public class ServerCommunication {
         return response.body();
     }
 
+    /**
+     * Removes a building from the database.
+     * @return the body of a get request to the server.
+     * @throws Exception if communication with the server fails.
+     */
     public static String deleteBuilding() {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/demo/delete?id=7")).POST(HttpRequest.BodyPublishers.noBody()).build();
         HttpResponse<String> response = null;

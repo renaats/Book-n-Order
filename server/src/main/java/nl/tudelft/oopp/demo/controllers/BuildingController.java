@@ -4,9 +4,12 @@ import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.repositories.BuildingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 @Repository
 @RestController // This means that this class is a Controller
@@ -17,15 +20,15 @@ public class BuildingController {
     private BuildingRepository buildingRepository;
 
     /**
-     * Adds a building
+     * Adds a building.
      * @param name = the name of the building
      * @return String to see if your request passed
      */
     @PostMapping(path = "/add") // Map ONLY POST Requests
-    public @ResponseBody String addNewBuilding(@RequestParam String name, @RequestParam String email) {
+    @ResponseBody
+    public String addNewBuilding(@RequestParam String name, @RequestParam String email) {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
-
         Building n = new Building();
         n.setName(name);
         n.setEmail(email);
@@ -34,13 +37,14 @@ public class BuildingController {
     }
 
     /**
-     * Deletes a building
+     * Deletes a building.
      * @param id = the id of the building
      * @return String to see if your request passed
      */
     @PostMapping(path = "/delete")
-    public @ResponseBody String deleteBuilding(@RequestParam int id){
-        if(!buildingRepository.existsById(id)){
+    @ResponseBody
+    public String deleteBuilding(@RequestParam int id) {
+        if(!buildingRepository.existsById(id)) {
             return "Building with ID: " + id + " Does not exist!";
         }
         buildingRepository.deleteById(id);
@@ -48,20 +52,21 @@ public class BuildingController {
     }
 
     // Does not work yet!
-//    @PostMapping(path = "/update")
-//    public @ResponseBody String updateBuilding(@RequestParam int id, @RequestParam String email){
-//        Optional<Building> building = buildingRepository.findById(id);
-//        String old = building.get().getEmail();
-//        building.get().setEmail(email);
-//        return old + " is now " + email + " for building ID: " + id;
-//    }
+    //    @PostMapping(path = "/update")
+    //    public @ResponseBody String updateBuilding(@RequestParam int id, @RequestParam String email) {
+    //        Optional<Building> building = buildingRepository.findById(id);
+    //        String old = building.get().getEmail();
+    //        building.get().setEmail(email);
+    //        return old + " is now " + email + " for building ID: " + id;
+    //    }
 
     /**
-     * Lists all buildings
+     * Lists all buildings.
      * @return all buildings
      */
     @GetMapping(path = "/all")
-    public @ResponseBody Iterable<Building> getAllUsers() {
+    @ResponseBody
+    public Iterable<Building> getAllUsers() {
         // This returns a JSON or XML with the users
         return buildingRepository.findAll();
     }

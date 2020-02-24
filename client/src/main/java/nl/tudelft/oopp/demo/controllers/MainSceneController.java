@@ -50,7 +50,7 @@ public class MainSceneController {
     }
 
     /**
-     * Handles clicking the remove button
+     * Handles clicking the remove button.
      */
     public void deleteBuildingButtonClicked() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
