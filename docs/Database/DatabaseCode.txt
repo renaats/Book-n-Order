@@ -18,7 +18,7 @@ Table rooms {
   faculty_specific boolean
   nPeople int
   screen boolean
-  plugs boolean
+  plugs int
   beamer boolean
 }
 
@@ -46,7 +46,6 @@ Table restaurant_hours {
 Table bikes {
   id int PK
   location building_number
-  booked boolean
   available boolean
 }
 
@@ -59,12 +58,17 @@ Table bike_reservations {
   User email
 }
 
+Table room_reservations {
+  id id PK
+  from datetime
+  to datetime
+  User email
+}
+
 Table restaurant {
   id int PK
   building building_number
   name String
-  business_hours business_hours
-  menu menu
 }
 
 Table menu {
@@ -96,8 +100,6 @@ Ref: "restaurant"."id" < "menu"."restaurant"
 
 Ref: "restaurant"."id" < "restaurant_hours"."restaurant"
 
-Ref: "restaurant"."menu" < "menu"."menu"
-
 Ref: "bikes"."id" < "bike_reservations"."id"
 
 Ref: "bikes"."location" < "building"."building_number"
@@ -111,3 +113,8 @@ Ref: "building"."building_number" < "food_orders"."delivery_location"
 Ref: "bike_reservations"."from_building" < "building"."building_number"
 
 Ref: "bike_reservations"."to_building" < "building"."building_number"
+
+
+Ref: "rooms"."room_name" < "room_reservations"."id"
+
+Ref: "room_reservations"."User" < "User"."id"
