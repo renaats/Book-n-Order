@@ -22,7 +22,7 @@ public class Quote {
     }
 
     /**
-     * Create a new Quote instance.
+     * Create a new Quote instance
      *
      * @param id Unique identifier as to be used in the database.
      * @param quote Actual text of the quote.
