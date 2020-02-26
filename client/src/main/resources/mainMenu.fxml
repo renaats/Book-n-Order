@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -9,18 +10,34 @@
 <AnchorPane prefHeight="400.0" prefWidth="648.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.MainMenuController">
    <children>
       <Accordion layoutX="76.0" layoutY="144.0" />
-      <Button layoutX="98.0" layoutY="303.0" mnemonicParsing="false" onAction="#roomsSelected" text="Rooms" />
-      <Button layoutX="302.0" layoutY="303.0" mnemonicParsing="false" onAction="#foodsSelsected" text="Food" />
-      <Button layoutX="503.0" layoutY="303.0" mnemonicParsing="false" onAction="#bikesSelected" text="Bikes" />
+      <Button layoutX="90.0" layoutY="303.0" mnemonicParsing="false" onAction="#roomsSelected" text="Book a Room" AnchorPane.topAnchor="303.0" />
+      <Button cache="true" layoutX="285.0" layoutY="303.0" mnemonicParsing="false" onAction="#foodsSelsected" text="Order Food" />
+      <Button layoutX="479.0" layoutY="303.0" mnemonicParsing="false" onAction="#bikesSelected" text="Rent a Bike" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="200.0" layoutX="250.0" layoutY="100.0" stroke="BLACK" strokeType="INSIDE" width="150.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="200.0" layoutX="50.0" layoutY="100.0" stroke="BLACK" strokeType="INSIDE" width="150.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="200.0" layoutX="450.0" layoutY="96.0" stroke="BLACK" strokeType="INSIDE" width="150.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="200.0" layoutX="443.0" layoutY="100.0" stroke="BLACK" strokeType="INSIDE" width="150.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="50.0" stroke="BLACK" strokeType="INSIDE" width="650.0" />
-      <ImageView fitHeight="200.0" fitWidth="150.0" layoutX="50.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fitHeight="200.0" fitWidth="150.0" layoutX="250.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fitHeight="200.0" fitWidth="150.0" layoutX="450.0" layoutY="96.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fitHeight="50.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-      <Text layoutX="29.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TU Deflt" wrappingWidth="93.236328125" />
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+      <ImageView fitHeight="200.0" fitWidth="150.0" layoutX="59.0" layoutY="100.0" opacity="0.8" pickOnBounds="true" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="440.0" AnchorPane.topAnchor="100.0">
+         <image>
+            <Image url="@Images/Book_Room_opt2.jpg" />
+         </image> </ImageView>
+      <ImageView fitHeight="200.0" fitWidth="150.0" layoutX="250.0" layoutY="100.0" opacity="0.9" pickOnBounds="true">
+         <image>
+            <Image url="@Images/Order_Food_opt1.jpg" />
+         </image>
+         <viewport>
+            <Rectangle2D height="550.0" width="750.0" />
+         </viewport></ImageView>
+      <ImageView fitHeight="200.0" fitWidth="150.0" layoutX="443.0" layoutY="100.0" opacity="0.9" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Images/Rent_Bike_opt1.jpg" />
+         </image>
+         <viewport>
+            <Rectangle2D height="1600.0" minX="600.0" width="1200.0" />
+         </viewport></ImageView>
+      <ImageView fitHeight="50.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Images/TUDELFT_Logo.png" />
+         </image></ImageView>
+      <Text fill="WHITE" layoutX="88.0" layoutY="297.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="93.236328125" />
    </children>
 </AnchorPane>
