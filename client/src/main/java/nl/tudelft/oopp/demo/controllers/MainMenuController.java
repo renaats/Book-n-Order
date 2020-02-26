@@ -1,43 +1,41 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import nl.tudelft.oopp.demo.communication.ServerCommunication;
+import nl.tudelft.oopp.demo.views.MainMenuDisplay;
+import nl.tudelft.oopp.demo.views.QuoteDisplay;
+
 import java.io.IOException;
 import java.net.URL;
-import java.util.ResourceBundle;
-import javafx.fxml.Initializable;
-import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
-public class MainMenuController implements Initializable {
+public class MainMenuController {
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
+    /**
+     * Handles clicking the food button.
+     */
+    public void foodsSelsected() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("not implememnted");
+        alert.setHeaderText(null);
+        alert.showAndWait();
     }
 
     /**
-     * Changes to mainScene.fxml.
-     * @throws IOException again, all input will be valid. No need to check this, thus we throw.
+     * Handles clicking the bikes button.
      */
-    public void mainMenu() throws IOException {
-        ApplicationDisplay.changeScene("/templateScene.fxml");
+    public void bikesSelected() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("not implememnted");
+        alert.setHeaderText(null);
+        alert.showAndWait();
     }
-
     /**
-     * Changes to myCurrentBookings.fxml.
-     * @throws IOException input will not be wrong, hence we throw.
+     * Handles clicking the rooms button. Should send you to the mainScene.
      */
-    public void myCurrentBookings() throws IOException {
-        ApplicationDisplay.changeScene("/myCurrentBookings.fxml");
-    }
-
-    /**
-     * Changes to myPreviousBookings.fxml.
-     * @throws IOException input will not be wrong, hence we throw.
-     */
-    public void myPreviousBookings() throws IOException {
-        ApplicationDisplay.changeScene("/myPreviousBookings.fxml");
-    }
-
-    public void myAccountScene() throws IOException {
-        ApplicationDisplay.changeScene("/myAccountScene.fxml");
+    public void roomsSelected() throws IOException {
+        QuoteDisplay.main(new String[0]);
     }
 }
