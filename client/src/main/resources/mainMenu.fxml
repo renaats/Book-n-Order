@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="648.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.MainMenuController">
+   <children>
+      <Accordion layoutX="76.0" layoutY="144.0" />
+      <Button layoutX="98.0" layoutY="303.0" mnemonicParsing="false" onAction="#roomsSelected" text="Rooms" />
+      <Button layoutX="302.0" layoutY="303.0" mnemonicParsing="false" onAction="#foodsSelsected" text="Food" />
+      <Button layoutX="503.0" layoutY="303.0" mnemonicParsing="false" onAction="#bikesSelected" text="Bikes" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="200.0" layoutX="250.0" layoutY="100.0" stroke="BLACK" strokeType="INSIDE" width="150.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="200.0" layoutX="50.0" layoutY="100.0" stroke="BLACK" strokeType="INSIDE" width="150.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="200.0" layoutX="450.0" layoutY="96.0" stroke="BLACK" strokeType="INSIDE" width="150.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="50.0" stroke="BLACK" strokeType="INSIDE" width="650.0" />
+      <ImageView fitHeight="200.0" fitWidth="150.0" layoutX="50.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fitHeight="200.0" fitWidth="150.0" layoutX="250.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fitHeight="200.0" fitWidth="150.0" layoutX="450.0" layoutY="96.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fitHeight="50.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+      <Text layoutX="29.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TU Deflt" wrappingWidth="93.236328125" />
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+   </children>
+</AnchorPane>

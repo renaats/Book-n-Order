@@ -59,4 +59,5 @@ public class MainSceneController {
         alert.setContentText(ServerCommunication.deleteBuilding());
         alert.showAndWait();
     }
+
 }
