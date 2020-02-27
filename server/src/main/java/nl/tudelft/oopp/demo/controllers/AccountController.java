@@ -33,6 +33,7 @@ public class AccountController {
     @ResponseBody
     public String addNewAccount(
             @RequestParam String email,
+            @RequestParam String password,
             @RequestParam String name,
             @RequestParam String surname,
             @RequestParam String faculty,
@@ -40,22 +41,32 @@ public class AccountController {
     ) {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request.
-        Account account = null;
-        if (type.equals("User")) {
-            account = new UserAccount();
-        } else if (type.equals("Staff")) {
-            account = new StaffAccount();
-        } else if (type.equals("BuildingAdmin")) {
-            account = new BuildingAdminAccount();
-        } else if (type.equals("RestaurantAdmin")) {
-            account = new RestaurantAdminAccount();
-        } else if (type.equals("BikeAdmin")) {
-            account = new BikeAdminAccount();
+        if (accountRepository.existsById(email)) {
+            return "The account with email " + email + " already exists!";
+        }
+        Account account;
+        switch (type) {
+            case "User":
+                account = new UserAccount();
+                break;
+            case "Staff":
+                account = new StaffAccount();
+                break;
+            case "BuildingAdmin":
+                account = new BuildingAdminAccount();
+                break;
+            case "RestaurantAdmin":
+                account = new RestaurantAdminAccount();
+                break;
+            case "BikeAdmin":
+                account = new BikeAdminAccount();
+                break;
+            default:
+                return "This user type is currently not supported!";
         }
 
-        assert account != null;
-
         account.setEmail(email);
+        account.setPassword(password);
         account.setName(name);
         account.setSurname(surname);
         account.setFaculty(faculty);
@@ -72,30 +83,91 @@ public class AccountController {
     @ResponseBody
     public String deleteAccount(@RequestParam String email) {
         if (!accountRepository.existsById(email)) {
-            return "Account with email " + email + " Does not exist!";
+            return "The account with email " + email + " does not exist!";
         }
         accountRepository.deleteById(email);
-        return "Deleted!";
+        return "The account with email " + email + " has been deleted!";
     }
 
     /**
-     * Updates a database attribute.
+     * Updates a database attribute "password".
+     * @param email = the account email
+     * @param password = The account password
+     * @return message if it passes
+     */
+    @PostMapping(path = "/update_password")
+    @ResponseBody
+    public String updatePassword(@RequestParam String email, @RequestParam String password) {
+        if (!accountRepository.existsById(email)) {
+            return "The account with email " + email + " does not exist!";
+        }
+        Account account = accountRepository.getOne(email);
+        String old = account.getPassword();
+        account.setPassword(password);
+        accountRepository.save(account);
+        return "The previous password " + old + " has been changed to " + password + " for the account with email " + email + "!";
+    }
+
+    /**
+     * Updates a database attribute "name".
      * @param email = the account email
      * @param name = The account name
      * @return message if it passes
      */
-    @PostMapping(path = "/updateName")
+    @PostMapping(path = "/update_name")
     @ResponseBody
-    public String updateBuilding(@RequestParam String email, @RequestParam String name) {
+    public String updateName(@RequestParam String email, @RequestParam String name) {
+        if (!accountRepository.existsById(email)) {
+            return "The account with email " + email + " does not exist!";
+        }
         Account account = accountRepository.getOne(email);
         String old = account.getName();
         account.setName(name);
         accountRepository.save(account);
-        return old + " changed to " + name + " for account with email " + email;
+        return "The previous name " + old + " has been changed to " + name + " for the account with email " + email + "!";
+    }
+
+    /**
+     * Updates a database attribute "surname".
+     * @param email = the account email
+     * @param surname = The account surname
+     * @return message if it passes
+     */
+    @PostMapping(path = "/update_surname")
+    @ResponseBody
+    public String updateSurname(@RequestParam String email, @RequestParam String surname) {
+        if (!accountRepository.existsById(email)) {
+            return "The account with email " + email + " does not exist!";
+        }
+        Account account = accountRepository.getOne(email);
+        String old = account.getSurname();
+        account.setSurname(surname);
+        accountRepository.save(account);
+        return "The previous surname " + old + " has been changed to " + surname + " for the account with email " + email + "!";
+    }
+
+    /**
+     * Updates a database attribute "faculty".
+     * @param email = the account email
+     * @param faculty = The account surname
+     * @return message if it passes
+     */
+    @PostMapping(path = "/update_faculty")
+    @ResponseBody
+    public String updateFaculty(@RequestParam String email, @RequestParam String faculty) {
+        if (!accountRepository.existsById(email)) {
+            return "The account with email " + email + " does not exist!";
+        }
+        Account account = accountRepository.getOne(email);
+        String old = account.getFaculty();
+        account.setFaculty(faculty);
+        accountRepository.save(account);
+        return "The previous faculty " + old + " has been changed to " + faculty + " for the account with email " + email + "!";
     }
 
     /**
      * Lists all accounts.
+     * Should be removed for the finished version!
      * @return all accounts
      */
     @GetMapping(path = "/all")
@@ -104,4 +176,16 @@ public class AccountController {
         // This returns a JSON or XML with the users
         return accountRepository.findAll();
     }
+
+    @GetMapping(path = "/find")
+    @ResponseBody
+    public Account getUser(@RequestParam String email) {
+        if (!accountRepository.existsById(email)) {
+            return null;
+            //return "The account with email " + email + " does not exist!";
+        }
+        Account account = accountRepository.getOne(email);
+        return account;
+    }
+
 }
