@@ -177,6 +177,10 @@ public class AccountController {
         return accountRepository.findAll();
     }
 
+    /**
+     * Finds an account by its email.
+     * @return an account that has the specified email or null if no such account exists
+     */
     @GetMapping(path = "/find")
     @ResponseBody
     public Account getUser(@RequestParam String email) {
