@@ -13,12 +13,17 @@ import javax.persistence.InheritanceType;
 public abstract class Account {
     @Id
     private String email;
+    private String password;
     private String name;
     private String surname;
     private String faculty;
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public void setName(String name) {
@@ -35,6 +40,10 @@ public abstract class Account {
 
     public String getEmail() {
         return email;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public String getName() {
