@@ -39,5 +39,6 @@
             <Image url="@Images/TUDELFT_Logo.png" />
          </image></ImageView>
       <Text fill="WHITE" layoutX="88.0" layoutY="297.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="93.236328125" />
+      <Button layoutX="504.0" layoutY="12.0" mnemonicParsing="false" text="My reservations" />
    </children>
 </AnchorPane>
