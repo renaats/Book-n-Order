@@ -14,7 +14,7 @@
    <children>
       <ImageView cache="true" cacheHint="QUALITY" depthTest="DISABLE" fitHeight="600.0" fitWidth="800.0" opacity="0.5" pickOnBounds="true">
          <image>
-            <Image url="@repository-template/images/tudelft.jpeg" />
+            <Image url="@../../../../images/tudelft.jpeg" />
          </image>
       </ImageView>
       <Pane layoutX="167.0" layoutY="300.0" opacity="0.75" prefHeight="180.0" prefWidth="500.0" style="-fx-border-color: #439FDA; -fx-border-width: 5; -fx-background-color: white;" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="167.0" AnchorPane.rightAnchor="167.0" />
@@ -32,7 +32,7 @@
       <PasswordField fx:id="password" layoutX="200.0" layoutY="408.0" prefHeight="26.0" prefWidth="400.0" text="password" AnchorPane.bottomAnchor="160.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" />
       <ImageView fitHeight="190.0" fitWidth="275.0" layoutX="30.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
-            <Image url="@repository-template/images/tudelft_logo.png" />
+            <Image url="@../../../../images/tudelft_logo.png" />
          </image>
       </ImageView>
       <Button fx:id="login_button" layoutX="369.0" layoutY="486.0" mnemonicParsing="false" style="-fx-background-color: #439fd9;" text="Login" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0">
