@@ -8,8 +8,10 @@
    <VBox alignment="CENTER" layoutX="145.0" layoutY="100.0" prefHeight="199.0" prefWidth="309.0">
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pick-up" />
       <ChoiceBox fx:id="Pick" prefWidth="150.0" />
+      <ChoiceBox fx:id="PIckUoTime" prefWidth="150.0" />
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Drop-off" />
       <ChoiceBox fx:id="Drop" prefWidth="150.0" />
+      <ChoiceBox fx:id="DropOffTime" prefWidth="150.0" />
       <DatePicker />
       <Button mnemonicParsing="false" onAction="#reserveBike" text="Reserve" />
       <TextField fx:id="screen" />
