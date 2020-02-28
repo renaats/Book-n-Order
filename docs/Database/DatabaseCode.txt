@@ -5,6 +5,7 @@
 Table User {
   id int [PK]
   email String
+  password String
   name String
   surname String
   faculty String
@@ -55,14 +56,14 @@ Table bike_reservations {
   to datetime
   from_building building_number
   to_building building_number
-  User email
+  User User
 }
 
 Table room_reservations {
   id id PK
   from datetime
   to datetime
-  User email
+  User User
 }
 
 Table restaurant {
