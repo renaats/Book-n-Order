@@ -10,10 +10,12 @@
 <AnchorPane prefHeight="400.0" prefWidth="648.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.MainMenuController">
     <children>
         <Accordion layoutX="76.0" layoutY="144.0" />
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="200.0" layoutX="250.0" layoutY="100.0" stroke="BLACK" strokeType="INSIDE" width="150.0" />
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="200.0" layoutX="443.0" layoutY="100.0" stroke="BLACK" strokeType="INSIDE" width="150.0" />
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="50.0" stroke="BLACK" strokeType="INSIDE" width="650.0" />
 
+        <ImageView fitHeight="50.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@images/tudelftlogo.png" />
+            </image>
+        </ImageView>
         <Text fill="WHITE" layoutX="88.0" layoutY="297.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="93.236328125" />
     </children>
 </AnchorPane>

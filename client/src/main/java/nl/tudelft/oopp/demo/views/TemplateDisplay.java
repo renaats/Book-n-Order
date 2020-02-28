@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 
-public class TemplateDisplay extends Application implements EventHandler<ActionEvent> {
+public class TemplateDisplay extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -26,10 +26,5 @@ public class TemplateDisplay extends Application implements EventHandler<ActionE
 
     public static void main(String[] args) {
         launch(args);
-    }
-
-    @Override
-    public void handle(ActionEvent event) {
-
     }
 }
