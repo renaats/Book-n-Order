@@ -1,7 +1,9 @@
 package nl.tudelft.oopp.demo.controllers;
 
-import java.io.IOException;
 
+import java.io.IOException;
+import java.io.IOException;
+import java.net.URL;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -10,12 +12,19 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
+import javax.swing.*;
+import nl.tudelft.oopp.demo.communication.ServerCommunication;
+import nl.tudelft.oopp.demo.views.MainMenuDisplay;
+import nl.tudelft.oopp.demo.views.QuoteDisplay;
+
+
 public class MainMenuController {
 
     /**
      * Handles clicking the food button.
      */
     public void foodsSelected(ActionEvent event) throws IOException {
+
         Parent roomSelectParent = FXMLLoader.load(getClass().getResource("/mainScene.fxml"));
         Scene roomSelectScene = new Scene(roomSelectParent);
 
@@ -27,6 +36,7 @@ public class MainMenuController {
     /**
      * Handles clicking the bikes button.
      */
+    @SuppressWarnings({"checkstyle:MethodParamPad", "CheckStyle"})
     public void bikesSelected(ActionEvent event) throws IOException {
         Parent roomSelectParent = FXMLLoader.load(getClass().getResource("/bikeReservations.fxml"));
         Scene roomSelectScene = new Scene(roomSelectParent);
@@ -40,8 +50,8 @@ public class MainMenuController {
      */
 
     public void roomsSelected(ActionEvent event) throws IOException {
-        Parent roomSelectParent = FXMLLoader.load(getClass().getResource("/mainScene.fxml"));
-        Scene roomSelectScene = new Scene(roomSelectParent);
+        Parent roomSelectParent = FXMLLoader.load(getClass().getResource("/bookRoom.fxml"));
+        Scene roomSelectScene = new Scene (roomSelectParent);
 
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(roomSelectScene);
