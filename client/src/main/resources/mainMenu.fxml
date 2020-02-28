@@ -12,7 +12,7 @@
    <children>
       <Accordion layoutX="76.0" layoutY="144.0" />
       <Button layoutX="90.0" layoutY="317.0" mnemonicParsing="false" onAction="#roomsSelected" style="-fx-background-color: #439fd9;" text="Book a Room" textFill="WHITE" AnchorPane.topAnchor="317.0" />
-      <Button cache="true" layoutX="285.0" layoutY="317.0" mnemonicParsing="false" onAction="#foodsSelsected" style="-fx-background-color: #439fd9;" text="Order Food" textFill="WHITE" />
+      <Button cache="true" layoutX="285.0" layoutY="317.0" mnemonicParsing="false" onAction="#foodsSelected" style="-fx-background-color: #439fd9;" text="Order Food" textFill="WHITE" />
       <Button layoutX="479.0" layoutY="317.0" mnemonicParsing="false" onAction="#bikesSelected" style="-fx-background-color: #439fd9;" text="Rent a Bike" textFill="WHITE" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="200.0" layoutX="250.0" layoutY="100.0" stroke="BLACK" strokeType="INSIDE" width="150.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="200.0" layoutX="443.0" layoutY="100.0" stroke="BLACK" strokeType="INSIDE" width="150.0" />
