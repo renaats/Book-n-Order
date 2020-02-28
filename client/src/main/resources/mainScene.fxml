@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.MainSceneController">
+   <Button mnemonicParsing="false" onAction="#goBackToMenu" text="Back" />
+    <Label text="Hello world!" />
+    <Label text="This is a simple demo application." />
+    <Button fx:id="quoteButton" onAction="#quoteButtonClicked" text="Quote!" />
+    <Button fx:id="testButton" onAction="#userButtonClicked" text="User!" />
+    <Button fx:id="addBuildingButton" onAction="#addBuildingButtonClicked" text="Add a building!" />
+    <Button fx:id="listBuildingsButton" onAction="#listBuildingsButtonClicked" text="See all buildings!" />
+    <Button fx:id="deleteBuilding" onAction="#deleteBuildingButtonClicked" text="Remove building with ID 7" />
+</VBox>

@@ -1,7 +1,15 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.stage.Stage;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
+
+import java.io.IOException;
 
 public class MainSceneController {
 
@@ -60,4 +68,12 @@ public class MainSceneController {
         alert.showAndWait();
     }
 
+    public void goBackToMenu(ActionEvent actionEvent) throws IOException {
+        Parent roomSelectParent = FXMLLoader.load(getClass().getResource("/mainMenu.fxml"));
+        Scene roomSelectScene = new Scene(roomSelectParent);
+
+        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        window.setScene(roomSelectScene);
+        window.show();
+    }
 }
