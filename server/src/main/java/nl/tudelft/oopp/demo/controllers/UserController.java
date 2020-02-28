@@ -24,15 +24,14 @@ public class UserController {
      * @param name = the name of the user
      * @return String to see if your request passed
      */
-    @PostMapping(path = "/create") // Map ONLY POST Requests
+    @PostMapping(path = "/add") // Map ONLY POST Requests
     @ResponseBody
-    public String addNewUser(
+    public String addUser(
             @RequestParam String email,
             @RequestParam String password,
             @RequestParam String name,
             @RequestParam String surname,
-            @RequestParam String faculty,
-            @RequestParam String type
+            @RequestParam String faculty
     ) {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request.
