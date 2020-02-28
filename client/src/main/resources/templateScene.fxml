@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: white;" VBox.vgrow="ALWAYS">
+      <children>
+            <ImageView fitHeight="40.0" fitWidth="114.0" layoutX="2.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/tudelftlogo.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="26.0" fitWidth="112.0" layoutX="32.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/mycampusbookingslogo.png" />
+               </image>
+            </ImageView>
+          <MenuBar layoutX="-1.0" layoutY="75.0" prefHeight="26.0" prefWidth="648.0" style="-fx-background-color: #00a6d6;">
+            <menus>
+              <Menu mnemonicParsing="false" text="Home" />
+              <Menu mnemonicParsing="false" style="-fx-text: white;" text="New booking">
+                <items>
+                  <MenuItem mnemonicParsing="false" text="Book a room" />
+                  <MenuItem mnemonicParsing="false" text="Rent a bike" />
+                  <MenuItem mnemonicParsing="false" text="Order food" />
+                </items>
+              </Menu>
+              <Menu mnemonicParsing="false" text="My account">
+                <items>
+                  <MenuItem mnemonicParsing="false" text="My profile" />
+                        <MenuItem mnemonicParsing="false" text="My current bookings" />
+                        <MenuItem mnemonicParsing="false" text="My previous bookings" />
+                </items>
+              </Menu>
+            </menus>
+          </MenuBar>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00a6d6" height="63.0" layoutX="-1.0" layoutY="343.0" stroke="#00a6d6" strokeType="INSIDE" width="648.0" />
+            <Text fill="WHITE" layoutX="26.0" layoutY="387.0" strokeType="OUTSIDE" strokeWidth="0.0" text="© 2020 TU Delft. All rights reserved.">
+               <font>
+                  <Font name="Calibri" size="10.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="26.0" layoutY="371.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback is welcome" />
+      </children>
+    </AnchorPane>
+  </children>
+</VBox>
