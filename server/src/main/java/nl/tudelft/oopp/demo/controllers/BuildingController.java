@@ -51,15 +51,21 @@ public class BuildingController {
         return "Deleted!";
     }
 
-    // Does not work yet!
-    // @PostMapping(path = "/update")
-    // @ResponseBody 
-    // public String updateBuilding(@RequestParam int id, @RequestParam String email) {
-    //    Optional<Building> building = buildingRepository.findById(id);
-    //    String old = building.get().getEmail();
-    //    building.get().setEmail(email);
-    //    return old + " is now " + email + " for building ID: " + id;
-    // }
+    /**
+     * Updates a database attribute.
+     * @param id = the building id
+     * @param email = The building contact email
+     * @return message if it passes
+     */
+    @PostMapping(path = "/update")
+    @ResponseBody
+    public String updateBuilding(@RequestParam int id, @RequestParam String email) {
+        Building building = buildingRepository.getOne(id);
+        String old = building.getEmail();
+        building.setEmail(email);
+        buildingRepository.save(building);
+        return old + " changed to " + email + " for building ID: " + id;
+    }
 
     /**
      * Lists all buildings.
