@@ -1,8 +1,11 @@
 package nl.tudelft.oopp.demo.controllers;
+<<<<<<< HEAD
 
 
 import java.io.IOException;
 
+=======
+>>>>>>> Added Calendar and Drop Down Menu to Room Book view (with fixed checkstyle issues)
 import java.io.IOException;
 import java.net.URL;
 import javafx.event.ActionEvent;
@@ -11,6 +14,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+<<<<<<< HEAD
 
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
@@ -37,7 +41,6 @@ public class MainMenuController {
     /**
      * Handles clicking the bikes button.
      */
-    @SuppressWarnings({"checkstyle:MethodParamPad", "CheckStyle"})
     public void bikesSelected(ActionEvent event) throws IOException {
         Parent roomSelectParent = FXMLLoader.load(getClass().getResource("/bikeReservations.fxml"));
 
@@ -51,6 +54,8 @@ public class MainMenuController {
     /**
      * Handles clicking the rooms button. Should send you to the mainScene.
      */
+
+    @SuppressWarnings({"checkstyle:MethodParamPad", "checkstyle:EmptyLineSeparator", "CheckStyle"})
     public void roomsSelected(ActionEvent event) throws IOException {
         Parent roomSelectParent = FXMLLoader.load(getClass().getResource("/bookRoom.fxml"));
         Scene roomSelectScene = new Scene(roomSelectParent);
