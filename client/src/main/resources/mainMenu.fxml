@@ -57,5 +57,6 @@
          </image></ImageView>
       <Text fill="WHITE" layoutX="88.0" layoutY="297.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="93.236328125" />
       <Button layoutX="504.0" layoutY="12.0" mnemonicParsing="false" text="My reservations" />
+      <Button layoutX="189.0" layoutY="374.0" mnemonicParsing="false" onAction="#roomsSelected" style="-fx-background-color: #439fd9;" text="To main Scene" textFill="WHITE" />
    </children>
 </AnchorPane>
