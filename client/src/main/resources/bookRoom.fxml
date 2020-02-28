@@ -7,22 +7,20 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="425.0" prefWidth="644.0" xmlns="http://javafx.com/javafx/10.0.2-internal"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.BookRoomController">
-    <Accordion layoutX="76.0" layoutY="144.0" prefHeight="33.0" prefWidth="47.0"/>
-    <Rectangle arcHeight="5.0" arcWidth="5.0" height="50.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0"
-               width="650.0">
+<AnchorPane prefHeight="425.0" prefWidth="644.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.BookRoomController">
+    <Accordion layoutX="76.0" layoutY="144.0" prefHeight="33.0" prefWidth="47.0" />
+    <Rectangle arcHeight="5.0" arcWidth="5.0" height="50.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="650.0">
         <fill>
             <LinearGradient startX="0.513189448441247">
                 <stops>
                     <Stop>
                         <color>
-                            <Color red="0.26274511218070984" green="0.6235294342041016" blue="0.8509804010391235"/>
+                            <Color red="0.26274511218070984" green="0.6235294342041016" blue="0.8509804010391235" />
                         </color>
                     </Stop>
                     <Stop offset="1.0">
                         <color>
-                            <Color red="0.5291788578033447" green="0.7951764464378357" blue="0.9605262875556946"/>
+                            <Color red="0.5291788578033447" green="0.7951764464378357" blue="0.9605262875556946" />
                         </color>
                     </Stop>
                 </stops>
@@ -30,19 +28,19 @@
         </fill>
     </Rectangle>
     <ImageView fitHeight="50.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-        <Image url="@Images/TUDELFT_Logo.png"/>
+        <Image url="@Images/TUDELFT_Logo.png" />
     </ImageView>
-    <Text fill="WHITE" layoutX="88.0" layoutY="297.0" strokeType="OUTSIDE" strokeWidth="0.0"
-          wrappingWidth="93.236328125"/>
-    <ImageView fitHeight="247.0" fitWidth="209.0" layoutX="34.0" layoutY="107.0" pickOnBounds="true"
-               preserveRatio="true">
-        <Image url="@Images/Book_Room_opt2.jpg"/>
+    <Text fill="WHITE" layoutX="88.0" layoutY="297.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="93.236328125" />
+    <ImageView fitHeight="242.0" fitWidth="177.0" layoutX="34.0" layoutY="107.0" pickOnBounds="true" preserveRatio="true">
+        <Image url="@Images/Book_Room_opt2.jpg" />
     </ImageView>
-    <DatePicker layoutX="231.0" layoutY="237.0"/>
-    <Text layoutX="231.0" layoutY="165.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Room:"
-          wrappingWidth="47.00000882148743"/>
+    <DatePicker layoutX="231.0" layoutY="237.0" />
+    <Text layoutX="231.0" layoutY="165.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Room:" wrappingWidth="47.00000882148743" />
     <!--suppress JavaFxUnresolvedFxIdReference -->
-    <ChoiceBox focusTraversable="false" layoutX="231.0" layoutY="177.0" prefHeight="27.0"
-               prefWidth="187.0"/>
-    <Text layoutX="231.0" layoutY="226.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date:"/>
+    <ChoiceBox focusTraversable="false" layoutX="231.0" layoutY="177.0" prefHeight="27.0" prefWidth="187.0" />
+    <Text layoutX="231.0" layoutY="226.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date:" />
+   <ChoiceBox layoutX="230.0" layoutY="300.0" prefHeight="27.0" prefWidth="84.0" />
+   <ChoiceBox layoutX="334.0" layoutY="300.0" prefHeight="27.0" prefWidth="84.0" />
+   <Text layoutX="230.0" layoutY="289.0" strokeType="OUTSIDE" strokeWidth="0.0" text="From:" />
+   <Text layoutX="334.0" layoutY="289.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Until:" />
 </AnchorPane>
