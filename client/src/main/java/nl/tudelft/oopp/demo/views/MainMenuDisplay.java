@@ -1,6 +1,4 @@
 package nl.tudelft.oopp.demo.views;
-<<<<<<< HEAD
-
 
 import java.io.IOException;
 
