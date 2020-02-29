@@ -5,7 +5,6 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
-@SuppressWarnings("CheckStyle")
 public class ServerCommunication {
 
     private static HttpClient client = HttpClient.newBuilder().build();
@@ -93,9 +92,9 @@ public class ServerCommunication {
 
     /**
      * Removes a building from the database.
+     * @param id = building id
      * @return the body of a get request to the server.
      * @throws Exception if communication with the server fails.
-     * @param id
      */
     public static String deleteBuilding(int id) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/demo/delete?id=" + id)).POST(HttpRequest.BodyPublishers.noBody()).build();
@@ -115,11 +114,11 @@ public class ServerCommunication {
 
     /**
      * Finds a building in the database by id
-     * @param building_id = building id, which is parsed from a text field
+     * @param buildingID = building id, which is parsed from a text field
      * @return the body of the response
      */
-    public static String findBuilding(int building_id) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/demo/find?id=" + building_id)).POST(HttpRequest.BodyPublishers.noBody()).build();
+    public static String findBuilding(int buildingID) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/demo/find?id=" + buildingID)).POST(HttpRequest.BodyPublishers.noBody()).build();
         HttpResponse<String> response = null;
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
