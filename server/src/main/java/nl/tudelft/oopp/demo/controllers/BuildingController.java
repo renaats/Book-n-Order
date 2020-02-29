@@ -51,6 +51,16 @@ public class BuildingController {
         return "Deleted!";
     }
 
+    @PostMapping(path = "/find")
+    @ResponseBody
+    public String findBuilding(@RequestParam int id) {
+        if (!buildingRepository.existsById(id)) {
+            return "Building with ID: " + id + " Does not exist!";
+        }
+        Building building = buildingRepository.getOne(id);
+        return building.toString();
+    }
+
     /**
      * Updates a database attribute.
      * @param id = the building id

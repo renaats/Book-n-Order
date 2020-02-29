@@ -94,9 +94,10 @@ public class ServerCommunication {
      * Removes a building from the database.
      * @return the body of a get request to the server.
      * @throws Exception if communication with the server fails.
+     * @param id
      */
-    public static String deleteBuilding() {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/demo/delete?id=7")).POST(HttpRequest.BodyPublishers.noBody()).build();
+    public static String deleteBuilding(int id) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/demo/delete?id=" + id)).POST(HttpRequest.BodyPublishers.noBody()).build();
         HttpResponse<String> response = null;
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
@@ -110,4 +111,20 @@ public class ServerCommunication {
         }
         return response.body();
     }
-}   
+
+    public static String findBuilding(int building_id) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/demo/find?id=" + building_id)).POST(HttpRequest.BodyPublishers.noBody()).build();
+        HttpResponse<String> response = null;
+        try {
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Communication with server failed";
+        }
+        if (response.statusCode() != 200) {
+            System.out.println(response.body());
+            System.out.println("Status: " + response.statusCode());
+        }
+        return response.body();
+    }
+}

@@ -1,12 +1,29 @@
 package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
+import java.sql.SQLOutput;
+
+import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.TextField;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 public class ButtonController {
 
+    @FXML
+    private TextField building_find_ID;
+    @FXML
+    private TextField building_delete_ID;
+
+    public void building_id_ButtonClicked() {
+        int id = Integer.parseInt(building_find_ID.getText());
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Building Finder");
+        alert.setHeaderText(null);
+        alert.setContentText(ServerCommunication.findBuilding(id));
+        alert.showAndWait();
+    }
     /**
      * Handles clicking the quote button.
      */
@@ -56,7 +73,7 @@ public class ButtonController {
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
     public void mainMenu() throws IOException {
-        ApplicationDisplay.changeScene("/mainScene.fxml");
+        ApplicationDisplay.changeScene("/DatabaseMenu.fxml");
     }
 
     //    public void registerScene() throws IOException {
@@ -67,10 +84,11 @@ public class ButtonController {
      * Handles clicking the remove button.
      */
     public void deleteBuildingButtonClicked() {
+        int id = Integer.parseInt(building_delete_ID.getText());
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Removed a building ");
+        alert.setTitle("Building remover");
         alert.setHeaderText(null);
-        alert.setContentText(ServerCommunication.deleteBuilding());
+        alert.setContentText(ServerCommunication.deleteBuilding(id));
         alert.showAndWait();
     }
 }
