@@ -51,6 +51,11 @@ public class BuildingController {
         return "Deleted!";
     }
 
+    /**
+     * Finds building by ID
+     * @param id = the building id
+     * @return building toString
+     */
     @PostMapping(path = "/find")
     @ResponseBody
     public String findBuilding(@RequestParam int id) {

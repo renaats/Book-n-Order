@@ -12,18 +12,22 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 public class ButtonController {
 
     @FXML
-    private TextField building_find_ID;
+    private TextField buildingFindID;
     @FXML
-    private TextField building_delete_ID;
+    private TextField buildingDeleteID;
 
+    /**
+     * Handles clicking the building find button.
+     */
     public void building_id_ButtonClicked() {
-        int id = Integer.parseInt(building_find_ID.getText());
+        int id = Integer.parseInt(buildingFindID.getText());
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Building Finder");
         alert.setHeaderText(null);
         alert.setContentText(ServerCommunication.findBuilding(id));
         alert.showAndWait();
     }
+
     /**
      * Handles clicking the quote button.
      */
@@ -76,15 +80,11 @@ public class ButtonController {
         ApplicationDisplay.changeScene("/DatabaseMenu.fxml");
     }
 
-    //    public void registerScene() throws IOException {
-    //        ApplicationDisplay.changeScene();
-    //    }
-
     /**
      * Handles clicking the remove button.
      */
     public void deleteBuildingButtonClicked() {
-        int id = Integer.parseInt(building_delete_ID.getText());
+        int id = Integer.parseInt(buildingDeleteID.getText());
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Building remover");
         alert.setHeaderText(null);
