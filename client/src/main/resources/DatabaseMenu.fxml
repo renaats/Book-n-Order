@@ -31,7 +31,7 @@
                </font>
             </Text>
             <Text fill="WHITE" layoutX="26.0" layoutY="371.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback is welcome" AnchorPane.bottomAnchor="35.0" />
-      <TextField fx:id="building_find_ID" layoutX="51.0" layoutY="195.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="195.0" />
+      <TextField fx:id="buildingFindID" layoutX="51.0" layoutY="195.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="195.0" />
       <Text layoutX="340.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Buildings" AnchorPane.leftAnchor="340.0">
          <font>
             <Font size="26.0" />
@@ -43,7 +43,7 @@
          </font>
       </Text>
       <Button fx:id="confirm_find_ID" layoutX="241.0" layoutY="195.0" mnemonicParsing="false" onAction="#building_id_ButtonClicked" style="-fx-background-color: #00a6d6;" text="Find" textFill="WHITE" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="195.0" />
-      <TextField fx:id="building_delete_ID" layoutX="50.0" layoutY="207.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="260.0" />
+      <TextField fx:id="buildingDeleteID" layoutX="50.0" layoutY="207.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="260.0" />
       <Text layoutX="59.0" layoutY="189.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Delete a building" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="235.0">
          <font>
             <Font size="17.0" />
