@@ -9,6 +9,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 @Entity // This tells Hibernate to make a table out of this class
 public class Room {
     @Id
@@ -19,6 +22,7 @@ public class Room {
 
     @JsonIgnore
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn
     private Building building;
 
@@ -86,11 +90,11 @@ public class Room {
         return facultySpecific;
     }
 
-    public boolean hasProjector() {
+    public boolean isProjector() {
         return projector;
     }
 
-    public boolean hasScreen() {
+    public boolean isScreen() {
         return screen;
     }
 

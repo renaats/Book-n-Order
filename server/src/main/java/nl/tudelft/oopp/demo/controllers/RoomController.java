@@ -50,7 +50,14 @@ public class RoomController {
             @RequestParam int nrPeople,
             @RequestParam int plugs
     ) {
+        Optional<Building> optionalBuilding = buildingRepository.findById(buildingId);
+        if (optionalBuilding.isEmpty()) {
+            return "Could not find building with id " + buildingId + "!";
+        }
+        Building building = optionalBuilding.get();
+
         Room room = new Room();
+        room.setBuilding(building);
         room.setName(name);
         room.setFaculty(faculty);
         room.setFacultySpecific(facultySpecific);
@@ -59,13 +66,6 @@ public class RoomController {
         room.setNrPeople(nrPeople);
         room.setPlugs(plugs);
         roomRepository.save(room);
-
-        Optional<Building> optionalBuilding = buildingRepository.findById(buildingId);
-        if (optionalBuilding.isEmpty()) {
-            return "Could not find building with id " + buildingId + "!";
-        }
-        Building building = optionalBuilding.get();
-        building.addRoom(room);
         return "Saved!";
     }
 
