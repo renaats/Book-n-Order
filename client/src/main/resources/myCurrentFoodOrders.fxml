@@ -1,14 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="$CONTROLLER_NAME$"
-            prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+<VBox prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: white;" VBox.vgrow="ALWAYS">
+        <ImageView fitHeight="45.0" fitWidth="112.0" layoutX="18.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="548.0" AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="819.3999969482422" AnchorPane.topAnchor="7.0">
+            <Image url="@images/tudelftlogo.png" />
+        </ImageView>
+        <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="55.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="526.0" AnchorPane.leftAnchor="55.0" AnchorPane.rightAnchor="772.2" AnchorPane.topAnchor="50.0">
+            <Image url="@images/booknorderlogo.png" />
+        </ImageView>
+        <MenuBar layoutX="-1.0" layoutY="85.0" prefHeight="26.0" prefWidth="890.0" style="-fx-background-color: #00a6d6;" AnchorPane.bottomAnchor="488.6" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
+            <Menu mnemonicParsing="false" text="Home" />
+            <Menu mnemonicParsing="false" text="New booking">
+                <MenuItem mnemonicParsing="false" text="Book a room" />
+                <MenuItem mnemonicParsing="false" text="Rent a bike" />
+                <MenuItem mnemonicParsing="false" text="Order food" />
+            </Menu>
+            <Menu mnemonicParsing="false" text="My account">
+                <MenuItem mnemonicParsing="false" text="My profile" />
+                <MenuItem mnemonicParsing="false" text="My current bookings" />
+                <MenuItem mnemonicParsing="false" text="My previous bookings" />
+            </Menu>
+        </MenuBar>
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00a6d6" height="79.0" layoutX="-1.0" layoutY="521.0" stroke="#00a6d6" strokeType="INSIDE" width="947.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="521.0" />
+        <Text fill="WHITE" layoutX="20.0" layoutY="555.576171875" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback is welcome" AnchorPane.bottomAnchor="39.90625" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="696.3662109375" AnchorPane.topAnchor="536.09375">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Text>
+        <Text fill="WHITE" layoutX="20.0" layoutY="578.75" strokeType="OUTSIDE" strokeWidth="0.0" text="© 2020 TU Delft. All rights reserved." AnchorPane.bottomAnchor="18.5" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="701.96484375" AnchorPane.topAnchor="570.3">
+            <font>
+                <Font name="Calibri" size="11.0" />
+            </font>
+        </Text>
+        <Text layoutX="81.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My previous ten food order" AnchorPane.bottomAnchor="423.078125" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="511.39140625000005" AnchorPane.topAnchor="145.0">
+            <font>
+                <Font size="24.0" />
+            </font>
+        </Text>
+        <TableView layoutX="115.0" layoutY="211.0" prefHeight="200.0" prefWidth="594.0" AnchorPane.bottomAnchor="189.0" AnchorPane.leftAnchor="115.0" AnchorPane.rightAnchor="238.0" AnchorPane.topAnchor="211.0">
+            <columns>
+                <TableColumn prefWidth="84.0" text="Booking code" />
+                <TableColumn prefWidth="66.4000244140625" text="Day" />
+                <TableColumn prefWidth="96.79998779296875" text="Delivery Time" />
+                <TableColumn prefWidth="96.79998779296875" text="Restaurant" />
+                <TableColumn prefWidth="248.00006103515625" text="Ordered food" />
+            </columns>
+        </TableView>
+    </AnchorPane>
+</VBox>
