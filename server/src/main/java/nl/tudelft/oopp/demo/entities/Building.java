@@ -67,6 +67,10 @@ public class Building {
         rooms.add(room);
     }
 
+    public boolean hasRooms() {
+        return rooms.size() > 0;
+    }
+
     /**
      * Checks if this building has a room with the specified name.
      * @param name = the name of the room

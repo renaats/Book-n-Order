@@ -56,6 +56,9 @@ public class BuildingController {
         if (!buildingRepository.existsById(id)) {
             return "Building with ID: " + id + " Does not exist!";
         }
+        if (buildingRepository.findById(id).get().hasRooms()) {
+            return "This building cannot be deleted as it has at least one room. Delete the room before deleting the building!";
+        }
         buildingRepository.deleteById(id);
         return "Deleted!";
     }
