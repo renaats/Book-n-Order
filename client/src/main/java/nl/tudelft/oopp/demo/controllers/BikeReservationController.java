@@ -72,8 +72,7 @@ public class BikeReservationController implements Initializable {
                     if (!lisT.contains("00:00")) {
                         lisT.add("00:00");
                     }
-                }
-                else if (u == 0) {
+                } else if (u == 0) {
                     lisT.add(i + ":00");
                 } else if (i == 0) {
                     lisT.add("00:" + u);
@@ -87,9 +86,7 @@ public class BikeReservationController implements Initializable {
     }
 
     /**
-     * @param actionEvent
      * Changes the view to the main menu when the button is clicked
-     * @throws IOException
      */
 
     public void goBackToMenu(ActionEvent actionEvent) throws IOException {

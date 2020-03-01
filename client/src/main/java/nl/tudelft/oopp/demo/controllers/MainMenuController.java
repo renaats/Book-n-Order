@@ -16,7 +16,7 @@ public class MainMenuController {
      */
     public void foodsSelected(ActionEvent event) throws IOException {
         Parent roomSelectParent = FXMLLoader.load(getClass().getResource("/mainScene.fxml"));
-        Scene roomSelectScene = new Scene (roomSelectParent);
+        Scene roomSelectScene = new Scene(roomSelectParent);
 
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(roomSelectScene);
