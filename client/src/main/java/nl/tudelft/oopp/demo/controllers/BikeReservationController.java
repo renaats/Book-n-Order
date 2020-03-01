@@ -18,7 +18,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class BikeReservationController implements Initializable {
+@SuppressWarnings("rawtypes")
 final ObservableList list= FXCollections.observableArrayList();
+@SuppressWarnings("rawtypes")
 final ObservableList lisT =FXCollections.observableArrayList();
     @FXML
     private ChoiceBox<String> Pick;
