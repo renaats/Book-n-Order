@@ -7,7 +7,7 @@ import java.net.http.HttpResponse;
 
 public class ServerCommunication {
 
-    private static HttpClient client = HttpClient.newBuilder().build();
+    private static final HttpClient client = HttpClient.newBuilder().build();
 
     /**
      * Retrieves a quote from the server.
