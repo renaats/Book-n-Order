@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+@SuppressWarnings({"unchecked", "CollectionAddedToSelf", "ConstantConditions"})
 public class BikeReservationController implements Initializable {
 @SuppressWarnings("rawtypes")
 final ObservableList list= FXCollections.observableArrayList();
