@@ -55,6 +55,9 @@ public class RoomController {
             return "Could not find building with id " + buildingId + "!";
         }
         Building building = optionalBuilding.get();
+        if (building.hasRoomWithName(name)) {
+            return "A room with this name already exists in the building!";
+        }
 
         Room room = new Room();
         room.setBuilding(building);
