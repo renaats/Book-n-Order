@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.TextField?>
@@ -12,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.ButtonController">
+<VBox prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.DatabaseController">
   <AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: white;" VBox.vgrow="ALWAYS">
       <ImageView fitHeight="40.0" fitWidth="114.0" layoutX="15.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="5.0">
                <Image url="@images/tudelftlogo.png" />
@@ -31,7 +32,7 @@
                </font>
             </Text>
             <Text fill="WHITE" layoutX="26.0" layoutY="371.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback is welcome" AnchorPane.bottomAnchor="35.0" />
-      <TextField fx:id="buildingFindID" layoutX="51.0" layoutY="195.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="195.0" />
+      <TextField fx:id="buildingFindByIDTextField" layoutX="51.0" layoutY="195.0" promptText="ID" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="195.0" />
       <Text layoutX="340.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Buildings" AnchorPane.leftAnchor="340.0">
          <font>
             <Font size="26.0" />
@@ -42,13 +43,48 @@
             <Font size="17.0" />
          </font>
       </Text>
-      <Button fx:id="confirm_find_ID" layoutX="241.0" layoutY="195.0" mnemonicParsing="false" onAction="#building_id_ButtonClicked" style="-fx-background-color: #00a6d6;" text="Find" textFill="WHITE" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="195.0" />
-      <TextField fx:id="buildingDeleteID" layoutX="50.0" layoutY="207.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="260.0" />
+      <Button fx:id="confirmFindByIDButton" layoutX="215.0" layoutY="195.0" mnemonicParsing="false" onAction="#building_id_ButtonClicked" prefHeight="25.0" prefWidth="50.0" style="-fx-background-color: #00a6d6;" text="Find" textFill="WHITE" AnchorPane.leftAnchor="215.0" AnchorPane.topAnchor="195.0" />
+      <TextField fx:id="buildingDeleteByIDButton" layoutX="50.0" layoutY="207.0" promptText="ID" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="260.0" />
       <Text layoutX="59.0" layoutY="189.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Delete a building" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="235.0">
          <font>
             <Font size="17.0" />
          </font>
       </Text>
-      <Button fx:id="confirm_delete_ID" layoutX="251.0" layoutY="205.0" mnemonicParsing="false" onAction="#deleteBuildingButtonClicked" style="-fx-background-color: #00a6d6;" text="Delete" textFill="WHITE" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="260.0" />
+      <Button fx:id="confirmDeleteByIDButton" layoutX="215.0" layoutY="260.0" mnemonicParsing="false" onAction="#deleteBuildingButtonClicked" style="-fx-background-color: #00a6d6;" text="Delete" textFill="WHITE" AnchorPane.leftAnchor="215.0" AnchorPane.topAnchor="260.0" />
+      <Text layoutX="69.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Update a building" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="300.0">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
+      <TextField fx:id="buildingDeleteByIDTextField" layoutX="60.0" layoutY="217.0" promptText="ID" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="325.0" />
+      <Text layoutX="23.0" layoutY="214.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID:" wrappingWidth="22.208984375" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="195.6552734375">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
+      <Text layoutX="25.0" layoutY="227.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID:" wrappingWidth="22.208984375" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="260.0">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
+      <Text layoutX="35.0" layoutY="237.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID:" wrappingWidth="22.208984375" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="325.0">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
+      <ChoiceBox fx:id="updateChoiceBox" layoutX="290.0" layoutY="325.0" prefWidth="150.0" style="-fx-background-color: #00a6d6;" AnchorPane.leftAnchor="290.0" />
+      <Text layoutX="219.0" layoutY="344.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Attribute:" AnchorPane.leftAnchor="215.0" AnchorPane.topAnchor="325.0">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
+      <Text layoutX="459.0" layoutY="342.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Change to:" AnchorPane.leftAnchor="458.0" AnchorPane.topAnchor="325.0">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
+      <TextField fx:id="buildingChangeToField" layoutX="541.0" layoutY="325.0" AnchorPane.leftAnchor="548.0" AnchorPane.topAnchor="325.0" />
+      <Button fx:id="confirmChangeButton" layoutX="707.0" layoutY="323.0" mnemonicParsing="false" onAction="#building_id_ButtonClicked" style="-fx-background-color: #00a6d6;" text="Change" textFill="WHITE" AnchorPane.leftAnchor="713.0" AnchorPane.topAnchor="325.0" />
+      <Button fx:id="buildingFindAllButton" layoutX="285.0" layoutY="195.0" mnemonicParsing="false" onAction="#building_id_ButtonClicked" style="-fx-background-color: #00a6d6;" text="Find all" textFill="WHITE" />
       </AnchorPane>
 </VBox>

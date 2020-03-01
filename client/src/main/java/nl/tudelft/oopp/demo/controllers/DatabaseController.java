@@ -1,20 +1,34 @@
 package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
-import java.sql.SQLOutput;
+import java.net.URL;
+import java.util.ResourceBundle;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
-public class ButtonController {
+public class DatabaseController implements Initializable {
 
+    final ObservableList updateChoiceBoxList = FXCollections.observableArrayList();
+
+    @FXML
+    private ChoiceBox<String> updateChoiceBox;
     @FXML
     private TextField buildingFindID;
     @FXML
     private TextField buildingDeleteID;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        loadDataUpdateChoiceBox();
+    }
 
     /**
      * Handles clicking the building find button.
@@ -77,6 +91,7 @@ public class ButtonController {
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
     public void mainMenu() throws IOException {
+        loadDataUpdateChoiceBox();
         ApplicationDisplay.changeScene("/DatabaseMenu.fxml");
     }
 
@@ -91,4 +106,16 @@ public class ButtonController {
         alert.setContentText(ServerCommunication.deleteBuilding(id));
         alert.showAndWait();
     }
+
+    /**
+     * Takes care of the options for the updateChoiceBox in the GUI
+     */
+    public void loadDataUpdateChoiceBox() {
+        updateChoiceBoxList.removeAll();
+        String a = "Name";
+        String b = "Email";
+        updateChoiceBoxList.addAll(a, b);
+        updateChoiceBox.getItems().addAll(updateChoiceBoxList);
+    }
+
 }
