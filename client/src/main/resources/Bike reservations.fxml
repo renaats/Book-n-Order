@@ -39,11 +39,11 @@
    </Text>
    <VBox alignment="CENTER" layoutX="115.0" layoutY="111.0" prefHeight="209.0" prefWidth="368.0">
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pick-up" />
-      <ChoiceBox fx:id="Pick" prefWidth="150.0" />
-      <ChoiceBox fx:id="PIckUoTime" prefWidth="150.0" />
+      <ChoiceBox fx:id="pick" prefWidth="150.0" />
+      <ChoiceBox fx:id="pickUpTime" prefWidth="150.0" />
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Drop-off" />
-      <ChoiceBox fx:id="Drop" prefWidth="150.0" />
-      <ChoiceBox fx:id="DropOffTime" prefWidth="150.0" />
+      <ChoiceBox fx:id="drop" prefWidth="150.0" />
+      <ChoiceBox fx:id="dropOffTime" prefWidth="150.0" />
       <DatePicker />
       <Button mnemonicParsing="false" onAction="#reserveBike" text="Reserve" />
       <TextField fx:id="screen" />
