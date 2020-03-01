@@ -14,16 +14,20 @@ import javafx.scene.control.TextField;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
-public class DatabaseController implements Initializable {
+public class DatabaseBuildingController implements Initializable {
 
     final ObservableList updateChoiceBoxList = FXCollections.observableArrayList();
 
     @FXML
     private ChoiceBox<String> updateChoiceBox;
     @FXML
-    private TextField buildingFindID;
+    private TextField buildingFindByIdTextField;
     @FXML
-    private TextField buildingDeleteID;
+    private TextField buildingDeleteByIdTextField;
+    @FXML
+    private TextField buildingFindByIdUpdateField;
+    @FXML
+    private TextField buildingChangeToField;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -34,7 +38,7 @@ public class DatabaseController implements Initializable {
      * Handles clicking the building find button.
      */
     public void building_id_ButtonClicked() {
-        int id = Integer.parseInt(buildingFindID.getText());
+        int id = Integer.parseInt(buildingFindByIdTextField.getText());
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Building Finder");
         alert.setHeaderText(null);
@@ -99,11 +103,25 @@ public class DatabaseController implements Initializable {
      * Handles clicking the remove button.
      */
     public void deleteBuildingButtonClicked() {
-        int id = Integer.parseInt(buildingDeleteID.getText());
+        int id = Integer.parseInt(buildingDeleteByIdTextField.getText());
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Building remover");
         alert.setHeaderText(null);
         alert.setContentText(ServerCommunication.deleteBuilding(id));
+        alert.showAndWait();
+    }
+
+    /**
+     * Handles the sending of update values.
+     */
+    public void updateBuildingButtonClicked() {
+        int id = Integer.parseInt(buildingFindByIdUpdateField.getText());
+        String attribute = updateChoiceBox.getValue().replaceAll(" ","");
+        String changeValue = buildingChangeToField.getText();
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Building remover");
+        alert.setHeaderText(null);
+        alert.setContentText(ServerCommunication.updateBuilding(id, attribute, changeValue));
         alert.showAndWait();
     }
 
@@ -113,8 +131,9 @@ public class DatabaseController implements Initializable {
     public void loadDataUpdateChoiceBox() {
         updateChoiceBoxList.removeAll();
         String a = "Name";
-        String b = "Email";
-        updateChoiceBoxList.addAll(a, b);
+        String b = "Street";
+        String c = "House Number";
+        updateChoiceBoxList.addAll(a, b, c);
         updateChoiceBox.getItems().addAll(updateChoiceBoxList);
     }
 

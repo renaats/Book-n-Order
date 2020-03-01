@@ -8,6 +8,7 @@ import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.repositories.BuildingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
 
 
 @Repository
@@ -53,9 +55,9 @@ public class BuildingController {
      * @param id = the id of the building
      * @return String to see if your request passed
      */
-    @PostMapping(path = "/delete")
+    @DeleteMapping(path = "/delete/{buildingID}")
     @ResponseBody
-    public String deleteBuilding(@RequestParam int id) {
+    public String deleteBuilding(@PathVariable(value = "buildingID") int id) {
         if (!buildingRepository.existsById(id)) {
             return "Building with ID: " + id + " Does not exist!";
         }
@@ -64,21 +66,6 @@ public class BuildingController {
         }
         buildingRepository.deleteById(id);
         return "Deleted!";
-    }
-
-    /**
-     * Finds building by ID
-     * @param id = the building id
-     * @return building toString
-     */
-    @PostMapping(path = "/find")
-    @ResponseBody
-    public String findBuilding(@RequestParam int id) {
-        if (!buildingRepository.existsById(id)) {
-            return "Building with ID: " + id + " Does not exist!";
-        }
-        Building building = buildingRepository.getOne(id);
-        return building.toString();
     }
 
     /**
@@ -95,17 +82,18 @@ public class BuildingController {
             return "Building with ID: " + id + " Does not exist!";
         }
         Building building = buildingRepository.getOne(id);
-        switch (attribute) {
+        switch (attribute.toLowerCase()) {
             case "name":
                 building.setName(value);
                 break;
             case "street":
                 building.setStreet(value);
                 break;
-            case "houseNumber":
+            case "housenumber":
                 building.setHouseNumber(Integer.parseInt(value));
                 break;
             default:
+                System.out.println(attribute);
                 return "No attribute with name " + attribute + " found!";
         }
         buildingRepository.save(building);
@@ -128,9 +116,9 @@ public class BuildingController {
      * @param id = the id of the building
      * @return a building that matches the id
      */
-    @GetMapping(path = "/find/{buildingId}")
+    @GetMapping(path = "/find/{buildingID}")
     @ResponseBody
-    public Building findBuilding(@PathVariable(value = "buildingId") int id) {
+    public Building findBuilding(@PathVariable(value = "buildingID") int id) {
         return buildingRepository.findById(id).orElse(null);
     }
 

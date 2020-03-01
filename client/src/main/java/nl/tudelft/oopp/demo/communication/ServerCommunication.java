@@ -76,7 +76,7 @@ public class ServerCommunication {
      * @throws Exception if communication with the server fails.
      */
     public static String getBuilding() {
-        HttpRequest request = HttpRequest.newBuilder().GET().uri(URI.create("http://localhost:8080/demo/all")).build();
+        HttpRequest request = HttpRequest.newBuilder().GET().uri(URI.create("http://localhost:8080/building/all")).build();
         HttpResponse<String> response = null;
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
@@ -97,7 +97,7 @@ public class ServerCommunication {
      * @throws Exception if communication with the server fails.
      */
     public static String deleteBuilding(int id) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/demo/delete?id=" + id)).POST(HttpRequest.BodyPublishers.noBody()).build();
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building/delete/" + id)).DELETE().build();
         HttpResponse<String> response = null;
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
@@ -118,7 +118,30 @@ public class ServerCommunication {
      * @return the body of the response
      */
     public static String findBuilding(int buildingID) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/demo/find?id=" + buildingID)).POST(HttpRequest.BodyPublishers.noBody()).build();
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building/find/" + buildingID)).GET().build();
+        HttpResponse<String> response = null;
+        try {
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Communication with server failed";
+        }
+        if (response.statusCode() != 200) {
+            System.out.println(response.body());
+            System.out.println("Status: " + response.statusCode());
+        }
+        return response.body();
+    }
+
+    /**
+     * Updates a building
+     * @param id = Id of the building
+     * @param attribute = Attribute from a choicebox, always right / proper input!
+     * @param changeValue = Value they want to change, is not checked, can be wrong!
+     * @return
+     */
+    public static String updateBuilding(int id, String attribute, String changeValue) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building/update?id=" + id + "&attribute=" + attribute + "&value=" + changeValue)).POST(HttpRequest.BodyPublishers.noBody()).build();
         HttpResponse<String> response = null;
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
