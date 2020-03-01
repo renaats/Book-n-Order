@@ -68,7 +68,7 @@ public class MainSceneController {
         alert.showAndWait();
     }
 
-    public void goBackToMenu(ActionEvent actionEvent) throws IOException {
+    public void goBackToMenu (ActionEvent actionEvent) throws IOException {
         Parent roomSelectParent = FXMLLoader.load(getClass().getResource("/mainMenu.fxml"));
         Scene roomSelectScene = new Scene(roomSelectParent);
 

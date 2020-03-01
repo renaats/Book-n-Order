@@ -48,5 +48,6 @@
    <Button fx:id="listBuildingsButton" onAction="#listBuildingsButtonClicked" text="See all buildings!" />
    <Button fx:id="deleteBuilding" onAction="#deleteBuildingButtonClicked" text="Remove building with ID 7" />
   </VBox>
+      <Button fx:id="Back" layoutX="331.0" layoutY="50.0" mnemonicParsing="false" onAction="#goBackToMenu" text="Back" />
  </AnchorPane>
 </VBox>
