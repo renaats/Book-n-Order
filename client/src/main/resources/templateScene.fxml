@@ -11,15 +11,15 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-  <AnchorPane style="-fx-background-color: white;" VBox.vgrow="ALWAYS">
-      <ImageView fitHeight="40.0" fitWidth="114.0" layoutX="2.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+<VBox prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+  <AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: white;" VBox.vgrow="ALWAYS">
+      <ImageView fitHeight="45.0" fitWidth="112.0" layoutX="18.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="548.0" AnchorPane.leftAnchor="17.400003051757807" AnchorPane.rightAnchor="683.3999969482422" AnchorPane.topAnchor="7.0">
                <Image url="@images/tudelftlogo.png" />
             </ImageView>
-            <ImageView fitHeight="26.0" fitWidth="112.0" layoutX="32.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="55.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="526.0" AnchorPane.leftAnchor="55.0" AnchorPane.rightAnchor="636.2" AnchorPane.topAnchor="50.0">
                 <Image url="@images/booknorderlogo.png" />
             </ImageView>
-          <MenuBar layoutX="-1.0" layoutY="75.0" prefHeight="26.0" prefWidth="648.0" style="-fx-background-color: #00a6d6;">
+          <MenuBar layoutX="-1.0" layoutY="85.0" prefHeight="26.0" prefWidth="812.0" style="-fx-background-color: #00a6d6;" AnchorPane.bottomAnchor="488.6" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="0.20000000000004547" AnchorPane.topAnchor="85.0">
             <Menu mnemonicParsing="false" text="Home" />
               <Menu mnemonicParsing="false" text="New booking">
                 <MenuItem mnemonicParsing="false" text="Book a room" />
@@ -32,12 +32,16 @@
                         <MenuItem mnemonicParsing="false" text="My previous bookings" />
                 </Menu>
           </MenuBar>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00a6d6" height="63.0" layoutX="-1.0" layoutY="343.0" stroke="#00a6d6" strokeType="INSIDE" width="648.0" />
-            <Text fill="WHITE" layoutX="26.0" layoutY="387.0" strokeType="OUTSIDE" strokeWidth="0.0" text="© 2020 TU Delft. All rights reserved.">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00a6d6" height="79.0" layoutX="-1.0" layoutY="523.0" stroke="#00a6d6" strokeType="INSIDE" width="812.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="0.20000000000004547" AnchorPane.topAnchor="520.8" />
+            <Text fill="WHITE" layoutX="20.0" layoutY="555.576171875" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback is welcome" AnchorPane.bottomAnchor="39.90625" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="623.5662109375" AnchorPane.topAnchor="536.09375">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+            <Text fill="WHITE" layoutX="20.0" layoutY="578.75" strokeType="OUTSIDE" strokeWidth="0.0" text="© 2020 TU Delft. All rights reserved." AnchorPane.bottomAnchor="18.5" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="629.16484375" AnchorPane.topAnchor="570.3">
                <font>
-                  <Font name="Calibri" size="10.0" />
+                  <Font name="Calibri" size="11.0" />
                </font>
             </Text>
-            <Text fill="WHITE" layoutX="26.0" layoutY="371.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback is welcome" />
       </AnchorPane>
 </VBox>
