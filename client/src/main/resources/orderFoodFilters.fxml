@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: white;" VBox.vgrow="ALWAYS">
+        <ImageView fitHeight="45.0" fitWidth="112.0" layoutX="18.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="548.0" AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="819.3999969482422" AnchorPane.topAnchor="7.0">
+            <Image url="@images/tudelftlogo.png" />
+        </ImageView>
+        <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="55.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="526.0" AnchorPane.leftAnchor="55.0" AnchorPane.rightAnchor="772.2" AnchorPane.topAnchor="50.0">
+            <Image url="@images/booknorderlogo.png" />
+        </ImageView>
+        <MenuBar layoutX="-1.0" layoutY="85.0" prefHeight="26.0" prefWidth="890.0" style="-fx-background-color: #00a6d6;" AnchorPane.bottomAnchor="488.6" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
+            <Menu mnemonicParsing="false" text="Home" />
+            <Menu mnemonicParsing="false" text="New booking">
+                <MenuItem mnemonicParsing="false" text="Book a room" />
+                <MenuItem mnemonicParsing="false" text="Rent a bike" />
+                <MenuItem mnemonicParsing="false" text="Order food" />
+            </Menu>
+            <Menu mnemonicParsing="false" text="My account">
+                <MenuItem mnemonicParsing="false" text="My profile" />
+                <MenuItem mnemonicParsing="false" text="My current bookings" />
+                <MenuItem mnemonicParsing="false" text="My previous bookings" />
+            </Menu>
+        </MenuBar>
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00a6d6" height="90.0" layoutX="-1.0" layoutY="521.0" stroke="#00a6d6" strokeType="INSIDE" width="1018.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="521.0" />
+        <Text fill="WHITE" layoutX="20.0" layoutY="555.576171875" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback is welcome" AnchorPane.bottomAnchor="39.90625" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="696.3662109375" AnchorPane.topAnchor="536.09375">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Text>
+        <Text fill="WHITE" layoutX="20.0" layoutY="578.75" strokeType="OUTSIDE" strokeWidth="0.0" text="© 2020 TU Delft. All rights reserved." AnchorPane.bottomAnchor="18.5" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="701.96484375" AnchorPane.topAnchor="570.3">
+            <font>
+                <Font name="Calibri" size="11.0" />
+            </font>
+        </Text>
+        <Text layoutX="81.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Order food filters" AnchorPane.bottomAnchor="423.078125" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="511.39140625000005" AnchorPane.topAnchor="145.0">
+            <font>
+                <Font size="24.0" />
+            </font>
+        </Text>
+        <Button layoutX="467.0" layoutY="446.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="71.0" style="-fx-background-color: #00a6d6;" text="Back" textFill="WHITE" AnchorPane.bottomAnchor="128.0" AnchorPane.leftAnchor="467.0" AnchorPane.rightAnchor="466.0" AnchorPane.topAnchor="446.0" />
+      <CheckBox layoutX="146.0" layoutY="347.0" mnemonicParsing="false" text="Asian" AnchorPane.bottomAnchor="241.0" AnchorPane.leftAnchor="145.0" AnchorPane.rightAnchor="806.8" AnchorPane.topAnchor="347.0" />
+      <Text layoutX="112.0" layoutY="332.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cuisine" AnchorPane.bottomAnchor="270.20000000000005" AnchorPane.leftAnchor="112.0" AnchorPane.rightAnchor="861.843359375" AnchorPane.topAnchor="317.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <CheckBox layoutX="297.0" layoutY="347.0" mnemonicParsing="false" text="Mediterranean" AnchorPane.bottomAnchor="241.0" AnchorPane.leftAnchor="297.0" AnchorPane.rightAnchor="583.8" AnchorPane.topAnchor="347.0" />
+      <CheckBox layoutX="145.0" layoutY="380.0" mnemonicParsing="false" text="Continental" AnchorPane.bottomAnchor="208.0" AnchorPane.leftAnchor="145.0" AnchorPane.rightAnchor="753.2" AnchorPane.topAnchor="380.0" />
+      <CheckBox layoutX="297.0" layoutY="380.0" mnemonicParsing="false" text="Vegetarian / vegan" AnchorPane.bottomAnchor="208.0" AnchorPane.leftAnchor="297.0" AnchorPane.rightAnchor="583.8" AnchorPane.topAnchor="380.0" />
+      <Text layoutX="112.0" layoutY="231.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Meal" AnchorPane.bottomAnchor="371.086328125" AnchorPane.leftAnchor="112.0" AnchorPane.rightAnchor="861.59375" AnchorPane.topAnchor="215.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <CheckBox layoutX="146.0" layoutY="243.0" mnemonicParsing="false" text="Breakfast" AnchorPane.bottomAnchor="345.0" AnchorPane.leftAnchor="145.0" AnchorPane.rightAnchor="791.8000000000001" AnchorPane.topAnchor="243.0" />
+      <CheckBox layoutX="297.0" layoutY="243.0" mnemonicParsing="false" text="Lunch" AnchorPane.bottomAnchor="345.0" AnchorPane.leftAnchor="297.0" AnchorPane.rightAnchor="639.8000000000001" AnchorPane.topAnchor="243.0" />
+      <CheckBox layoutX="146.0" layoutY="279.0" mnemonicParsing="false" text="Dinner" AnchorPane.bottomAnchor="310.6" AnchorPane.leftAnchor="145.0" AnchorPane.rightAnchor="799.0" AnchorPane.topAnchor="279.0" />
+      <CheckBox layoutX="297.0" layoutY="279.0" mnemonicParsing="false" text="Coffee" AnchorPane.bottomAnchor="310.6" AnchorPane.leftAnchor="297.0" AnchorPane.rightAnchor="663.8" AnchorPane.topAnchor="279.0" />
+    </AnchorPane>
+</VBox>
