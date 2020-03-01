@@ -1,9 +1,13 @@
 package nl.tudelft.oopp.demo.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 @Entity // This tells Hibernate to make a table out of this class
 public class User {
@@ -15,6 +19,10 @@ public class User {
     private String faculty;
     @ManyToMany
     private Set<Role> roles;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    Set<RoomReservation> roomReservations = new HashSet<>();
 
     public void setEmail(String email) {
         this.email = email;
@@ -40,6 +48,11 @@ public class User {
         this.roles = roles;
     }
 
+    public void setRoomReservations(Set<RoomReservation> roomReservations) {
+        this.roomReservations = roomReservations;
+    }
+
+
     public String getEmail() {
         return email;
     }
@@ -62,5 +75,21 @@ public class User {
 
     public Set<Role> getRoles() {
         return roles;
+    }
+
+    public Set<RoomReservation> getRoomReservations() {
+        return roomReservations;
+    }
+
+    public void addRoomReservation(RoomReservation roomReservation) {
+        roomReservations.add(roomReservation);
+    }
+
+    /**
+     * Removes a room reservation from this user.
+     * @param roomReservation = the room reservation that is to be removed
+     */
+    public void removeRoomReservation(RoomReservation roomReservation) {
+        roomReservations.remove(roomReservation);
     }
 }
