@@ -1,7 +1,8 @@
 package nl.tudelft.oopp.demo.controllers;
-import java.net.URL;
 
 import java.io.IOException;
+
+import java.net.URL;
 
 import java.util.ResourceBundle;
 
@@ -37,45 +38,46 @@ public class BikeReservationController implements Initializable {
     private ChoiceBox<String> pickUpTime;
 
     @Override
-    public void initialize (URL location, ResourceBundle resources) {
+    public void initialize(URL location, ResourceBundle resources) {
         loadData();
     }
 
     @FXML
-    private void reserveBike () {
-        String bike = pick.getValue()+ drop.getValue();
+    private void reserveBike() {
+        String bike = pick.getValue() + drop.getValue();
         //noinspection ConstantConditions
         if (bike == null) {
             screen.setText("No bike");
-        }
-        else {
-            screen.setText("your bike is "+bike);
+        } else {
+            screen.setText("your bike is " + bike);
         }
     }
 
-    public void loadData () {
+    /**
+     * Adds the items to the choice boxes
+     */
+
+    public void loadData() {
         list.removeAll(list);
         lisT.removeAll(lisT);
-        String a= "1";
+        String a = "1";
         String b = "2";
         String c = "3";
         list.addAll(a,b,c);
         pick.getItems().addAll(list);
         drop.getItems().addAll(list);
         for (int i = 0; i < 24; i++) {
-            for(int u = 0; u <= 45; u = u + 15) {
-                if(i == 0 && u == u){
+            for (int u = 0; u <= 45; u = u + 15) {
+                if (i == 0 && u == u) {
                     if (!lisT.contains("00:00")) {
                         lisT.add("00:00");
                     }
                 }
-                else if (u == 0){
-                    lisT.add(i+":00");
-                }
-                else if (i == 0){
+                else if (u == 0) {
+                    lisT.add(i + ":00");
+                } else if (i == 0) {
                     lisT.add("00:" + u);
-                }
-                else {
+                } else {
                     lisT.add(i + ":" + u);
                 }
             }
@@ -84,9 +86,15 @@ public class BikeReservationController implements Initializable {
         dropOffTime.getItems().addAll(lisT);
     }
 
-    public void goBackToMenu (ActionEvent actionEvent) throws IOException {
+    /**
+     * @param actionEvent
+     * Changes the view to the main menu when the button is clicked
+     * @throws IOException
+     */
+
+    public void goBackToMenu(ActionEvent actionEvent) throws IOException {
         Parent roomSelectParent = FXMLLoader.load(getClass().getResource("/mainMenu.fxml"));
-        Scene roomSelectScene = new Scene (roomSelectParent);
+        Scene roomSelectScene = new Scene(roomSelectParent);
 
         Stage window = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         window.setScene(roomSelectScene);
