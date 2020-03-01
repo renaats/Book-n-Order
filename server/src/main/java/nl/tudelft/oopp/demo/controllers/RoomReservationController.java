@@ -62,6 +62,10 @@ public class RoomReservationController {
         }
         User user = optionalUser.get();
 
+        if (room.hasRoomReservationBetween(new Date(fromTimeMs), new Date(toTimeMs))) {
+            return "This room is already reserved at this time!";
+        }
+
 
         RoomReservation roomReservation = new RoomReservation();
         roomReservation.setRoom(room);
