@@ -1,5 +1,7 @@
 package nl.tudelft.oopp.demo.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Entity;
@@ -18,6 +20,7 @@ public class Building {
     private String street;
     private int houseNumber;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "building")
     Set<Room> rooms = new HashSet<>();
 

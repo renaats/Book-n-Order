@@ -20,7 +20,6 @@ public class Room {
 
     private String name;
 
-    @JsonIgnore
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn

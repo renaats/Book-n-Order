@@ -1,8 +1,10 @@
 package nl.tudelft.oopp.demo.controllers;
 
 import java.util.HashSet;
+import java.util.Set;
 
 import nl.tudelft.oopp.demo.entities.Building;
+import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.repositories.BuildingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -108,6 +110,7 @@ public class BuildingController {
 
     /**
      * Finds a building with the specified id.
+     * @param id = the id of the building
      * @return a building that matches the id
      */
     @GetMapping(path = "/find/{buildingId}")
@@ -115,4 +118,19 @@ public class BuildingController {
     public Building findBuilding(@PathVariable(value = "buildingId") int id) {
         return buildingRepository.findById(id).orElse(null);
     }
+
+    /**
+     * Return all rooms that are in the building with the specified id.
+     * @param id = the id of the building
+     * @return all rooms that are in the building that matches the id
+     */
+    @GetMapping(path = "/rooms/{buildingId}")
+    @ResponseBody
+    public Set<Room> getRooms(@PathVariable(value = "buildingId") int id) {
+        if (buildingRepository.findById(id).isEmpty()) {
+            return null;
+        }
+        return buildingRepository.findById(id).get().getRooms();
+    }
+
 }
