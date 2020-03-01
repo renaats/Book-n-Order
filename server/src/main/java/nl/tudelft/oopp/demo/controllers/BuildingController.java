@@ -7,6 +7,7 @@ import nl.tudelft.oopp.demo.repositories.BuildingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -66,17 +67,32 @@ public class BuildingController {
     /**
      * Updates a database attribute.
      * @param id = the building id
-     * @param name = The building name
+     * @param attribute = the attribute that is changed
+     * @param value = the new value of the attribute
      * @return message if it passes
      */
     @PostMapping(path = "/update")
     @ResponseBody
-    public String updateBuildingName(@RequestParam int id, @RequestParam String name) {
+    public String updateBuildingName(@RequestParam int id, @RequestParam String attribute, @RequestParam String value) {
+        if (!buildingRepository.existsById(id)) {
+            return "Building with ID: " + id + " Does not exist!";
+        }
         Building building = buildingRepository.getOne(id);
-        String old = building.getName();
-        building.setName(name);
+        switch (attribute) {
+            case "name":
+                building.setName(value);
+                break;
+            case "street":
+                building.setStreet(value);
+                break;
+            case "houseNumber":
+                building.setHouseNumber(Integer.parseInt(value));
+                break;
+            default:
+                return "No attribute with name " + attribute + " found!";
+        }
         buildingRepository.save(building);
-        return "The previous name " + old + " has been changed to " + name + " for building ID: " + id + "!";
+        return "The attribute has been set!";
     }
 
     /**
@@ -90,4 +106,13 @@ public class BuildingController {
         return buildingRepository.findAll();
     }
 
+    /**
+     * Finds a building with the specified id.
+     * @return a building that matches the id
+     */
+    @GetMapping(path = "/find/{buildingId}")
+    @ResponseBody
+    public Building findBuilding(@PathVariable(value = "buildingId") int id) {
+        return buildingRepository.findById(id).orElse(null);
+    }
 }
