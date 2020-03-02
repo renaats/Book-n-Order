@@ -3,6 +3,7 @@ package nl.tudelft.oopp.demo.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,7 +15,7 @@ import javax.persistence.OneToMany;
 public class Building {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private int id;
 
     private String name;
     private String street;
@@ -23,10 +24,6 @@ public class Building {
     @JsonIgnore
     @OneToMany(mappedBy = "building")
     Set<Room> rooms = new HashSet<>();
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public void setName(String name) {
         this.name = name;
@@ -66,10 +63,6 @@ public class Building {
     }
 
 
-    public void addRoom(Room room) {
-        rooms.add(room);
-    }
-
     public boolean hasRooms() {
         return rooms.size() > 0;
     }
@@ -86,6 +79,17 @@ public class Building {
             }
         }
         return false;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Building building = (Building) o;
+        return houseNumber == building.houseNumber &&
+                Objects.equals(name, building.name) &&
+                Objects.equals(street, building.street) &&
+                Objects.equals(rooms, building.rooms);
     }
 
 }
