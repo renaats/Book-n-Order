@@ -112,7 +112,6 @@
             <DatePicker fx:id="calendar" prefHeight="30.0" prefWidth="250.0" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="From:" />
             <ChoiceBox fx:id="until" prefHeight="30.0" prefWidth="120.0" />
-
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Until:" />
             <ChoiceBox fx:id="until1" prefHeight="27.0" prefWidth="120.0" />
          </children>
@@ -120,5 +119,6 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
       </VBox>
+      <ImageView fitHeight="294.0" fitWidth="200.0" layoutX="29.0" layoutY="163.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>
