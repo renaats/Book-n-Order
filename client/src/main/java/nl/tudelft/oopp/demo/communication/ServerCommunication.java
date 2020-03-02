@@ -155,4 +155,70 @@ public class ServerCommunication {
         }
         return response.body();
     }
+
+    /**
+     * Finds a room
+     * @param roomId the id of the room
+     * @return body of the message
+     */
+    public static String findRoom(int roomId) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room/find/" + roomId)).GET().build();
+        HttpResponse<String> response = null;
+        try {
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Communication with server failed";
+        }
+        if (response.statusCode() != 200) {
+            System.out.println(response.body());
+            System.out.println("Status: " + response.statusCode());
+        }
+        return response.body();
+    }
+
+    /**
+     * Removes a building from the database.
+     * @param id = building id
+     * @return the body of a get request to the server.
+     * @throws Exception if communication with the server fails.
+     */
+    public static String deleteRoom(int id) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room/delete/" + id)).DELETE().build();
+        HttpResponse<String> response = null;
+        try {
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Communication with server failed";
+        }
+        if (response.statusCode() != 200) {
+            System.out.println(response.body());
+            System.out.println("Status: " + response.statusCode());
+        }
+        return response.body();
+    }
+
+    /**
+     * Updates a building
+     * @param id = Id of the building
+     * @param attribute = Attribute from a choicebox, always right / proper input!
+     * @param changeValue = Value they want to change, is not checked, can be wrong!
+     * @return
+     */
+    public static String updateRoom(int id, String attribute, String changeValue) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room/update?id=" + id + "&attribute=" + attribute + "&value=" + changeValue)).POST(HttpRequest.BodyPublishers.noBody()).build();
+        HttpResponse<String> response = null;
+        try {
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Communication with server failed";
+        }
+        if (response.statusCode() != 200) {
+            System.out.println(response.body());
+            System.out.println("Status: " + response.statusCode());
+        }
+        return response.body();
+    }
 }

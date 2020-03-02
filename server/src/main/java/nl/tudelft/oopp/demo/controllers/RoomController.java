@@ -10,6 +10,7 @@ import nl.tudelft.oopp.demo.repositories.BuildingRepository;
 import nl.tudelft.oopp.demo.repositories.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -134,9 +135,9 @@ public class RoomController {
      * @param id = the id of the room
      * @return String to see if your request passed
      */
-    @PostMapping(path = "/delete")
+    @DeleteMapping(path = "/delete/{roomID}")
     @ResponseBody
-    public String deleteRoom(@RequestParam int id) {
+    public String deleteRoom(@PathVariable(value = "roomID") int id) {
         if (!roomRepository.existsById(id)) {
             return "Room with ID: " + id + " does not exist!";
         }

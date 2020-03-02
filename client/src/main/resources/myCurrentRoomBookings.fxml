@@ -1,19 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<VBox prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.MyCurrentBookingsController">
     <AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: white;" VBox.vgrow="ALWAYS">
         <ImageView fitHeight="45.0" fitWidth="112.0" layoutX="18.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="7.0">
             <Image url="@images/tudelftlogo.png" />
@@ -29,9 +22,9 @@
                 <MenuItem mnemonicParsing="false" text="Order food" />
             </Menu>
             <Menu mnemonicParsing="false" text="My account">
-                <MenuItem mnemonicParsing="false" text="My profile" />
-                <MenuItem mnemonicParsing="false" text="My current bookings" />
-                <MenuItem mnemonicParsing="false" text="My previous bookings" />
+                <MenuItem mnemonicParsing="false" text="My profile" onAction="#myAccountScene" />
+                <MenuItem mnemonicParsing="false" text="My current bookings" onAction="#myCurrentBookings" />
+                <MenuItem mnemonicParsing="false" text="My previous bookings" onAction="#myPreviousBookings"/>
             </Menu>
         </MenuBar>
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00a6d6" height="79.0" layoutX="-1.0" layoutY="523.0" stroke="#00a6d6" strokeType="INSIDE" width="884.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="520.8" />
@@ -45,12 +38,12 @@
                 <Font name="Calibri" size="11.0" />
             </font>
         </Text>
-      <Text layoutX="81.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My current room bookings" AnchorPane.bottomAnchor="423.078125" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="511.39140625000005" AnchorPane.topAnchor="145.0">
+      <Text layoutX="246.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My current room bookings" AnchorPane.bottomAnchor="423.9765625" AnchorPane.leftAnchor="246.0" AnchorPane.rightAnchor="354.4765625" AnchorPane.topAnchor="144.1015625">
          <font>
             <Font size="24.0" />
          </font>
       </Text>
-      <TableView layoutX="115.0" layoutY="211.0" prefHeight="200.0" prefWidth="378.0" AnchorPane.bottomAnchor="189.0" AnchorPane.leftAnchor="115.0" AnchorPane.rightAnchor="390.6" AnchorPane.topAnchor="211.0">
+      <TableView layoutX="199.0" layoutY="217.0" prefHeight="200.0" prefWidth="378.0" AnchorPane.bottomAnchor="183.0" AnchorPane.leftAnchor="199.0" AnchorPane.rightAnchor="306.6" AnchorPane.topAnchor="217.0">
         <columns>
           <TableColumn prefWidth="84.0" text="Booking code" />
           <TableColumn prefWidth="66.4000244140625" text="Day" />
