@@ -15,13 +15,13 @@
       <Image url="@images/booknorderlogo.png" />
    </ImageView>
    <MenuBar layoutX="-1.0" layoutY="85.0" maxHeight="26.0" maxWidth="800.0" minHeight="26.0" minWidth="800.0" prefHeight="26.0" prefWidth="800.0" style="-fx-background-color: #00a6d6;" AnchorPane.leftAnchor="-1.0" AnchorPane.topAnchor="85.0">
-      <Menu mnemonicParsing="false" text="Home" >
-         <MenuItem mnemonicParsing="false" text="Main menu" onAction="#gobacktoMainMenu1"/>
+      <Menu mnemonicParsing="false" text="Home">
+         <MenuItem mnemonicParsing="false" onAction="#gobacktoMainMenu1" text="Main menu" />
       </Menu>
       <Menu mnemonicParsing="false" text="New booking">
-         <MenuItem mnemonicParsing="false" text="Book a room" onAction="#roomsSelected1"/>
-         <MenuItem mnemonicParsing="false" text="Rent a bike" onAction="#bikesSelected1"/>
-         <MenuItem mnemonicParsing="false" text="Order food" onAction="#foodsSelected1"/>
+         <MenuItem mnemonicParsing="false" onAction="#roomsSelected1" text="Book a room" />
+         <MenuItem mnemonicParsing="false" onAction="#bikesSelected1" text="Rent a bike" />
+         <MenuItem mnemonicParsing="false" onAction="#foodsSelected1" text="Order food" />
       </Menu>
       <Menu mnemonicParsing="false" text="My account">
          <MenuItem mnemonicParsing="false" onAction="#myAccountScene" text="My profile" />
@@ -70,7 +70,5 @@
       <Button mnemonicParsing="false" onAction="#roomsSelected" style="-fx-background-color: #439fd9;" text="Book a Room" textFill="WHITE" GridPane.rowIndex="2" />
       <Button mnemonicParsing="false" onAction="#bikesSelected" style="-fx-background-color: #439fd9;" text="Rent a Bike" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="2" />
       <Button cache="true" mnemonicParsing="false" onAction="#foodsSelected" style="-fx-background-color: #439fd9;" text="Order Food" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      <Button mnemonicParsing="false" onAction="#roomsSelected" style="-fx-background-color: #439fd9;" text="To main Scene" textFill="WHITE" GridPane.columnIndex="1" />
-      <Button mnemonicParsing="false" text="My reservations" />
    </GridPane>
 </AnchorPane>

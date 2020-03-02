@@ -62,10 +62,11 @@ public class MainSceneController {
      * Handles clicking the remove button.
      */
     public void deleteBuildingButtonClicked() {
+        int id = 4;
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Removed a building ");
         alert.setHeaderText(null);
-        alert.setContentText(ServerCommunication.deleteBuilding());
+        alert.setContentText(ServerCommunication.deleteBuilding(id));
         alert.showAndWait();
     }
 

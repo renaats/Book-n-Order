@@ -117,7 +117,7 @@ public class DatabaseBuildingController implements Initializable {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Building remover");
         alert.setHeaderText(null);
-        alert.setContentText(ServerCommunication.deleteBuilding());
+        alert.setContentText(ServerCommunication.deleteBuilding(id));
         alert.showAndWait();
     }
 
