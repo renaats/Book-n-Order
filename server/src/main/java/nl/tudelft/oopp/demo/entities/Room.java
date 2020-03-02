@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -41,9 +42,6 @@ public class Room {
     @OneToMany(mappedBy = "room")
     Set<RoomReservation> roomReservations = new HashSet<>();
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public void setName(String name) {
         this.name = name;
@@ -122,20 +120,8 @@ public class Room {
         return roomReservations;
     }
 
-    public void addRoomReservation(RoomReservation roomReservation) {
-        roomReservations.add(roomReservation);
-    }
-
     public boolean hasRoomReservations() {
         return roomReservations.size() > 0;
-    }
-
-    /**
-     * Removes a room reservation from this room.
-     * @param roomReservation = the room reservation that is to be removed
-     */
-    public void removeRoomReservation(RoomReservation roomReservation) {
-        roomReservations.remove(roomReservation);
     }
 
     /**
@@ -154,6 +140,26 @@ public class Room {
             }
         }
         return false;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Room room = (Room) o;
+        return facultySpecific == room.facultySpecific
+                && projector == room.projector
+                && screen == room.screen
+                && nrPeople == room.nrPeople
+                && plugs == room.plugs
+                && Objects.equals(name, room.name)
+                && Objects.equals(building, room.building)
+                && Objects.equals(faculty, room.faculty)
+                && Objects.equals(roomReservations, room.roomReservations);
     }
 
 }
