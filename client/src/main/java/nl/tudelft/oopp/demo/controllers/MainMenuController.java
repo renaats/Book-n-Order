@@ -1,15 +1,4 @@
 package nl.tudelft.oopp.demo.controllers;
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-
-import java.io.IOException;
-
-=======
->>>>>>> Added Calendar and Drop Down Menu to Room Book view (with fixed checkstyle issues)
-=======
-
->>>>>>> Added "From" and "Until" dropdown menus
 import java.io.IOException;
 import java.net.URL;
 import javafx.event.ActionEvent;
@@ -18,13 +7,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-<<<<<<< HEAD
-<<<<<<< HEAD
-
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
-=======
->>>>>>> Added "From" and "Until" dropdown menus
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.views.MainMenuDisplay;
 import nl.tudelft.oopp.demo.views.QuoteDisplay;
@@ -50,7 +34,6 @@ public class MainMenuController {
      */
     public void bikesSelected(ActionEvent event) throws IOException {
         Parent roomSelectParent = FXMLLoader.load(getClass().getResource("/bikeReservations.fxml"));
-
         Scene roomSelectScene = new Scene(roomSelectParent);
 
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
