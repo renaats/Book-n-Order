@@ -1,8 +1,11 @@
 package nl.tudelft.oopp.demo.controllers;
 
 import java.util.Optional;
+import java.util.Set;
+
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Room;
+import nl.tudelft.oopp.demo.entities.RoomReservation;
 import nl.tudelft.oopp.demo.repositories.BuildingRepository;
 import nl.tudelft.oopp.demo.repositories.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -160,6 +163,17 @@ public class RoomController {
     @ResponseBody
     public Room findRoom(@PathVariable (value = "roomId") int roomId) {
         return roomRepository.findById(roomId).orElse(null);
+    }
+
+    /**
+     * Finds all room reservations for the room with the specified id.
+     * @param roomId = the room id
+     * @return all room reservation for the room that matches the id
+     */
+    @GetMapping(path = "/reservations/{roomId}")
+    @ResponseBody
+    public Set<RoomReservation> findReservations(@PathVariable (value = "roomId") int roomId) {
+        return roomRepository.findById(roomId).get().getRoomReservations();
     }
 
 }
