@@ -13,12 +13,12 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.MyAccountController">
     <AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: white;" VBox.vgrow="ALWAYS">
         <ImageView fitHeight="45.0" fitWidth="112.0" layoutX="18.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="7.0">
             <Image url="@images/tudelftlogo.png" />
         </ImageView>
-        <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="55.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="50.0">
+        <ImageView fitHeight="25.0" fitWidth="120.0" layoutX="55.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="50.0">
             <Image url="@images/booknorderlogo.png" />
         </ImageView>
         <MenuBar layoutX="-1.0" layoutY="85.0" prefHeight="26.0" prefWidth="812.0" style="-fx-background-color: #00a6d6;" AnchorPane.leftAnchor="-1.0" AnchorPane.topAnchor="85.0">
@@ -30,42 +30,47 @@
             </Menu>
             <Menu mnemonicParsing="false" text="My account">
                 <MenuItem mnemonicParsing="false" text="My profile" />
-                <MenuItem mnemonicParsing="false" text="My current bookings" />
-                <MenuItem mnemonicParsing="false" text="My previous bookings" />
+                <MenuItem mnemonicParsing="false" onAction="#myCurrentBookings" text="My current bookings" />
+                <MenuItem mnemonicParsing="false" onAction="#myPreviousBookings" text="My previous bookings" />
             </Menu>
         </MenuBar>
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00a6d6" height="79.0" layoutX="-1.0" layoutY="523.0" stroke="#00a6d6" strokeType="INSIDE" width="812.0" AnchorPane.bottomAnchor="0.0" />
-        <Text fill="WHITE" layoutX="20.0" layoutY="555.576171875" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback is welcome" AnchorPane.bottomAnchor="39.90625">
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00a6d6" height="82.0" layoutY="528.0" stroke="#00a6d6" strokeType="INSIDE" width="812.0" AnchorPane.bottomAnchor="62.0" />
+        <Text fill="WHITE" layoutX="20.0" layoutY="555.02421875" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback is welcome" AnchorPane.bottomAnchor="106.05820312499998">
             <font>
                 <Font size="18.0" />
             </font>
         </Text>
-        <Text fill="WHITE" layoutX="20.0" layoutY="578.75" strokeType="OUTSIDE" strokeWidth="0.0" text="© 2020 TU Delft. All rights reserved." AnchorPane.bottomAnchor="18.5">
+        <Text fill="WHITE" layoutX="20.0" layoutY="578.1999999999996" strokeType="OUTSIDE" strokeWidth="0.0" text="© 2020 TU Delft. All rights reserved." AnchorPane.bottomAnchor="84.65000000000043">
             <font>
                 <Font name="Calibri" size="11.0" />
             </font>
         </Text>
-      <Text layoutX="80.0" layoutY="173.474609375" strokeType="OUTSIDE" strokeWidth="0.0" text="My profile" AnchorPane.bottomAnchor="420.501953125" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="623.25859375" AnchorPane.topAnchor="145.0">
+      <Text layoutX="307.0" layoutY="197.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My profile" AnchorPane.bottomAnchor="459.6" AnchorPane.leftAnchor="307.0" AnchorPane.rightAnchor="397.05859375" AnchorPane.topAnchor="171.0">
          <font>
             <Font size="24.0" />
          </font>
       </Text>
-      <Text layoutX="81.0" layoutY="238.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" AnchorPane.bottomAnchor="420.501953125" AnchorPane.leftAnchor="81.0" AnchorPane.rightAnchor="623.25859375" AnchorPane.topAnchor="222.892578125">
+      <Text layoutX="233.0" layoutY="247.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" AnchorPane.bottomAnchor="415.086328125" AnchorPane.leftAnchor="233.0" AnchorPane.rightAnchor="538.9892578125" AnchorPane.topAnchor="231.892578125">
          <font>
             <Font size="14.0" />
          </font>
       </Text>
-      <Text layoutX="81.0" layoutY="278.0" strokeType="OUTSIDE" strokeWidth="0.0" text="E-mail address:" AnchorPane.bottomAnchor="380.886328125" AnchorPane.leftAnchor="81.0" AnchorPane.rightAnchor="637.0056640625" AnchorPane.topAnchor="262.892578125">
+      <Text layoutX="233.0" layoutY="297.0" strokeType="OUTSIDE" strokeWidth="0.0" text="E-mail address:" AnchorPane.bottomAnchor="365.086328125" AnchorPane.leftAnchor="233.0" AnchorPane.rightAnchor="485.8056640625" AnchorPane.topAnchor="281.892578125">
          <font>
             <Font size="14.0" />
          </font>
       </Text>
-      <Button layoutX="81.0" layoutY="443.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="130.0" style="-fx-background-color: #00a6d6;" text="Change password" textFill="WHITE" AnchorPane.bottomAnchor="187.0" AnchorPane.leftAnchor="81.0" AnchorPane.rightAnchor="600.0" AnchorPane.topAnchor="443.0">
+      <Button layoutX="296.0" layoutY="342.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="130.0" style="-fx-background-color: #00a6d6;" text="Change password" textFill="WHITE" AnchorPane.bottomAnchor="288.0" AnchorPane.leftAnchor="296.0" AnchorPane.rightAnchor="385.0" AnchorPane.topAnchor="342.0">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <TextField layoutX="212.0" layoutY="221.0" prefHeight="26.0" prefWidth="191.0" AnchorPane.bottomAnchor="415.0" AnchorPane.leftAnchor="212.0" AnchorPane.rightAnchor="408.00000000000006" AnchorPane.topAnchor="221.0" />
-      <TextField layoutX="212.0" layoutY="260.0" prefHeight="26.0" prefWidth="191.0" AnchorPane.bottomAnchor="376.0" AnchorPane.leftAnchor="212.0" AnchorPane.rightAnchor="408.00000000000006" AnchorPane.topAnchor="260.0" />
+      <TextField layoutX="362.0" layoutY="227.0" prefHeight="26.0" prefWidth="191.0" AnchorPane.bottomAnchor="409.0" AnchorPane.leftAnchor="362.0" AnchorPane.rightAnchor="258.0" AnchorPane.topAnchor="227.0" />
+      <TextField layoutX="362.0" layoutY="277.0" prefHeight="26.0" prefWidth="191.0" AnchorPane.bottomAnchor="359.0" AnchorPane.leftAnchor="362.0" AnchorPane.rightAnchor="258.0" AnchorPane.topAnchor="277.0" />
+      <Button fx:id="adminControl" layoutX="681.0" layoutY="139.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="130.0" style="-fx-background-color: #00a6d6;" text="Admin" textFill="WHITE" onAction="#AdminPanel">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
     </AnchorPane>
 </VBox>

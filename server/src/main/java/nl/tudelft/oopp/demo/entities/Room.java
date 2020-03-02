@@ -2,12 +2,17 @@ package nl.tudelft.oopp.demo.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -31,6 +36,10 @@ public class Room {
     private boolean screen;
     private int nrPeople;
     private int plugs;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "room")
+    Set<RoomReservation> roomReservations = new HashSet<>();
 
     public void setId(Integer id) {
         this.id = id;
@@ -66,6 +75,10 @@ public class Room {
 
     public void setPlugs(int plugs) {
         this.plugs = plugs;
+    }
+
+    public void setRoomReservations(Set<RoomReservation> roomReservations) {
+        this.roomReservations = roomReservations;
     }
 
 
@@ -104,4 +117,43 @@ public class Room {
     public int getPlugs() {
         return plugs;
     }
+
+    public Set<RoomReservation> getRoomReservations() {
+        return roomReservations;
+    }
+
+    public void addRoomReservation(RoomReservation roomReservation) {
+        roomReservations.add(roomReservation);
+    }
+
+    public boolean hasRoomReservations() {
+        return roomReservations.size() > 0;
+    }
+
+    /**
+     * Removes a room reservation from this room.
+     * @param roomReservation = the room reservation that is to be removed
+     */
+    public void removeRoomReservation(RoomReservation roomReservation) {
+        roomReservations.remove(roomReservation);
+    }
+
+    /**
+     * Checks if this room has a reservation between the specified times.
+     * @param fromTime = the starting time
+     * @param toTime = the ending time
+     * @return a boolean whether this room has a reservation between these times
+     */
+    public boolean hasRoomReservationBetween(Date fromTime, Date toTime) {
+        for (RoomReservation roomReservation: roomReservations) {
+            if (fromTime.compareTo(roomReservation.getFromTime()) < 0 && toTime.compareTo(roomReservation.getFromTime()) > 0) {
+                return true;
+            }
+            if (fromTime.compareTo(roomReservation.getToTime()) < 0 && toTime.compareTo(roomReservation.getToTime()) > 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

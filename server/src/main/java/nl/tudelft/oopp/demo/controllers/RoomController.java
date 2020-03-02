@@ -82,7 +82,7 @@ public class RoomController {
     @PostMapping(path = "/update")
     @ResponseBody
     public String updateAttribute(@RequestParam int id, @RequestParam String attribute, @RequestParam String value) {
-        if (!roomRepository.existsById(id)) {
+        if (roomRepository.findById(id).isEmpty()) {
             return "Room with ID: " + id + " does not exist!";
         }
         Room room = roomRepository.findById(id).get();
@@ -110,7 +110,7 @@ public class RoomController {
                     return "Could not find building with id " + buildingId + "!";
                 }
                 Building building = optionalBuilding.get();
-                building.addRoom(room);
+                room.setBuilding(building);
                 break;
             case "nrPeople":
                 room.setNrPeople(Integer.parseInt(value));
