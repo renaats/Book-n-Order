@@ -1,5 +1,7 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import nl.tudelft.oopp.demo.entities.Building;
+import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.entities.User;
 import nl.tudelft.oopp.demo.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,79 +67,41 @@ public class UserController {
     }
 
     /**
-     * Updates a database attribute "password".
-     * @param email = the account email
-     * @param password = The account password
-     * @return message if it passes
+     * Updates a specified attribute for some user.
+     * @param email = the email of the user
+     * @param attribute = the attribute that is changed
+     * @param value = the new value of the attribute
+     * @return String to see if your request passed
      */
-    @PostMapping(path = "/update_password")
+    @PostMapping(path = "/update")
     @ResponseBody
-    public String updatePassword(@RequestParam String email, @RequestParam String password) {
-        if (!userRepository.existsById(email)) {
-            return "The account with email " + email + " does not exist!";
+    public String updateAttribute(@RequestParam String email, @RequestParam String attribute, @RequestParam String value) {
+        if (userRepository.findById(email).isEmpty()) {
+            return "User with email " + email + " does not exist!";
         }
-        User user = userRepository.getOne(email);
-        String old = user.getPassword();
-        user.setPassword(password);
-        userRepository.save(user);
-        return "The previous password " + old + " has been changed to " + password + " for the account with email " + email + "!";
-    }
+        User user = userRepository.findById(email).get();
 
-    /**
-     * Updates a database attribute "name".
-     * @param email = the account email
-     * @param name = The account name
-     * @return message if it passes
-     */
-    @PostMapping(path = "/update_name")
-    @ResponseBody
-    public String updateName(@RequestParam String email, @RequestParam String name) {
-        if (!userRepository.existsById(email)) {
-            return "The account with email " + email + " does not exist!";
+        switch (attribute) {
+            case "email":
+                user.setEmail(value);
+                break;
+            case "password":
+                user.setPassword(value);
+                break;
+            case "name":
+                user.setName(value);
+                break;
+            case "surname":
+                user.setSurname(value);
+                break;
+            case "faculty":
+                user.setFaculty(value);
+                break;
+            default:
+                return "No attribute with name " + attribute + " found!";
         }
-        User user = userRepository.getOne(email);
-        String old = user.getName();
-        user.setName(name);
         userRepository.save(user);
-        return "The previous name " + old + " has been changed to " + name + " for the account with email " + email + "!";
-    }
-
-    /**
-     * Updates a database attribute "surname".
-     * @param email = the account email
-     * @param surname = The account surname
-     * @return message if it passes
-     */
-    @PostMapping(path = "/update_surname")
-    @ResponseBody
-    public String updateSurname(@RequestParam String email, @RequestParam String surname) {
-        if (!userRepository.existsById(email)) {
-            return "The account with email " + email + " does not exist!";
-        }
-        User user = userRepository.getOne(email);
-        String old = user.getSurname();
-        user.setSurname(surname);
-        userRepository.save(user);
-        return "The previous surname " + old + " has been changed to " + surname + " for the account with email " + email + "!";
-    }
-
-    /**
-     * Updates a database attribute "faculty".
-     * @param email = the account email
-     * @param faculty = The account surname
-     * @return message if it passes
-     */
-    @PostMapping(path = "/update_faculty")
-    @ResponseBody
-    public String updateFaculty(@RequestParam String email, @RequestParam String faculty) {
-        if (!userRepository.existsById(email)) {
-            return "The account with email " + email + " does not exist!";
-        }
-        User user = userRepository.getOne(email);
-        String old = user.getFaculty();
-        user.setFaculty(faculty);
-        userRepository.save(user);
-        return "The previous faculty " + old + " has been changed to " + faculty + " for the account with email " + email + "!";
+        return "The attribute has been set!";
     }
 
     /**
