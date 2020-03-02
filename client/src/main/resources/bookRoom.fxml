@@ -34,13 +34,13 @@
     <ImageView fitHeight="242.0" fitWidth="177.0" layoutX="34.0" layoutY="107.0" pickOnBounds="true" preserveRatio="true">
         <Image url="@Images/Book_Room_opt2.jpg" />
     </ImageView>
-    <DatePicker layoutX="231.0" layoutY="237.0" />
+    <DatePicker fx:id="calendar" layoutX="231.0" layoutY="237.0" />
     <Text layoutX="231.0" layoutY="165.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Room:" wrappingWidth="47.00000882148743" />
     <!--suppress JavaFxUnresolvedFxIdReference -->
-    <ChoiceBox focusTraversable="false" layoutX="231.0" layoutY="177.0" prefHeight="27.0" prefWidth="187.0" />
+    <ChoiceBox fx:id="roomDropDown" focusTraversable="false" layoutX="231.0" layoutY="177.0" prefHeight="27.0" prefWidth="187.0" />
     <Text layoutX="231.0" layoutY="226.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date:" />
-   <ChoiceBox layoutX="230.0" layoutY="300.0" prefHeight="27.0" prefWidth="84.0" />
-   <ChoiceBox layoutX="334.0" layoutY="300.0" prefHeight="27.0" prefWidth="84.0" />
+   <ChoiceBox fx:id="from" layoutX="230.0" layoutY="300.0" prefHeight="27.0" prefWidth="84.0" />
+   <ChoiceBox fx:id="until" layoutX="334.0" layoutY="300.0" prefHeight="27.0" prefWidth="84.0" />
    <Text layoutX="230.0" layoutY="289.0" strokeType="OUTSIDE" strokeWidth="0.0" text="From:" />
    <Text layoutX="334.0" layoutY="289.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Until:" />
 </AnchorPane>
