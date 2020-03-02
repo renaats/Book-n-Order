@@ -53,7 +53,6 @@ public class RoomTest {
     @Test
     public void saveAndRetrieveRoom() {
         room2 = roomRepository.findAll().get(0);
-        assertSame(room, room2);
         assertEquals(room, room2);
     }
 
