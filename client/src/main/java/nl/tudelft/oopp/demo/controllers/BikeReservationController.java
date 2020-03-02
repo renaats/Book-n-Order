@@ -21,6 +21,9 @@ public class BikeReservationController implements Initializable {
     final ObservableList list = FXCollections.observableArrayList();
 
     final ObservableList lisT = FXCollections.observableArrayList();
+
+    final ObservableList listM = FXCollections.observableArrayList();
+
     @FXML
     private ChoiceBox<String> pick;
     @FXML
@@ -31,6 +34,10 @@ public class BikeReservationController implements Initializable {
     private ChoiceBox<String> dropOffTime;
     @FXML
     private ChoiceBox<String> pickUpTime;
+    @FXML
+    private ChoiceBox<String> dropOffTimeM;
+    @FXML
+    private ChoiceBox<String> pickUpTimeM;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -61,22 +68,24 @@ public class BikeReservationController implements Initializable {
         pick.getItems().addAll(list);
         drop.getItems().addAll(list);
         for (int i = 0; i < 24; i++) {
-            for (int u = 0; u <= 45; u = u + 15) {
-                if (i == 0 && u == u) {
-                    if (!lisT.contains("00:00")) {
-                        lisT.add("00:00");
-                    }
-                } else if (u == 0) {
-                    lisT.add(i + ":00");
-                } else if (i == 0) {
-                    lisT.add("00:" + u);
-                } else {
-                    lisT.add(i + ":" + u);
-                }
+            if (i < 10) {
+                lisT.add("0" + i);
+            } else {
+                lisT.add(i);
             }
         }
         pickUpTime.getItems().addAll(lisT);
         dropOffTime.getItems().addAll(lisT);
+        listM.removeAll(listM);
+        for (int i = 0; i < 60; i = i + 15) {
+            if (i == 0) {
+                listM.add("00");
+            } else {
+                listM.add(i);
+            }
+        }
+        pickUpTimeM.getItems().addAll(listM);
+        dropOffTimeM.getItems().addAll(listM);
     }
 
     /**
