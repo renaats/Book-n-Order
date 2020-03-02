@@ -79,4 +79,8 @@ public class MainMenuController {
     public void foodsSelected1(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/Bike reservations.fxml");
     }
+
+    public void gobacktoMainMenu1(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/mainMenu.fxml");
+    }
 }

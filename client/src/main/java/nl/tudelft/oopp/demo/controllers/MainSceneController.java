@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
+import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 public class MainSceneController {
 
@@ -79,5 +80,9 @@ public class MainSceneController {
         Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         window.setScene(roomSelectScene);
         window.show();
+    }
+
+    public void gobacktoMainMenu1(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/mainMenu.fxml");
     }
 }

@@ -15,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 
 public class BikeReservationController implements Initializable {
@@ -99,5 +100,9 @@ public class BikeReservationController implements Initializable {
         Stage window = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         window.setScene(roomSelectScene);
         window.show();
+    }
+
+    public void gobacktoMainMenu1(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/mainMenu.fxml");
     }
 }

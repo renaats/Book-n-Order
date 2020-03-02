@@ -1,6 +1,8 @@
 package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
+
+import javafx.event.ActionEvent;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 public class MyCurrentBookingsController {
@@ -58,5 +60,9 @@ public class MyCurrentBookingsController {
      */
     public void mainMenu() throws IOException {
         ApplicationDisplay.changeScene("/templateScene.fxml");
+    }
+
+    public void gobacktoMainMenu1(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/mainMenu.fxml");
     }
 }

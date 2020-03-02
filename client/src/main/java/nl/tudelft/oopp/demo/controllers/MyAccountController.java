@@ -40,4 +40,8 @@ public class MyAccountController {
     public void adminPanel(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/DatabaseMenu.fxml");
     }
+
+    public void gobacktoMainMenu1(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/mainMenu.fxml");
+    }
 }
