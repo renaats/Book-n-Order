@@ -77,7 +77,6 @@ public class ServerCommunication {
      * @throws Exception if communication with the server fails.
      */
     public static String getBuilding() {
-        HttpRequest request = HttpRequest.newBuilder().GET().uri(URI.create("http://localhost:8080/building/all")).build();
         HttpResponse<String> response = null;
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
@@ -99,7 +98,7 @@ public class ServerCommunication {
      */
     public static String deleteBuilding() {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/demo/delete?id=7")).POST(HttpRequest.BodyPublishers.noBody()).build();
-        HttpResponse<String> response = null;
+        HttpResponse<String> response;
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
         } catch (Exception e) {
