@@ -8,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 public class MainMenuController {
 
@@ -47,12 +48,32 @@ public class MainMenuController {
         window.show();
     }
 
-    public void myCurrentBookings(ActionEvent actionEvent) {
+    /**
+     * Changes to myCurrentBookings.fxml.
+     * @throws IOException input will not be wrong, hence we throw.
+     */
+    public void myCurrentBookings() throws IOException {
+        ApplicationDisplay.changeScene("/myCurrentBookings.fxml");
     }
 
-    public void myAccountScene(ActionEvent actionEvent) {
+    /**
+     * Changes to myPreviousBookings.fxml.
+     * @throws IOException input will not be wrong, hence we throw.
+     */
+    public void myPreviousBookings() throws IOException {
+        ApplicationDisplay.changeScene("/myPreviousBookings.fxml");
     }
 
-    public void myPreviousBookings(ActionEvent actionEvent) {
+    public void myAccountScene() throws IOException {
+        ApplicationDisplay.changeScene("/myAccountScene.fxml");
+    }
+
+    public void bikesSelected1(ActionEvent actionEvent) {
+    }
+
+    public void roomsSelected1(ActionEvent actionEvent) {
+    }
+
+    public void foodsSelected1(ActionEvent actionEvent) {
     }
 }
