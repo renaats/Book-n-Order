@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
@@ -7,15 +8,17 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TitledPane?>
-<?import javafx.scene.image.Image?>
+<?import javafx.scene.effect.Blend?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="600.0" maxWidth="800.0" minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.BookRoomController">
+<AnchorPane maxHeight="600.0" maxWidth="800.0" minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ImageView fitHeight="45.0" fitWidth="112.0" layoutX="18.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="548.0" AnchorPane.leftAnchor="17.400003051757807" AnchorPane.rightAnchor="683.3999969482422" AnchorPane.topAnchor="7.0">
       </ImageView>
@@ -52,42 +55,85 @@
             <Font name="Calibri" size="11.0" />
          </font>
       </Text>
-      <DatePicker fx:id="calendar" layoutX="294.0" layoutY="294.0" />
-      <ChoiceBox fx:id="roomDropDown" focusTraversable="false" layoutX="294.0" layoutY="227.0" prefHeight="27.0" prefWidth="187.0" />
-      <Text layoutX="294.0" layoutY="282.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date:" wrappingWidth="29.224609375" />
-      <ChoiceBox fx:id="until" layoutX="294.0" layoutY="371.0" prefHeight="27.0" prefWidth="84.0" />
-      <Text layoutX="294.0" layoutY="215.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Room:" wrappingWidth="47.00000882148743" />
-      <Text layoutX="294.0" layoutY="354.0" strokeType="OUTSIDE" strokeWidth="0.0" text="From:" />
-      <Text layoutX="398.0" layoutY="354.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Until:" />
-      <ImageView fitHeight="241.0" fitWidth="202.0" layoutX="29.0" layoutY="183.0" pickOnBounds="true" preserveRatio="true" />
-      <Accordion layoutX="598.0" layoutY="113.0" prefHeight="408.0" prefWidth="202.0">
-        <panes>
-          <TitledPane animated="false" prefHeight="353.0" prefWidth="202.0" text="Capacity of People">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="325.0" prefWidth="210.0" />
-            </content>
-          </TitledPane>
-          <TitledPane animated="false" text="Facilities">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <CheckBox layoutX="20.0" layoutY="14.0" mnemonicParsing="false" text="Beamer" />
-                        <CheckBox layoutX="20.0" layoutY="71.0" mnemonicParsing="false" text="XXX" />
-                        <CheckBox layoutX="20.0" layoutY="42.0" mnemonicParsing="false" text="Screen" />
-                     </children>
-                  </AnchorPane>
-            </content>
-          </TitledPane>
-          <TitledPane animated="false" prefHeight="275.0" prefWidth="202.0" text="Building">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <ChoiceBox fx:id="from" layoutX="14.0" layoutY="14.0" prefHeight="27.0" prefWidth="177.0" />
-                     </children></AnchorPane>
-            </content>
-          </TitledPane>
-        </panes>
-      </Accordion>
-      <ChoiceBox fx:id="until1" layoutX="400.0" layoutY="371.0" prefHeight="27.0" prefWidth="84.0" />
+      <VBox alignment="CENTER_RIGHT" layoutX="578.0" layoutY="113.0" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT" prefHeight="407.0" prefWidth="220.0">
+         <children>
+            <Accordion prefHeight="408.0" prefWidth="202.0" style="-fx-background-color: F;">
+              <panes>
+                <TitledPane alignment="CENTER_RIGHT" animated="false" contentDisplay="TOP" prefHeight="146.0" prefWidth="280.0" text="Capacity of People">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="325.0" prefWidth="210.0">
+                           <children>
+                              <TextArea layoutX="14.0" layoutY="14.0" prefHeight="45.0" prefWidth="176.0" />
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </TitledPane>
+                <TitledPane animated="false" text="Facilities">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <CheckBox layoutX="20.0" layoutY="14.0" mnemonicParsing="false" text="Beamer" />
+                              <CheckBox layoutX="20.0" layoutY="71.0" mnemonicParsing="false" text="XXX" />
+                              <CheckBox layoutX="20.0" layoutY="42.0" mnemonicParsing="false" text="Screen" />
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </TitledPane>
+                <TitledPane animated="false" prefHeight="275.0" prefWidth="202.0" text="Building">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <ChoiceBox fx:id="from" layoutX="14.0" layoutY="14.0" prefHeight="27.0" prefWidth="177.0" />
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </TitledPane>
+              </panes>
+            </Accordion>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </VBox>
+      <VBox layoutX="248.0" layoutY="158.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="250.0" spacing="15.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Room:" wrappingWidth="47.00000882148743">
+               <effect>
+                  <Blend />
+               </effect>
+            </Text>
+            <ChoiceBox fx:id="roomDropDown" focusTraversable="false" prefHeight="30.0" prefWidth="250.0" />
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </VBox>
+      <VBox layoutX="248.0" layoutY="238.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="250.0" spacing="15.0">
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date:" wrappingWidth="29.224609375" />
+            <DatePicker fx:id="calendar" prefHeight="30.0" prefWidth="250.0" />
+         </children>
+      </VBox>
+      <VBox layoutX="248.0" layoutY="318.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" spacing="15.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="From:" />
+            <ChoiceBox fx:id="until" prefHeight="30.0" prefWidth="120.0" />
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </VBox>
+      <VBox layoutX="248.0" layoutY="398.0" minHeight="-Infinity" minWidth="-Infinity" spacing="15.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Until:" />
+            <ChoiceBox fx:id="until1" prefHeight="27.0" prefWidth="120.0" />
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </VBox>
    </children>
 </AnchorPane>
