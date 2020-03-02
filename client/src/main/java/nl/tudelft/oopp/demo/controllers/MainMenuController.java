@@ -1,10 +1,8 @@
 package nl.tudelft.oopp.demo.controllers;
 
-<<<<<<< HEAD
 
 import java.io.IOException;
-=======
->>>>>>> Added "From" and "Until" dropdown menus
+
 import java.io.IOException;
 import java.net.URL;
 import javafx.event.ActionEvent;
@@ -13,12 +11,9 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-<<<<<<< HEAD
+
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
-import javax.swing.*;
-=======
->>>>>>> Added "From" and "Until" dropdown menus
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.views.MainMenuDisplay;
 import nl.tudelft.oopp.demo.views.QuoteDisplay;
@@ -45,6 +40,7 @@ public class MainMenuController {
     @SuppressWarnings({"checkstyle:MethodParamPad", "CheckStyle"})
     public void bikesSelected(ActionEvent event) throws IOException {
         Parent roomSelectParent = FXMLLoader.load(getClass().getResource("/bikeReservations.fxml"));
+
         Scene roomSelectScene = new Scene(roomSelectParent);
 
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -57,7 +53,7 @@ public class MainMenuController {
 
     public void roomsSelected(ActionEvent event) throws IOException {
         Parent roomSelectParent = FXMLLoader.load(getClass().getResource("/bookRoom.fxml"));
-        Scene roomSelectScene = new Scene (roomSelectParent);
+        Scene roomSelectScene = new Scene(roomSelectParent);
 
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(roomSelectScene);
