@@ -28,7 +28,7 @@ public class MainMenuController {
      * Handles clicking the bikes button.
      */
     public void bikesSelected(ActionEvent event) throws IOException {
-        Parent roomSelectParent = FXMLLoader.load(getClass().getResource("/Bike reservations.fxml"));
+        Parent roomSelectParent = FXMLLoader.load(getClass().getResource("/bikeReservations.fxml"));
         Scene roomSelectScene = new Scene(roomSelectParent);
 
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -69,15 +69,15 @@ public class MainMenuController {
     }
 
     public void bikesSelected1(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/Bike reservations.fxml");
+        ApplicationDisplay.changeScene("/bikeReservations.fxml");
     }
 
     public void roomsSelected1(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/Bike reservations.fxml");
+        ApplicationDisplay.changeScene("/bikeReservations.fxml");
     }
 
     public void foodsSelected1(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/Bike reservations.fxml");
+        ApplicationDisplay.changeScene("/bikeReservations.fxml");
     }
 
     public void gobacktoMainMenu1(ActionEvent actionEvent) throws IOException {

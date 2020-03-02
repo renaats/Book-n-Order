@@ -15,7 +15,7 @@ public class BikeReservationView extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        URL xmlUrl = getClass().getResource("/Bike reservations.fxml");
+        URL xmlUrl = getClass().getResource("/bikeReservations.fxml");
         loader.setLocation(xmlUrl);
         Parent root = loader.load();
 
