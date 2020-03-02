@@ -54,7 +54,7 @@ public class BuildingTest {
 
     @Test
     public void saveAndRetrieveBuilding() {
-        building2 = buildingRepository.getOne(1);
+        building2 = buildingRepository.findAll().get(0);
         assertSame(building, building2);
     }
 
