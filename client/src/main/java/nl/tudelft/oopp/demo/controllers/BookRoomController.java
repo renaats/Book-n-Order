@@ -1,5 +1,71 @@
 package nl.tudelft.oopp.demo.controllers;
 
-public class BookRoomController {
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TextField;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class BookRoomController implements Initializable {
+
+    final ObservableList list = FXCollections.observableArrayList();
+    final ObservableList lisT = FXCollections.observableArrayList();
+
+    @FXML
+    private ChoiceBox<String> roomDropDown;
+    @FXML
+    private  ChoiceBox<String> from;
+    @FXML
+    private ChoiceBox<String> until;
+
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        loadData();
+    }
+
+    @FXML
+    private void reservedRoomSlot() {
+
+        if (from.getValue() == null || until.getValue() == null) {
+            System.out.println("Nothing selected");
+        } else {
+            System.out.println("Your selection was from:" + from.getValue() + " ,until: " + until.getValue());
+        }
+    }
+
+    /**
+     * Adds the items to the choice boxes
+     */
+    public void loadData() {
+        list.removeAll(list);
+        lisT.removeAll(lisT);
+        String a = "1";
+        String b = "2";
+        String c = "3";
+        list.addAll(a,b,c);
+        roomDropDown.getItems().addAll(list);
+
+        for (int i = 0; i < 24; i++) {
+            for (int u = 0; u <= 45; u = u + 15) {
+                if (i == 0 && u == u) {
+                    if (!lisT.contains("00:00")) {
+                        lisT.add("00:00");
+                    }
+                } else if (u == 0) {
+                    lisT.add(i + ":00");
+                } else if (i == 0) {
+                    lisT.add("00:" + u);
+                } else {
+                    lisT.add(i + ":" + u);
+                }
+            }
+        }
+        from.getItems().addAll(lisT);
+        until.getItems().addAll(lisT);
+    }
 }
