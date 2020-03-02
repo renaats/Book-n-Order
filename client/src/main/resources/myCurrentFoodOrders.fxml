@@ -24,7 +24,7 @@
             <Menu mnemonicParsing="false" text="My account">
                 <MenuItem mnemonicParsing="false" text="My profile" onAction="#myAccountScene" />
                 <MenuItem mnemonicParsing="false" text="My current bookings" onAction="#myCurrentBookings" />
-                <MenuItem mnemonicParsing="false" text="My previous bookings" />
+                <MenuItem mnemonicParsing="false" text="My previous bookings" onAction="#myPreviousBookings"/>
             </Menu>
         </MenuBar>
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00a6d6" height="79.0" layoutX="-1.0" layoutY="521.0" stroke="#00a6d6" strokeType="INSIDE" width="947.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="521.0" />
