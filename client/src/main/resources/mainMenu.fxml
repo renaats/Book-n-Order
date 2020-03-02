@@ -7,81 +7,68 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="501.0" prefWidth="811.0" xmlns="http://javafx.com/javafx/10.0.2-internal"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.MainMenuController">
-   <ImageView fitHeight="45.0" fitWidth="112.0" layoutX="18.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true"
-              AnchorPane.topAnchor="7.0">
-      <Image url="@Images/tudelftlogo.png"/>
+<AnchorPane prefHeight="501.0" prefWidth="811.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.MainMenuController">
+   <ImageView fitHeight="45.0" fitWidth="112.0" layoutX="18.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="7.0">
+      <Image url="@Images/tudelftlogo.png" />
    </ImageView>
-   <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="55.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true"
-              AnchorPane.topAnchor="50.0">
-      <Image url="@Images/booknorderlogo.png"/>
+   <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="55.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="50.0">
+      <Image url="@Images/booknorderlogo.png" />
    </ImageView>
-   <MenuBar layoutX="-1.0" layoutY="85.0" prefHeight="26.0" prefWidth="812.0" style="-fx-background-color: #00a6d6;"
-            AnchorPane.leftAnchor="-1.0" AnchorPane.topAnchor="85.0">
-      <Menu mnemonicParsing="false" text="Home"/>
+   <MenuBar layoutX="-1.0" layoutY="85.0" prefHeight="26.0" prefWidth="812.0" style="-fx-background-color: #00a6d6;" AnchorPane.leftAnchor="-1.0" AnchorPane.topAnchor="85.0">
+      <Menu mnemonicParsing="false" text="Home" />
       <Menu mnemonicParsing="false" text="New booking">
-         <MenuItem mnemonicParsing="false" text="Book a room"/>
-         <MenuItem mnemonicParsing="false" text="Rent a bike"/>
-         <MenuItem mnemonicParsing="false" text="Order food"/>
+         <MenuItem mnemonicParsing="false" text="Book a room" />
+         <MenuItem mnemonicParsing="false" text="Rent a bike" />
+         <MenuItem mnemonicParsing="false" text="Order food" />
       </Menu>
       <Menu mnemonicParsing="false" text="My account">
-         <MenuItem mnemonicParsing="false" text="My profile"/>
-         <MenuItem mnemonicParsing="false" text="My current bookings"/>
-         <MenuItem mnemonicParsing="false" text="My previous bookings"/>
+         <MenuItem mnemonicParsing="false" text="My profile" />
+         <MenuItem mnemonicParsing="false" text="My current bookings" />
+         <MenuItem mnemonicParsing="false" text="My previous bookings" />
       </Menu>
    </MenuBar>
-   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00a6d6" height="79.0" layoutX="-1.0" layoutY="523.0"
-              stroke="#00a6d6" strokeType="INSIDE" width="812.0" AnchorPane.bottomAnchor="0.0"/>
-   <Text fill="WHITE" layoutX="20.0" layoutY="555.576171875" strokeType="OUTSIDE" strokeWidth="0.0"
-         text="Feedback is welcome" AnchorPane.bottomAnchor="39.90625">
+   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00a6d6" height="79.0" layoutX="-1.0" layoutY="523.0" stroke="#00a6d6" strokeType="INSIDE" width="812.0" AnchorPane.bottomAnchor="0.0" />
+   <Text fill="WHITE" layoutX="20.0" layoutY="555.576171875" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback is welcome" AnchorPane.bottomAnchor="39.90625">
       <font>
-         <Font size="18.0"/>
+         <Font size="18.0" />
       </font>
    </Text>
-   <Text fill="WHITE" layoutX="20.0" layoutY="578.75" strokeType="OUTSIDE" strokeWidth="0.0"
-         text="© 2020 TU Delft. All rights reserved." AnchorPane.bottomAnchor="18.5">
+   <Text fill="WHITE" layoutX="20.0" layoutY="578.75" strokeType="OUTSIDE" strokeWidth="0.0" text="© 2020 TU Delft. All rights reserved." AnchorPane.bottomAnchor="18.5">
       <font>
-         <Font name="Calibri" size="11.0"/>
+         <Font name="Calibri" size="11.0" />
       </font>
    </Text>
-   <Accordion layoutX="76.0" layoutY="144.0"/>
-   <GridPane alignment="CENTER" layoutX="77.0" layoutY="111.0" prefHeight="271.0" prefWidth="658.0">
+   <Accordion layoutX="76.0" layoutY="144.0" />
+   <GridPane alignment="CENTER" layoutX="83.0" layoutY="129.0" prefHeight="271.0" prefWidth="658.0">
       <columnConstraints>
-         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
       </columnConstraints>
       <rowConstraints>
-         <RowConstraints maxHeight="43.0" minHeight="10.0" prefHeight="11.0" vgrow="SOMETIMES"/>
-         <RowConstraints maxHeight="205.0" minHeight="10.0" prefHeight="205.0" vgrow="SOMETIMES"/>
-         <RowConstraints maxHeight="61.0" minHeight="0.0" prefHeight="22.00000000000003" vgrow="SOMETIMES"/>
+         <RowConstraints maxHeight="43.0" minHeight="10.0" prefHeight="11.0" vgrow="SOMETIMES" />
+         <RowConstraints maxHeight="205.0" minHeight="10.0" prefHeight="205.0" vgrow="SOMETIMES" />
+         <RowConstraints maxHeight="61.0" minHeight="0.0" prefHeight="22.00000000000003" vgrow="SOMETIMES" />
       </rowConstraints>
-      <ImageView fitHeight="200.0" fitWidth="150.0" opacity="0.9" pickOnBounds="true" GridPane.columnIndex="1"
-                 GridPane.rowIndex="1">
+      <ImageView fitHeight="200.0" fitWidth="150.0" opacity="0.9" pickOnBounds="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <viewport>
-            <Rectangle2D height="550.0" width="450.0"/>
+            <Rectangle2D height="550.0" width="450.0" />
          </viewport>
-         <Image url="@Images/Order_Food_opt1.jpg"/>
+         <Image url="@Images/Order_Food_opt1.jpg" />
       </ImageView>
-      <ImageView fitHeight="200.0" fitWidth="150.0" nodeOrientation="INHERIT" opacity="0.9" pickOnBounds="true"
-                 preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
+      <ImageView fitHeight="200.0" fitWidth="150.0" nodeOrientation="INHERIT" opacity="0.9" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
          <viewport>
-            <Rectangle2D height="1600.0" minX="600.0" width="1200.0"/>
+            <Rectangle2D height="1600.0" minX="600.0" width="1200.0" />
          </viewport>
-         <Image url="@Images/Rent_Bike_opt1.jpg"/>
+         <Image url="@Images/Rent_Bike_opt1.jpg" />
       </ImageView>
       <ImageView fitHeight="200.0" fitWidth="150.0" opacity="0.8" pickOnBounds="true" GridPane.rowIndex="1">
-         <Image url="@Images/Book_Room_opt2.jpg"/>
+         <Image url="@Images/Book_Room_opt2.jpg" />
       </ImageView>
-      <Button mnemonicParsing="false" onAction="#roomsSelected" style="-fx-background-color: #439fd9;"
-              text="Book a Room" textFill="WHITE" GridPane.rowIndex="2"/>
-      <Button mnemonicParsing="false" onAction="#bikesSelected" style="-fx-background-color: #439fd9;"
-              text="Rent a Bike" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
-      <Button cache="true" mnemonicParsing="false" onAction="#foodsSelected" style="-fx-background-color: #439fd9;"
-              text="Order Food" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-      <Button mnemonicParsing="false" onAction="#roomsSelected" style="-fx-background-color: #439fd9;"
-              text="To main Scene" textFill="WHITE" GridPane.columnIndex="1"/>
-      <Button mnemonicParsing="false" text="My reservations"/>
+      <Button mnemonicParsing="false" onAction="#roomsSelected" style="-fx-background-color: #439fd9;" text="Book a Room" textFill="WHITE" GridPane.rowIndex="2" />
+      <Button mnemonicParsing="false" onAction="#bikesSelected" style="-fx-background-color: #439fd9;" text="Rent a Bike" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+      <Button cache="true" mnemonicParsing="false" onAction="#foodsSelected" style="-fx-background-color: #439fd9;" text="Order Food" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <Button mnemonicParsing="false" onAction="#roomsSelected" style="-fx-background-color: #439fd9;" text="To main Scene" textFill="WHITE" GridPane.columnIndex="1" />
+      <Button mnemonicParsing="false" text="My reservations" />
    </GridPane>
 </AnchorPane>
