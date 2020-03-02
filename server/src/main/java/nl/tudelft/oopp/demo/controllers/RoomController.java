@@ -98,7 +98,7 @@ public class RoomController {
             case "faculty":
                 room.setFaculty(value);
                 break;
-            case "facultySpecific":
+            case "facultyspecific":
                 room.setFacultySpecific(Boolean.parseBoolean(value));
                 break;
             case "screen":
@@ -107,16 +107,16 @@ public class RoomController {
             case "projector":
                 room.setProjector(Boolean.parseBoolean(value));
                 break;
-            case "buildingId":
-                int buildingId = Integer.parseInt(value);
-                Optional<Building> optionalBuilding = buildingRepository.findById(buildingId);
+            case "buildingid":
+                int buildingid = Integer.parseInt(value);
+                Optional<Building> optionalBuilding = buildingRepository.findById(buildingid);
                 if (optionalBuilding.isEmpty()) {
-                    return "Could not find building with id " + buildingId + "!";
+                    return "Could not find building with id " + buildingid + "!";
                 }
                 Building building = optionalBuilding.get();
                 room.setBuilding(building);
                 break;
-            case "nrPeople":
+            case "amountofpeople":
                 room.setNrPeople(Integer.parseInt(value));
                 break;
             case "plugs":

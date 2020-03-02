@@ -47,24 +47,13 @@ public class DatabaseRoomController implements Initializable {
     }
 
     /**
-     * Handles clicking the add button.
-     */
-    public void addRoomButtonClicked() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("A new building has been added!");
-        alert.setHeaderText(null);
-        alert.setContentText(ServerCommunication.postBuilding());
-        alert.showAndWait();
-    }
-
-    /**
      * Handles clicking the list button.
      */
     public void roomBuildingsButtonClicked() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("All buildings:");
         alert.setHeaderText(null);
-        alert.setContentText(ServerCommunication.getBuilding());
+        alert.setContentText(ServerCommunication.getRooms());
         alert.showAndWait();
     }
 
@@ -103,7 +92,7 @@ public class DatabaseRoomController implements Initializable {
      */
     public void updateRoomButtonClicked() {
         int id = Integer.parseInt(roomFindByIdUpdateField.getText());
-        String attribute = updateChoiceBox.getValue().replaceAll(" ","");
+        String attribute = updateChoiceBox.getValue().replaceAll(" ","").toLowerCase();
         String changeValue = roomChangeToField.getText();
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Building remover");
