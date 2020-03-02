@@ -22,7 +22,7 @@ public class MainMenuController {
     @SuppressWarnings({"checkstyle:MethodParamPad", "CheckStyle"})
     public void foodsSelsected(ActionEvent event) throws IOException {
         Parent roomSelectParent = FXMLLoader.load(getClass().getResource("/mainScene.fxml"));
-        Scene roomSelectScene = new Scene (roomSelectParent);
+        Scene roomSelectScene = new Scene(roomSelectParent);
 
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(roomSelectScene);
@@ -35,7 +35,7 @@ public class MainMenuController {
     @SuppressWarnings({"checkstyle:MethodParamPad", "CheckStyle"})
     public void bikesSelected(ActionEvent event) throws IOException {
         Parent roomSelectParent = FXMLLoader.load(getClass().getResource("/mainScene.fxml"));
-        Scene roomSelectScene = new Scene (roomSelectParent);
+        Scene roomSelectScene = new Scene(roomSelectParent);
 
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(roomSelectScene);
@@ -48,7 +48,7 @@ public class MainMenuController {
     @SuppressWarnings({"checkstyle:MethodParamPad", "checkstyle:EmptyLineSeparator", "CheckStyle"})
     public void roomsSelected(ActionEvent event) throws IOException {
         Parent roomSelectParent = FXMLLoader.load(getClass().getResource("/bookRoom.fxml"));
-        Scene roomSelectScene = new Scene (roomSelectParent);
+        Scene roomSelectScene = new Scene(roomSelectParent);
 
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(roomSelectScene);
