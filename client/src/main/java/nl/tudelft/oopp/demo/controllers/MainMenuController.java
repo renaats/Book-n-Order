@@ -68,12 +68,15 @@ public class MainMenuController {
         ApplicationDisplay.changeScene("/myAccountScene.fxml");
     }
 
-    public void bikesSelected1(ActionEvent actionEvent) {
+    public void bikesSelected1(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/Bike reservations.fxml");
     }
 
-    public void roomsSelected1(ActionEvent actionEvent) {
+    public void roomsSelected1(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/Bike reservations.fxml");
     }
 
-    public void foodsSelected1(ActionEvent actionEvent) {
+    public void foodsSelected1(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/Bike reservations.fxml");
     }
 }
