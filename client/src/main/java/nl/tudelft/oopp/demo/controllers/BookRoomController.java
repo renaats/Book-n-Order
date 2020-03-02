@@ -9,8 +9,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 
-
-
 public class BookRoomController implements Initializable {
 
     final ObservableList list = FXCollections.observableArrayList();
@@ -26,7 +24,7 @@ public class BookRoomController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        loadData();
+        loadRoomData();
     }
 
     @FXML
@@ -42,7 +40,7 @@ public class BookRoomController implements Initializable {
     /**
      * Adds the items to the choice boxes
      */
-    public void loadData() {
+    public void loadRoomData() {
         list.removeAll(list);
         lisT.removeAll(lisT);
         String a = "1";
