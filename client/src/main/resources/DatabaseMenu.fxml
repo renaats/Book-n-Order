@@ -23,8 +23,8 @@
             <Menu mnemonicParsing="false" text="Home" />
               <Menu mnemonicParsing="false" text="Edit">
             <items>
-               <MenuItem fx:id="menuBuildings" mnemonicParsing="false" text="Buildings" onAction="#DatabaseBuildingMenu"/>
-               <MenuItem fx:id="menuRooms" mnemonicParsing="false" text="Rooms" onAction="#DatabaseRoomMenu"/>
+               <MenuItem fx:id="menuBuildings" mnemonicParsing="false" text="Buildings" onAction="#databaseBuildingMenu"/>
+               <MenuItem fx:id="menuRooms" mnemonicParsing="false" text="Rooms" onAction="#databaseRoomMenu"/>
             </items></Menu>
           </MenuBar>
             <ImageView fitHeight="26.0" fitWidth="112.0" layoutX="35.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="45.0">

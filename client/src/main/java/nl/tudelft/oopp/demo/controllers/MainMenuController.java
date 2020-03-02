@@ -1,11 +1,10 @@
 package nl.tudelft.oopp.demo.controllers;
 
-import javafx.fxml.Initializable;
-import nl.tudelft.oopp.demo.views.ApplicationDisplay;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.Initializable;
+import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 public class MainMenuController implements Initializable {
 
@@ -24,7 +23,7 @@ public class MainMenuController implements Initializable {
 
     /**
      * Changes to myCurrentBookings.fxml.
-     * @throws IOException
+     * @throws IOException input will not be wrong, hence we throw.
      */
     public void myCurrentBookings() throws IOException {
         ApplicationDisplay.changeScene("/myCurrentBookings.fxml");
@@ -32,7 +31,7 @@ public class MainMenuController implements Initializable {
 
     /**
      * Changes to myPreviousBookings.fxml.
-     * @throws IOException
+     * @throws IOException input will not be wrong, hence we throw.
      */
     public void myPreviousBookings() throws IOException {
         ApplicationDisplay.changeScene("/myPreviousBookings.fxml");

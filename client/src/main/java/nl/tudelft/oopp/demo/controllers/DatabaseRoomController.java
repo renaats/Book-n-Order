@@ -1,5 +1,9 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -9,10 +13,6 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
-
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class DatabaseRoomController implements Initializable {
 
@@ -72,7 +72,7 @@ public class DatabaseRoomController implements Initializable {
      * Changes to mainScene.fxml.
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
-    public void DatabaseBuildingMenu() throws IOException {
+    public void databaseBuildingMenu() throws IOException {
         loadDataUpdateChoiceBox();
         ApplicationDisplay.changeScene("/DatabaseMenu.fxml");
     }
@@ -81,7 +81,7 @@ public class DatabaseRoomController implements Initializable {
      * Changes to mainScene.fxml.
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
-    public void DatabaseRoomMenu() throws IOException {
+    public void databaseRoomMenu() throws IOException {
         loadDataUpdateChoiceBox();
         ApplicationDisplay.changeScene("/DatabaseRoomMenu.fxml");
     }

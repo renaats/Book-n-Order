@@ -156,6 +156,11 @@ public class ServerCommunication {
         return response.body();
     }
 
+    /**
+     * Finds a room
+     * @param roomId the id of the room
+     * @return body of the message
+     */
     public static String findRoom(int roomId) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room/find/" + roomId)).GET().build();
         HttpResponse<String> response = null;
