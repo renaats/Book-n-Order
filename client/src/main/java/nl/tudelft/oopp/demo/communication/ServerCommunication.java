@@ -5,7 +5,6 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
-@SuppressWarnings("JavaDoc")
 public class ServerCommunication {
 
     private static final HttpClient client = HttpClient.newBuilder().build();
