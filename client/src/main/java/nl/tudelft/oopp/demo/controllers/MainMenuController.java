@@ -46,4 +46,13 @@ public class MainMenuController {
         window.setScene(roomSelectScene);
         window.show();
     }
+
+    public void myCurrentBookings(ActionEvent actionEvent) {
+    }
+
+    public void myAccountScene(ActionEvent actionEvent) {
+    }
+
+    public void myPreviousBookings(ActionEvent actionEvent) {
+    }
 }
