@@ -37,13 +37,22 @@
          <Font name="Calibri" size="11.0" />
       </font>
    </Text>
-   <VBox alignment="CENTER" layoutX="115.0" layoutY="111.0" prefHeight="341.0" prefWidth="551.0">
+   <VBox alignment="CENTER" layoutX="100.0" layoutY="120.0" prefHeight="350.0" prefWidth="600.0">
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Reseve a Bike">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font></Text>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pick-up" />
       <ChoiceBox fx:id="pick" prefWidth="150.0" />
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Time" />
       <ChoiceBox fx:id="pickUpTime" prefWidth="150.0" />
+      <ChoiceBox fx:id="pickUpTimeM" prefWidth="150.0" />
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Drop-off" />
-      <ChoiceBox fx:id="drop" prefWidth="150.0" />
+      <ChoiceBox fx:id="drop" prefWidth="148.0" />
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Time" />
       <ChoiceBox fx:id="dropOffTime" prefWidth="150.0" />
+      <ChoiceBox fx:id="dropOffTimeM" prefWidth="150.0" />
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Day" />
       <DatePicker />
       <Button mnemonicParsing="false" onAction="#reserveBike" text="Reserve" />
       <TextField fx:id="screen" />
