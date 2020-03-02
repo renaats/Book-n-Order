@@ -83,13 +83,17 @@ public class Building {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Building building = (Building) o;
-        return houseNumber == building.houseNumber &&
-                Objects.equals(name, building.name) &&
-                Objects.equals(street, building.street) &&
-                Objects.equals(rooms, building.rooms);
+        return houseNumber == building.houseNumber
+                && Objects.equals(name, building.name)
+                && Objects.equals(street, building.street)
+                && Objects.equals(rooms, building.rooms);
     }
 
 }
