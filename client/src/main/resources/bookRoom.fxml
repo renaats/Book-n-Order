@@ -44,6 +44,7 @@
 <!--                  <MenuItem mnemonicParsing="false" onAction="#myAccountScene" text="My profile" />-->
 <!--                  <MenuItem mnemonicParsing="false" onAction="#myCurrentBookings" text="My current bookings" />-->
 <!--                  <MenuItem mnemonicParsing="false" onAction="#myPreviousBookings" text="My previous bookings" />-->
+
                </items>
             </Menu>
          </menus>
