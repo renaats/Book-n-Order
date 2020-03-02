@@ -41,7 +41,6 @@ public class BookRoomController implements Initializable {
      * Adds the items to the choice boxes
      */
     public void loadRoomData() {
-
         list.removeAll(list);
         lisT.removeAll(lisT);
         String a = "1";
