@@ -110,4 +110,4 @@ public class ServerCommunication {
         }
         return response.body();
     }
-}
+}   

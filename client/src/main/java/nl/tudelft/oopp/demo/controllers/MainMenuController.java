@@ -1,50 +1,44 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import javafx.fxml.Initializable;
+import nl.tudelft.oopp.demo.views.ApplicationDisplay;
+
 import java.io.IOException;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+import java.net.URL;
+import java.util.ResourceBundle;
 
+public class MainMenuController implements Initializable {
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
 
-public class MainMenuController {
-
-    /**
-     * Handles clicking the food button.
-     */
-    public void foodsSelected(ActionEvent event) throws IOException {
-        Parent roomSelectParent = FXMLLoader.load(getClass().getResource("/orderFood.fxml"));
-        Scene roomSelectScene = new Scene(roomSelectParent);
-
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(roomSelectScene);
-        window.show();
     }
 
     /**
-     * Handles clicking the bikes button.
+     * Changes to mainScene.fxml.
+     * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
-    public void bikesSelected(ActionEvent event) throws IOException {
-        Parent roomSelectParent = FXMLLoader.load(getClass().getResource("/Bike reservations.fxml"));
-        Scene roomSelectScene = new Scene(roomSelectParent);
-
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(roomSelectScene);
-        window.show();
+    public void mainMenu() throws IOException {
+        ApplicationDisplay.changeScene("/templateScene.fxml");
     }
 
     /**
-     * Handles clicking the rooms button. Should send you to the mainScene.
+     * Changes to myCurrentBookings.fxml.
+     * @throws IOException
      */
-    public void roomsSelected(ActionEvent event) throws IOException {
-        Parent roomSelectParent = FXMLLoader.load(getClass().getResource("/mainScene.fxml"));
-        Scene roomSelectScene = new Scene(roomSelectParent);
+    public void myCurrentBookings() throws IOException {
+        ApplicationDisplay.changeScene("/myCurrentBookings.fxml");
+    }
 
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(roomSelectScene);
-        window.show();
+    /**
+     * Changes to myPreviousBookings.fxml.
+     * @throws IOException
+     */
+    public void myPreviousBookings() throws IOException {
+        ApplicationDisplay.changeScene("/myPreviousBookings.fxml");
+    }
+
+    public void myAccountScene() throws IOException {
+        ApplicationDisplay.changeScene("/myAccountScene.fxml");
     }
 }

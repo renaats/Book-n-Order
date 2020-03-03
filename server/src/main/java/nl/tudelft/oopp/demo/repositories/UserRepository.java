@@ -1,7 +1,10 @@
-
 package nl.tudelft.oopp.demo.repositories;
 
-import nl.tudelft.oopp.demo.entities.Quote;
+import nl.tudelft.oopp.demo.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface UserRepository extends JpaRepository<Quote, Long> {}
+@Repository
+public interface UserRepository extends JpaRepository<User, String> {
+    User findByEmail(String email);
+}
