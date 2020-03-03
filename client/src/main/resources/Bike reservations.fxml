@@ -9,9 +9,9 @@
             fx:controller="nl.tudelft.oopp.demo.controllers.BikeReservationController">
    <VBox alignment="CENTER" layoutX="106.0" layoutY="14.0" prefHeight="226.0" prefWidth="289.0">
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pick-up"/>
-      <ChoiceBox fx:id="Pick" prefWidth="150.0"/>
+      <ChoiceBox fx:id="pick" prefWidth="150.0"/>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Drop-off"/>
-      <ChoiceBox fx:id="Drop" prefWidth="150.0"/>
+      <ChoiceBox fx:id="drop" prefWidth="150.0"/>
       <DatePicker/>
       <Button mnemonicParsing="false" onAction="#reserveBike" text="Reserve"/>
       <TextField fx:id="screen"/>
