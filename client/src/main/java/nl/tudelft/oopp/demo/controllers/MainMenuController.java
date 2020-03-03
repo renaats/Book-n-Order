@@ -47,10 +47,10 @@ public class MainMenuController {
         window.setScene(roomSelectScene);
         window.show();
     }
+
     /**
      * Handles clicking the rooms button. Should send you to the mainScene.
      */
-
     public void roomsSelected(ActionEvent event) throws IOException {
         Parent roomSelectParent = FXMLLoader.load(getClass().getResource("/bookRoom.fxml"));
         Scene roomSelectScene = new Scene(roomSelectParent);
