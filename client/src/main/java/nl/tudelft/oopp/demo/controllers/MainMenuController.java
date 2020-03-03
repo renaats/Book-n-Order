@@ -85,7 +85,7 @@ public class MainMenuController {
     }
 
     public void roomsSelected1(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/bikeReservations.fxml");
+        ApplicationDisplay.changeScene("/bookRoom.fxml");
     }
 
     public void foodsSelected1(ActionEvent actionEvent) throws IOException {

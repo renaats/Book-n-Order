@@ -21,7 +21,7 @@ public class MainSceneController {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Quote for you");
         alert.setHeaderText(null);
-        alert.setContentText(ServerCommunication.getQuote());
+        //alert.setContentText(ServerCommunication.getQuote());
         alert.showAndWait();
     }
 
@@ -43,7 +43,7 @@ public class MainSceneController {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("A new building has been added!");
         alert.setHeaderText(null);
-        alert.setContentText(ServerCommunication.postBuilding());
+        //alert.setContentText(ServerCommunication.postBuilding());
         alert.showAndWait();
     }
 
@@ -54,7 +54,7 @@ public class MainSceneController {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("All buildings:");
         alert.setHeaderText(null);
-        alert.setContentText(ServerCommunication.getBuilding());
+        //alert.setContentText(ServerCommunication.getBuilding());
         alert.showAndWait();
     }
 
