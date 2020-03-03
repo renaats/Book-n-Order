@@ -77,7 +77,7 @@ public class BuildingController {
      */
     @PostMapping(path = "/update")
     @ResponseBody
-    public String updateBuildingName(@RequestParam int id, @RequestParam String attribute, @RequestParam String value) {
+    public String updateBuilding(@RequestParam int id, @RequestParam String attribute, @RequestParam String value) {
         if (!buildingRepository.existsById(id)) {
             return "Building with ID: " + id + " Does not exist!";
         }

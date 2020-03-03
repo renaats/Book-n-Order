@@ -1,11 +1,10 @@
 package nl.tudelft.oopp.demo.controllers;
 
-import nl.tudelft.oopp.demo.entities.Building;
-import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.entities.User;
 import nl.tudelft.oopp.demo.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -56,9 +55,9 @@ public class UserController {
      * @param email = the email of the account
      * @return String to see if your request passed
      */
-    @PostMapping(path = "/delete")
+    @DeleteMapping(path = "/delete")
     @ResponseBody
-    public String deleteAccount(@RequestParam String email) {
+    public String deleteUser(@RequestParam String email) {
         if (!userRepository.existsById(email)) {
             return "The account with email " + email + " does not exist!";
         }
