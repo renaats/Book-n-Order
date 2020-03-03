@@ -6,6 +6,7 @@ import nl.tudelft.oopp.demo.entities.User;
 import nl.tudelft.oopp.demo.repositories.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,7 +43,7 @@ public class RoleController {
      * @param id = the id of the role
      * @return String to see if your request passed
      */
-    @PostMapping(path = "/delete")
+    @DeleteMapping(path = "/delete")
     @ResponseBody
     public String deleteRole(@RequestParam int id) {
         if (!roleRepository.existsById(id)) {

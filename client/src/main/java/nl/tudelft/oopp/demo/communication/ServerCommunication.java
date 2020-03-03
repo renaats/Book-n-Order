@@ -10,26 +10,6 @@ public class ServerCommunication {
     private static final HttpClient client = HttpClient.newBuilder().build();
 
     /**
-     * Retrieves a quote from the server.
-     * @return the body of a get request to the server.
-     * @throws Exception if communication with the server fails.
-     */
-    public static String getQuote() {
-        HttpRequest request = HttpRequest.newBuilder().GET().uri(URI.create("http://localhost:8080/quote")).build();
-        HttpResponse<String> response;
-        try {
-            response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "Communication with server failed";
-        }
-        if (response.statusCode() != 200) {
-            System.out.println("Status: " + response.statusCode());
-        }
-        return response.body();
-    }
-
-    /**
      * Retrieves a user from the server.
      * @return the body of a get request to the server.
      * @throws Exception if communication with the server fails.
@@ -50,13 +30,13 @@ public class ServerCommunication {
     }
 
     /**
-     * Adds a building to the database.
+     * Retrieves all buildings from the server.
      * @return the body of a get request to the server.
      * @throws Exception if communication with the server fails.
      */
-    public static String postBuilding() {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/demo/add?name=EWI&email=ewi@tudelft.nl")).POST(HttpRequest.BodyPublishers.noBody()).build();
-        HttpResponse<String> response;
+    public static String getBuildings() {
+        HttpRequest request = HttpRequest.newBuilder().GET().uri(URI.create("http://localhost:8080/building/all")).build();
+        HttpResponse<String> response = null;
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
         } catch (Exception e) {
@@ -64,7 +44,6 @@ public class ServerCommunication {
             return "Communication with server failed";
         }
         if (response.statusCode() != 200) {
-            System.out.println(response.body());
             System.out.println("Status: " + response.statusCode());
         }
         return response.body();
@@ -75,8 +54,8 @@ public class ServerCommunication {
      * @return the body of a get request to the server.
      * @throws Exception if communication with the server fails.
      */
-    public static String getBuilding() {
-        HttpRequest request = HttpRequest.newBuilder().GET().uri(URI.create("http://localhost:8080/building/all")).build();
+    public static String getRooms() {
+        HttpRequest request = HttpRequest.newBuilder().GET().uri(URI.create("http://localhost:8080/room/all")).build();
         HttpResponse<String> response = null;
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
