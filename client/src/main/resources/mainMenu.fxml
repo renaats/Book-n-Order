@@ -41,7 +41,7 @@
       </font>
    </Text>
    <Accordion layoutX="76.0" layoutY="144.0" />
-   <GridPane alignment="CENTER" layoutX="83.0" layoutY="164.0" prefHeight="271.0" prefWidth="658.0">
+   <GridPane alignment="CENTER" layoutX="83.0" layoutY="164.0" prefHeight="271.0" prefWidth="658.0" AnchorPane.leftAnchor="65.0" AnchorPane.rightAnchor="65.0">
       <columnConstraints>
          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
