@@ -26,11 +26,11 @@
             <Menu mnemonicParsing="false" text="Home" />
               <Menu mnemonicParsing="false" text="Edit">
             <items>
-               <MenuItem fx:id="menuBuildings" mnemonicParsing="false" text="Buildings" onAction="#databaseBuildingMenu"/>
-               <MenuItem fx:id="menuRooms" mnemonicParsing="false" text="Rooms" onAction="#databaseRoomMenu"/>
+               <MenuItem fx:id="menuBuildings" mnemonicParsing="false" onAction="#databaseBuildingMenu" text="Buildings" />
+               <MenuItem fx:id="menuRooms" mnemonicParsing="false" onAction="#databaseRoomMenu" text="Rooms" />
             </items></Menu>
           </MenuBar>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00a6d6" height="63.0" layoutX="-1.0" layoutY="343.0" stroke="#00a6d6" strokeType="INSIDE" width="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+            <Rectangle fill="#00a6d6" height="63.0" layoutX="-1.0" layoutY="343.0" stroke="#00a6d6" strokeType="INSIDE" width="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
             <Text fill="WHITE" layoutX="26.0" layoutY="387.0" strokeType="OUTSIDE" strokeWidth="0.0" text="© 2020 TU Delft. All rights reserved." AnchorPane.bottomAnchor="20.0">
                <font>
                   <Font name="Calibri" size="10.0" />
