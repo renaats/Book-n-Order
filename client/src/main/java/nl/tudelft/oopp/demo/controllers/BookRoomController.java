@@ -54,12 +54,12 @@ public class BookRoomController implements Initializable {
         list.addAll(none,a,b,c);
         roomDropDown.getItems().addAll(list);
 
-
         String building1 = "building1";
         String building2 = "building2";
         String building3 = "building3";
         listOfBuildings.addAll(none,building1,building2,building3);
         buildingList.getItems().addAll(listOfBuildings);
+
         lisT.add(none);
 
         for (int i = 0; i < 24; i++) {

@@ -1,7 +1,6 @@
 package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
-import java.net.URL;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -28,6 +27,7 @@ public class MainMenuController {
     /**
      * Handles clicking the bikes button.
      */
+    @SuppressWarnings({"checkstyle:MethodParamPad", "CheckStyle"})
     public void bikesSelected(ActionEvent event) throws IOException {
         Parent roomSelectParent = FXMLLoader.load(getClass().getResource("/bikeReservations.fxml"));
         Scene roomSelectScene = new Scene(roomSelectParent);
@@ -41,7 +41,6 @@ public class MainMenuController {
      * Handles clicking the rooms button. Should send you to the mainScene.
      */
 
-    @SuppressWarnings({"checkstyle:MethodParamPad", "checkstyle:EmptyLineSeparator", "CheckStyle"})
     public void roomsSelected(ActionEvent event) throws IOException {
         Parent roomSelectParent = FXMLLoader.load(getClass().getResource("/bookRoom.fxml"));
         Scene roomSelectScene = new Scene(roomSelectParent);
