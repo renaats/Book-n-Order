@@ -1,13 +1,14 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import java.io.IOException;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
-import java.io.IOException;
+
 
 public class MyAccountController {
     /**
      * Changes to myAccountScene.fxml.
-     * @throws IOException
+     * @throws IOException Description pending.
      */
     public void myAccountScene() throws IOException {
         ApplicationDisplay.changeScene("/myAccountScene.fxml");
@@ -15,7 +16,7 @@ public class MyAccountController {
 
     /**
      * Changes to myCurrentBookings.fxml.
-     * @throws IOException
+     * @throws IOException Description pending.
      */
     public void myCurrentBookings() throws IOException {
         ApplicationDisplay.changeScene("/myCurrentBookings.fxml");
@@ -23,7 +24,7 @@ public class MyAccountController {
 
     /**
      * Changes to myPreviousBookings.fxml.
-     * @throws IOException
+     * @throws IOException Description pending.
      */
     public void myPreviousBookings() throws IOException {
         ApplicationDisplay.changeScene("/myPreviousBookings.fxml");

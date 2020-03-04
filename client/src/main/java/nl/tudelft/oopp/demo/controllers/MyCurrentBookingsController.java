@@ -1,13 +1,13 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import java.io.IOException;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
-import java.io.IOException;
 
 public class MyCurrentBookingsController {
     /**
      * Changes to myAccountScene.fxml.
-     * @throws IOException
+     * @throws IOException Description pending.
      */
     public void myAccountScene() throws IOException {
         ApplicationDisplay.changeScene("/myAccountScene.fxml");
@@ -15,7 +15,7 @@ public class MyCurrentBookingsController {
 
     /**
      * Changes to myCurrentBookings.fxml.
-     * @throws IOException
+     * @throws IOException Description pending.
      */
     public void myCurrentBookings() throws IOException {
         ApplicationDisplay.changeScene("/myCurrentBookings.fxml");
@@ -23,7 +23,7 @@ public class MyCurrentBookingsController {
 
     /**
      * Changes to myPreviousBookings.fxml.
-     * @throws IOException
+     * @throws IOException Description pending.
      */
     public void myPreviousBookings() throws IOException {
         ApplicationDisplay.changeScene("/myPreviousBookings.fxml");
@@ -31,7 +31,7 @@ public class MyCurrentBookingsController {
 
     /**
      * Changes to myCurrentBikeReservations.fxml.
-     * @throws IOException
+     * @throws IOException Description pending.
      */
     public void myCurrentBikeReservations() throws IOException {
         ApplicationDisplay.changeScene("/myCurrentBikeReservations.fxml");
@@ -39,7 +39,7 @@ public class MyCurrentBookingsController {
 
     /**
      * Changes to myCurrentRoomBookings.fxml.
-     * @throws IOException
+     * @throws IOException Description pending.
      */
     public void myCurrentRoomBookings() throws IOException {
         ApplicationDisplay.changeScene("/myCurrentRoomBookings.fxml");
@@ -47,7 +47,7 @@ public class MyCurrentBookingsController {
 
     /**
      * Changes to myCurrentFoodOrders.fxml.
-     * @throws IOException
+     * @throws IOException Description pending.
      */
     public void myCurrentFoodOrders() throws IOException {
         ApplicationDisplay.changeScene("/myCurrentFoodOrders.fxml");
