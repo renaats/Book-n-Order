@@ -69,8 +69,8 @@ public class Building {
 
     /**
      * Checks if this building has a room with the specified name.
-     * @param name = the name of the room
-     * @return a boolean whether this building has the specified room
+     * @param name = the name of the room.
+     * @return true if this building contains the specified room, false otherwise.
      */
     public boolean hasRoomWithName(String name) {
         for (Room room: rooms) {

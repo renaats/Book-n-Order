@@ -126,9 +126,9 @@ public class Room {
 
     /**
      * Checks if this room has a reservation between the specified times.
-     * @param fromTime = the starting time
-     * @param toTime = the ending time
-     * @return a boolean whether this room has a reservation between these times
+     * @param fromTime = the starting time.
+     * @param toTime = the ending time.
+     * @return true if this room has a reservation between these times, false otherwise.
      */
     public boolean hasRoomReservationBetween(Date fromTime, Date toTime) {
         for (RoomReservation roomReservation: roomReservations) {

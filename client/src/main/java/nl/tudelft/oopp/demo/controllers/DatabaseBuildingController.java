@@ -35,7 +35,7 @@ public class DatabaseBuildingController implements Initializable {
     }
 
     /**
-     * Handles clicking the building find button.
+     * Handles clicking of the Find Building button.
      */
     public void building_id_ButtonClicked() {
         int id = Integer.parseInt(buildingFindByIdTextField.getText());
@@ -47,7 +47,7 @@ public class DatabaseBuildingController implements Initializable {
     }
 
     /**
-     * Handles clicking the list button.
+     * Handles clicking of the List All Buildings button.
      */
     public void listBuildingsButtonClicked() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -58,7 +58,7 @@ public class DatabaseBuildingController implements Initializable {
     }
 
     /**
-     * Changes to mainScene.fxml.
+     * Changes current scene to mainScene.fxml.
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
     public void databaseBuildingMenu() throws IOException {
@@ -67,7 +67,7 @@ public class DatabaseBuildingController implements Initializable {
     }
 
     /**
-     * Changes to mainScene.fxml.
+     * Changes current scene to mainScene.fxml.
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
     public void databaseRoomMenu() throws IOException {
@@ -76,7 +76,7 @@ public class DatabaseBuildingController implements Initializable {
     }
 
     /**
-     * Handles clicking the remove button.
+     * Handles clicking of the Remove Building button.
      */
     public void deleteBuildingButtonClicked() {
         int id = Integer.parseInt(buildingDeleteByIdTextField.getText());
@@ -88,7 +88,7 @@ public class DatabaseBuildingController implements Initializable {
     }
 
     /**
-     * Handles the sending of update values.
+     * Handles the sending of updated values.
      */
     public void updateBuildingButtonClicked() {
         int id = Integer.parseInt(buildingFindByIdUpdateField.getText());

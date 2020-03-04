@@ -14,7 +14,7 @@ public class MainMenuController implements Initializable {
     }
 
     /**
-     * Changes to templateScene.fxml.
+     * Changes current scene to templateScene.fxml.
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
     public void mainMenu() throws IOException {
@@ -22,7 +22,7 @@ public class MainMenuController implements Initializable {
     }
 
     /**
-     * Changes to myCurrentBookings.fxml.
+     * Changes current scene to myCurrentBookings.fxml.
      * @throws IOException input will not be wrong, hence we throw.
      */
     public void myCurrentBookings() throws IOException {
@@ -30,13 +30,17 @@ public class MainMenuController implements Initializable {
     }
 
     /**
-     * Changes to myPreviousBookings.fxml.
+     * Changes current scene to myPreviousBookings.fxml.
      * @throws IOException input will not be wrong, hence we throw.
      */
     public void myPreviousBookings() throws IOException {
         ApplicationDisplay.changeScene("/myPreviousBookings.fxml");
     }
 
+    /**
+     * Changes current scene to myAccountScene.fxml.
+     * @throws IOException input will not be wrong, hence we throw.
+     */
     public void myAccountScene() throws IOException {
         ApplicationDisplay.changeScene("/myAccountScene.fxml");
     }

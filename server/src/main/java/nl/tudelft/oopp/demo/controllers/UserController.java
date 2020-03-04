@@ -21,9 +21,9 @@ public class UserController {
     private UserRepository userRepository;
 
     /**
-     * Adds a user.
-     * @param name = the name of the user
-     * @return String to see if your request passed
+     * Adds a user to the database.
+     * @param name = the name of the new user.
+     * @return String containing the result of your request.
      */
     @PostMapping(path = "/add") // Map ONLY POST Requests
     @ResponseBody
@@ -51,9 +51,9 @@ public class UserController {
     }
 
     /**
-     * Deletes an account.
-     * @param email = the email of the account
-     * @return String to see if your request passed
+     * Deletes an account from the database.
+     * @param email = the email of the account to be deleted.
+     * @return String containing the result of your request.
      */
     @DeleteMapping(path = "/delete")
     @ResponseBody
@@ -66,11 +66,11 @@ public class UserController {
     }
 
     /**
-     * Updates a specified attribute for some user.
-     * @param email = the email of the user
-     * @param attribute = the attribute that is changed
-     * @param value = the new value of the attribute
-     * @return String to see if your request passed
+     * Updates a specified attribute for given user.
+     * @param email = the email address of the user.
+     * @param attribute = the attribute whose value is to be changed.
+     * @param value = the new value of the attribute.
+     * @return String containing the result of your request.
      */
     @PostMapping(path = "/update")
     @ResponseBody
@@ -104,9 +104,9 @@ public class UserController {
     }
 
     /**
-     * Lists all accounts.
+     * Lists all accounts in the database.
      * Should be removed for the finished version!
-     * @return all accounts
+     * @return Iterable of all accounts.
      */
     @GetMapping(path = "/all")
     @ResponseBody
@@ -116,8 +116,8 @@ public class UserController {
     }
 
     /**
-     * Finds an account by its email.
-     * @return an account that has the specified email or null if no such account exists
+     * Retrieves an account given its email.
+     * @return User with the specified email, or null if no such account exists.
      */
     @GetMapping(path = "/find")
     @ResponseBody

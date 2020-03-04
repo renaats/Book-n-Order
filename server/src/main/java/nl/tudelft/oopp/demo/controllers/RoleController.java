@@ -23,10 +23,10 @@ public class RoleController {
     private RoleRepository roleRepository;
 
     /**
-     * Adds a role.
-     * @param name = the name of the role
-     * @param users = the users of this role
-     * @return String to see if your request passed
+     * Adds a role to the database.
+     * @param name = the name of the new role.
+     * @param users = the users to which this role is assigned.
+     * @return String containing the result of your request.
      */
     @PostMapping(path = "/add")
     @ResponseBody
@@ -39,9 +39,9 @@ public class RoleController {
     }
 
     /**
-     * Deletes a role.
-     * @param id = the id of the role
-     * @return String to see if your request passed
+     * Deletes a role from the database.
+     * @param id = the id of the role to be deleted.
+     * @return String containing the result of your request.
      */
     @DeleteMapping(path = "/delete")
     @ResponseBody
@@ -54,10 +54,10 @@ public class RoleController {
     }
 
     /**
-     * Updates a role name.
-     * @param id = the role id
-     * @param name = The role name
-     * @return message if it passes
+     * Updates a the name of a role.
+     * @param id = the role id.
+     * @param name = new name.
+     * @return String containing the result of your request.
      */
     @PostMapping(path = "/update_name")
     @ResponseBody
@@ -70,10 +70,10 @@ public class RoleController {
     }
 
     /**
-     * Updates a role users.
-     * @param id = the role id
-     * @param users = The role users
-     * @return message if it passes
+     * Updates a the users of a role,
+     * @param id = the role id.
+     * @param users = The new set of users of the role.
+     * @return String containing the result of your request.
      */
     @PostMapping(path = "/update_users")
     @ResponseBody
@@ -86,8 +86,8 @@ public class RoleController {
     }
 
     /**
-     * Lists all roles.
-     * @return all roles
+     * Lists all roles in the database.
+     * @return An Iterable of all roles.
      */
     @GetMapping(path = "/all")
     @ResponseBody

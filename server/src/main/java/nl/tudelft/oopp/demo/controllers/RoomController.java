@@ -31,16 +31,16 @@ public class RoomController {
     private BuildingRepository buildingRepository;
 
     /**
-     * Adds a room.
-     * @param name = the name of the room
-     * @param faculty = the name of the faculty
-     * @param buildingId = the id of the building of the room
-     * @param facultySpecific = boolean representing room restrictions
-     * @param screen = boolean representing the availability of a screen
-     * @param projector = boolean representing the availability of a projector
-     * @param nrPeople = the number of people this room fits
-     * @param plugs = the number of plugs in this room
-     * @return String to see if your request passed
+     * Adds a room to the database.
+     * @param name = the name of the new room.
+     * @param faculty = the name of the faculty.
+     * @param buildingId = the id of the building of the room.
+     * @param facultySpecific = boolean representing room restrictions.
+     * @param screen = boolean representing the availability of a screen.
+     * @param projector = boolean representing the availability of a projector.
+     * @param nrPeople = the number of people this room fits.
+     * @param plugs = the number of plugs in this room.
+     * @return String containing the result of your request.
      */
     @PostMapping(path = "/add") // Map ONLY POST Requests
     @ResponseBody
@@ -77,11 +77,11 @@ public class RoomController {
     }
 
     /**
-     * Updates a specified attribute for some room.
-     * @param id = the id of the room
-     * @param attribute = the attribute that is changed
-     * @param value = the new value of the attribute
-     * @return String to see if your request passed
+     * Updates a specified attribute for given room.
+     * @param id = the id of the room.
+     * @param attribute = the attribute that is to be changed.
+     * @param value = the new value of the attribute.
+     * @return String containing the result of your request.
      */
     @PostMapping(path = "/update")
     @ResponseBody
@@ -132,8 +132,8 @@ public class RoomController {
 
     /**
      * Deletes a room.
-     * @param id = the id of the room
-     * @return String to see if your request passed
+     * @param id = the id of the room to be deleted.
+     * @return String containing the result of your request.
      */
     @DeleteMapping(path = "/delete/{roomID}")
     @ResponseBody
@@ -147,7 +147,7 @@ public class RoomController {
 
     /**
      * Lists all rooms.
-     * @return all rooms
+     * @return Iterable of all rooms.
      */
     @GetMapping(path = "/all")
     @ResponseBody
@@ -156,9 +156,9 @@ public class RoomController {
     }
 
     /**
-     * Finds a room with the specified id.
-     * @param roomId = the room id
-     * @return a room that matches the id
+     * Retrieves a room with the specified id.
+     * @param roomId = the room id.
+     * @return Room that matches the id.
      */
     @GetMapping(path = "/find/{roomId}")
     @ResponseBody
@@ -167,9 +167,9 @@ public class RoomController {
     }
 
     /**
-     * Finds all room reservations for the room with the specified id.
-     * @param roomId = the room id
-     * @return all room reservation for the room that matches the id
+     * Retrieves all room reservations for the room with the specified id.
+     * @param roomId = the room id.
+     * @return Set of all room reservations for the room that matches the id.
      */
     @GetMapping(path = "/reservations/{roomId}")
     @ResponseBody

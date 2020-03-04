@@ -36,11 +36,11 @@ public class RoomReservationController {
 
     /**
      * Adds a room reservation.
-     * @param roomId = the id of the room associated to the reservation
-     * @param userEmail = the email of the user associated to the reservation
-     * @param fromTimeMs = the starting time of the reservation
-     * @param toTimeMs = the ending time of the reservation
-     * @return String to see if your request passed
+     * @param roomId = the id of the room associated to the reservation.
+     * @param userEmail = the email of the user associated to the reservation.
+     * @param fromTimeMs = the starting time of the reservation.
+     * @param toTimeMs = the ending time of the reservation.
+     * @return String containing the result of your request.
      */
     @PostMapping(path = "/add") // Map ONLY POST Requests
     @ResponseBody
@@ -78,10 +78,10 @@ public class RoomReservationController {
 
     /**
      * Updates a specified attribute for some room reservation.
-     * @param id = the id of the room reservation
-     * @param attribute = the attribute that is changed
-     * @param value = the new value of the attribute
-     * @return String to see if your request passed
+     * @param id = the id of the room reservation.
+     * @param attribute = the attribute whose value is changed.
+     * @param value = the new value of the attribute.
+     * @return String containing the result of your request.
      */
     @PostMapping(path = "/update")
     @ResponseBody
@@ -125,8 +125,8 @@ public class RoomReservationController {
 
     /**
      * Deletes a room reservation.
-     * @param id = the id of the room reservation
-     * @return String to see if your request passed
+     * @param id = the id of the room reservation.
+     * @return String containing the result of your request.
      */
     @DeleteMapping(path = "/delete")
     @ResponseBody
@@ -140,7 +140,7 @@ public class RoomReservationController {
 
     /**
      * Lists all room reservations.
-     * @return all room reservations
+     * @return Iterable of all room reservations.
      */
     @GetMapping(path = "/all")
     @ResponseBody

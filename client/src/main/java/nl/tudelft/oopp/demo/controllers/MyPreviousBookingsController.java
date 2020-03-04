@@ -5,7 +5,7 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 public class MyPreviousBookingsController {
     /**
-     * Changes to myAccountScene.fxml.
+     * Changes current scene to myAccountScene.fxml.
      * @throws IOException will not be wrong.
      */
     public void myAccountScene() throws IOException {
@@ -13,7 +13,7 @@ public class MyPreviousBookingsController {
     }
 
     /**
-     * Changes to myCurrentBookings.fxml.
+     * Changes current scene to myCurrentBookings.fxml.
      * @throws IOException will not be wrong.
      */
     public void myCurrentBookings() throws IOException {
@@ -21,7 +21,7 @@ public class MyPreviousBookingsController {
     }
 
     /**
-     * Changes to myPreviousBookings.fxml.
+     * Changes current scene to myPreviousBookings.fxml.
      * @throws IOException input will not be invalid.
      */
     public void myPreviousBookings() throws IOException {
@@ -29,7 +29,7 @@ public class MyPreviousBookingsController {
     }
 
     /**
-     * Changes to myPreviousTenRoomBookings.fxml.
+     * Changes current scene to myPreviousTenRoomBookings.fxml.
      * @throws IOException will not be invalid.
      */
     public void myPreviousTenRoomBookings() throws IOException {
@@ -37,7 +37,7 @@ public class MyPreviousBookingsController {
     }
 
     /**
-     * Changes to myPreviousTenBikeReservations.fxml.
+     * Changes current scene to myPreviousTenBikeReservations.fxml.
      * @throws IOException will not be valid.
      */
     public void myPreviousTenBikeReservations() throws IOException {
@@ -45,7 +45,7 @@ public class MyPreviousBookingsController {
     }
 
     /**
-     * Changes to myPreviousTenFoodOrders.fxml.
+     * Changes current scene to myPreviousTenFoodOrders.fxml.
      * @throws IOException will not be valid.
      */
     public void myPreviousTenFoodOrders() throws IOException {
