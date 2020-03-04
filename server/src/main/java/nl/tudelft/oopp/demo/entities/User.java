@@ -1,45 +1,85 @@
 package nl.tudelft.oopp.demo.entities;
 
-import javax.persistence.Column;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
-@Entity
-@Table(name = "users")
+@Entity // This tells Hibernate to make a table out of this class
 public class User {
     @Id
-    @Column(name = "id")
-    private long id;
-
-    @Column(name = "name")
+    private String email;
+    private String password;
     private String name;
+    private String surname;
+    private String faculty;
+    @ManyToMany
+    private Set<Role> roles;
 
-    @Column(name = "score")
-    private int score;
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    Set<RoomReservation> roomReservations = new HashSet<>();
 
-    public User() {
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    /**
-     * Create a new Quote instance.
-     *
-     * @param id Unique identifier as to be used in the database.
-     * @param name Username of the user.
-     * @param score Score of the user.
-     */
-    public User(long id, String name, int score) {
-        this.id = id;
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setName(String name) {
         this.name = name;
-        this.score = score;
     }
 
-    public String getUser() {
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public void setFaculty(String faculty) {
+        this.faculty = faculty;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public void setRoomReservations(Set<RoomReservation> roomReservations) {
+        this.roomReservations = roomReservations;
+    }
+
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getName() {
         return name;
     }
 
-    public int getScore() {
-        return score;
+    public String getSurname() {
+        return surname;
+    }
+
+    public String getFaculty() {
+        return faculty;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public Set<RoomReservation> getRoomReservations() {
+        return roomReservations;
     }
 
     @Override
@@ -50,9 +90,14 @@ public class User {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-
         User user = (User) o;
-
-        return id == user.id;
+        return email.equals(user.email)
+                && Objects.equals(password, user.password)
+                && Objects.equals(name, user.name)
+                && Objects.equals(surname, user.surname)
+                && Objects.equals(faculty, user.faculty)
+                && Objects.equals(roles, user.roles)
+                && Objects.equals(roomReservations, user.roomReservations);
     }
+
 }
