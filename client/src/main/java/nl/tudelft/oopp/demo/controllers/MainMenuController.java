@@ -1,10 +1,7 @@
 package nl.tudelft.oopp.demo.controllers;
 
-
 import java.io.IOException;
 
-import java.io.IOException;
-import java.net.URL;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -40,7 +37,6 @@ public class MainMenuController {
     @SuppressWarnings({"checkstyle:MethodParamPad", "CheckStyle"})
     public void bikesSelected(ActionEvent event) throws IOException {
         Parent roomSelectParent = FXMLLoader.load(getClass().getResource("/bikeReservations.fxml"));
-
         Scene roomSelectScene = new Scene(roomSelectParent);
 
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
