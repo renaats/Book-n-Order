@@ -46,18 +46,21 @@ public class BookRoomController implements Initializable {
     public void loadRoomData() {
         list.removeAll(list);
         lisT.removeAll(lisT);
+        listOfBuildings.removeAll(listOfBuildings);
+        String none = "-";
         String a = "1";
         String b = "2";
         String c = "3";
-        list.addAll(a,b,c);
+        list.addAll(none,a,b,c);
         roomDropDown.getItems().addAll(list);
 
-        String none = "-";
+
         String building1 = "building1";
         String building2 = "building2";
         String building3 = "building3";
         listOfBuildings.addAll(none,building1,building2,building3);
         buildingList.getItems().addAll(listOfBuildings);
+        lisT.add(none);
 
         for (int i = 0; i < 24; i++) {
             for (int u = 0; u <= 45; u = u + 15) {
