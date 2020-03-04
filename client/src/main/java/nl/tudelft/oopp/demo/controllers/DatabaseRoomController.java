@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -62,7 +63,6 @@ public class DatabaseRoomController implements Initializable {
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
     public void databaseBuildingMenu() throws IOException {
-        loadDataUpdateChoiceBox();
         ApplicationDisplay.changeScene("/DatabaseMenu.fxml");
     }
 
@@ -71,7 +71,6 @@ public class DatabaseRoomController implements Initializable {
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
     public void databaseRoomMenu() throws IOException {
-        loadDataUpdateChoiceBox();
         ApplicationDisplay.changeScene("/DatabaseRoomMenu.fxml");
     }
 
@@ -118,4 +117,19 @@ public class DatabaseRoomController implements Initializable {
         updateChoiceBox.getItems().addAll(updateChoiceBoxList);
     }
 
+    /**
+     * Switches scene to DatabaseAddBuildings.fxml
+     * @throws IOException Input will be valid
+     */
+    public void databaseAddBuildings() throws IOException {
+        ApplicationDisplay.changeScene("/DatabaseAddBuildings.fxml");
+    }
+
+    /**
+     * Switches scene to DatabaseAddRooms.fxml
+     * @throws IOException Input will be valid
+     */
+    public void databaseAddRooms() throws IOException {
+        ApplicationDisplay.changeScene("/DatabaseAddRooms.fxml");
+    }
 }

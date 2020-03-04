@@ -28,8 +28,8 @@
       </Menu>
       <Menu mnemonicParsing="false" text="Add">
          <items>
-            <MenuItem fx:id="menuAddBuildings" mnemonicParsing="false" onAction="#databaseBuildingMenu" text="Buildings" />
-            <MenuItem fx:id="menuAddRooms" mnemonicParsing="false" onAction="#databaseRoomMenu" text="Rooms" />
+            <MenuItem fx:id="menuAddBuildings" mnemonicParsing="false" onAction="#databaseAddBuildings" text="Buildings" />
+            <MenuItem fx:id="menuAddRooms" mnemonicParsing="false" onAction="#databaseAddRooms" text="Rooms" />
          </items>
       </Menu>
        </MenuBar>

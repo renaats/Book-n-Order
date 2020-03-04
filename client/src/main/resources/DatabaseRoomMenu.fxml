@@ -9,87 +9,91 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.DatabaseRoomController">
-  <AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: white;" VBox.vgrow="ALWAYS">
-      <ImageView fitHeight="40.0" fitWidth="114.0" layoutX="15.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="5.0">
-               <Image url="@images/tudelftlogo.png" />
-            </ImageView>
-            <ImageView fitHeight="26.0" fitWidth="112.0" layoutX="35.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="45.0">
-                <Image url="@images/booknorderlogo.png" />
-            </ImageView>
-          <MenuBar layoutY="75.0" prefHeight="26.0" prefWidth="648.0" style="-fx-background-color: #00a6d6;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-            <Menu mnemonicParsing="false" text="Home" />
-              <Menu mnemonicParsing="false" text="Edit">
-            <items>
-               <MenuItem fx:id="menuBuildings" mnemonicParsing="false" onAction="#databaseBuildingMenu" text="Buildings" />
-               <MenuItem fx:id="menuRooms" mnemonicParsing="false" onAction="#databaseRoomMenu" text="Rooms" />
-            </items></Menu>
-          </MenuBar>
-            <Rectangle fill="#00a6d6" height="63.0" layoutX="-1.0" layoutY="343.0" stroke="#00a6d6" strokeType="INSIDE" width="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-            <Text fill="WHITE" layoutX="26.0" layoutY="387.0" strokeType="OUTSIDE" strokeWidth="0.0" text="© 2020 TU Delft. All rights reserved." AnchorPane.bottomAnchor="20.0">
-               <font>
-                  <Font name="Calibri" size="10.0" />
-               </font>
-            </Text>
-            <Text fill="WHITE" layoutX="26.0" layoutY="371.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback is welcome" AnchorPane.bottomAnchor="35.0" />
-      <TextField fx:id="roomFindByIdTextField" layoutX="50.0" layoutY="193.0" promptText="ID" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="193.0" />
-      <Text layoutX="340.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rooms" AnchorPane.leftAnchor="340.0">
-         <font>
-            <Font size="26.0" />
-         </font>
-      </Text>
-      <Text layoutX="49.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Find a room" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="170.0">
-         <font>
-            <Font size="17.0" />
-         </font>
-      </Text>
-      <Button fx:id="confirmFindByIdButton" layoutX="231.0" layoutY="193.0" mnemonicParsing="false" onAction="#room_id_ButtonClicked" prefHeight="26.0" prefWidth="61.0" style="-fx-background-color: #00a6d6;" text="Find" textFill="WHITE" AnchorPane.leftAnchor="231.0" AnchorPane.topAnchor="193.0" />
-      <TextField fx:id="roomDeleteByIdTextField" layoutX="50.0" layoutY="207.0" promptText="ID" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="260.0" />
-      <Text layoutX="59.0" layoutY="189.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Delete a room" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="235.0">
-         <font>
-            <Font size="17.0" />
-         </font>
-      </Text>
-      <Button fx:id="confirmDeleteByIdButton" layoutX="231.0" layoutY="260.0" mnemonicParsing="false" onAction="#deleteRoomButtonClicked" style="-fx-background-color: #00a6d6;" text="Delete" textFill="WHITE" AnchorPane.leftAnchor="231.0" AnchorPane.topAnchor="260.0" />
-      <Text layoutX="69.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Update a room" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="300.0">
-         <font>
-            <Font size="17.0" />
-         </font>
-      </Text>
-      <TextField fx:id="roomFindByIdUpdateField" layoutX="60.0" layoutY="217.0" promptText="ID" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="325.0" />
-      <Text layoutX="25.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID:" wrappingWidth="34.208984375" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="195.0">
-         <font>
-            <Font size="17.0" />
-         </font>
-      </Text>
-      <Text layoutX="25.0" layoutY="280.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID:" wrappingWidth="34.208984375" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="263.0">
-         <font>
-            <Font size="17.0" />
-         </font>
-      </Text>
-      <Text layoutX="25.0" layoutY="344.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID:" wrappingWidth="34.208984375" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="327.0">
-         <font>
-            <Font size="17.0" />
-         </font>
-      </Text>
-      <ChoiceBox fx:id="updateChoiceBox" layoutX="320.0" layoutY="324.0" prefHeight="26.0" prefWidth="119.0" style="-fx-background-color: #00a6d6;" AnchorPane.leftAnchor="320.0" />
-      <Text layoutX="231.0" layoutY="343.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Attribute:" AnchorPane.leftAnchor="231.0" AnchorPane.topAnchor="327.22021484375">
-         <font>
-            <Font size="17.0" />
-         </font>
-      </Text>
-      <Text layoutX="446.0" layoutY="343.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Change to:" AnchorPane.leftAnchor="446.0" AnchorPane.topAnchor="327.22021484375">
-         <font>
-            <Font size="17.0" />
-         </font>
-      </Text>
-      <TextField fx:id="roomChangeToField" layoutX="548.0" layoutY="325.0" AnchorPane.leftAnchor="548.0" AnchorPane.topAnchor="325.0" />
-      <Button fx:id="confirmChangeButton" layoutX="719.0" layoutY="324.0" mnemonicParsing="false" onAction="#updateRoomButtonClicked" style="-fx-background-color: #00a6d6;" text="Change" textFill="WHITE" AnchorPane.leftAnchor="725.0" AnchorPane.topAnchor="324.0" />
-      <Button fx:id="roomFindAllButton" layoutX="305.0" layoutY="193.0" mnemonicParsing="false" onAction="#roomBuildingsButtonClicked" style="-fx-background-color: #00a6d6;" text="Find all" textFill="WHITE" />
-      </AnchorPane>
-</VBox>
+<AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.DatabaseRoomController">
+   <ImageView fitHeight="40.0" fitWidth="114.0" layoutX="15.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="5.0">
+            <Image url="@images/tudelftlogo.png" />
+         </ImageView>
+         <ImageView fitHeight="26.0" fitWidth="112.0" layoutX="35.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="45.0">
+             <Image url="@images/booknorderlogo.png" />
+         </ImageView>
+       <MenuBar layoutY="75.0" prefHeight="26.0" prefWidth="648.0" style="-fx-background-color: #00a6d6;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <Menu mnemonicParsing="false" text="Home" />
+           <Menu mnemonicParsing="false" text="Edit">
+         <items>
+            <MenuItem fx:id="menuBuildings" mnemonicParsing="false" onAction="#databaseBuildingMenu" text="Buildings" />
+            <MenuItem fx:id="menuRooms" mnemonicParsing="false" onAction="#databaseRoomMenu" text="Rooms" />
+         </items>
+      </Menu>
+      <Menu mnemonicParsing="false" text="Add">
+         <items>
+            <MenuItem fx:id="menuAddBuildings" mnemonicParsing="false" onAction="#databaseAddBuildings" text="Buildings" />
+            <MenuItem fx:id="menuAddRooms" mnemonicParsing="false" onAction="#databaseAddRooms" text="Rooms" />
+         </items>
+      </Menu>
+       </MenuBar>
+         <Rectangle fill="#00a6d6" height="63.0" layoutX="-1.0" layoutY="343.0" stroke="#00a6d6" strokeType="INSIDE" width="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+         <Text fill="WHITE" layoutX="26.0" layoutY="387.0" strokeType="OUTSIDE" strokeWidth="0.0" text="© 2020 TU Delft. All rights reserved." AnchorPane.bottomAnchor="20.0">
+            <font>
+               <Font name="Calibri" size="10.0" />
+            </font>
+         </Text>
+         <Text fill="WHITE" layoutX="26.0" layoutY="371.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback is welcome" AnchorPane.bottomAnchor="35.0" />
+   <TextField fx:id="roomFindByIdTextField" layoutX="50.0" layoutY="193.0" promptText="ID" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="193.0" />
+   <Text layoutX="340.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rooms" AnchorPane.leftAnchor="340.0">
+      <font>
+         <Font size="26.0" />
+      </font>
+   </Text>
+   <Text layoutX="49.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Find a room" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="170.0">
+      <font>
+         <Font size="17.0" />
+      </font>
+   </Text>
+   <Button fx:id="confirmFindByIdButton" layoutX="231.0" layoutY="193.0" mnemonicParsing="false" onAction="#room_id_ButtonClicked" prefHeight="26.0" prefWidth="61.0" style="-fx-background-color: #00a6d6;" text="Find" textFill="WHITE" AnchorPane.leftAnchor="231.0" AnchorPane.topAnchor="193.0" />
+   <TextField fx:id="roomDeleteByIdTextField" layoutX="50.0" layoutY="207.0" promptText="ID" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="260.0" />
+   <Text layoutX="59.0" layoutY="189.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Delete a room" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="235.0">
+      <font>
+         <Font size="17.0" />
+      </font>
+   </Text>
+   <Button fx:id="confirmDeleteByIdButton" layoutX="231.0" layoutY="260.0" mnemonicParsing="false" onAction="#deleteRoomButtonClicked" style="-fx-background-color: #00a6d6;" text="Delete" textFill="WHITE" AnchorPane.leftAnchor="231.0" AnchorPane.topAnchor="260.0" />
+   <Text layoutX="69.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Update a room" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="300.0">
+      <font>
+         <Font size="17.0" />
+      </font>
+   </Text>
+   <TextField fx:id="roomFindByIdUpdateField" layoutX="60.0" layoutY="217.0" promptText="ID" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="325.0" />
+   <Text layoutX="25.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID:" wrappingWidth="34.208984375" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="195.0">
+      <font>
+         <Font size="17.0" />
+      </font>
+   </Text>
+   <Text layoutX="25.0" layoutY="280.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID:" wrappingWidth="34.208984375" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="263.0">
+      <font>
+         <Font size="17.0" />
+      </font>
+   </Text>
+   <Text layoutX="25.0" layoutY="344.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID:" wrappingWidth="34.208984375" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="327.0">
+      <font>
+         <Font size="17.0" />
+      </font>
+   </Text>
+   <ChoiceBox fx:id="updateChoiceBox" layoutX="320.0" layoutY="324.0" prefHeight="26.0" prefWidth="119.0" style="-fx-background-color: #00a6d6;" AnchorPane.leftAnchor="320.0" />
+   <Text layoutX="231.0" layoutY="343.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Attribute:" AnchorPane.leftAnchor="231.0" AnchorPane.topAnchor="327.22021484375">
+      <font>
+         <Font size="17.0" />
+      </font>
+   </Text>
+   <Text layoutX="446.0" layoutY="343.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Change to:" AnchorPane.leftAnchor="446.0" AnchorPane.topAnchor="327.22021484375">
+      <font>
+         <Font size="17.0" />
+      </font>
+   </Text>
+   <TextField fx:id="roomChangeToField" layoutX="548.0" layoutY="325.0" AnchorPane.leftAnchor="548.0" AnchorPane.topAnchor="325.0" />
+   <Button fx:id="confirmChangeButton" layoutX="719.0" layoutY="324.0" mnemonicParsing="false" onAction="#updateRoomButtonClicked" style="-fx-background-color: #00a6d6;" text="Change" textFill="WHITE" AnchorPane.leftAnchor="725.0" AnchorPane.topAnchor="324.0" />
+   <Button fx:id="roomFindAllButton" layoutX="305.0" layoutY="193.0" mnemonicParsing="false" onAction="#roomBuildingsButtonClicked" style="-fx-background-color: #00a6d6;" text="Find all" textFill="WHITE" />
+   </AnchorPane>

@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.DatabaseRoomController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.DatabaseAddRoomController">
    <ImageView fitHeight="40.0" fitWidth="114.0" layoutX="15.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="5.0">
             <Image url="@images/tudelftlogo.png" />
          </ImageView>
@@ -30,7 +30,7 @@
       <Menu mnemonicParsing="false" text="Add">
         <items>
           <MenuItem mnemonicParsing="false" text="Buildings" />
-            <MenuItem mnemonicParsing="false" text="Rooms" />
+          <MenuItem mnemonicParsing="false" text="Rooms" />
         </items>
       </Menu>
        </MenuBar>
