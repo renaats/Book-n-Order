@@ -108,7 +108,7 @@ public class DatabaseRoomController implements Initializable {
         updateChoiceBoxList.removeAll();
         String a = "Name";
         String b = "Faculty";
-        String c = "building ID";
+        String c = "Building ID";
         String d = "Faculty Specific";
         String e = "Screen";
         String f = "Projector";

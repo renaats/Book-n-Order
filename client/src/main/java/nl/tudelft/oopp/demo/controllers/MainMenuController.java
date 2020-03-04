@@ -14,7 +14,7 @@ public class MainMenuController implements Initializable {
     }
 
     /**
-     * Changes to mainScene.fxml.
+     * Changes to templateScene.fxml.
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
     public void mainMenu() throws IOException {
