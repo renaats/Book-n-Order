@@ -13,6 +13,7 @@ public class BookRoomController implements Initializable {
 
     final ObservableList list = FXCollections.observableArrayList();
     final ObservableList lisT = FXCollections.observableArrayList();
+    final ObservableList listOfBuildings = FXCollections.observableArrayList();
 
     @FXML
     private ChoiceBox<String> roomDropDown;
@@ -20,6 +21,8 @@ public class BookRoomController implements Initializable {
     private  ChoiceBox<String> from;
     @FXML
     private ChoiceBox<String> until;
+    @FXML
+    private ChoiceBox<String> buildingList;
 
 
     @Override
@@ -49,6 +52,13 @@ public class BookRoomController implements Initializable {
         list.addAll(a,b,c);
         roomDropDown.getItems().addAll(list);
 
+        String none = "-";
+        String building1 = "building1";
+        String building2 = "building2";
+        String building3 = "building3";
+        listOfBuildings.addAll(none,building1,building2,building3);
+        buildingList.getItems().addAll(listOfBuildings);
+
         for (int i = 0; i < 24; i++) {
             for (int u = 0; u <= 45; u = u + 15) {
                 if (i == 0 && u == u) {
@@ -66,5 +76,6 @@ public class BookRoomController implements Initializable {
         }
         from.getItems().addAll(lisT);
         until.getItems().addAll(lisT);
+
     }
 }
