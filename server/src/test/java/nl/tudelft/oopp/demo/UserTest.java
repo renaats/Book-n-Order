@@ -1,17 +1,9 @@
 package nl.tudelft.oopp.demo;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotSame;
-import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.util.HashSet;
 import java.util.Set;
 
-import nl.tudelft.oopp.demo.entities.Building;
-import nl.tudelft.oopp.demo.entities.Room;
-import nl.tudelft.oopp.demo.entities.User;
+import nl.tudelft.oopp.demo.entities.*;
 import nl.tudelft.oopp.demo.repositories.BuildingRepository;
 import nl.tudelft.oopp.demo.repositories.UserRepository;
 import org.junit.jupiter.api.AfterEach;
@@ -19,6 +11,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 public class UserTest {
@@ -42,12 +36,16 @@ public class UserTest {
         userRepository.save(user);
     }
 
+    /** Tests the constructor of the User class
+     */
     @Test
-    public void saveAndRetrieveUser() {
-        user2 = userRepository.findAll().get(0);
-        assertEquals(user, user2);
+    public void testConstructor(){
+        user2 = new User();
+        assertNotNull(user2);
     }
 
+    /** Tests the getters of the User class
+     */
     @Test
     public void testGetters() {
         user2 = userRepository.findAll().get(0);
@@ -58,18 +56,55 @@ public class UserTest {
         assertEquals(user.getFaculty(), user2.getFaculty());
     }
 
+    /** Tests the setters of the User class
+     */
+    @Test
+    public void testSetters(){
+        Set<Role> roleSet = new HashSet<Role>();
+        Set<RoomReservation> roomReservationSet = new HashSet<RoomReservation>();
+        user2 = new User();
+        user2.setEmail("m.b.spasov@student.tudelft.nl");
+        user2.setPassword("1234");
+        user2.setName("Mihail");
+        user2.setSurname("Spasov");
+        user2.setFaculty("EEMCS");
+        user2.setRoles(roleSet);
+        user2.setRoomReservations(roomReservationSet);
+        assertEquals(user2.getEmail(), "m.b.spasov@student.tudelft.nl");
+        assertEquals(user2.getPassword(), "1234");
+        assertEquals(user2.getName(), "Mihail");
+        assertEquals(user2.getSurname(), "Spasov");
+        assertEquals(user2.getFaculty(), "EEMCS");
+        assertEquals(user2.getRoles(), roleSet);
+        assertEquals(user2.getRoomReservations(), roomReservationSet);
+    }
+
+    /** Tests retrieving and saving data from the UserRepository.
+     */
+    @Test
+    public void saveAndRetrieveUser() {
+        user2 = userRepository.findAll().get(0);
+        assertEquals(user, user2);
+    }
+
+    /** Tests whether two objects are of instance User and whether they are equal.
+     */
     @Test
     public void testEqualUsers() {
         user2 = new User();
         user2.setEmail("R.Jursevskis@student.tudelft.nl");
+        assertNotEquals(user, user2);
         user2.setPassword("1234");
         user2.setName("Renats");
+        assertNotEquals(user, user2);
         user2.setSurname("Jursevskis");
         user2.setFaculty("EWI");
         assertEquals(user, user2);
         assertNotSame(user, user2);
     }
 
+    /** Deletes everything from the repositories after testing.
+     */
     @AfterEach
     public void cleanup() {
         userRepository.deleteAll();
