@@ -22,7 +22,7 @@ public class DatabaseAddRoomController {
 
     /**
      * Makes sure the button toggles from false to true every time.
-     * @param e
+     * @param e Just an ActionEvent param
      */
     @FXML
     private void toggleClickFacultySpecific(ActionEvent e) {
@@ -37,7 +37,7 @@ public class DatabaseAddRoomController {
 
     /**
      * Makes sure the button toggles from false to true every time.
-     * @param e
+     * @param e Just an ActionEvent param
      */
     @FXML
     private void toggleClickProjector(ActionEvent e) {
@@ -52,7 +52,7 @@ public class DatabaseAddRoomController {
 
     /**
      * Makes sure the button toggles from false to true every time.
-     * @param e
+     * @param e Just an ActionEvent param
      */
     @FXML
     private void toggleClickScreen(ActionEvent e) {
