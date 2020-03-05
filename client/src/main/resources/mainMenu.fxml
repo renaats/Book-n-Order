@@ -39,7 +39,7 @@
       </font>
    </Text>
    <Accordion layoutX="76.0" layoutY="144.0" />
-   <GridPane alignment="CENTER" layoutX="83.0" layoutY="164.0" prefHeight="271.0" prefWidth="658.0">
+   <GridPane alignment="CENTER" layoutX="83.0" layoutY="164.0" prefHeight="271.0" prefWidth="658.0" AnchorPane.leftAnchor="65.0" AnchorPane.rightAnchor="65.0">
       <columnConstraints>
          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -50,20 +50,23 @@
          <RowConstraints maxHeight="205.0" minHeight="10.0" prefHeight="205.0" vgrow="SOMETIMES" />
          <RowConstraints maxHeight="61.0" minHeight="0.0" prefHeight="22.00000000000003" vgrow="SOMETIMES" />
       </rowConstraints>
-      <ImageView fitHeight="200.0" fitWidth="150.0" opacity="0.9" pickOnBounds="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <ImageView fitHeight="115.0" fitWidth="200.0" opacity="0.9" pickOnBounds="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <viewport>
-            <Rectangle2D height="550.0" width="450.0" />
+            <Rectangle2D />
          </viewport>
-         <Image url="@images/Order_Food_opt1.jpg" />
+         <Image url="@images/foodpicture.png" />
       </ImageView>
-      <ImageView fitHeight="200.0" fitWidth="150.0" nodeOrientation="INHERIT" opacity="0.9" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
+      <ImageView fitHeight="115.0" fitWidth="200.0" nodeOrientation="INHERIT" opacity="0.9" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
          <viewport>
-            <Rectangle2D height="1600.0" minX="600.0" width="1200.0" />
+            <Rectangle2D />
          </viewport>
-         <Image url="@images/Rent_Bike_opt1.jpg" />
+         <Image url="@Images/bikepicture.png" />
       </ImageView>
-      <ImageView fitHeight="200.0" fitWidth="150.0" opacity="0.8" pickOnBounds="true" GridPane.rowIndex="1">
-         <Image url="@images/Book_Room_opt2.jpg" />
+      <ImageView fitHeight="115.0" fitWidth="200.0" opacity="0.8" pickOnBounds="true" GridPane.rowIndex="1">
+         <Image url="@images/roompicture.png" />
+         <viewport>
+            <Rectangle2D />
+         </viewport>
       </ImageView>
       <Button mnemonicParsing="false" onAction="#roomsSelected" style="-fx-background-color: #439fd9;" text="Book a Room" textFill="WHITE" GridPane.rowIndex="2" />
       <Button mnemonicParsing="false" onAction="#bikesSelected" style="-fx-background-color: #439fd9;" text="Rent a Bike" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="2" />
