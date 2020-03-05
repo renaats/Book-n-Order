@@ -96,7 +96,7 @@ public class BuildingTest {
         assertEquals(building, building2);
     }
 
-    /** Tests the methods connected with the Set of rooms of the class Building
+    /** Tests the methods connected with the Set of rooms of the class Building.
      */
     @Test
     public void testRooms() {
