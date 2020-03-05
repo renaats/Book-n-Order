@@ -13,10 +13,6 @@ public class ApplicationDisplay extends Application {
 
     private static Stage primaryStage;
 
-    public static Stage getPrimaryStage() {
-        return primaryStage;
-    }
-
     @Override
     public void start(Stage primaryStage) throws IOException {
         this.primaryStage = primaryStage;

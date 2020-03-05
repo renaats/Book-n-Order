@@ -2,6 +2,7 @@ package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ToggleButton;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
@@ -14,6 +15,19 @@ public class DatabaseAddRoomController {
     private ToggleButton screenToggle;
     @FXML
     private ToggleButton projectorToggle;
+
+    private boolean facultySpecificToggleFlag;
+
+    @FXML
+    private void toggleClick(ActionEvent e) {
+        if (facultySpecificToggleFlag) {
+            facultySpecificToggle.setText("False");
+            facultySpecificToggleFlag = false;
+        } else {
+            facultySpecificToggle.setText("True");
+            facultySpecificToggleFlag = true;
+        }
+    }
 
     /**
      * Switches scene to DatabaseAddBuildings.fxml
