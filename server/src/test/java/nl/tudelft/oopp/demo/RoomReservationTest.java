@@ -81,6 +81,24 @@ public class RoomReservationTest {
         roomReservationRepository.saveAndFlush(roomReservation);
         roomReservation = roomReservationRepository.findAll().get(0);
     }
+    //    @Test
+    //    public void testOverlappingReservation() {
+    ////        room = roomRepository.findAll().get(0);
+    ////        System.out.println(roomRepository.findAll().size());
+    ////        System.out.println(room.getId());
+    ////        System.out.println(room.getName());
+    ////        System.out.println(room);
+    ////        System.out.println(room.getRoomReservations());
+    ////        System.out.println(roomReservation.getRoom());
+    //
+    //        assertTrue(room.hasRoomReservations());
+    //        assertTrue(room.getRoomReservations().contains(roomReservation));
+    //        assertTrue(room.hasRoomReservationBetween(new Date(10500000000L), new Date(12000000000L)));
+    //        assertTrue(room.hasRoomReservationBetween(new Date(9900000000L), new Date(10500000000L)));
+    //        assertTrue(room.hasRoomReservationBetween(new Date(10000000000L), new Date(1100000000L)));
+    //        assertTrue(room.hasRoomReservationBetween(new Date(10500000000L), new Date(1060000000L)));
+    //        assertFalse(room.hasRoomReservationBetween(new Date(11500000000L), new Date(1160000000L)));
+    //    }
 
     /** Tests the constructor of the RoomReservation class
      */
