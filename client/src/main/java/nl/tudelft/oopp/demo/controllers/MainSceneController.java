@@ -54,7 +54,7 @@ public class MainSceneController {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("All buildings:");
         alert.setHeaderText(null);
-        //alert.setContentText(ServerCommunication.getBuilding());
+        alert.setContentText(ServerCommunication.getBuildings());
         alert.showAndWait();
     }
 
