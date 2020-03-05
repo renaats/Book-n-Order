@@ -63,7 +63,7 @@ public class BookRoomController implements Initializable {
 
         for (int i = 0; i < 24; i++) {
             for (int u = 0; u <= 45; u = u + 15) {
-                if (i == 0 && u == u) {
+                if (i == 0) {
                     if (!listOfTimeSlots.contains("00:00")) {
                         listOfTimeSlots.add("00:00");
                     }
