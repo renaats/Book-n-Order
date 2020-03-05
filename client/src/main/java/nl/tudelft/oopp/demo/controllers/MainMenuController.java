@@ -8,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 public class MainMenuController {
@@ -35,12 +36,12 @@ public class MainMenuController {
         window.setScene(roomSelectScene);
         window.show();
     }
+
     /**
      * Handles clicking the rooms button. Should send you to the mainScene.
      */
-
     public void roomsSelected(ActionEvent event) throws IOException {
-        Parent roomSelectParent = FXMLLoader.load(getClass().getResource("/mainScene.fxml"));
+        Parent roomSelectParent = FXMLLoader.load(getClass().getResource("/bookRoom.fxml"));
         Scene roomSelectScene = new Scene(roomSelectParent);
 
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -73,7 +74,7 @@ public class MainMenuController {
     }
 
     public void roomsSelected1(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/bikeReservations.fxml");
+        ApplicationDisplay.changeScene("/bookRoom.fxml");
     }
 
     public void foodsSelected1(ActionEvent actionEvent) throws IOException {

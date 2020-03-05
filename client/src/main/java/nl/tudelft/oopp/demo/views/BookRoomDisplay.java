@@ -2,19 +2,18 @@ package nl.tudelft.oopp.demo.views;
 
 import java.io.IOException;
 import java.net.URL;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class MainMenuDisplay extends Application {
+public class BookRoomDisplay extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        URL xmlUrl = getClass().getResource("/mainMenu.fxml");
+        URL xmlUrl = getClass().getResource("/bookRoom.fxml");
         loader.setLocation(xmlUrl);
         Parent root = loader.load();
 
@@ -26,3 +25,4 @@ public class MainMenuDisplay extends Application {
         launch(args);
     }
 }
+
