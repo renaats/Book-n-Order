@@ -27,7 +27,6 @@ public class MainMenuController {
     /**
      * Handles clicking the bikes button.
      */
-    @SuppressWarnings({"checkstyle:MethodParamPad", "CheckStyle"})
     public void bikesSelected(ActionEvent event) throws IOException {
         Parent roomSelectParent = FXMLLoader.load(getClass().getResource("/bikeReservations.fxml"));
         Scene roomSelectScene = new Scene(roomSelectParent);
@@ -40,7 +39,6 @@ public class MainMenuController {
     /**
      * Handles clicking the rooms button. Should send you to the mainScene.
      */
-
     public void roomsSelected(ActionEvent event) throws IOException {
         Parent roomSelectParent = FXMLLoader.load(getClass().getResource("/bookRoom.fxml"));
         Scene roomSelectScene = new Scene(roomSelectParent);

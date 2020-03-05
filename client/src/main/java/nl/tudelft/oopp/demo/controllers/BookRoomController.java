@@ -32,7 +32,6 @@ public class BookRoomController implements Initializable {
 
     @FXML
     private void reservedRoomSlot() {
-
         if (from.getValue() == null || until.getValue() == null) {
             System.out.println("Nothing selected");
         } else {
@@ -79,6 +78,5 @@ public class BookRoomController implements Initializable {
         }
         from.getItems().addAll(listOfTimeSlots);
         until.getItems().addAll(listOfTimeSlots);
-
     }
 }
