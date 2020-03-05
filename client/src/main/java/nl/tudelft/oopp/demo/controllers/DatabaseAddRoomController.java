@@ -17,15 +17,51 @@ public class DatabaseAddRoomController {
     private ToggleButton projectorToggle;
 
     private boolean facultySpecificToggleFlag;
+    private boolean screenToggleFlag;
+    private boolean projectorToggleFlag;
 
+    /**
+     * Makes sure the button toggles from false to true every time.
+     * @param e
+     */
     @FXML
-    private void toggleClick(ActionEvent e) {
+    private void toggleClickFacultySpecific(ActionEvent e) {
         if (facultySpecificToggleFlag) {
             facultySpecificToggle.setText("False");
             facultySpecificToggleFlag = false;
         } else {
             facultySpecificToggle.setText("True");
             facultySpecificToggleFlag = true;
+        }
+    }
+
+    /**
+     * Makes sure the button toggles from false to true every time.
+     * @param e
+     */
+    @FXML
+    private void toggleClickProjector(ActionEvent e) {
+        if (projectorToggleFlag) {
+            projectorToggle.setText("False");
+            projectorToggleFlag = false;
+        } else {
+            projectorToggle.setText("True");
+            projectorToggleFlag = true;
+        }
+    }
+
+    /**
+     * Makes sure the button toggles from false to true every time.
+     * @param e
+     */
+    @FXML
+    private void toggleClickScreen(ActionEvent e) {
+        if (screenToggleFlag) {
+            screenToggle.setText("False");
+            screenToggleFlag = false;
+        } else {
+            screenToggle.setText("True");
+            screenToggleFlag = true;
         }
     }
 
