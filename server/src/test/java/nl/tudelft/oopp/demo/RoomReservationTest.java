@@ -1,10 +1,8 @@
 package nl.tudelft.oopp.demo;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotSame;
-
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Set;
 
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Room;
@@ -14,6 +12,7 @@ import nl.tudelft.oopp.demo.repositories.BuildingRepository;
 import nl.tudelft.oopp.demo.repositories.RoomRepository;
 import nl.tudelft.oopp.demo.repositories.RoomReservationRepository;
 import nl.tudelft.oopp.demo.repositories.UserRepository;
+import org.h2.util.json.JSONItemType;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,6 +20,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 
 @ExtendWith(SpringExtension.class)
@@ -81,24 +82,20 @@ public class RoomReservationTest {
         roomReservationRepository.saveAndFlush(roomReservation);
         roomReservation = roomReservationRepository.findAll().get(0);
     }
-    //    @Test
-    //    public void testOverlappingReservation() {
-    ////        room = roomRepository.findAll().get(0);
-    ////        System.out.println(roomRepository.findAll().size());
-    ////        System.out.println(room.getId());
-    ////        System.out.println(room.getName());
-    ////        System.out.println(room);
-    ////        System.out.println(room.getRoomReservations());
-    ////        System.out.println(roomReservation.getRoom());
-    //
-    //        assertTrue(room.hasRoomReservations());
-    //        assertTrue(room.getRoomReservations().contains(roomReservation));
-    //        assertTrue(room.hasRoomReservationBetween(new Date(10500000000L), new Date(12000000000L)));
-    //        assertTrue(room.hasRoomReservationBetween(new Date(9900000000L), new Date(10500000000L)));
-    //        assertTrue(room.hasRoomReservationBetween(new Date(10000000000L), new Date(1100000000L)));
-    //        assertTrue(room.hasRoomReservationBetween(new Date(10500000000L), new Date(1060000000L)));
-    //        assertFalse(room.hasRoomReservationBetween(new Date(11500000000L), new Date(1160000000L)));
-    //    }
+        @Test
+        public void testOverlappingReservation() {
+          room = roomRepository.findAll().get(0);
+          Set<RoomReservation> setOfRoomReservations= new HashSet<RoomReservation>();
+          setOfRoomReservations.add(roomReservationRepository.findAll().get(0));
+          room.setRoomReservations(setOfRoomReservations);
+          assertTrue(room.hasRoomReservations());
+          assertTrue(room.getRoomReservations().contains(roomReservation));
+          assertTrue(room.hasRoomReservationBetween(new Date(10500000000L), new Date(12000000000L)));
+          assertTrue(room.hasRoomReservationBetween(new Date(9900000000L), new Date(10500000000L)));
+          assertFalse(room.hasRoomReservationBetween(new Date(10000000000L), new Date(1100000000L)));
+          assertTrue(room.hasRoomReservationBetween(new Date(10500000000L), new Date(1060000000L)));
+          assertFalse(room.hasRoomReservationBetween(new Date(11500000000L), new Date(1160000000L)));
+        }
 
     /** Tests the constructor of the RoomReservation class
      */
