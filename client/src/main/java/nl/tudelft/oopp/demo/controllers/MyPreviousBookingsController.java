@@ -9,7 +9,7 @@ public class MyPreviousBookingsController {
      * @throws IOException will not be wrong.
      */
     public void myAccountScene() throws IOException {
-        ApplicationDisplay.changeScene("/myAccountScene.fxml", null);
+        ApplicationDisplay.changeScene("/myAccountScene.fxml");
     }
 
     /**
@@ -17,7 +17,7 @@ public class MyPreviousBookingsController {
      * @throws IOException will not be wrong.
      */
     public void myCurrentBookings() throws IOException {
-        ApplicationDisplay.changeScene("/myCurrentBookings.fxml", null);
+        ApplicationDisplay.changeScene("/myCurrentBookings.fxml");
     }
 
     /**
@@ -25,7 +25,7 @@ public class MyPreviousBookingsController {
      * @throws IOException input will not be invalid.
      */
     public void myPreviousBookings() throws IOException {
-        ApplicationDisplay.changeScene("/myPreviousBookings.fxml", null);
+        ApplicationDisplay.changeScene("/myPreviousBookings.fxml");
     }
 
     /**
@@ -33,7 +33,7 @@ public class MyPreviousBookingsController {
      * @throws IOException will not be invalid.
      */
     public void myPreviousTenRoomBookings() throws IOException {
-        ApplicationDisplay.changeScene("/myPreviousTenRoomBookings.fxml", null);
+        ApplicationDisplay.changeScene("/myPreviousTenRoomBookings.fxml");
     }
 
     /**
@@ -41,7 +41,7 @@ public class MyPreviousBookingsController {
      * @throws IOException will not be valid.
      */
     public void myPreviousTenBikeReservations() throws IOException {
-        ApplicationDisplay.changeScene("/myPreviousTenBikeReservations.fxml", null);
+        ApplicationDisplay.changeScene("/myPreviousTenBikeReservations.fxml");
     }
 
     /**
@@ -49,6 +49,6 @@ public class MyPreviousBookingsController {
      * @throws IOException will not be valid.
      */
     public void myPreviousTenFoodOrders() throws IOException {
-        ApplicationDisplay.changeScene("/myPreviousTenFoodOrders.fxml", null);
+        ApplicationDisplay.changeScene("/myPreviousTenFoodOrders.fxml");
     }
 }

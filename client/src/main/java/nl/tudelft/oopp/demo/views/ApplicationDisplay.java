@@ -33,15 +33,10 @@ public class ApplicationDisplay extends Application {
      * @param fxml = file string of scene you want to change to.
      * @throws IOException = All input will be valid, no need to check, this we throw.
      */
-    public static void changeScene(String fxml, String css) throws IOException {
+    public static void changeScene(String fxml) throws IOException {
         Parent pane = FXMLLoader.load(
                 ApplicationDisplay.class.getResource(fxml));
         primaryStage.getScene().setRoot(pane);
-        if (css == null) {
-            primaryStage.getScene().getStylesheets().clear();
-        } else {
-            primaryStage.getScene().getStylesheets().add(css);
-        }
     }
 
     public static void main(String[] args) {

@@ -10,7 +10,7 @@ public class MyAccountController {
      * @throws IOException input will be valid.
      */
     public void myAccountScene() throws IOException {
-        ApplicationDisplay.changeScene("/myAccountScene.fxml", null);
+        ApplicationDisplay.changeScene("/myAccountScene.fxml");
     }
 
     /**
@@ -18,7 +18,7 @@ public class MyAccountController {
      * @throws IOException input will be valid.
      */
     public void myCurrentBookings() throws IOException {
-        ApplicationDisplay.changeScene("/myCurrentBookings.fxml", null);
+        ApplicationDisplay.changeScene("/myCurrentBookings.fxml");
     }
 
     /**
@@ -26,7 +26,7 @@ public class MyAccountController {
      * @throws IOException input will be valid.
      */
     public void myPreviousBookings() throws IOException {
-        ApplicationDisplay.changeScene("/myPreviousBookings.fxml", null);
+        ApplicationDisplay.changeScene("/myPreviousBookings.fxml");
     }
 
     /**
@@ -34,10 +34,10 @@ public class MyAccountController {
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
     public void mainMenu() throws IOException {
-        ApplicationDisplay.changeScene("/templateScene.fxml", null);
+        ApplicationDisplay.changeScene("/templateScene.fxml");
     }
 
     public void adminPanel(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/DatabaseMenu.fxml", null);
+        ApplicationDisplay.changeScene("/DatabaseMenu.fxml");
     }
 }
