@@ -38,6 +38,7 @@ public class RoomReservationTest {
 
     RoomReservation roomReservation;
     RoomReservation roomReservation2;
+    RoomReservation roomReservation3;
     Room room;
     User user;
     Building building;
@@ -81,36 +82,75 @@ public class RoomReservationTest {
         roomReservationRepository.saveAndFlush(roomReservation);
         roomReservation = roomReservationRepository.findAll().get(0);
     }
-        @Test
-        public void testOverlappingReservation() {
-          room = roomRepository.findAll().get(0);
-          Set<RoomReservation> setOfRoomReservations= new HashSet<RoomReservation>();
-          setOfRoomReservations.add(roomReservationRepository.findAll().get(0));
-          room.setRoomReservations(setOfRoomReservations);
-          assertTrue(room.hasRoomReservations());
-          assertTrue(room.getRoomReservations().contains(roomReservation));
-          assertTrue(room.hasRoomReservationBetween(new Date(10500000000L), new Date(12000000000L)));
-          assertTrue(room.hasRoomReservationBetween(new Date(9900000000L), new Date(10500000000L)));
-          assertFalse(room.hasRoomReservationBetween(new Date(10000000000L), new Date(1100000000L)));
-          assertTrue(room.hasRoomReservationBetween(new Date(10500000000L), new Date(1060000000L)));
-          assertFalse(room.hasRoomReservationBetween(new Date(11500000000L), new Date(1160000000L)));
-        }
 
+    /** Tests the constructor of the RoomReservation class
+     */
     @Test
-    public void saveAndRetrieveRoomReservation() {
-        roomReservation2 = roomReservationRepository.findAll().get(0);
-        assertEquals(roomReservation, roomReservation2);
+    public void testConstructor(){
+        assertNotNull(building);
+        assertNotNull(room);
+        assertNotNull(user);
+        assertNotNull(roomReservation);
     }
 
+    /** Tests the getters of the RoomReservation class
+     */
     @Test
     public void testGetters() {
         roomReservation2 = roomReservationRepository.findAll().get(0);
+        assertNotNull(roomReservation.getId());
         assertEquals(roomReservation.getUser(), roomReservation2.getUser());
         assertEquals(roomReservation.getRoom(), roomReservation2.getRoom());
         assertEquals(roomReservation.getFromTime(), roomReservation2.getFromTime());
         assertEquals(roomReservation.getToTime(), roomReservation2.getToTime());
     }
 
+    /** Tests the setters of the RoomReservation class
+     */
+    @Test
+    public void testSetters(){
+        roomReservation3 = new RoomReservation();
+        Room newRoom = new Room();
+        User newUser = new User();
+        Date newFromTime = new Date(9900000000L);
+        Date newToTime = new Date(1060000000L);
+        roomReservation3.setRoom(newRoom);
+        roomReservation3.setUser(newUser);
+        roomReservation3.setFromTime(newFromTime);
+        roomReservation3.setToTime(newToTime);
+        assertEquals(roomReservation3.getRoom(), newRoom);
+        assertEquals(roomReservation3.getUser(), newUser);
+        assertEquals(roomReservation3.getFromTime(), newFromTime);
+        assertEquals(roomReservation3.getToTime(), newToTime);
+    }
+
+    /** Tests whether there is/are reservation(s) between two dates.
+     */
+    @Test
+    public void testOverlappingReservation() {
+        room = roomRepository.findAll().get(0);
+        Set<RoomReservation> setOfRoomReservations= new HashSet<RoomReservation>();
+        setOfRoomReservations.add(roomReservationRepository.findAll().get(0));
+        room.setRoomReservations(setOfRoomReservations);
+        assertTrue(room.hasRoomReservations());
+        assertTrue(room.getRoomReservations().contains(roomReservation));
+        assertTrue(room.hasRoomReservationBetween(new Date(10500000000L), new Date(12000000000L)));
+        assertTrue(room.hasRoomReservationBetween(new Date(9900000000L), new Date(10500000000L)));
+        assertFalse(room.hasRoomReservationBetween(new Date(10000000000L), new Date(1100000000L)));
+        assertTrue(room.hasRoomReservationBetween(new Date(10500000000L), new Date(1060000000L)));
+        assertFalse(room.hasRoomReservationBetween(new Date(11500000000L), new Date(1160000000L)));
+    }
+
+    /** Tests the functionality of roomReservationRepository
+     */
+    @Test
+    public void saveAndRetrieveRoomReservation() {
+        roomReservation2 = roomReservationRepository.findAll().get(0);
+        assertEquals(roomReservation, roomReservation2);
+    }
+
+    /** Tests whether two objects are of type RoomReservation and are equal.
+     */
     @Test
     public void testEqualRoomReservations() {
         roomReservation2 = new RoomReservation();
