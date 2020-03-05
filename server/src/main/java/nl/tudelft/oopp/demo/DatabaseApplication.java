@@ -4,7 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication(scanBasePackages = {
-        "nl.tudelft.oopp.demo.repositories", "nl.tudelft.oopp.demo.controllers"
+        "nl.tudelft.oopp.demo.repositories",
+        "nl.tudelft.oopp.demo.controllers",
+        "nl.tudelft.oopp.demo.services"
 })
 public class DatabaseApplication {
 
