@@ -82,7 +82,7 @@ public class DatabaseAddRoomController {
     }
 
     /**
-     * Changes to mainScene.fxml.
+     * Changes to DatabaseMenu.fxml.
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
     public void databaseBuildingMenu() throws IOException {
@@ -90,7 +90,7 @@ public class DatabaseAddRoomController {
     }
 
     /**
-     * Changes to mainScene.fxml.
+     * Changes to DatabaseRoomMenu.fxml.
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
     public void databaseRoomMenu() throws IOException {
