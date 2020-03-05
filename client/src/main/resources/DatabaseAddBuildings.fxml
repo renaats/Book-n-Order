@@ -69,5 +69,5 @@
    <TextField fx:id="streetTextField" layoutX="368.0" layoutY="220.0" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="220.0" />
    <TextField fx:id="nameTextField" layoutX="368.0" layoutY="190.0" AnchorPane.leftAnchor="370.0" />
    <TextField fx:id="houseNumberTextField" layoutX="368.0" layoutY="250.0" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="250.0" />
-   <Button fx:id="addButton" layoutX="267.0" layoutY="287.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="230.0" style="-fx-background-color: #00a6d6;" text="Add" textFill="WHITE" AnchorPane.leftAnchor="267.0" AnchorPane.rightAnchor="313.0" />
+   <Button fx:id="addButton" layoutX="267.0" layoutY="287.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="230.0" style="-fx-background-color: #00a6d6;" text="Add" textFill="WHITE" AnchorPane.leftAnchor="267.0" AnchorPane.rightAnchor="313.0" AnchorPane.topAnchor="285.0" />
    </AnchorPane>
