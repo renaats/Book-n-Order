@@ -124,7 +124,7 @@ public class RoomReservationTest {
         assertEquals(roomReservation3.getToTime(), newToTime);
     }
 
-    /** Tests whether there is/are reservation(s) between two dates.
+    /** Tests whether there exists a reservation between two dates.
      */
     @Test
     public void testOverlappingReservation() {
