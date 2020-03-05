@@ -13,6 +13,9 @@ public class ApplicationDisplay extends Application {
 
     private static Stage primaryStage;
 
+    public static Stage getPrimaryStage() {
+        return primaryStage;
+    }
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -21,7 +24,6 @@ public class ApplicationDisplay extends Application {
         URL xmlUrl = getClass().getResource("/login-screen.fxml");
         loader.setLocation(xmlUrl);
         Parent root = loader.load();
-
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
@@ -31,11 +33,15 @@ public class ApplicationDisplay extends Application {
      * @param fxml = file string of scene you want to change to.
      * @throws IOException = All input will be valid, no need to check, this we throw.
      */
-    public static void changeScene(String fxml) throws IOException {
+    public static void changeScene(String fxml, String css) throws IOException {
         Parent pane = FXMLLoader.load(
                 ApplicationDisplay.class.getResource(fxml));
-
         primaryStage.getScene().setRoot(pane);
+        if (css == null) {
+            primaryStage.getScene().getStylesheets().clear();
+        } else {
+            primaryStage.getScene().getStylesheets().add(css);
+        }
     }
 
     public static void main(String[] args) {

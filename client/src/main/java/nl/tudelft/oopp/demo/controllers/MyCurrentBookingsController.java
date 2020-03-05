@@ -9,7 +9,7 @@ public class MyCurrentBookingsController {
      * @throws IOException input will be valid.
      */
     public void myAccountScene() throws IOException {
-        ApplicationDisplay.changeScene("/myAccountScene.fxml");
+        ApplicationDisplay.changeScene("/myAccountScene.fxml", null);
     }
 
     /**
@@ -17,7 +17,7 @@ public class MyCurrentBookingsController {
      * @throws IOException input will be valid.
      */
     public void myCurrentBookings() throws IOException {
-        ApplicationDisplay.changeScene("/myCurrentBookings.fxml");
+        ApplicationDisplay.changeScene("/myCurrentBookings.fxml", null);
     }
 
     /**
@@ -25,7 +25,7 @@ public class MyCurrentBookingsController {
      * @throws IOException input will be valid.
      */
     public void myPreviousBookings() throws IOException {
-        ApplicationDisplay.changeScene("/myPreviousBookings.fxml");
+        ApplicationDisplay.changeScene("/myPreviousBookings.fxml", null);
     }
 
     /**
@@ -33,7 +33,7 @@ public class MyCurrentBookingsController {
      * @throws IOException input will be valid.
      */
     public void myCurrentBikeReservations() throws IOException {
-        ApplicationDisplay.changeScene("/myCurrentBikeReservations.fxml");
+        ApplicationDisplay.changeScene("/myCurrentBikeReservations.fxml", null);
     }
 
     /**
@@ -41,7 +41,7 @@ public class MyCurrentBookingsController {
      * @throws IOException input will be valid.
      */
     public void myCurrentRoomBookings() throws IOException {
-        ApplicationDisplay.changeScene("/myCurrentRoomBookings.fxml");
+        ApplicationDisplay.changeScene("/myCurrentRoomBookings.fxml", null);
     }
 
     /**
@@ -49,7 +49,7 @@ public class MyCurrentBookingsController {
      * @throws IOException input will be valid.
      */
     public void myCurrentFoodOrders() throws IOException {
-        ApplicationDisplay.changeScene("/myCurrentFoodOrders.fxml");
+        ApplicationDisplay.changeScene("/myCurrentFoodOrders.fxml", null);
     }
 
     /**
@@ -57,6 +57,6 @@ public class MyCurrentBookingsController {
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
     public void mainMenu() throws IOException {
-        ApplicationDisplay.changeScene("/templateScene.fxml");
+        ApplicationDisplay.changeScene("/templateScene.fxml", null);
     }
 }

@@ -63,7 +63,7 @@ public class DatabaseBuildingController implements Initializable {
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
     public void databaseBuildingMenu() throws IOException {
-        ApplicationDisplay.changeScene("/DatabaseMenu.fxml");
+        ApplicationDisplay.changeScene("/DatabaseMenu.fxml", null);
     }
 
     /**
@@ -71,7 +71,7 @@ public class DatabaseBuildingController implements Initializable {
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
     public void databaseRoomMenu() throws IOException {
-        ApplicationDisplay.changeScene("/DatabaseRoomMenu.fxml");
+        ApplicationDisplay.changeScene("/DatabaseRoomMenu.fxml", null);
     }
 
     /**
@@ -117,7 +117,7 @@ public class DatabaseBuildingController implements Initializable {
      * @throws IOException Input will be valid
      */
     public void databaseAddBuildings() throws IOException {
-        ApplicationDisplay.changeScene("/DatabaseAddBuildings.fxml");
+        ApplicationDisplay.changeScene("/DatabaseAddBuildings.fxml", null);
     }
 
     /**
@@ -125,6 +125,6 @@ public class DatabaseBuildingController implements Initializable {
      * @throws IOException Input will be valid
      */
     public void databaseAddRooms() throws IOException {
-        ApplicationDisplay.changeScene("/DatabaseAddRooms.fxml");
+        ApplicationDisplay.changeScene("/DatabaseAddRooms.fxml", "/DatabaseAddRooms.css");
     }
 }

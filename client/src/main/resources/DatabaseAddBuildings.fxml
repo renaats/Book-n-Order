@@ -29,8 +29,8 @@
       </Menu>
       <Menu mnemonicParsing="false" text="Add">
         <items>
-          <MenuItem mnemonicParsing="false" text="Buildings" />
-          <MenuItem mnemonicParsing="false" text="Rooms" />
+            <MenuItem mnemonicParsing="false" onAction="#databaseAddBuildings" text="Buildings" />
+            <MenuItem mnemonicParsing="false" onAction="#databaseAddRooms" text="Rooms" />
         </items>
       </Menu>
        </MenuBar>
@@ -41,12 +41,12 @@
             </font>
          </Text>
          <Text fill="WHITE" layoutX="26.0" layoutY="371.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback is welcome" AnchorPane.bottomAnchor="35.0" />
-   <Text layoutX="325.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Buildings" AnchorPane.leftAnchor="325.0">
+   <Text layoutX="325.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Buildings" AnchorPane.leftAnchor="320.0" AnchorPane.topAnchor="128.0">
       <font>
          <Font size="26.0" />
       </font>
    </Text>
-   <Text layoutX="322.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add a building" AnchorPane.leftAnchor="322.0" AnchorPane.topAnchor="156.0">
+   <Text layoutX="322.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add a building" AnchorPane.leftAnchor="317.0" AnchorPane.topAnchor="156.0">
       <font>
          <Font size="17.0" />
       </font>

@@ -1,0 +1,11 @@
+.menu-item {
+    -fx-background-color: black;
+}
+
+.toggle-button {
+    -fx-background-color: red;
+}
+
+.toggle-button:selected {
+    -fx-background-color: green;
+}
