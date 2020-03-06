@@ -4,6 +4,7 @@ import java.io.IOException;
 import javafx.fxml.Initializable;
 import java.net.URL;
 import java.util.ResourceBundle;
+
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 public class MainMenuController implements Initializable {
@@ -14,7 +15,7 @@ public class MainMenuController implements Initializable {
     }
 
     /**
-     * Changes to mainScene.fxml.
+     * Changes to templateScene.fxml.
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
     public void mainMenu() throws IOException {
@@ -23,7 +24,7 @@ public class MainMenuController implements Initializable {
 
     /**
      * Changes to myCurrentBookings.fxml.
-     * @throws IOException
+     * @throws IOException input will not be wrong, hence we throw.
      */
     public void myCurrentBookings() throws IOException {
         ApplicationDisplay.changeScene("/myCurrentBookings.fxml");
@@ -31,7 +32,7 @@ public class MainMenuController implements Initializable {
 
     /**
      * Changes to myPreviousBookings.fxml.
-     * @throws IOException
+     * @throws IOException input will not be wrong, hence we throw.
      */
     public void myPreviousBookings() throws IOException {
         ApplicationDisplay.changeScene("/myPreviousBookings.fxml");

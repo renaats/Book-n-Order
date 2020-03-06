@@ -1,6 +1,7 @@
 package nl.tudelft.oopp.demo.entities;
 
 import java.util.Date;
+import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -37,10 +38,6 @@ public class RoomReservation {
     private Date toTime;
 
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public void setRoom(Room room) {
         this.room = room;
     }
@@ -76,6 +73,21 @@ public class RoomReservation {
 
     public Date getToTime() {
         return toTime;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        RoomReservation that = (RoomReservation) o;
+        return Objects.equals(room, that.room)
+                && Objects.equals(user, that.user)
+                && Objects.equals(fromTime, that.fromTime)
+                && Objects.equals(toTime, that.toTime);
     }
 
 }

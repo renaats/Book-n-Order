@@ -6,7 +6,7 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 public class MyPreviousBookingsController {
     /**
      * Changes to myAccountScene.fxml.
-     * @throws IOException
+     * @throws IOException will not be wrong.
      */
     public void myAccountScene() throws IOException {
         ApplicationDisplay.changeScene("/myAccountScene.fxml");
@@ -14,7 +14,7 @@ public class MyPreviousBookingsController {
 
     /**
      * Changes to myCurrentBookings.fxml.
-     * @throws IOException
+     * @throws IOException will not be wrong.
      */
     public void myCurrentBookings() throws IOException {
         ApplicationDisplay.changeScene("/myCurrentBookings.fxml");
@@ -22,7 +22,7 @@ public class MyPreviousBookingsController {
 
     /**
      * Changes to myPreviousBookings.fxml.
-     * @throws IOException
+     * @throws IOException input will not be invalid.
      */
     public void myPreviousBookings() throws IOException {
         ApplicationDisplay.changeScene("/myPreviousBookings.fxml");
@@ -30,7 +30,7 @@ public class MyPreviousBookingsController {
 
     /**
      * Changes to myPreviousTenRoomBookings.fxml.
-     * @throws IOException
+     * @throws IOException will not be invalid.
      */
     public void myPreviousTenRoomBookings() throws IOException {
         ApplicationDisplay.changeScene("/myPreviousTenRoomBookings.fxml");
@@ -38,7 +38,7 @@ public class MyPreviousBookingsController {
 
     /**
      * Changes to myPreviousTenBikeReservations.fxml.
-     * @throws IOException
+     * @throws IOException will not be valid.
      */
     public void myPreviousTenBikeReservations() throws IOException {
         ApplicationDisplay.changeScene("/myPreviousTenBikeReservations.fxml");
@@ -46,7 +46,7 @@ public class MyPreviousBookingsController {
 
     /**
      * Changes to myPreviousTenFoodOrders.fxml.
-     * @throws IOException
+     * @throws IOException will not be valid.
      */
     public void myPreviousTenFoodOrders() throws IOException {
         ApplicationDisplay.changeScene("/myPreviousTenFoodOrders.fxml");
