@@ -8,9 +8,9 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import java.util.HashSet;
 import java.util.Set;
 
-import nl.tudelft.oopp.demo.entities.User;
 import nl.tudelft.oopp.demo.entities.Role;
 import nl.tudelft.oopp.demo.entities.RoomReservation;
+import nl.tudelft.oopp.demo.entities.User;
 import nl.tudelft.oopp.demo.repositories.UserRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
