@@ -1,10 +1,10 @@
 package nl.tudelft.oopp.demo.controllers;
 
-import javafx.fxml.Initializable;
 import java.io.IOException;
-import nl.tudelft.oopp.demo.views.ApplicationDisplay;
+import javafx.fxml.Initializable;
 import java.net.URL;
 import java.util.ResourceBundle;
+import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 public class MainMenuController implements Initializable {
 
