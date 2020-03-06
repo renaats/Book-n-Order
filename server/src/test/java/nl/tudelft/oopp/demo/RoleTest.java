@@ -27,7 +27,6 @@ class RoleTest {
     @BeforeEach
     public void setup() {
         role = new Role();
-        role.setId(1);
         role.setName("Tutor");
         role.setUsers(new HashSet<>());
         roleRepository.save(role);
@@ -59,10 +58,8 @@ class RoleTest {
     public void testSetters(){
         Set<User> userSet = new HashSet<User>();
         role2 = new Role();
-        role2.setId(7);
         role2.setName("Manager");
         role2.setUsers(userSet);
-        assertEquals(role2.getId(),7);
         assertEquals(role2.getName(), "Manager");
         assertEquals(role2.getUsers(), userSet);
     }
