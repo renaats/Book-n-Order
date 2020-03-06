@@ -140,7 +140,7 @@ public class RoomReservationTest {
         assertFalse(room.hasRoomReservationBetween(new Date(11500000000L), new Date(1160000000L)));
     }
 
-    /** Tests retrieving and saving data from the roomReservationRepository.
+    /** Tests retrieving and saving data from the RoomReservationRepository.
      */
     @Test
     public void saveAndRetrieveRoomReservation() {
