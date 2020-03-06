@@ -200,4 +200,27 @@ public class ServerCommunication {
         }
         return response.body();
     }
+
+    /**
+     * Communicates Adds building to the database
+     * @param name building name
+     * @param street street name
+     * @param houseNumber house number
+     * @return response body
+     */
+    public static String addBuilding(String name, String street, int houseNumber) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building/add?name=" + name + "&street=" + street + "&houseNumber=" + houseNumber)).POST(HttpRequest.BodyPublishers.noBody()).build();
+        HttpResponse<String> response = null;
+        try {
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Communication with server failed";
+        }
+        if (response.statusCode() != 200) {
+            System.out.println(response.body());
+            System.out.println("Status: " + response.statusCode());
+        }
+        return response.body();
+    }
 }
