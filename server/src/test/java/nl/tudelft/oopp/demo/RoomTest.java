@@ -100,7 +100,7 @@ public class RoomTest {
         assertEquals(room2.getRoomReservations(), roomReservationSet);
     }
 
-    /** Tests retrieving and saving data from the roomRepository.
+    /** Tests retrieving and saving data from the RoomRepository.
      */
     @Test
     public void saveAndRetrieveRoom() {
