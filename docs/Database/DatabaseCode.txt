@@ -84,6 +84,33 @@ Table food_orders {
   delivery_location building_number
 }
 
+Table room_feedback {
+  feedback_id int PK
+  client User
+  recipient User
+  room rooms
+  feedback_date date
+  feedback_text String
+}
+
+Table food_feedback {
+  feedback_id int PK
+  client User
+  recipient User
+  food_orders food_orders
+  feedback_date date
+  feedback_text String
+}
+
+Table bike_feedback {
+  feedback_id int PK
+  client User
+  recipient User
+  bike_reservations bike_reservations
+  feedback_date date
+  feedback_text String
+}
+
 Ref: "User"."id" < "food_orders"."User"
 
 Ref: "User"."id" < "bike_reservations"."User"
@@ -111,3 +138,21 @@ Ref: "building"."building_number" < "food_orders"."delivery_location"
 Ref: "bike_reservations"."from_building" < "building"."building_number"
 
 Ref: "bike_reservations"."to_building" < "building"."building_number"
+
+Ref: "User"."id" < "room_feedback"."client"
+
+Ref: "User"."id" < "food_feedback"."client"
+
+Ref: "User"."id" < "bike_feedback"."client"
+
+Ref: "User"."id" < "room_feedback"."recipient"
+
+Ref: "User"."id" < "food_feedback"."recipient"
+
+Ref: "User"."id" < "bike_feedback"."recipient"
+
+Ref: "rooms"."room_name" < "room_feedback"."room"
+
+Ref: "bike_reservations"."id" < "bike_feedback"."bike_reservations"
+
+Ref: "food_orders"."order_id" < "food_feedback"."food_orders"
