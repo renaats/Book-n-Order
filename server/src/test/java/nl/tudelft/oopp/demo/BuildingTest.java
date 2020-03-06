@@ -1,5 +1,12 @@
 package nl.tudelft.oopp.demo;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,8 +19,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 public class BuildingTest {
@@ -55,7 +60,7 @@ public class BuildingTest {
     /** Tests the constructor of the Building class
      */
     @Test
-    public void testConstructor(){
+    public void testConstructor() {
         building2 = new Building();
         assertNotNull(building2);
     }
@@ -76,7 +81,7 @@ public class BuildingTest {
     /** Tests the setters of the Building class
      */
     @Test
-    public void testSetters(){
+    public void testSetters() {
         building2 = new Building();
         building2.setName("Pulse");
         building2.setStreet("Landbergstraat");

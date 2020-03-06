@@ -1,5 +1,11 @@
 package nl.tudelft.oopp.demo;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -20,8 +26,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 
 @ExtendWith(SpringExtension.class)
@@ -86,7 +90,7 @@ public class RoomReservationTest {
     /** Tests the constructor of the RoomReservation class
      */
     @Test
-    public void testConstructor(){
+    public void testConstructor() {
         assertNotNull(building);
         assertNotNull(room);
         assertNotNull(user);
@@ -108,7 +112,7 @@ public class RoomReservationTest {
     /** Tests the setters of the RoomReservation class
      */
     @Test
-    public void testSetters(){
+    public void testSetters() {
         roomReservation3 = new RoomReservation();
         Room newRoom = new Room();
         User newUser = new User();
@@ -129,7 +133,7 @@ public class RoomReservationTest {
     @Test
     public void testOverlappingReservation() {
         room = roomRepository.findAll().get(0);
-        Set<RoomReservation> setOfRoomReservations= new HashSet<RoomReservation>();
+        Set<RoomReservation> setOfRoomReservations = new HashSet<RoomReservation>();
         setOfRoomReservations.add(roomReservationRepository.findAll().get(0));
         room.setRoomReservations(setOfRoomReservations);
         assertTrue(room.hasRoomReservations());
