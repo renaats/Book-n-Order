@@ -110,7 +110,11 @@ public class DatabaseAddRoomController {
         ApplicationDisplay.changeScene("/DatabaseRoomMenu.fxml");
     }
 
-    public void DatabaseAddRoom(ActionEvent actionEvent) {
+    /**
+     * Adds a room to the database
+     * @param actionEvent action event parameter
+     */
+    public void databaseAddRoom(ActionEvent actionEvent) {
         String name = nameTextField.getText();
         String faculty = facultyTextField.getText();
         int buildingId = Integer.parseInt(buildingIdTextField.getText());
