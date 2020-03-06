@@ -88,7 +88,7 @@ public class BuildingTest {
         assertNotNull(building2.getRooms());
     }
 
-    /** Tests retrieving and saving data from the buildingRepository.
+    /** Tests retrieving and saving data from the BuildingRepository.
      */
     @Test
     public void saveAndRetrieveBuilding() {
