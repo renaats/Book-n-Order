@@ -25,6 +25,14 @@ public class Building {
     @OneToMany(mappedBy = "building")
     Set<Room> rooms = new HashSet<>();
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "location")
+    Set<Bike> bikes = new HashSet<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "building")
+    Set<Restaurant> restaurants = new HashSet<>();
+
     public void setName(String name) {
         this.name = name;
     }
