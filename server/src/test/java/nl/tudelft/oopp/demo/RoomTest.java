@@ -87,6 +87,7 @@ public class RoomTest {
 
     @AfterEach
     public void cleanup() {
+        roomRepository.deleteAll();
         buildingRepository.deleteAll();
     }
 }

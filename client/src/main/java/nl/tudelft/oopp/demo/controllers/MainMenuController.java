@@ -38,7 +38,8 @@ public class MainMenuController {
     }
 
     /**
-     * Handles clicking the rooms button. Should send you to the mainScene.
+     * Changes to bookRoom.fxml.
+     * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
     public void roomsSelected(ActionEvent event) throws IOException {
         Parent roomSelectParent = FXMLLoader.load(getClass().getResource("/bookRoom.fxml"));

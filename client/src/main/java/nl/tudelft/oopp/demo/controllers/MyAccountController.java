@@ -30,7 +30,7 @@ public class MyAccountController {
     }
 
     /**
-     * Changes to mainScene.fxml.
+     * Changes to templateScene.fxml.fxml.
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
     public void mainMenu() throws IOException {

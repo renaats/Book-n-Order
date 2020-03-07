@@ -63,7 +63,6 @@ public class DatabaseBuildingController implements Initializable {
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
     public void databaseBuildingMenu() throws IOException {
-        loadDataUpdateChoiceBox();
         ApplicationDisplay.changeScene("/DatabaseMenu.fxml");
     }
 
@@ -72,7 +71,6 @@ public class DatabaseBuildingController implements Initializable {
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
     public void databaseRoomMenu() throws IOException {
-        loadDataUpdateChoiceBox();
         ApplicationDisplay.changeScene("/DatabaseRoomMenu.fxml");
     }
 
@@ -114,7 +112,19 @@ public class DatabaseBuildingController implements Initializable {
         updateChoiceBox.getItems().addAll(updateChoiceBoxList);
     }
 
-    public void gobacktoMainMenu1(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/mainMenu.fxml");
+    /**
+     * Switches scene to DatabaseAddBuildings.fxml
+     * @throws IOException Input will be valid
+     */
+    public void databaseAddBuildings() throws IOException {
+        ApplicationDisplay.changeScene("/DatabaseAddBuildings.fxml");
+    }
+
+    /**
+     * Switches scene to DatabaseAddRooms.fxml
+     * @throws IOException Input will be valid
+     */
+    public void databaseAddRooms() throws IOException {
+        ApplicationDisplay.changeScene("/DatabaseAddRooms.fxml");
     }
 }
