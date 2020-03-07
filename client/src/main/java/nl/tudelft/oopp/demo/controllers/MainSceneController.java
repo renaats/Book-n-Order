@@ -12,7 +12,6 @@ import javafx.stage.Stage;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 //Class not properly commented because it's to be deleted soon
-
 public class MainSceneController {
 
     /**
