@@ -11,9 +11,6 @@ import javafx.stage.Stage;
 
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
-/**
- * Adds
- */
 public class MainMenuController {
 
     /**
@@ -45,16 +42,18 @@ public class MainMenuController {
      * Changes to myPreviousBookings.fxml.
      * @throws IOException input will not be wrong, hence we throw.
      */
+
     public void myPreviousBookings() throws IOException {
         ApplicationDisplay.changeScene("/myPreviousBookings.fxml");
     }
+    /**
+     *  method changes the view to that of the my account
+     * @throws IOException the method will never throw an exception
+     */
 
     public void myAccountScene() throws IOException {
         ApplicationDisplay.changeScene("/myAccountScene.fxml");
     }
-
-
-
 
     /**
      * Handles clicking the food button.
@@ -65,6 +64,11 @@ public class MainMenuController {
     public void foodsSelected(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/bikeReservations.fxml");
     }
+    /**
+     *  method changes the view to that of the main menu
+     * @param actionEvent clicking the button to go back to menu
+     * @throws IOException the method will never throw an exception
+     */
 
     public void gobacktoMainMenu1(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/mainMenu.fxml");

@@ -11,7 +11,7 @@ import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
-
+//Class not properly commented because it's to be deleted soon
 public class MainSceneController {
 
     /**
@@ -49,7 +49,9 @@ public class MainSceneController {
     }
 
     /**
-     * Handles clicking the back button goes back to main menu
+     *  method changes the view to that of the main menu
+     * @param actionEvent clicking the button to go back to menu
+     * @throws IOException the method will never throw an exception
      */
 
     public void goBackToMenu(ActionEvent actionEvent) throws IOException {
@@ -60,6 +62,11 @@ public class MainSceneController {
         window.setScene(roomSelectScene);
         window.show();
     }
+    /**
+     *  method changes the view to that of the main menu
+     * @param actionEvent clicking the button to go back to menu
+     * @throws IOException the method will never throw an exception
+     */
 
     public void gobacktoMainMenu1(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/mainMenu.fxml");
