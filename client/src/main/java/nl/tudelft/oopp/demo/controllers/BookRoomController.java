@@ -1,13 +1,16 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 public class BookRoomController implements Initializable {
 
@@ -78,5 +81,41 @@ public class BookRoomController implements Initializable {
         }
         from.getItems().addAll(listOfTimeSlots);
         until.getItems().addAll(listOfTimeSlots);
+    }
+
+    /**
+     * Changes to myCurrentBookings.fxml.
+     * @throws IOException input will not be wrong, hence we throw.
+     */
+    public void myCurrentBookings() throws IOException {
+        ApplicationDisplay.changeScene("/myCurrentBookings.fxml");
+    }
+
+    /**
+     * Changes to myPreviousBookings.fxml.
+     * @throws IOException input will not be wrong, hence we throw.
+     */
+    public void myPreviousBookings() throws IOException {
+        ApplicationDisplay.changeScene("/myPreviousBookings.fxml");
+    }
+
+    public void myAccountScene() throws IOException {
+        ApplicationDisplay.changeScene("/myAccountScene.fxml");
+    }
+
+    public void bikesSelected1(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/bikeReservations.fxml");
+    }
+
+    public void roomsSelected1(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/bookRoom.fxml");
+    }
+
+    public void foodsSelected1(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/bikeReservations.fxml");
+    }
+
+    public void gobacktoMainMenu1(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/mainMenu.fxml");
     }
 }

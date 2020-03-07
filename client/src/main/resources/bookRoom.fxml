@@ -19,23 +19,19 @@
             <Image url="@Images/booknorderlogo.png" />
          </image></ImageView>
       <MenuBar layoutX="-1.0" layoutY="85.0" prefHeight="25.0" prefWidth="800.0" style="-fx-background-color: #00a6d6;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
-         <menus>
-            <Menu mnemonicParsing="false" text="Home" />
-            <Menu mnemonicParsing="false" text="New booking">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="Book a room" />
-                  <MenuItem mnemonicParsing="false" text="Rent a bike" />
-                  <MenuItem mnemonicParsing="false" text="Order food" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="My account">
-               <items>
-<!--                  <MenuItem mnemonicParsing="false" onAction="#myAccountScene" text="My profile" />-->
-<!--                  <MenuItem mnemonicParsing="false" onAction="#myCurrentBookings" text="My current bookings" />-->
-<!--                  <MenuItem mnemonicParsing="false" onAction="#myPreviousBookings" text="My previous bookings" />-->
-               </items>
-            </Menu>
-         </menus>
+          <Menu mnemonicParsing="false" text="Home">
+              <MenuItem mnemonicParsing="false" onAction="#gobacktoMainMenu1" text="Main menu" />
+          </Menu>
+          <Menu mnemonicParsing="false" text="New booking">
+              <MenuItem mnemonicParsing="false" onAction="#roomsSelected1" text="Book a room" />
+              <MenuItem mnemonicParsing="false" onAction="#bikesSelected1" text="Rent a bike" />
+              <MenuItem mnemonicParsing="false" onAction="#foodsSelected1" text="Order food" />
+          </Menu>
+          <Menu mnemonicParsing="false" text="My account">
+              <MenuItem mnemonicParsing="false" onAction="#myAccountScene" text="My profile" />
+              <MenuItem mnemonicParsing="false" onAction="#myCurrentBookings" text="My current bookings" />
+              <MenuItem mnemonicParsing="false" onAction="#myPreviousBookings" text="My previous bookings" />
+          </Menu>
       </MenuBar>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00a6d6" height="79.0" layoutX="-1.0" layoutY="521.0" stroke="#00a6d6" strokeType="INSIDE" width="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
       <Text fill="WHITE" layoutX="20.0" layoutY="555.576171875" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback is welcome" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0">
