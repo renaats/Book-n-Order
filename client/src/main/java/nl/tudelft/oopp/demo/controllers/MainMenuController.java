@@ -38,10 +38,18 @@ public class MainMenuController implements Initializable {
         ApplicationDisplay.changeScene("/myPreviousBookings.fxml");
     }
 
+    /**
+     * Changes to myAccountScene.fxml.
+     * @throws IOException input will not be wrong, hence we throw.
+     */
     public void myAccountScene() throws IOException {
         ApplicationDisplay.changeScene("/myAccountScene.fxml");
     }
 
+    /**
+     * Changes to myPreviousTenRoomBookings.fxml.
+     * @throws IOException input will not be wrong, hence we throw.
+     */
     public void myPreviousTenRoomBookings() throws IOException {
         ApplicationDisplay.changeScene("/myPreviousTenRoomBookings.fxml");
     }
@@ -62,6 +70,10 @@ public class MainMenuController implements Initializable {
         ApplicationDisplay.changeScene("/myPreviousTenFoodOrders.fxml");
     }
 
+    /**
+     * Changes to myCurrentBikeReservations.fxml.
+     * @throws IOException input will not be wrong, hence we throw.
+     */
     public void myCurrentBikeReservations() throws IOException {
         ApplicationDisplay.changeScene("/myCurrentBikeReservations.fxml");
     }
