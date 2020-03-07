@@ -1,14 +1,17 @@
 package nl.tudelft.oopp.demo.services;
 
-import nl.tudelft.oopp.demo.entities.User;
+import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private BCryptPasswordEncoder bcryptPasswordEncoder;
 
     /**
      * Adds a user.
@@ -23,13 +26,13 @@ public class UserServiceImpl implements UserService {
         if (userRepository.existsById(email)) {
             return "The account with email " + email + " already exists!";
         }
-        User user = new User();
-        user.setEmail(email);
-        user.setPassword(password);
-        user.setName(name);
-        user.setSurname(surname);
-        user.setFaculty(faculty);
-        userRepository.save(user);
+        AppUser appUser = new AppUser();
+        appUser.setEmail(email);
+        appUser.setPassword(bcryptPasswordEncoder.encode(password));
+        appUser.setName(name);
+        appUser.setSurname(surname);
+        appUser.setFaculty(faculty);
+        userRepository.save(appUser);
         return "Account created!";
     }
 
@@ -44,28 +47,28 @@ public class UserServiceImpl implements UserService {
         if (userRepository.findById(email).isEmpty()) {
             return "User with email " + email + " does not exist!";
         }
-        User user = userRepository.findById(email).get();
+        AppUser appUser = userRepository.findById(email).get();
 
         switch (attribute) {
             case "email":
-                user.setEmail(value);
+                appUser.setEmail(value);
                 break;
             case "password":
-                user.setPassword(value);
+                appUser.setPassword(value);
                 break;
             case "name":
-                user.setName(value);
+                appUser.setName(value);
                 break;
             case "surname":
-                user.setSurname(value);
+                appUser.setSurname(value);
                 break;
             case "faculty":
-                user.setFaculty(value);
+                appUser.setFaculty(value);
                 break;
             default:
                 return "No attribute with name " + attribute + " found!";
         }
-        userRepository.save(user);
+        userRepository.save(appUser);
         return "The attribute has been set!";
     }
 
@@ -87,7 +90,7 @@ public class UserServiceImpl implements UserService {
      * Should be removed for the finished version!
      * @return all accounts
      */
-    public Iterable<User> all() {
+    public Iterable<AppUser> all() {
         return userRepository.findAll();
     }
 
@@ -95,11 +98,11 @@ public class UserServiceImpl implements UserService {
      * Finds an account by its email.
      * @return an account that has the specified email or null if no such account exists
      */
-    public User find(String email) {
+    public AppUser find(String email) {
         if (!userRepository.existsById(email)) {
             return null;
         }
-        User user = userRepository.getOne(email);
-        return user;
+        AppUser appUser = userRepository.getOne(email);
+        return appUser;
     }
 }

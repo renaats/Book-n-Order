@@ -14,7 +14,7 @@ public class Role {
     private int id;
     private String name;
     @ManyToMany(mappedBy = "roles")
-    private Set<User> users;
+    private Set<AppUser> appUsers;
 
     public void setId(int id) {
         this.id = id;
@@ -24,8 +24,8 @@ public class Role {
         this.name = name;
     }
 
-    public void setUsers(Set<User> users) {
-        this.users = users;
+    public void setAppUsers(Set<AppUser> appUsers) {
+        this.appUsers = appUsers;
     }
 
     public int getId() {
@@ -36,7 +36,7 @@ public class Role {
         return name;
     }
 
-    public Set<User> getUsers() {
-        return users;
+    public Set<AppUser> getAppUsers() {
+        return appUsers;
     }
 }

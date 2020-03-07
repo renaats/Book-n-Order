@@ -1,6 +1,6 @@
 package nl.tudelft.oopp.demo.controllers;
 
-import nl.tudelft.oopp.demo.entities.User;
+import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -70,7 +70,7 @@ public class UserController {
      */
     @GetMapping(path = "/all")
     @ResponseBody
-    public Iterable<User> getAllUsers() {
+    public Iterable<AppUser> getAllUsers() {
         return userService.all();
     }
 
@@ -80,7 +80,7 @@ public class UserController {
      */
     @GetMapping(path = "/find")
     @ResponseBody
-    public User getUser(@RequestParam String email) {
+    public AppUser getUser(@RequestParam String email) {
         return userService.find(email);
     }
 
