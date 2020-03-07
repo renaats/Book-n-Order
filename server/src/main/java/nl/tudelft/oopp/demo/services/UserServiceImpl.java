@@ -1,6 +1,10 @@
 package nl.tudelft.oopp.demo.services;
 
+import java.util.HashSet;
+
 import nl.tudelft.oopp.demo.entities.AppUser;
+import nl.tudelft.oopp.demo.entities.Role;
+import nl.tudelft.oopp.demo.repositories.RoleRepository;
 import nl.tudelft.oopp.demo.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -12,6 +16,8 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     @Autowired
     private BCryptPasswordEncoder bcryptPasswordEncoder;
+    @Autowired
+    private RoleRepository roleRepository;
 
     /**
      * Adds a user.
@@ -32,6 +38,13 @@ public class UserServiceImpl implements UserService {
         appUser.setName(name);
         appUser.setSurname(surname);
         appUser.setFaculty(faculty);
+        if (!roleRepository.existsByName("ROLE_USER")) {
+            Role role = new Role();
+            role.setName("ROLE_USER");
+            roleRepository.save(role);
+        }
+        appUser.setRoles(new HashSet<>());
+        appUser.addRole(roleRepository.findByName("ROLE_USER"));
         userRepository.save(appUser);
         return "Account created!";
     }
@@ -104,5 +117,26 @@ public class UserServiceImpl implements UserService {
         }
         AppUser appUser = userRepository.getOne(email);
         return appUser;
+    }
+
+    /**
+     * Adds a role to an account. If the role does not exist, it is created.
+     * @param email = the email of the account
+     * @param roleName = the name of the role
+     */
+    public void addRole(String email, String roleName) {
+        if (!userRepository.existsById(email)) {
+            return;
+        }
+        AppUser appUser = userRepository.getOne(email);
+        Role role;
+        if (!roleRepository.existsByName(roleName)) {
+            role = new Role();
+            role.setName(roleName);
+            roleRepository.save(role);
+        }
+        role = roleRepository.findByName(roleName);
+        appUser.addRole(role);
+        userRepository.save(appUser);
     }
 }
