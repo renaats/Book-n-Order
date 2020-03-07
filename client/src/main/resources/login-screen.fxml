@@ -11,7 +11,6 @@
 <?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.LoginController">
-   <children>
       <ImageView cache="true" cacheHint="QUALITY" depthTest="DISABLE" fitHeight="600.0" fitWidth="800.0" opacity="0.5" pickOnBounds="true">
          <Image url="@../../../../images/tudelft.jpeg" />
          </ImageView>
