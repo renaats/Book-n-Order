@@ -102,7 +102,41 @@ public class BikeReservationController implements Initializable {
         window.show();
     }
 
+    /**
+     * Changes to myCurrentBookings.fxml.
+     * @throws IOException input will not be wrong, hence we throw.
+     */
+    public void myCurrentBookings() throws IOException {
+        ApplicationDisplay.changeScene("/myCurrentBookings.fxml");
+    }
+
+    /**
+     * Changes to myPreviousBookings.fxml.
+     * @throws IOException input will not be wrong, hence we throw.
+     */
+    public void myPreviousBookings() throws IOException {
+        ApplicationDisplay.changeScene("/myPreviousBookings.fxml");
+    }
+
+    public void myAccountScene() throws IOException {
+        ApplicationDisplay.changeScene("/myAccountScene.fxml");
+    }
+
+    public void bikesSelected1(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/bikeReservations.fxml");
+    }
+
+    public void roomsSelected1(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/bookRoom.fxml");
+    }
+
+    public void foodsSelected1(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/bikeReservations.fxml");
+    }
+
     public void gobacktoMainMenu1(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/mainMenu.fxml");
     }
+
+
 }
