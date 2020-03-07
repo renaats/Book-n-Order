@@ -8,6 +8,11 @@ public class ErrorMessages {
     private static final String IdNotFoundMessage = "No results on ID.";
     private static final String hasNoRoomsMessage = "Building has no rooms.";
     private static final String executedMessage = "Succesfully executed.";
+    private static final String alreadyReservedMessage = "Already reserved at this timeslot.";
+    private static final String roomNotFoundMessage = "Room not found.";
+    private static final String userNotFoundMessage = "User not found.";
+    private static final String attributeNotFoundMessage = "Attribute not found.";
+    private static final String reservationNotFoundMessage = "Reservation not found.";
     private static int code;
 
     /**
@@ -21,6 +26,8 @@ public class ErrorMessages {
                 return executedMessage;
             case 201:
                 return addedMessage;
+            case 308:
+                return alreadyReservedMessage;
             case 401:
                 return unAuthorizedMessage;
             case 404:
@@ -31,6 +38,14 @@ public class ErrorMessages {
                 return IdNotFoundMessage;
             case 417:
                 return hasNoRoomsMessage;
+            case 418:
+                return roomNotFoundMessage;
+            case 419:
+                return userNotFoundMessage;
+            case 420:
+                return attributeNotFoundMessage;
+            case 421:
+                return reservationNotFoundMessage;
             default:
                 return notFoundMessage;
         }

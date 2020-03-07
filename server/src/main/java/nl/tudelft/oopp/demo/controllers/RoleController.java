@@ -28,7 +28,7 @@ public class RoleController {
      */
     @PostMapping(path = "/add")
     @ResponseBody
-    public String addRole(@RequestParam String name) {
+    public int addRole(@RequestParam String name) {
         return roleService.add(name);
     }
 
@@ -40,7 +40,7 @@ public class RoleController {
      */
     @PostMapping(path = "/update_name")
     @ResponseBody
-    public String updateName(@RequestParam int id, @RequestParam String name) {
+    public int updateName(@RequestParam int id, @RequestParam String name) {
         return roleService.update(id, name);
     }
 
@@ -51,7 +51,7 @@ public class RoleController {
      */
     @DeleteMapping(path = "/delete")
     @ResponseBody
-    public String deleteRole(@RequestParam int id) {
+    public int deleteRole(@RequestParam int id) {
         return roleService.delete(id);
     }
 
