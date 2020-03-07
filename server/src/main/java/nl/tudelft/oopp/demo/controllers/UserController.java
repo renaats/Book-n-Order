@@ -68,9 +68,9 @@ public class UserController {
 
     /**
      * Lists all accounts.
-     * Should be removed for the finished version!
      * @return all accounts
      */
+    @Secured("ROLE_ADMIN")
     @GetMapping(path = "/all")
     @ResponseBody
     public Iterable<AppUser> getAllUsers() {
@@ -81,6 +81,7 @@ public class UserController {
      * Finds an account by its email.
      * @return an account that has the specified email or null if no such account exists
      */
+    @Secured("ROLE_ADMIN")
     @GetMapping(path = "/find")
     @ResponseBody
     public AppUser getUser(@RequestParam String email) {
@@ -93,6 +94,7 @@ public class UserController {
      * @param email = the email of the account
      * @param roleName = the name of the role
      */
+    //@Secured("ROLE_ADMIN") SHOULD BE UNCOMMENTED WHEN IN PRODUCTION!
     @PostMapping(path = "/addRole")
     @ResponseBody
     public void addRole(@RequestParam String email, @RequestParam String roleName) {
