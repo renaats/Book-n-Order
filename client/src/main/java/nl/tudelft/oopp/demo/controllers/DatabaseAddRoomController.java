@@ -96,4 +96,8 @@ public class DatabaseAddRoomController {
     public void databaseRoomMenu() throws IOException {
         ApplicationDisplay.changeScene("/DatabaseRoomMenu.fxml");
     }
+
+    public void myAccountScene(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/myAccountScene.fxml");
+    }
 }

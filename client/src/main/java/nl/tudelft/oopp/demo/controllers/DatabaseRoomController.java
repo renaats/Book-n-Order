@@ -132,4 +132,8 @@ public class DatabaseRoomController implements Initializable {
     public void databaseAddRooms() throws IOException {
         ApplicationDisplay.changeScene("/DatabaseAddRooms.fxml");
     }
+
+    public void myAccountScene(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/myAccountScene.fxml");
+    }
 }

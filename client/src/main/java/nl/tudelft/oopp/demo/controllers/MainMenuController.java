@@ -1,9 +1,9 @@
 package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
-import javafx.fxml.Initializable;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.Initializable;
 
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
@@ -48,7 +48,7 @@ public class MainMenuController implements Initializable {
 
     /**
      * Changes to myPreviousTenBikeReservations.fxml.
-     * @throws IOException
+     * @throws IOException input will not be wrong, hence we throw.
      */
     public void myPreviousTenBikeReservations() throws IOException {
         ApplicationDisplay.changeScene("/myPreviousTenBikeReservations.fxml");
@@ -56,7 +56,7 @@ public class MainMenuController implements Initializable {
 
     /**
      * Changes to myPreviousTenFoodOrders.fxml.
-     * @throws IOException
+     * @throws IOException input will not be wrong, hence we throw.
      */
     public void myPreviousTenFoodOrders() throws IOException {
         ApplicationDisplay.changeScene("/myPreviousTenFoodOrders.fxml");
@@ -68,7 +68,7 @@ public class MainMenuController implements Initializable {
 
     /**
      * Changes to myCurrentRoomBookings.fxml.
-     * @throws IOException
+     * @throws IOException input will not be wrong, hence we throw.
      */
     public void myCurrentRoomBookings() throws IOException {
         ApplicationDisplay.changeScene("/myCurrentRoomBookings.fxml");
@@ -76,7 +76,7 @@ public class MainMenuController implements Initializable {
 
     /**
      * Changes to myCurrentFoodOrders.fxml.
-     * @throws IOException
+     * @throws IOException input will not be wrong, hence we throw.
      */
     public void myCurrentFoodOrders() throws IOException {
         ApplicationDisplay.changeScene("/myCurrentFoodOrders.fxml");
