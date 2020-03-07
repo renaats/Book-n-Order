@@ -122,9 +122,7 @@ public class BikeReservationController implements Initializable {
     }
 
     /**
-     * 
-     * @param actionEvent
-     * @throws IOException
+     * Goes to bookRoom view
      */
     public void roomsSelected1(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/bookRoom.fxml");
@@ -132,8 +130,6 @@ public class BikeReservationController implements Initializable {
 
     /**
      * changes view to food reservations
-     * @param actionEvent
-     * @throws IOException
      */
 
     public void foodsSelected1(ActionEvent actionEvent) throws IOException {
@@ -141,9 +137,7 @@ public class BikeReservationController implements Initializable {
     }
 
     /**
-     * @param actionEvent
-     * changes view to main menu
-     * @throws IOException
+     * Goes back to mainMenu scene
      */
     public void gobacktoMainMenu(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/mainMenu.fxml");
