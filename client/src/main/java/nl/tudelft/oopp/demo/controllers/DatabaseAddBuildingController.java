@@ -9,6 +9,9 @@ import javafx.scene.control.TextField;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
+/**
+ * Takes care of the functionality of the DataBaseAddBuilding.fxml file
+ */
 public class DatabaseAddBuildingController {
 
     @FXML

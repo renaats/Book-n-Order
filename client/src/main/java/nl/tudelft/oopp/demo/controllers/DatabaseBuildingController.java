@@ -15,6 +15,9 @@ import javafx.scene.control.TextField;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
+/**
+ * Adds the functionality to DatabaseMenu.fxml file
+ */
 public class DatabaseBuildingController implements Initializable {
 
     final ObservableList updateChoiceBoxList = FXCollections.observableArrayList();

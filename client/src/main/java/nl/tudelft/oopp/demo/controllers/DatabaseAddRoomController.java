@@ -11,6 +11,9 @@ import javafx.scene.control.ToggleButton;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
+/**
+ * Takes care of the functionality  DataBaseAddRoom.fxml file
+ */
 public class DatabaseAddRoomController {
 
     @FXML

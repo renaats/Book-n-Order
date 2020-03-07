@@ -12,6 +12,9 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
+/**
+ * This class controls the functionality of the different buttons in bike reservations and creates the entries in the choice boxes
+ */
 public class BookRoomController implements Initializable {
 
     final ObservableList listOfRooms = FXCollections.observableArrayList();
@@ -99,22 +102,38 @@ public class BookRoomController implements Initializable {
         ApplicationDisplay.changeScene("/myPreviousBookings.fxml");
     }
 
+    /**
+     * Changes to myAccountScene.fxml.
+     * @throws IOException
+     */
     public void myAccountScene() throws IOException {
         ApplicationDisplay.changeScene("/myAccountScene.fxml");
     }
-
+    /**
+     * Changes to bikeReservations.fxml.
+     * @throws IOException
+     */
     public void bikesSelected1(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/bikeReservations.fxml");
     }
-
+    /**
+     * Changes to bookRoom.fxml.
+     * @throws IOException
+     */
     public void roomsSelected1(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/bookRoom.fxml");
     }
-
+    /**
+     * Changes to bikeReservations.fxml.
+     * @throws IOException
+     */
     public void foodsSelected1(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/bikeReservations.fxml");
     }
-
+    /**
+     * Changes to mainMenu.fxml.
+     * @throws IOException
+     */
     public void gobacktoMainMenu1(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/mainMenu.fxml");
     }
