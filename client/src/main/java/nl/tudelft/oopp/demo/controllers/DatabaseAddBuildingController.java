@@ -52,4 +52,8 @@ public class DatabaseAddBuildingController {
     public void databaseRoomMenu() throws IOException {
         ApplicationDisplay.changeScene("/DatabaseRoomMenu.fxml");
     }
+
+    public void databaseAddBuilding(ActionEvent actionEvent) {
+        //TODO
+    }
 }
