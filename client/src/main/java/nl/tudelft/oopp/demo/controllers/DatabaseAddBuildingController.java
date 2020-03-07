@@ -59,7 +59,7 @@ public class DatabaseAddBuildingController {
         String street = streetTextField.getText();
         int houseNumber = Integer.parseInt(houseNumberTextField.getText());
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Building remover");
+        alert.setTitle("Building adder");
         alert.setHeaderText(null);
         alert.setContentText(ServerCommunication.addBuilding(name, street, houseNumber));
         alert.showAndWait();
