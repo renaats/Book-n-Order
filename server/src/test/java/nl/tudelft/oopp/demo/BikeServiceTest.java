@@ -1,8 +1,5 @@
 package nl.tudelft.oopp.demo;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -18,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 public class BikeServiceTest {
@@ -64,6 +63,11 @@ public class BikeServiceTest {
         bike2 = new Bike();
         bike2.setAvailable(false);
         bike2.setLocation(building2);
+    }
+
+    @Test
+    public void testConstructor() {
+        assertNotNull(bikeService);
     }
 
     @Test
