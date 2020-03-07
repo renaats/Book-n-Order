@@ -10,6 +10,6 @@ public class LoginController {
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
     public void mainMenu() throws IOException {
-        ApplicationDisplay.changeScene("/templateScene.fxml");
+        ApplicationDisplay.changeScene("/mainMenu.fxml");
     }
 }
