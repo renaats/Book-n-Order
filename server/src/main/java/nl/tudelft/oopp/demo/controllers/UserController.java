@@ -3,6 +3,7 @@ package nl.tudelft.oopp.demo.controllers;
 import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,6 +47,7 @@ public class UserController {
      * @param value = the new value of the attribute
      * @return String to see if your request passed
      */
+    @Secured("ROLE_ADMIN")
     @PostMapping(path = "/update")
     @ResponseBody
     public String updateAttribute(@RequestParam String email, @RequestParam String attribute, @RequestParam String value) {
@@ -57,6 +59,7 @@ public class UserController {
      * @param email = the email of the account
      * @return String to see if your request passed
      */
+    @Secured("ROLE_ADMIN")
     @DeleteMapping(path = "/delete")
     @ResponseBody
     public String deleteUser(@RequestParam String email) {
@@ -84,4 +87,15 @@ public class UserController {
         return userService.find(email);
     }
 
+
+    /**
+     * Adds a role to an account. If the role does not exist, it is created.
+     * @param email = the email of the account
+     * @param roleName = the name of the role
+     */
+    @PostMapping(path = "/addRole")
+    @ResponseBody
+    public void addRole(@RequestParam String email, @RequestParam String roleName) {
+        userService.addRole(email, roleName);
+    }
 }
