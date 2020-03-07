@@ -46,25 +46,47 @@
         </font>
     </Text>
     <Accordion layoutX="76.0" layoutY="144.0" />
-    <ImageView fitHeight="115.0" fitWidth="200.0" layoutX="75.0" layoutY="219.0" opacity="0.8" pickOnBounds="true" AnchorPane.leftAnchor="75.0" AnchorPane.topAnchor="219.0">
-        <Image url="@images/roompicture.png" />
+    <ImageView fitHeight="100.0" fitWidth="174.0" layoutX="75.0" layoutY="219.0" pickOnBounds="true" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="224.0">
+        <Image url="@images/restaurantaula.png" />
         <viewport>
             <Rectangle2D />
         </viewport>
     </ImageView>
-    <ImageView fitHeight="115.0" fitWidth="200.0" layoutX="300.0" layoutY="219.0" opacity="0.9" pickOnBounds="true" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="219.0">
+    <ImageView fitHeight="100.0" fitWidth="174.0" layoutX="313.0" layoutY="224.0" pickOnBounds="true" AnchorPane.leftAnchor="313.0" AnchorPane.topAnchor="224.0">
         <viewport>
             <Rectangle2D />
         </viewport>
-        <Image url="@images/foodpicture.png" />
+        <Image url="@images/restaurantcafex.png" />
     </ImageView>
-    <ImageView fitHeight="115.0" fitWidth="200.0" layoutX="523.0" layoutY="219.0" nodeOrientation="INHERIT" opacity="0.9" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="219.0">
+    <ImageView fitHeight="100.0" fitWidth="180.0" layoutX="523.0" layoutY="219.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="224.0">
         <viewport>
             <Rectangle2D />
         </viewport>
-        <Image url="@Images/bikepicture.png" />
+        <Image url="@images/restaurantfoodtrucks.png" />
     </ImageView>
-    <Button layoutX="75.0" layoutY="360.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#roomsSelected" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: #00a6d6;" text="Book a room" textFill="WHITE" AnchorPane.leftAnchor="75.0" AnchorPane.topAnchor="360.0" />
-    <Button cache="true" layoutX="300.0" layoutY="334.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#foodsSelected" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: #00a6d6;" text="Order food" textFill="WHITE" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="360.0" />
-    <Button layoutX="525.0" layoutY="360.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#bikesSelected" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: #00a6d6;" text="Rent a bike" textFill="WHITE" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="360.0" />
+    <Button layoutX="75.0" layoutY="344.0" maxHeight="25.0" maxWidth="174.0" minHeight="25.0" minWidth="174.0" mnemonicParsing="false" onAction="#roomsSelected" prefHeight="25.0" prefWidth="174.0" style="-fx-background-color: #00a6d6;" text="Aula" textFill="WHITE" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="330.0" />
+    <Button layoutX="550.0" layoutY="317.0" maxHeight="25.0" maxWidth="174.0" minHeight="25.0" minWidth="174.0" mnemonicParsing="false" onAction="#bikesSelected" prefHeight="25.0" prefWidth="174.0" style="-fx-background-color: #00a6d6;" text="Food trucks" textFill="WHITE" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="330.0" />
+   <Text layoutX="336.0" layoutY="172.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Order food" AnchorPane.leftAnchor="336.0" AnchorPane.topAnchor="146.0">
+      <font>
+         <Font size="26.0" />
+      </font>
+   </Text>
+   <Text layoutX="333.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Restaurant choice" AnchorPane.leftAnchor="333.0" AnchorPane.topAnchor="181.0">
+      <font>
+         <Font size="17.0" />
+      </font>
+   </Text>
+   <ImageView fitHeight="100.0" fitWidth="180.0" layoutX="199.0" layoutY="378.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="199.0" AnchorPane.topAnchor="378.0">
+      <image>
+         <Image url="@images/restaurantpulse.png" />
+      </image>
+   </ImageView>
+   <ImageView fitHeight="100.0" fitWidth="192.0" layoutX="426.0" layoutY="378.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="199.0" AnchorPane.topAnchor="378.0">
+      <image>
+         <Image url="@images/restaurantlibrarycoffeestar.png" />
+      </image>
+   </ImageView>
+   <Button layoutX="187.0" layoutY="476.0" maxHeight="25.0" maxWidth="174.0" minHeight="25.0" minWidth="174.0" mnemonicParsing="false" onAction="#roomsSelected" prefHeight="25.0" prefWidth="174.0" style="-fx-background-color: #00a6d6;" text="Pulse" textFill="WHITE" AnchorPane.leftAnchor="199.0" AnchorPane.topAnchor="484.0" />
+   <Button layoutX="426.0" layoutY="476.0" maxHeight="25.0" maxWidth="174.0" minHeight="25.0" minWidth="174.0" mnemonicParsing="false" onAction="#roomsSelected" prefHeight="25.0" prefWidth="174.0" style="-fx-background-color: #00a6d6;" text="Library Coffee-Star" textFill="WHITE" AnchorPane.rightAnchor="199.0" AnchorPane.topAnchor="484.0" />
+   <Button layoutX="313.0" layoutY="330.0" maxHeight="25.0" maxWidth="174.0" minHeight="25.0" minWidth="174.0" mnemonicParsing="false" onAction="#bikesSelected" prefHeight="25.0" prefWidth="174.0" style="-fx-background-color: #00a6d6;" text="Café X" textFill="WHITE" AnchorPane.leftAnchor="313.0" AnchorPane.topAnchor="330.0" />
 </AnchorPane>
