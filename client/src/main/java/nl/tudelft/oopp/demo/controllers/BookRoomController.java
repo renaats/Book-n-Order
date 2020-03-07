@@ -104,36 +104,40 @@ public class BookRoomController implements Initializable {
 
     /**
      * Changes to myAccountScene.fxml.
-     * @throws IOException
+     * @throws IOException when it fails
      */
     public void myAccountScene() throws IOException {
         ApplicationDisplay.changeScene("/myAccountScene.fxml");
     }
     /**
      * Changes to bikeReservations.fxml.
-     * @throws IOException
+     * @throws IOException when it fails
      */
+
     public void bikesSelected1(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/bikeReservations.fxml");
     }
     /**
      * Changes to bookRoom.fxml.
-     * @throws IOException
+     * @throws IOException when it fails
      */
+
     public void roomsSelected1(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/bookRoom.fxml");
     }
     /**
      * Changes to bikeReservations.fxml.
-     * @throws IOException
+     * @throws IOException when it fails
      */
+
     public void foodsSelected1(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/bikeReservations.fxml");
     }
     /**
      * Changes to mainMenu.fxml.
-     * @throws IOException
+     * @throws IOException when it fails
      */
+
     public void gobacktoMainMenu1(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/mainMenu.fxml");
     }

@@ -17,15 +17,9 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 public class MainMenuController {
 
     /**
-     * Handles clicking the food button.
-     * @Param: event (clicking the button)
-     * @throws: IOException
-     */
-
-    /**
      * Handels the clicking of the button under the bike image at the main menu.
-     * @param actionEvent
-     * @throws IOException
+     * @param actionEvent (the button press)
+     * @throws IOException when it fails
      */
     public void bikesSelected(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/bikeReservations.fxml");
