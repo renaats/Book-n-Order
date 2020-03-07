@@ -11,7 +11,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -19,27 +21,40 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import nl.tudelft.oopp.demo.entities.AppUser;
+import nl.tudelft.oopp.demo.entities.Role;
+import nl.tudelft.oopp.demo.repositories.UserRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private AuthenticationManager authenticationManager;
+    private UserRepository userRepository;
 
-    public JwtAuthenticationFilter(AuthenticationManager authenticationManager) {
+    public JwtAuthenticationFilter(AuthenticationManager authenticationManager, UserRepository userRepository) {
         this.authenticationManager = authenticationManager;
+        this.userRepository = userRepository;
     }
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res) throws AuthenticationException {
         try {
             AppUser appUser = new ObjectMapper().readValue(req.getInputStream(), AppUser.class);
-            //System.out.println(appUser.getEmail() + " " + appUser.getPassword());
+            Collection<GrantedAuthority> authorities = new ArrayList<>();
+            if (userRepository.existsById(appUser.getEmail())) {
+                AppUser repositoryAppUser = userRepository.findByEmail(appUser.getEmail());
+                for (Role role: repositoryAppUser.getRoles()) {
+                    authorities.add(new SimpleGrantedAuthority(role.getName()));
+                }
+            }
+
             return authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(appUser.getEmail(), appUser.getPassword(), new ArrayList<>()));
+                    new UsernamePasswordAuthenticationToken(appUser.getEmail(), appUser.getPassword(), authorities));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

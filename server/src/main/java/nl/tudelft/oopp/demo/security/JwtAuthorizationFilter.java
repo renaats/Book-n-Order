@@ -9,21 +9,29 @@ import com.auth0.jwt.algorithms.Algorithm;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import nl.tudelft.oopp.demo.entities.AppUser;
+import nl.tudelft.oopp.demo.entities.Role;
+import nl.tudelft.oopp.demo.repositories.UserRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
+    private UserRepository userRepository;
 
-    public JwtAuthorizationFilter(AuthenticationManager authManager) {
+    public JwtAuthorizationFilter(AuthenticationManager authManager, UserRepository userRepository) {
         super(authManager);
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -53,6 +61,15 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
                     .getSubject();
 
             if (user != null) {
+                if (userRepository.existsById(user)) {
+                    Collection<GrantedAuthority> authorities = new ArrayList<>();
+                    AppUser appUser = userRepository.findByEmail(user);
+                    for (Role role: appUser.getRoles()) {
+                        System.out.println(role.getName());
+                        authorities.add(new SimpleGrantedAuthority(role.getName()));
+                    }
+                    return new UsernamePasswordAuthenticationToken(user, null, authorities);
+                }
                 return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
             }
             return null;

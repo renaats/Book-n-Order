@@ -1,9 +1,13 @@
 package nl.tudelft.oopp.demo.services;
 
-import static java.util.Collections.emptyList;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import nl.tudelft.oopp.demo.entities.AppUser;
+import nl.tudelft.oopp.demo.entities.Role;
 import nl.tudelft.oopp.demo.repositories.UserRepository;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -24,6 +28,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (appUser == null) {
             throw new UsernameNotFoundException(email);
         }
-        return new User(appUser.getEmail(), appUser.getPassword(), emptyList());
+        Collection<GrantedAuthority> authorities = new ArrayList<>();
+        for (Role role: appUser.getRoles()) {
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
+        }
+        return new User(appUser.getEmail(), appUser.getPassword(), authorities);
     }
 }
