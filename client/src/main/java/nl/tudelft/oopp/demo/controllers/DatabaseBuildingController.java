@@ -39,12 +39,20 @@ public class DatabaseBuildingController implements Initializable {
      * Handles clicking the building find button.
      */
     public void building_id_ButtonClicked() {
-        int id = Integer.parseInt(buildingFindByIdTextField.getText());
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Building Finder");
-        alert.setHeaderText(null);
-        alert.setContentText(ServerCommunication.findBuilding(id));
-        alert.showAndWait();
+        try {
+            int id = Integer.parseInt(buildingFindByIdTextField.getText());
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Building Finder");
+            alert.setHeaderText(null);
+            alert.setContentText(ServerCommunication.findBuilding(id));
+            alert.showAndWait();
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Missing argument.");
+            alert.showAndWait();
+        }
     }
 
     /**
@@ -78,26 +86,42 @@ public class DatabaseBuildingController implements Initializable {
      * Handles clicking the remove button.
      */
     public void deleteBuildingButtonClicked() {
-        int id = Integer.parseInt(buildingDeleteByIdTextField.getText());
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Building remover");
-        alert.setHeaderText(null);
-        alert.setContentText(ServerCommunication.deleteBuilding(id));
-        alert.showAndWait();
+        try {
+            int id = Integer.parseInt(buildingDeleteByIdTextField.getText());
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Building remover");
+            alert.setHeaderText(null);
+            alert.setContentText(ServerCommunication.deleteBuilding(id));
+            alert.showAndWait();
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Missing argument.");
+            alert.showAndWait();
+        }
     }
 
     /**
      * Handles the sending of update values.
      */
     public void updateBuildingButtonClicked() {
-        int id = Integer.parseInt(buildingFindByIdUpdateField.getText());
-        String attribute = updateChoiceBox.getValue().replaceAll(" ","");
-        String changeValue = buildingChangeToField.getText();
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Building remover");
-        alert.setHeaderText(null);
-        alert.setContentText(ServerCommunication.updateBuilding(id, attribute, changeValue));
-        alert.showAndWait();
+        try {
+            int id = Integer.parseInt(buildingFindByIdUpdateField.getText());
+            String attribute = updateChoiceBox.getValue().replaceAll(" ", "");
+            String changeValue = buildingChangeToField.getText();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Building remover");
+            alert.setHeaderText(null);
+            alert.setContentText(ServerCommunication.updateBuilding(id, attribute, changeValue));
+            alert.showAndWait();
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Missing argument.");
+            alert.showAndWait();
+        }
     }
 
     /**
