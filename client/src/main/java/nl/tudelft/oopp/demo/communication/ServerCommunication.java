@@ -202,14 +202,22 @@ public class ServerCommunication {
     }
 
     /**
-     * Communicates Adds building to the database
-     * @param name building name
-     * @param street street name
-     * @param houseNumber house number
-     * @return response body
+     * Communicates addRoom to the database
+     * @param name room name
+     * @param faculty faculty name
+     * @param buildingId building ID
+     * @param facultySpecific is it specific for a faculty
+     * @param screen does the room have a screen
+     * @param projector does the room have a projector
+     * @param capacity capacity of the room in people
+     * @param plugs amount of available plugs
+     * @return body response
      */
-    public static String addBuilding(String name, String street, int houseNumber) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building/add?name=" + name + "&street=" + street + "&houseNumber=" + houseNumber)).POST(HttpRequest.BodyPublishers.noBody()).build();
+    public static String addRoom(String name, String faculty,
+                                 int buildingId, boolean facultySpecific,
+                                 boolean screen, boolean projector,
+                                 int capacity, int plugs) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room/add?name=" + name + "&faculty=" + faculty + "&facultySpecific=" + facultySpecific + "&screen=" + screen + "&projector=" + projector + "&buildingId=" + buildingId + "&nrPeople=" + capacity + "&plugs=" + plugs)).POST(HttpRequest.BodyPublishers.noBody()).build();
         HttpResponse<String> response = null;
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());

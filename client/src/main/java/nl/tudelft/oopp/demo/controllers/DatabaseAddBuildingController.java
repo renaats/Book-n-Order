@@ -49,19 +49,4 @@ public class DatabaseAddBuildingController {
     public void databaseRoomMenu() throws IOException {
         ApplicationDisplay.changeScene("/DatabaseRoomMenu.fxml");
     }
-
-    /**
-     * Adds building to the database
-     * @param actionEvent actionEvent parameter.
-     */
-    public void databaseAddBuilding(ActionEvent actionEvent) {
-        String name = nameTextField.getText();
-        String street = streetTextField.getText();
-        int houseNumber = Integer.parseInt(houseNumberTextField.getText());
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Building adder");
-        alert.setHeaderText(null);
-        alert.setContentText(ServerCommunication.addBuilding(name, street, houseNumber));
-        alert.showAndWait();
-    }
 }
