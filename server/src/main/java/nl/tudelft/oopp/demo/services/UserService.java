@@ -12,4 +12,6 @@ public interface UserService {
     Iterable<AppUser> all();
 
     AppUser find(String email);
+
+    void addRole(String email, String roleName);
 }
