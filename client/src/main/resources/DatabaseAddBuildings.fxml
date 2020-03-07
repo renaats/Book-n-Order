@@ -65,5 +65,5 @@
    <TextField fx:id="nameTextField" layoutX="400.0" layoutY="228.0" AnchorPane.leftAnchor="420.0" AnchorPane.topAnchor="230.0" />
    <TextField fx:id="streetTextField" layoutX="370.0" layoutY="287.0" AnchorPane.leftAnchor="420.0" AnchorPane.topAnchor="260.0" />
    <TextField fx:id="houseNumberTextField" layoutX="370.0" layoutY="321.0" AnchorPane.leftAnchor="420.0" AnchorPane.topAnchor="290.0" />
-   <Button fx:id="addButton" layoutX="284.0" layoutY="354.0" maxHeight="25.0" maxWidth="230.0" minHeight="25.0" minWidth="230.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="230.0" style="-fx-background-color: #00a6d6;" text="Add" textFill="WHITE" AnchorPane.leftAnchor="284.0" AnchorPane.topAnchor="354.0" />
+   <Button fx:id="addButton" layoutX="284.0" layoutY="354.0" maxHeight="25.0" maxWidth="230.0" minHeight="25.0" minWidth="230.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="230.0" style="-fx-background-color: #00a6d6;" text="Add" textFill="WHITE" AnchorPane.leftAnchor="284.0" AnchorPane.topAnchor="354.0" onAction="#databaseAddBuilding" />
 </AnchorPane>
