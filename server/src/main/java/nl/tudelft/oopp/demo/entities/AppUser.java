@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
@@ -18,7 +19,7 @@ public class AppUser {
     private String name;
     private String surname;
     private String faculty;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
     @JsonIgnore
@@ -51,6 +52,10 @@ public class AppUser {
 
     public void setRoomReservations(Set<RoomReservation> roomReservations) {
         this.roomReservations = roomReservations;
+    }
+
+    public void addRole(Role role) {
+        roles.add(role);
     }
 
 
