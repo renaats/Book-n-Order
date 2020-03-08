@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 
 // This will be AUTO IMPLEMENTED by Spring into a Bean called userRepository
@@ -12,7 +13,8 @@ import java.util.List;
 
 @Repository
 public interface BuildingRepository extends JpaRepository<Building, Integer> {
-    List<Building> findByid(int id);
-    List<Building> findByname(String Name);
+    @Override
+    Optional<Building> findById(Integer integer);
+    List<Building> findByName(String Name);
     List<Building> findByroomsid(int id);
 }

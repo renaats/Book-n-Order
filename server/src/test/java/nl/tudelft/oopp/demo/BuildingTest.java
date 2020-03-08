@@ -91,11 +91,11 @@ public class BuildingTest {
         building = new Building();
         int id = building.getId();
         String name = building.getName();
-        building2 = buildingRepository.findByid(id).get(0);
+        building2 = buildingRepository.findById(id).get();
         assertEquals(building,building2);
-        building2 = buildingRepository.findByname(name).get(0);
+        building2 = buildingRepository.findByName(name).get(0);
         assertEquals(building,building2);
-        building2 = buildingRepository.findByid(id-1).get(0);
+        building2 = buildingRepository.findById(id-1).get();
         assertNotSame(building,building2);
     }
 
