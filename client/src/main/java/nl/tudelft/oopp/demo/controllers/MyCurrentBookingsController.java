@@ -56,7 +56,6 @@ public class MyCurrentBookingsController {
 
     /**
      *  method changes the view to that of the main menu
-     * @param actionEvent clicking the button to go back to menu
      * @throws IOException the method will never throw an exception
      */
     public void mainMenu() throws IOException {
