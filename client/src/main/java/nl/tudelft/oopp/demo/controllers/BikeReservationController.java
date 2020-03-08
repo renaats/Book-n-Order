@@ -184,11 +184,6 @@ public class BikeReservationController implements Initializable {
      * @throws IOException input will not be wrong, hence we throw.
      */
     public void bookRoom(ActionEvent actionEvent) throws IOException {
-
-     /** Goes to bookRoom view
-     */
-    public void roomsSelected1(ActionEvent actionEvent) throws IOException {
-
         ApplicationDisplay.changeScene("/bookRoom.fxml");
     }
 
@@ -205,13 +200,11 @@ public class BikeReservationController implements Initializable {
      * @throws IOException input will not be wrong, hence we throw.
      */
     public void mainMenu(ActionEvent actionEvent) throws IOException {
-            ApplicationDisplay.changeScene("/mainMenu.fxml");
-        }
-        /** changes view to food reservations
-     */
+        ApplicationDisplay.changeScene("/mainMenu.fxml");
+    }
 
     public void foodsSelected1(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/bikeReservations.fxml");
+        ApplicationDisplay.changeScene("/orderFood.fxml");
     }
 
     /**

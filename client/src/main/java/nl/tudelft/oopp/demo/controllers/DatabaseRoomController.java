@@ -141,14 +141,19 @@ public class DatabaseRoomController implements Initializable {
         ApplicationDisplay.changeScene("/DatabaseAddRooms.fxml");
     }
 
+    /**
+     * Changes to myAccountScene.fxml.
+     * @throws IOException input will not be wrong, hence we throw.
+     */
     public void myAccountScene(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/myAccountScene.fxml");
+    }
+
     /**
      * returns to the main menu
      * @param actionEvent the event is clicking the menu item
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
-
     public void mainMenu(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/mainMenu.fxml");
     }

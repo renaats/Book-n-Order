@@ -12,18 +12,6 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 public class MainMenuController {
 
     /**
-     * Handles clicking the food button.
-     */
-    public void foodsSelected(ActionEvent event) throws IOException {
-        Parent roomSelectParent = FXMLLoader.load(getClass().getResource("/orderFood.fxml"));
-        Scene roomSelectScene = new Scene(roomSelectParent);
-
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(roomSelectScene);
-        window.show();
-    }
-
-    /**
      * Handels the clicking of the button under the bike image at the main menu.
      * @param actionEvent (the button press)
      * @throws IOException when it fails
@@ -56,10 +44,6 @@ public class MainMenuController {
     public void myPreviousBookings() throws IOException {
         ApplicationDisplay.changeScene("/myPreviousBookings.fxml");
     }
-    /**
-     *  method changes the view to that of the my account
-     * @throws IOException the method will never throw an exception
-     */
 
     /**
      * Changes to myAccountScene.fxml.
@@ -93,18 +77,13 @@ public class MainMenuController {
         ApplicationDisplay.changeScene("/myPreviousTenFoodOrders.fxml");
     }
 
-     /** Handles clicking the food button.
+    /** Handles clicking the food button.
      * @Param: event (clicking the button)
      * @throws: IOException
      */
     public void foodsSelected(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/bikeReservations.fxml");
+        ApplicationDisplay.changeScene("/orderFood.fxml");
     }
-    /**
-     *  method changes the view to that of the main menu
-     * @param actionEvent clicking the button to go back to menu
-     * @throws IOException the method will never throw an exception
-     */
 
     /**
      * Changes to myCurrentBikeReservations.fxml.

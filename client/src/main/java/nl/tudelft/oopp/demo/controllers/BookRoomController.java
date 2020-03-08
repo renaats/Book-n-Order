@@ -151,10 +151,6 @@ public class BookRoomController implements Initializable {
     public void myAccountScene() throws IOException {
         ApplicationDisplay.changeScene("/myAccountScene.fxml");
     }
-    /**
-     * Changes to bikeReservations.fxml.
-     * @throws IOException when it fails
-     */
 
     /**
      * Changes to bikeReservations.fxml.
@@ -163,10 +159,6 @@ public class BookRoomController implements Initializable {
     public void rentBike(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/bikeReservations.fxml");
     }
-    /**
-     * Changes to bookRoom.fxml.
-     * @throws IOException when it fails
-     */
 
     /**
      * Changes to bookRoom.fxml.
@@ -175,10 +167,6 @@ public class BookRoomController implements Initializable {
     public void bookRoom(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/bookRoom.fxml");
     }
-    /**
-     * Changes to bikeReservations.fxml.
-     * @throws IOException when it fails
-     */
 
     /**
      * Changes to orderFood.fxml.
@@ -187,10 +175,6 @@ public class BookRoomController implements Initializable {
     public void orderFood(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/orderFood.fxml");
     }
-    /**
-     * Changes to mainMenu.fxml.
-     * @throws IOException when it fails
-     */
 
     /**
      * Changes to mainMenu.fxml.
