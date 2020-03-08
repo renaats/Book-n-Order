@@ -99,11 +99,6 @@ public class RoomTest {
         assertEquals(room2.getPlugs(), 250);
         assertEquals(room2.getRoomReservations(), roomReservationSet);
     }
-<<<<<<< HEAD
-    
-=======
-
->>>>>>> Added RoleTest class and fixed inconsistencies in Javadoc.
     /** Tests retrieving and saving data from the RoomRepository.
      */
     @Test
