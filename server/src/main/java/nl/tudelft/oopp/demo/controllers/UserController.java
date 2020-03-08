@@ -1,5 +1,7 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import javax.servlet.http.HttpServletRequest;
+
 import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
     @Autowired
     UserService userService;
+
+    /**
+     * Logs out from the current account.
+     * @param request = the Http request that calls this method
+     */
+    @PostMapping(path = "/logout")
+    public void logout(HttpServletRequest request) {
+        userService.logout(request);
+    }
 
     /**
      * Adds a user.
