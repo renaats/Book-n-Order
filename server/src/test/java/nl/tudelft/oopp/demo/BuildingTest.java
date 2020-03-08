@@ -86,6 +86,18 @@ public class BuildingTest {
         assertEquals(building, building2);
         assertNotSame(building, building2);
     }
+    @Test
+    public void testBuildingRepositoryQueries() {
+        building = new Building();
+        int id = building.getId();
+        String name = building.getName();
+        building2 = buildingRepository.findByid(id).get(0);
+        assertEquals(building,building2);
+        building2 = buildingRepository.findByname(name).get(0);
+        assertEquals(building,building2);
+        building2 = buildingRepository.findByid(id-1).get(0);
+        assertNotSame(building,building2);
+    }
 
     @AfterEach
     public void cleanup() {
