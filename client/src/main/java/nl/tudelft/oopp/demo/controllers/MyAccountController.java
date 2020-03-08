@@ -30,28 +30,20 @@ public class MyAccountController {
     }
 
     /**
-     * Changes to templateScene.fxml.fxml.
-     * @throws IOException again, all input will be valid. No need to check this, thus we throw.
-     */
-    public void mainMenu() throws IOException {
-        ApplicationDisplay.changeScene("/templateScene.fxml");
-    }
-    /**
      *  method changes the view to that of the DatabaseMenu
      * @param actionEvent clicking the button admin
      * @throws IOException the method will never throw an exception
      */
-
     public void adminPanel(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/DatabaseMenu.fxml");
     }
+
     /**
      *  method changes the view to that of the main menu
      * @param actionEvent clicking the button to go back to menu
      * @throws IOException the method will never throw an exception
      */
-
-    public void gobacktoMainMenu1(ActionEvent actionEvent) throws IOException {
+    public void mainMenu(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/mainMenu.fxml");
     }
 }

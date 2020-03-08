@@ -22,11 +22,11 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
  */
 
 public class BikeReservationController implements Initializable {
-    final ObservableList list = FXCollections.observableArrayList();
+    final ObservableList listLocations = FXCollections.observableArrayList();
 
-    final ObservableList lisT = FXCollections.observableArrayList();
+    final ObservableList listTime = FXCollections.observableArrayList();
 
-    final ObservableList listM = FXCollections.observableArrayList();
+    final ObservableList listMinutes = FXCollections.observableArrayList();
 
     @FXML
     private ChoiceBox<String> pick;
@@ -35,13 +35,13 @@ public class BikeReservationController implements Initializable {
     @FXML
     private TextField screen;
     @FXML
-    private ChoiceBox<String> dropOffTime;
+    private ChoiceBox<String> pickUpLocation;
     @FXML
     private ChoiceBox<String> pickUpTime;
     @FXML
-    private ChoiceBox<String> dropOffTimeM;
+    private ChoiceBox<String> dropOffTime;
     @FXML
-    private ChoiceBox<String> pickUpTimeM;
+    private ChoiceBox<String> dropOffLocation;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -68,33 +68,33 @@ public class BikeReservationController implements Initializable {
      */
 
     public void loadData() {
-        list.removeAll(list);
-        lisT.removeAll(lisT);
+        listLocations.removeAll(listLocations);
+        listTime.removeAll(listTime);
         String a = "1";
         String b = "2";
         String c = "3";
-        list.addAll(a,b,c);
-        pick.getItems().addAll(list);
-        drop.getItems().addAll(list);
+        listLocations.addAll(a,b,c);
+        pickUpLocation.getItems().addAll(listLocations);
+        dropOffLocation.getItems().addAll(listLocations);
         for (int i = 0; i < 24; i++) {
             if (i < 10) {
-                lisT.add("0" + i);
+                listTime.add("0" + i);
             } else {
-                lisT.add(i);
+                listTime.add(i);
             }
         }
-        pickUpTime.getItems().addAll(lisT);
-        dropOffTime.getItems().addAll(lisT);
-        listM.removeAll(listM);
+        pickUpTime.getItems().addAll(listTime);
+        dropOffTime.getItems().addAll(listTime);
+        listMinutes.removeAll(listMinutes);
         for (int i = 0; i < 60; i = i + 15) {
             if (i == 0) {
-                listM.add("00");
+                listMinutes.add("00");
             } else {
-                listM.add(i);
+                listMinutes.add(i);
             }
         }
-        pickUpTimeM.getItems().addAll(listM);
-        dropOffTimeM.getItems().addAll(listM);
+        pickUpTime.getItems().addAll(listMinutes);
+        dropOffTime.getItems().addAll(listMinutes);
     }
 
     /**
@@ -113,35 +113,51 @@ public class BikeReservationController implements Initializable {
         ApplicationDisplay.changeScene("/myPreviousBookings.fxml");
     }
 
+    /**
+     * Changes to myAccountScene.fxml.
+     * @throws IOException input will not be wrong, hence we throw.
+     */
     public void myAccountScene() throws IOException {
         ApplicationDisplay.changeScene("/myAccountScene.fxml");
     }
 
-    public void bikesSelected1(ActionEvent actionEvent) throws IOException {
+    /**
+     * Changes to bikeReservations.fxml.
+     * @throws IOException input will not be wrong, hence we throw.
+     */
+    public void rentBike(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/bikeReservations.fxml");
     }
 
     /**
-     * Goes to bookRoom view
+     * Changes to bookRoom.fxml.
+     * @throws IOException input will not be wrong, hence we throw.
      */
-    public void roomsSelected1(ActionEvent actionEvent) throws IOException {
+    public void bookRoom(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/bookRoom.fxml");
     }
 
     /**
-     * changes view to food reservations
+     * Changes to orderFood.fxml.
+     * @throws IOException input will not be wrong, hence we throw.
      */
-
-    public void foodsSelected1(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/bikeReservations.fxml");
+    public void orderFood(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/orderFood.fxml");
     }
 
     /**
-     * Goes back to mainMenu scene
+     * Changes to mainMenu.fxml.
+     * @throws IOException input will not be wrong, hence we throw.
      */
-    public void gobacktoMainMenu(ActionEvent actionEvent) throws IOException {
+    public void mainMenu(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/mainMenu.fxml");
     }
 
-
+    /**
+     * Changes to bikeConfirmation.fxml.
+     * @throws IOException input will not be wrong, hence we throw.
+     */
+    public void bikeConfirmation(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/bikeConfirmation.fxml");
+    }
 }

@@ -155,6 +155,9 @@ public class DatabaseBuildingController implements Initializable {
         ApplicationDisplay.changeScene("/DatabaseAddRooms.fxml");
     }
 
+    public void myAccountScene(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/myAccountScene.fxml");
+    }
     /**
      * returns to the main menu
      * @param actionEvent the event is clicking the menu item
