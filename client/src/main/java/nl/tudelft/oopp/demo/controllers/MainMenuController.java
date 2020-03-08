@@ -77,8 +77,7 @@ public class MainMenuController {
     }
 
     /** Handles clicking the food button.
-     * @Param: event (clicking the button)
-     * @throws: IOException
+     * @throws IOException Input will be valid, hence we throw.
      */
     public void orderFood() throws IOException {
         ApplicationDisplay.changeScene("/orderFood.fxml");
@@ -106,5 +105,13 @@ public class MainMenuController {
      */
     public void myCurrentFoodOrders() throws IOException {
         ApplicationDisplay.changeScene("/myCurrentFoodOrders.fxml");
+    }
+
+    /**
+     * Changes to DatabaseMenu.fxml
+     * @throws IOException input will eb valid, hence we throw.
+     */
+    public void adminPanel() throws IOException {
+        ApplicationDisplay.changeScene("/DatabaseMenu.fxml");
     }
 }
