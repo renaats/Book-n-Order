@@ -1,14 +1,10 @@
 package nl.tudelft.oopp.demo;
 
-import java.util.*;
-
 import nl.tudelft.oopp.demo.entities.Building;
-import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.services.BuildingService;
 import nl.tudelft.oopp.demo.services.BuildingServiceImpl;
 import nl.tudelft.oopp.demo.services.RoomService;
 import nl.tudelft.oopp.demo.services.RoomServiceImpl;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,6 +13,11 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -45,7 +46,6 @@ public class BuildingServiceTest {
     @Autowired
     RoomService roomService;
 
-
     Building building;
     Building building2;
 
@@ -57,11 +57,13 @@ public class BuildingServiceTest {
         building.setName("EWI");
         building.setStreet("Mekelweg");
         building.setHouseNumber(4);
+      //  buildingRepository.save(building);
 
         building2 = new Building();
         building2.setName("EWI2");
         building2.setStreet("Mekelweg2");
         building2.setHouseNumber(42);
+        //buildingRepository.save(building2);
     }
 
     @Test
@@ -131,8 +133,8 @@ public class BuildingServiceTest {
         assertNotNull(buildingService.find(building2.getId()));
     }
 
-//        @Test
-//        public void testRooms() {
+//    @Test
+//    public void testRooms() {
 //            buildingService.add(building.getName(), building.getStreet(), building.getHouseNumber());
 //            List<Building> buildings = new ArrayList<>();
 //            buildingService.all().forEach(buildings::add);
