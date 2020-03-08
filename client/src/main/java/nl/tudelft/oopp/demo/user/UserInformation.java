@@ -1,4 +1,4 @@
-package nl.tudelft.oopp.demo.userInformation;
+package nl.tudelft.oopp.demo.user;
 
 public class UserInformation {
     private static String bearerKey;

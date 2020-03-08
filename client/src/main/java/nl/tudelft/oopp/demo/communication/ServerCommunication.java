@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 import nl.tudelft.oopp.demo.errors.ErrorMessages;
-import nl.tudelft.oopp.demo.userInformation.UserInformation;
+import nl.tudelft.oopp.demo.user.UserInformation;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 public class ServerCommunication {
@@ -110,12 +110,12 @@ public class ServerCommunication {
         return 311;
     }
 
-        /**
-         * Retrieves all buildings from the server.
-         *
-         * @return the body of a get request to the server.
-         * @throws Exception if communication with the server fails.
-         */
+    /**
+     * Retrieves all buildings from the server.
+     *
+     * @return the body of a get request to the server.
+     * @throws Exception if communication with the server fails.
+     */
     public static String getBuildings() {
         HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + UserInformation.getBearerKey()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).uri(URI.create("http://localhost:8080/building/all")).build();
         HttpResponse<String> response = null;

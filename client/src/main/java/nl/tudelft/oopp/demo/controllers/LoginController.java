@@ -26,6 +26,10 @@ public class LoginController {
         ApplicationDisplay.changeScene("/mainMenu.fxml");
     }
 
+    /**
+     * Takes care of authenticating a user.
+     * @throws IOException input will be valid, hence we throw.
+     */
     public void loginButton() throws IOException {
         String username = usernameField.getText();
         String password = passwordField.getText();
