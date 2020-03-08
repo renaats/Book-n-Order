@@ -333,7 +333,7 @@ public class ServerCommunication {
             System.out.println(response.body());
             System.out.println("Status: " + response.statusCode());
         }
-        return response.body();
+        return ErrorMessages.getErrorMessage(Integer.parseInt(response.body()));
     }
 
     /**
@@ -356,6 +356,6 @@ public class ServerCommunication {
             System.out.println(response.body());
             System.out.println("Status: " + response.statusCode());
         }
-        return response.body();
+        return ErrorMessages.getErrorMessage(Integer.parseInt(response.body()));
     }
 }
