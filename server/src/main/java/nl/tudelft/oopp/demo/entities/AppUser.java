@@ -6,23 +6,25 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 @Entity // This tells Hibernate to make a table out of this class
-public class User {
+public class AppUser {
     @Id
     private String email;
     private String password;
     private String name;
     private String surname;
     private String faculty;
-    @ManyToMany
+    private boolean loggedIn = false;
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "appUser")
     Set<RoomReservation> roomReservations = new HashSet<>();
 
     public void setEmail(String email) {
@@ -51,6 +53,14 @@ public class User {
 
     public void setRoomReservations(Set<RoomReservation> roomReservations) {
         this.roomReservations = roomReservations;
+    }
+
+    public void addRole(Role role) {
+        roles.add(role);
+    }
+
+    public void setLoggedIn(boolean loggedIn) {
+        this.loggedIn = loggedIn;
     }
 
 
@@ -82,6 +92,10 @@ public class User {
         return roomReservations;
     }
 
+    public boolean isLoggedIn() {
+        return loggedIn;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -90,14 +104,14 @@ public class User {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        User user = (User) o;
-        return email.equals(user.email)
-                && Objects.equals(password, user.password)
-                && Objects.equals(name, user.name)
-                && Objects.equals(surname, user.surname)
-                && Objects.equals(faculty, user.faculty)
-                && Objects.equals(roles, user.roles)
-                && Objects.equals(roomReservations, user.roomReservations);
+        AppUser appUser = (AppUser) o;
+        return email.equals(appUser.email)
+                && Objects.equals(password, appUser.password)
+                && Objects.equals(name, appUser.name)
+                && Objects.equals(surname, appUser.surname)
+                && Objects.equals(faculty, appUser.faculty)
+                && Objects.equals(roles, appUser.roles)
+                && Objects.equals(roomReservations, appUser.roomReservations);
     }
 
 }

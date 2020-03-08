@@ -1,6 +1,8 @@
 package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
+
+import javafx.event.ActionEvent;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 public class MyCurrentBookingsController {
@@ -53,8 +55,8 @@ public class MyCurrentBookingsController {
     }
 
     /**
-     * Changes to templateScene.fxml.
-     * @throws IOException again, all input will be valid. No need to check this, thus we throw.
+     *  method changes the view to that of the main menu
+     * @throws IOException the method will never throw an exception
      */
     public void mainMenu() throws IOException {
         ApplicationDisplay.changeScene("/templateScene.fxml");
