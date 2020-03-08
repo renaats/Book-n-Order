@@ -75,7 +75,11 @@ public class ServerCommunication {
         if (response.statusCode() != 200) {
             System.out.println("Status: " + response.statusCode());
         }
-        return response.body();
+        if (response.body().equals("[]")) {
+            return ErrorMessages.getErrorMessage(404);
+        } else {
+            return response.body();
+        }
     }
 
     /**
@@ -170,7 +174,12 @@ public class ServerCommunication {
             System.out.println(response.body());
             System.out.println("Status: " + response.statusCode());
         }
-        return ErrorMessages.getErrorMessage(Integer.parseInt(response.body()));
+        if (response.body().equals("")) {
+            return ErrorMessages.getErrorMessage(404);
+        } else {
+            System.out.println(response.body());
+            return response.body();
+        }
     }
 
     /**

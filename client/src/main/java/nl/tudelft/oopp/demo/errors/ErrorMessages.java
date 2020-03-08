@@ -13,6 +13,9 @@ public class ErrorMessages {
     private static final String userNotFoundMessage = "User not found.";
     private static final String attributeNotFoundMessage = "Attribute not found.";
     private static final String reservationNotFoundMessage = "Reservation not found.";
+    private static final String buildingNotFoundMessage = "Building not found.";
+    private static final String nameAlreadyExistsMessage = "Name already exists.";
+    private static final String emailAlreadyExistsMessage = "Email already exists.";
     private static int code;
 
     /**
@@ -28,6 +31,10 @@ public class ErrorMessages {
                 return addedMessage;
             case 308:
                 return alreadyReservedMessage;
+            case 309:
+                return nameAlreadyExistsMessage;
+            case 310:
+                return emailAlreadyExistsMessage;
             case 401:
                 return unAuthorizedMessage;
             case 404:
@@ -46,6 +53,8 @@ public class ErrorMessages {
                 return attributeNotFoundMessage;
             case 421:
                 return reservationNotFoundMessage;
+            case 422:
+                return buildingNotFoundMessage;
             default:
                 return notFoundMessage;
         }

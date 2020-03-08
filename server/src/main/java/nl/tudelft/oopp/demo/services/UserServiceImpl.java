@@ -19,9 +19,9 @@ public class UserServiceImpl implements UserService {
      * @param faculty = the faculty of the user
      * @return String to see if your request passed
      */
-    public String add(String email, String password, String name, String surname, String faculty) {
+    public int add(String email, String password, String name, String surname, String faculty) {
         if (userRepository.existsById(email)) {
-            return "The account with email " + email + " already exists!";
+            return 310;
         }
         User user = new User();
         user.setEmail(email);
@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
         user.setSurname(surname);
         user.setFaculty(faculty);
         userRepository.save(user);
-        return "Account created!";
+        return 201;
     }
 
     /**
@@ -40,9 +40,9 @@ public class UserServiceImpl implements UserService {
      * @param value = the new value of the attribute
      * @return String to see if your request passed
      */
-    public String update(String email, String attribute, String value) {
+    public int update(String email, String attribute, String value) {
         if (userRepository.findById(email).isEmpty()) {
-            return "User with email " + email + " does not exist!";
+            return 419;
         }
         User user = userRepository.findById(email).get();
 
@@ -63,10 +63,10 @@ public class UserServiceImpl implements UserService {
                 user.setFaculty(value);
                 break;
             default:
-                return "No attribute with name " + attribute + " found!";
+                return 412;
         }
         userRepository.save(user);
-        return "The attribute has been set!";
+        return 200;
     }
 
     /**
@@ -74,12 +74,12 @@ public class UserServiceImpl implements UserService {
      * @param email = the email of the account
      * @return String to see if your request passed
      */
-    public String delete(String email) {
+    public int delete(String email) {
         if (!userRepository.existsById(email)) {
-            return "The account with email " + email + " does not exist!";
+            return 419;
         }
         userRepository.deleteById(email);
-        return "The account with email " + email + " has been deleted!";
+        return 200;
     }
 
     /**
