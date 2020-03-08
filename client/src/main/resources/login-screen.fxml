@@ -15,7 +15,7 @@
          <Image url="@../../../../images/tudelft.jpeg" />
          </ImageView>
       <Pane layoutX="167.0" layoutY="300.0" opacity="0.75" prefHeight="180.0" prefWidth="500.0" style="-fx-border-color: #439FDA; -fx-border-width: 5; -fx-background-color: white;" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="167.0" AnchorPane.rightAnchor="167.0" />
-      <Text fill="#439fd9" layoutX="357.0" layoutY="204.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" AnchorPane.bottomAnchor="250.0" AnchorPane.leftAnchor="200.0">
+      <Text fill="#439fd9" layoutX="357.0" layoutY="204.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" AnchorPane.bottomAnchor="250.0" AnchorPane.leftAnchor="200.0">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>
