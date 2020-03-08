@@ -13,10 +13,9 @@ public class MainMenuController {
 
     /**
      * Handels the clicking of the button under the bike image at the main menu.
-     * @param actionEvent (the button press)
      * @throws IOException when it fails
      */
-    public void bikesSelected(ActionEvent actionEvent) throws IOException {
+    public void rentBike() throws IOException {
         ApplicationDisplay.changeScene("/bikeReservations.fxml");
     }
 
@@ -24,7 +23,7 @@ public class MainMenuController {
      * Changes to bookRoom.fxml.
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
-    public void roomsSelected(ActionEvent actionEvent) throws IOException {
+    public void bookRoom() throws IOException {
         ApplicationDisplay.changeScene("/bookRoom.fxml");
     }
 
@@ -81,7 +80,7 @@ public class MainMenuController {
      * @Param: event (clicking the button)
      * @throws: IOException
      */
-    public void foodsSelected(ActionEvent actionEvent) throws IOException {
+    public void orderFood() throws IOException {
         ApplicationDisplay.changeScene("/orderFood.fxml");
     }
 

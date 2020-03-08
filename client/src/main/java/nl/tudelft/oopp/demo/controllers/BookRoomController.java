@@ -27,13 +27,11 @@ public class BookRoomController implements Initializable {
     final ObservableList listOfBuildings = FXCollections.observableArrayList();
 
     @FXML
-    private ChoiceBox<String> roomDropDown;
-    @FXML
     private  ChoiceBox<String> from;
     @FXML
     private ChoiceBox<String> until;
     @FXML
-    private ChoiceBox<String> buildingList;
+    private ChoiceBox<String> roomDropDown;
 
 
     @Override
@@ -68,7 +66,7 @@ public class BookRoomController implements Initializable {
         String building2 = "building2";
         String building3 = "building3";
         listOfBuildings.addAll(none,building1,building2,building3);
-        buildingList.getItems().addAll(listOfBuildings);
+        roomDropDown.getItems().addAll(listOfBuildings);
 
         listOfTimeSlots.add(none);
 
