@@ -61,7 +61,7 @@
             <Image url="@../../../../images/tudelft_logo.png" />
          </image>
       </ImageView>
-      <Button fx:id="registerButton" layoutX="369.0" layoutY="486.0" mnemonicParsing="false" onAction="#loginScene" style="-fx-background-color: #439fd9;" text="Register" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0">
+      <Button fx:id="registerButton" layoutX="369.0" layoutY="486.0" mnemonicParsing="false" onAction="#registerButton" style="-fx-background-color: #439fd9;" text="Register" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>

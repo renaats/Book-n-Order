@@ -41,7 +41,7 @@ public class BookRoomController implements Initializable {
         if (from.getValue() == null || until.getValue() == null) {
             System.out.println("Nothing selected");
         } else {
-            System.out.println("Your selection was from:" + from.getValue() + " ,until: " + until.getValue());
+            System.out.println("Your selection was from: " + from.getValue() + ", until: " + until.getValue());
         }
     }
 
