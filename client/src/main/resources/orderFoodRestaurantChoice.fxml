@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="600.0" maxWidth="800.0" minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns="http://javafx.com/javafx/11.0.1" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.OrderFoodController">
+<AnchorPane maxHeight="600.0" maxWidth="800.0" minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.OrderFoodController">
     <ImageView fitHeight="45.0" fitWidth="112.0" layoutX="18.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="548.0" AnchorPane.leftAnchor="17.400003051757807" AnchorPane.rightAnchor="683.3999969482422" AnchorPane.topAnchor="7.0">
         <Image url="@images/tudelftlogo.png" />
     </ImageView>
@@ -64,8 +64,8 @@
         </viewport>
         <Image url="@images/restaurantfoodtrucks.png" />
     </ImageView>
-    <Button layoutX="75.0" layoutY="344.0" maxHeight="25.0" maxWidth="174.0" minHeight="25.0" minWidth="174.0" mnemonicParsing="false" onAction="#aulaMenu" prefHeight="25.0" prefWidth="174.0" style="-fx-background-color: #00a6d6;" text="Aula" textFill="WHITE" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="330.0" />
-    <Button layoutX="550.0" layoutY="317.0" maxHeight="25.0" maxWidth="174.0" minHeight="25.0" minWidth="174.0" mnemonicParsing="false" onAction="#foodtruckMenu" prefHeight="25.0" prefWidth="174.0" style="-fx-background-color: #00a6d6;" text="Food trucks" textFill="WHITE" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="330.0" />
+    <Button fx:id="aulaButton" layoutX="75.0" layoutY="344.0" maxHeight="25.0" maxWidth="174.0" minHeight="25.0" minWidth="174.0" mnemonicParsing="false" onAction="#aulaMenu" prefHeight="25.0" prefWidth="174.0" style="-fx-background-color: #00a6d6;" text="Aula" textFill="WHITE" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="330.0" />
+    <Button fx:id="foodtrucksButton" layoutX="550.0" layoutY="317.0" maxHeight="25.0" maxWidth="174.0" minHeight="25.0" minWidth="174.0" mnemonicParsing="false" onAction="#foodtruckMenu" prefHeight="25.0" prefWidth="174.0" style="-fx-background-color: #00a6d6;" text="Food trucks" textFill="WHITE" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="330.0" />
    <Text layoutX="336.0" layoutY="172.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Order food" AnchorPane.leftAnchor="336.0" AnchorPane.topAnchor="146.0">
       <font>
          <Font size="26.0" />
@@ -82,7 +82,7 @@
    <ImageView fitHeight="100.0" fitWidth="192.0" layoutX="426.0" layoutY="378.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="199.0" AnchorPane.topAnchor="378.0">
       <Image url="@images/restaurantlibrarycoffeestar.png" />
    </ImageView>
-   <Button layoutX="187.0" layoutY="476.0" maxHeight="25.0" maxWidth="174.0" minHeight="25.0" minWidth="174.0" mnemonicParsing="false" onAction="#pulseMenu" prefHeight="25.0" prefWidth="174.0" style="-fx-background-color: #00a6d6;" text="Pulse" textFill="WHITE" AnchorPane.leftAnchor="199.0" AnchorPane.topAnchor="484.0" />
-   <Button layoutX="426.0" layoutY="476.0" maxHeight="25.0" maxWidth="174.0" minHeight="25.0" minWidth="174.0" mnemonicParsing="false" onAction="#coffeestarMenu" prefHeight="25.0" prefWidth="174.0" style="-fx-background-color: #00a6d6;" text="Library Coffee-Star" textFill="WHITE" AnchorPane.rightAnchor="199.0" AnchorPane.topAnchor="484.0" />
-   <Button layoutX="313.0" layoutY="330.0" maxHeight="25.0" maxWidth="174.0" minHeight="25.0" minWidth="174.0" mnemonicParsing="false" onAction="#cafexMenu" prefHeight="25.0" prefWidth="174.0" style="-fx-background-color: #00a6d6;" text="Café X" textFill="WHITE" AnchorPane.leftAnchor="313.0" AnchorPane.topAnchor="330.0" />
+   <Button fx:id="pulseButton" layoutX="187.0" layoutY="476.0" maxHeight="25.0" maxWidth="174.0" minHeight="25.0" minWidth="174.0" mnemonicParsing="false" onAction="#pulseMenu" prefHeight="25.0" prefWidth="174.0" style="-fx-background-color: #00a6d6;" text="Pulse" textFill="WHITE" AnchorPane.leftAnchor="199.0" AnchorPane.topAnchor="484.0" />
+   <Button fx:id="coffeestarButton" layoutX="426.0" layoutY="476.0" maxHeight="25.0" maxWidth="174.0" minHeight="25.0" minWidth="174.0" mnemonicParsing="false" onAction="#coffeestarMenu" prefHeight="25.0" prefWidth="174.0" style="-fx-background-color: #00a6d6;" text="Library Coffee-Star" textFill="WHITE" AnchorPane.rightAnchor="199.0" AnchorPane.topAnchor="484.0" />
+   <Button fx:id="cafexButton" layoutX="313.0" layoutY="330.0" maxHeight="25.0" maxWidth="174.0" minHeight="25.0" minWidth="174.0" mnemonicParsing="false" onAction="#cafexMenu" prefHeight="25.0" prefWidth="174.0" style="-fx-background-color: #00a6d6;" text="Café X" textFill="WHITE" AnchorPane.leftAnchor="313.0" AnchorPane.topAnchor="330.0" />
 </AnchorPane>

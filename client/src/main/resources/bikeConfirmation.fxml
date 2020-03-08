@@ -61,7 +61,9 @@
    </Text>
    <Button fx:id="homeButton" layoutX="285.0" layoutY="359.0" maxHeight="25.0" maxWidth="230.0" minHeight="25.0" minWidth="230.0" mnemonicParsing="false" onAction="#mainMenu" prefHeight="25.0" prefWidth="230.0" style="-fx-background-color: #00a6d6;" text="Home" textFill="WHITE" AnchorPane.leftAnchor="285.0" AnchorPane.topAnchor="460.0" />
    <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="300.0" layoutY="297.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="330.0">
-      <Image url="@images/bikepicture.png" />
+      <image>
+         <Image url="@images/bikepicture.png" />
+      </image>
    </ImageView>
    <TextField fx:id="bikeNumber" layoutX="326.0" layoutY="275.0" AnchorPane.leftAnchor="326.0" AnchorPane.topAnchor="275.0" />
 </AnchorPane>

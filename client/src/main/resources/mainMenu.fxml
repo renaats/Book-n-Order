@@ -64,7 +64,7 @@
       </viewport>
       <Image url="@images/bikepicture.png" />
    </ImageView>
-   <Button layoutX="75.0" layoutY="360.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#bookRoom" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: #00a6d6;" text="Book a room" textFill="WHITE" AnchorPane.leftAnchor="75.0" AnchorPane.topAnchor="360.0" />
-   <Button cache="true" layoutX="300.0" layoutY="334.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#orderFood" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: #00a6d6;" text="Order food" textFill="WHITE" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="360.0" />
-   <Button layoutX="525.0" layoutY="360.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#rentBike" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: #00a6d6;" text="Rent a bike" textFill="WHITE" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="360.0" />
+   <Button fx:id="bookRoomButton" layoutX="75.0" layoutY="360.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#bookRoom" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: #00a6d6;" text="Book a room" textFill="WHITE" AnchorPane.leftAnchor="75.0" AnchorPane.topAnchor="360.0" />
+   <Button fx:id="orderFoodButton" cache="true" layoutX="300.0" layoutY="334.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#orderFood" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: #00a6d6;" text="Order food" textFill="WHITE" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="360.0" />
+   <Button fx:id="rentBikeButton" layoutX="525.0" layoutY="360.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#rentBike" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: #00a6d6;" text="Rent a bike" textFill="WHITE" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="360.0" />
 </AnchorPane>
