@@ -36,6 +36,9 @@ public class UserServiceImpl implements UserService {
         if (!EmailValidator.getInstance().isValid(email)) {
             return "The email address " + email + " is not valid!";
         }
+        if (!EmailValidator.getInstance().isValid(email)) {
+            return "The email address " + email + " is not valid!";
+        }
         AppUser appUser = new AppUser();
         appUser.setEmail(email);
         appUser.setPassword(bcryptPasswordEncoder.encode(password));
