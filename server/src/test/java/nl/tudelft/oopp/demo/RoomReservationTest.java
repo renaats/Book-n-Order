@@ -22,7 +22,6 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
 public class RoomReservationTest {
@@ -97,6 +96,7 @@ public class RoomReservationTest {
     @Test
     public void testGetters() {
         roomReservation2 = roomReservationRepository.findAll().get(0);
+        assertNotNull(roomReservation.getId());
         assertEquals(roomReservation.getUser(), roomReservation2.getUser());
         assertEquals(roomReservation.getRoom(), roomReservation2.getRoom());
         assertEquals(roomReservation.getFromTime(), roomReservation2.getFromTime());
@@ -140,7 +140,6 @@ public class RoomReservationTest {
         assertFalse(room.hasRoomReservationBetween(new Date(11500000000L), new Date(1160000000L)));
         assertFalse(room.hasRoomReservationBetween(new Date(10900000000L), new Date(10500000000L)));
     }
-    
     /** Tests retrieving and saving data from the RoomReservationRepository.
      */
     @Test
