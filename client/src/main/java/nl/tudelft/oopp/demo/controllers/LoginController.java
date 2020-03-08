@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
+import nl.tudelft.oopp.demo.errors.ErrorMessages;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 public class LoginController {
@@ -28,12 +29,13 @@ public class LoginController {
     public void loginButton() throws IOException {
         String username = usernameField.getText();
         String password = passwordField.getText();
-//        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//        alert.setTitle("Building remover");
-//        alert.setHeaderText(null);
-//        alert.setContentText(ServerCommunication.updateRoom(id, attribute, changeValue));
-//        alert.showAndWait();
-        ServerCommunication.loginUser(username, password);
+        int code = ServerCommunication.loginUser(username, password);
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Login");
+        alert.setHeaderText(null);
+        alert.setContentText(ErrorMessages.getErrorMessage(code));
+        alert.showAndWait();
     }
 
     /**

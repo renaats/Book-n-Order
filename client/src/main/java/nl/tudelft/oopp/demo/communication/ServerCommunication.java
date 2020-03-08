@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -12,6 +13,8 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -74,7 +77,7 @@ public class ServerCommunication {
      * @return the body of a get request to the server.
      * @throws Exception if communication with the server fails.
      */
-    public static String loginUser(String email, String password) throws IOException {
+    public static int loginUser(String email, String password) throws IOException {
 
         URL url = new URL("http://localhost:8080/login");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -98,17 +101,16 @@ public class ServerCommunication {
                     + " ,Value : " + entry.getValue());
         }
 
-        System.out.println("\nGet Response Header By Key ...\n");
-        String server = connection.getHeaderField("Server");
-
-        if (server == null) {
-            System.out.println("Key 'Server' is not found!");
-        } else {
-            System.out.println("Server - " + server);
+        String bearerKeyString = "";
+        for (Map.Entry<String, List<String>> entry : map.entrySet()) {
+            if (entry.getKey() != null)
+                if(entry.getKey().equals("Authorization")) {
+                    // Yes it's gross, it works, it grabs the key
+                    bearerKeyString = (String) Arrays.asList(entry.getValue().get(0).split(" ")).get(1);
+            }
         }
-
-        System.out.println("Done");
-        return "finished";
+        System.out.println(bearerKeyString);
+        return 200;
         }
 
     /**
