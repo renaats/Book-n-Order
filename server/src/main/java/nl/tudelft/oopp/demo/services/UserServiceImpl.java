@@ -30,14 +30,12 @@ public class UserServiceImpl implements UserService {
      * @return String to see if your request passed
      */
     public int add(String email, String password, String name, String surname, String faculty) {
+        if (!EmailValidator.getInstance().isValid(email)) {
+            System.out.println(email);
+            return 423;
+        }
         if (userRepository.existsById(email)) {
             return 310;
-        }
-        if (!EmailValidator.getInstance().isValid(email)) {
-            return "The email address " + email + " is not valid!";
-        }
-        if (!EmailValidator.getInstance().isValid(email)) {
-            return "The email address " + email + " is not valid!";
         }
         AppUser appUser = new AppUser();
         appUser.setEmail(email);
