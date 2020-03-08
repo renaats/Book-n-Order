@@ -1,6 +1,15 @@
 package nl.tudelft.oopp.demo.services;
 
+import static nl.tudelft.oopp.demo.security.SecurityConstants.HEADER_STRING;
+import static nl.tudelft.oopp.demo.security.SecurityConstants.SECRET;
+import static nl.tudelft.oopp.demo.security.SecurityConstants.TOKEN_PREFIX;
+
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
+
 import java.util.HashSet;
+
+import javax.servlet.http.HttpServletRequest;
 
 import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.Role;
@@ -18,6 +27,26 @@ public class UserServiceImpl implements UserService {
     private BCryptPasswordEncoder bcryptPasswordEncoder;
     @Autowired
     private RoleRepository roleRepository;
+
+    /**
+     * Logs out from the current account.
+     * @param request = the Http request that calls this method
+     */
+    public void logout(HttpServletRequest request) {
+        String token = request.getHeader(HEADER_STRING);
+        if (token != null) {
+            // parse the token.
+            String user = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
+                    .build()
+                    .verify(token.replace(TOKEN_PREFIX, ""))
+                    .getSubject();
+            if (user != null && userRepository.existsById(user)) {
+                AppUser appUser = userRepository.findByEmail(user);
+                appUser.setLoggedIn(false);
+                userRepository.save(appUser);
+            }
+        }
+    }
 
     /**
      * Adds a user.
