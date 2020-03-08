@@ -55,19 +55,11 @@ public class MyCurrentBookingsController {
     }
 
     /**
-     * Changes to templateScene.fxml.
-     * @throws IOException again, all input will be valid. No need to check this, thus we throw.
-     */
-    public void mainMenu() throws IOException {
-        ApplicationDisplay.changeScene("/templateScene.fxml");
-    }
-    /**
      *  method changes the view to that of the main menu
      * @param actionEvent clicking the button to go back to menu
      * @throws IOException the method will never throw an exception
      */
-
-    public void gobacktoMainMenu1(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/mainMenu.fxml");
+    public void mainMenu() throws IOException {
+        ApplicationDisplay.changeScene("/templateScene.fxml");
     }
 }

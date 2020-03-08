@@ -98,56 +98,6 @@ public class BikeReservationController implements Initializable {
     }
 
     /**
-     * Changes the view to the main menu when the button is clicked
-     */
-
-    public void goBackToMenu(ActionEvent actionEvent) throws IOException {
-        Parent roomSelectParent = FXMLLoader.load(getClass().getResource("/mainMenu.fxml"));
-        Scene roomSelectScene = new Scene(roomSelectParent);
-
-        Stage window = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-        window.setScene(roomSelectScene);
-        window.show();
-    }
-
-    /**
-     * Handles clicking the food button.
-     */
-    public void foodsSelected(ActionEvent event) throws IOException {
-        Parent roomSelectParent = FXMLLoader.load(getClass().getResource("/orderFood.fxml"));
-        Scene roomSelectScene = new Scene(roomSelectParent);
-
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(roomSelectScene);
-        window.show();
-    }
-
-    /**
-     * Handles clicking the bikes button.
-     */
-    public void bikesSelected(ActionEvent event) throws IOException {
-        Parent roomSelectParent = FXMLLoader.load(getClass().getResource("/bikeReservations.fxml"));
-        Scene roomSelectScene = new Scene(roomSelectParent);
-
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(roomSelectScene);
-        window.show();
-    }
-
-    /**
-     * Changes to bookRoom.fxml.
-     * @throws IOException again, all input will be valid. No need to check this, thus we throw.
-     */
-    public void roomsSelected(ActionEvent event) throws IOException {
-        Parent roomSelectParent = FXMLLoader.load(getClass().getResource("/bookRoom.fxml"));
-        Scene roomSelectScene = new Scene(roomSelectParent);
-
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(roomSelectScene);
-        window.show();
-    }
-
-    /**
      * Changes to myCurrentBookings.fxml.
      * @throws IOException input will not be wrong, hence we throw.
      */
@@ -200,17 +150,6 @@ public class BikeReservationController implements Initializable {
      * @throws IOException input will not be wrong, hence we throw.
      */
     public void mainMenu(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/mainMenu.fxml");
-    }
-
-    public void foodsSelected1(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/orderFood.fxml");
-    }
-
-    /**
-     * Goes back to mainMenu scene
-     */
-    public void gobacktoMainMenu(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/mainMenu.fxml");
     }
 
