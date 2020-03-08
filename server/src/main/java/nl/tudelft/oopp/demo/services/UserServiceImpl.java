@@ -15,6 +15,7 @@ import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.Role;
 import nl.tudelft.oopp.demo.repositories.RoleRepository;
 import nl.tudelft.oopp.demo.repositories.UserRepository;
+import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -58,6 +59,10 @@ public class UserServiceImpl implements UserService {
      * @return String to see if your request passed
      */
     public int add(String email, String password, String name, String surname, String faculty) {
+        if (!EmailValidator.getInstance().isValid(email)) {
+            System.out.println(email);
+            return 423;
+        }
         if (userRepository.existsById(email)) {
             return 310;
         }
