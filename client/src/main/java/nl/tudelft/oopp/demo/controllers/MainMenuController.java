@@ -1,24 +1,33 @@
 package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-import javafx.fxml.Initializable;
+
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
-public class MainMenuController implements Initializable {
+public class MainMenuController {
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
+    /**
+     * Handels the clicking of the button under the bike image at the main menu.
+     * @param actionEvent (the button press)
+     * @throws IOException when it fails
+     */
+    public void bikesSelected(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/bikeReservations.fxml");
     }
 
     /**
-     * Changes to templateScene.fxml.
+     * Changes to bookRoom.fxml.
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
-    public void mainMenu() throws IOException {
-        ApplicationDisplay.changeScene("/templateScene.fxml");
+    public void roomsSelected(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/bookRoom.fxml");
     }
 
     /**
@@ -33,11 +42,35 @@ public class MainMenuController implements Initializable {
      * Changes to myPreviousBookings.fxml.
      * @throws IOException input will not be wrong, hence we throw.
      */
+
     public void myPreviousBookings() throws IOException {
         ApplicationDisplay.changeScene("/myPreviousBookings.fxml");
     }
+    /**
+     *  method changes the view to that of the my account
+     * @throws IOException the method will never throw an exception
+     */
 
     public void myAccountScene() throws IOException {
         ApplicationDisplay.changeScene("/myAccountScene.fxml");
+    }
+
+    /**
+     * Handles clicking the food button.
+     * @Param: event (clicking the button)
+     * @throws: IOException
+     */
+
+    public void foodsSelected(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/bikeReservations.fxml");
+    }
+    /**
+     *  method changes the view to that of the main menu
+     * @param actionEvent clicking the button to go back to menu
+     * @throws IOException the method will never throw an exception
+     */
+
+    public void gobacktoMainMenu1(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/mainMenu.fxml");
     }
 }

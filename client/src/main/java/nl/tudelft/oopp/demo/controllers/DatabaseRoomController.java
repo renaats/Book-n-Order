@@ -140,4 +140,14 @@ public class DatabaseRoomController implements Initializable {
     public void databaseAddRooms() throws IOException {
         ApplicationDisplay.changeScene("/DatabaseAddRooms.fxml");
     }
+
+    /**
+     * returns to the main menu
+     * @param actionEvent the event is clicking the menu item
+     * @throws IOException again, all input will be valid. No need to check this, thus we throw.
+     */
+
+    public void mainMenu(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/mainMenu.fxml");
+    }
 }

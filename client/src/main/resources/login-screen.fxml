@@ -40,12 +40,12 @@
             <Font name="System Bold" size="17.0" />
          </font>
       </Button>
-      <Button fx:id="register_button" layoutX="633.0" layoutY="57.0" mnemonicParsing="false" style="-fx-background-color: #439fd9;" text="Register" textAlignment="CENTER" textFill="WHITE" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="70.0">
+      <Button fx:id="register_button" onAction="#registrationScene" layoutX="633.0" layoutY="57.0" mnemonicParsing="false" style="-fx-background-color: #439fd9;" text="Register" textAlignment="CENTER" textFill="WHITE" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="70.0">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>
       </Button>
-      <Text layoutX="276.0" layoutY="264.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book 'n Order">
+      <Text layoutX="276.0" layoutY="264.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book 'n Order" AnchorPane.bottomAnchor="327.509765625" AnchorPane.leftAnchor="275.8078125" AnchorPane.rightAnchor="276.9921875">
          <font>
             <Font name="DejaVu Sans ExtraLight" size="36.0" />
          </font>

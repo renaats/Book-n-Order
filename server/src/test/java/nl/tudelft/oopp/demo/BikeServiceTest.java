@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import nl.tudelft.oopp.demo.entities.Bike;
@@ -69,7 +70,7 @@ public class BikeServiceTest {
     @Test
     public void testCreate() {
         bikeService.add(building.getId(), true);
-        assertEquals(bikeService.all(), Arrays.asList(bike));
+        assertEquals(bikeService.all(), Collections.singletonList(bike));
     }
 
     @Test

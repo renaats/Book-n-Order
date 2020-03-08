@@ -9,7 +9,7 @@ import nl.tudelft.oopp.demo.errors.ErrorMessages;
 
 public class ServerCommunication {
 
-    private static HttpClient client = HttpClient.newBuilder().build();
+    private static final HttpClient client = HttpClient.newBuilder().build();
 
     /**
      * Retrieves a user from the server.
@@ -19,7 +19,7 @@ public class ServerCommunication {
      */
     public static String getUser() {
         HttpRequest request = HttpRequest.newBuilder().GET().uri(URI.create("http://localhost:8080/user")).build();
-        HttpResponse<String> response = null;
+        HttpResponse<String> response;
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
         } catch (Exception e) {
@@ -225,5 +225,36 @@ public class ServerCommunication {
             System.out.println("Status: " + response.statusCode());
         }
         return ErrorMessages.getErrorMessage(Integer.parseInt(response.body()));
+    }
+
+    /**
+     * Communicates addRoom to the database
+     * @param name room name
+     * @param faculty faculty name
+     * @param buildingId building ID
+     * @param facultySpecific is it specific for a faculty
+     * @param screen does the room have a screen
+     * @param projector does the room have a projector
+     * @param capacity capacity of the room in people
+     * @param plugs amount of available plugs
+     * @return body response
+     */
+    public static String addRoom(String name, String faculty,
+                                 int buildingId, boolean facultySpecific,
+                                 boolean screen, boolean projector,
+                                 int capacity, int plugs) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room/add?name=" + name + "&faculty=" + faculty + "&facultySpecific=" + facultySpecific + "&screen=" + screen + "&projector=" + projector + "&buildingId=" + buildingId + "&nrPeople=" + capacity + "&plugs=" + plugs)).POST(HttpRequest.BodyPublishers.noBody()).build();
+        HttpResponse<String> response = null;
+        try {
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Communication with server failed";
+        }
+        if (response.statusCode() != 200) {
+            System.out.println(response.body());
+            System.out.println("Status: " + response.statusCode());
+        }
+        return response.body();
     }
 }

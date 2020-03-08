@@ -3,6 +3,7 @@ package nl.tudelft.oopp.demo.controllers;
 import nl.tudelft.oopp.demo.entities.RoomReservation;
 import nl.tudelft.oopp.demo.services.RoomReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +29,7 @@ public class RoomReservationController {
      * @param toTimeMs = the ending time of the reservation
      * @return String to see if your request passed
      */
+    @Secured("ROLE_USER")
     @PostMapping(path = "/add") // Map ONLY POST Requests
     @ResponseBody
     public int addNewRoomReservation(
@@ -45,6 +47,7 @@ public class RoomReservationController {
      * @param value = the new value of the attribute
      * @return String to see if your request passed
      */
+    @Secured({"ROLE_ADMIN", "ROLE_BUILDING_ADMIN"})
     @PostMapping(path = "/update")
     @ResponseBody
     public int updateAttribute(@RequestParam int id, @RequestParam String attribute, @RequestParam String value) {
@@ -57,6 +60,7 @@ public class RoomReservationController {
      * @param id = the id of the room reservation
      * @return String to see if your request passed
      */
+    @Secured({"ROLE_ADMIN", "ROLE_BUILDING_ADMIN"})
     @DeleteMapping(path = "/delete")
     @ResponseBody
     public int deleteRoomReservation(@RequestParam int id) {
@@ -67,6 +71,7 @@ public class RoomReservationController {
      * Lists all room reservations.
      * @return all room reservations
      */
+    @Secured("ROLE_USER")
     @GetMapping(path = "/all")
     @ResponseBody
     public Iterable<RoomReservation> getAllRoomReservations() {

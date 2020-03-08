@@ -3,9 +3,9 @@ package nl.tudelft.oopp.demo.services;
 import java.util.Date;
 import java.util.Optional;
 
+import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.entities.RoomReservation;
-import nl.tudelft.oopp.demo.entities.User;
 import nl.tudelft.oopp.demo.repositories.RoomRepository;
 import nl.tudelft.oopp.demo.repositories.RoomReservationRepository;
 import nl.tudelft.oopp.demo.repositories.UserRepository;
@@ -31,11 +31,11 @@ public class RoomReservationServiceImpl implements RoomReservationService {
         }
         Room room = optionalRoom.get();
 
-        Optional<User> optionalUser = userRepository.findById(userEmail);
+        Optional<AppUser> optionalUser = userRepository.findById(userEmail);
         if (optionalUser.isEmpty()) {
             return 404;
         }
-        User user = optionalUser.get();
+        AppUser appUser = optionalUser.get();
 
         if (room.hasRoomReservationBetween(new Date(fromTimeMs), new Date(toTimeMs))) {
             return 308;
@@ -43,7 +43,7 @@ public class RoomReservationServiceImpl implements RoomReservationService {
 
         RoomReservation roomReservation = new RoomReservation();
         roomReservation.setRoom(room);
-        roomReservation.setUser(user);
+        roomReservation.setAppUser(appUser);
         roomReservation.setFromTime(new Date(fromTimeMs));
         roomReservation.setToTime(new Date(toTimeMs));
         roomReservationRepository.save(roomReservation);
@@ -74,12 +74,12 @@ public class RoomReservationServiceImpl implements RoomReservationService {
                 roomReservation.setRoom(room);
                 break;
             case "userEmail":
-                Optional<User> optionalUser = userRepository.findById(value);
+                Optional<AppUser> optionalUser = userRepository.findById(value);
                 if (optionalUser.isEmpty()) {
                     return 419;
                 }
-                User user = optionalUser.get();
-                roomReservation.setUser(user);
+                AppUser appUser = optionalUser.get();
+                roomReservation.setAppUser(appUser);
                 break;
             default:
                 return 420;
