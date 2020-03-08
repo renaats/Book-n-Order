@@ -1,11 +1,21 @@
 package nl.tudelft.oopp.demo.services;
 
+import static nl.tudelft.oopp.demo.security.SecurityConstants.HEADER_STRING;
+import static nl.tudelft.oopp.demo.security.SecurityConstants.SECRET;
+import static nl.tudelft.oopp.demo.security.SecurityConstants.TOKEN_PREFIX;
+
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
+
 import java.util.HashSet;
+
+import javax.servlet.http.HttpServletRequest;
 
 import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.Role;
 import nl.tudelft.oopp.demo.repositories.RoleRepository;
 import nl.tudelft.oopp.demo.repositories.UserRepository;
+import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -20,6 +30,26 @@ public class UserServiceImpl implements UserService {
     private RoleRepository roleRepository;
 
     /**
+     * Logs out from the current account.
+     * @param request = the Http request that calls this method
+     */
+    public void logout(HttpServletRequest request) {
+        String token = request.getHeader(HEADER_STRING);
+        if (token != null) {
+            // parse the token.
+            String user = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
+                    .build()
+                    .verify(token.replace(TOKEN_PREFIX, ""))
+                    .getSubject();
+            if (user != null && userRepository.existsById(user)) {
+                AppUser appUser = userRepository.findByEmail(user);
+                appUser.setLoggedIn(false);
+                userRepository.save(appUser);
+            }
+        }
+    }
+
+    /**
      * Adds a user.
      * @param email = the email of the user
      * @param password = the password of the user
@@ -29,6 +59,10 @@ public class UserServiceImpl implements UserService {
      * @return String to see if your request passed
      */
     public int add(String email, String password, String name, String surname, String faculty) {
+        if (!EmailValidator.getInstance().isValid(email)) {
+            System.out.println(email);
+            return 423;
+        }
         if (userRepository.existsById(email)) {
             return 310;
         }

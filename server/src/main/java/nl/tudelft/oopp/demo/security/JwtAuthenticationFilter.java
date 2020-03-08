@@ -51,6 +51,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 for (Role role: repositoryAppUser.getRoles()) {
                     authorities.add(new SimpleGrantedAuthority(role.getName()));
                 }
+                repositoryAppUser.setLoggedIn(true);
+                userRepository.save(repositoryAppUser);
             }
 
             return authenticationManager.authenticate(
