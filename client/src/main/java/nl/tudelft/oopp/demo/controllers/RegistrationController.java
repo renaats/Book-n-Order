@@ -30,6 +30,9 @@ public class RegistrationController implements Initializable {
     @FXML
     private TextField surnameField;
 
+    /**
+     * Register button that communicates all the fields to ServerCommunication class.
+     */
     public void registerButton() {
         try {
             String email = emailField.getText();
