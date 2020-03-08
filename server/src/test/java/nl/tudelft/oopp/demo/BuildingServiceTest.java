@@ -57,13 +57,11 @@ public class BuildingServiceTest {
         building.setName("EWI");
         building.setStreet("Mekelweg");
         building.setHouseNumber(4);
-      //  buildingRepository.save(building);
 
         building2 = new Building();
         building2.setName("EWI2");
         building2.setStreet("Mekelweg2");
         building2.setHouseNumber(42);
-        //buildingRepository.save(building2);
     }
 
     @Test
