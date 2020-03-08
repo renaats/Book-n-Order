@@ -1,8 +1,9 @@
 package nl.tudelft.oopp.demo.controllers;
 
-import nl.tudelft.oopp.demo.entities.User;
+import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,7 +31,7 @@ public class UserController {
      */
     @PostMapping(path = "/add") // Map ONLY POST Requests
     @ResponseBody
-    public String addUser(
+    public int addUser(
             @RequestParam String email,
             @RequestParam String password,
             @RequestParam String name,
@@ -46,9 +47,10 @@ public class UserController {
      * @param value = the new value of the attribute
      * @return String to see if your request passed
      */
+    @Secured("ROLE_ADMIN")
     @PostMapping(path = "/update")
     @ResponseBody
-    public String updateAttribute(@RequestParam String email, @RequestParam String attribute, @RequestParam String value) {
+    public int updateAttribute(@RequestParam String email, @RequestParam String attribute, @RequestParam String value) {
         return userService.update(email, attribute, value);
     }
 
@@ -57,20 +59,21 @@ public class UserController {
      * @param email = the email of the account
      * @return String to see if your request passed
      */
+    @Secured("ROLE_ADMIN")
     @DeleteMapping(path = "/delete")
     @ResponseBody
-    public String deleteUser(@RequestParam String email) {
+    public int deleteUser(@RequestParam String email) {
         return userService.delete(email);
     }
 
     /**
      * Lists all accounts.
-     * Should be removed for the finished version!
      * @return all accounts
      */
+    @Secured("ROLE_ADMIN")
     @GetMapping(path = "/all")
     @ResponseBody
-    public Iterable<User> getAllUsers() {
+    public Iterable<AppUser> getAllUsers() {
         return userService.all();
     }
 
@@ -78,10 +81,23 @@ public class UserController {
      * Finds an account by its email.
      * @return an account that has the specified email or null if no such account exists
      */
+    @Secured("ROLE_ADMIN")
     @GetMapping(path = "/find")
     @ResponseBody
-    public User getUser(@RequestParam String email) {
+    public AppUser getUser(@RequestParam String email) {
         return userService.find(email);
     }
 
+
+    /**
+     * Adds a role to an account. If the role does not exist, it is created.
+     * @param email = the email of the account
+     * @param roleName = the name of the role
+     */
+    //@Secured("ROLE_ADMIN") SHOULD BE UNCOMMENTED WHEN IN PRODUCTION!
+    @PostMapping(path = "/addRole")
+    @ResponseBody
+    public void addRole(@RequestParam String email, @RequestParam String roleName) {
+        userService.addRole(email, roleName);
+    }
 }

@@ -6,11 +6,11 @@ import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Room;
 
 public interface BuildingService {
-    String add(String name, String street, int houseNumber);
+    int add(String name, String street, int houseNumber);
 
-    String update(int id, String attribute, String value);
+    int update(int id, String attribute, String value);
 
-    String delete(int id);
+    int delete(int id);
 
     Iterable<Building> all();
 

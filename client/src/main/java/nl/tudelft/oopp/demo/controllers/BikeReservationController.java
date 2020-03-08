@@ -17,6 +17,9 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
+/**
+ * This class controls the functionality of the different buttons in bike reservations and creates the entries in the choice boxes
+ */
 
 public class BikeReservationController implements Initializable {
     final ObservableList list = FXCollections.observableArrayList();
@@ -45,6 +48,11 @@ public class BikeReservationController implements Initializable {
         loadData();
     }
 
+    /**
+     * Is meant to connect to the back end
+     * does: it prints the choices in the choice boxes
+     * Will: send the choice box contents to database to be processed
+     */
     @FXML
     private void reserveBike() {
         String bike = pick.getValue() + drop.getValue();
@@ -56,7 +64,7 @@ public class BikeReservationController implements Initializable {
     }
 
     /**
-     * Adds the items to the choice boxes
+     * Adds the items to the choice boxes (the 1,2,3 must be changed to the different pick-up locations)
      */
 
     public void loadData() {
@@ -176,6 +184,11 @@ public class BikeReservationController implements Initializable {
      * @throws IOException input will not be wrong, hence we throw.
      */
     public void bookRoom(ActionEvent actionEvent) throws IOException {
+
+     /** Goes to bookRoom view
+     */
+    public void roomsSelected1(ActionEvent actionEvent) throws IOException {
+
         ApplicationDisplay.changeScene("/bookRoom.fxml");
     }
 
@@ -192,6 +205,19 @@ public class BikeReservationController implements Initializable {
      * @throws IOException input will not be wrong, hence we throw.
      */
     public void mainMenu(ActionEvent actionEvent) throws IOException {
+            ApplicationDisplay.changeScene("/mainMenu.fxml");
+        }
+        /** changes view to food reservations
+     */
+
+    public void foodsSelected1(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/bikeReservations.fxml");
+    }
+
+    /**
+     * Goes back to mainMenu scene
+     */
+    public void gobacktoMainMenu(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/mainMenu.fxml");
     }
 

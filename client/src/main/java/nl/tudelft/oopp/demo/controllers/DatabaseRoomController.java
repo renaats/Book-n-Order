@@ -90,14 +90,22 @@ public class DatabaseRoomController implements Initializable {
      * Handles the sending of update values.
      */
     public void updateRoomButtonClicked() {
-        int id = Integer.parseInt(roomFindByIdUpdateField.getText());
-        String attribute = updateChoiceBox.getValue().replaceAll(" ","").toLowerCase();
-        String changeValue = roomChangeToField.getText();
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Building remover");
-        alert.setHeaderText(null);
-        alert.setContentText(ServerCommunication.updateRoom(id, attribute, changeValue));
-        alert.showAndWait();
+        try {
+            int id = Integer.parseInt(roomFindByIdUpdateField.getText());
+            String attribute = updateChoiceBox.getValue().replaceAll(" ", "").toLowerCase();
+            String changeValue = roomChangeToField.getText();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Building remover");
+            alert.setHeaderText(null);
+            alert.setContentText(ServerCommunication.updateRoom(id, attribute, changeValue));
+            alert.showAndWait();
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Missing argument.");
+            alert.showAndWait();
+        }
     }
 
     /**
@@ -135,5 +143,13 @@ public class DatabaseRoomController implements Initializable {
 
     public void myAccountScene(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/myAccountScene.fxml");
+    /**
+     * returns to the main menu
+     * @param actionEvent the event is clicking the menu item
+     * @throws IOException again, all input will be valid. No need to check this, thus we throw.
+     */
+
+    public void mainMenu(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/mainMenu.fxml");
     }
 }

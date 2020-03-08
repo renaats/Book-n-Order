@@ -9,6 +9,9 @@ import javafx.scene.control.TextField;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
+/**
+ * Takes care of the functionality of the DataBaseAddBuilding.fxml file
+ */
 public class DatabaseAddBuildingController {
 
     @FXML
@@ -63,5 +66,14 @@ public class DatabaseAddBuildingController {
         alert.setHeaderText(null);
         alert.setContentText(ServerCommunication.addBuilding(name, street, houseNumber));
         alert.showAndWait();
+    }
+    /**
+     * returns to the main menu
+     * @param actionEvent the event is clicking the menu item
+     * @throws IOException again, all input will be valid. No need to check this, thus we throw.
+     */
+
+    public void mainMenu(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/mainMenu.fxml");
     }
 }

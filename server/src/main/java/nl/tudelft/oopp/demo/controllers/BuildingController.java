@@ -6,6 +6,7 @@ import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.services.BuildingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,9 +31,10 @@ public class BuildingController {
      * @param name = the name of the building
      * @return String to see if your request passed
      */
+    @Secured({"ROLE_ADMIN", "ROLE_BUILDING_ADMIN"})
     @PostMapping(path = "/add")
     @ResponseBody
-    public String addNewBuilding(@RequestParam String name, @RequestParam String street, @RequestParam int houseNumber) {
+    public int addNewBuilding(@RequestParam String name, @RequestParam String street, @RequestParam int houseNumber) {
         return buildingService.add(name, street, houseNumber);
     }
 
@@ -41,9 +43,10 @@ public class BuildingController {
      * @param id = the id of the building
      * @return String to see if your request passed
      */
+    @Secured({"ROLE_ADMIN", "ROLE_BUILDING_ADMIN"})
     @DeleteMapping(path = "/delete/{buildingID}")
     @ResponseBody
-    public String deleteBuilding(@PathVariable(value = "buildingID") int id) {
+    public int deleteBuilding(@PathVariable(value = "buildingID") int id) {
         return buildingService.delete(id);
     }
 
@@ -54,9 +57,10 @@ public class BuildingController {
      * @param value = the new value of the attribute
      * @return message if it passes
      */
+    @Secured({"ROLE_ADMIN", "ROLE_BUILDING_ADMIN"})
     @PostMapping(path = "/update")
     @ResponseBody
-    public String updateBuilding(@RequestParam int id, @RequestParam String attribute, @RequestParam String value) {
+    public int updateBuilding(@RequestParam int id, @RequestParam String attribute, @RequestParam String value) {
         return buildingService.update(id, attribute, value);
     }
 
@@ -64,6 +68,7 @@ public class BuildingController {
      * Lists all buildings.
      * @return all buildings
      */
+    @Secured("ROLE_USER")
     @GetMapping(path = "/all")
     @ResponseBody
     public Iterable<Building> getAllBuildings() {
@@ -75,6 +80,7 @@ public class BuildingController {
      * @param id = the id of the building
      * @return a building that matches the id
      */
+    @Secured("ROLE_USER")
     @GetMapping(path = "/find/{buildingID}")
     @ResponseBody
     public Building findBuilding(@PathVariable(value = "buildingID") int id) {
@@ -86,6 +92,7 @@ public class BuildingController {
      * @param id = the id of the building
      * @return all rooms that are in the building that matches the id
      */
+    @Secured("ROLE_USER")
     @GetMapping(path = "/rooms/{buildingId}")
     @ResponseBody
     public Set<Room> getRooms(@PathVariable(value = "buildingId") int id) {

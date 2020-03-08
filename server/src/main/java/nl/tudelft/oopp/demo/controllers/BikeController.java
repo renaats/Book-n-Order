@@ -3,6 +3,7 @@ package nl.tudelft.oopp.demo.controllers;
 import nl.tudelft.oopp.demo.entities.Bike;
 import nl.tudelft.oopp.demo.services.BikeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,9 +27,10 @@ public class BikeController {
      * @param available = the availability of the bike
      * @return String to see if your request passed
      */
+    @Secured({"ROLE_ADMIN", "ROLE_BIKE_ADMIN"})
     @PostMapping(path = "/add") // Map ONLY POST Requests
     @ResponseBody
-    public String addNewBike(
+    public int addNewBike(
             @RequestParam int buildingId,
             @RequestParam boolean available
     ) {
@@ -42,9 +44,10 @@ public class BikeController {
      * @param value = the new value of the attribute
      * @return String to see if your request passed
      */
+    @Secured({"ROLE_ADMIN", "ROLE_BIKE_ADMIN"})
     @PostMapping(path = "/update")
     @ResponseBody
-    public String updateAttribute(@RequestParam int id, @RequestParam String attribute, @RequestParam String value) {
+    public int updateAttribute(@RequestParam int id, @RequestParam String attribute, @RequestParam String value) {
         return bikeService.update(id, attribute, value);
     }
 
@@ -54,9 +57,10 @@ public class BikeController {
      * @param id = the id of the bike
      * @return String to see if your request passed
      */
+    @Secured({"ROLE_ADMIN", "ROLE_BIKE_ADMIN"})
     @DeleteMapping(path = "/delete/{bikeID}")
     @ResponseBody
-    public String deleteBike(@PathVariable(value = "bikeID") int id) {
+    public int deleteBike(@PathVariable(value = "bikeID") int id) {
         return bikeService.delete(id);
     }
 
@@ -64,6 +68,7 @@ public class BikeController {
      * Lists all bikes.
      * @return all bikes
      */
+    @Secured("ROLE_USER")
     @GetMapping(path = "/all")
     @ResponseBody
     public Iterable<Bike> getAllBikes() {
@@ -75,6 +80,7 @@ public class BikeController {
      * @param id = the bike id
      * @return a bike that matches the id
      */
+    @Secured("ROLE_USER")
     @GetMapping(path = "/find/{id}")
     @ResponseBody
     public Bike findBike(@PathVariable (value = "id") int id) {

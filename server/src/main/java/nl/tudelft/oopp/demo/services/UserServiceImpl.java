@@ -1,14 +1,23 @@
 package nl.tudelft.oopp.demo.services;
 
-import nl.tudelft.oopp.demo.entities.User;
+import java.util.HashSet;
+
+import nl.tudelft.oopp.demo.entities.AppUser;
+import nl.tudelft.oopp.demo.entities.Role;
+import nl.tudelft.oopp.demo.repositories.RoleRepository;
 import nl.tudelft.oopp.demo.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private BCryptPasswordEncoder bcryptPasswordEncoder;
+    @Autowired
+    private RoleRepository roleRepository;
 
     /**
      * Adds a user.
@@ -19,18 +28,25 @@ public class UserServiceImpl implements UserService {
      * @param faculty = the faculty of the user
      * @return String to see if your request passed
      */
-    public String add(String email, String password, String name, String surname, String faculty) {
+    public int add(String email, String password, String name, String surname, String faculty) {
         if (userRepository.existsById(email)) {
-            return "The account with email " + email + " already exists!";
+            return 310;
         }
-        User user = new User();
-        user.setEmail(email);
-        user.setPassword(password);
-        user.setName(name);
-        user.setSurname(surname);
-        user.setFaculty(faculty);
-        userRepository.save(user);
-        return "Account created!";
+        AppUser appUser = new AppUser();
+        appUser.setEmail(email);
+        appUser.setPassword(bcryptPasswordEncoder.encode(password));
+        appUser.setName(name);
+        appUser.setSurname(surname);
+        appUser.setFaculty(faculty);
+        if (!roleRepository.existsByName("ROLE_USER")) {
+            Role role = new Role();
+            role.setName("ROLE_USER");
+            roleRepository.save(role);
+        }
+        appUser.setRoles(new HashSet<>());
+        appUser.addRole(roleRepository.findByName("ROLE_USER"));
+        userRepository.save(appUser);
+        return 201;
     }
 
     /**
@@ -40,33 +56,33 @@ public class UserServiceImpl implements UserService {
      * @param value = the new value of the attribute
      * @return String to see if your request passed
      */
-    public String update(String email, String attribute, String value) {
+    public int update(String email, String attribute, String value) {
         if (userRepository.findById(email).isEmpty()) {
-            return "User with email " + email + " does not exist!";
+            return 419;
         }
-        User user = userRepository.findById(email).get();
+        AppUser appUser = userRepository.findById(email).get();
 
         switch (attribute) {
             case "email":
-                user.setEmail(value);
+                appUser.setEmail(value);
                 break;
             case "password":
-                user.setPassword(value);
+                appUser.setPassword(value);
                 break;
             case "name":
-                user.setName(value);
+                appUser.setName(value);
                 break;
             case "surname":
-                user.setSurname(value);
+                appUser.setSurname(value);
                 break;
             case "faculty":
-                user.setFaculty(value);
+                appUser.setFaculty(value);
                 break;
             default:
-                return "No attribute with name " + attribute + " found!";
+                return 412;
         }
-        userRepository.save(user);
-        return "The attribute has been set!";
+        userRepository.save(appUser);
+        return 200;
     }
 
     /**
@@ -74,12 +90,12 @@ public class UserServiceImpl implements UserService {
      * @param email = the email of the account
      * @return String to see if your request passed
      */
-    public String delete(String email) {
+    public int delete(String email) {
         if (!userRepository.existsById(email)) {
-            return "The account with email " + email + " does not exist!";
+            return 419;
         }
         userRepository.deleteById(email);
-        return "The account with email " + email + " has been deleted!";
+        return 200;
     }
 
     /**
@@ -87,7 +103,7 @@ public class UserServiceImpl implements UserService {
      * Should be removed for the finished version!
      * @return all accounts
      */
-    public Iterable<User> all() {
+    public Iterable<AppUser> all() {
         return userRepository.findAll();
     }
 
@@ -95,11 +111,32 @@ public class UserServiceImpl implements UserService {
      * Finds an account by its email.
      * @return an account that has the specified email or null if no such account exists
      */
-    public User find(String email) {
+    public AppUser find(String email) {
         if (!userRepository.existsById(email)) {
             return null;
         }
-        User user = userRepository.getOne(email);
-        return user;
+        AppUser appUser = userRepository.getOne(email);
+        return appUser;
+    }
+
+    /**
+     * Adds a role to an account. If the role does not exist, it is created.
+     * @param email = the email of the account
+     * @param roleName = the name of the role
+     */
+    public void addRole(String email, String roleName) {
+        if (!userRepository.existsById(email)) {
+            return;
+        }
+        AppUser appUser = userRepository.getOne(email);
+        Role role;
+        if (!roleRepository.existsByName(roleName)) {
+            role = new Role();
+            role.setName(roleName);
+            roleRepository.save(role);
+        }
+        role = roleRepository.findByName(roleName);
+        appUser.addRole(role);
+        userRepository.save(appUser);
     }
 }

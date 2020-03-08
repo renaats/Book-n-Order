@@ -22,29 +22,29 @@ public class RoomServiceImpl implements RoomService {
      * Adds a room.
      * @param name = the name of the room
      * @param faculty = the name of the faculty
-     * @param buildingId = the id of the building of the room
      * @param facultySpecific = boolean representing room restrictions
      * @param screen = boolean representing the availability of a screen
      * @param projector = boolean representing the availability of a projector
+     * @param buildingId = the id of the building of the room
      * @param nrPeople = the number of people this room fits
      * @param plugs = the number of plugs in this room
      * @return String to see if your request passed
      */
-    public String add(String name,
-                      String faculty,
-                      boolean facultySpecific,
-                      boolean screen,
-                      boolean projector,
-                      int buildingId,
-                      int nrPeople,
-                      int plugs) {
+    public int add(String name,
+                   String faculty,
+                   boolean facultySpecific,
+                   boolean screen,
+                   boolean projector,
+                   int buildingId,
+                   int nrPeople,
+                   int plugs) {
         Optional<Building> optionalBuilding = buildingRepository.findById(buildingId);
         if (optionalBuilding.isEmpty()) {
-            return "Could not find building with id " + buildingId + "!";
+            return 422;
         }
         Building building = optionalBuilding.get();
         if (building.hasRoomWithName(name)) {
-            return "A room with this name already exists in the building!";
+            return 309;
         }
 
         Room room = new Room();
@@ -57,7 +57,7 @@ public class RoomServiceImpl implements RoomService {
         room.setNrPeople(nrPeople);
         room.setPlugs(plugs);
         roomRepository.save(room);
-        return "Saved!";
+        return 201;
     }
 
     /**
@@ -67,9 +67,9 @@ public class RoomServiceImpl implements RoomService {
      * @param value = the new value of the attribute
      * @return String to see if your request passed
      */
-    public String update(int id, String attribute, String value) {
+    public int update(int id, String attribute, String value) {
         if (roomRepository.findById(id).isEmpty()) {
-            return "Room with ID: " + id + " does not exist!";
+            return 418;
         }
         Room room = roomRepository.findById(id).get();
 
@@ -93,7 +93,7 @@ public class RoomServiceImpl implements RoomService {
                 int buildingid = Integer.parseInt(value);
                 Optional<Building> optionalBuilding = buildingRepository.findById(buildingid);
                 if (optionalBuilding.isEmpty()) {
-                    return "Could not find building with id " + buildingid + "!";
+                    return 422;
                 }
                 Building building = optionalBuilding.get();
                 room.setBuilding(building);
@@ -105,10 +105,10 @@ public class RoomServiceImpl implements RoomService {
                 room.setPlugs(Integer.parseInt(value));
                 break;
             default:
-                return "No attribute with name " + attribute + " found!";
+                return 412;
         }
         roomRepository.save(room);
-        return "The attribute has been set!";
+        return 200;
     }
 
     /**
@@ -116,12 +116,12 @@ public class RoomServiceImpl implements RoomService {
      * @param id = the id of the room
      * @return String to see if your request passed
      */
-    public String delete(int id) {
+    public int delete(int id) {
         if (!roomRepository.existsById(id)) {
-            return "Room with ID: " + id + " does not exist!";
+            return 418;
         }
         roomRepository.deleteById(id);
-        return "Deleted!";
+        return 200;
     }
 
     /**

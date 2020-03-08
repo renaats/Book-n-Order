@@ -6,11 +6,11 @@ import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.entities.RoomReservation;
 
 public interface RoomService {
-    String add(String name, String faculty, boolean facultySpecific, boolean screen, boolean projector, int buildingId, int nrPeople, int plugs);
+    int add(String name, String faculty, boolean facultySpecific, boolean screen, boolean projector, int buildingId, int nrPeople, int plugs);
 
-    String update(int id, String attribute, String value);
+    int update(int id, String attribute, String value);
 
-    String delete(int id);
+    int delete(int id);
 
     Iterable<Room> all();
 

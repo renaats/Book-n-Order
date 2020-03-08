@@ -17,6 +17,9 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
+/**
+ * This class controls the functionality of the different buttons in bike reservations and creates the entries in the choice boxes
+ */
 public class BookRoomController implements Initializable {
 
     final ObservableList listOfRooms = FXCollections.observableArrayList();
@@ -43,7 +46,7 @@ public class BookRoomController implements Initializable {
         if (from.getValue() == null || until.getValue() == null) {
             System.out.println("Nothing selected");
         } else {
-            System.out.println("Your selection was from:" + from.getValue() + " ,until: " + until.getValue());
+            System.out.println("Your selection was from: " + from.getValue() + ", until: " + until.getValue());
         }
     }
 
@@ -143,11 +146,15 @@ public class BookRoomController implements Initializable {
 
     /**
      * Changes to myAccountScene.fxml.
-     * @throws IOException input will not be wrong, hence we throw.
+     * @throws IOException when it fails
      */
     public void myAccountScene() throws IOException {
         ApplicationDisplay.changeScene("/myAccountScene.fxml");
     }
+    /**
+     * Changes to bikeReservations.fxml.
+     * @throws IOException when it fails
+     */
 
     /**
      * Changes to bikeReservations.fxml.
@@ -156,6 +163,10 @@ public class BookRoomController implements Initializable {
     public void rentBike(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/bikeReservations.fxml");
     }
+    /**
+     * Changes to bookRoom.fxml.
+     * @throws IOException when it fails
+     */
 
     /**
      * Changes to bookRoom.fxml.
@@ -164,6 +175,10 @@ public class BookRoomController implements Initializable {
     public void bookRoom(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/bookRoom.fxml");
     }
+    /**
+     * Changes to bikeReservations.fxml.
+     * @throws IOException when it fails
+     */
 
     /**
      * Changes to orderFood.fxml.
@@ -172,6 +187,10 @@ public class BookRoomController implements Initializable {
     public void orderFood(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/orderFood.fxml");
     }
+    /**
+     * Changes to mainMenu.fxml.
+     * @throws IOException when it fails
+     */
 
     /**
      * Changes to mainMenu.fxml.

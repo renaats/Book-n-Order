@@ -29,7 +29,7 @@ public class RoomReservation {
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn
-    private User user;
+    private AppUser appUser;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date fromTime;
@@ -42,8 +42,8 @@ public class RoomReservation {
         this.room = room;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setAppUser(AppUser appUser) {
+        this.appUser = appUser;
     }
 
     public void setFromTime(Date fromTime) {
@@ -63,8 +63,8 @@ public class RoomReservation {
         return room;
     }
 
-    public User getUser() {
-        return user;
+    public AppUser getAppUser() {
+        return appUser;
     }
 
     public Date getFromTime() {
@@ -85,7 +85,7 @@ public class RoomReservation {
         }
         RoomReservation that = (RoomReservation) o;
         return Objects.equals(room, that.room)
-                && Objects.equals(user, that.user)
+                && Objects.equals(appUser, that.appUser)
                 && Objects.equals(fromTime, that.fromTime)
                 && Objects.equals(toTime, that.toTime);
     }

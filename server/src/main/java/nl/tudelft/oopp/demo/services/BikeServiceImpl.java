@@ -22,17 +22,17 @@ public class BikeServiceImpl implements BikeService {
      * @param available = the availability of the bike
      * @return String to see if your request passed
      */
-    public String add(int buildingId, boolean available) {
+    public int add(int buildingId, boolean available) {
         Optional<Building> optionalBuilding = buildingRepository.findById(buildingId);
         if (optionalBuilding.isEmpty()) {
-            return "Could not find building with id " + buildingId + "!";
+            return 416;
         }
 
         Bike bike = new Bike();
         bike.setLocation(optionalBuilding.get());
         bike.setAvailable(available);
         bikeRepository.save(bike);
-        return "Saved!";
+        return 201;
     }
 
     /**
@@ -42,9 +42,9 @@ public class BikeServiceImpl implements BikeService {
      * @param value = the new value of the attribute
      * @return String to see if your request passed
      */
-    public String update(int id, String attribute, String value) {
+    public int update(int id, String attribute, String value) {
         if (bikeRepository.findById(id).isEmpty()) {
-            return "Bike with ID: " + id + " does not exist!";
+            return 416;
         }
         Bike bike = bikeRepository.findById(id).get();
 
@@ -56,16 +56,16 @@ public class BikeServiceImpl implements BikeService {
                 int buildingid = Integer.parseInt(value);
                 Optional<Building> optionalBuilding = buildingRepository.findById(buildingid);
                 if (optionalBuilding.isEmpty()) {
-                    return "Could not find building with id " + buildingid + "!";
+                    return 416;
                 }
                 Building building = optionalBuilding.get();
                 bike.setLocation(building);
                 break;
             default:
-                return "No attribute with name " + attribute + " found!";
+                return 412;
         }
         bikeRepository.save(bike);
-        return "The attribute has been set!";
+        return 200;
     }
 
     /**
@@ -73,12 +73,12 @@ public class BikeServiceImpl implements BikeService {
      * @param id = the id of the bike
      * @return String to see if your request passed
      */
-    public String delete(int id) {
+    public int delete(int id) {
         if (!bikeRepository.existsById(id)) {
-            return "Bike with ID: " + id + " does not exist!";
+            return 404;
         }
         bikeRepository.deleteById(id);
-        return "Deleted!";
+        return 200;
     }
 
     /**
