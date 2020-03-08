@@ -36,6 +36,9 @@ public class ServerCommunication {
             e.printStackTrace();
             return "Communication with server failed";
         }
+        if (response.statusCode() == 403) {
+            return ErrorMessages.getErrorMessage(401);
+        }
         if (response.statusCode() != 200) {
             System.out.println("Status: " + response.statusCode());
         }
@@ -59,6 +62,9 @@ public class ServerCommunication {
         } catch (Exception e) {
             e.printStackTrace();
             return "Communication with server failed";
+        }
+        if (response.statusCode() == 403) {
+            return ErrorMessages.getErrorMessage(401);
         }
         if (response.statusCode() != 200) {
             System.out.println("Status: " + response.statusCode());
@@ -169,6 +175,9 @@ public class ServerCommunication {
             e.printStackTrace();
             return "Communication with server failed";
         }
+        if (response.statusCode() == 403) {
+            return ErrorMessages.getErrorMessage(401);
+        }
         if (response.statusCode() != 200) {
             System.out.println(response.body());
             System.out.println("Status: " + response.statusCode());
@@ -220,6 +229,9 @@ public class ServerCommunication {
             e.printStackTrace();
             return "Communication with server failed";
         }
+        if (response.statusCode() == 403) {
+            return ErrorMessages.getErrorMessage(401);
+        }
         if (response.statusCode() != 200) {
             System.out.println(response.body());
             System.out.println("Status: " + response.statusCode());
@@ -268,6 +280,9 @@ public class ServerCommunication {
             e.printStackTrace();
             return "Communication with server failed";
         }
+        if (response.statusCode() == 403) {
+            return ErrorMessages.getErrorMessage(401);
+        }
         if (response.statusCode() != 200) {
             System.out.println(response.body());
             System.out.println("Status: " + response.statusCode());
@@ -290,6 +305,9 @@ public class ServerCommunication {
         } catch (Exception e) {
             e.printStackTrace();
             return "Communication with server failed";
+        }
+        if (response.statusCode() == 403) {
+            return ErrorMessages.getErrorMessage(401);
         }
         if (response.statusCode() != 200) {
             System.out.println(response.body());
@@ -322,6 +340,9 @@ public class ServerCommunication {
             e.printStackTrace();
             return "Communication with server failed";
         }
+        if (response.statusCode() == 403) {
+            return ErrorMessages.getErrorMessage(401);
+        }
         if (response.statusCode() != 200) {
             System.out.println(response.body());
             System.out.println("Status: " + response.statusCode());
@@ -344,6 +365,9 @@ public class ServerCommunication {
         } catch (Exception e) {
             e.printStackTrace();
             return "Communication with server failed";
+        }
+        if (response.statusCode() == 403) {
+            return ErrorMessages.getErrorMessage(401);
         }
         if (response.statusCode() != 200) {
             System.out.println(response.body());
