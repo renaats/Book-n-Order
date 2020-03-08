@@ -118,25 +118,51 @@ public class BikeReservationController implements Initializable {
         ApplicationDisplay.changeScene("/myPreviousBookings.fxml");
     }
 
+    /**
+     * Changes to myAccountScene.fxml.
+     * @throws IOException input will not be wrong, hence we throw.
+     */
     public void myAccountScene() throws IOException {
         ApplicationDisplay.changeScene("/myAccountScene.fxml");
     }
 
-    public void bikesSelected1(ActionEvent actionEvent) throws IOException {
+    /**
+     * Changes to bikeReservations.fxml.
+     * @throws IOException input will not be wrong, hence we throw.
+     */
+    public void rentBike(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/bikeReservations.fxml");
     }
 
-    public void roomsSelected1(ActionEvent actionEvent) throws IOException {
+    /**
+     * Changes to bookRoom.fxml.
+     * @throws IOException input will not be wrong, hence we throw.
+     */
+    public void bookRoom(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/bookRoom.fxml");
     }
 
-    public void foodsSelected1(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/bikeReservations.fxml");
+    /**
+     * Changes to orderFood.fxml.
+     * @throws IOException input will not be wrong, hence we throw.
+     */
+    public void orderFood(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/orderFood.fxml");
     }
 
-    public void gobacktoMainMenu1(ActionEvent actionEvent) throws IOException {
+    /**
+     * Changes to mainMenu.fxml.
+     * @throws IOException input will not be wrong, hence we throw.
+     */
+    public void mainMenu(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/mainMenu.fxml");
     }
 
-
+    /**
+     * Changes to bikeConfirmation.fxml.
+     * @throws IOException input will not be wrong, hence we throw.
+     */
+    public void bikeConfirmation(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/bikeConfirmation.fxml");
+    }
 }
