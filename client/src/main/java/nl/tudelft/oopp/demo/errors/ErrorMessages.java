@@ -18,6 +18,7 @@ public class ErrorMessages {
     private static final String emailAlreadyExistsMessage = "Email already exists.";
     private static final String inproperLoginCredentialsMessage = "Login and/or password is incorrect.";
     private static final String invalidEmailMessage = "You have to input a valid email.";
+    private static final String somethingWentWrongMessage = "Something went wrong.";
     private static int code;
 
     /**
@@ -72,7 +73,7 @@ public class ErrorMessages {
             case 423:
                 return invalidEmailMessage;
             default:
-                return notFoundMessage;
+                return somethingWentWrongMessage;
         }
     }
 }
