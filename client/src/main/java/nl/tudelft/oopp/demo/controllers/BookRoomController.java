@@ -7,9 +7,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 public class BookRoomController implements Initializable {
@@ -81,6 +86,43 @@ public class BookRoomController implements Initializable {
         }
         from.getItems().addAll(listOfTimeSlots);
         until.getItems().addAll(listOfTimeSlots);
+    }
+
+    /**
+     * Handles clicking the food button.
+     */
+    public void foodsSelected(ActionEvent event) throws IOException {
+        Parent roomSelectParent = FXMLLoader.load(getClass().getResource("/mainScene.fxml"));
+        Scene roomSelectScene = new Scene(roomSelectParent);
+
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(roomSelectScene);
+        window.show();
+    }
+
+    /**
+     * Handles clicking the bikes button.
+     */
+    public void bikesSelected(ActionEvent event) throws IOException {
+        Parent roomSelectParent = FXMLLoader.load(getClass().getResource("/bikeReservations.fxml"));
+        Scene roomSelectScene = new Scene(roomSelectParent);
+
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(roomSelectScene);
+        window.show();
+    }
+
+    /**
+     * Changes to bookRoom.fxml.
+     * @throws IOException again, all input will be valid. No need to check this, thus we throw.
+     */
+    public void roomsSelected(ActionEvent event) throws IOException {
+        Parent roomSelectParent = FXMLLoader.load(getClass().getResource("/bookRoom.fxml"));
+        Scene roomSelectScene = new Scene(roomSelectParent);
+
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(roomSelectScene);
+        window.show();
     }
 
     /**

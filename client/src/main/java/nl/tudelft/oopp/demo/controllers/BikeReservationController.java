@@ -103,6 +103,43 @@ public class BikeReservationController implements Initializable {
     }
 
     /**
+     * Handles clicking the food button.
+     */
+    public void foodsSelected(ActionEvent event) throws IOException {
+        Parent roomSelectParent = FXMLLoader.load(getClass().getResource("/mainScene.fxml"));
+        Scene roomSelectScene = new Scene(roomSelectParent);
+
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(roomSelectScene);
+        window.show();
+    }
+
+    /**
+     * Handles clicking the bikes button.
+     */
+    public void bikesSelected(ActionEvent event) throws IOException {
+        Parent roomSelectParent = FXMLLoader.load(getClass().getResource("/bikeReservations.fxml"));
+        Scene roomSelectScene = new Scene(roomSelectParent);
+
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(roomSelectScene);
+        window.show();
+    }
+
+    /**
+     * Changes to bookRoom.fxml.
+     * @throws IOException again, all input will be valid. No need to check this, thus we throw.
+     */
+    public void roomsSelected(ActionEvent event) throws IOException {
+        Parent roomSelectParent = FXMLLoader.load(getClass().getResource("/bookRoom.fxml"));
+        Scene roomSelectScene = new Scene(roomSelectParent);
+
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(roomSelectScene);
+        window.show();
+    }
+
+    /**
      * Changes to myCurrentBookings.fxml.
      * @throws IOException input will not be wrong, hence we throw.
      */
