@@ -19,6 +19,7 @@ public class AppUser {
     private String name;
     private String surname;
     private String faculty;
+    private boolean loggedIn = false;
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
@@ -58,6 +59,10 @@ public class AppUser {
         roles.add(role);
     }
 
+    public void setLoggedIn(boolean loggedIn) {
+        this.loggedIn = loggedIn;
+    }
+
 
     public String getEmail() {
         return email;
@@ -85,6 +90,10 @@ public class AppUser {
 
     public Set<RoomReservation> getRoomReservations() {
         return roomReservations;
+    }
+
+    public boolean isLoggedIn() {
+        return loggedIn;
     }
 
     @Override
