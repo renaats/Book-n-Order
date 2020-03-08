@@ -135,7 +135,8 @@ public class RoomReservationTest {
         assertTrue(room.hasRoomReservationBetween(new Date(10500000000L), new Date(12000000000L)));
         assertTrue(room.hasRoomReservationBetween(new Date(9900000000L), new Date(10500000000L)));
         assertFalse(room.hasRoomReservationBetween(new Date(10000000000L), new Date(1100000000L)));
- //       assertTrue(room.hasRoomReservationBetween(new Date(10500000000L), new Date(1060000000L)));
+        assertTrue(room.hasRoomReservationBetween(new Date(10500000000L), new Date(10600000000L)));
+        assertFalse(room.hasRoomReservationBetween(new Date(10500000000L), new Date(1060000000L)));
         assertFalse(room.hasRoomReservationBetween(new Date(11500000000L), new Date(1160000000L)));
         assertFalse(room.hasRoomReservationBetween(new Date(10900000000L), new Date(10500000000L)));
     }
