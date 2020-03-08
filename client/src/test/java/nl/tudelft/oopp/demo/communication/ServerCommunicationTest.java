@@ -31,7 +31,7 @@ public class ServerCommunicationTest {
     }
 
     /**
-     * Tests the responses when user is not authorized.
+     * Tests the responses when the request is not authorized.
      * @throws IOException - should not be a problem
      */
     @Test
@@ -58,7 +58,7 @@ public class ServerCommunicationTest {
     }
 
     /**
-     * Tests the responses when request is successful.
+     * Tests the responses when the request is successful.
      * @throws IOException - should not be a problem
      */
     @Test
@@ -79,7 +79,6 @@ public class ServerCommunicationTest {
         stubFor(post(urlEqualTo("/building/add?name=a&street=a&houseNumber=1")).willReturn(aResponse().withStatus(200).withBody("200")));
         assertEquals("Message1", ServerCommunication.getUser());
         assertEquals(ErrorMessages.getErrorMessage(200), ServerCommunication.addUser("a", "a", "a", "a", "a"));
-        //assertEquals(ErrorMessages.getErrorMessage(200), ServerCommunication.loginUser("a", "b"));
         assertEquals("Message2", ServerCommunication.getBuildings());
         assertEquals("Message3", ServerCommunication.getRooms());
         assertEquals(ErrorMessages.getErrorMessage(200), ServerCommunication.deleteBuilding(1));
@@ -90,6 +89,21 @@ public class ServerCommunicationTest {
         assertEquals(ErrorMessages.getErrorMessage(200), ServerCommunication.updateRoom(1, "a", "a"));
         assertEquals(ErrorMessages.getErrorMessage(200), ServerCommunication.addRoom("a", "a", 1, true, true, true, 1, 1));
         assertEquals(ErrorMessages.getErrorMessage(200), ServerCommunication.addBuilding("a", "a", 1));
+    }
+
+    /**
+     * Tests the responses when the response is empty.
+     */
+    @Test
+    public void testEmpty() {
+        stubFor(get(urlEqualTo("/building/all")).willReturn(aResponse().withStatus(200).withBody("[]")));
+        stubFor(get(urlEqualTo("/room/all")).willReturn(aResponse().withStatus(200).withBody("[]")));
+        stubFor(get(urlEqualTo("/building/find/1")).willReturn(aResponse().withStatus(200).withBody("")));
+        stubFor(get(urlEqualTo("/room/find/1")).willReturn(aResponse().withStatus(200).withBody("")));
+        assertEquals(ErrorMessages.getErrorMessage(404), ServerCommunication.getBuildings());
+        assertEquals(ErrorMessages.getErrorMessage(404), ServerCommunication.getRooms());
+        assertEquals(ErrorMessages.getErrorMessage(404), ServerCommunication.findBuilding(1));
+        assertEquals(ErrorMessages.getErrorMessage(404), ServerCommunication.findRoom(1));
     }
 
     /**
