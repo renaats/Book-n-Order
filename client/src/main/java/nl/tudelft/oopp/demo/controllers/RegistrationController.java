@@ -41,7 +41,7 @@ public class RegistrationController implements Initializable {
             String surname = surnameField.getText();
             String faculty = facultyChoiceBox.getValue().replaceAll(" ", "");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Building Finder");
+            alert.setTitle("Registration");
             alert.setHeaderText(null);
             alert.setContentText(ServerCommunication.addUser(email, name, surname, faculty, password));
             alert.showAndWait();

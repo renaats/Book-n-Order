@@ -1,11 +1,20 @@
 package nl.tudelft.oopp.demo.communication;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
 
 import nl.tudelft.oopp.demo.errors.ErrorMessages;
+import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 public class ServerCommunication {
 
@@ -59,25 +68,37 @@ public class ServerCommunication {
     /**
      * Retrieves a user from the server.
      * @param email User's email
-     * @param name User's name
-     * @param surname User's surname
      * @param password User's password
      * @return the body of a get request to the server.
      * @throws Exception if communication with the server fails.
      */
-    public static String loginUser(String email, String name, String surname, String password) {
-        HttpRequest request = HttpRequest.newBuilder().GET().uri(URI.create("http://localhost:8080/user/add?email=" + email + "&name=" + name + "&surname=" + surname + "&password=" + password)).build();
-        HttpResponse<String> response;
-        try {
-            response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "Communication with server failed";
+    public static String loginUser(String email, String password) throws IOException {
+
+        URL url = new URL("http://localhost:8080/login");
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("POST");
+        connection.setRequestProperty("Content-Type", "application/json; utf-8");
+        connection.setRequestProperty("Accept", "application/json");
+        connection.setDoOutput(true);
+
+        String jsonInputString = "{\"email\": \"" + email + "\", \"password\":\"" + password + "\"}";
+//        System.out.println(jsonInputString);
+        try (OutputStream os = connection.getOutputStream()) {
+            byte[] input = jsonInputString.getBytes(StandardCharsets.UTF_8);
+            os.write(input, 0, input.length);
         }
-        if (response.statusCode() != 200) {
-            System.out.println("Status: " + response.statusCode());
+
+        try(BufferedReader br = new BufferedReader(
+                new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8))) {
+            StringBuilder response = new StringBuilder();
+            String responseLine = null;
+            while ((responseLine = br.readLine()) != null) {
+                response.append(responseLine.trim());
+            }
+            System.out.println(response.toString());
+            ApplicationDisplay.changeScene("/myCurrentBookings.fxml");
+            return response.toString();
         }
-        return ErrorMessages.getErrorMessage(Integer.parseInt(response.body()));
     }
 
     /**
