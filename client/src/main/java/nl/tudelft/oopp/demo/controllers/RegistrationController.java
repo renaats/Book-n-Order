@@ -9,8 +9,10 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 public class RegistrationController implements Initializable {
@@ -28,11 +30,32 @@ public class RegistrationController implements Initializable {
     @FXML
     private TextField surnameField;
 
+    public void registerButton() {
+        try {
+            String email = emailField.getText();
+            String name = nameField.getText();
+            String password = passwordField.getText();
+            String surname = surnameField.getText();
+            String faculty = facultyChoiceBox.getValue().replaceAll(" ", "");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Building Finder");
+            alert.setHeaderText(null);
+            alert.setContentText(ServerCommunication.addUser(email, name, surname, faculty, password));
+            alert.showAndWait();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Missing argument.");
+            alert.showAndWait();
+        }
+    }
+
     /**
      * Changes to templateScene.fxml.
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
-
     public void mainMenu() throws IOException {
         ApplicationDisplay.changeScene("/mainMenu.fxml");
     }
