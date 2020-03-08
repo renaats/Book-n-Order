@@ -34,7 +34,7 @@ public class BuildingController {
     @Secured({"ROLE_ADMIN", "ROLE_BUILDING_ADMIN"})
     @PostMapping(path = "/add")
     @ResponseBody
-    public String addNewBuilding(@RequestParam String name, @RequestParam String street, @RequestParam int houseNumber) {
+    public int addNewBuilding(@RequestParam String name, @RequestParam String street, @RequestParam int houseNumber) {
         return buildingService.add(name, street, houseNumber);
     }
 
@@ -46,7 +46,7 @@ public class BuildingController {
     @Secured({"ROLE_ADMIN", "ROLE_BUILDING_ADMIN"})
     @DeleteMapping(path = "/delete/{buildingID}")
     @ResponseBody
-    public String deleteBuilding(@PathVariable(value = "buildingID") int id) {
+    public int deleteBuilding(@PathVariable(value = "buildingID") int id) {
         return buildingService.delete(id);
     }
 
@@ -60,7 +60,7 @@ public class BuildingController {
     @Secured({"ROLE_ADMIN", "ROLE_BUILDING_ADMIN"})
     @PostMapping(path = "/update")
     @ResponseBody
-    public String updateBuilding(@RequestParam int id, @RequestParam String attribute, @RequestParam String value) {
+    public int updateBuilding(@RequestParam int id, @RequestParam String attribute, @RequestParam String value) {
         return buildingService.update(id, attribute, value);
     }
 

@@ -90,14 +90,22 @@ public class DatabaseRoomController implements Initializable {
      * Handles the sending of update values.
      */
     public void updateRoomButtonClicked() {
-        int id = Integer.parseInt(roomFindByIdUpdateField.getText());
-        String attribute = updateChoiceBox.getValue().replaceAll(" ","").toLowerCase();
-        String changeValue = roomChangeToField.getText();
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Building remover");
-        alert.setHeaderText(null);
-        alert.setContentText(ServerCommunication.updateRoom(id, attribute, changeValue));
-        alert.showAndWait();
+        try {
+            int id = Integer.parseInt(roomFindByIdUpdateField.getText());
+            String attribute = updateChoiceBox.getValue().replaceAll(" ", "").toLowerCase();
+            String changeValue = roomChangeToField.getText();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Building remover");
+            alert.setHeaderText(null);
+            alert.setContentText(ServerCommunication.updateRoom(id, attribute, changeValue));
+            alert.showAndWait();
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Missing argument.");
+            alert.showAndWait();
+        }
     }
 
     /**

@@ -53,10 +53,20 @@ public class DatabaseAddBuildingController {
         ApplicationDisplay.changeScene("/DatabaseRoomMenu.fxml");
     }
 
+    /**
+     * Adds building to the database
+     * @param actionEvent actionEvent parameter.
+     */
     public void databaseAddBuilding(ActionEvent actionEvent) {
-        //TODO
+        String name = nameTextField.getText();
+        String street = streetTextField.getText();
+        int houseNumber = Integer.parseInt(houseNumberTextField.getText());
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Building adder");
+        alert.setHeaderText(null);
+        alert.setContentText(ServerCommunication.addBuilding(name, street, houseNumber));
+        alert.showAndWait();
     }
-
     /**
      * returns to the main menu
      * @param actionEvent the event is clicking the menu item

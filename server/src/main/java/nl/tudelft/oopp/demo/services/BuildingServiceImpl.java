@@ -19,14 +19,14 @@ public class BuildingServiceImpl implements BuildingService {
      * @param name = the name of the building
      * @return String to see if your request passed
      */
-    public String add(String name, String street, int houseNumber) {
+    public int add(String name, String street, int houseNumber) {
         Building building = new Building();
         building.setName(name);
         building.setStreet(street);
         building.setHouseNumber(houseNumber);
         building.setRooms(new HashSet<>());
         buildingRepository.save(building);
-        return "Saved";
+        return 201;
     }
 
     /**
@@ -36,9 +36,9 @@ public class BuildingServiceImpl implements BuildingService {
      * @param value = the new value of the attribute
      * @return message if it passes
      */
-    public String update(int id, String attribute, String value) {
+    public int update(int id, String attribute, String value) {
         if (!buildingRepository.existsById(id)) {
-            return "Building with ID: " + id + " Does not exist!";
+            return 416;
         }
         Building building = buildingRepository.getOne(id);
         switch (attribute.toLowerCase()) {
@@ -53,10 +53,10 @@ public class BuildingServiceImpl implements BuildingService {
                 break;
             default:
                 System.out.println(attribute);
-                return "No attribute with name " + attribute + " found!";
+                return 412;
         }
         buildingRepository.save(building);
-        return "The attribute has been set!";
+        return 201;
     }
 
     /**
@@ -64,15 +64,15 @@ public class BuildingServiceImpl implements BuildingService {
      * @param id = the id of the building
      * @return String to see if your request passed
      */
-    public String delete(int id) {
+    public int delete(int id) {
         if (!buildingRepository.existsById(id)) {
-            return "Building with ID: " + id + " Does not exist!";
+            return 404;
         }
         if (buildingRepository.findById(id).get().hasRooms()) {
-            return "This building cannot be deleted as it has at least one room. Delete the room before deleting the building!";
+            return 417;
         }
         buildingRepository.deleteById(id);
-        return "Deleted!";
+        return 200;
     }
 
     /**

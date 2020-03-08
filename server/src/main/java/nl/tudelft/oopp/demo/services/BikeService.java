@@ -3,11 +3,11 @@ package nl.tudelft.oopp.demo.services;
 import nl.tudelft.oopp.demo.entities.Bike;
 
 public interface BikeService {
-    String add(int buildingId, boolean available);
+    int add(int buildingId, boolean available);
 
-    String update(int id, String attribute, String value);
+    int update(int id, String attribute, String value);
 
-    String delete(int id);
+    int delete(int id);
 
     Iterable<Bike> all();
 

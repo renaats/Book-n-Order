@@ -15,11 +15,11 @@ public class RoleServiceImpl implements RoleService {
      * @param name = the name of the role
      * @return String to see if your request passed
      */
-    public String add(String name) {
+    public int add(String name) {
         Role role = new Role();
         role.setName(name);
         roleRepository.save(role);
-        return "Role has been created!";
+        return 200;
     }
 
     /**
@@ -28,12 +28,12 @@ public class RoleServiceImpl implements RoleService {
      * @param name = The role name
      * @return message if it passes
      */
-    public String update(int id, String name) {
+    public int update(int id, String name) {
         Role role = roleRepository.getOne(id);
         String old = role.getName();
         role.setName(name);
         roleRepository.save(role);
-        return "The name of the role with ID " + id + " has been changed from " + old + " to " + name + "!";
+        return 200;
     }
 
     /**
@@ -41,12 +41,12 @@ public class RoleServiceImpl implements RoleService {
      * @param id = the id of the role
      * @return String to see if your request passed
      */
-    public String delete(int id) {
+    public int delete(int id) {
         if (!roleRepository.existsById(id)) {
-            return "The role with ID " + id + " does not exist!";
+            return 416;
         }
         roleRepository.deleteById(id);
-        return "The role has been deleted!";
+        return 200;
     }
 
     /**
