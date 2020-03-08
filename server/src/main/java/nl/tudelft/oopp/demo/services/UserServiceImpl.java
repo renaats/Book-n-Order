@@ -81,13 +81,8 @@ public class UserServiceImpl implements UserService {
             default:
                 return 412;
         }
-<<<<<<< server/src/main/java/nl/tudelft/oopp/demo/services/UserServiceImpl.java
-        userRepository.save(user);
-        return 200;
-=======
         userRepository.save(appUser);
-        return "The attribute has been set!";
->>>>>>> server/src/main/java/nl/tudelft/oopp/demo/services/UserServiceImpl.java
+        return 200;
     }
 
     /**
