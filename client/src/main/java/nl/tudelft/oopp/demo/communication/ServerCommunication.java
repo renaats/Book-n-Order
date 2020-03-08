@@ -90,13 +90,6 @@ public class ServerCommunication {
 
         Map<String, List<String>> map = connection.getHeaderFields();
 
-        System.out.println("Printing Response Header...\n");
-
-        for (Map.Entry<String, List<String>> entry : map.entrySet()) {
-            System.out.println("Key : " + entry.getKey()
-                    + " ,Value : " + entry.getValue());
-        }
-
         for (Map.Entry<String, List<String>> entry : map.entrySet()) {
             if (entry.getKey() != null) {
                 if (entry.getKey().equals("Authorization")) {
@@ -117,7 +110,7 @@ public class ServerCommunication {
      * @throws Exception if communication with the server fails.
      */
     public static String getBuildings() {
-        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + UserInformation.getBearerKey()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).uri(URI.create("http://localhost:8080/building/all")).build();
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + UserInformation.getBearerKey()).uri(URI.create("http://localhost:8080/building/all")).build();
         HttpResponse<String> response = null;
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
@@ -337,7 +330,7 @@ public class ServerCommunication {
     }
 
     /**
-     * Communicates Adds building to the database
+     * Communicates the buildings to add to the database
      * @param name building name
      * @param street street name
      * @param houseNumber house number
