@@ -20,7 +20,9 @@
              <Image url="@images/booknorderlogo.png" />
          </ImageView>
        <MenuBar layoutY="75.0" prefHeight="26.0" prefWidth="648.0" style="-fx-background-color: #00a6d6;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-         <Menu mnemonicParsing="false" text="Home" />
+         <Menu mnemonicParsing="false" text="Home">
+                 <MenuItem mnemonicParsing="false" onAction="#mainMenu" text="main menu"/>
+         </Menu>
            <Menu mnemonicParsing="false" text="Edit">
          <items>
             <MenuItem fx:id="menuBuildings" mnemonicParsing="false" onAction="#databaseBuildingMenu" text="Buildings" />

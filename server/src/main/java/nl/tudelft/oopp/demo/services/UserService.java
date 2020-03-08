@@ -1,6 +1,6 @@
 package nl.tudelft.oopp.demo.services;
 
-import nl.tudelft.oopp.demo.entities.User;
+import nl.tudelft.oopp.demo.entities.AppUser;
 
 public interface UserService {
     String add(String email, String password, String name, String surname, String faculty);
@@ -9,7 +9,9 @@ public interface UserService {
 
     String delete(String email);
 
-    Iterable<User> all();
+    Iterable<AppUser> all();
 
-    User find(String email);
+    AppUser find(String email);
+
+    void addRole(String email, String roleName);
 }

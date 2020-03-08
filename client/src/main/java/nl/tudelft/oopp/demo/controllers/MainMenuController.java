@@ -14,40 +14,20 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 public class MainMenuController {
 
     /**
-     * Handles clicking the food button.
+     * Handels the clicking of the button under the bike image at the main menu.
+     * @param actionEvent (the button press)
+     * @throws IOException when it fails
      */
-    public void foodsSelected(ActionEvent event) throws IOException {
-        Parent roomSelectParent = FXMLLoader.load(getClass().getResource("/mainScene.fxml"));
-        Scene roomSelectScene = new Scene(roomSelectParent);
-
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(roomSelectScene);
-        window.show();
-    }
-
-    /**
-     * Handles clicking the bikes button.
-     */
-    public void bikesSelected(ActionEvent event) throws IOException {
-        Parent roomSelectParent = FXMLLoader.load(getClass().getResource("/bikeReservations.fxml"));
-        Scene roomSelectScene = new Scene(roomSelectParent);
-
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(roomSelectScene);
-        window.show();
+    public void bikesSelected(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/bikeReservations.fxml");
     }
 
     /**
      * Changes to bookRoom.fxml.
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
-    public void roomsSelected(ActionEvent event) throws IOException {
-        Parent roomSelectParent = FXMLLoader.load(getClass().getResource("/bookRoom.fxml"));
-        Scene roomSelectScene = new Scene(roomSelectParent);
-
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(roomSelectScene);
-        window.show();
+    public void roomsSelected(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/bookRoom.fxml");
     }
 
     /**
@@ -62,25 +42,33 @@ public class MainMenuController {
      * Changes to myPreviousBookings.fxml.
      * @throws IOException input will not be wrong, hence we throw.
      */
+
     public void myPreviousBookings() throws IOException {
         ApplicationDisplay.changeScene("/myPreviousBookings.fxml");
     }
+    /**
+     *  method changes the view to that of the my account
+     * @throws IOException the method will never throw an exception
+     */
 
     public void myAccountScene() throws IOException {
         ApplicationDisplay.changeScene("/myAccountScene.fxml");
     }
 
-    public void bikesSelected1(ActionEvent actionEvent) throws IOException {
+    /**
+     * Handles clicking the food button.
+     * @Param: event (clicking the button)
+     * @throws: IOException
+     */
+
+    public void foodsSelected(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/bikeReservations.fxml");
     }
-
-    public void roomsSelected1(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/bookRoom.fxml");
-    }
-
-    public void foodsSelected1(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/bikeReservations.fxml");
-    }
+    /**
+     *  method changes the view to that of the main menu
+     * @param actionEvent clicking the button to go back to menu
+     * @throws IOException the method will never throw an exception
+     */
 
     public void gobacktoMainMenu1(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/mainMenu.fxml");

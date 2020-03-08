@@ -32,7 +32,7 @@ bike reservations
 * reserved to time
 * location ID from
 * location ID to
-* user ID of user making reservation
+* appUser ID of appUser making reservation
 
 
 restaurant
@@ -56,7 +56,7 @@ menu
 
 
 food orders
-* user ID
+* appUser ID
 * restaurant ID
 * delivery time
 * delivery date

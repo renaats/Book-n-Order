@@ -1,10 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="600.0" maxWidth="800.0" minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.BikeReservationController" style="-fx-background-color: white;">
+<AnchorPane maxHeight="600.0" maxWidth="800.0" minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.BikeReservationController">
    <ImageView fitHeight="45.0" fitWidth="112.0" layoutX="18.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="7.0">
       <Image url="@images/tudelftlogo.png" />
    </ImageView>
@@ -13,7 +15,7 @@
    </ImageView>
    <MenuBar layoutX="-1.0" layoutY="85.0" prefHeight="26.0" prefWidth="800.0" style="-fx-background-color: #00a6d6;" AnchorPane.leftAnchor="-1.0" AnchorPane.topAnchor="85.0">
       <Menu mnemonicParsing="false" text="Home">
-         <MenuItem mnemonicParsing="false" onAction="#gobacktoMainMenu1" text="Main menu" />
+         <MenuItem mnemonicParsing="false" onAction="#gobacktoMainMenu" text="Main menu" />
       </Menu>
       <Menu mnemonicParsing="false" text="New booking">
          <MenuItem mnemonicParsing="false" onAction="#roomsSelected1" text="Book a room" />
@@ -37,24 +39,35 @@
          <Font name="Calibri" size="11.0" />
       </font>
    </Text>
-   <VBox alignment="CENTER" layoutX="100.0" layoutY="120.0" prefHeight="350.0" prefWidth="600.0">
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Reseve a Bike">
-         <font>
-            <Font name="System Bold" size="30.0" />
-         </font></Text>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pick-up" />
-      <ChoiceBox fx:id="pick" prefWidth="150.0" />
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Time" />
-      <ChoiceBox fx:id="pickUpTime" prefWidth="150.0" />
-      <ChoiceBox fx:id="pickUpTimeM" prefWidth="150.0" />
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Drop-off" />
-      <ChoiceBox fx:id="drop" prefWidth="148.0" />
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Time" />
-      <ChoiceBox fx:id="dropOffTime" prefWidth="150.0" />
-      <ChoiceBox fx:id="dropOffTimeM" prefWidth="150.0" />
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Day" />
-      <DatePicker />
-      <Button mnemonicParsing="false" onAction="#reserveBike" text="Reserve" />
-      <TextField fx:id="screen" />
-   </VBox>
+   <Text layoutX="304.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reseve a Bike">
+      <font>
+         <Font name="System Bold" size="30.0" />
+      </font>
+   </Text>
+   <Text layoutX="379.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pick-up" />
+   <ChoiceBox fx:id="pick" layoutX="324.0" layoutY="183.0" prefWidth="150.0" />
+   <Text layoutX="385.0" layoutY="224.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time" />
+   <ChoiceBox fx:id="pickUpTime" layoutX="235.0" layoutY="233.0" prefWidth="150.0" />
+   <ChoiceBox fx:id="pickUpTimeM" layoutX="411.0" layoutY="233.0" prefWidth="150.0" />
+   <Text layoutX="382.0" layoutY="296.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Drop-off" />
+   <ChoiceBox fx:id="drop" layoutX="331.0" layoutY="300.0" prefWidth="148.0" />
+   <Text layoutX="386.0" layoutY="341.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time" />
+   <ChoiceBox fx:id="dropOffTime" layoutX="229.0" layoutY="344.0" prefWidth="150.0" />
+   <ChoiceBox fx:id="dropOffTimeM" layoutX="411.0" layoutY="344.0" prefWidth="150.0" />
+   <Text layoutX="267.0" layoutY="393.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pick-up Day" />
+   <DatePicker layoutX="212.0" layoutY="397.0" />
+   <Button layoutX="368.0" layoutY="435.0" mnemonicParsing="false" onAction="#reserveBike" text="Reserve" />
+   <TextField fx:id="screen" layoutX="326.0" layoutY="471.0" />
+   <DatePicker layoutX="408.0" layoutY="397.0" />
+   <Text layoutX="463.0" layoutY="392.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Drop-off Day" />
+   <ImageView fitHeight="108.0" fitWidth="174.0" layoutX="41.0" layoutY="158.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@images/bikepicture.png" />
+      </image>
+   </ImageView>
+   <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="582.0" layoutY="141.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@images/Rent_Bike_opt1.jpg" />
+      </image>
+   </ImageView>
 </AnchorPane>

@@ -15,6 +15,9 @@ import javafx.scene.control.TextField;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
+/**
+ * Adds the functionality to DatabaseMenu.fxml file
+ */
 public class DatabaseBuildingController implements Initializable {
 
     final ObservableList updateChoiceBoxList = FXCollections.observableArrayList();
@@ -126,5 +129,15 @@ public class DatabaseBuildingController implements Initializable {
      */
     public void databaseAddRooms() throws IOException {
         ApplicationDisplay.changeScene("/DatabaseAddRooms.fxml");
+    }
+
+    /**
+     * returns to the main menu
+     * @param actionEvent the event is clicking the menu item
+     * @throws IOException again, all input will be valid. No need to check this, thus we throw.
+     */
+
+    public void mainMenu(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/mainMenu.fxml");
     }
 }

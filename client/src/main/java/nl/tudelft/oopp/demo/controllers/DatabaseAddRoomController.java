@@ -4,9 +4,16 @@ import java.io.IOException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
+
+import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
+/**
+ * Takes care of the functionality  DataBaseAddRoom.fxml file
+ */
 public class DatabaseAddRoomController {
 
     @FXML
@@ -15,6 +22,16 @@ public class DatabaseAddRoomController {
     private ToggleButton screenToggle;
     @FXML
     private ToggleButton projectorToggle;
+    @FXML
+    private TextField nameTextField;
+    @FXML
+    private TextField facultyTextField;
+    @FXML
+    private TextField buildingIdTextField;
+    @FXML
+    private TextField capacityTextField;
+    @FXML
+    private TextField plugsTextField;
 
     private boolean facultySpecificToggleFlag;
     private boolean screenToggleFlag;
@@ -95,5 +112,34 @@ public class DatabaseAddRoomController {
      */
     public void databaseRoomMenu() throws IOException {
         ApplicationDisplay.changeScene("/DatabaseRoomMenu.fxml");
+    }
+
+    /**
+     * Adds a room to the database
+     * @param actionEvent action event parameter
+     */
+    public void databaseAddRoom(ActionEvent actionEvent) {
+        String name = nameTextField.getText();
+        String faculty = facultyTextField.getText();
+        int buildingId = Integer.parseInt(buildingIdTextField.getText());
+        boolean facultySpecific = Boolean.parseBoolean(facultySpecificToggle.getText());
+        boolean screen = Boolean.parseBoolean(screenToggle.getText());
+        boolean projector = Boolean.parseBoolean(projectorToggle.getText());
+        int capacity = Integer.parseInt(capacityTextField.getText());
+        int plugs = Integer.parseInt(plugsTextField.getText());
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Room adder");
+        alert.setHeaderText(null);
+        alert.setContentText(ServerCommunication.addRoom(name, faculty, buildingId, facultySpecific, screen, projector, capacity, plugs));
+        alert.showAndWait();
+    }
+    /**
+     * returns to the main menu
+     * @param actionEvent the event is clicking the menu item
+     * @throws IOException again, all input will be valid. No need to check this, thus we throw.
+     */
+
+    public void mainMenu(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/mainMenu.fxml");
     }
 }

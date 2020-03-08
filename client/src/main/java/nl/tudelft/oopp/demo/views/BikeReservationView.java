@@ -10,6 +10,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * boots up the bike reservations.fxml file
+ */
 public class BikeReservationView extends Application {
 
     @Override

@@ -19,9 +19,9 @@
          <MenuItem mnemonicParsing="false" onAction="#gobacktoMainMenu1" text="Main menu" />
       </Menu>
       <Menu mnemonicParsing="false" text="New booking">
-         <MenuItem mnemonicParsing="false" onAction="#roomsSelected1" text="Book a room" />
-         <MenuItem mnemonicParsing="false" onAction="#bikesSelected1" text="Rent a bike" />
-         <MenuItem mnemonicParsing="false" onAction="#foodsSelected1" text="Order food" />
+         <MenuItem mnemonicParsing="false" onAction="#roomsSelected" text="Book a room" />
+         <MenuItem mnemonicParsing="false" onAction="#bikesSelected" text="Rent a bike" />
+         <MenuItem mnemonicParsing="false" onAction="#foodsSelected" text="Order food" />
       </Menu>
       <Menu mnemonicParsing="false" text="My account">
          <MenuItem mnemonicParsing="false" onAction="#myAccountScene" text="My profile" />
@@ -62,7 +62,7 @@
          <viewport>
             <Rectangle2D />
          </viewport>
-         <Image url="@Images/bikepicture.png" />
+         <Image url="@images/bikepicture.png" />
       </ImageView>
       <ImageView fitHeight="115.0" fitWidth="200.0" opacity="0.8" pickOnBounds="true" GridPane.rowIndex="1">
          <Image url="@images/roompicture.png" />
