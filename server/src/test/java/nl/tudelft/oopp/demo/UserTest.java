@@ -1,10 +1,16 @@
 package nl.tudelft.oopp.demo;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+
 import java.util.HashSet;
 import java.util.Set;
 
-import nl.tudelft.oopp.demo.entities.*;
-import nl.tudelft.oopp.demo.repositories.BuildingRepository;
+import nl.tudelft.oopp.demo.entities.User;
+import nl.tudelft.oopp.demo.entities.Role;
+import nl.tudelft.oopp.demo.entities.RoomReservation;
 import nl.tudelft.oopp.demo.repositories.UserRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,7 +18,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 public class UserTest {
@@ -39,7 +44,7 @@ public class UserTest {
     /** Tests the constructor of the User class
      */
     @Test
-    public void testConstructor(){
+    public void testConstructor() {
         user2 = new User();
         assertNotNull(user2);
     }
@@ -59,16 +64,16 @@ public class UserTest {
     /** Tests the setters of the User class
      */
     @Test
-    public void testSetters(){
-        Set<Role> roleSet = new HashSet<Role>();
-        Set<RoomReservation> roomReservationSet = new HashSet<RoomReservation>();
+    public void testSetters() {
         user2 = new User();
         user2.setEmail("m.b.spasov@student.tudelft.nl");
         user2.setPassword("1234");
         user2.setName("Mihail");
         user2.setSurname("Spasov");
         user2.setFaculty("EEMCS");
+        Set<Role> roleSet = new HashSet<Role>();
         user2.setRoles(roleSet);
+        Set<RoomReservation> roomReservationSet = new HashSet<RoomReservation>();
         user2.setRoomReservations(roomReservationSet);
         assertEquals(user2.getEmail(), "m.b.spasov@student.tudelft.nl");
         assertEquals(user2.getPassword(), "1234");

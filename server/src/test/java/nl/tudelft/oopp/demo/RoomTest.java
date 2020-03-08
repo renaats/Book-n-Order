@@ -16,6 +16,7 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+
 @DataJpaTest
 public class RoomTest {
     @Autowired
@@ -53,7 +54,7 @@ public class RoomTest {
     /** Tests the constructor of the Room class.
      */
     @Test
-    public void testConstructor(){
+    public void testConstructor() {
         room2 = new Room();
         assertNotNull(room2);
     }
@@ -77,8 +78,7 @@ public class RoomTest {
     /** Tests the setters of the Room class.
      */
     @Test
-    public void testSetters(){
-        Set<RoomReservation> roomReservationSet = new HashSet<RoomReservation>();
+    public void testSetters() {
         room2 = new Room();
         room2.setName("Boole");
         room2.setBuilding(buildingRepository.findAll().get(0));
@@ -88,6 +88,7 @@ public class RoomTest {
         room2.setScreen(true);
         room2.setNrPeople(300);
         room2.setPlugs(250);
+        Set<RoomReservation> roomReservationSet = new HashSet<RoomReservation>();
         room2.setRoomReservations(roomReservationSet);
         assertEquals(room2.getName(),"Boole");
         assertEquals(room2.getBuilding(), buildingRepository.findAll().get(0));
@@ -110,7 +111,7 @@ public class RoomTest {
     /** Tests the methods connected with the Set of roomReservations of the class Building.
      */
     @Test
-    public void testRoomReservations(){
+    public void testRoomReservations() {
         Set<RoomReservation> roomReservationSet = new HashSet<RoomReservation>();
         RoomReservation roomReservation = new RoomReservation();
         roomReservationSet.add(roomReservation);
