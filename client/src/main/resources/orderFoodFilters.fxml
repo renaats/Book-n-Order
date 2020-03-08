@@ -24,9 +24,9 @@
         <MenuBar layoutX="-1.0" layoutY="85.0" prefHeight="26.0" prefWidth="890.0" style="-fx-background-color: #00a6d6;" AnchorPane.bottomAnchor="488.6" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
             <Menu mnemonicParsing="false" text="Home" />
             <Menu mnemonicParsing="false" text="New booking">
-                <MenuItem mnemonicParsing="false" onAction="#roomsSelected" text="Book a room" />
-                <MenuItem mnemonicParsing="false" onAction="#bikesSelected" text="Rent a bike" />
-                <MenuItem mnemonicParsing="false" onAction="#foodsSelected" text="Order food" />
+                <MenuItem mnemonicParsing="false" onAction="#bookRoom" text="Book a room" />
+                <MenuItem mnemonicParsing="false" onAction="#rentBike" text="Rent a bike" />
+                <MenuItem mnemonicParsing="false" onAction="#orderFood" text="Order food" />
             </Menu>
             <Menu mnemonicParsing="false" text="My account">
                 <MenuItem mnemonicParsing="false" text="My profile" />

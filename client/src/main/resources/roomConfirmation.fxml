@@ -23,9 +23,9 @@
     <Button layoutX="51.0" layoutY="85.0" maxHeight="25.0" maxWidth="49.0" minHeight="25.0" minWidth="49.0" mnemonicParsing="false" onAction="#mainMenu" prefHeight="25.0" prefWidth="49.0" style="-fx-background-color: #00a6d6;" text="Home" AnchorPane.leftAnchor="46.0" AnchorPane.topAnchor="85.0" />
     <MenuBar layoutX="108.0" layoutY="85.0" maxHeight="28.0" maxWidth="192.0" minHeight="28.0" minWidth="192.0" prefHeight="28.0" prefWidth="192.0" style="-fx-background-color: #00a6d6;" AnchorPane.leftAnchor="94.0" AnchorPane.rightAnchor="514.0" AnchorPane.topAnchor="85.0">
         <Menu mnemonicParsing="false" text="New booking">
-            <MenuItem mnemonicParsing="false" onAction="#roomsSelected" text="Book a room" />
-            <MenuItem mnemonicParsing="false" onAction="#bikesSelected" text="Rent a bike" />
-            <MenuItem mnemonicParsing="false" onAction="#foodsSelected" text="Order food" />
+            <MenuItem mnemonicParsing="false" onAction="#bookRoom" text="Book a room" />
+            <MenuItem mnemonicParsing="false" onAction="#rentBike" text="Rent a bike" />
+            <MenuItem mnemonicParsing="false" onAction="#orderFood" text="Order food" />
         </Menu>
         <Menu mnemonicParsing="false" text="My account">
             <MenuItem mnemonicParsing="false" onAction="#myAccountScene" text="My profile" />
@@ -61,9 +61,7 @@
     </Text>
     <Button layoutX="285.0" layoutY="359.0" maxHeight="25.0" maxWidth="230.0" minHeight="25.0" minWidth="230.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="230.0" style="-fx-background-color: #00a6d6;" text="Home" onAction="#mainMenu" textFill="WHITE" AnchorPane.leftAnchor="285.0" AnchorPane.topAnchor="460.0" />
     <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="300.0" layoutY="297.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="330.0">
-        <image>
-            <Image url="@images/roompicture.png" />
-        </image>
+        <Image url="@images/roompicture.png" />
     </ImageView>
     <TextField layoutX="326.0" layoutY="275.0" AnchorPane.leftAnchor="326.0" AnchorPane.topAnchor="275.0" />
 </AnchorPane>

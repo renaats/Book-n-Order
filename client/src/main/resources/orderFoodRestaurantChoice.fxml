@@ -24,9 +24,9 @@
     <Button layoutX="51.0" layoutY="85.0" maxHeight="25.0" maxWidth="49.0" minHeight="25.0" minWidth="49.0" mnemonicParsing="false" onAction="#mainMenu" prefHeight="25.0" prefWidth="49.0" style="-fx-background-color: #00a6d6;" text="Home" AnchorPane.leftAnchor="46.0" AnchorPane.topAnchor="85.0" />
     <MenuBar layoutX="108.0" layoutY="85.0" maxHeight="28.0" maxWidth="192.0" minHeight="28.0" minWidth="192.0" prefHeight="28.0" prefWidth="192.0" style="-fx-background-color: #00a6d6;" AnchorPane.leftAnchor="94.0" AnchorPane.rightAnchor="514.0" AnchorPane.topAnchor="85.0">
         <Menu mnemonicParsing="false" text="New booking">
-            <MenuItem mnemonicParsing="false" onAction="#roomsSelected" text="Book a room" />
-            <MenuItem mnemonicParsing="false" onAction="#bikesSelected" text="Rent a bike" />
-            <MenuItem mnemonicParsing="false" onAction="#foodsSelected" text="Order food" />
+            <MenuItem mnemonicParsing="false" onAction="#bookRoom" text="Book a room" />
+            <MenuItem mnemonicParsing="false" onAction="#rentBike" text="Rent a bike" />
+            <MenuItem mnemonicParsing="false" onAction="#orderFood" text="Order food" />
         </Menu>
         <Menu mnemonicParsing="false" text="My account">
             <MenuItem mnemonicParsing="false" onAction="#myAccountScene" text="My profile" />
@@ -77,14 +77,10 @@
       </font>
    </Text>
    <ImageView fitHeight="100.0" fitWidth="180.0" layoutX="199.0" layoutY="378.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="199.0" AnchorPane.topAnchor="378.0">
-      <image>
-         <Image url="@images/restaurantpulse.png" />
-      </image>
+      <Image url="@images/restaurantpulse.png" />
    </ImageView>
    <ImageView fitHeight="100.0" fitWidth="192.0" layoutX="426.0" layoutY="378.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="199.0" AnchorPane.topAnchor="378.0">
-      <image>
-         <Image url="@images/restaurantlibrarycoffeestar.png" />
-      </image>
+      <Image url="@images/restaurantlibrarycoffeestar.png" />
    </ImageView>
    <Button layoutX="187.0" layoutY="476.0" maxHeight="25.0" maxWidth="174.0" minHeight="25.0" minWidth="174.0" mnemonicParsing="false" onAction="#pulseMenu" prefHeight="25.0" prefWidth="174.0" style="-fx-background-color: #00a6d6;" text="Pulse" textFill="WHITE" AnchorPane.leftAnchor="199.0" AnchorPane.topAnchor="484.0" />
    <Button layoutX="426.0" layoutY="476.0" maxHeight="25.0" maxWidth="174.0" minHeight="25.0" minWidth="174.0" mnemonicParsing="false" onAction="#coffeestarMenu" prefHeight="25.0" prefWidth="174.0" style="-fx-background-color: #00a6d6;" text="Library Coffee-Star" textFill="WHITE" AnchorPane.rightAnchor="199.0" AnchorPane.topAnchor="484.0" />

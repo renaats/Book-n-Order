@@ -1,20 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -30,9 +24,9 @@
     <Button layoutX="51.0" layoutY="85.0" maxHeight="25.0" maxWidth="49.0" minHeight="25.0" minWidth="49.0" mnemonicParsing="false" onAction="#mainMenu" prefHeight="25.0" prefWidth="49.0" style="-fx-background-color: #00a6d6;" text="Home" AnchorPane.leftAnchor="46.0" AnchorPane.topAnchor="85.0" />
     <MenuBar layoutX="108.0" layoutY="85.0" maxHeight="28.0" maxWidth="192.0" minHeight="28.0" minWidth="192.0" prefHeight="28.0" prefWidth="192.0" style="-fx-background-color: #00a6d6;" AnchorPane.leftAnchor="94.0" AnchorPane.rightAnchor="514.0" AnchorPane.topAnchor="85.0">
         <Menu mnemonicParsing="false" text="New booking">
-            <MenuItem mnemonicParsing="false" onAction="#roomsSelected" text="Book a room" />
-            <MenuItem mnemonicParsing="false" onAction="#bikesSelected" text="Rent a bike" />
-            <MenuItem mnemonicParsing="false" onAction="#foodsSelected" text="Order food" />
+            <MenuItem mnemonicParsing="false" onAction="#bookRoom" text="Book a room" />
+            <MenuItem mnemonicParsing="false" onAction="#rentBike" text="Rent a bike" />
+            <MenuItem mnemonicParsing="false" onAction="#orderFood" text="Order food" />
         </Menu>
           <Menu mnemonicParsing="false" text="My account">
               <MenuItem mnemonicParsing="false" onAction="#myAccountScene" text="My profile" />
@@ -51,48 +45,12 @@
             <Font name="Calibri" size="11.0" />
         </font>
     </Text>
-      <VBox alignment="CENTER_RIGHT" layoutX="580.0" layoutY="199.0" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT" prefHeight="224.0" prefWidth="220.0" AnchorPane.leftAnchor="580.0">
-         <Accordion prefHeight="408.0" prefWidth="202.0">
-              <panes>
-                <TitledPane animated="false" text="Facilities">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <CheckBox layoutX="20.0" layoutY="14.0" mnemonicParsing="false" text="Beamer" />
-                              <CheckBox layoutX="20.0" layoutY="71.0" mnemonicParsing="false" text="XXX" />
-                              <CheckBox layoutX="20.0" layoutY="42.0" mnemonicParsing="false" text="Screen" />
-                           </children>
-                        </AnchorPane>
-                  </content>
-                </TitledPane>
-                <TitledPane animated="false" prefHeight="275.0" prefWidth="202.0" text="Building">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                              <ChoiceBox fx:id="buildingList" layoutX="14.0" layoutY="14.0" prefHeight="27.0" prefWidth="177.0" />
-                        </AnchorPane>
-                  </content>
-                </TitledPane>
-                <TitledPane alignment="TOP_LEFT" animated="false" contentDisplay="TOP" prefHeight="146.0" prefWidth="280.0" text="Capacity of People">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="325.0" prefWidth="210.0">
-                           <children>
-                              <TextArea layoutX="14.0" layoutY="14.0" prefHeight="45.0" prefWidth="176.0" />
-                           </children>
-                        </AnchorPane>
-                  </content>
-                </TitledPane>
-              </panes>
-            </Accordion>
-         <padding>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-         </padding>
-      </VBox>
    <Text layoutX="326.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book a room" AnchorPane.leftAnchor="326.0" AnchorPane.topAnchor="146.0">
       <font>
          <Font size="26.0" />
       </font>
    </Text>
-         <Button fx:id="bookRoomButton" layoutX="285.0" layoutY="462.0" maxHeight="25.0" maxWidth="230.0" minHeight="25.0" minWidth="230.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="230.0" style="-fx-background-color: #00a6d6;" text="Book Room" onAction="#roomConfirmation" textFill="WHITE" AnchorPane.leftAnchor="285.0" AnchorPane.topAnchor="462.0" />
+         <Button fx:id="bookRoomButton" layoutX="285.0" layoutY="462.0" maxHeight="25.0" maxWidth="230.0" minHeight="25.0" minWidth="230.0" mnemonicParsing="false" onAction="#roomConfirmation" prefHeight="25.0" prefWidth="230.0" style="-fx-background-color: #00a6d6;" text="Book Room" textFill="WHITE" AnchorPane.leftAnchor="285.0" AnchorPane.topAnchor="462.0" />
          <ChoiceBox fx:id="roomDropDown" focusTraversable="false" layoutX="378.0" layoutY="222.0" maxHeight="26.0" maxWidth="174.0" minHeight="26.0" minWidth="174.0" prefHeight="26.0" prefWidth="174.0" AnchorPane.leftAnchor="378.0" AnchorPane.topAnchor="225.0" />
          <DatePicker fx:id="calendar" layoutX="343.0" layoutY="272.0" maxHeight="26.0" maxWidth="174.0" minHeight="26.0" minWidth="174.0" prefHeight="26.0" prefWidth="174.0" AnchorPane.leftAnchor="378.0" AnchorPane.topAnchor="275.0" />
          <Text layoutX="175.0" layoutY="342.0" strokeType="OUTSIDE" strokeWidth="0.0" text="From:" AnchorPane.leftAnchor="223.0" AnchorPane.topAnchor="325.0">

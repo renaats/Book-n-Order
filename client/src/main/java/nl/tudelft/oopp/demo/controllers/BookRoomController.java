@@ -92,7 +92,7 @@ public class BookRoomController implements Initializable {
      * Handles clicking the food button.
      */
     public void foodsSelected(ActionEvent event) throws IOException {
-        Parent roomSelectParent = FXMLLoader.load(getClass().getResource("/mainScene.fxml"));
+        Parent roomSelectParent = FXMLLoader.load(getClass().getResource("/orderFood.fxml"));
         Scene roomSelectScene = new Scene(roomSelectParent);
 
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();

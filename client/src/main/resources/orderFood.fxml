@@ -25,9 +25,9 @@
     <Button layoutX="51.0" layoutY="85.0" maxHeight="25.0" maxWidth="49.0" minHeight="25.0" minWidth="49.0" mnemonicParsing="false" onAction="#mainMenu" prefHeight="25.0" prefWidth="49.0" style="-fx-background-color: #00a6d6;" text="Home" AnchorPane.leftAnchor="46.0" AnchorPane.topAnchor="85.0" />
     <MenuBar layoutX="108.0" layoutY="85.0" maxHeight="28.0" maxWidth="192.0" minHeight="28.0" minWidth="192.0" prefHeight="28.0" prefWidth="192.0" style="-fx-background-color: #00a6d6;" AnchorPane.leftAnchor="94.0" AnchorPane.rightAnchor="514.0" AnchorPane.topAnchor="85.0">
         <Menu mnemonicParsing="false" text="New booking">
-            <MenuItem mnemonicParsing="false" onAction="#roomsSelected" text="Book a room" />
-            <MenuItem mnemonicParsing="false" onAction="#bikesSelected" text="Rent a bike" />
-            <MenuItem mnemonicParsing="false" onAction="#foodsSelected" text="Order food" />
+            <MenuItem mnemonicParsing="false" onAction="#bookRoom" text="Book a room" />
+            <MenuItem mnemonicParsing="false" onAction="#rentBike" text="Rent a bike" />
+            <MenuItem mnemonicParsing="false" onAction="#orderFood" text="Order food" />
         </Menu>
         <Menu mnemonicParsing="false" text="My account">
             <MenuItem mnemonicParsing="false" onAction="#myAccountScene" text="My profile" />
@@ -51,15 +51,15 @@
             <Font size="26.0" />
         </font>
     </Text>
-    <Button fx:id="bookRoomButton" layoutX="285.0" layoutY="462.0" maxHeight="25.0" maxWidth="230.0" minHeight="25.0" minWidth="230.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="230.0" style="-fx-background-color: #00a6d6;" onAction="#restaurantChoice" text="Next" textFill="WHITE" AnchorPane.leftAnchor="285.0" AnchorPane.topAnchor="470.0" />
-    <ChoiceBox fx:id="roomDropDown" focusTraversable="false" layoutX="343.0" layoutY="272.0" maxHeight="26.0" maxWidth="174.0" minHeight="26.0" minWidth="174.0" prefHeight="26.0" prefWidth="174.0" AnchorPane.leftAnchor="400.0" AnchorPane.topAnchor="275.0" />
-    <DatePicker fx:id="calendar" layoutX="343.0" layoutY="272.0" maxHeight="26.0" maxWidth="174.0" minHeight="26.0" minWidth="174.0" prefHeight="26.0" prefWidth="174.0" AnchorPane.leftAnchor="400.0" AnchorPane.topAnchor="225.0" />
+    <Button layoutX="285.0" layoutY="462.0" maxHeight="25.0" maxWidth="230.0" minHeight="25.0" minWidth="230.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="230.0" style="-fx-background-color: #00a6d6;" onAction="#restaurantChoice" text="Next" textFill="WHITE" AnchorPane.leftAnchor="285.0" AnchorPane.topAnchor="470.0" />
+    <ChoiceBox focusTraversable="false" layoutX="343.0" layoutY="272.0" maxHeight="26.0" maxWidth="174.0" minHeight="26.0" minWidth="174.0" prefHeight="26.0" prefWidth="174.0" AnchorPane.leftAnchor="400.0" AnchorPane.topAnchor="275.0" />
+    <DatePicker layoutX="343.0" layoutY="272.0" maxHeight="26.0" maxWidth="174.0" minHeight="26.0" minWidth="174.0" prefHeight="26.0" prefWidth="174.0" AnchorPane.leftAnchor="400.0" AnchorPane.topAnchor="225.0" />
     <Text layoutX="175.0" layoutY="342.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Deliver to building:" AnchorPane.leftAnchor="223.0" AnchorPane.topAnchor="325.0">
         <font>
             <Font size="16.0" />
         </font>
     </Text>
-    <ChoiceBox fx:id="from" layoutX="340.0" layoutY="322.0" maxHeight="26.0" maxWidth="174.0" minHeight="26.0" minWidth="174.0" prefHeight="26.0" prefWidth="174.0" AnchorPane.leftAnchor="400.0" AnchorPane.topAnchor="325.0" />
+    <ChoiceBox layoutX="340.0" layoutY="322.0" maxHeight="26.0" maxWidth="174.0" minHeight="26.0" minWidth="174.0" prefHeight="26.0" prefWidth="174.0" AnchorPane.leftAnchor="400.0" AnchorPane.topAnchor="325.0" />
     <Text layoutX="176.0" layoutY="407.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Room number:" AnchorPane.leftAnchor="223.0" AnchorPane.topAnchor="375.0">
         <font>
             <Font size="16.0" />
