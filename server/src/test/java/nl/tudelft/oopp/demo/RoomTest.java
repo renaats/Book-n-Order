@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+
 @DataJpaTest
 public class RoomTest {
     @Autowired
@@ -104,6 +105,7 @@ public class RoomTest {
         assertEquals(room2.getPlugs(), 250);
         assertEquals(room2.getRoomReservations(), roomReservationSet);
     }
+
     /** Tests retrieving and saving data from the RoomRepository.
      */
     @Test

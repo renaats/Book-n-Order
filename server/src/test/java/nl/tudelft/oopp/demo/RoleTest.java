@@ -48,8 +48,6 @@ class RoleTest {
     public void testGetters() {
         role2 = roleRepository.findAll().get(0);
         Set<User> userSet = new HashSet<User>();
-        assertEquals(role.getId(), role2.getId());
-        assertEquals(role.getId(), 1);
         assertEquals(role.getName(), role2.getName());
         assertEquals(role2.getName(), "Tutor");
     }
