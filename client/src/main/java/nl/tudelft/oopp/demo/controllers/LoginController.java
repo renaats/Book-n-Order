@@ -32,7 +32,7 @@ public class LoginController {
         int code = ServerCommunication.loginUser(username, password);
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Login");
+        alert.setTitle("Authenticator");
         alert.setHeaderText(null);
         alert.setContentText(ErrorMessages.getErrorMessage(code));
         alert.showAndWait();

@@ -16,6 +16,7 @@ public class ErrorMessages {
     private static final String buildingNotFoundMessage = "Building not found.";
     private static final String nameAlreadyExistsMessage = "Name already exists.";
     private static final String emailAlreadyExistsMessage = "Email already exists.";
+    private static final String inproperLoginCredentialsMessage = "Login and/or password is incorrect.";
     private static int code;
 
     /**
@@ -45,6 +46,8 @@ public class ErrorMessages {
                 return nameAlreadyExistsMessage;
             case 310:
                 return emailAlreadyExistsMessage;
+            case 311:
+                return inproperLoginCredentialsMessage;
             case 401:
                 return unAuthorizedMessage;
             case 404:
