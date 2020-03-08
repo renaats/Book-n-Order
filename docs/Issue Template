@@ -10,19 +10,3 @@
  - If applicable/not obvious, list a few possible solutions to this issue.
 
 **Priority:** urgent/necessary/bonus
-
-Markdown representation:
-```
-# Details
- - If this is a feature, write down the exact intended experience from the point of view of the end user.
- - If this is a bug, write down exactly what it is, how to reproduce it, and the relevant files.
-
-# Definition of Done
- - What is the bare minimum required to fulfil the intended user experience?
- - Does it need to match a certain format?
-
-# Possible solutions
- - If applicable/not obvious, list a few possible solutions to this issue.
-
-**Priority:** urgent/necessary/bonus
-```
