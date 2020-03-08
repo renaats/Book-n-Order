@@ -140,7 +140,7 @@ public class RoomReservationTest {
         assertTrue(room.hasRoomReservationBetween(new Date(10500000000L), new Date(1060000000L)));
         assertFalse(room.hasRoomReservationBetween(new Date(11500000000L), new Date(1160000000L)));
     }
-
+    
     /** Tests retrieving and saving data from the RoomReservationRepository.
      */
     @Test
@@ -148,7 +148,7 @@ public class RoomReservationTest {
         roomReservation2 = roomReservationRepository.findAll().get(0);
         assertEquals(roomReservation, roomReservation2);
     }
-    
+
     /** Tests whether two objects are of instance RoomReservation and whether they are equal.
      */
     @Test
