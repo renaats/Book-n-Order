@@ -82,20 +82,6 @@ public class RoomReservationTest {
         roomReservationRepository.saveAndFlush(roomReservation);
         roomReservation = roomReservationRepository.findAll().get(0);
     }
-        @Test
-        public void testOverlappingReservation() {
-          room = roomRepository.findAll().get(0);
-          Set<RoomReservation> setOfRoomReservations= new HashSet<RoomReservation>();
-          setOfRoomReservations.add(roomReservationRepository.findAll().get(0));
-          room.setRoomReservations(setOfRoomReservations);
-          assertTrue(room.hasRoomReservations());
-          assertTrue(room.getRoomReservations().contains(roomReservation));
-          assertTrue(room.hasRoomReservationBetween(new Date(10500000000L), new Date(12000000000L)));
-          assertTrue(room.hasRoomReservationBetween(new Date(9900000000L), new Date(10500000000L)));
-          assertFalse(room.hasRoomReservationBetween(new Date(10000000000L), new Date(1100000000L)));
-          assertTrue(room.hasRoomReservationBetween(new Date(10500000000L), new Date(1060000000L)));
-          assertFalse(room.hasRoomReservationBetween(new Date(11500000000L), new Date(1160000000L)));
-        }
 
     /** Tests the constructor of the RoomReservation class
      */
@@ -162,7 +148,7 @@ public class RoomReservationTest {
         roomReservation2 = roomReservationRepository.findAll().get(0);
         assertEquals(roomReservation, roomReservation2);
     }
-
+    
     /** Tests whether two objects are of instance RoomReservation and whether they are equal.
      */
     @Test
