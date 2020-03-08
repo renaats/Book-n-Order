@@ -1,15 +1,5 @@
 package nl.tudelft.oopp.demo;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNotSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.entities.RoomReservation;
@@ -18,7 +8,6 @@ import nl.tudelft.oopp.demo.repositories.BuildingRepository;
 import nl.tudelft.oopp.demo.repositories.RoomRepository;
 import nl.tudelft.oopp.demo.repositories.RoomReservationRepository;
 import nl.tudelft.oopp.demo.repositories.UserRepository;
-import org.h2.util.json.JSONItemType;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,6 +15,12 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 
 @ExtendWith(SpringExtension.class)
@@ -102,7 +97,6 @@ public class RoomReservationTest {
     @Test
     public void testGetters() {
         roomReservation2 = roomReservationRepository.findAll().get(0);
-        assertNotNull(roomReservation.getId());
         assertEquals(roomReservation.getUser(), roomReservation2.getUser());
         assertEquals(roomReservation.getRoom(), roomReservation2.getRoom());
         assertEquals(roomReservation.getFromTime(), roomReservation2.getFromTime());
