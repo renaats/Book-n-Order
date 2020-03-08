@@ -12,6 +12,8 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
+import java.util.Map;
 
 import nl.tudelft.oopp.demo.errors.ErrorMessages;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
@@ -82,24 +84,32 @@ public class ServerCommunication {
         connection.setDoOutput(true);
 
         String jsonInputString = "{\"email\": \"" + email + "\", \"password\":\"" + password + "\"}";
-//        System.out.println(jsonInputString);
         try (OutputStream os = connection.getOutputStream()) {
             byte[] input = jsonInputString.getBytes(StandardCharsets.UTF_8);
             os.write(input, 0, input.length);
         }
 
-        try(BufferedReader br = new BufferedReader(
-                new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8))) {
-            StringBuilder response = new StringBuilder();
-            String responseLine = null;
-            while ((responseLine = br.readLine()) != null) {
-                response.append(responseLine.trim());
-            }
-            System.out.println(response.toString());
-            ApplicationDisplay.changeScene("/myCurrentBookings.fxml");
-            return response.toString();
+        Map<String, List<String>> map = connection.getHeaderFields();
+
+        System.out.println("Printing Response Header...\n");
+
+        for (Map.Entry<String, List<String>> entry : map.entrySet()) {
+            System.out.println("Key : " + entry.getKey()
+                    + " ,Value : " + entry.getValue());
         }
-    }
+
+        System.out.println("\nGet Response Header By Key ...\n");
+        String server = connection.getHeaderField("Server");
+
+        if (server == null) {
+            System.out.println("Key 'Server' is not found!");
+        } else {
+            System.out.println("Server - " + server);
+        }
+
+        System.out.println("Done");
+        return "finished";
+        }
 
     /**
      * Retrieves all buildings from the server.
