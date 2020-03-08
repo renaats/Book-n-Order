@@ -1,9 +1,8 @@
 package nl.tudelft.oopp.demo.controllers;
 
 import javafx.event.ActionEvent;
-import nl.tudelft.oopp.demo.views.ApplicationDisplay;
-
 import java.io.IOException;
+import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 public class OrderFoodController {
 
