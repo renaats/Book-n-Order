@@ -24,21 +24,21 @@ public class RoomReservationServiceImpl implements RoomReservationService {
     private UserRepository userRepository;
 
     @Override
-    public String add(int roomId, String userEmail, long fromTimeMs, long toTimeMs) {
+    public int add(int roomId, String userEmail, long fromTimeMs, long toTimeMs) {
         Optional<Room> optionalRoom = roomRepository.findById(roomId);
         if (optionalRoom.isEmpty()) {
-            return "Could not find room with id " + roomId + "!";
+            return 416;
         }
         Room room = optionalRoom.get();
 
         Optional<AppUser> optionalUser = userRepository.findById(userEmail);
         if (optionalUser.isEmpty()) {
-            return "Could not find user with email " + userEmail + "!";
+            return 404;
         }
         AppUser appUser = optionalUser.get();
 
         if (room.hasRoomReservationBetween(new Date(fromTimeMs), new Date(toTimeMs))) {
-            return "This room is already reserved at this time!";
+            return 308;
         }
 
         RoomReservation roomReservation = new RoomReservation();
@@ -47,13 +47,13 @@ public class RoomReservationServiceImpl implements RoomReservationService {
         roomReservation.setFromTime(new Date(fromTimeMs));
         roomReservation.setToTime(new Date(toTimeMs));
         roomReservationRepository.save(roomReservation);
-        return "Saved!";
+        return 201;
     }
 
     @Override
-    public String update(int id, String attribute, String value) {
+    public int update(int id, String attribute, String value) {
         if (roomReservationRepository.findById(id).isEmpty()) {
-            return "Room with ID: " + id + " does not exist!";
+            return 421;
         }
         RoomReservation roomReservation = roomReservationRepository.findById(id).get();
 
@@ -68,7 +68,7 @@ public class RoomReservationServiceImpl implements RoomReservationService {
                 int roomId = Integer.parseInt(value);
                 Optional<Room> optionalRoom = roomRepository.findById(roomId);
                 if (optionalRoom.isEmpty()) {
-                    return "Could not find room with id " + roomId + "!";
+                    return 418;
                 }
                 Room room = optionalRoom.get();
                 roomReservation.setRoom(room);
@@ -76,25 +76,25 @@ public class RoomReservationServiceImpl implements RoomReservationService {
             case "userEmail":
                 Optional<AppUser> optionalUser = userRepository.findById(value);
                 if (optionalUser.isEmpty()) {
-                    return "Could not find user with email " + value + "!";
+                    return 419;
                 }
                 AppUser appUser = optionalUser.get();
                 roomReservation.setAppUser(appUser);
                 break;
             default:
-                return "No attribute with name " + attribute + " found!";
+                return 420;
         }
         roomReservationRepository.save(roomReservation);
-        return "The attribute has been set!";
+        return 200;
     }
 
     @Override
-    public String delete(int id) {
+    public int delete(int id) {
         if (!roomReservationRepository.existsById(id)) {
-            return "Room reservation with ID: " + id + " does not exist!";
+            return 421;
         }
         roomReservationRepository.deleteById(id);
-        return "Deleted!";
+        return 200;
     }
 
     @Override

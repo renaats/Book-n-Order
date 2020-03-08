@@ -5,12 +5,15 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
+import nl.tudelft.oopp.demo.errors.ErrorMessages;
+
 public class ServerCommunication {
 
     private static final HttpClient client = HttpClient.newBuilder().build();
 
     /**
      * Retrieves a user from the server.
+     *
      * @return the body of a get request to the server.
      * @throws Exception if communication with the server fails.
      */
@@ -31,6 +34,7 @@ public class ServerCommunication {
 
     /**
      * Retrieves all buildings from the server.
+     *
      * @return the body of a get request to the server.
      * @throws Exception if communication with the server fails.
      */
@@ -46,11 +50,16 @@ public class ServerCommunication {
         if (response.statusCode() != 200) {
             System.out.println("Status: " + response.statusCode());
         }
-        return response.body();
+        if (response.body().equals("[]")) {
+            return ErrorMessages.getErrorMessage(404);
+        } else {
+            return response.body();
+        }
     }
 
     /**
      * Retrieves all buildings from the server.
+     *
      * @return the body of a get request to the server.
      * @throws Exception if communication with the server fails.
      */
@@ -66,11 +75,16 @@ public class ServerCommunication {
         if (response.statusCode() != 200) {
             System.out.println("Status: " + response.statusCode());
         }
-        return response.body();
+        if (response.body().equals("[]")) {
+            return ErrorMessages.getErrorMessage(404);
+        } else {
+            return response.body();
+        }
     }
 
     /**
      * Removes a building from the database.
+     *
      * @param id = building id
      * @return the body of a get request to the server.
      * @throws Exception if communication with the server fails.
@@ -88,11 +102,12 @@ public class ServerCommunication {
             System.out.println(response.body());
             System.out.println("Status: " + response.statusCode());
         }
-        return response.body();
+        return ErrorMessages.getErrorMessage(Integer.parseInt(response.body()));
     }
 
     /**
      * Finds a building in the database by id
+     *
      * @param buildingID = building id, which is parsed from a text field
      * @return the body of the response
      */
@@ -109,8 +124,14 @@ public class ServerCommunication {
             System.out.println(response.body());
             System.out.println("Status: " + response.statusCode());
         }
-        return response.body();
+        if (response.body().equals("")) {
+            return ErrorMessages.getErrorMessage(404);
+        } else {
+            System.out.println(response.body());
+            return response.body();
+        }
     }
+
 
     /**
      * Updates a building
@@ -132,7 +153,7 @@ public class ServerCommunication {
             System.out.println(response.body());
             System.out.println("Status: " + response.statusCode());
         }
-        return response.body();
+        return ErrorMessages.getErrorMessage(Integer.parseInt(response.body()));
     }
 
     /**
@@ -153,7 +174,12 @@ public class ServerCommunication {
             System.out.println(response.body());
             System.out.println("Status: " + response.statusCode());
         }
-        return response.body();
+        if (response.body().equals("")) {
+            return ErrorMessages.getErrorMessage(404);
+        } else {
+            System.out.println(response.body());
+            return response.body();
+        }
     }
 
     /**
@@ -175,7 +201,7 @@ public class ServerCommunication {
             System.out.println(response.body());
             System.out.println("Status: " + response.statusCode());
         }
-        return response.body();
+        return ErrorMessages.getErrorMessage(Integer.parseInt(response.body()));
     }
 
     /**
@@ -198,7 +224,7 @@ public class ServerCommunication {
             System.out.println(response.body());
             System.out.println("Status: " + response.statusCode());
         }
-        return response.body();
+        return ErrorMessages.getErrorMessage(Integer.parseInt(response.body()));
     }
 
     /**

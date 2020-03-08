@@ -31,7 +31,7 @@ public class UserController {
      */
     @PostMapping(path = "/add") // Map ONLY POST Requests
     @ResponseBody
-    public String addUser(
+    public int addUser(
             @RequestParam String email,
             @RequestParam String password,
             @RequestParam String name,
@@ -50,7 +50,7 @@ public class UserController {
     @Secured("ROLE_ADMIN")
     @PostMapping(path = "/update")
     @ResponseBody
-    public String updateAttribute(@RequestParam String email, @RequestParam String attribute, @RequestParam String value) {
+    public int updateAttribute(@RequestParam String email, @RequestParam String attribute, @RequestParam String value) {
         return userService.update(email, attribute, value);
     }
 
@@ -62,7 +62,7 @@ public class UserController {
     @Secured("ROLE_ADMIN")
     @DeleteMapping(path = "/delete")
     @ResponseBody
-    public String deleteUser(@RequestParam String email) {
+    public int deleteUser(@RequestParam String email) {
         return userService.delete(email);
     }
 

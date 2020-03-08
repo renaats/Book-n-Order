@@ -30,7 +30,7 @@ public class BikeController {
     @Secured({"ROLE_ADMIN", "ROLE_BIKE_ADMIN"})
     @PostMapping(path = "/add") // Map ONLY POST Requests
     @ResponseBody
-    public String addNewBike(
+    public int addNewBike(
             @RequestParam int buildingId,
             @RequestParam boolean available
     ) {
@@ -47,7 +47,7 @@ public class BikeController {
     @Secured({"ROLE_ADMIN", "ROLE_BIKE_ADMIN"})
     @PostMapping(path = "/update")
     @ResponseBody
-    public String updateAttribute(@RequestParam int id, @RequestParam String attribute, @RequestParam String value) {
+    public int updateAttribute(@RequestParam int id, @RequestParam String attribute, @RequestParam String value) {
         return bikeService.update(id, attribute, value);
     }
 
@@ -60,7 +60,7 @@ public class BikeController {
     @Secured({"ROLE_ADMIN", "ROLE_BIKE_ADMIN"})
     @DeleteMapping(path = "/delete/{bikeID}")
     @ResponseBody
-    public String deleteBike(@PathVariable(value = "bikeID") int id) {
+    public int deleteBike(@PathVariable(value = "bikeID") int id) {
         return bikeService.delete(id);
     }
 

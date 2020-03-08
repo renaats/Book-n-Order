@@ -40,7 +40,7 @@ public class RoomController {
     @Secured({"ROLE_ADMIN", "ROLE_BUILDING_ADMIN"})
     @PostMapping(path = "/add") // Map ONLY POST Requests
     @ResponseBody
-    public String addNewRoom(
+    public int addNewRoom(
             @RequestParam String name,
             @RequestParam String faculty,
             @RequestParam boolean facultySpecific,
@@ -62,7 +62,7 @@ public class RoomController {
     @Secured({"ROLE_ADMIN", "ROLE_BUILDING_ADMIN"})
     @PostMapping(path = "/update")
     @ResponseBody
-    public String updateAttribute(@RequestParam int id, @RequestParam String attribute, @RequestParam String value) {
+    public int updateAttribute(@RequestParam int id, @RequestParam String attribute, @RequestParam String value) {
         return roomService.update(id, attribute, value);
     }
 
@@ -74,7 +74,7 @@ public class RoomController {
     @Secured({"ROLE_ADMIN", "ROLE_BUILDING_ADMIN"})
     @DeleteMapping(path = "/delete/{roomID}")
     @ResponseBody
-    public String deleteRoom(@PathVariable(value = "roomID") int id) {
+    public int deleteRoom(@PathVariable(value = "roomID") int id) {
         return roomService.delete(id);
     }
 
