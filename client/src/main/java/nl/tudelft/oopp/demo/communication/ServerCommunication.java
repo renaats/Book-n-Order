@@ -23,9 +23,7 @@ public class ServerCommunication {
 
     /**
      * Retrieves a user from the server.
-     *
      * @return the body of a get request to the server.
-     * @throws Exception if communication with the server fails.
      */
     public static String getUser() {
         HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + UserInformation.getBearerKey()).uri(URI.create("http://localhost:8080/user")).build();
@@ -52,7 +50,6 @@ public class ServerCommunication {
      * @param surname User's surname
      * @param password User's password
      * @return the body of a get request to the server.
-     * @throws Exception if communication with the server fails.
      */
     public static String addUser(String email, String name, String surname, String faculty, String password) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/user/add?email=" + email + "&name=" + name + "&surname=" + surname + "&faculty=" + faculty + "&password=" + password)).POST(HttpRequest.BodyPublishers.noBody()).build();
@@ -77,7 +74,6 @@ public class ServerCommunication {
      * @param email User's email
      * @param password User's password
      * @return the body of a get request to the server.
-     * @throws Exception if communication with the server fails.
      */
     public static String loginUser(String email, String password) throws IOException {
 
@@ -100,7 +96,7 @@ public class ServerCommunication {
             if (entry.getKey() != null) {
                 if (entry.getKey().equals("Authorization")) {
                     // Yes it's gross, it works, it grabs the key
-                    UserInformation.setBearerKey(((String) Arrays.asList(entry.getValue().get(0).split(" ")).get(1)));
+                    UserInformation.setBearerKey((Arrays.asList(entry.getValue().get(0).split(" ")).get(1)));
                     ApplicationDisplay.changeScene("/myCurrentBookings.fxml");
                     return ErrorMessages.getErrorMessage(200);
                 }
@@ -111,13 +107,11 @@ public class ServerCommunication {
 
     /**
      * Retrieves all buildings from the server.
-     *
      * @return the body of a get request to the server.
-     * @throws Exception if communication with the server fails.
      */
     public static String getBuildings() {
         HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + UserInformation.getBearerKey()).uri(URI.create("http://localhost:8080/building/all")).build();
-        HttpResponse<String> response = null;
+        HttpResponse<String> response;
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
         } catch (Exception e) {
@@ -136,13 +130,11 @@ public class ServerCommunication {
 
     /**
      * Retrieves all buildings from the server.
-     *
      * @return the body of a get request to the server.
-     * @throws Exception if communication with the server fails.
      */
     public static String getRooms() {
         HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + UserInformation.getBearerKey()).uri(URI.create("http://localhost:8080/room/all")).build();
-        HttpResponse<String> response = null;
+        HttpResponse<String> response;
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
         } catch (Exception e) {
@@ -161,14 +153,12 @@ public class ServerCommunication {
 
     /**
      * Removes a building from the database.
-     *
      * @param id = building id
      * @return the body of a get request to the server.
-     * @throws Exception if communication with the server fails.
      */
     public static String deleteBuilding(int id) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building/delete/" + id)).DELETE().header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
-        HttpResponse<String> response = null;
+        HttpResponse<String> response;
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
         } catch (Exception e) {
@@ -193,7 +183,7 @@ public class ServerCommunication {
      */
     public static String findBuilding(int buildingID) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building/find/" + buildingID)).GET().header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
-        HttpResponse<String> response = null;
+        HttpResponse<String> response;
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
         } catch (Exception e) {
@@ -218,11 +208,10 @@ public class ServerCommunication {
      * @param id = Id of the building
      * @param attribute = Attribute from a choicebox, always right / proper input!
      * @param changeValue = Value they want to change, is not checked, can be wrong!
-     * @return
      */
     public static String updateBuilding(int id, String attribute, String changeValue) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building/update?id=" + id + "&attribute=" + attribute + "&value=" + changeValue)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
-        HttpResponse<String> response = null;
+        HttpResponse<String> response;
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
         } catch (Exception e) {
@@ -246,7 +235,7 @@ public class ServerCommunication {
      */
     public static String findRoom(int roomId) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room/find/" + roomId)).GET().header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
-        HttpResponse<String> response = null;
+        HttpResponse<String> response;
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
         } catch (Exception e) {
@@ -269,11 +258,10 @@ public class ServerCommunication {
      * Removes a building from the database.
      * @param id = building id
      * @return the body of a get request to the server.
-     * @throws Exception if communication with the server fails.
      */
     public static String deleteRoom(int id) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room/delete/" + id)).DELETE().header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
-        HttpResponse<String> response = null;
+        HttpResponse<String> response;
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
         } catch (Exception e) {
@@ -295,11 +283,11 @@ public class ServerCommunication {
      * @param id = Id of the building
      * @param attribute = Attribute from a choicebox, always right / proper input!
      * @param changeValue = Value they want to change, is not checked, can be wrong!
-     * @return
+     * @return an error message
      */
     public static String updateRoom(int id, String attribute, String changeValue) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room/update?id=" + id + "&attribute=" + attribute + "&value=" + changeValue)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
-        HttpResponse<String> response = null;
+        HttpResponse<String> response;
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
         } catch (Exception e) {
@@ -333,7 +321,7 @@ public class ServerCommunication {
                                  boolean screen, boolean projector,
                                  int capacity, int plugs) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room/add?name=" + name + "&faculty=" + faculty + "&facultySpecific=" + facultySpecific + "&screen=" + screen + "&projector=" + projector + "&buildingId=" + buildingId + "&nrPeople=" + capacity + "&plugs=" + plugs)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
-        HttpResponse<String> response = null;
+        HttpResponse<String> response;
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
         } catch (Exception e) {
@@ -359,7 +347,7 @@ public class ServerCommunication {
      */
     public static String addBuilding(String name, String street, int houseNumber) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building/add?name=" + name + "&street=" + street + "&houseNumber=" + houseNumber)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
-        HttpResponse<String> response = null;
+        HttpResponse<String> response;
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
         } catch (Exception e) {
@@ -382,7 +370,7 @@ public class ServerCommunication {
      */
     public static String logoutUser() {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/user/logout")).POST(HttpRequest.BodyPublishers.noBody()).build();
-        HttpResponse<String> response = null;
+        HttpResponse<String> response;
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
         } catch (Exception e) {
