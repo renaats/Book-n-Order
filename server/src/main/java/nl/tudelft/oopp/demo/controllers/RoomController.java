@@ -91,7 +91,7 @@ public class RoomController {
 
     /**
      * Retrieves a room with the specified id.
-     * @param roomId = the room id.
+     * @param id = the room id.
      * @return Room that matches the id.
      */
     @Secured("ROLE_USER")
@@ -103,7 +103,7 @@ public class RoomController {
 
     /**
      * Retrieves all room reservations for the room with the specified id.
-     * @param roomId = the room id.
+     * @param id = the room id.
      * @return Set of all room reservations for the room that matches the id.
      */
     @Secured({"ROLE_ADMIN", "ROLE_BUILDING_ADMIN"})

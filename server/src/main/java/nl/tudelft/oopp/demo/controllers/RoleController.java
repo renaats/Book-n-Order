@@ -25,7 +25,6 @@ public class RoleController {
     /**
      * Adds a role to the database.
      * @param name = the name of the new role.
-     * @param users = the users to which this role is assigned.
      * @return String containing the result of your request.
      */
     @Secured("ROLE_ADMIN")
@@ -51,7 +50,6 @@ public class RoleController {
     /**
      * Updates a the users of a role,
      * @param id = the role id.
-     * @param users = The new set of users of the role.
      * @return String containing the result of your request.
      */
     @Secured("ROLE_ADMIN")
