@@ -376,6 +376,10 @@ public class ServerCommunication {
         return ErrorMessages.getErrorMessage(Integer.parseInt(response.body()));
     }
 
+    /**
+     * Should log the user out
+     * @return confirmation message
+     */
     public static String logoutUser() {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/user/logout")).POST(HttpRequest.BodyPublishers.noBody()).build();
         HttpResponse<String> response = null;

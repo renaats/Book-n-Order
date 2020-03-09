@@ -72,6 +72,10 @@ public class MyAccountController {
         ApplicationDisplay.changeScene("/bookRoom.fxml");
     }
 
+    /**
+     * Takes care of clicking the logout button and communicating it onwards
+     * @throws IOException input is valid hence we throw.
+     */
     public void logoutUser() throws IOException {
         ServerCommunication.logoutUser();
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
