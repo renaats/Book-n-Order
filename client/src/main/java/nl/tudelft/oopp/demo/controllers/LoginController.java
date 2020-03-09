@@ -32,13 +32,15 @@ public class LoginController {
     public void loginButton() throws IOException {
         String username = usernameField.getText();
         String password = passwordField.getText();
-        String message = ServerCommunication.loginUser(username, password);
+        int code = ServerCommunication.loginUser(username, password);
 
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Authenticator");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
+        if (code != 200) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Authenticator");
+            alert.setHeaderText(null);
+            alert.setContentText(ErrorMessages.getErrorMessage(code));
+            alert.showAndWait();
+        }
     }
 
     /**

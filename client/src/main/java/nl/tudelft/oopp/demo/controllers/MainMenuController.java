@@ -114,4 +114,7 @@ public class MainMenuController {
     public void adminPanel() throws IOException {
         ApplicationDisplay.changeScene("/DatabaseMenu.fxml");
     }
+
+    public void logoutUser(ActionEvent actionEvent) {
+    }
 }

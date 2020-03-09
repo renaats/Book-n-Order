@@ -79,7 +79,7 @@ public class ServerCommunication {
      * @return the body of a get request to the server.
      * @throws Exception if communication with the server fails.
      */
-    public static String loginUser(String email, String password) throws IOException {
+    public static int loginUser(String email, String password) throws IOException {
 
         URL url = new URL("http://localhost:8080/login");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -102,11 +102,11 @@ public class ServerCommunication {
                     // Yes it's gross, it works, it grabs the key
                     UserInformation.setBearerKey(((String) Arrays.asList(entry.getValue().get(0).split(" ")).get(1)));
                     ApplicationDisplay.changeScene("/myCurrentBookings.fxml");
-                    return ErrorMessages.getErrorMessage(200);
+                    return 200;
                 }
             }
         }
-        return ErrorMessages.getErrorMessage(311);
+        return 311;
     }
 
     /**
@@ -359,6 +359,25 @@ public class ServerCommunication {
      */
     public static String addBuilding(String name, String street, int houseNumber) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building/add?name=" + name + "&street=" + street + "&houseNumber=" + houseNumber)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
+        HttpResponse<String> response = null;
+        try {
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Communication with server failed";
+        }
+        if (response.statusCode() == 403) {
+            return ErrorMessages.getErrorMessage(401);
+        }
+        if (response.statusCode() != 200) {
+            System.out.println(response.body());
+            System.out.println("Status: " + response.statusCode());
+        }
+        return ErrorMessages.getErrorMessage(Integer.parseInt(response.body()));
+    }
+
+    public static String logoutUser() {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/user/logout")).POST(HttpRequest.BodyPublishers.noBody()).build();
         HttpResponse<String> response = null;
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
