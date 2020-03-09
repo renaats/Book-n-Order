@@ -106,15 +106,4 @@ public class MainMenuController {
     public void myCurrentFoodOrders() throws IOException {
         ApplicationDisplay.changeScene("/myCurrentFoodOrders.fxml");
     }
-
-    /**
-     * Changes to DatabaseMenu.fxml
-     * @throws IOException input will eb valid, hence we throw.
-     */
-    public void adminPanel() throws IOException {
-        ApplicationDisplay.changeScene("/DatabaseMenu.fxml");
-    }
-
-    public void logoutUser(ActionEvent actionEvent) {
-    }
 }
