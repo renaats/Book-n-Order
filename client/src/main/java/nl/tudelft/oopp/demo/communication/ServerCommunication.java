@@ -79,7 +79,7 @@ public class ServerCommunication {
      * @return the body of a get request to the server.
      * @throws Exception if communication with the server fails.
      */
-    public static int loginUser(String email, String password) throws IOException {
+    public static String loginUser(String email, String password) throws IOException {
 
         URL url = new URL("http://localhost:8080/login");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -102,11 +102,11 @@ public class ServerCommunication {
                     // Yes it's gross, it works, it grabs the key
                     UserInformation.setBearerKey(((String) Arrays.asList(entry.getValue().get(0).split(" ")).get(1)));
                     ApplicationDisplay.changeScene("/myCurrentBookings.fxml");
-                    return 200;
+                    return ErrorMessages.getErrorMessage(200);
                 }
             }
         }
-        return 311;
+        return ErrorMessages.getErrorMessage(311);
     }
 
     /**
