@@ -34,11 +34,13 @@ public class LoginController {
         String password = passwordField.getText();
         String message = ServerCommunication.loginUser(username, password);
 
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Authenticator");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
+        if (message.equals("Login and/or password is incorrect.")) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Authenticator");
+            alert.setHeaderText(null);
+            alert.setContentText(message);
+            alert.showAndWait();
+        }
     }
 
     /**

@@ -375,4 +375,27 @@ public class ServerCommunication {
         }
         return ErrorMessages.getErrorMessage(Integer.parseInt(response.body()));
     }
+
+    /**
+     * Should log the user out
+     * @return confirmation message
+     */
+    public static String logoutUser() {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/user/logout")).POST(HttpRequest.BodyPublishers.noBody()).build();
+        HttpResponse<String> response = null;
+        try {
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Communication with server failed";
+        }
+        if (response.statusCode() == 403) {
+            return ErrorMessages.getErrorMessage(401);
+        }
+        if (response.statusCode() != 200) {
+            System.out.println(response.body());
+            System.out.println("Status: " + response.statusCode());
+        }
+        return ErrorMessages.getErrorMessage(Integer.parseInt(response.body()));
+    }
 }
