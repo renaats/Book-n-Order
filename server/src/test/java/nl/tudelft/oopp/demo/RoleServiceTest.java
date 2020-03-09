@@ -37,7 +37,6 @@ public class RoleServiceTest {
     public void setup() {
         role = new Role();
         role.setName("Manager");
-       // role.setUsers(new HashSet<User>());
     }
 
     @Test
