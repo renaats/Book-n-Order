@@ -130,7 +130,9 @@ public class BikeServiceTest {
         bikeService.all().forEach(bikes::add);
         assertEquals(1, bikes.size());
         assertNull(bikeService.find(bike.getId()));
+        assertFalse(bikes.contains(bike));
         assertNotNull(bikeService.find(bike2.getId()));
+        assertTrue(bikes.contains(bike2));
     }
 
     @AfterEach
