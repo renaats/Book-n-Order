@@ -100,7 +100,7 @@ public class BuildingServiceTest {
         List<Building> buildings = new ArrayList<>();
         buildingService.all().forEach(buildings::add);
         assertEquals(2, buildings.size());
-        assertEquals("Building with ID: 1234 Does not exist!", buildingService.update(1234, "attr", "val"));
+        assertEquals(416, buildingService.update(1234, "attr", "val"));
         building = buildings.get(0);
         building2 = buildings.get(1);
 

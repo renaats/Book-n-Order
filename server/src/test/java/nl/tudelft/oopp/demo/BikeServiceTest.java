@@ -1,10 +1,5 @@
 package nl.tudelft.oopp.demo;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
-
 import nl.tudelft.oopp.demo.entities.Bike;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.repositories.BuildingRepository;
@@ -17,6 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -77,7 +77,7 @@ public class BikeServiceTest {
         bikeService.add(building.getId(), true);
        // assertEquals(bikeService.all(), Collections.singletonList(bike));
         assertEquals(bikeService.all(), Arrays.asList(bike));
-        assertEquals("Could not find building with id 137!",bikeService.add(137, true));
+        assertEquals(416,bikeService.add(137, true));
     }
 
     @Test
@@ -108,6 +108,7 @@ public class BikeServiceTest {
         bike = bikes.get(0);
         bike2 = bikes.get(1);
 
+        assertEquals(412, bikeService.update(bike.getId(), "nonexistent attribute", "random value"));
         assertNotEquals(bikeService.find(bike.getId()), bikeService.find(bike2.getId()));
         bikeService.update(bike2.getId(), "location", building.getId().toString());
         assertNotEquals(bikeService.find(bike.getId()), bikeService.find(bike2.getId()));
