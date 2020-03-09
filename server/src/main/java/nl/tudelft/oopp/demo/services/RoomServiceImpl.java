@@ -147,6 +147,9 @@ public class RoomServiceImpl implements RoomService {
      * @return all room reservation for the room that matches the id
      */
     public Set<RoomReservation> reservations(int id) {
+        if (roomRepository.findById(id).isEmpty()) {
+            return null;
+        }
         return roomRepository.findById(id).get().getRoomReservations();
     }
 }
