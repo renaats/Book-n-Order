@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -14,6 +15,9 @@ import javafx.scene.control.TextField;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
+/**
+ * Adds the functionality to DatabaseMenu.fxml file
+ */
 public class DatabaseBuildingController implements Initializable {
 
     final ObservableList updateChoiceBoxList = FXCollections.observableArrayList();
@@ -38,12 +42,20 @@ public class DatabaseBuildingController implements Initializable {
      * Handles clicking of the Find Building button.
      */
     public void building_id_ButtonClicked() {
-        int id = Integer.parseInt(buildingFindByIdTextField.getText());
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Building Finder");
-        alert.setHeaderText(null);
-        alert.setContentText(ServerCommunication.findBuilding(id));
-        alert.showAndWait();
+        try {
+            int id = Integer.parseInt(buildingFindByIdTextField.getText());
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Building Finder");
+            alert.setHeaderText(null);
+            alert.setContentText(ServerCommunication.findBuilding(id));
+            alert.showAndWait();
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Missing argument.");
+            alert.showAndWait();
+        }
     }
 
     /**
@@ -62,7 +74,6 @@ public class DatabaseBuildingController implements Initializable {
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
     public void databaseBuildingMenu() throws IOException {
-        loadDataUpdateChoiceBox();
         ApplicationDisplay.changeScene("/DatabaseMenu.fxml");
     }
 
@@ -71,7 +82,6 @@ public class DatabaseBuildingController implements Initializable {
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
     public void databaseRoomMenu() throws IOException {
-        loadDataUpdateChoiceBox();
         ApplicationDisplay.changeScene("/DatabaseRoomMenu.fxml");
     }
 
@@ -79,26 +89,42 @@ public class DatabaseBuildingController implements Initializable {
      * Handles clicking of the Remove Building button.
      */
     public void deleteBuildingButtonClicked() {
-        int id = Integer.parseInt(buildingDeleteByIdTextField.getText());
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Building remover");
-        alert.setHeaderText(null);
-        alert.setContentText(ServerCommunication.deleteBuilding(id));
-        alert.showAndWait();
+        try {
+            int id = Integer.parseInt(buildingDeleteByIdTextField.getText());
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Building remover");
+            alert.setHeaderText(null);
+            alert.setContentText(ServerCommunication.deleteBuilding(id));
+            alert.showAndWait();
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Missing argument.");
+            alert.showAndWait();
+        }
     }
 
     /**
      * Handles the sending of updated values.
      */
     public void updateBuildingButtonClicked() {
-        int id = Integer.parseInt(buildingFindByIdUpdateField.getText());
-        String attribute = updateChoiceBox.getValue().replaceAll(" ","");
-        String changeValue = buildingChangeToField.getText();
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Building remover");
-        alert.setHeaderText(null);
-        alert.setContentText(ServerCommunication.updateBuilding(id, attribute, changeValue));
-        alert.showAndWait();
+        try {
+            int id = Integer.parseInt(buildingFindByIdUpdateField.getText());
+            String attribute = updateChoiceBox.getValue().replaceAll(" ", "");
+            String changeValue = buildingChangeToField.getText();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Building remover");
+            alert.setHeaderText(null);
+            alert.setContentText(ServerCommunication.updateBuilding(id, attribute, changeValue));
+            alert.showAndWait();
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Missing argument.");
+            alert.showAndWait();
+        }
     }
 
     /**
@@ -113,4 +139,32 @@ public class DatabaseBuildingController implements Initializable {
         updateChoiceBox.getItems().addAll(updateChoiceBoxList);
     }
 
+    /**
+     * Switches scene to DatabaseAddBuildings.fxml
+     * @throws IOException Input will be valid
+     */
+    public void databaseAddBuildings() throws IOException {
+        ApplicationDisplay.changeScene("/DatabaseAddBuildings.fxml");
+    }
+
+    /**
+     * Switches scene to DatabaseAddRooms.fxml
+     * @throws IOException Input will be valid
+     */
+    public void databaseAddRooms() throws IOException {
+        ApplicationDisplay.changeScene("/DatabaseAddRooms.fxml");
+    }
+
+    public void myAccountScene(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/myAccountScene.fxml");
+    }
+    /**
+     * returns to the main menu
+     * @param actionEvent the event is clicking the menu item
+     * @throws IOException again, all input will be valid. No need to check this, thus we throw.
+     */
+
+    public void mainMenu(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/mainMenu.fxml");
+    }
 }

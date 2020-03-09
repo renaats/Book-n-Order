@@ -13,15 +13,13 @@ public class ApplicationDisplay extends Application {
 
     private static Stage primaryStage;
 
-
     @Override
     public void start(Stage primaryStage) throws IOException {
-        this.primaryStage = primaryStage;
+        ApplicationDisplay.primaryStage = primaryStage;
         FXMLLoader loader = new FXMLLoader();
         URL xmlUrl = getClass().getResource("/login-screen.fxml");
         loader.setLocation(xmlUrl);
         Parent root = loader.load();
-
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
@@ -34,7 +32,6 @@ public class ApplicationDisplay extends Application {
     public static void changeScene(String fxml) throws IOException {
         Parent pane = FXMLLoader.load(
                 ApplicationDisplay.class.getResource(fxml));
-
         primaryStage.getScene().setRoot(pane);
     }
 
