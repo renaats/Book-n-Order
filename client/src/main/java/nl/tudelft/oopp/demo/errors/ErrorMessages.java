@@ -6,7 +6,7 @@ public class ErrorMessages {
     private static final String unAuthorizedMessage = "You do not have the proper authorization.";
     private static final String preConditionFailedMessage = "Attribute does not exist!";
     private static final String IdNotFoundMessage = "No results on ID.";
-    private static final String hasNoRoomsMessage = "Building has no rooms.";
+    private static final String hasRoomsMessage = "Building has rooms.";
     private static final String executedMessage = "Succesfully executed.";
     private static final String alreadyReservedMessage = "Already reserved at this timeslot.";
     private static final String roomNotFoundMessage = "Room not found.";
@@ -59,7 +59,7 @@ public class ErrorMessages {
             case 416:
                 return IdNotFoundMessage;
             case 417:
-                return hasNoRoomsMessage;
+                return hasRoomsMessage;
             case 418:
                 return roomNotFoundMessage;
             case 419:
