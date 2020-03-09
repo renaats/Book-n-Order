@@ -1,20 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
-<?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="nl.tudelft.oopp.demo.controllers.DinamicRestaurantController"
-            prefHeight="400.0" prefWidth="600.0">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.DinamicRestaurantController">
     <ImageView fitHeight="45.0" fitWidth="112.0" layoutX="18.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="548.0" AnchorPane.leftAnchor="17.400003051757807" AnchorPane.rightAnchor="683.3999969482422" AnchorPane.topAnchor="7.0">
         <Image url="@images/tudelftlogo.png" />
     </ImageView>
@@ -46,20 +38,15 @@
             <Font name="Calibri" size="11.0" />
         </font>
     </Text>
-    <Text layoutX="336.0" layoutY="183.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Order food" AnchorPane.leftAnchor="336.0" AnchorPane.topAnchor="146.0">
+    <Text layoutX="336.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Order food" AnchorPane.leftAnchor="336.0" AnchorPane.topAnchor="127.943359375">
         <font>
             <Font size="26.0" />
         </font>
     </Text>
-    <Button layoutX="285.0" layoutY="470.0" maxHeight="25.0" maxWidth="230.0" minHeight="25.0" minWidth="230.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="230.0" style="-fx-background-color: #00a6d6;" onAction="#orderFoodConfirmation" text="Next" textFill="WHITE" AnchorPane.leftAnchor="285.0" AnchorPane.topAnchor="470.0" />
-    <Text layoutX="382.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aula" AnchorPane.leftAnchor="383.0" AnchorPane.topAnchor="181.0">
+    <Button layoutX="285.0" layoutY="470.0" maxHeight="25.0" maxWidth="230.0" minHeight="25.0" minWidth="230.0" mnemonicParsing="false" onAction="#orderFoodConfirmation" prefHeight="25.0" prefWidth="230.0" style="-fx-background-color: #00a6d6;" text="Next" textFill="WHITE" AnchorPane.leftAnchor="285.0" AnchorPane.topAnchor="470.0" />
+    <Text layoutX="383.0" layoutY="181.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aula" AnchorPane.leftAnchor="383.0" AnchorPane.topAnchor="162.6552734375">
         <font>
             <Font size="17.0" />
-        </font>
-    </Text>
-    <Text layoutX="63.0" layoutY="254.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sandwiches" AnchorPane.leftAnchor="63.0" AnchorPane.topAnchor="235.0">
-        <font>
-            <Font name="System Bold" size="12.0" />
         </font>
     </Text>
     <Text layoutX="295.0" layoutY="254.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Soup" AnchorPane.leftAnchor="310.0" AnchorPane.topAnchor="235.0">
@@ -93,9 +80,6 @@
     <Text layoutX="291.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tomato soup (vegetarian)" AnchorPane.leftAnchor="310.0" AnchorPane.topAnchor="262.0" />
     <Text layoutX="285.0" layoutY="313.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Chicken soup" AnchorPane.leftAnchor="310.0" AnchorPane.topAnchor="308.0" />
     <Text layoutX="290.0" layoutY="292.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vegetable soup (vegan)" AnchorPane.leftAnchor="310.0" AnchorPane.topAnchor="285.0" />
-    <Text layoutX="70.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Grilled chicken" AnchorPane.leftAnchor="63.0" AnchorPane.topAnchor="262.0" />
-    <Text layoutX="70.0" layoutY="300.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Crispy vegetable (vegan)" AnchorPane.leftAnchor="63.0" AnchorPane.topAnchor="285.0" />
-    <Text layoutX="61.0" layoutY="322.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cheese (vegetarian)" AnchorPane.leftAnchor="63.0" AnchorPane.topAnchor="308.0" />
     <Text layoutX="61.0" layoutY="385.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Thai beef" AnchorPane.leftAnchor="63.0" AnchorPane.topAnchor="384.0" />
     <Text layoutX="59.0" layoutY="413.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Greek (vegetarian)" AnchorPane.leftAnchor="63.0" AnchorPane.topAnchor="407.0" />
     <Text layoutX="59.0" layoutY="438.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Couscous (vegan)" AnchorPane.leftAnchor="63.0" AnchorPane.topAnchor="430.0" />
@@ -104,21 +88,6 @@
     <Text layoutX="561.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wraps (vegan)" AnchorPane.leftAnchor="557.0" AnchorPane.topAnchor="262.0" />
     <Text layoutX="561.0" layoutY="301.0" strokeType="OUTSIDE" strokeWidth="0.0" text="French fries" AnchorPane.leftAnchor="557.0" AnchorPane.topAnchor="285.0" />
     <Text layoutX="561.0" layoutY="322.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Brownie" AnchorPane.leftAnchor="557.0" AnchorPane.topAnchor="308.0" />
-    <Button fx:id="steakSupremeOrder" layoutX="205.0" layoutY="258.0" maxHeight="21.0" maxWidth="21.0" minHeight="21.0" minWidth="21.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="21.0" style="-fx-background-color: #00a6d6;" text="+" textFill="WHITE" AnchorPane.leftAnchor="227.0" AnchorPane.topAnchor="260.0">
-        <font>
-            <Font size="10.0" />
-        </font>
-    </Button>
-    <Button fx:id="crispyChickenOrder" layoutX="205.0" layoutY="283.0" maxHeight="21.0" maxWidth="21.0" minHeight="21.0" minWidth="21.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="21.0" style="-fx-background-color: #00a6d6;" text="+" textFill="WHITE" AnchorPane.leftAnchor="227.0" AnchorPane.topAnchor="283.0">
-        <font>
-            <Font size="10.0" />
-        </font>
-    </Button>
-    <Button fx:id="chickpeasSandwichOrder" layoutX="205.0" layoutY="306.0" maxHeight="21.0" maxWidth="21.0" minHeight="21.0" minWidth="21.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="21.0" style="-fx-background-color: #00a6d6;" text="+" textFill="WHITE" AnchorPane.leftAnchor="227.0" AnchorPane.topAnchor="306.0">
-        <font>
-            <Font size="10.0" />
-        </font>
-    </Button>
     <Button fx:id="chickenZucchiniOrder" layoutX="227.0" layoutY="381.0" maxHeight="21.0" maxWidth="21.0" minHeight="21.0" minWidth="21.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="21.0" style="-fx-background-color: #00a6d6;" text="+" textFill="WHITE" AnchorPane.leftAnchor="227.0" AnchorPane.topAnchor="382.0">
         <font>
             <Font size="10.0" />
@@ -189,4 +158,29 @@
             <Font size="10.0" />
         </font>
     </Button>
+   <BorderPane layoutX="46.0" layoutY="226.0" prefHeight="106.0" prefWidth="200.0">
+      <right>
+         <ScrollBar orientation="VERTICAL" BorderPane.alignment="CENTER" />
+      </right>
+      <center>
+         <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+            <children>
+               <CheckBox mnemonicParsing="false" text="CheckBox" />
+               <CheckBox mnemonicParsing="false" text="CheckBox" />
+               <CheckBox mnemonicParsing="false" text="CheckBox" />
+               <CheckBox mnemonicParsing="false" text="CheckBox" />
+               <CheckBox mnemonicParsing="false" text="CheckBox" />
+               <CheckBox mnemonicParsing="false" text="CheckBox" />
+               <CheckBox mnemonicParsing="false" text="CheckBox" />
+            </children>
+         </VBox>
+      </center>
+      <top>
+          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Sandwiches" BorderPane.alignment="CENTER">
+              <font>
+                  <Font name="System Bold" size="12.0" />
+              </font>
+          </Text>
+      </top>
+   </BorderPane>
 </AnchorPane>

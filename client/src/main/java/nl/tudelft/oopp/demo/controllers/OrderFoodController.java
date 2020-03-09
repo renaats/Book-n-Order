@@ -80,7 +80,7 @@ public class OrderFoodController {
      * @throws IOException input will not be wrong, hence we throw.
      */
     public void aulaMenu(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/orderFoodAulaMenu.fxml");
+        ApplicationDisplay.changeScene("/DinamicRestaurant.fxml");
     }
 
     /**
