@@ -17,7 +17,7 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 public class DatabaseRoomController implements Initializable {
 
-    final ObservableList updateChoiceBoxList = FXCollections.observableArrayList();
+    final ObservableList<String> updateChoiceBoxList = FXCollections.observableArrayList();
 
     @FXML
     private ChoiceBox<String> updateChoiceBox;
@@ -112,7 +112,7 @@ public class DatabaseRoomController implements Initializable {
      * Takes care of the options for the updateChoiceBox in the GUI
      */
     public void loadDataUpdateChoiceBox() {
-        updateChoiceBoxList.removeAll();
+        updateChoiceBoxList.clear();
         String a = "Name";
         String b = "Faculty";
         String c = "Building ID";
