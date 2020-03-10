@@ -1,11 +1,5 @@
 package nl.tudelft.oopp.demo;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotSame;
-
-import java.util.Date;
-import java.util.HashSet;
-
 import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Room;
@@ -22,6 +16,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
@@ -37,6 +37,7 @@ public class RoomReservationTest {
 
     RoomReservation roomReservation;
     RoomReservation roomReservation2;
+    RoomReservation roomReservation3;
     Room room;
     AppUser appUser;
     Building building;
@@ -81,6 +82,16 @@ public class RoomReservationTest {
         roomReservation = roomReservationRepository.findAll().get(0);
     }
 
+    /** Tests the constructor of the RoomReservation class
+     */
+    @Test
+    public void testConstructor() {
+        assertNotNull(building);
+        assertNotNull(room);
+        assertNotNull(appUser);
+        assertNotNull(roomReservation);
+    }
+
     @Test
     public void saveAndRetrieveRoomReservation() {
         roomReservation2 = roomReservationRepository.findAll().get(0);
@@ -96,6 +107,25 @@ public class RoomReservationTest {
         assertEquals(roomReservation.getToTime(), roomReservation2.getToTime());
     }
 
+    /** Tests the setters of the RoomReservation class
+     */
+    @Test
+    public void testSetters() {
+        roomReservation3 = new RoomReservation();
+        Room newRoom = new Room();
+        AppUser newUser = new AppUser();
+        Date newFromTime = new Date(9900000000L);
+        Date newToTime = new Date(1060000000L);
+        roomReservation3.setRoom(newRoom);
+        roomReservation3.setAppUser(newUser);
+        roomReservation3.setFromTime(newFromTime);
+        roomReservation3.setToTime(newToTime);
+        assertEquals(roomReservation3.getRoom(), newRoom);
+        assertEquals(roomReservation3.getAppUser(), newUser);
+        assertEquals(roomReservation3.getFromTime(), newFromTime);
+        assertEquals(roomReservation3.getToTime(), newToTime);
+    }
+
     @Test
     public void testEqualRoomReservations() {
         roomReservation2 = new RoomReservation();
@@ -105,6 +135,25 @@ public class RoomReservationTest {
         roomReservation2.setToTime(new Date(11000000000L));
         assertEquals(roomReservation, roomReservation2);
         assertNotSame(roomReservation, roomReservation2);
+    }
+
+    /** Tests whether there exists a reservation between two dates.
+     */
+    @Test
+    public void testOverlappingReservation() {
+        room = roomRepository.findAll().get(0);
+        Set<RoomReservation> setOfRoomReservations = new HashSet<RoomReservation>();
+        setOfRoomReservations.add(roomReservationRepository.findAll().get(0));
+        room.setRoomReservations(setOfRoomReservations);
+        assertTrue(room.hasRoomReservations());
+        assertTrue(room.getRoomReservations().contains(roomReservation));
+        assertTrue(room.hasRoomReservationBetween(new Date(10500000000L), new Date(12000000000L)));
+        assertTrue(room.hasRoomReservationBetween(new Date(9900000000L), new Date(10500000000L)));
+        assertFalse(room.hasRoomReservationBetween(new Date(10000000000L), new Date(1100000000L)));
+        assertTrue(room.hasRoomReservationBetween(new Date(10500000000L), new Date(10600000000L)));
+        assertFalse(room.hasRoomReservationBetween(new Date(10500000000L), new Date(1060000000L)));
+        assertFalse(room.hasRoomReservationBetween(new Date(11500000000L), new Date(1160000000L)));
+        assertFalse(room.hasRoomReservationBetween(new Date(10900000000L), new Date(10500000000L)));
     }
 
     /** Deletes everything from the repositories after testing.

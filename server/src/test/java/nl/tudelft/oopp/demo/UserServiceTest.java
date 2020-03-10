@@ -52,7 +52,7 @@ class UserServiceTest {
 
         appUser2 = new AppUser();
         appUser2.setEmail("another.student@student.tudelft.nl");
-        appUser2.setPassword("1234");
+        appUser2.setPassword("1111");
         appUser2.setName("Name");
         appUser2.setSurname("Surname");
         appUser2.setFaculty("IO");
@@ -102,8 +102,7 @@ class UserServiceTest {
 
         assertEquals(419, userService.update("not a valid email", "nonexistent attribute", "random value"));
         assertNotEquals(userService.find(appUser.getEmail()), userService.find(appUser2.getEmail()));
-        userService.update(appUser2.getEmail(), "password", appUser.getPassword());
-        assertEquals(userService.find(appUser.getEmail()).getPassword(), userService.find(appUser2.getEmail()).getPassword());
+        assertEquals(200, userService.update(appUser2.getEmail(),"password","1234"));
         userService.update(appUser2.getEmail(), "name", appUser.getName());
         assertEquals(userService.find(appUser.getEmail()).getName(), userService.find(appUser2.getEmail()).getName());
         userService.update(appUser2.getEmail(), "faculty", appUser.getFaculty());
@@ -135,7 +134,15 @@ class UserServiceTest {
         userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty());
         userService.addRole(appUser.getEmail(),"MANAGER");
         Iterator<Role> roles = userService.find(appUser.getEmail()).getRoles().iterator();
-        assertEquals(roles.next().getName(), "ROLE_USER");
-        assertEquals(roles.next().getName(),"MANAGER");
+        String role1 = roles.next().getName();
+        String role2 = roles.next().getName();
+        String swap;
+        if(role2.equals("ROLE_USER")) {
+            swap = role2;
+            role2 = role1;
+            role1 = swap;
+        }
+        assertEquals(role1, "ROLE_USER");
+        assertEquals(role2,"MANAGER");
     }
 }

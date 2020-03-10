@@ -1,14 +1,5 @@
 package nl.tudelft.oopp.demo;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotSame;
-import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.HashSet;
-import java.util.Set;
-
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.repositories.BuildingRepository;
@@ -17,6 +8,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 public class BuildingTest {
@@ -47,9 +43,16 @@ public class BuildingTest {
         room.setProjector(true);
         room.setNrPeople(300);
         room.setPlugs(250);
-
         rooms = new HashSet<>();
         rooms.add(room);
+    }
+
+    /** Tests the constructor of the Building class
+     */
+    @Test
+    public void testConstructor() {
+        building2 = new Building();
+        assertNotNull(building2);
     }
 
     @Test
@@ -66,6 +69,21 @@ public class BuildingTest {
         assertEquals(4, building2.getHouseNumber());
         assertEquals(building.getId(), building2.getId());
         assertFalse(building.hasRooms());
+    }
+
+    /** Tests the setters of the Building class
+     */
+    @Test
+    public void testSetters() {
+        building2 = new Building();
+        building2.setName("Pulse");
+        building2.setStreet("Landbergstraat");
+        building2.setHouseNumber(19);
+        building2.setRooms(new HashSet<Room>());
+        assertEquals(building2.getName(),"Pulse");
+        assertEquals(building2.getStreet(),"Landbergstraat");
+        assertEquals(building2.getHouseNumber(),19);
+        assertNotNull(building2.getRooms());
     }
 
     @Test

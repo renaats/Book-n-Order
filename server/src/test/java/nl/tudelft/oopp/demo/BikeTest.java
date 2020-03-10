@@ -1,11 +1,5 @@
 package nl.tudelft.oopp.demo;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNotSame;
-import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import nl.tudelft.oopp.demo.entities.Bike;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.repositories.BikeRepository;
@@ -15,6 +9,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 public class BikeTest {
@@ -44,6 +40,11 @@ public class BikeTest {
     }
 
     @Test
+    public void testConstructor() {
+        assertNotNull(bike);
+    }
+
+    @Test
     public void saveAndRetrieveBike() {
         bike2 = bikeRepository.findAll().get(0);
         assertEquals(bike, bike2);
@@ -54,6 +55,16 @@ public class BikeTest {
         bike2 = bikeRepository.findAll().get(0);
         assertTrue(bike2.isAvailable());
         assertSame(bike.getLocation(), bike2.getLocation());
+    }
+
+    @Test
+    public void testSetters() {
+        bike2 = new Bike();
+        bike2.setAvailable(false);
+        building = new Building();
+        bike2.setLocation(building);
+        assertEquals(bike2.isAvailable(), false);
+        assertEquals(bike2.getLocation(), building);
     }
 
     @Test

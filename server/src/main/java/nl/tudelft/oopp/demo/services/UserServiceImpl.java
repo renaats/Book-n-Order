@@ -1,16 +1,7 @@
 package nl.tudelft.oopp.demo.services;
 
-import static nl.tudelft.oopp.demo.security.SecurityConstants.HEADER_STRING;
-import static nl.tudelft.oopp.demo.security.SecurityConstants.SECRET;
-import static nl.tudelft.oopp.demo.security.SecurityConstants.TOKEN_PREFIX;
-
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-
-import java.util.HashSet;
-
-import javax.servlet.http.HttpServletRequest;
-
 import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.Role;
 import nl.tudelft.oopp.demo.repositories.RoleRepository;
@@ -19,6 +10,11 @@ import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashSet;
+
+import static nl.tudelft.oopp.demo.security.SecurityConstants.*;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -97,11 +93,11 @@ public class UserServiceImpl implements UserService {
         AppUser appUser = userRepository.findById(email).get();
 
         switch (attribute) {
-            case "email":
-                appUser.setEmail(value);
-                break;
+//            case "email":
+//                appUser.setEmail(value);
+//                break;
             case "password":
-                appUser.setPassword(value);
+                appUser.setPassword(bcryptPasswordEncoder.encode(value));
                 break;
             case "name":
                 appUser.setName(value);
