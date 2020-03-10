@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
@@ -105,5 +106,13 @@ public class MainMenuController {
      */
     public void myCurrentFoodOrders() throws IOException {
         ApplicationDisplay.changeScene("/myCurrentFoodOrders.fxml");
+    }
+
+    public void template(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/Template.fxml");
+    }
+
+    public void calendarIcon(MouseEvent mouseEvent) {
+
     }
 }
