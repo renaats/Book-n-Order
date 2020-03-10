@@ -23,9 +23,9 @@ public class RoleController {
     RoleService roleService;
 
     /**
-     * Adds a role.
-     * @param name = the name of the role
-     * @return String to see if your request passed
+     * Adds a role to the database.
+     * @param name = the name of the new role.
+     * @return String containing the result of your request.
      */
     @Secured("ROLE_ADMIN")
     @PostMapping(path = "/add")
@@ -35,10 +35,10 @@ public class RoleController {
     }
 
     /**
-     * Updates a role name.
-     * @param id = the role id
-     * @param name = The role name
-     * @return message if it passes
+     * Updates a the name of a role.
+     * @param id = the role id.
+     * @param name = new name.
+     * @return String containing the result of your request.
      */
     @Secured("ROLE_ADMIN")
     @PostMapping(path = "/update_name")
@@ -48,9 +48,9 @@ public class RoleController {
     }
 
     /**
-     * Deletes a role.
-     * @param id = the id of the role
-     * @return String to see if your request passed
+     * Updates a the users of a role,
+     * @param id = the role id.
+     * @return String containing the result of your request.
      */
     @Secured("ROLE_ADMIN")
     @DeleteMapping(path = "/delete")
@@ -60,8 +60,8 @@ public class RoleController {
     }
 
     /**
-     * Lists all roles.
-     * @return all roles
+     * Lists all roles in the database.
+     * @return An Iterable of all roles.
      */
     @Secured("ROLE_ADMIN")
     @GetMapping(path = "/all")

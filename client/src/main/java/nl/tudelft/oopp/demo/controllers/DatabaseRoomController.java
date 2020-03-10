@@ -36,7 +36,7 @@ public class DatabaseRoomController implements Initializable {
     }
 
     /**
-     * Handles clicking the building find button.
+     * Handles clicking of the Find Room button.
      */
     public void room_id_ButtonClicked() {
         int id = Integer.parseInt(roomFindByIdTextField.getText());
@@ -48,7 +48,7 @@ public class DatabaseRoomController implements Initializable {
     }
 
     /**
-     * Handles clicking the list button.
+     * Handles clicking of the List Rooms button.
      */
     public void roomBuildingsButtonClicked() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -59,7 +59,7 @@ public class DatabaseRoomController implements Initializable {
     }
 
     /**
-     * Changes to mainScene.fxml.
+     * Changes current scene to mainScene.fxml.
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
     public void databaseBuildingMenu() throws IOException {
@@ -67,7 +67,7 @@ public class DatabaseRoomController implements Initializable {
     }
 
     /**
-     * Changes to mainScene.fxml.
+     * Changes current scene to mainScene.fxml.
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
     public void databaseRoomMenu() throws IOException {
@@ -75,7 +75,7 @@ public class DatabaseRoomController implements Initializable {
     }
 
     /**
-     * Handles clicking the remove button.
+     * Handles clicking of the Remove Room button.
      */
     public void deleteRoomButtonClicked() {
         int id = Integer.parseInt(roomDeleteByIdTextField.getText());
@@ -109,7 +109,7 @@ public class DatabaseRoomController implements Initializable {
     }
 
     /**
-     * Takes care of the options for the updateChoiceBox in the GUI
+     * Adds options to the updateChoiceBox.
      */
     public void loadDataUpdateChoiceBox() {
         updateChoiceBoxList.removeAll();

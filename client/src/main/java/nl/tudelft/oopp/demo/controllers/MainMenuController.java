@@ -28,7 +28,7 @@ public class MainMenuController {
     }
 
     /**
-     * Changes to myCurrentBookings.fxml.
+     * Changes current scene to myCurrentBookings.fxml.
      * @throws IOException input will not be wrong, hence we throw.
      */
     public void myCurrentBookings() throws IOException {
@@ -36,7 +36,7 @@ public class MainMenuController {
     }
 
     /**
-     * Changes to myPreviousBookings.fxml.
+     * Changes current scene to myPreviousBookings.fxml.
      * @throws IOException input will not be wrong, hence we throw.
      */
 
@@ -45,7 +45,7 @@ public class MainMenuController {
     }
 
     /**
-     * Changes to myAccountScene.fxml.
+     * Changes current scene to myAccountScene.fxml.
      * @throws IOException input will not be wrong, hence we throw.
      */
     public void myAccountScene() throws IOException {
