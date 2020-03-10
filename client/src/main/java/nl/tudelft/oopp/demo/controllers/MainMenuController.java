@@ -1,9 +1,13 @@
 package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
-
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 
@@ -40,6 +44,30 @@ public class MainMenuController {
      * @param actionEvent
      * @throws IOException
      */
+    public void template(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/Template.fxml");
+    }
+
+    public void calendarIcon(MouseEvent mouseEvent) {
+
+    }
+
+    /**
+     * Changes to myCurrentRoomBookings.fxml.
+     * @throws IOException input will not be wrong, hence we throw.
+     */
+    public void myCurrentRoomBookings() throws IOException {
+        ApplicationDisplay.changeScene("/myCurrentRoomBookings.fxml");
+    }
+
+    /**
+     * Changes to myCurrentFoodOrders.fxml.
+     * @throws IOException input will not be wrong, hence we throw.
+     */
+    public void myCurrentFoodOrders() throws IOException {
+        ApplicationDisplay.changeScene("/myCurrentFoodOrders.fxml");
+    }
+
     public void template(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/Template.fxml");
     }
