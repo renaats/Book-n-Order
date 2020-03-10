@@ -1,27 +1,24 @@
 package nl.tudelft.oopp.demo;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
-import nl.tudelft.oopp.demo.entities.Bike;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Restaurant;
 import nl.tudelft.oopp.demo.repositories.BuildingRepository;
-import nl.tudelft.oopp.demo.services.BikeService;
-import nl.tudelft.oopp.demo.services.BikeServiceImpl;
 import nl.tudelft.oopp.demo.services.RestaurantService;
 import nl.tudelft.oopp.demo.services.RestaurantServiceImpl;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 public class RestaurantServiceTest {
@@ -71,9 +68,33 @@ public class RestaurantServiceTest {
     }
 
     @Test
+    public void testConstructor() {
+        assertNotNull(restaurantService);
+    }
+
+    @Test
     public void testCreate() {
+        assertEquals("Could not find building with id -3!",restaurantService.add(-3,"The Ghost Restaurant"));
         restaurantService.add(restaurant.getBuilding().getId(), restaurant.getName());
         assertEquals(restaurantService.all(), Collections.singletonList(restaurant));
+    }
+
+    @Test
+    public void testAll() {
+        Iterator<Restaurant> iterator = restaurantService.all().iterator();
+        assertFalse(iterator.hasNext());
+        restaurantService.add(restaurant.getBuilding().getId(), restaurant.getName());
+        iterator = restaurantService.all().iterator();
+        assertTrue(iterator.hasNext());
+        iterator.next();
+        assertFalse(iterator.hasNext());
+    }
+
+    @Test
+    public void testFind() {
+        restaurantService.add(restaurant.getBuilding().getId(), restaurant.getName());
+        assertEquals(restaurantService.all().iterator().next(), restaurantService.find(restaurantService.all().iterator().next().getId()));
+        assertNull(restaurantService.find(-3));
     }
 
     @Test
@@ -100,10 +121,20 @@ public class RestaurantServiceTest {
         List<Restaurant> restaurants = new ArrayList<>();
         restaurantService.all().forEach(restaurants::add);
         assertEquals(2, restaurants.size());
+        restaurant = restaurants.get(0);
+        restaurant2 = restaurants.get(1);
         restaurantService.delete(restaurants.get(0).getId());
         restaurants = new ArrayList<>();
         restaurantService.all().forEach(restaurants::add);
         assertEquals(1, restaurants.size());
+        assertFalse(restaurants.contains(restaurant));
+        assertNull(restaurantService.find(restaurant.getId()));
+        assertTrue(restaurants.contains(restaurant2));
+        assertNotNull(restaurantService.find(restaurant2.getId()));
     }
 
+    @AfterEach
+    public void cleanup() {
+        buildingRepository.deleteAll();
+    }
 }

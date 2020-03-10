@@ -1,22 +1,14 @@
 package nl.tudelft.oopp.demo.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
+import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 @Entity // This tells Hibernate to make a table out of this class
 public class Room {
@@ -131,11 +123,18 @@ public class Room {
      * @return a boolean whether this room has a reservation between these times
      */
     public boolean hasRoomReservationBetween(Date fromTime, Date toTime) {
+        if(fromTime.compareTo(toTime) > 0) return false;
         for (RoomReservation roomReservation: roomReservations) {
             if (fromTime.compareTo(roomReservation.getFromTime()) < 0 && toTime.compareTo(roomReservation.getFromTime()) > 0) {
                 return true;
             }
             if (fromTime.compareTo(roomReservation.getToTime()) < 0 && toTime.compareTo(roomReservation.getToTime()) > 0) {
+                return true;
+            }
+            if (fromTime.compareTo(roomReservation.getFromTime()) > 0 && fromTime.compareTo(roomReservation.getToTime()) < 0) {
+                return true;
+            }
+            if (toTime.compareTo(roomReservation.getFromTime()) > 0 && toTime.compareTo(roomReservation.getToTime()) < 0) {
                 return true;
             }
         }
