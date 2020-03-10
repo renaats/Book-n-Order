@@ -1,15 +1,8 @@
 package nl.tudelft.oopp.demo;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Room;
+import nl.tudelft.oopp.demo.entities.RoomReservation;
 import nl.tudelft.oopp.demo.services.BuildingService;
 import nl.tudelft.oopp.demo.services.BuildingServiceImpl;
 import nl.tudelft.oopp.demo.services.RoomService;
@@ -22,6 +15,10 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import java.util.*;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
@@ -53,6 +50,9 @@ public class RoomServiceTest {
     Building building2;
     Room room;
     Room room2;
+    RoomReservation roomReservation;
+    Set<RoomReservation> roomReservationSet;
+    Set<Room> roomSet;
 
     /** Sets up the classes before executing the tests.
      */
@@ -79,9 +79,37 @@ public class RoomServiceTest {
     }
 
     @Test
+    public void testConstructor() {
+        assertNotNull(roomService);
+    }
+
+    @Test
     public void testCreate() {
         roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200);
-        assertEquals(Collections.singletonList(room), roomService.all());
+        assertEquals(Arrays.asList(room), roomService.all());
+        assertEquals(422, roomService.add("Not an actual room", "Faculty", false, true, true, -3, 300, 200));
+        roomSet = new HashSet<>();
+        roomSet.add(room);
+        building.setRooms(roomSet);
+        assertEquals(309, roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200));
+    }
+
+    @Test
+    public void testAll() {
+        Iterator<Room> iterator = roomService.all().iterator();
+        assertFalse(iterator.hasNext());
+        roomService.add(room.getName(), room.getFaculty(), false, true, true, building.getId(), room.getNrPeople(), room.getPlugs());
+        iterator = roomService.all().iterator();
+        assertTrue(iterator.hasNext());
+        iterator.next();
+        assertFalse(iterator.hasNext());
+    }
+
+    @Test
+    public void testFind() {
+        roomService.add(room.getName(), room.getFaculty(), false, true, true, building.getId(), room.getNrPeople(), room.getPlugs());
+        assertEquals(roomService.all().iterator().next(), roomService.find(roomService.all().iterator().next().getId()));
+        assertNull(roomService.find(-3));
     }
 
     @Test
@@ -94,6 +122,9 @@ public class RoomServiceTest {
         room = rooms.get(0);
         room2 = rooms.get(1);
 
+        assertEquals(418, roomService.update(-3, "This is not an actual id of a room.", "value"));
+        assertEquals(422, roomService.update(room.getId(), "buildingid", "-3"));
+        assertEquals(412, roomService.update(room.getId(), "Non existent attribute", "value"));
         assertNotEquals(roomService.find(room.getId()), roomService.find(room2.getId()));
         roomService.update(room2.getId(), "name", room.getName());
         assertNotEquals(roomService.find(room.getId()), roomService.find(room2.getId()));
@@ -120,9 +151,24 @@ public class RoomServiceTest {
         List<Room> rooms = new ArrayList<>();
         roomService.all().forEach(rooms::add);
         assertEquals(2, rooms.size());
-        roomService.delete(rooms.get(0).getId());
+        room = rooms.get(0);
+        room2 = rooms.get(1);
+        assertEquals(200, roomService.delete(rooms.get(0).getId()));
         rooms = new ArrayList<>();
         roomService.all().forEach(rooms::add);
         assertEquals(1, rooms.size());
+        assertNull(roomService.find(room.getId()));
+        assertNotNull(roomService.find(room2.getId()));
+        assertEquals(418, roomService.delete(-3));
     }
+
+//    @Test
+//    public void testReservations() {
+//        roomReservationSet = new HashSet<>();
+//        roomReservation = new RoomReservation();
+//        roomReservation.setRoom(room);
+//        roomReservationSet.add(roomReservation);
+//        room.setRoomReservations(roomReservationSet);
+//        assertEquals(roomService.reservations(room.getId()), roomReservationSet);
+//    }
 }
