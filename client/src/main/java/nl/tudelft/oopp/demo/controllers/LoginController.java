@@ -17,7 +17,7 @@ public class LoginController {
 
 
     /**
-     * Changes to templateScene.fxml.
+     * Changes current to templateScene.fxml.
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
     public void mainMenu() throws IOException {

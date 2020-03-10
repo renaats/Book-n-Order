@@ -8,7 +8,7 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 public class MyAccountController {
     /**
-     * Changes to myAccountScene.fxml.
+     * Changes current scene to myAccountScene.fxml.
      * @throws IOException input will be valid.
      */
     public void myAccountScene() throws IOException {
@@ -16,7 +16,7 @@ public class MyAccountController {
     }
 
     /**
-     * Changes to myCurrentBookings.fxml.
+     * Changes current scene to myCurrentBookings.fxml.
      * @throws IOException input will be valid.
      */
     public void myCurrentBookings() throws IOException {
@@ -24,7 +24,7 @@ public class MyAccountController {
     }
 
     /**
-     * Changes to myPreviousBookings.fxml.
+     * Changes current scene to myPreviousBookings.fxml.
      * @throws IOException input will be valid.
      */
     public void myPreviousBookings() throws IOException {

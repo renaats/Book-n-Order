@@ -22,8 +22,8 @@ public class ServerCommunication {
     private static final HttpClient client = HttpClient.newBuilder().build();
 
     /**
-     * Retrieves a user from the server.
-     * @return the body of a get request to the server.
+     * Retrieves the String representation of a user from the server.
+     * @return the body of the response from the server.
      */
     public static String getUser() {
         HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + UserInformation.getBearerKey()).uri(URI.create("http://localhost:8080/user")).build();
@@ -129,8 +129,8 @@ public class ServerCommunication {
     }
 
     /**
-     * Retrieves all buildings from the server.
-     * @return the body of a get request to the server.
+     * Retrieves a String representation of all buildings from the server.
+     * @return the body of the response from the server.
      */
     public static String getRooms() {
         HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + UserInformation.getBearerKey()).uri(URI.create("http://localhost:8080/room/all")).build();
@@ -153,8 +153,8 @@ public class ServerCommunication {
 
     /**
      * Removes a building from the database.
-     * @param id = building id
-     * @return the body of a get request to the server.
+     * @param id = id of the building to be removed.
+     * @return the body of the response from the server.
      */
     public static String deleteBuilding(int id) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building/delete/" + id)).DELETE().header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
@@ -176,10 +176,9 @@ public class ServerCommunication {
     }
 
     /**
-     * Finds a building in the database by id
-     *
-     * @param buildingID = building id, which is parsed from a text field
-     * @return the body of the response
+     * Retrieves a building in the database by id.
+     * @param buildingID = building id, which is parsed from a text field.
+     * @return the body of the response.
      */
     public static String findBuilding(int buildingID) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building/find/" + buildingID)).GET().header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
@@ -204,10 +203,11 @@ public class ServerCommunication {
 
 
     /**
-     * Updates a building
-     * @param id = Id of the building
-     * @param attribute = Attribute from a choicebox, always right / proper input!
-     * @param changeValue = Value they want to change, is not checked, can be wrong!
+     * Updates a given attribute of building.
+     * @param id = id of the building to be updated.
+     * @param attribute = The attribute whose value is to be updated.
+     * @param changeValue = New value.
+     * @return The body of the response from the server.
      */
     public static String updateBuilding(int id, String attribute, String changeValue) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building/update?id=" + id + "&attribute=" + attribute + "&value=" + changeValue)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
@@ -229,9 +229,9 @@ public class ServerCommunication {
     }
 
     /**
-     * Finds a room
-     * @param roomId the id of the room
-     * @return body of the message
+     * Retrieves a room by given id.
+     * @param roomId = the id of the room.
+     * @return The body of the response from the server.
      */
     public static String findRoom(int roomId) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room/find/" + roomId)).GET().header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
@@ -255,9 +255,9 @@ public class ServerCommunication {
     }
 
     /**
-     * Removes a building from the database.
-     * @param id = building id
-     * @return the body of a get request to the server.
+     * Removes a room from the database.
+     * @param id = the id of the room.
+     * @return the body of the response from the server.
      */
     public static String deleteRoom(int id) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room/delete/" + id)).DELETE().header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
@@ -279,11 +279,11 @@ public class ServerCommunication {
     }
 
     /**
-     * Updates a building
-     * @param id = Id of the building
-     * @param attribute = Attribute from a choicebox, always right / proper input!
-     * @param changeValue = Value they want to change, is not checked, can be wrong!
-     * @return an error message
+     * Updates a given attribute of a room.
+     * @param id = the id of the room.
+     * @param attribute = The attribute whose value is to be changed.
+     * @param changeValue = New value.
+     * @return the body of the response from the server.
      */
     public static String updateRoom(int id, String attribute, String changeValue) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room/update?id=" + id + "&attribute=" + attribute + "&value=" + changeValue)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
