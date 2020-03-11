@@ -50,4 +50,8 @@ public class LoginController {
     public void registrationScene(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/registrationScreen.fxml");
     }
+
+    public void goTomainMenuTemp(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/mainMenu1.fxml");
+    }
 }

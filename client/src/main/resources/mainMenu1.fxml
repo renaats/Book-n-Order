@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.MainMenuController">
-   <ImageView cache="true" cacheHint="QUALITY" depthTest="DISABLE" fitHeight="720.0" fitWidth="1280.0" opacity="0.5" pickOnBounds="true">
+<AnchorPane maxHeight="720.0" maxWidth="1000.0" minHeight="720.0" minWidth="1000.0" prefHeight="720.0" prefWidth="1000.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.MainMenuController">
+   <ImageView cache="true" cacheHint="QUALITY" depthTest="DISABLE" fitHeight="720.0" fitWidth="1280.0" layoutX="-198.0" opacity="0.5" pickOnBounds="true">
       <image>
          <Image url="@images/mainMenuBackground.jpg" />
       </image>
@@ -36,29 +35,8 @@
       </font>
    </Text>
    <Accordion layoutX="76.0" layoutY="144.0" />
-   <ImageView fitHeight="115.0" fitWidth="200.0" layoutX="82.0" layoutY="219.0" onMouseClicked="#bookRoom" opacity="0.8" pickOnBounds="true" AnchorPane.leftAnchor="82.0" AnchorPane.topAnchor="219.0">
-      <Image url="@images/roompicture.png" />
-      <viewport>
-         <Rectangle2D />
-      </viewport>
-   </ImageView>
-   <ImageView fitHeight="115.0" fitWidth="200.0" layoutX="400.0" layoutY="219.0" onMouseClicked="#orderFood" opacity="0.9" pickOnBounds="true" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="680.0" AnchorPane.topAnchor="219.0">
-      <viewport>
-         <Rectangle2D />
-      </viewport>
-      <Image url="@images/foodpicture.png" />
-   </ImageView>
-   <ImageView fitHeight="115.0" fitWidth="200.0" layoutX="759.0" layoutY="219.0" nodeOrientation="INHERIT" onMouseClicked="#rentBike" opacity="0.9" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="321.34722900390625" AnchorPane.topAnchor="219.0">
-      <viewport>
-         <Rectangle2D />
-      </viewport>
-      <Image url="@images/bikepicture.png" />
-   </ImageView>
-   <Button fx:id="bookRoomButton" layoutX="82.0" layoutY="334.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#bookRoom" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: #00a6d6;" text="Book a room" textFill="WHITE" AnchorPane.leftAnchor="82.0" AnchorPane.topAnchor="334.0" />
-   <Button fx:id="orderFoodButton" cache="true" layoutX="400.0" layoutY="334.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#orderFood" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: #00a6d6;" text="Order food" textFill="WHITE" AnchorPane.leftAnchor="400.0" AnchorPane.topAnchor="334.0" />
-   <Button fx:id="rentBikeButton" layoutX="758.0" layoutY="334.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#rentBike" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: #00a6d6;" text="Rent a bike" textFill="WHITE" AnchorPane.rightAnchor="322.0" AnchorPane.topAnchor="334.0" />
    <Button fx:id="template" layoutX="9.0" layoutY="1.0" mnemonicParsing="false" onAction="#template" text="Template" />
-   <ImageView fitHeight="253.0" fitWidth="297.0" layoutX="373.0" layoutY="415.0" onMouseClicked="#calendarIcon" pickOnBounds="true" preserveRatio="true">
+   <ImageView fitHeight="192.0" fitWidth="176.0" layoutX="412.0" layoutY="184.0" onMouseClicked="#calendarIcon" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@images/CalendarIcon.png" />
       </image>
@@ -68,4 +46,19 @@
          <Image url="@images/CalendarIcon.png" />
       </image>
    </ImageView>
+   <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="182.0" layoutY="360.0" onMouseClicked="#goToProfile" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@images/ProfileIcon.png" />
+      </image>
+   </ImageView>
+   <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="692.0" layoutY="360.0" onMouseClicked="#goToMainReservationsMenu" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@images/BookingIcon.png" />
+      </image>
+   </ImageView>
+   <Text layoutX="45.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Book 'n Order">
+      <font>
+         <Font name="Candara Bold" size="24.0" />
+      </font></Text>
+   <Text layoutX="42.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Here you can check your calendar to see your appointments&#10; or you can make a new booking" wrappingWidth="319.30078125" />
 </AnchorPane>

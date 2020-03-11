@@ -1,108 +1,62 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import javafx.event.ActionEvent;
+import javafx.scene.input.MouseEvent;
+import nl.tudelft.oopp.demo.views.ApplicationDisplay;
+
+import java.io.IOException;
+
 public class MainMenuController {
 
     /**
-     * Handels the clicking of the button under the bike image at the main menu.
+     * Handels the clicking of the calendar icon.
      * @throws IOException when it fails
      */
-    public void rentBike() throws IOException {
-        ApplicationDisplay.changeScene("/bikeReservations.fxml");
+    public void calendarIcon(MouseEvent mouseEvent) throws IOException {
+        ApplicationDisplay.changeScene("/calendar.fxml");
     }
-
     /**
-     * Changes to bookRoom.fxml.
-     * @throws IOException again, all input will be valid. No need to check this, thus we throw.
+     * Handels the clicking of the Profile icon.
+     * @throws IOException when it fails
      */
-    public void bookRoom() throws IOException {
-        ApplicationDisplay.changeScene("/bookRoom.fxml");
-    }
-
-    /**
-     * Changes current scene to myCurrentBookings.fxml.
-     * @throws IOException input will not be wrong, hence we throw.
-     */
-    public void myCurrentBookings() throws IOException {
-        ApplicationDisplay.changeScene("/myCurrentBookings.fxml");
-    }
-
-    /**
-     * Changes current scene to myPreviousBookings.fxml.
-     * @throws IOException input will not be wrong, hence we throw.
-     */
-
-    public void myPreviousBookings() throws IOException {
-        ApplicationDisplay.changeScene("/myPreviousBookings.fxml");
-    }
-
-    /**
-     * Changes current scene to myAccountScene.fxml.
-     * @throws IOException input will not be wrong, hence we throw.
-     */
-    public void myAccountScene() throws IOException {
+    public void goToProfile(MouseEvent mouseEvent) throws IOException {
         ApplicationDisplay.changeScene("/myAccountScene.fxml");
     }
-
     /**
-     * Changes to myPreviousTenRoomBookings.fxml.
-     * @throws IOException input will not be wrong, hence we throw.
+     * Handels the clicking of the Bookings icon.
+     * @throws IOException when it fails
      */
-    public void myPreviousTenRoomBookings() throws IOException {
-        ApplicationDisplay.changeScene("/myPreviousTenRoomBookings.fxml");
+    public void goToMainReservationsMenu(MouseEvent mouseEvent) throws IOException {
+        ApplicationDisplay.changeScene("/MainMenuReservations.fxml");
     }
 
-    /**
-     * Changes to myPreviousTenBikeReservations.fxml.
-     * @throws IOException input will not be wrong, hence we throw.
-     */
-    public void myPreviousTenBikeReservations() throws IOException {
-        ApplicationDisplay.changeScene("/myPreviousTenBikeReservations.fxml");
+
+
+
+
+
+
+    public void myAccountScene(ActionEvent actionEvent) {
     }
 
-    /**
-     * Changes to myPreviousTenFoodOrders.fxml.
-     * @throws IOException input will not be wrong, hence we throw.
-     */
-    public void myPreviousTenFoodOrders() throws IOException {
-        ApplicationDisplay.changeScene("/myPreviousTenFoodOrders.fxml");
+    public void bookRoom(ActionEvent actionEvent) {
     }
 
-    /** Handles clicking the food button.
-     * @throws IOException Input will be valid, hence we throw.
-     */
-    public void orderFood() throws IOException {
-        ApplicationDisplay.changeScene("/orderFood.fxml");
+    public void rentBike(ActionEvent actionEvent) {
     }
 
-    /**
-     * Changes to myCurrentBikeReservations.fxml.
-     * @throws IOException input will not be wrong, hence we throw.
-     */
-    public void myCurrentBikeReservations() throws IOException {
-        ApplicationDisplay.changeScene("/myCurrentBikeReservations.fxml");
+    public void orderFood(ActionEvent actionEvent) {
     }
 
-    /**
-     * Changes to myCurrentRoomBookings.fxml.
-     * @throws IOException input will not be wrong, hence we throw.
-     */
-    public void myCurrentRoomBookings() throws IOException {
-        ApplicationDisplay.changeScene("/myCurrentRoomBookings.fxml");
+    public void myCurrentBookings(ActionEvent actionEvent) {
     }
 
-    /**
-     * Changes to myCurrentFoodOrders.fxml.
-     * @throws IOException input will not be wrong, hence we throw.
-     */
-    public void myCurrentFoodOrders() throws IOException {
-        ApplicationDisplay.changeScene("/myCurrentFoodOrders.fxml");
+    public void myPreviousBookings(ActionEvent actionEvent) {
     }
 
     public void template(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/Template.fxml");
     }
 
-    public void calendarIcon(MouseEvent mouseEvent) {
 
-    }
 }

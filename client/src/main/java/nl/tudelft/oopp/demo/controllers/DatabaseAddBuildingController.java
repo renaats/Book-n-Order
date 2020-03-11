@@ -74,6 +74,6 @@ public class DatabaseAddBuildingController {
      */
 
     public void mainMenu(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/mainMenu.fxml");
+        ApplicationDisplay.changeScene("/mainMenuReservations.fxml");
     }
 }
