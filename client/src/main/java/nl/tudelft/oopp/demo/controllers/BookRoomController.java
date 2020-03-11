@@ -3,12 +3,17 @@ package nl.tudelft.oopp.demo.controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.IntegerBinding;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
@@ -20,12 +25,35 @@ public class BookRoomController implements Initializable {
     final ObservableList listOfTimeSlots = FXCollections.observableArrayList();
     final ObservableList listOfBuildings = FXCollections.observableArrayList();
 
+    public class Search {
+        private boolean screen;
+        private boolean beamer;
+        private int capacity;
+        private String building;
+        private int nOfPlugs;
+
+        public Search(boolean screen, boolean beamer, int capacity, String building, int nOfPlugs) {
+            this.screen = screen;
+            this.beamer = beamer;
+            this.building = building;
+            this.capacity = capacity;
+            this.nOfPlugs = nOfPlugs;
+        }
+
+    }
+
     @FXML
-    private  ChoiceBox<String> from;
+    private CheckBox screen;
     @FXML
-    private ChoiceBox<String> until;
+    private CheckBox beamer;
     @FXML
-    private ChoiceBox<String> roomDropDown;
+    private ChoiceBox<String> building;
+    @FXML
+    private Button submitButton;
+    @FXML
+    private TextField capacity;
+    @FXML
+    private TextField nOfPlugs;
 
 
     @Override
@@ -33,54 +61,54 @@ public class BookRoomController implements Initializable {
         loadRoomData();
     }
 
-    @FXML
-    private void reservedRoomSlot() {
-        if (from.getValue() == null || until.getValue() == null) {
-            System.out.println("Nothing selected");
-        } else {
-            System.out.println("Your selection was from: " + from.getValue() + ", until: " + until.getValue());
+    public Search applyFilters () {
+        if (building.getValue()==null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Authenticator");
+            alert.setHeaderText(null);
+            alert.setContentText("Please select a building");
+            alert.showAndWait();
+            return null;
         }
+        if (capacity.getCharacters() == null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Authenticator");
+            alert.setHeaderText(null);
+            alert.setContentText("Please select a capacity");
+            alert.showAndWait();
+            return null;
+        }
+        if (nOfPlugs.getCharacters() == null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Authenticator");
+            alert.setHeaderText(null);
+            alert.setContentText("Please select a number of plugs");
+            alert.showAndWait();
+            return null;
+        }
+        boolean isScreen = false;
+        boolean isBeamer = false;
+        if (screen.isSelected()){
+            isScreen = true;
+        }
+        if (beamer.isSelected()) {
+            isBeamer = true;
+        }
+        int intCapacity;
+        String stringCapacity = (String) capacity.getCharacters();
+        intCapacity = Integer.parseInt(stringCapacity);
+        int intPlugs;
+        String stringPlugs = (String) nOfPlugs.getCharacters();
+        intPlugs = Integer.parseInt(stringPlugs);
+        Search search = new Search(isScreen, isBeamer, intCapacity, building.getValue(), intPlugs);
+        return search;
     }
 
     /**
      * Adds the items to the choice boxes
      */
     public void loadRoomData() {
-        listOfRooms.removeAll(listOfRooms);
-        listOfTimeSlots.removeAll(listOfTimeSlots);
-        listOfBuildings.removeAll(listOfBuildings);
-        String none = "-";
-        String a = "1";
-        String b = "2";
-        String c = "3";
-        listOfRooms.addAll(none,a,b,c);
-        roomDropDown.getItems().addAll(listOfRooms);
 
-        String building1 = "building1";
-        String building2 = "building2";
-        String building3 = "building3";
-        listOfBuildings.addAll(none,building1,building2,building3);
-        roomDropDown.getItems().addAll(listOfBuildings);
-
-        listOfTimeSlots.add(none);
-
-        for (int i = 0; i < 24; i++) {
-            for (int u = 0; u <= 45; u = u + 15) {
-                if (i == 0) {
-                    if (!listOfTimeSlots.contains("00:00")) {
-                        listOfTimeSlots.add("00:00");
-                    }
-                } else if (u == 0) {
-                    listOfTimeSlots.add(i + ":00");
-                } else if (i == 0) {
-                    listOfTimeSlots.add("00:" + u);
-                } else {
-                    listOfTimeSlots.add(i + ":" + u);
-                }
-            }
-        }
-        from.getItems().addAll(listOfTimeSlots);
-        until.getItems().addAll(listOfTimeSlots);
     }
 
     /**
@@ -134,8 +162,9 @@ public class BookRoomController implements Initializable {
     /**
      * Changes to mainMenuReservations.fxml.
      * @throws IOException input will not be wrong, hence we throw.
+     * @param actionEvent
      */
-    public void mainMenu(ActionEvent actionEvent) throws IOException {
+    public void mainMenu(MouseEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/mainMenuReservations.fxml");
     }
 
@@ -146,4 +175,5 @@ public class BookRoomController implements Initializable {
     public void roomConfirmation(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/roomConfirmation.fxml");
     }
+
 }

@@ -1,12 +1,34 @@
 package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
-public class MyAccountController {
+public class MyAccountController implements Initializable {
+
+    @FXML
+    private Label name;
+    @FXML
+    private Label email;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        loadData();
+    }
+
+    private void loadData() {
+        name.setText(ServerCommunication.getUser());
+        email.setText(ServerCommunication.getUser());
+    }
+
     /**
      * Changes to myAccountScene.fxml.
      * @throws IOException input will be valid.
@@ -37,7 +59,7 @@ public class MyAccountController {
      * @throws IOException the method will never throw an exception
      */
     public void adminPanel(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/DatabaseMenu.fxml");
+        ApplicationDisplay.changeScene("/DatabaseEdditBuildings.fxml");
     }
 
     /**
