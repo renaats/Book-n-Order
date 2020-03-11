@@ -63,6 +63,9 @@ public class UserService {
             System.out.println(email);
             return 423;
         }
+        if (!email.contains("@student.tudelft.nl") && !email.contains("@tudelft.nl")) {
+            return 424;
+        }
         if (userRepository.existsById(email)) {
             return 310;
         }
@@ -72,13 +75,21 @@ public class UserService {
         appUser.setName(name);
         appUser.setSurname(surname);
         appUser.setFaculty(faculty);
+        appUser.setRoles(new HashSet<>());
         if (!roleRepository.existsByName("ROLE_USER")) {
             Role role = new Role();
             role.setName("ROLE_USER");
             roleRepository.save(role);
         }
-        appUser.setRoles(new HashSet<>());
         appUser.addRole(roleRepository.findByName("ROLE_USER"));
+        if (email.contains("@tudelft.nl")) {
+            if (!roleRepository.existsByName("ROLE_STAFF")) {
+                Role role = new Role();
+                role.setName("ROLE_STAFF");
+                roleRepository.save(role);
+            }
+            appUser.addRole(roleRepository.findByName("ROLE_STAFF"));
+        }
         userRepository.save(appUser);
         return 201;
     }
