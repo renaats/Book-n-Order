@@ -2,11 +2,6 @@ package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 public class OrderFoodController {
@@ -60,11 +55,11 @@ public class OrderFoodController {
     }
 
     /**
-     * Changes to mainMenu.fxml.
+     * Changes to mainMenuReservations.fxml.
      * @throws IOException input will not be wrong, hence we throw.
      */
     public void mainMenu(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/mainMenu.fxml");
+        ApplicationDisplay.changeScene("/mainMenuReservations.fxml");
     }
 
     /**

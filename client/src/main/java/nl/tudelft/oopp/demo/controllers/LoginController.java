@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
-import nl.tudelft.oopp.demo.errors.ErrorMessages;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 public class LoginController {
@@ -50,5 +49,9 @@ public class LoginController {
      */
     public void registrationScene(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/registrationScreen.fxml");
+    }
+
+    public void goTomainMenuTemp(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/mainMenu1.fxml");
     }
 }

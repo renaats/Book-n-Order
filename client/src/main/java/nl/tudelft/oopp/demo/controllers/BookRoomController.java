@@ -7,14 +7,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
@@ -138,11 +132,11 @@ public class BookRoomController implements Initializable {
     }
 
     /**
-     * Changes to mainMenu.fxml.
+     * Changes to mainMenuReservations.fxml.
      * @throws IOException input will not be wrong, hence we throw.
      */
     public void mainMenu(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/mainMenu.fxml");
+        ApplicationDisplay.changeScene("/mainMenuReservations.fxml");
     }
 
     /**
