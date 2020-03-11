@@ -1,5 +1,15 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import java.io.IOException;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
+import nl.tudelft.oopp.demo.views.ApplicationDisplay;
+
 public class MainMenuController {
 
     /**
@@ -19,7 +29,7 @@ public class MainMenuController {
     }
 
     /**
-     * Changes current scene to myCurrentBookings.fxml.
+     * Changes to myCurrentBookings.fxml.
      * @throws IOException input will not be wrong, hence we throw.
      */
     public void myCurrentBookings() throws IOException {
@@ -27,7 +37,7 @@ public class MainMenuController {
     }
 
     /**
-     * Changes current scene to myPreviousBookings.fxml.
+     * Changes to myPreviousBookings.fxml.
      * @throws IOException input will not be wrong, hence we throw.
      */
 
@@ -36,7 +46,7 @@ public class MainMenuController {
     }
 
     /**
-     * Changes current scene to myAccountScene.fxml.
+     * Changes to myAccountScene.fxml.
      * @throws IOException input will not be wrong, hence we throw.
      */
     public void myAccountScene() throws IOException {
