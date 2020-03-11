@@ -115,4 +115,8 @@ public class MainMenuReservationsController {
     public void calendarIcon(MouseEvent mouseEvent) {
 
     }
+
+    public void mainMenu(MouseEvent mouseEvent) throws IOException {
+        ApplicationDisplay.changeScene("/mainMenu.fxml");
+    }
 }

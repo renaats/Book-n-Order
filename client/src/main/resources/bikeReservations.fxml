@@ -5,8 +5,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="720.0" maxWidth="1000.0" minHeight="720.0" minWidth="1000.0" prefHeight="720.0" prefWidth="1000.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.BikeReservationController">
-   <ImageView fitHeight="740.0" fitWidth="1274.0" layoutX="-110.0" pickOnBounds="true" preserveRatio="true" opacity="0.5">
+<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.BikeReservationController">
+   <ImageView fitHeight="854.0" fitWidth="1280.0" layoutY="-6.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@images/BikeBackground.jpg" />
       </image>
@@ -56,11 +56,25 @@
          <Font size="16.0" />
       </font>
    </Text>
-   <ChoiceBox fx:id="dropOffTime" layoutX="433.0" layoutY="367.0" maxHeight="26.0" maxWidth="174.0" minHeight="26.0" minWidth="174.0" prefHeight="26.0" prefWidth="174.0" AnchorPane.leftAnchor="433.0" AnchorPane.topAnchor="367.0" />
-   <ChoiceBox fx:id="pickUpTime" layoutX="433.0" layoutY="252.0" maxHeight="26.0" maxWidth="174.0" minHeight="26.0" minWidth="174.0" prefHeight="26.0" prefWidth="174.0" AnchorPane.leftAnchor="433.0" AnchorPane.topAnchor="252.0" />
    <ChoiceBox fx:id="pickUpLocation" layoutX="433.0" layoutY="287.0" maxHeight="26.0" maxWidth="174.0" minHeight="26.0" minWidth="174.0" prefHeight="26.0" prefWidth="174.0" AnchorPane.leftAnchor="433.0" AnchorPane.topAnchor="289.0" />
-   <DatePicker fx:id="pickupDate" layoutX="433.0" layoutY="212.0" maxHeight="26.0" maxWidth="174.0" minHeight="26.0" minWidth="174.0" prefHeight="26.0" prefWidth="174.0" AnchorPane.leftAnchor="433.0" AnchorPane.topAnchor="212.0" />
    <Button fx:id="reserveButton" layoutX="284.0" layoutY="467.0" maxHeight="25.0" maxWidth="230.0" minHeight="25.0" minWidth="230.0" mnemonicParsing="false" onAction="#bikeConfirmation" prefHeight="25.0" prefWidth="230.0" style="-fx-background-color: #00a6d6;" text="Rent" textFill="WHITE" AnchorPane.leftAnchor="284.0" AnchorPane.topAnchor="467.0" />
-   <DatePicker fx:id="dropoffDate" layoutX="433.0" layoutY="327.0" maxHeight="26.0" maxWidth="174.0" minHeight="26.0" minWidth="174.0" prefHeight="26.0" prefWidth="174.0" AnchorPane.leftAnchor="433.0" AnchorPane.topAnchor="327.0" />
    <ChoiceBox fx:id="dropOffLocation" layoutX="433.0" layoutY="407.0" maxHeight="26.0" maxWidth="174.0" minHeight="26.0" minWidth="174.0" prefHeight="26.0" prefWidth="174.0" AnchorPane.leftAnchor="433.0" AnchorPane.topAnchor="407.0" />
+   <ImageView fitHeight="41.0" fitWidth="44.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#mainMenu" pickOnBounds="true" preserveRatio="true">
+      <Image url="@images/HomeIcon.png" />
+   </ImageView>
+   <DatePicker layoutX="433.0" layoutY="213.0" />
+   <DatePicker layoutX="433.0" layoutY="328.0" />
+   <ComboBox fx:id="dropOffTimeH" layoutX="433.0" layoutY="368.0" prefHeight="25.0" prefWidth="53.0" />
+   <ComboBox fx:id="dropOffTimeMin" layoutX="487.0" layoutY="368.0" prefHeight="25.0" prefWidth="53.0" />
+   <ComboBox fx:id="pickUpTimeMin" layoutX="487.0" layoutY="253.0" prefHeight="25.0" prefWidth="53.0" />
+   <ComboBox fx:id="pickUpTimeH" layoutX="433.0" layoutY="253.0" prefHeight="25.0" prefWidth="53.0" />
+   <TextField fx:id="screen" layoutX="39.0" layoutY="251.0" prefHeight="295.0" prefWidth="174.0" />
+   <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="67.0" layoutY="-32.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@images/TuDelftLogo.png" />
+      </image>
+   </ImageView>
+   <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="255.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="521.0" AnchorPane.leftAnchor="255.0" AnchorPane.rightAnchor="425.0" AnchorPane.topAnchor="55.0">
+      <Image url="@images/booknorderlogo.png" />
+   </ImageView>
 </AnchorPane>

@@ -12,10 +12,7 @@
 <?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.DatabaseRoomController">
-   <ImageView fitHeight="40.0" fitWidth="114.0" layoutX="15.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="5.0">
-      <Image url="@images/tudelftlogo.png" />
-   </ImageView>
-   <ImageView fitHeight="26.0" fitWidth="112.0" layoutX="35.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="45.0">
+   <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="255.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="521.0" AnchorPane.leftAnchor="255.0" AnchorPane.rightAnchor="425.0" AnchorPane.topAnchor="55.0">
       <Image url="@images/booknorderlogo.png" />
    </ImageView>
    <MenuBar layoutY="75.0" prefHeight="26.0" prefWidth="648.0" style="-fx-background-color: #00a6d6;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
@@ -96,4 +93,13 @@
    <TextField fx:id="roomChangeToField" layoutX="548.0" layoutY="325.0" AnchorPane.leftAnchor="548.0" AnchorPane.topAnchor="325.0" />
    <Button fx:id="confirmChangeButton" layoutX="719.0" layoutY="324.0" mnemonicParsing="false" onAction="#updateRoomButtonClicked" style="-fx-background-color: #00a6d6;" text="Change" textFill="WHITE" AnchorPane.leftAnchor="725.0" AnchorPane.topAnchor="324.0" />
    <Button fx:id="roomFindAllButton" layoutX="305.0" layoutY="193.0" mnemonicParsing="false" onAction="#roomBuildingsButtonClicked" style="-fx-background-color: #00a6d6;" text="Find all" textFill="WHITE" />
+   <ImageView fitHeight="41.0" fitWidth="44.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#mainMenu"
+              pickOnBounds="true" preserveRatio="true">
+      <Image url="@images/HomeIcon.png"/>
+   </ImageView>
+   <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="67.0" layoutY="-32.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@images/TuDelftLogo.png" />
+      </image>
+   </ImageView>
 </AnchorPane>

@@ -12,6 +12,9 @@
          <Image url="@images/mainMenuBackground.jpg" />
       </image>
    </ImageView>
+   <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="255.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="521.0" AnchorPane.leftAnchor="255.0" AnchorPane.rightAnchor="425.0" AnchorPane.topAnchor="55.0">
+      <Image url="@images/booknorderlogo.png" />
+   </ImageView>
    <Button layoutX="113.0" layoutY="12.0" maxHeight="25.0" maxWidth="49.0" minHeight="25.0" minWidth="49.0" mnemonicParsing="false" onAction="#myAccountScene" prefHeight="25.0" prefWidth="49.0" style="-fx-background-color: #00a6d6;" text="Home" AnchorPane.leftAnchor="113.0" AnchorPane.topAnchor="12.0" />
    <MenuBar layoutX="163.0" layoutY="11.0" maxHeight="28.0" maxWidth="1118.0" minHeight="28.0" minWidth="192.0" prefHeight="28.0" prefWidth="1118.0" style="-fx-background-color: #00a6d6;" AnchorPane.leftAnchor="163.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="11.0">
       <Menu mnemonicParsing="false" text="New booking">
@@ -42,11 +45,11 @@
          <Rectangle2D />
       </viewport>
    </ImageView>
-   <ImageView fitHeight="115.0" fitWidth="200.0" layoutX="400.0" layoutY="219.0" onMouseClicked="#orderFood" opacity="0.9" pickOnBounds="true" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="680.0" AnchorPane.topAnchor="219.0">
+   <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="425.0" layoutY="184.0" onMouseClicked="#orderFood" opacity="0.9" pickOnBounds="true" AnchorPane.leftAnchor="425.0" AnchorPane.rightAnchor="705.0" AnchorPane.topAnchor="184.0">
       <viewport>
          <Rectangle2D />
       </viewport>
-      <Image url="@images/foodpicture.png" />
+      <Image url="@images/45332.png" />
    </ImageView>
    <ImageView fitHeight="115.0" fitWidth="200.0" layoutX="759.0" layoutY="219.0" nodeOrientation="INHERIT" onMouseClicked="#rentBike" opacity="0.9" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="321.34722900390625" AnchorPane.topAnchor="219.0">
       <viewport>
@@ -58,14 +61,14 @@
    <Button fx:id="orderFoodButton" cache="true" layoutX="400.0" layoutY="334.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#orderFood" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: #00a6d6;" text="Order food" textFill="WHITE" AnchorPane.leftAnchor="400.0" AnchorPane.topAnchor="334.0" />
    <Button fx:id="rentBikeButton" layoutX="758.0" layoutY="334.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#rentBike" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: #00a6d6;" text="Rent a bike" textFill="WHITE" AnchorPane.rightAnchor="322.0" AnchorPane.topAnchor="334.0" />
    <Button fx:id="template" layoutX="9.0" layoutY="1.0" mnemonicParsing="false" onAction="#template" text="Template" />
-   <ImageView fitHeight="253.0" fitWidth="297.0" layoutX="373.0" layoutY="415.0" onMouseClicked="#calendarIcon" pickOnBounds="true" preserveRatio="true">
+   <ImageView fitHeight="51.0" fitWidth="32.0" layoutX="76.0" layoutY="9.0" onMouseClicked="#calendarIcon" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@images/CalendarIcon.png" />
       </image>
    </ImageView>
-   <ImageView fitHeight="51.0" fitWidth="32.0" layoutX="76.0" layoutY="9.0" onMouseClicked="#calendarIcon" pickOnBounds="true" preserveRatio="true">
+   <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="67.0" layoutY="-32.0" pickOnBounds="true" preserveRatio="true">
       <image>
-         <Image url="@images/CalendarIcon.png" />
+         <Image url="@images/TuDelftLogo.png" />
       </image>
    </ImageView>
 </AnchorPane>

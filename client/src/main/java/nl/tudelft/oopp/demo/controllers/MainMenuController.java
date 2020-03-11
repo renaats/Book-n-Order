@@ -37,6 +37,7 @@ public class MainMenuController {
 
 
     public void myAccountScene(ActionEvent actionEvent) {
+
     }
 
     public void bookRoom(ActionEvent actionEvent) {
