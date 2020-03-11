@@ -10,7 +10,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
@@ -19,141 +23,60 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 public class BikeReservationController implements Initializable {
     final ObservableList<String> listLocations = FXCollections.observableArrayList();
+public class BikeReservationController implements Initializable{
+
+
+    final ObservableList listLocations = FXCollections.observableArrayList();
 
     final ObservableList<String> listTime = FXCollections.observableArrayList();
 
     final ObservableList<String> listMinutes = FXCollections.observableArrayList();
 
     @FXML
-    private ChoiceBox<String> pick;
+    private ComboBox<String> pickUpTimeH;
     @FXML
-    private  ChoiceBox<String> drop;
+    private ComboBox<String> pickUpTimeMin;
+    @FXML
+    private ComboBox<String> dropOffTimeH;
+    @FXML
+    private ComboBox<String> dropOffTimeMin;
     @FXML
     private TextField screen;
-    @FXML
-    private ChoiceBox<String> pickUpLocation;
-    @FXML
-    private ChoiceBox<String> pickUpTime;
-    @FXML
-    private ChoiceBox<String> dropOffTime;
-    @FXML
-    private ChoiceBox<String> dropOffLocation;
+
+    public void mainMenu(MouseEvent mouseEvent) throws IOException {
+        ApplicationDisplay.changeScene("/mainMenu1.fxml");
+    }
+
+    public void bikeConfirmation(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/calendar.fxml");
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         loadData();
     }
 
-    /**
-     * Is meant to connect to the back end
-     * does: it prints the choices in the choice boxes
-     * Will: send the choice box contents to database to be processed
-     */
-    @FXML
-    private void reserveBike() {
-        String bike = pick.getValue() + drop.getValue();
-        if (bike.equals("")) {
-            screen.setText("No bike");
-        } else {
-            screen.setText("your bike is " + bike);
-        }
-    }
-
-    /**
-     * Adds the items to the choice boxes (the 1,2,3 must be changed to the different pick-up locations)
-     */
-
-    public void loadData() {
-        listLocations.clear();
-        listTime.clear();
-        listMinutes.clear();
-        String a = "1";
-        String b = "2";
-        String c = "3";
-        listLocations.addAll(a, b, c);
-        pickUpLocation.getItems().addAll(listLocations);
-        dropOffLocation.getItems().addAll(listLocations);
-        for (int i = 0; i < 24; i++) {
-            if (i < 10) {
-                listTime.add("0" + i);
-            } else {
-                listTime.add(((Integer)i).toString());
-            }
-        }
-        pickUpTime.getItems().addAll(listTime);
-        dropOffTime.getItems().addAll(listTime);
-        for (int i = 0; i < 60; i = i + 15) {
-            if (i == 0) {
+    private void loadData() {
+        listTime.removeAll(listTime);
+        listMinutes.removeAll(listMinutes);
+        for (int i=0;i<=45; i=i+15){
+            if (i==0){
                 listMinutes.add("00");
             } else {
                 listMinutes.add(((Integer)i).toString());
             }
         }
-        pickUpTime.getItems().addAll(listMinutes);
-        dropOffTime.getItems().addAll(listMinutes);
-    }
-
-    /**
-     * Changes to myCurrentBookings.fxml.
-     * @throws IOException input will not be wrong, hence we throw.
-     */
-    public void myCurrentBookings() throws IOException {
-        ApplicationDisplay.changeScene("/myCurrentBookings.fxml");
-    }
-
-    /**
-     * Changes to myPreviousBookings.fxml.
-     * @throws IOException input will not be wrong, hence we throw.
-     */
-    public void myPreviousBookings() throws IOException {
-        ApplicationDisplay.changeScene("/myPreviousBookings.fxml");
-    }
-
-    /**
-     * Changes to myAccountScene.fxml.
-     * @throws IOException input will not be wrong, hence we throw.
-     */
-    public void myAccountScene() throws IOException {
-        ApplicationDisplay.changeScene("/myAccountScene.fxml");
-    }
-
-    /**
-     * Changes to bikeReservations.fxml.
-     * @throws IOException input will not be wrong, hence we throw.
-     */
-    public void rentBike(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/bikeReservations.fxml");
-    }
-
-    /**
-     * Changes to bookRoom.fxml.
-     * @throws IOException input will not be wrong, hence we throw.
-     */
-    public void bookRoom(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/bookRoom.fxml");
-    }
-
-    /**
-     * Changes to orderFood.fxml.
-     * @throws IOException input will not be wrong, hence we throw.
-     */
-    public void orderFood(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/orderFood.fxml");
-    }
-
-    /**
-     * Changes to mainMenuReservations.fxml.
-     * @throws IOException input will not be wrong, hence we throw.
-     */
-    public void mainMenu(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/mainMenuReservations.fxml");
-    }
-
-    /**
-     * Changes to bikeConfirmation.fxml.
-     * @throws IOException input will not be wrong, hence we throw.
-     */
-    public void bikeConfirmation(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/bikeConfirmation.fxml");
+        for (int i = 0; i <= 23; i++) {
+            if (i < 10 ) {
+                listTime.add("0"+i);
+            } else {
+                listTime.add(i);
+            }
+        }
+        pickUpTimeH.getItems().addAll(listTime);
+        dropOffTimeH.getItems().addAll(listTime);
+        pickUpTimeMin.getItems().addAll(listMinutes);
+        dropOffTimeMin.getItems().addAll(listMinutes);
+        screen.setText("ServerCommunication.getBuildings()");  //server not working at the moment, so I still have to test it
     }
 }
