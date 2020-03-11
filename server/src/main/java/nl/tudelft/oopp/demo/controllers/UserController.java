@@ -52,11 +52,11 @@ public class UserController {
     }
 
     /**
-     * Updates a specified attribute for some user.
-     * @param email = the email of the user
-     * @param attribute = the attribute that is changed
-     * @param value = the new value of the attribute
-     * @return String to see if your request passed
+     * Updates a specified attribute for given user.
+     * @param email = the email address of the user.
+     * @param attribute = the attribute whose value is to be changed.
+     * @param value = the new value of the attribute.
+     * @return String containing the result of your request.
      */
     @Secured("ROLE_ADMIN")
     @PostMapping(path = "/update")
@@ -78,8 +78,9 @@ public class UserController {
     }
 
     /**
-     * Lists all accounts.
-     * @return all accounts
+     * Lists all accounts in the database.
+     * Should be removed for the finished version!
+     * @return Iterable of all accounts.
      */
     @Secured("ROLE_ADMIN")
     @GetMapping(path = "/all")
@@ -89,8 +90,8 @@ public class UserController {
     }
 
     /**
-     * Finds an account by its email.
-     * @return an account that has the specified email or null if no such account exists
+     * Retrieves an account given its email.
+     * @return User with the specified email, or null if no such account exists.
      */
     @Secured("ROLE_ADMIN")
     @GetMapping(path = "/find")

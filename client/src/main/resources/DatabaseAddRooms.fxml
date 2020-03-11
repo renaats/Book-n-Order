@@ -14,93 +14,93 @@
 <?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: white;" stylesheets="@DatabaseAddRooms.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.DatabaseAddRoomController">
-   <ImageView fitHeight="40.0" fitWidth="114.0" layoutX="15.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="5.0">
-            <Image url="@images/tudelftlogo.png" />
-         </ImageView>
-         <ImageView fitHeight="26.0" fitWidth="112.0" layoutX="35.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="45.0">
-             <Image url="@images/booknorderlogo.png" />
-         </ImageView>
-       <MenuBar layoutY="75.0" prefHeight="26.0" prefWidth="648.0" style="-fx-background-color: #00a6d6;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-         <Menu mnemonicParsing="false" text="Home">
+    <ImageView fitHeight="40.0" fitWidth="114.0" layoutX="15.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="5.0">
+        <Image url="@images/tudelftlogo.png" />
+    </ImageView>
+    <ImageView fitHeight="26.0" fitWidth="112.0" layoutX="35.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="45.0">
+        <Image url="@images/booknorderlogo.png" />
+    </ImageView>
+    <MenuBar layoutY="75.0" prefHeight="26.0" prefWidth="648.0" style="-fx-background-color: #00a6d6;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <Menu mnemonicParsing="false" text="Home">
             <MenuItem mnemonicParsing="false" text="main menu" onAction="#mainMenu"/>
-         </Menu>
-           <Menu mnemonicParsing="false" text="Edit">
-         <items>
-            <MenuItem fx:id="menuBuildings" mnemonicParsing="false" onAction="#databaseBuildingMenu" text="Buildings" />
-            <MenuItem fx:id="menuRooms" mnemonicParsing="false" onAction="#databaseRoomMenu" text="Rooms" />
-         </items>
-      </Menu>
-      <Menu mnemonicParsing="false" text="Add">
-        <items>
-          <MenuItem mnemonicParsing="false" onAction="#databaseAddBuildings" text="Buildings" />
-          <MenuItem mnemonicParsing="false" onAction="#databaseAddRooms" text="Rooms" />
-        </items>
-      </Menu>
-       </MenuBar>
-         <Rectangle fill="#00a6d6" height="63.0" layoutX="-1.0" layoutY="343.0" stroke="#00a6d6" strokeType="INSIDE" width="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-         <Text fill="WHITE" layoutX="26.0" layoutY="387.0" strokeType="OUTSIDE" strokeWidth="0.0" text="© 2020 TU Delft. All rights reserved." AnchorPane.bottomAnchor="20.0">
-            <font>
-               <Font name="Calibri" size="10.0" />
-            </font>
-         </Text>
-         <Text fill="WHITE" layoutX="26.0" layoutY="371.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback is welcome" AnchorPane.bottomAnchor="35.0" />
-   <Text layoutX="340.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rooms" AnchorPane.leftAnchor="325.0">
-      <font>
-         <Font size="26.0" />
-      </font>
-   </Text>
-   <Text layoutX="335.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add a room" AnchorPane.leftAnchor="320.0" AnchorPane.topAnchor="156.0">
-      <font>
-         <Font size="17.0" />
-      </font>
-   </Text>
-   <Text layoutX="260.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Building ID:" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="249.0">
-      <font>
-         <Font size="17.0" />
-      </font>
-   </Text>
-   <Text layoutX="260.0" layoutY="238.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Faculty:" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="219.0">
-      <font>
-         <Font size="17.0" />
-      </font>
-   </Text>
-   <Text layoutX="260.0" layoutY="207.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="188.6552734375">
-      <font>
-         <Font size="17.0" />
-      </font>
-   </Text>
-   <Text layoutX="260.0" layoutY="327.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Screen:" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="308.6552734375">
-      <font>
-         <Font size="17.0" />
-      </font>
-   </Text>
-   <Text layoutX="260.0" layoutY="297.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Faculty Specifc:" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="278.6552734375">
-      <font>
-         <Font size="17.0" />
-      </font>
-   </Text>
-   <Text layoutX="260.0" layoutY="357.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Projector:" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="338.6552734375">
-      <font>
-         <Font size="17.0" />
-      </font>
-   </Text>
-   <Text layoutX="260.0" layoutY="387.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Capacity:" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="368.6552734375">
-      <font>
-         <Font size="17.0" />
-      </font>
-   </Text>
-   <Text layoutX="260.0" layoutY="417.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Plugs:" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="398.6552734375">
-      <font>
-         <Font size="17.0" />
-      </font>
-   </Text>
-   <TextField fx:id="nameTextField" layoutX="390.0" layoutY="189.0" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="190.0" />
-   <TextField fx:id="facultyTextField" layoutX="390.0" layoutY="219.0" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="220.0" />
-   <TextField fx:id="buildingIdTextField" layoutX="390.0" layoutY="249.0" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="250.0" />
-   <ToggleButton fx:id="facultySpecificToggle" layoutX="390.0" layoutY="279.0" mnemonicParsing="false" onAction="#toggleClickFacultySpecific" prefHeight="26.0" prefWidth="149.0" text="False" textFill="WHITE" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="280.0" />
-   <ToggleButton fx:id="screenToggle" layoutX="390.0" layoutY="309.0" mnemonicParsing="false" onAction="#toggleClickScreen" prefHeight="26.0" prefWidth="149.0" text="False" textFill="WHITE" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="310.0" />
-   <ToggleButton fx:id="projectorToggle" layoutX="390.0" layoutY="339.0" mnemonicParsing="false" onAction="#toggleClickProjector" prefHeight="26.0" prefWidth="149.0" text="False" textFill="WHITE" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="340.0" />
-   <TextField fx:id="capacityTextField" layoutX="390.0" layoutY="369.0" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="369.0" />
-   <TextField fx:id="plugsTextField" layoutX="390.0" layoutY="399.0" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="400.0" />
-   <Button fx:id="AddButton" layoutX="313.0" layoutY="446.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="114.0" style="-fx-background-color: #00a6d6;" text="Add" textFill="WHITE" AnchorPane.leftAnchor="267.0" AnchorPane.rightAnchor="313.0" AnchorPane.topAnchor="435.0" onAction="#databaseAddRoom"/>
-   </AnchorPane>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Edit">
+            <items>
+                <MenuItem fx:id="menuBuildings" mnemonicParsing="false" onAction="#databaseBuildingMenu" text="Buildings" />
+                <MenuItem fx:id="menuRooms" mnemonicParsing="false" onAction="#databaseRoomMenu" text="Rooms" />
+            </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Add">
+            <items>
+                <MenuItem mnemonicParsing="false" onAction="#databaseAddBuildings" text="Buildings" />
+                <MenuItem mnemonicParsing="false" onAction="#databaseAddRooms" text="Rooms" />
+            </items>
+        </Menu>
+    </MenuBar>
+    <Rectangle fill="#00a6d6" height="63.0" layoutX="-1.0" layoutY="343.0" stroke="#00a6d6" strokeType="INSIDE" width="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+    <Text fill="WHITE" layoutX="26.0" layoutY="387.0" strokeType="OUTSIDE" strokeWidth="0.0" text="© 2020 TU Delft. All rights reserved." AnchorPane.bottomAnchor="20.0">
+        <font>
+            <Font name="Calibri" size="10.0" />
+        </font>
+    </Text>
+    <Text fill="WHITE" layoutX="26.0" layoutY="371.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback is welcome" AnchorPane.bottomAnchor="35.0" />
+    <Text layoutX="340.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rooms" AnchorPane.leftAnchor="325.0">
+        <font>
+            <Font size="26.0" />
+        </font>
+    </Text>
+    <Text layoutX="335.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add a room" AnchorPane.leftAnchor="320.0" AnchorPane.topAnchor="156.0">
+        <font>
+            <Font size="17.0" />
+        </font>
+    </Text>
+    <Text layoutX="260.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Building ID:" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="249.0">
+        <font>
+            <Font size="17.0" />
+        </font>
+    </Text>
+    <Text layoutX="260.0" layoutY="238.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Faculty:" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="219.0">
+        <font>
+            <Font size="17.0" />
+        </font>
+    </Text>
+    <Text layoutX="260.0" layoutY="207.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="188.6552734375">
+        <font>
+            <Font size="17.0" />
+        </font>
+    </Text>
+    <Text layoutX="260.0" layoutY="327.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Screen:" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="308.6552734375">
+        <font>
+            <Font size="17.0" />
+        </font>
+    </Text>
+    <Text layoutX="260.0" layoutY="297.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Faculty Specifc:" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="278.6552734375">
+        <font>
+            <Font size="17.0" />
+        </font>
+    </Text>
+    <Text layoutX="260.0" layoutY="357.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Projector:" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="338.6552734375">
+        <font>
+            <Font size="17.0" />
+        </font>
+    </Text>
+    <Text layoutX="260.0" layoutY="387.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Capacity:" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="368.6552734375">
+        <font>
+            <Font size="17.0" />
+        </font>
+    </Text>
+    <Text layoutX="260.0" layoutY="417.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Plugs:" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="398.6552734375">
+        <font>
+            <Font size="17.0" />
+        </font>
+    </Text>
+    <TextField fx:id="nameTextField" layoutX="390.0" layoutY="189.0" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="190.0" />
+    <TextField fx:id="facultyTextField" layoutX="390.0" layoutY="219.0" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="220.0" />
+    <TextField fx:id="buildingIdTextField" layoutX="390.0" layoutY="249.0" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="250.0" />
+    <ToggleButton fx:id="facultySpecificToggle" layoutX="390.0" layoutY="279.0" mnemonicParsing="false" onAction="#toggleClickFacultySpecific" prefHeight="26.0" prefWidth="149.0" text="False" textFill="WHITE" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="280.0" />
+    <ToggleButton fx:id="screenToggle" layoutX="390.0" layoutY="309.0" mnemonicParsing="false" onAction="#toggleClickScreen" prefHeight="26.0" prefWidth="149.0" text="False" textFill="WHITE" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="310.0" />
+    <ToggleButton fx:id="projectorToggle" layoutX="390.0" layoutY="339.0" mnemonicParsing="false" onAction="#toggleClickProjector" prefHeight="26.0" prefWidth="149.0" text="False" textFill="WHITE" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="340.0" />
+    <TextField fx:id="capacityTextField" layoutX="390.0" layoutY="369.0" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="369.0" />
+    <TextField fx:id="plugsTextField" layoutX="390.0" layoutY="399.0" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="400.0" />
+    <Button fx:id="AddButton" layoutX="313.0" layoutY="446.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="114.0" style="-fx-background-color: #00a6d6;" text="Add" textFill="WHITE" AnchorPane.leftAnchor="267.0" AnchorPane.rightAnchor="313.0" AnchorPane.topAnchor="435.0" onAction="#databaseAddRoom"/>
+</AnchorPane>

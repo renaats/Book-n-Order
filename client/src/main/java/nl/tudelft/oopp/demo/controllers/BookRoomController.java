@@ -7,9 +7,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
@@ -22,13 +27,11 @@ public class BookRoomController implements Initializable {
     final ObservableList listOfBuildings = FXCollections.observableArrayList();
 
     @FXML
-    private ChoiceBox<String> roomDropDown;
-    @FXML
     private  ChoiceBox<String> from;
     @FXML
     private ChoiceBox<String> until;
     @FXML
-    private ChoiceBox<String> buildingList;
+    private ChoiceBox<String> roomDropDown;
 
 
     @Override
@@ -63,7 +66,7 @@ public class BookRoomController implements Initializable {
         String building2 = "building2";
         String building3 = "building3";
         listOfBuildings.addAll(none,building1,building2,building3);
-        buildingList.getItems().addAll(listOfBuildings);
+        roomDropDown.getItems().addAll(listOfBuildings);
 
         listOfTimeSlots.add(none);
 
@@ -109,36 +112,44 @@ public class BookRoomController implements Initializable {
     public void myAccountScene() throws IOException {
         ApplicationDisplay.changeScene("/myAccountScene.fxml");
     }
+
     /**
      * Changes to bikeReservations.fxml.
-     * @throws IOException when it fails
+     * @throws IOException input will not be wrong, hence we throw.
      */
-
-    public void bikesSelected1(ActionEvent actionEvent) throws IOException {
+    public void rentBike(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/bikeReservations.fxml");
     }
+
     /**
      * Changes to bookRoom.fxml.
-     * @throws IOException when it fails
+     * @throws IOException input will not be wrong, hence we throw.
      */
-
-    public void roomsSelected1(ActionEvent actionEvent) throws IOException {
+    public void bookRoom(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/bookRoom.fxml");
     }
-    /**
-     * Changes to bikeReservations.fxml.
-     * @throws IOException when it fails
-     */
 
-    public void foodsSelected1(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/bikeReservations.fxml");
+    /**
+     * Changes to orderFood.fxml.
+     * @throws IOException input will not be wrong, hence we throw.
+     */
+    public void orderFood(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/orderFood.fxml");
     }
+
     /**
      * Changes to mainMenu.fxml.
-     * @throws IOException when it fails
+     * @throws IOException input will not be wrong, hence we throw.
      */
-
-    public void gobacktoMainMenu1(ActionEvent actionEvent) throws IOException {
+    public void mainMenu(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/mainMenu.fxml");
+    }
+
+    /**
+     * Changes to roomConfirmation.fxml.
+     * @throws IOException input will not be wrong, hence we throw.
+     */
+    public void roomConfirmation(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/roomConfirmation.fxml");
     }
 }

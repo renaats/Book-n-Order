@@ -39,7 +39,7 @@ public class DatabaseBuildingController implements Initializable {
     }
 
     /**
-     * Handles clicking the building find button.
+     * Handles clicking of the Find Building button.
      */
     public void building_id_ButtonClicked() {
         try {
@@ -59,7 +59,7 @@ public class DatabaseBuildingController implements Initializable {
     }
 
     /**
-     * Handles clicking the list button.
+     * Handles clicking of the List All Buildings button.
      */
     public void listBuildingsButtonClicked() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -70,7 +70,7 @@ public class DatabaseBuildingController implements Initializable {
     }
 
     /**
-     * Changes to mainScene.fxml.
+     * Changes current scene to mainScene.fxml.
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
     public void databaseBuildingMenu() throws IOException {
@@ -78,7 +78,7 @@ public class DatabaseBuildingController implements Initializable {
     }
 
     /**
-     * Changes to mainScene.fxml.
+     * Changes current scene to mainScene.fxml.
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
     public void databaseRoomMenu() throws IOException {
@@ -86,7 +86,7 @@ public class DatabaseBuildingController implements Initializable {
     }
 
     /**
-     * Handles clicking the remove button.
+     * Handles clicking of the Remove Building button.
      */
     public void deleteBuildingButtonClicked() {
         try {
@@ -106,7 +106,7 @@ public class DatabaseBuildingController implements Initializable {
     }
 
     /**
-     * Handles the sending of update values.
+     * Handles the sending of updated values.
      */
     public void updateBuildingButtonClicked() {
         try {
@@ -155,6 +155,9 @@ public class DatabaseBuildingController implements Initializable {
         ApplicationDisplay.changeScene("/DatabaseAddRooms.fxml");
     }
 
+    public void myAccountScene(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/myAccountScene.fxml");
+    }
     /**
      * returns to the main menu
      * @param actionEvent the event is clicking the menu item

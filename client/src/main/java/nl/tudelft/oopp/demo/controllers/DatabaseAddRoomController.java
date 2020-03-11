@@ -114,6 +114,10 @@ public class DatabaseAddRoomController {
         ApplicationDisplay.changeScene("/DatabaseRoomMenu.fxml");
     }
 
+    public void myAccountScene(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/myAccountScene.fxml");
+    }
+
     /**
      * Adds a room to the database
      * @param actionEvent action event parameter
@@ -133,12 +137,12 @@ public class DatabaseAddRoomController {
         alert.setContentText(ServerCommunication.addRoom(name, faculty, buildingId, facultySpecific, screen, projector, capacity, plugs));
         alert.showAndWait();
     }
+
     /**
      * returns to the main menu
      * @param actionEvent the event is clicking the menu item
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
-
     public void mainMenu(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/mainMenu.fxml");
     }

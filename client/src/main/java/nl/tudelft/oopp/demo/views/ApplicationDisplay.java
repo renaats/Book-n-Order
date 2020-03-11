@@ -25,8 +25,8 @@ public class ApplicationDisplay extends Application {
     }
 
     /**
-     * Changes the scene to whatever file you input.
-     * @param fxml = file string of scene you want to change to.
+     * Changes the current scene to given fxml file.
+     * @param fxml = filename of scene you want to change the current scene to.
      * @throws IOException = All input will be valid, no need to check, this we throw.
      */
     public static void changeScene(String fxml) throws IOException {
