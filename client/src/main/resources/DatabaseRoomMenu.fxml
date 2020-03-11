@@ -106,4 +106,8 @@
          <Image url="@images/TuDelftLogo.png" />
       </image>
    </ImageView>
+<<<<<<< develop
 </AnchorPane>
+=======
+</AnchorPane>
+>>>>>>> Edited mosy of the views, added database main menu

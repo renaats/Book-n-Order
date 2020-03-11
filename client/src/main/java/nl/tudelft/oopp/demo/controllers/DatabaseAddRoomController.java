@@ -96,10 +96,12 @@ public class DatabaseAddRoomController {
         ApplicationDisplay.changeScene("/DatabaseAddRooms.fxml");
     }
     /**
-     * When the menu item add is clicked it take you to the DatabaseAddRooms.fxml view
-     * @param actionEvent the clicking of the menu item add.
-     * @throws IOException the input will always be correct, so it should never throw and exception.
+     * Changes to DatabaseEdditBuildings.fxml.
+     * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
+    public void databaseBuildingMenu() throws IOException {
+        ApplicationDisplay.changeScene("/DatabaseEdditBuildings.fxml");
+    }
 
     public void databaseAddRooms(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/DatabaseAddRooms.fxml");

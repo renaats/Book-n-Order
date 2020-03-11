@@ -1,24 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<<<<<<< develop
 <?import javafx.scene.*?>
+=======
+>>>>>>> Edited mosy of the views, added database main menu
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
+<<<<<<< develop
 <AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.MyAccountController">
     <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="67.0" layoutY="-32.0" pickOnBounds="true" preserveRatio="true">
         <image>
             <Image url="@images/TuDelftLogo.png" />
         </image>
     </ImageView>
+=======
+<AnchorPane maxHeight="700.0" maxWidth="1280.0" minHeight="700.0" minWidth="1280.0" prefHeight="700.0" prefWidth="1280.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.MyAccountController">
+>>>>>>> Edited mosy of the views, added database main menu
     <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="255.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="521.0" AnchorPane.leftAnchor="255.0" AnchorPane.rightAnchor="425.0" AnchorPane.topAnchor="55.0">
         <Image url="@images/booknorderlogo.png" />
     </ImageView>
     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00a6d6" height="28.0" layoutY="86.0" stroke="#00a6d6" strokeType="INSIDE" style="-fx-arc-height: 0; -fx-arc-width: 0;" width="1280.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0" />
+<<<<<<< develop
     <Button layoutX="289.0" layoutY="255.0" maxHeight="25.0" maxWidth="230.0" minHeight="25.0" minWidth="120.0" mnemonicParsing="false" onAction="#changePasswordScene" prefHeight="25.0" prefWidth="120.0" style="-fx-background-color: #00a6d6;" text="Change password" textFill="WHITE" AnchorPane.leftAnchor="289.0" AnchorPane.topAnchor="255.0" />
     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00a6d6" height="79.0" layoutX="-1.0" layoutY="521.0" stroke="#00a6d6" strokeType="INSIDE" style="-fx-arc-height: 0; -fx-arc-width: 0;" width="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+=======
+    <Button layoutX="60.0" layoutY="423.0" maxHeight="25.0" maxWidth="230.0" minHeight="25.0" minWidth="120.0" mnemonicParsing="false" onAction="#myAccountScene" prefHeight="25.0" prefWidth="120.0" style="-fx-background-color: #00a6d6;" text="Change password" textFill="WHITE" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="423.0" />
+    <Button layoutX="51.0" layoutY="85.0" maxHeight="25.0" maxWidth="49.0" minHeight="25.0" minWidth="49.0" mnemonicParsing="false" onAction="#myAccountScene" prefHeight="25.0" prefWidth="49.0" style="-fx-background-color: #00a6d6;" text="Home" AnchorPane.leftAnchor="46.0" AnchorPane.rightAnchor="700.0" AnchorPane.topAnchor="85.0" />
+    <MenuBar layoutX="108.0" layoutY="85.0" maxHeight="28.0" maxWidth="192.0" minHeight="28.0" minWidth="192.0" prefHeight="28.0" prefWidth="192.0" style="-fx-background-color: #00a6d6;" AnchorPane.leftAnchor="94.0" AnchorPane.rightAnchor="514.0" AnchorPane.topAnchor="85.0">
+        <Menu mnemonicParsing="false" text="New booking">
+            <MenuItem mnemonicParsing="false" onAction="#bookRoom" text="Book a room" />
+            <MenuItem mnemonicParsing="false" onAction="#rentBike" text="Rent a bike" />
+            <MenuItem mnemonicParsing="false" onAction="#orderFood" text="Order food" />
+        </Menu>
+        <Menu mnemonicParsing="false" text="My account">
+            <MenuItem mnemonicParsing="false" onAction="#myAccountScene" text="My profile" />
+            <MenuItem mnemonicParsing="false" onAction="#myCurrentBookings" text="My current bookings" />
+            <MenuItem mnemonicParsing="false" onAction="#myPreviousBookings" text="My previous bookings" />
+        </Menu>
+    </MenuBar>
+    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00a6d6" height="79.0" layoutX="-1.0" layoutY="521.0" stroke="#00a6d6" strokeType="INSIDE" style="-fx-arc-height: 0; -fx-arc-width: 0;" width="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+>>>>>>> Edited mosy of the views, added database main menu
     <Text fill="WHITE" layoutX="20.0" layoutY="555.576171875" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback is welcome" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0">
         <font>
             <Font size="18.0" />
@@ -29,31 +54,53 @@
             <Font name="Calibri" size="11.0" />
         </font>
     </Text>
+<<<<<<< develop
     <Text layoutX="227.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My profile information:" AnchorPane.leftAnchor="227.0" AnchorPane.topAnchor="128.1015625">
+=======
+    <Text layoutX="20.0" layoutY="155.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My profile information:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="129.0">
+>>>>>>> Edited mosy of the views, added database main menu
         <font>
             <Font size="24.0" />
         </font>
     </Text>
+<<<<<<< develop
     <Text layoutX="227.0" layoutY="198.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" AnchorPane.leftAnchor="227.0" AnchorPane.topAnchor="182.892578125">
+=======
+    <Text layoutX="25.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="183.892578125">
+>>>>>>> Edited mosy of the views, added database main menu
         <font>
             <Font size="14.0" />
         </font>
     </Text>
+<<<<<<< develop
     <Text layoutX="227.0" layoutY="230.0" strokeType="OUTSIDE" strokeWidth="0.0" text="E-mail address:" AnchorPane.leftAnchor="227.0" AnchorPane.topAnchor="214.892578125">
+=======
+    <Text layoutX="26.0" layoutY="231.0" strokeType="OUTSIDE" strokeWidth="0.0" text="E-mail address:" AnchorPane.leftAnchor="26.0" AnchorPane.topAnchor="215.892578125">
+>>>>>>> Edited mosy of the views, added database main menu
         <font>
             <Font size="14.0" />
         </font>
     </Text>
+<<<<<<< develop
     <Button fx:id="LogoutButton" layoutX="284.0" layoutY="386.0" mnemonicParsing="false" onAction="#logoutUser" prefHeight="32.0" prefWidth="130.0" style="-fx-background-color: #00a6d6;" text="Logout" textFill="WHITE" AnchorPane.leftAnchor="284.0" AnchorPane.topAnchor="386.0">
+=======
+      <TextField layoutX="24.0" layoutY="386.0" prefHeight="26.0" prefWidth="191.0" AnchorPane.bottomAnchor="288.0" AnchorPane.leftAnchor="24.0" />
+    <Button fx:id="LogoutButton" layoutX="284.0" layoutY="130.0" mnemonicParsing="false" onAction="#logoutUser" prefHeight="32.0" prefWidth="130.0" style="-fx-background-color: #00a6d6;" text="Logout" textFill="WHITE" AnchorPane.leftAnchor="284.0" AnchorPane.topAnchor="130.0">
+>>>>>>> Edited mosy of the views, added database main menu
         <font>
             <Font size="14.0" />
         </font>
     </Button>
+<<<<<<< develop
     <Button fx:id="adminControl" layoutX="1136.0" layoutY="130.0" mnemonicParsing="false" onAction="#adminPanel" prefHeight="0.0" prefWidth="130.0" style="-fx-background-color: #00a6d6;" text="Admin Control" textFill="WHITE">
+=======
+    <Button fx:id="adminControl" layoutX="1136.0" layoutY="83.0" mnemonicParsing="false" onAction="#adminPanel" prefHeight="32.0" prefWidth="130.0" style="-fx-background-color: #00a6d6;" text="Admin Control" textFill="WHITE">
+>>>>>>> Edited mosy of the views, added database main menu
         <font>
             <Font size="14.0" />
         </font>
     </Button>
+<<<<<<< develop
    <Label fx:id="name" layoutX="365.0" layoutY="184.0" text="Name goes here" />
    <Label fx:id="email" layoutX="369.0" layoutY="216.0" text="E-mail goes here" />
    <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="855.0" layoutY="158.0" onMouseClicked="#myPreviousBookings" pickOnBounds="true" preserveRatio="true">
@@ -80,4 +127,14 @@
     </ImageView>
    <Text layoutX="893.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Past Bookings" />
    <Text layoutX="884.0" layoutY="364.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Current Bookings" />
+=======
+   <Label fx:id="name" layoutX="131.0" layoutY="184.0" text="Name goes here" />
+   <Label fx:id="email" layoutX="135.0" layoutY="216.0" text="E-mail goes here" />
+    <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="67.0" layoutY="-32.0" pickOnBounds="true" preserveRatio="true">
+        <image>
+            <Image url="@images/TuDelftLogo.png" />
+        </image>
+    </ImageView>
+
+>>>>>>> Edited mosy of the views, added database main menu
 </AnchorPane>

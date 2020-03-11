@@ -9,7 +9,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
@@ -23,6 +22,19 @@ public class MyAccountController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         loadData();
+    }
+
+    private void loadData() {
+        name.setText(ServerCommunication.getUser());
+        email.setText(ServerCommunication.getUser());
+    }
+
+    /**
+     * Changes current scene to myAccountScene.fxml.
+     * @throws IOException input will be valid.
+     */
+    public void myAccountScene() throws IOException {
+        ApplicationDisplay.changeScene("/myAccountScene.fxml");
     }
 
     private void loadData() {
@@ -54,7 +66,7 @@ public class MyAccountController implements Initializable {
      * @throws IOException the method will never throw an exception
      */
     public void adminPanel(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/DatabaseMainMenu.fxml");
+        ApplicationDisplay.changeScene("/DatabaseEdditBuildings.fxml");
     }
 
     /**

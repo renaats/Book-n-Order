@@ -4,19 +4,16 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.IntegerBinding;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
@@ -28,30 +25,19 @@ public class BookRoomController implements Initializable {
     final ObservableList<String> listOfTimeSlots = FXCollections.observableArrayList();
     final ObservableList<String> listOfBuildings = FXCollections.observableArrayList();
 
-
-
-
     public class Search {
         private boolean screen;
         private boolean beamer;
         private int capacity;
         private String building;
-        private int nuOfPlugs;
+        private int nOfPlugs;
 
-        /**
-         * constructor for the search object
-         * @param screen is there a screen
-         * @param beamer is there a beamer
-         * @param capacity the capacity of the room
-         * @param building what building is it in
-         * @param nuOfPlugs number of plug
-         */
-        public Search(boolean screen, boolean beamer, int capacity, String building, int nuOfPlugs) {
+        public Search(boolean screen, boolean beamer, int capacity, String building, int nOfPlugs) {
             this.screen = screen;
             this.beamer = beamer;
             this.building = building;
             this.capacity = capacity;
-            this.nuOfPlugs = nuOfPlugs;
+            this.nOfPlugs = nOfPlugs;
         }
 
     }
@@ -67,9 +53,7 @@ public class BookRoomController implements Initializable {
     @FXML
     private TextField capacity;
     @FXML
-    private TextField nuOfPlugs;
-    @FXML
-    private TextArea rooms;
+    private TextField nOfPlugs;
 
 
     @Override
@@ -77,12 +61,8 @@ public class BookRoomController implements Initializable {
         loadRoomData();
     }
 
-    /**
-     * applies the selected filters
-     * @return returns an object of search with the proper properties
-     */
-    public Search applyFilters() {
-        if (building.getValue() == null) {
+    public Search applyFilters () {
+        if (building.getValue()==null) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Authenticator");
             alert.setHeaderText(null);
@@ -98,7 +78,7 @@ public class BookRoomController implements Initializable {
             alert.showAndWait();
             return null;
         }
-        if (nuOfPlugs.getCharacters() == null) {
+        if (nOfPlugs.getCharacters() == null) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Authenticator");
             alert.setHeaderText(null);
@@ -108,7 +88,7 @@ public class BookRoomController implements Initializable {
         }
         boolean isScreen = false;
         boolean isBeamer = false;
-        if (screen.isSelected()) {
+        if (screen.isSelected()){
             isScreen = true;
         }
         if (beamer.isSelected()) {
@@ -118,7 +98,7 @@ public class BookRoomController implements Initializable {
         String stringCapacity = (String) capacity.getCharacters();
         intCapacity = Integer.parseInt(stringCapacity);
         int intPlugs;
-        String stringPlugs = (String) nuOfPlugs.getCharacters();
+        String stringPlugs = (String) nOfPlugs.getCharacters();
         intPlugs = Integer.parseInt(stringPlugs);
         Search search = new Search(isScreen, isBeamer, intCapacity, building.getValue(), intPlugs);
         return search;
@@ -196,9 +176,18 @@ public class BookRoomController implements Initializable {
     /**
      * Changes to mainMenuReservations.fxml.
      * @throws IOException input will not be wrong, hence we throw.
+     * @param actionEvent
      */
-    public void mainMenu(ActionEvent actionEvent) throws IOException {
+    public void mainMenu(MouseEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/mainMenuReservations.fxml");
+    }
+
+    /**
+     * Changes to roomConfirmation.fxml.
+     * @throws IOException input will not be wrong, hence we throw.
+     */
+    public void roomConfirmation(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/roomConfirmation.fxml");
     }
 
 }

@@ -14,10 +14,13 @@
 <?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: white;" stylesheets="@DatabaseAddRooms.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.DatabaseAddRoomController">
+<<<<<<< develop
     <ImageView fitHeight="720.0" layoutX="-5.0" layoutY="-8.0" pickOnBounds="true" preserveRatio="true" opacity="0.5">
         <image>
             <Image url="@images/DatabaseRoomBackground.jpg" />
         </image></ImageView>
+=======
+>>>>>>> Edited mosy of the views, added database main menu
     <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="255.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="521.0" AnchorPane.leftAnchor="255.0" AnchorPane.rightAnchor="425.0" AnchorPane.topAnchor="55.0">
         <Image url="@images/booknorderlogo.png" />
     </ImageView>
@@ -107,7 +110,14 @@
     <TextField fx:id="capacityTextField" layoutX="390.0" layoutY="369.0" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="369.0" />
     <TextField fx:id="plugsTextField" layoutX="390.0" layoutY="399.0" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="400.0" />
     <Button fx:id="AddButton" layoutX="313.0" layoutY="446.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="114.0" style="-fx-background-color: #00a6d6;" text="Add" textFill="WHITE" AnchorPane.leftAnchor="267.0" AnchorPane.rightAnchor="313.0" AnchorPane.topAnchor="435.0" onAction="#databaseAddRoom"/>
+<<<<<<< develop
     <ImageView fitHeight="41.0" fitWidth="44.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#mainMenu" pickOnBounds="true" preserveRatio="true">
         <Image url="@images/HomeIcon.png" />
+=======
+    <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="67.0" layoutY="-32.0" pickOnBounds="true" preserveRatio="true">
+        <image>
+            <Image url="@images/TuDelftLogo.png" />
+        </image>
+>>>>>>> Edited mosy of the views, added database main menu
     </ImageView>
 </AnchorPane>
