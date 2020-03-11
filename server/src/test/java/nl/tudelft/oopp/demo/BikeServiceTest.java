@@ -11,7 +11,6 @@ import nl.tudelft.oopp.demo.entities.Bike;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.repositories.BuildingRepository;
 import nl.tudelft.oopp.demo.services.BikeService;
-import nl.tudelft.oopp.demo.services.BikeServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +24,7 @@ public class BikeServiceTest {
     static class BikeServiceTestConfiguration {
         @Bean
         public BikeService bikeService() {
-            return new BikeServiceImpl();
+            return new BikeService();
         }
     }
 
