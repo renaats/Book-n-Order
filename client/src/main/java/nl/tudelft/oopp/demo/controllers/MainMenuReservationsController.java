@@ -10,7 +10,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
-public class MainMenuController {
+public class MainMenuReservationsController {
 
     /**
      * Handels the clicking of the button under the bike image at the main menu.

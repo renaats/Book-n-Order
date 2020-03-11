@@ -46,7 +46,7 @@ public class MyAccountController {
      * @throws IOException the method will never throw an exception
      */
     public void mainMenu(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/mainMenu.fxml");
+        ApplicationDisplay.changeScene("/mainMenuReservations.fxml");
     }
 
     /** Handles clicking the food button.

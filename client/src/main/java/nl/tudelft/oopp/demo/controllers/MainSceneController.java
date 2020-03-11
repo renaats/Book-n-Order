@@ -56,7 +56,7 @@ public class MainSceneController {
      */
 
     public void goBackToMenu(ActionEvent actionEvent) throws IOException {
-        Parent roomSelectParent = FXMLLoader.load(getClass().getResource("/mainMenu.fxml"));
+        Parent roomSelectParent = FXMLLoader.load(getClass().getResource("/mainMenuReservations.fxml"));
         Scene roomSelectScene = new Scene(roomSelectParent);
 
         Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -70,6 +70,6 @@ public class MainSceneController {
      */
 
     public void gobacktoMainMenu1(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/mainMenu.fxml");
+        ApplicationDisplay.changeScene("/mainMenuReservations.fxml");
     }
 }

@@ -144,6 +144,6 @@ public class DatabaseAddRoomController {
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
     public void mainMenu(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/mainMenu.fxml");
+        ApplicationDisplay.changeScene("/mainMenuReservations.fxml");
     }
 }

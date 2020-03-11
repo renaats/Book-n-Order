@@ -1,5 +1,11 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import javafx.event.ActionEvent;
+import javafx.scene.input.MouseEvent;
+import nl.tudelft.oopp.demo.views.ApplicationDisplay;
+
+import java.io.IOException;
+
 public class MainMenuController {
 
     /**

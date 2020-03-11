@@ -15,48 +15,21 @@ import java.net.URL;
 
 
 public class TemplateController {
-    /**
-    @FXML
-    private AnchorPane content;
 
     @FXML
-    private void handleShowView(ActionEvent e) {
-        String view = (String) ((Node)e.getSource()).getUserData();
-        loadFXML(getClass().getResource(view));
-    }
-
-    private void loadFXML(URL url) {
-        try {
-            FXMLLoader loader = new FXMLLoader(url);
-            mainBorderPane.setCenter(loader.load());
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+    private BorderPane mainBorderPane;
 
     @FXML
-    private void handleButtonAction(ActionEvent event) {
-        content.getChildren().setAll(FXMLLoader.load("vista2.fxml"));
-    }
-**/
-    public void bookRoom(ActionEvent actionEvent) {
+    private void changecenterView(){
+
     }
 
-    public void rentBike(ActionEvent actionEvent) {
+    public void bookRoom(ActionEvent actionEvent) throws IOException {
+        URL url = getClass().getResource("/login-screen.fxml");
+        mainBorderPane.setCenter(FXMLLoader.load(url));
     }
 
-    public void orderFood(ActionEvent actionEvent) {
-    }
 
-    public void myAccountScene(ActionEvent actionEvent) {
-    }
-
-    public void myCurrentBookings(ActionEvent actionEvent) {
-    }
-
-    public void myPreviousBookings(ActionEvent actionEvent) {
-    }
 
     public void mainMenu(MouseEvent mouseEvent) {
     }

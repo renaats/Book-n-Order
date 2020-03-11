@@ -196,6 +196,6 @@ public class DatabaseBuildingController implements Initializable {
      */
 
     public void mainMenu(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/mainMenu.fxml");
+        ApplicationDisplay.changeScene("/mainMenuReservations.fxml");
     }
 }

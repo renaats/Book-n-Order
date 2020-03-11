@@ -55,11 +55,11 @@ public class OrderFoodController {
     }
 
     /**
-     * Changes to mainMenu.fxml.
+     * Changes to mainMenuReservations.fxml.
      * @throws IOException input will not be wrong, hence we throw.
      */
     public void mainMenu(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/mainMenu.fxml");
+        ApplicationDisplay.changeScene("/mainMenuReservations.fxml");
     }
 
     /**
