@@ -4,18 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import nl.tudelft.oopp.demo.entities.Bike;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Restaurant;
 import nl.tudelft.oopp.demo.repositories.BuildingRepository;
-import nl.tudelft.oopp.demo.services.BikeService;
-import nl.tudelft.oopp.demo.services.BikeServiceImpl;
 import nl.tudelft.oopp.demo.services.RestaurantService;
-import nl.tudelft.oopp.demo.services.RestaurantServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +24,7 @@ public class RestaurantServiceTest {
     static class RestaurantServiceTestConfiguration {
         @Bean
         public RestaurantService restaurantService() {
-            return new RestaurantServiceImpl();
+            return new RestaurantService();
         }
     }
 
