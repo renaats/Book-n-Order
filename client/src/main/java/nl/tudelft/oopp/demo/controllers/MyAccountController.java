@@ -63,7 +63,7 @@ public class MyAccountController implements Initializable {
      * @throws IOException the method will never throw an exception
      */
     public void mainMenu(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/mainMenu.fxml");
+        ApplicationDisplay.changeScene("/mainMenuReservations.fxml");
     }
 
     /**

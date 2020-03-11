@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.BookRoomController">
-    <ImageView fitHeight="720.0" fitWidth="1280.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
-        <Image url="@images/RoomsBackGround.jpg" />
-    </ImageView>
-    <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="255.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="521.0" AnchorPane.leftAnchor="255.0" AnchorPane.rightAnchor="425.0" AnchorPane.topAnchor="55.0">
-        <Image url="@images/booknorderlogo.png" />
-    </ImageView>
+<AnchorPane maxHeight="720.0" maxWidth="1000.0" minHeight="720.0" minWidth="1000.0" prefHeight="720.0" prefWidth="1000.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.BookRoomController">
+   <ImageView fitHeight="720.0" fitWidth="1280.0" layoutX="-280.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@images/RoomsBackGround.jpg" />
+      </image>
+   </ImageView>
     <Text fill="WHITE" layoutX="20.0" layoutY="555.576171875" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback is welcome" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0">
         <font>
             <Font size="18.0" />
@@ -23,41 +21,14 @@
             <Font name="Calibri" size="11.0" />
         </font>
     </Text>
-   <TextField fx:id="nOfPlugs" layoutX="193.0" layoutY="325.0" promptText="Number of plugs" />
-    <Button fx:id="submitButton" layoutX="214.0" layoutY="437.0" mnemonicParsing="false" onAction="#applyFilters" text="Search for rooms" />
-   <ChoiceBox fx:id="building" layoutX="192.0" layoutY="388.0" prefWidth="150.0" />
-   <Text layoutX="193.0" layoutY="383.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Building:">
+   <TextField layoutX="78.0" layoutY="249.0" promptText="Capacity" />
+   <ToggleButton layoutX="177.0" layoutY="201.0" mnemonicParsing="false" text="Beamer" />
+   <ToggleButton layoutX="78.0" layoutY="201.0" mnemonicParsing="false" text="Screen" />
+   <Button layoutX="99.0" layoutY="367.0" mnemonicParsing="false" text="Search for rooms" />
+   <ChoiceBox layoutX="77.0" layoutY="315.0" prefWidth="150.0" />
+   <Text layoutX="83.0" layoutY="303.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Building:">
       <font>
          <Font name="Arial" size="18.0" />
       </font>
    </Text>
-   <TextField fx:id="capacity" layoutX="193.0" layoutY="282.0" promptText="Capacity" />
-    <ImageView fx:id="homeIcon" fitHeight="41.0" fitWidth="44.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#mainMenu" pickOnBounds="true" preserveRatio="true">
-        <Image url="@images/HomeIcon.png" />
-      <cursor>
-         <Cursor fx:constant="HAND" />
-      </cursor>
-    </ImageView>
-   <CheckBox fx:id="beamer" layoutX="193.0" layoutY="250.0" mnemonicParsing="false" text="Beamer" />
-   <CheckBox fx:id="screen" layoutX="286.0" layoutY="250.0" mnemonicParsing="false" text="Screen" />
-    <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="67.0" layoutY="-32.0" pickOnBounds="true" preserveRatio="true">
-        <image>
-            <Image url="@images/TuDelftLogo.png" />
-        </image>
-    </ImageView>
-   <TableView layoutX="532.0" layoutY="163.0" prefHeight="374.0" prefWidth="437.0">
-     <columns>
-       <TableColumn prefWidth="75.0" text="C1" />
-       <TableColumn prefWidth="75.0" text="C2" />
-     </columns>
-   </TableView>
-   <ImageView fitHeight="41.0" fitWidth="69.0" layoutX="14.0" layoutY="67.0" onMouseClicked="#goToMainMenuReservations" pickOnBounds="true" preserveRatio="true">
-      <image>
-         <Image url="@images/BackArrow.png" />
-      </image>
-      <cursor>
-         <Cursor fx:constant="HAND" />
-      </cursor>
-   </ImageView>
-   <Button layoutX="681.0" layoutY="560.0" mnemonicParsing="false" onAction="#goToRoomConfirmation" text="Reserve Selected Room" />
 </AnchorPane>

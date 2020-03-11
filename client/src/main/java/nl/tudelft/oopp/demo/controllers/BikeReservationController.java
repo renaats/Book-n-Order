@@ -82,4 +82,60 @@ public class BikeReservationController implements Initializable {
     public void goToMainMenuReservations() throws IOException {
         ApplicationDisplay.changeScene("/mainMenuReservations.fxml");
     }
+
+    /**
+     * Changes to myPreviousBookings.fxml.
+     * @throws IOException input will not be wrong, hence we throw.
+     */
+    public void myPreviousBookings() throws IOException {
+        ApplicationDisplay.changeScene("/myPreviousBookings.fxml");
+    }
+
+    /**
+     * Changes to myAccountScene.fxml.
+     * @throws IOException input will not be wrong, hence we throw.
+     */
+    public void myAccountScene() throws IOException {
+        ApplicationDisplay.changeScene("/myAccountScene.fxml");
+    }
+
+    /**
+     * Changes to bikeReservations.fxml.
+     * @throws IOException input will not be wrong, hence we throw.
+     */
+    public void rentBike(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/bikeReservations.fxml");
+    }
+
+    /**
+     * Changes to bookRoom.fxml.
+     * @throws IOException input will not be wrong, hence we throw.
+     */
+    public void bookRoom(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/bookRoom.fxml");
+    }
+
+    /**
+     * Changes to orderFood.fxml.
+     * @throws IOException input will not be wrong, hence we throw.
+     */
+    public void orderFood(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/orderFood.fxml");
+    }
+
+    /**
+     * Changes to mainMenuReservations.fxml.
+     * @throws IOException input will not be wrong, hence we throw.
+     */
+    public void mainMenu(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/mainMenuReservations.fxml");
+    }
+
+    /**
+     * Changes to bikeConfirmation.fxml.
+     * @throws IOException input will not be wrong, hence we throw.
+     */
+    public void bikeConfirmation(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/bikeConfirmation.fxml");
+    }
 }

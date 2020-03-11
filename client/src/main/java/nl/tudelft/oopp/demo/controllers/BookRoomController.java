@@ -173,8 +173,32 @@ public class BookRoomController implements Initializable {
      * Changes to mainMenuReservations.fxml.
      * @throws IOException input will not be wrong, hence we throw.
      */
-    public void mainMenu() throws IOException {
-        ApplicationDisplay.changeScene("/mainMenu.fxml");
+    public void rentBike(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/bikeReservations.fxml");
+    }
+
+    /**
+     * Changes to bookRoom.fxml.
+     * @throws IOException input will not be wrong, hence we throw.
+     */
+    public void bookRoom(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/bookRoom.fxml");
+    }
+
+    /**
+     * Changes to orderFood.fxml.
+     * @throws IOException input will not be wrong, hence we throw.
+     */
+    public void orderFood(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/orderFood.fxml");
+    }
+
+    /**
+     * Changes to mainMenuReservations.fxml.
+     * @throws IOException input will not be wrong, hence we throw.
+     */
+    public void mainMenu(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/mainMenuReservations.fxml");
     }
 
 }
