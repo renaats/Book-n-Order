@@ -14,13 +14,10 @@
 <?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: white;" stylesheets="@DatabaseAddRooms.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.DatabaseAddRoomController">
-<<<<<<< develop
     <ImageView fitHeight="720.0" layoutX="-5.0" layoutY="-8.0" pickOnBounds="true" preserveRatio="true" opacity="0.5">
         <image>
             <Image url="@images/DatabaseRoomBackground.jpg" />
         </image></ImageView>
-=======
->>>>>>> Edited mosy of the views, added database main menu
     <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="255.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="521.0" AnchorPane.leftAnchor="255.0" AnchorPane.rightAnchor="425.0" AnchorPane.topAnchor="55.0">
         <Image url="@images/booknorderlogo.png" />
     </ImageView>
