@@ -9,10 +9,10 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
+import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
@@ -21,6 +21,7 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 public class DatabaseBuildingController implements Initializable {
 
     final ObservableList<String> updateChoiceBoxList = FXCollections.observableArrayList();
+    final ObservableList<Building> buildingResult = FXCollections.observableArrayList();
 
     @FXML
     private ChoiceBox<String> updateChoiceBox;
@@ -32,10 +33,27 @@ public class DatabaseBuildingController implements Initializable {
     private TextField buildingFindByIdUpdateField;
     @FXML
     private TextField buildingChangeToField;
+    @FXML
+    private TableView<Building> table;
+    @FXML
+    private TableColumn<Building, String> col_id;
+    @FXML
+    private TableColumn<Building, String> col_name;
+    @FXML
+    private TableColumn<Building, String> col_street;
+    @FXML
+    private TableColumn<Building, Integer> col_housenumber;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         loadDataUpdateChoiceBox();
+
+        col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
+        col_name.setCellValueFactory(new PropertyValueFactory<>("name"));
+        col_street.setCellValueFactory(new PropertyValueFactory<>("street"));
+        col_housenumber.setCellValueFactory(new PropertyValueFactory<>("housenumber"));
+
     }
 
     /**
@@ -44,11 +62,10 @@ public class DatabaseBuildingController implements Initializable {
     public void building_id_ButtonClicked() {
         try {
             int id = Integer.parseInt(buildingFindByIdTextField.getText());
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Building Finder");
-            alert.setHeaderText(null);
-            alert.setContentText(ServerCommunication.findBuilding(id));
-            alert.showAndWait();
+            Building building = (Building) ServerCommunication.findBuilding(id);
+            buildingResult.removeAll();
+            buildingResult.add(building);
+            table.setItems(buildingResult);
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Error");

@@ -180,7 +180,7 @@ public class ServerCommunication {
      * @param buildingID = building id, which is parsed from a text field.
      * @return the body of the response.
      */
-    public static String findBuilding(int buildingID) {
+    public static Object findBuilding(int buildingID) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building/find/" + buildingID)).GET().header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
         HttpResponse<String> response;
         try {
@@ -196,8 +196,7 @@ public class ServerCommunication {
         if (response.body().equals("")) {
             return ErrorMessages.getErrorMessage(404);
         } else {
-            System.out.println(response.body());
-            return response.body();
+            return JsonMapper.map(response.body());
         }
     }
 
