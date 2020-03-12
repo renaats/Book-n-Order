@@ -440,4 +440,30 @@ public class ServerCommunication {
         }
         return ErrorMessages.getErrorMessage(Integer.parseInt(response.body()));
     }
+
+    /**
+     * Updates a given attribute of a room reservation.
+     * @param id = the id of the room reservation.
+     * @param attribute = The attribute whose value is to be changed.
+     * @param changeValue = New value.
+     * @return the body of the response from the server.
+     */
+    public static String updateRoomReservation(int id, String attribute, String changeValue) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room_reservation/update?id=" + id + "&attribute=" + attribute + "&value=" + changeValue)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
+        HttpResponse<String> response;
+        try {
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Communication with server failed";
+        }
+        if (response.statusCode() == 403) {
+            return ErrorMessages.getErrorMessage(401);
+        }
+        if (response.statusCode() != 200) {
+            System.out.println(response.body());
+            System.out.println("Status: " + response.statusCode());
+        }
+        return ErrorMessages.getErrorMessage(Integer.parseInt(response.body()));
+    }
 }
