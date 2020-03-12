@@ -1,13 +1,14 @@
 package nl.tudelft.oopp.demo.controllers;
 
-import java.io.IOException;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
+
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 /**
  * Takes care of the functionality of the DataBaseAddBuilding.fxml file
@@ -57,7 +58,7 @@ public class DatabaseAddBuildingController {
      * Adds building to the database
      * @param actionEvent actionEvent parameter.
      */
-    public void databaseAddBuilding(ActionEvent actionEvent) {
+    public void databaseAddBuilding(ActionEvent actionEvent) throws UnsupportedEncodingException {
         String name = nameTextField.getText();
         String street = streetTextField.getText();
         int houseNumber = Integer.parseInt(houseNumberTextField.getText());

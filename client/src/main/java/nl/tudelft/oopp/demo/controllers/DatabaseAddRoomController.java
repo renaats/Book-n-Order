@@ -1,15 +1,17 @@
 package nl.tudelft.oopp.demo.controllers;
 
-import java.io.IOException;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
-
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
+
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+
+
 
 /**
  * Takes care of the functionality  DataBaseAddRoom.fxml file
@@ -122,7 +124,7 @@ public class DatabaseAddRoomController {
      * Adds a room to the database
      * @param actionEvent action event parameter
      */
-    public void databaseAddRoom(ActionEvent actionEvent) {
+    public void databaseAddRoom(ActionEvent actionEvent) throws UnsupportedEncodingException {
         String name = nameTextField.getText();
         String faculty = facultyTextField.getText();
         int buildingId = Integer.parseInt(buildingIdTextField.getText());

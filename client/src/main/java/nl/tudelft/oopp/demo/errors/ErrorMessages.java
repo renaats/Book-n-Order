@@ -16,7 +16,7 @@ public class ErrorMessages {
     private static final String buildingNotFoundMessage = "Building not found.";
     private static final String nameAlreadyExistsMessage = "Name already exists.";
     private static final String emailAlreadyExistsMessage = "Email already exists.";
-    private static final String inproperLoginCredentialsMessage = "Login and/or password is incorrect.";
+    private static final String improperLoginCredentialsMessage = "Login and/or password is incorrect.";
     private static final String invalidEmailMessage = "You have to input a valid email.";
     private static final String invalidEmailDomainMessage = "A TU Delft email is required. To create a restaurant account please contact an admin.";
     private static final String somethingWentWrongMessage = "Something went wrong.";
@@ -50,7 +50,7 @@ public class ErrorMessages {
             case 310:
                 return emailAlreadyExistsMessage;
             case 311:
-                return inproperLoginCredentialsMessage;
+                return improperLoginCredentialsMessage;
             case 401:
                 return unAuthorizedMessage;
             case 404:

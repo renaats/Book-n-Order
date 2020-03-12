@@ -1,16 +1,7 @@
 package nl.tudelft.oopp.demo.services;
 
-import static nl.tudelft.oopp.demo.security.SecurityConstants.HEADER_STRING;
-import static nl.tudelft.oopp.demo.security.SecurityConstants.SECRET;
-import static nl.tudelft.oopp.demo.security.SecurityConstants.TOKEN_PREFIX;
-
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-
-import java.util.HashSet;
-
-import javax.servlet.http.HttpServletRequest;
-
 import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.Role;
 import nl.tudelft.oopp.demo.repositories.RoleRepository;
@@ -19,6 +10,13 @@ import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.util.HashSet;
+
+import static nl.tudelft.oopp.demo.security.SecurityConstants.*;
 
 @Service
 public class UserService {
@@ -58,9 +56,8 @@ public class UserService {
      * @param faculty = the faculty of the user
      * @return String to see if your request passed
      */
-    public int add(String email, String password, String name, String surname, String faculty) {
-        if (!EmailValidator.getInstance().isValid(email)) {
-            System.out.println(email);
+    public int add(String email, String password, String name, String surname, String faculty) throws UnsupportedEncodingException {
+        if (!EmailValidator.getInstance().isValid(URLDecoder.decode(email, "UTF-8"))) {
             return 423;
         }
         if (!email.contains("@student.tudelft.nl") && !email.contains("@tudelft.nl")) {
@@ -69,6 +66,8 @@ public class UserService {
         if (userRepository.existsById(email)) {
             return 310;
         }
+        System.out.println(password);
+        System.out.println(surname);
         AppUser appUser = new AppUser();
         appUser.setEmail(email);
         appUser.setPassword(bcryptPasswordEncoder.encode(password));
