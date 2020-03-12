@@ -58,6 +58,23 @@ public class DatabaseEditRoomController implements Initializable {
     }
 
     /**
+     * Changes to mainScene.fxml.
+     * @throws IOException again, all input will be valid. No need to check this, thus we throw.
+     */
+    public void databaseBuildingMenu() throws IOException {
+        ApplicationDisplay.changeScene("/DatabaseEditBuildings.fxml");
+    }
+
+    /**
+     * Changes to mainScene.fxml.
+     * @throws IOException again, all input will be valid. No need to check this, thus we throw.
+     */
+    public void databaseRoomMenu() throws IOException {
+        ApplicationDisplay.changeScene("/DatabaseEditRoom.fxml");
+    }
+
+
+    /**
      * Handles the sending of update values.
      */
     public void updateRoomButtonClicked() {
@@ -113,15 +130,6 @@ public class DatabaseEditRoomController implements Initializable {
     }
 
     /**
-     * When the menu item add is clicked it take you to the DatabaseAddRooms.fxml view
-     * @param actionEvent the clicking of the menu item add.
-     * @throws IOException the input will always be correct, so it should never throw and exception.
-     */
-    public void databaseAddRooms(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/DatabaseAddRooms.fxml");
-    }
-
-    /**
      * Changes to myAccountScene.fxml.
      * @throws IOException input will not be wrong, hence we throw.
      */
@@ -131,11 +139,11 @@ public class DatabaseEditRoomController implements Initializable {
 
     /**
      * returns to the main menu
-     * @param mouseEvent the event is clicking the menu item
+     * @param actionEvent the event is clicking the menu item
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
-    public void mainMenu(MouseEvent mouseEvent) throws IOException {
-        ApplicationDisplay.changeScene("/DatabaseMainMenu.fxml");
+    public void mainMenu(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/mainMenuReservations.fxml");
     }
 
     /**
@@ -145,6 +153,14 @@ public class DatabaseEditRoomController implements Initializable {
      */
     public void goToRoomMenu(MouseEvent mouseEvent) throws IOException {
         ApplicationDisplay.changeScene("/RoomsEditOrAdd.fxml");
+    }
+    /**
+     * When the menu item add is clicked it take you to the DatabaseAddRooms.fxml view
+     * @param actionEvent the clicking of the menu item add.
+     * @throws IOException the input will always be correct, so it should never throw and exception.
+     */
+    public void databaseAddRooms(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/DatabaseAddRooms.fxml");
     }
 
     /**
@@ -160,10 +176,7 @@ public class DatabaseEditRoomController implements Initializable {
      * @param actionEvent the clicking of the menu item remove.
      * @throws IOException the input will always be correct, so it should never throw and exception.
      */
-
     public void databaseRemoveRooms(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/DatabaseRemoveRoom.fxml");
     }
-
-
 }

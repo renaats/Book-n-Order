@@ -66,7 +66,7 @@ public class MyAccountController implements Initializable {
      * @throws IOException the method will never throw an exception
      */
     public void adminPanel(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/DatabaseEdditBuildings.fxml");
+        ApplicationDisplay.changeScene("/DatabaseMainMenu.fxml");
     }
 
     /**
@@ -75,7 +75,7 @@ public class MyAccountController implements Initializable {
      * @throws IOException the method will never throw an exception
      */
     public void mainMenu(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/mainMenuReservations.fxml");
+        ApplicationDisplay.changeScene("/mainMenu1.fxml");
     }
 
     /**

@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
@@ -54,6 +55,8 @@ public class BookRoomController implements Initializable {
     private TextField capacity;
     @FXML
     private TextField nOfPlugs;
+    @FXML
+    private TextArea rooms;
 
 
     @Override
@@ -122,7 +125,7 @@ public class BookRoomController implements Initializable {
      * Adds the items to the choice boxes
      */
     public void loadRoomData() {
-        // rooms.setText("rooms=" + "ServerCommunication.getRooms()");
+        rooms.setText("rooms="+ServerCommunication.getRooms());
     }
 
     /**

@@ -67,12 +67,4 @@
     <ImageView fitHeight="41.0" fitWidth="44.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#mainMenu" pickOnBounds="true" preserveRatio="true">
         <Image url="@images/HomeIcon.png" />
     </ImageView>
-<<<<<<< develop
-=======
-    <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="55.0" layoutY="-33.0" pickOnBounds="true" preserveRatio="true">
-        <image>
-            <Image url="@images/TuDelftLogo.png" />
-        </image>
-    </ImageView>
->>>>>>> Edited mosy of the views, added database main menu
 </AnchorPane>

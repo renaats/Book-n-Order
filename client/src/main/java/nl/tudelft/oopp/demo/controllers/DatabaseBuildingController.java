@@ -24,7 +24,7 @@ import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
- * Adds the functionality to DatabaseEdditBuildings.fxml file
+ * Adds the functionality to DatabaseEditBuildings.fxml file
  */
 public class DatabaseBuildingController implements Initializable {
 

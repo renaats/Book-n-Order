@@ -37,19 +37,18 @@ public class DatabaseAddBuildingController {
         ApplicationDisplay.changeScene("/DatabaseAddBuildings.fxml");
     }
     /**
-     * Changes to DatabaseEdditBuildings.fxml.
+     * Changes to DatabaseEditBuildings.fxml.
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
     public void databaseBuildingMenu() throws IOException {
-        ApplicationDisplay.changeScene("/DatabaseEdditBuildings.fxml");
+        ApplicationDisplay.changeScene("/DatabaseEditBuildings.fxml");
     }
     /**
-     * sends the user to the edit building view
-     * @param actionEvent the click on Go to add building button
-     * @throws IOException this should not throw an exception, since the input is always the same
+     * Changes to DatabaseEditRoom.fxml.
+     * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
-    public void goToEditBuildings(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/DatabaseEditBuildings.fxml");
+    public void databaseRoomMenu() throws IOException {
+        ApplicationDisplay.changeScene("/DatabaseEditRoom.fxml");
     }
     /**
      * Adds building to the database
