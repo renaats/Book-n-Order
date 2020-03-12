@@ -1,5 +1,7 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -7,11 +9,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
-
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-
-
 
 /**
  * Takes care of the functionality  DataBaseAddRoom.fxml file
