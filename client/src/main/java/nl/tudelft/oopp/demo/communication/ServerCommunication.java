@@ -386,4 +386,29 @@ public class ServerCommunication {
         }
         return ErrorMessages.getErrorMessage(Integer.parseInt(response.body()));
     }
+    
+    /**
+     * Retrieves all room reservations from the server.
+     *
+     * @return the body of a get request to the server.
+     * @throws Exception if communication with the server fails.
+     */
+    public static String getRoomReservations() {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + UserInformation.getBearerKey()).uri(URI.create("http://localhost:8080/room_reservation/all")).build();
+        HttpResponse<String> response = null;
+        try {
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Communication with server failed";
+        }
+        if (response.statusCode() != 200) {
+            System.out.println("Status: " + response.statusCode());
+        }
+        if (response.body().equals("[]")) {
+            return ErrorMessages.getErrorMessage(404);
+        } else {
+            return response.body();
+        }
+    }
 }
