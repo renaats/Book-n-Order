@@ -11,6 +11,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 import java.io.IOException;
+
+import com.github.tomakehurst.wiremock.common.Json;
+import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.errors.ErrorMessages;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -68,7 +71,7 @@ public class ServerCommunicationTest {
         stubFor(get(urlEqualTo("/building/all")).willReturn(aResponse().withStatus(200).withBody("Message2")));
         stubFor(get(urlEqualTo("/room/all")).willReturn(aResponse().withStatus(200).withBody("Message3")));
         stubFor(delete(urlEqualTo("/building/delete/1")).willReturn(aResponse().withStatus(200).withBody("200")));
-        stubFor(get(urlEqualTo("/building/find/1")).willReturn(aResponse().withStatus(200).withBody("Message4")));
+        stubFor(get(urlEqualTo("/building/find/1")).willReturn(aResponse().withStatus(200).withBody("{\"id\":1,\"name\":\"test\",\"street\":\"test\",\"houseNumber\":1}")));
         stubFor(post(urlEqualTo("/building/update?id=1&attribute=a&value=a")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(get(urlEqualTo("/room/find/1")).willReturn(aResponse().withStatus(200).withBody("Message5")));
         stubFor(delete(urlEqualTo("/room/delete/1")).willReturn(aResponse().withStatus(200).withBody("200")));
@@ -81,7 +84,7 @@ public class ServerCommunicationTest {
         assertEquals("Message2", ServerCommunication.getBuildings());
         assertEquals("Message3", ServerCommunication.getRooms());
         assertEquals(ErrorMessages.getErrorMessage(200), ServerCommunication.deleteBuilding(1));
-        assertEquals("Message4", ServerCommunication.findBuilding(1));
+        assertEquals(JsonMapper.map("{\"id\":1,\"name\":\"test\",\"street\":\"test\",\"houseNumber\":1}"), ServerCommunication.findBuilding(1));
         assertEquals(ErrorMessages.getErrorMessage(200), ServerCommunication.updateBuilding(1, "a", "a"));
         assertEquals("Message5", ServerCommunication.findRoom(1));
         assertEquals(ErrorMessages.getErrorMessage(200), ServerCommunication.deleteRoom(1));

@@ -46,7 +46,7 @@ public class DatabaseBuildingController implements Initializable {
     @FXML
     private TableColumn<Building, String> colStreet;
     @FXML
-    private TableColumn<Building, Integer> colHousenumber;
+    private TableColumn<Building, Integer> colHouseNumber;
 
 
     @Override
@@ -56,7 +56,7 @@ public class DatabaseBuildingController implements Initializable {
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
         colStreet.setCellValueFactory(new PropertyValueFactory<>("street"));
-        colHousenumber.setCellValueFactory(new PropertyValueFactory<>("housenumber"));
+        colHouseNumber.setCellValueFactory(new PropertyValueFactory<>("houseNumber"));
 
     }
 

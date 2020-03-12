@@ -21,6 +21,7 @@ public class JsonMapper {
 
         try {
             // Convert JSON string to Object
+            System.out.println(buildingJson);
             Building building = mapper.readValue(buildingJson, Building.class);
             return building;
         } catch (JsonGenerationException e) {

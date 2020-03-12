@@ -102,10 +102,10 @@
    <Button fx:id="buildingFindAllButton" layoutX="305.0" layoutY="193.0" mnemonicParsing="false" onAction="#listBuildingsButtonClicked" style="-fx-background-color: #00a6d6;" text="Find all" textFill="WHITE" />
    <TableView fx:id="table" layoutX="131.0" layoutY="386.0" prefHeight="200.0" prefWidth="599.0">
      <columns>
-       <TableColumn fx:id="col_id" prefWidth="75.0" text="id" />
-       <TableColumn fx:id="col_name" prefWidth="75.0" text="name" />
-         <TableColumn fx:id="col_street" prefWidth="75.0" text="street" />
-         <TableColumn fx:id="col_housenumber" prefWidth="75.0" text="housenumber" />
+       <TableColumn fx:id="colId" prefWidth="75.0" text="id" />
+       <TableColumn fx:id="colName" prefWidth="75.0" text="name" />
+         <TableColumn fx:id="colStreet" prefWidth="75.0" text="street" />
+         <TableColumn fx:id="colHouseNumber" prefWidth="75.0" text="housenumber" />
      </columns>
    </TableView>
 </AnchorPane>
