@@ -17,24 +17,22 @@
     <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="255.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="521.0" AnchorPane.leftAnchor="255.0" AnchorPane.rightAnchor="425.0" AnchorPane.topAnchor="55.0">
         <Image url="@images/booknorderlogo.png" />
     </ImageView>
-    <MenuBar layoutY="75.0" prefHeight="26.0" prefWidth="648.0" style="-fx-background-color: #00a6d6;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-        <Menu mnemonicParsing="false" text="Home">
-            <MenuItem mnemonicParsing="false" text="main menu" onAction="#mainMenu"/>
-        </Menu>
-        <Menu mnemonicParsing="false" text="Edit">
+    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00a6d6" height="28.0" layoutY="86.0" stroke="#00a6d6" strokeType="INSIDE" style="-fx-arc-height: 0; -fx-arc-width: 0;" width="1280.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0" />
+    <MenuBar layoutX="79.0" layoutY="87.0" maxWidth="1280.0" minWidth="1280.0" prefHeight="26.0" prefWidth="1280.0" style="-fx-background-color: #00a6d6;" AnchorPane.leftAnchor="79.0" AnchorPane.rightAnchor="-79.0">
+
+        <Menu mnemonicParsing="false" text="Building edit">
             <items>
-                <MenuItem fx:id="menuBuildings" mnemonicParsing="false" onAction="#databaseBuildingMenu" text="Buildings" />
-                <MenuItem fx:id="menuRooms" mnemonicParsing="false" onAction="#databaseRoomMenu" text="Rooms" />
+                <MenuItem mnemonicParsing="false" onAction="#databaseAddRooms" text="Add" />
+                <MenuItem mnemonicParsing="false" onAction="#databaseEditRooms" text="Edit" />
+                <MenuItem mnemonicParsing="false" onAction="#databaseRemoveRooms" text="Remove" />
             </items>
         </Menu>
-        <Menu mnemonicParsing="false" text="Add">
-            <items>
-                <MenuItem mnemonicParsing="false" onAction="#databaseAddBuildings" text="Buildings" />
-                <MenuItem mnemonicParsing="false" onAction="#databaseAddRooms" text="Rooms" />
-            </items>
-        </Menu>
-    </MenuBar>
-    <Rectangle fill="#00a6d6" height="63.0" layoutX="-1.0" layoutY="343.0" stroke="#00a6d6" strokeType="INSIDE" width="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+    </MenuBar>    <Rectangle fill="#00a6d6" height="63.0" layoutX="-1.0" layoutY="343.0" stroke="#00a6d6" strokeType="INSIDE" width="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+    <ImageView fx:id="goToRoomMenuButton" fitHeight="26.0" fitWidth="41.0" layoutX="50.0" layoutY="86.0" onMouseClicked="#goToRoomMenu" pickOnBounds="true" preserveRatio="true">
+        <image>
+            <Image url="@images/DatabasemenuRoomIcon.png" />
+        </image>
+    </ImageView>
     <Text fill="WHITE" layoutX="26.0" layoutY="387.0" strokeType="OUTSIDE" strokeWidth="0.0" text="© 2020 TU Delft. All rights reserved." AnchorPane.bottomAnchor="20.0">
         <font>
             <Font name="Calibri" size="10.0" />
