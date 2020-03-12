@@ -1,10 +1,11 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import java.io.IOException;
+
 import javafx.event.ActionEvent;
 import javafx.scene.input.MouseEvent;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
-import java.io.IOException;
 
 public class MainMenuController {
 
@@ -21,6 +22,7 @@ public class MainMenuController {
      * Handels the clicking of the Profile icon.
      * @throws IOException when it fails
      */
+
     public void goToProfile(MouseEvent mouseEvent) throws IOException {
         ApplicationDisplay.changeScene("/myAccountScene.fxml");
     }
@@ -28,6 +30,7 @@ public class MainMenuController {
      * Handels the clicking of the Bookings icon.
      * @throws IOException when it fails
      */
+
     public void goToMainReservationsMenu(MouseEvent mouseEvent) throws IOException {
         ApplicationDisplay.changeScene("/MainMenuReservations.fxml");
     }
