@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import net.fortuna.ical4j.model.DateTime;
 import nl.tudelft.oopp.demo.errors.ErrorMessages;
 import nl.tudelft.oopp.demo.user.UserInformation;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
@@ -386,7 +387,7 @@ public class ServerCommunication {
         }
         return ErrorMessages.getErrorMessage(Integer.parseInt(response.body()));
     }
-    
+
     /**
      * Retrieves all room reservations from the server.
      *
@@ -410,5 +411,33 @@ public class ServerCommunication {
         } else {
             return response.body();
         }
+    }
+
+    /**
+     * Communicates addRoomReservation to the database
+     * @param room name of the room
+     * @param buildingId building ID
+     * @param userId user ID
+     * @param from start date and time of the reservation
+     * @param to end date and time of the reservation
+     * @return body response
+     */
+    public static String addRoomReservation (String room, int buildingId, int userId, DateTime from, DateTime to) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room/add?room" + room + "&buildingId=" + buildingId + "&userId=" + userId + "&from=" + from + "&to=" + to)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
+        HttpResponse<String> response = null;
+        try {
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Communication with server failed";
+        }
+        if (response.statusCode() == 403) {
+            return ErrorMessages.getErrorMessage(401);
+        }
+        if (response.statusCode() != 200) {
+            System.out.println(response.body());
+            System.out.println("Status: " + response.statusCode());
+        }
+        return ErrorMessages.getErrorMessage(Integer.parseInt(response.body()));
     }
 }
