@@ -36,7 +36,6 @@ public class MyAccountController {
      * @param actionEvent clicking the button admin
      * @throws IOException the method will never throw an exception
      */
-
     public void adminPanel(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/DatabaseMenu.fxml");
     }
