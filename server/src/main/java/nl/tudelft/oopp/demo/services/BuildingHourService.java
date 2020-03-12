@@ -41,6 +41,9 @@ public class BuildingHourService {
         if (endTimeS < startTimeS) {
             return 426;
         }
+        if (buildingHourRepository.existsByBuilding_IdAndDay(buildingId, day)) {
+            return 427;
+        }
         BuildingHours buildingHours = new BuildingHours(day, building, LocalTime.ofSecondOfDay(startTimeS), LocalTime.ofSecondOfDay(endTimeS));
         buildingHourRepository.save(buildingHours);
         return 201;
@@ -60,10 +63,16 @@ public class BuildingHourService {
         BuildingHours buildingHours = buildingHourRepository.getOne(id);
         switch (attribute.toLowerCase()) {
             case "day":
+                if (buildingHourRepository.existsByBuilding_IdAndDay(buildingHours.getBuilding().getId(), Integer.parseInt(value))) {
+                    return 427;
+                }
                 buildingHours.setDay(Integer.parseInt(value));
                 break;
             case "buildingid":
                 int buildingId = Integer.parseInt(value);
+                if (buildingHourRepository.existsByBuilding_IdAndDay(buildingId, buildingHours.getDay())) {
+                    return 427;
+                }
                 Building building = buildingService.find(buildingId);
                 if (building == null) {
                     return 422;
