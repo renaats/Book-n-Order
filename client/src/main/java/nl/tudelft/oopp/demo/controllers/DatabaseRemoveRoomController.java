@@ -8,7 +8,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
@@ -16,6 +18,8 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 public class DatabaseRemoveRoomController implements Initializable {
 
+    public Button confirmDeleteByIdButton;
+    public ImageView goToRoomMenuButton;
     @FXML
     private TextField roomDeleteByIdTextField;
 

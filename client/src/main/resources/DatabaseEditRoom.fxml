@@ -7,6 +7,10 @@
 <?import javafx.scene.text.*?>
 
 <AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.DatabaseEditRoomController">
+   <ImageView fitHeight="720.0" layoutX="-5.0" layoutY="-8.0" pickOnBounds="true" preserveRatio="true" opacity="0.5">
+      <image>
+         <Image url="@images/DatabaseRoomBackground.jpg" />
+      </image></ImageView>
    <ImageView fitHeight="101.0" fitWidth="200.0" layoutX="64.0" layoutY="-16.0" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@images/TuDelftLogo.png" />
@@ -56,11 +60,6 @@
    </Text>
    <TextField fx:id="roomFindByIdUpdateField" layoutX="60.0" layoutY="217.0" promptText="ID" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="325.0" />
    <Text layoutX="25.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID:" wrappingWidth="34.208984375" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="195.0">
-      <font>
-         <Font size="17.0" />
-      </font>
-   </Text>
-   <Text layoutX="25.0" layoutY="280.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID:" wrappingWidth="34.208984375" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="263.0">
       <font>
          <Font size="17.0" />
       </font>
