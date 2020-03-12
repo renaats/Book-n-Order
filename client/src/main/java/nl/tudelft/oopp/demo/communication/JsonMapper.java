@@ -3,12 +3,18 @@ package nl.tudelft.oopp.demo.communication;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import nl.tudelft.oopp.demo.entities.Building;
 
 import java.io.IOException;
 
+import nl.tudelft.oopp.demo.entities.Building;
+
 public class JsonMapper {
 
+    /**
+     * Current test mapper for buildings
+     * @param buildingJson JSON string representation of a building
+     * @return Building object
+     */
     public static Object map(String buildingJson) {
 
         ObjectMapper mapper = new ObjectMapper();

@@ -9,7 +9,11 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.Building;
@@ -36,23 +40,23 @@ public class DatabaseBuildingController implements Initializable {
     @FXML
     private TableView<Building> table;
     @FXML
-    private TableColumn<Building, String> col_id;
+    private TableColumn<Building, String> colId;
     @FXML
-    private TableColumn<Building, String> col_name;
+    private TableColumn<Building, String> colName;
     @FXML
-    private TableColumn<Building, String> col_street;
+    private TableColumn<Building, String> colStreet;
     @FXML
-    private TableColumn<Building, Integer> col_housenumber;
+    private TableColumn<Building, Integer> colHousenumber;
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         loadDataUpdateChoiceBox();
 
-        col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
-        col_name.setCellValueFactory(new PropertyValueFactory<>("name"));
-        col_street.setCellValueFactory(new PropertyValueFactory<>("street"));
-        col_housenumber.setCellValueFactory(new PropertyValueFactory<>("housenumber"));
+        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colStreet.setCellValueFactory(new PropertyValueFactory<>("street"));
+        colHousenumber.setCellValueFactory(new PropertyValueFactory<>("housenumber"));
 
     }
 
