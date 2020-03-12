@@ -3,6 +3,8 @@ package nl.tudelft.oopp.demo.entities;
 import java.time.LocalTime;
 import java.util.Objects;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -13,6 +15,7 @@ import org.hibernate.annotations.OnDeleteAction;
 @Entity
 public class BuildingHours {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private int day;
 
