@@ -67,8 +67,6 @@ public class UserService {
         if (userRepository.existsById(email)) {
             return 310;
         }
-        System.out.println(password);
-        System.out.println(surname);
         AppUser appUser = new AppUser();
         appUser.setEmail(email);
         appUser.setPassword(bcryptPasswordEncoder.encode(password));
