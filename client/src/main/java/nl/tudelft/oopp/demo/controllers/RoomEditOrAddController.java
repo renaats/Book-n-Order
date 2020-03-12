@@ -1,5 +1,9 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -8,9 +12,7 @@ import javafx.scene.input.MouseEvent;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
+
 
 public class RoomEditOrAddController implements Initializable {
 
@@ -25,7 +27,7 @@ public class RoomEditOrAddController implements Initializable {
     /**
      * Loads the current rooms to the text area.
      */
-    public void loadData () {
+    public void loadData() {
         roomsDisplay.setText(ServerCommunication.getRooms());
     }
     /**

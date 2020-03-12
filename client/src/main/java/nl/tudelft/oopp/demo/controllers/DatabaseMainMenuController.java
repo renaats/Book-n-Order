@@ -1,9 +1,9 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import java.io.IOException;
+
 import javafx.scene.input.MouseEvent;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
-
-import java.io.IOException;
 
 public class DatabaseMainMenuController {
     public void mainMenu(MouseEvent mouseEvent) throws IOException {

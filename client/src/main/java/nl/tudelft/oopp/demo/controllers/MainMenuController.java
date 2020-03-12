@@ -1,10 +1,11 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import java.io.IOException;
+
 import javafx.event.ActionEvent;
 import javafx.scene.input.MouseEvent;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
-import java.io.IOException;
 
 public class MainMenuController {
 
@@ -20,16 +21,18 @@ public class MainMenuController {
      * Changes to bookRoom.fxml.
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
-    public void bookRoom() throws IOException {
-        ApplicationDisplay.changeScene("/bookRoom.fxml");
+
+    public void goToProfile(MouseEvent mouseEvent) throws IOException {
+        ApplicationDisplay.changeScene("/myAccountScene.fxml");
     }
 
     /**
      * Changes current scene to myCurrentBookings.fxml.
      * @throws IOException input will not be wrong, hence we throw.
      */
-    public void myCurrentBookings() throws IOException {
-        ApplicationDisplay.changeScene("/myCurrentBookings.fxml");
+
+    public void goToMainReservationsMenu(MouseEvent mouseEvent) throws IOException {
+        ApplicationDisplay.changeScene("/MainMenuReservations.fxml");
     }
 
     /**
