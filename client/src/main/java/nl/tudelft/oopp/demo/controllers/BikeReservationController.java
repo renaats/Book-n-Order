@@ -3,18 +3,14 @@ package nl.tudelft.oopp.demo.controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
@@ -22,11 +18,11 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
  */
 
 public class BikeReservationController implements Initializable {
-    final ObservableList listLocations = FXCollections.observableArrayList();
+    final ObservableList<String> listLocations = FXCollections.observableArrayList();
 
-    final ObservableList listTime = FXCollections.observableArrayList();
+    final ObservableList<String> listTime = FXCollections.observableArrayList();
 
-    final ObservableList listMinutes = FXCollections.observableArrayList();
+    final ObservableList<String> listMinutes = FXCollections.observableArrayList();
 
     @FXML
     private ChoiceBox<String> pick;
@@ -56,7 +52,7 @@ public class BikeReservationController implements Initializable {
     @FXML
     private void reserveBike() {
         String bike = pick.getValue() + drop.getValue();
-        if (bike == null) {
+        if (bike.equals("")) {
             screen.setText("No bike");
         } else {
             screen.setText("your bike is " + bike);
@@ -68,29 +64,29 @@ public class BikeReservationController implements Initializable {
      */
 
     public void loadData() {
-        listLocations.removeAll(listLocations);
-        listTime.removeAll(listTime);
+        listLocations.clear();
+        listTime.clear();
+        listMinutes.clear();
         String a = "1";
         String b = "2";
         String c = "3";
-        listLocations.addAll(a,b,c);
+        listLocations.addAll(a, b, c);
         pickUpLocation.getItems().addAll(listLocations);
         dropOffLocation.getItems().addAll(listLocations);
         for (int i = 0; i < 24; i++) {
             if (i < 10) {
                 listTime.add("0" + i);
             } else {
-                listTime.add(i);
+                listTime.add(((Integer)i).toString());
             }
         }
         pickUpTime.getItems().addAll(listTime);
         dropOffTime.getItems().addAll(listTime);
-        listMinutes.removeAll(listMinutes);
         for (int i = 0; i < 60; i = i + 15) {
             if (i == 0) {
                 listMinutes.add("00");
             } else {
-                listMinutes.add(i);
+                listMinutes.add(((Integer)i).toString());
             }
         }
         pickUpTime.getItems().addAll(listMinutes);

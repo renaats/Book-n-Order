@@ -22,9 +22,9 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class WebSecurity extends WebSecurityConfigurerAdapter {
-    private UserDetailsServiceImpl userDetailsService;
-    private BCryptPasswordEncoder bcryptPasswordEncoder;
-    private UserRepository userRepository;
+    private final UserDetailsServiceImpl userDetailsService;
+    private final BCryptPasswordEncoder bcryptPasswordEncoder;
+    private final UserRepository userRepository;
 
 
     /**

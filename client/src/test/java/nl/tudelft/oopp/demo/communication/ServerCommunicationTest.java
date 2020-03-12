@@ -59,10 +59,9 @@ public class ServerCommunicationTest {
 
     /**
      * Tests the responses when the request is successful.
-     * @throws IOException - should not be a problem
      */
     @Test
-    public void testSuccessful() throws IOException {
+    public void testSuccessful() {
         stubFor(get(urlEqualTo("/user")).willReturn(aResponse().withStatus(200).withBody("Message1")));
         stubFor(post(urlEqualTo("/user/add?email=a&name=a&surname=a&faculty=a&password=a")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(post(urlEqualTo("/login")).willReturn(aResponse().withStatus(200).withBody("").withHeader("Authorization", "a b c")));

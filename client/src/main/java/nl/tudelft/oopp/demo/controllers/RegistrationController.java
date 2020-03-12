@@ -17,7 +17,7 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 public class RegistrationController implements Initializable {
 
-    ObservableList facultyList = FXCollections.observableArrayList();
+    private final ObservableList<String> facultyList = FXCollections.observableArrayList();
 
     @FXML
     private ChoiceBox<String> facultyChoiceBox;
@@ -73,7 +73,7 @@ public class RegistrationController implements Initializable {
     }
 
     private void loadData() {
-        facultyList.removeAll(facultyList);
+        facultyList.clear();
         String a = "Architecture and the build Environment";
         String b = "Civil Engineering and Geosciences";
         String c = "Eletrical Engineering, Mathematics & Computer Science";

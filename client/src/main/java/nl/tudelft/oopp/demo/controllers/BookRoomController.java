@@ -7,14 +7,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
@@ -22,9 +16,9 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
  */
 public class BookRoomController implements Initializable {
 
-    final ObservableList listOfRooms = FXCollections.observableArrayList();
-    final ObservableList listOfTimeSlots = FXCollections.observableArrayList();
-    final ObservableList listOfBuildings = FXCollections.observableArrayList();
+    final ObservableList<String> listOfRooms = FXCollections.observableArrayList();
+    final ObservableList<String> listOfTimeSlots = FXCollections.observableArrayList();
+    final ObservableList<String> listOfBuildings = FXCollections.observableArrayList();
 
     @FXML
     private  ChoiceBox<String> from;
@@ -52,9 +46,9 @@ public class BookRoomController implements Initializable {
      * Adds the items to the choice boxes
      */
     public void loadRoomData() {
-        listOfRooms.removeAll(listOfRooms);
-        listOfTimeSlots.removeAll(listOfTimeSlots);
-        listOfBuildings.removeAll(listOfBuildings);
+        listOfRooms.clear();
+        listOfTimeSlots.clear();
+        listOfBuildings.clear();
         String none = "-";
         String a = "1";
         String b = "2";
@@ -78,8 +72,6 @@ public class BookRoomController implements Initializable {
                     }
                 } else if (u == 0) {
                     listOfTimeSlots.add(i + ":00");
-                } else if (i == 0) {
-                    listOfTimeSlots.add("00:" + u);
                 } else {
                     listOfTimeSlots.add(i + ":" + u);
                 }
