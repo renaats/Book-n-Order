@@ -98,7 +98,7 @@ public class ServerCommunication {
                 if (entry.getKey().equals("Authorization")) {
                     // Yes it's gross, it works, it grabs the key
                     UserInformation.setBearerKey(((String) Arrays.asList(entry.getValue().get(0).split(" ")).get(1)));
-                    ApplicationDisplay.changeScene("/mainMenu1.fxml");
+                    ApplicationDisplay.changeScene("/mainMenu.fxml");
                     return ErrorMessages.getErrorMessage(200);
                 }
             }

@@ -52,6 +52,6 @@ public class LoginController {
     }
 
     public void goTomainMenuTemp(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/mainMenu1.fxml");
+        ApplicationDisplay.changeScene("/mainMenu.fxml");
     }
 }
