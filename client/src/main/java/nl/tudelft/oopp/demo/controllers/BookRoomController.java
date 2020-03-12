@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
@@ -54,6 +55,8 @@ public class BookRoomController implements Initializable {
     private TextField capacity;
     @FXML
     private TextField nOfPlugs;
+    @FXML
+    private TextArea rooms;
 
 
     @Override
@@ -108,39 +111,7 @@ public class BookRoomController implements Initializable {
      * Adds the items to the choice boxes
      */
     public void loadRoomData() {
-        listOfRooms.clear();
-        listOfTimeSlots.clear();
-        listOfBuildings.clear();
-        String none = "-";
-        String a = "1";
-        String b = "2";
-        String c = "3";
-        listOfRooms.addAll(none,a,b,c);
-        roomDropDown.getItems().addAll(listOfRooms);
-
-        String building1 = "building1";
-        String building2 = "building2";
-        String building3 = "building3";
-        listOfBuildings.addAll(none,building1,building2,building3);
-        roomDropDown.getItems().addAll(listOfBuildings);
-
-        listOfTimeSlots.add(none);
-
-        for (int i = 0; i < 24; i++) {
-            for (int u = 0; u <= 45; u = u + 15) {
-                if (i == 0) {
-                    if (!listOfTimeSlots.contains("00:00")) {
-                        listOfTimeSlots.add("00:00");
-                    }
-                } else if (u == 0) {
-                    listOfTimeSlots.add(i + ":00");
-                } else {
-                    listOfTimeSlots.add(i + ":" + u);
-                }
-            }
-        }
-        from.getItems().addAll(listOfTimeSlots);
-        until.getItems().addAll(listOfTimeSlots);
+        rooms.setText("rooms="+ServerCommunication.getRooms());
     }
 
     /**

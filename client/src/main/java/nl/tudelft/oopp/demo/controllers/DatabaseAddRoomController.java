@@ -8,6 +8,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 
+import javafx.scene.input.MouseEvent;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
@@ -99,19 +100,19 @@ public class DatabaseAddRoomController {
     }
 
     /**
-     * Changes to DatabaseEdditBuildings.fxml.
+     * Changes to DatabaseEditBuildings.fxml.
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
     public void databaseBuildingMenu() throws IOException {
-        ApplicationDisplay.changeScene("/DatabaseEdditBuildings.fxml");
+        ApplicationDisplay.changeScene("/DatabaseEditBuildings.fxml");
     }
 
     /**
-     * Changes to DatabaseRoomMenu.fxml.
+     * Changes to DatabaseEditRoom.fxml.
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
     public void databaseRoomMenu() throws IOException {
-        ApplicationDisplay.changeScene("/DatabaseRoomMenu.fxml");
+        ApplicationDisplay.changeScene("/DatabaseEditRoom.fxml");
     }
 
     public void myAccountScene(ActionEvent actionEvent) throws IOException {
@@ -145,5 +146,39 @@ public class DatabaseAddRoomController {
      */
     public void mainMenu(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/mainMenuReservations.fxml");
+    }
+
+    /**
+     * When the room icon is clicked it take you to the RoomEditOrAdd.fxml view
+     * @param mouseEvent the clicking of the room icon.
+     * @throws IOException the input will always be correct, so it should never throw and exception.
+     */
+    public void goToRoomMenu(MouseEvent mouseEvent) throws IOException {
+        ApplicationDisplay.changeScene("/RoomsEditOrAdd.fxml");
+    }
+    /**
+     * When the menu item add is clicked it take you to the DatabaseAddRooms.fxml view
+     * @param actionEvent the clicking of the menu item add.
+     * @throws IOException the input will always be correct, so it should never throw and exception.
+     */
+    public void databaseAddRooms(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/DatabaseAddRooms.fxml");
+    }
+
+    /**
+     * When the menu item edit is clicked it take you to the DatabaseAddRooms.fxml view
+     * @param actionEvent the clicking of the menu item edit.
+     * @throws IOException the input will always be correct, so it should never throw and exception.
+     */
+    public void databaseEditRooms(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/DatabaseEditRoom.fxml");
+    }
+    /**
+     * When the menu item remove is clicked it take you to the DatabaseAddRooms.fxml view
+     * @param actionEvent the clicking of the menu item remove.
+     * @throws IOException the input will always be correct, so it should never throw and exception.
+     */
+    public void databaseRemoveRooms(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/DatabaseRemoveRoom.fxml");
     }
 }

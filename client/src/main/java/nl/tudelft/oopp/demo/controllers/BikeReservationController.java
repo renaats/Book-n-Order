@@ -75,6 +75,6 @@ public class BikeReservationController implements Initializable{
         dropOffTimeH.getItems().addAll(listTime);
         pickUpTimeMin.getItems().addAll(listMinutes);
         dropOffTimeMin.getItems().addAll(listMinutes);
-        screen.setText("ServerCommunication.getBuildings()");  //server not working at the moment, so I still have to test it
+        screen.setText(ServerCommunication.getBuildings());
     }
 }

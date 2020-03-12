@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.DatabaseRemoveRoomController">
+    <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="255.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="521.0" AnchorPane.leftAnchor="255.0" AnchorPane.rightAnchor="425.0" AnchorPane.topAnchor="55.0">
+        <Image url="@images/booknorderlogo.png" />
+    </ImageView>
+    <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="55.0" layoutY="-33.0" pickOnBounds="true" preserveRatio="true">
+        <image>
+            <Image url="@images/TuDelftLogo.png" />
+        </image>
+    </ImageView>
+    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00a6d6" height="28.0" layoutY="86.0" stroke="#00a6d6" strokeType="INSIDE" style="-fx-arc-height: 0; -fx-arc-width: 0;" width="1280.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0" />
+    <ImageView fitHeight="41.0" fitWidth="44.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#mainMenu" pickOnBounds="true" preserveRatio="true">
+        <Image url="@images/HomeIcon.png" />
+    </ImageView>
+    <MenuBar layoutX="79.0" layoutY="87.0" maxWidth="1280.0" minWidth="1280.0" prefHeight="26.0" prefWidth="1280.0" style="-fx-background-color: #00a6d6;" AnchorPane.leftAnchor="79.0" AnchorPane.rightAnchor="-79.0">
+
+        <Menu mnemonicParsing="false" text="Building edit">
+            <items>
+                <MenuItem mnemonicParsing="false" onAction="#databaseAddRooms" text="Add" />
+                <MenuItem mnemonicParsing="false" onAction="#databaseEditRooms" text="Edit" />
+                <MenuItem mnemonicParsing="false" onAction="#databaseRemoveRooms" text="Remove" />
+            </items>
+        </Menu>
+    </MenuBar>
+    <TextField fx:id="roomDeleteByIdTextField" layoutX="50.0" layoutY="207.0" promptText="ID" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="260.0" />
+    <Text layoutX="59.0" layoutY="189.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Delete a room by id:" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="235.0">
+        <font>
+            <Font size="17.0" />
+        </font>
+    </Text>
+    <Button fx:id="confirmDeleteByIdButton" layoutX="231.0" layoutY="260.0" mnemonicParsing="false" onAction="#deleteRoomButtonClicked" style="-fx-background-color: #00a6d6;" text="Delete" textFill="WHITE" AnchorPane.leftAnchor="231.0" AnchorPane.topAnchor="260.0" />
+   <ImageView fx:id="goToRoomMenuButton" fitHeight="26.0" fitWidth="41.0" layoutX="50.0" layoutY="86.0" onMouseClicked="#goToRoomMenu" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@images/DatabasemenuRoomIcon.png" />
+      </image>
+   </ImageView>
+
+</AnchorPane>

@@ -12,7 +12,7 @@
          <Image url="@images/mainMenuBackground.jpg" />
       </image>
    </ImageView>
-   <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="255.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="521.0" AnchorPane.leftAnchor="255.0" AnchorPane.rightAnchor="425.0" AnchorPane.topAnchor="55.0">
+   <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="580.0" layoutY="72.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="624.0" AnchorPane.leftAnchor="580.0" AnchorPane.rightAnchor="580.0" AnchorPane.topAnchor="72.0">
       <Image url="@images/booknorderlogo.png" />
    </ImageView>
    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00a6d6" height="30.0" layoutX="1.0" layoutY="10.0" stroke="#00a6d6" strokeType="INSIDE" width="1280.0" />
@@ -65,7 +65,7 @@
          <Font name="Candara Bold" size="24.0" />
       </font></Text>
    <Text layoutX="42.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Here you can check your calendar to see your appointments&#10; or you can make a new booking" wrappingWidth="319.30078125" />
-   <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="67.0" layoutY="-32.0" pickOnBounds="true" preserveRatio="true">
+   <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="380.0" layoutY="-12.0" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@images/TuDelftLogo.png" />
       </image>

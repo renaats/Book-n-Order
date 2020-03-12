@@ -20,7 +20,7 @@ public class BikeReservationConfirmationController implements Initializable {
     }
 
     private void loadData() {
-        //idNUmber.setText("ID IS NOT FOUND");
+        idNUmber.setText("ID IS NOT FOUND");
     }
 
     public void mainMenu(MouseEvent mouseEvent) throws IOException {

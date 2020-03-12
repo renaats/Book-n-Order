@@ -7,12 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.HashSet;
-import java.util.Set;
 
-import nl.tudelft.oopp.demo.entities.Building;
-import nl.tudelft.oopp.demo.entities.Room;
-import nl.tudelft.oopp.demo.entities.User;
-import nl.tudelft.oopp.demo.repositories.BuildingRepository;
 import nl.tudelft.oopp.demo.repositories.UserRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
