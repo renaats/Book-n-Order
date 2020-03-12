@@ -38,19 +38,19 @@ public class DatabaseAddBuildingController {
     }
 
     /**
-     * Changes to DatabaseEdditBuildings.fxml.
+     * Changes to DatabaseEditBuildings.fxml.
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
     public void databaseBuildingMenu() throws IOException {
-        ApplicationDisplay.changeScene("/DatabaseEdditBuildings.fxml");
+        ApplicationDisplay.changeScene("/DatabaseEditBuildings.fxml");
     }
 
     /**
-     * Changes to DatabaseRoomMenu.fxml.
+     * Changes to DatabaseEditRoom.fxml.
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
     public void databaseRoomMenu() throws IOException {
-        ApplicationDisplay.changeScene("/DatabaseRoomMenu.fxml");
+        ApplicationDisplay.changeScene("/DatabaseEditRoom.fxml");
     }
 
     /**

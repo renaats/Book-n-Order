@@ -24,7 +24,7 @@ import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
- * Adds the functionality to DatabaseEdditBuildings.fxml file
+ * Adds the functionality to DatabaseEditBuildings.fxml file
  */
 public class DatabaseBuildingController implements Initializable {
 
@@ -106,7 +106,7 @@ public class DatabaseBuildingController implements Initializable {
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
     public void databaseBuildingMenu() throws IOException {
-        ApplicationDisplay.changeScene("/DatabaseEdditBuildings.fxml");
+        ApplicationDisplay.changeScene("/DatabaseEditBuildings.fxml");
     }
 
     /**
@@ -114,7 +114,7 @@ public class DatabaseBuildingController implements Initializable {
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
     public void databaseRoomMenu() throws IOException {
-        ApplicationDisplay.changeScene("/DatabaseRoomMenu.fxml");
+        ApplicationDisplay.changeScene("/DatabaseEditRoom.fxml");
     }
 
     /**

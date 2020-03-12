@@ -10,6 +10,11 @@
     <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="255.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="521.0" AnchorPane.leftAnchor="255.0" AnchorPane.rightAnchor="425.0" AnchorPane.topAnchor="55.0">
         <Image url="@images/booknorderlogo.png" />
     </ImageView>
+    <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="55.0" layoutY="-33.0" pickOnBounds="true" preserveRatio="true">
+        <image>
+            <Image url="@images/TuDelftLogo.png" />
+        </image>
+    </ImageView>
     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00a6d6" height="28.0" layoutY="86.0" stroke="#00a6d6" strokeType="INSIDE" style="-fx-arc-height: 0; -fx-arc-width: 0;" width="800.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0" />
     <Button layoutX="51.0" layoutY="85.0" maxHeight="25.0" maxWidth="49.0" minHeight="25.0" minWidth="49.0" mnemonicParsing="false" onAction="#mainMenu" prefHeight="25.0" prefWidth="49.0" style="-fx-background-color: #00a6d6;" text="Home" AnchorPane.leftAnchor="46.0" AnchorPane.topAnchor="85.0" />
     <MenuBar layoutX="108.0" layoutY="85.0" maxHeight="28.0" maxWidth="192.0" minHeight="28.0" minWidth="192.0" prefHeight="28.0" prefWidth="192.0" style="-fx-background-color: #00a6d6;" AnchorPane.leftAnchor="94.0" AnchorPane.rightAnchor="514.0" AnchorPane.topAnchor="85.0">
@@ -57,10 +62,5 @@
     <TextField layoutX="326.0" layoutY="275.0" AnchorPane.leftAnchor="326.0" AnchorPane.topAnchor="275.0" />
     <ImageView fitHeight="41.0" fitWidth="44.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#mainMenu" pickOnBounds="true" preserveRatio="true">
         <Image url="@images/HomeIcon.png" />
-    </ImageView>
-    <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="55.0" layoutY="-33.0" pickOnBounds="true" preserveRatio="true">
-        <image>
-            <Image url="@images/TuDelftLogo.png" />
-        </image>
     </ImageView>
 </AnchorPane>
