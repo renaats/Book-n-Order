@@ -10,10 +10,10 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import net.fortuna.ical4j.model.DateTime;
 import nl.tudelft.oopp.demo.errors.ErrorMessages;
 import nl.tudelft.oopp.demo.user.UserInformation;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
@@ -448,7 +448,7 @@ public class ServerCommunication {
      * @param to end date and time of the reservation
      * @return body response
      */
-    public static String addRoomReservation(String room, int buildingId, int userId, DateTime from, DateTime to) {
+    public static String addRoomReservation(String room, int buildingId, int userId, Date from, Date to) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room_reservation/add?room" + room + "&buildingId=" + buildingId + "&userId=" + userId + "&from=" + from + "&to=" + to)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
         HttpResponse<String> response = null;
         try {
