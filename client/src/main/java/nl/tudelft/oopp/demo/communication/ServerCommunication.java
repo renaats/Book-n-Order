@@ -448,7 +448,7 @@ public class ServerCommunication {
      * @param to end date and time of the reservation
      * @return body response
      */
-    public static String addRoomReservation (String room, int buildingId, int userId, DateTime from, DateTime to) {
+    public static String addRoomReservation(String room, int buildingId, int userId, DateTime from, DateTime to) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room_reservation/add?room" + room + "&buildingId=" + buildingId + "&userId=" + userId + "&from=" + from + "&to=" + to)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
         HttpResponse<String> response = null;
         try {
