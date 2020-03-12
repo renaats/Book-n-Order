@@ -414,6 +414,32 @@ public class ServerCommunication {
     }
 
     /**
+     * Retrieves a room reservation by given id.
+     * @param roomReservationId = the id of the room reservation.
+     * @return The body of the response from the server.
+     */
+    public static String findRoomReservation(int roomReservationId) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room_reservation/find/" + roomReservationId)).GET().header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
+        HttpResponse<String> response;
+        try {
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Communication with server failed";
+        }
+        if (response.statusCode() != 200) {
+            System.out.println(response.body());
+            System.out.println("Status: " + response.statusCode());
+        }
+        if (response.body().equals("")) {
+            return ErrorMessages.getErrorMessage(404);
+        } else {
+            System.out.println(response.body());
+            return response.body();
+        }
+    }
+
+    /**
      * Communicates addRoomReservation to the database
      * @param room name of the room
      * @param buildingId building ID
