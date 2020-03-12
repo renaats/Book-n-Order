@@ -52,7 +52,7 @@
    </ImageView>
    <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="265.0" layoutY="384.0" onMouseClicked="#goToProfile" pickOnBounds="true" preserveRatio="true">
       <image>
-         <Image url="@images/ProfileIcon.png" />
+         <Image url="@images/profileIcon.png" />
       </image>
    </ImageView>
    <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="927.0" layoutY="384.0" onMouseClicked="#goToMainReservationsMenu" pickOnBounds="true" preserveRatio="true">

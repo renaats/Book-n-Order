@@ -25,6 +25,6 @@ public class BikeReservationConfirmationController implements Initializable {
     }
 
     public void mainMenu(MouseEvent mouseEvent) throws IOException {
-        ApplicationDisplay.changeScene("/mainMenu1.fxml");
+        ApplicationDisplay.changeScene("/mainMenu.fxml");
     }
 }
