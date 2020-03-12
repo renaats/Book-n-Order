@@ -21,7 +21,7 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
  * This class controls the functionality of the different buttons in bike reservations and creates the entries in the choice boxes
  */
 
-public class BikeReservationController implements Initializable{
+public class BikeReservationController implements Initializable {
 
 
     final ObservableList listLocations = FXCollections.observableArrayList();
@@ -57,16 +57,16 @@ public class BikeReservationController implements Initializable{
     private void loadData() {
         listTime.removeAll(listTime);
         listMinutes.removeAll(listMinutes);
-        for (int i=0;i<=45; i=i+15){
-            if (i==0){
+        for (int i = 0;i <= 45; i = i + 15) {
+            if (i == 0) {
                 listMinutes.add("00");
             } else {
                 listMinutes.add(i);
             }
         }
         for (int i = 0; i <= 23; i++) {
-            if (i < 10 ) {
-                listTime.add("0"+i);
+            if (i < 10) {
+                listTime.add("0" + i);
             } else {
                 listTime.add(i);
             }
