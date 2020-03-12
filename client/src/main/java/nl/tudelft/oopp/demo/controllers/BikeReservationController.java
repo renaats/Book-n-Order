@@ -9,9 +9,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
@@ -42,7 +40,7 @@ public class BikeReservationController implements Initializable {
     private TextField screen;
 
     public void mainMenu(MouseEvent mouseEvent) throws IOException {
-        ApplicationDisplay.changeScene("/mainMenu1.fxml");
+        ApplicationDisplay.changeScene("/mainMenu.fxml");
     }
 
     public void bikeConfirmation(ActionEvent actionEvent) throws IOException {
