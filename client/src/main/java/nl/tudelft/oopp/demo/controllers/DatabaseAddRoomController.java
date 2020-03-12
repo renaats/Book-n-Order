@@ -87,9 +87,6 @@ public class DatabaseAddRoomController {
      * Switches scene to DatabaseAddBuildings.fxml
      * @throws IOException Input will be valid
      */
-    public void databaseAddBuildings() throws IOException {
-        ApplicationDisplay.changeScene("/DatabaseAddBuildings.fxml");
-    }
 
     /**
      * Switches scene to DatabaseAddRooms.fxml
@@ -106,22 +103,6 @@ public class DatabaseAddRoomController {
 
     public void databaseAddRooms(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/DatabaseAddRooms.fxml");
-    }
-
-    /**
-     * Changes to DatabaseEditBuildings.fxml.
-     * @throws IOException again, all input will be valid. No need to check this, thus we throw.
-     */
-    public void databaseBuildingMenu() throws IOException {
-        ApplicationDisplay.changeScene("/DatabaseEditBuildings.fxml");
-    }
-
-    /**
-     * Changes to DatabaseEditRoom.fxml.
-     * @throws IOException again, all input will be valid. No need to check this, thus we throw.
-     */
-    public void databaseRoomMenu() throws IOException {
-        ApplicationDisplay.changeScene("/DatabaseEditRoom.fxml");
     }
 
     public void myAccountScene(ActionEvent actionEvent) throws IOException {

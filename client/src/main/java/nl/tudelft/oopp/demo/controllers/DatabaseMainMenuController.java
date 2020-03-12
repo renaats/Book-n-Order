@@ -19,7 +19,7 @@ public class DatabaseMainMenuController {
     }
 
     public void databaseBuildings(MouseEvent mouseEvent) throws IOException {
-        ApplicationDisplay.changeScene("/DatabaseEditBuildings.fxml");
+        ApplicationDisplay.changeScene("/DatabaseBuildingMenu.fxml");
     }
 
     public void databaseRooms(MouseEvent mouseEvent) throws IOException {
