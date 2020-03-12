@@ -30,7 +30,7 @@ public class RestaurantController {
     @Secured({"ROLE_ADMIN", "ROLE_RESTAURANT"})
     @PostMapping(path = "/add") // Map ONLY POST Requests
     @ResponseBody
-    public String addNewRestaurant(
+    public int addNewRestaurant(
             @RequestParam int buildingId,
             @RequestParam String name
     ) {
@@ -47,7 +47,7 @@ public class RestaurantController {
     @Secured({"ROLE_ADMIN", "ROLE_RESTAURANT"})
     @PostMapping(path = "/update")
     @ResponseBody
-    public String updateAttribute(@RequestParam int id, @RequestParam String attribute, @RequestParam String value) {
+    public int updateAttribute(@RequestParam int id, @RequestParam String attribute, @RequestParam String value) {
         return restaurantService.update(id, attribute, value);
     }
 
@@ -60,7 +60,7 @@ public class RestaurantController {
     @Secured({"ROLE_ADMIN", "ROLE_RESTAURANT"})
     @DeleteMapping(path = "/delete/{restaurantID}")
     @ResponseBody
-    public String deleteRestaurant(@PathVariable(value = "restaurantID") int id) {
+    public int deleteRestaurant(@PathVariable(value = "restaurantID") int id) {
         return restaurantService.delete(id);
     }
 
