@@ -466,4 +466,28 @@ public class ServerCommunication {
         }
         return ErrorMessages.getErrorMessage(Integer.parseInt(response.body()));
     }
+
+    /**
+     * Removes a room reservation from the database.
+     * @param id = the id of the room reservation.
+     * @return the body of the response from the server.
+     */
+    public static String deleteRoomReservation(int id) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room_reservation/delete/" + id)).DELETE().header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
+        HttpResponse<String> response;
+        try {
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Communication with server failed";
+        }
+        if (response.statusCode() == 403) {
+            return ErrorMessages.getErrorMessage(401);
+        }
+        if (response.statusCode() != 200) {
+            System.out.println(response.body());
+            System.out.println("Status: " + response.statusCode());
+        }
+        return ErrorMessages.getErrorMessage(Integer.parseInt(response.body()));
+    }
 }
