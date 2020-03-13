@@ -129,13 +129,14 @@ public class DatabaseAddRoomController {
         alert.showAndWait();
     }
 
+
     /**
      * returns to the main menu
-     * @param actionEvent the event is clicking the menu item
+     * @param mouseEvent the event is clicking the menu item
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
-    public void mainMenu(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/mainMenuReservations.fxml");
+    public void mainMenu(MouseEvent mouseEvent) throws IOException {
+        ApplicationDisplay.changeScene("/DatabaseMainMenu.fxml");
     }
 
     /**

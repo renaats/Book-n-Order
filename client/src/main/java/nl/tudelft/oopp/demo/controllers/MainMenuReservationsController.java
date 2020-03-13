@@ -28,14 +28,13 @@ public class MainMenuReservationsController {
         ApplicationDisplay.changeScene("/bookRoom.fxml");
     }
 
-    /**
-     * Changes to myCurrentBookings.fxml.
-     * @throws IOException input will not be wrong, hence we throw.
+    /** Handles clicking the food button.
+     * @throws IOException Input will be valid, hence we throw.
      */
-    public void myCurrentBookings() throws IOException {
-        ApplicationDisplay.changeScene("/myCurrentBookings.fxml");
+    public void orderFood() throws IOException {
+        ApplicationDisplay.changeScene("/orderFood.fxml");
     }
-
+    
     /**
      * Changes to myPreviousBookings.fxml.
      * @throws IOException input will not be wrong, hence we throw.
@@ -75,13 +74,6 @@ public class MainMenuReservationsController {
      */
     public void myPreviousTenFoodOrders() throws IOException {
         ApplicationDisplay.changeScene("/myPreviousTenFoodOrders.fxml");
-    }
-
-    /** Handles clicking the food button.
-     * @throws IOException Input will be valid, hence we throw.
-     */
-    public void orderFood() throws IOException {
-        ApplicationDisplay.changeScene("/orderFood.fxml");
     }
 
     /**
