@@ -123,11 +123,8 @@ public class DatabaseBuildingController implements Initializable {
     public void deleteBuildingButtonClicked() {
         try {
             int id = Integer.parseInt(buildingDeleteByIdTextField.getText());
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Building remover");
-            alert.setHeaderText(null);
-            alert.setContentText(ServerCommunication.deleteBuilding(id));
-            alert.showAndWait();
+            ServerCommunication.deleteBuilding(id);
+            buildingResult.removeIf(b -> b.getId() == id);
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Error");
@@ -146,10 +143,12 @@ public class DatabaseBuildingController implements Initializable {
             String attribute = updateChoiceBox.getValue().replaceAll(" ", "");
             String changeValue = buildingChangeToField.getText();
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Building remover");
+            alert.setTitle("Building update");
             alert.setHeaderText(null);
             alert.setContentText(ServerCommunication.updateBuilding(id, attribute, changeValue));
             alert.showAndWait();
+            buildingResult.clear();
+            listBuildingsButtonClicked();
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Error");
