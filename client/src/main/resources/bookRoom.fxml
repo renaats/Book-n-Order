@@ -31,7 +31,7 @@
       </font>
    </Text>
    <TextField fx:id="capacity" layoutX="193.0" layoutY="282.0" promptText="Capacity" />
-    <ImageView fitHeight="41.0" fitWidth="44.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#mainMenu" pickOnBounds="true" preserveRatio="true">
+    <ImageView fx:id="homeIcon" fitHeight="41.0" fitWidth="44.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#mainMenu" pickOnBounds="true" preserveRatio="true">
         <Image url="@images/HomeIcon.png" />
     </ImageView>
    <CheckBox fx:id="beamer" layoutX="193.0" layoutY="250.0" mnemonicParsing="false" text="Beamer" />
@@ -47,7 +47,7 @@
        <TableColumn prefWidth="75.0" text="C2" />
      </columns>
    </TableView>
-   <ImageView fitHeight="41.0" fitWidth="69.0" layoutX="17.0" layoutY="67.0" onMouseClicked="#goToMainMenuReservations" pickOnBounds="true" preserveRatio="true">
+   <ImageView fitHeight="41.0" fitWidth="69.0" layoutX="14.0" layoutY="67.0" onMouseClicked="#goToMainMenuReservations" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@images/BackArrow.png" />
       </image>

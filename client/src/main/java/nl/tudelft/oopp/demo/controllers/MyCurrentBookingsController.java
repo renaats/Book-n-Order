@@ -70,4 +70,12 @@ public class MyCurrentBookingsController {
     public void goToMyAccount() throws IOException {
         ApplicationDisplay.changeScene("/myAccountScene.fxml");
     }
+
+    /**
+     * method changes view to main menu
+     * @throws IOException
+     */
+    public void goToMyAccount() throws IOException {
+        ApplicationDisplay.changeScene("/myAccountScene.fxml");
+    }
 }

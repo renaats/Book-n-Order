@@ -29,37 +29,13 @@
             <Font name="Calibri" size="11.0" />
         </font>
     </Text>
-    <Text layoutX="576.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Order food" AnchorPane.leftAnchor="576.0" AnchorPane.topAnchor="150.943359375">
+    <Text layoutX="576.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Order food" AnchorPane.leftAnchor="576.0" AnchorPane.topAnchor="146.943359375">
         <font>
             <Font size="26.0" />
         </font>
     </Text>
-    <Button layoutX="525.0" layoutY="461.0" maxHeight="25.0" maxWidth="230.0" minHeight="25.0" minWidth="230.0" mnemonicParsing="false" onAction="#goToFoodOrderConfirmation" prefHeight="25.0" prefWidth="230.0" style="-fx-background-color: #00a6d6;" text="Finalize Order" textFill="WHITE" AnchorPane.leftAnchor="525.0" AnchorPane.topAnchor="461.0" />
-    <ChoiceBox focusTraversable="false" layoutX="553.0" layoutY="274.0" maxHeight="26.0" maxWidth="174.0" minHeight="26.0" minWidth="174.0" prefHeight="26.0" prefWidth="174.0" AnchorPane.leftAnchor="553.0" AnchorPane.topAnchor="274.0" />
-    <DatePicker layoutX="553.0" layoutY="225.0" maxHeight="26.0" maxWidth="174.0" minHeight="26.0" minWidth="174.0" prefHeight="26.0" prefWidth="174.0" AnchorPane.leftAnchor="553.0" AnchorPane.topAnchor="225.0" />
-    <Text layoutX="249.0" layoutY="344.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Menu Item:" AnchorPane.leftAnchor="249.0" AnchorPane.topAnchor="326.0">
-        <font>
-            <Font size="16.0" />
-        </font>
-    </Text>
-    <ChoiceBox layoutX="553.0" layoutY="324.0" maxHeight="26.0" maxWidth="174.0" minHeight="26.0" minWidth="174.0" prefHeight="26.0" prefWidth="174.0" AnchorPane.leftAnchor="553.0" AnchorPane.topAnchor="324.0" />
-    <Text layoutX="250.0" layoutY="394.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Restaurant:" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="376.0">
-        <font>
-            <Font size="16.0" />
-        </font>
-    </Text>
-    <Text layoutX="271.0" layoutY="294.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time:" AnchorPane.leftAnchor="271.0" AnchorPane.topAnchor="276.0">
-        <font>
-            <Font size="16.0" />
-        </font>
-    </Text>
-   <TextField layoutX="553.0" layoutY="374.0" maxHeight="26.0" maxWidth="174.0" minHeight="26.0" minWidth="174.0" prefHeight="26.0" prefWidth="174.0" AnchorPane.leftAnchor="553.0" AnchorPane.topAnchor="374.0" />
-   <TextField layoutX="553.0" layoutY="423.0" maxHeight="26.0" maxWidth="174.0" minHeight="26.0" minWidth="174.0" prefHeight="26.0" prefWidth="174.0" AnchorPane.leftAnchor="553.0" AnchorPane.topAnchor="423.0" />
-   <Text layoutX="223.0" layoutY="438.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mobile phone number:" AnchorPane.leftAnchor="223.0" AnchorPane.topAnchor="425.0">
-      <font>
-         <Font size="16.0" />
-      </font>
-   </Text>
+    <Button layoutX="525.0" layoutY="397.0" maxHeight="25.0" maxWidth="230.0" minHeight="25.0" minWidth="230.0" mnemonicParsing="false" onAction="#goToFoodOrderConfirmation" prefHeight="25.0" prefWidth="230.0" style="-fx-background-color: #00a6d6;" text="Finalize Order" textFill="WHITE" AnchorPane.leftAnchor="525.0" AnchorPane.topAnchor="397.0" />
+    <DatePicker fx:id="orderFoodDate" layoutX="553.0" layoutY="205.0" maxHeight="26.0" maxWidth="174.0" minHeight="26.0" minWidth="174.0" prefHeight="26.0" prefWidth="174.0" AnchorPane.leftAnchor="553.0" AnchorPane.topAnchor="205.0" />
     <ImageView fitHeight="41.0" fitWidth="44.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#mainMenu" pickOnBounds="true" preserveRatio="true">
         <Image url="@images/HomeIcon.png" />
     </ImageView>
@@ -69,4 +45,7 @@
             <Image url="@images/BackArrow.png" />
         </image>
     </ImageView>
+    <ComboBox fx:id="pickUpTimeMin" layoutX="640.0" layoutY="250.0" prefHeight="25.0" prefWidth="53.0" />
+    <ComboBox fx:id="pickUpTimeH" layoutX="587.0" layoutY="250.0" prefHeight="25.0" prefWidth="53.0" />
+   <Label fx:id="explanationOfTheRestaurantText" layoutX="90.0" layoutY="156.0" text="There was a problem lading the text label" />
 </AnchorPane>

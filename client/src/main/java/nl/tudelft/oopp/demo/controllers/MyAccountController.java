@@ -30,13 +30,6 @@ public class MyAccountController implements Initializable {
         email.setText(ServerCommunication.getUser());
     }
 
-    /**
-     * Changes current scene to myAccountScene.fxml.
-     * @throws IOException input will be valid.
-     */
-    public void myAccountScene() throws IOException {
-        ApplicationDisplay.changeScene("/myAccountScene.fxml");
-    }
 
     private void loadData() {
         name.setText(ServerCommunication.getUser());
