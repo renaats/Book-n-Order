@@ -9,15 +9,18 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
+import nl.tudelft.oopp.demo.entities.Building;
+import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 public class DatabaseRoomController implements Initializable {
 
     final ObservableList<String> updateChoiceBoxList = FXCollections.observableArrayList();
+    final ObservableList<Room> roomResult = FXCollections.observableArrayList();
 
     @FXML
     private ChoiceBox<String> updateChoiceBox;
@@ -29,22 +32,63 @@ public class DatabaseRoomController implements Initializable {
     private TextField roomFindByIdUpdateField;
     @FXML
     private TextField roomChangeToField;
+    @FXML
+    private TableView<Room> table;
+    @FXML
+    private TableColumn<Building, String> colId;
+    @FXML
+    private TableColumn<Building, String> colName;
+    @FXML
+    private TableColumn<Building, String> colBuilding;
+    @FXML
+    private TableColumn<Building, Integer> colFaculty;
+    @FXML
+    private TableColumn<Building, String> colFacultySpecific;
+    @FXML
+    private TableColumn<Building, String> colProjector;
+    @FXML
+    private TableColumn<Building, String> colScreen;
+    @FXML
+    private TableColumn<Building, Integer> colNrPeople;
+    @FXML
+    private TableColumn<Building, String> colPlugs;
+    @FXML
+    private TableColumn<Building, String> colRoomReservations;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         loadDataUpdateChoiceBox();
+        colId.setCellValueFactory(new PropertyValueFactory<>("Id"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        colBuilding.setCellValueFactory(new PropertyValueFactory<>("Building"));
+        colFaculty.setCellValueFactory(new PropertyValueFactory<>("Faculty"));
+        colFacultySpecific.setCellValueFactory(new PropertyValueFactory<>("FacultySpecific"));
+        colProjector.setCellValueFactory(new PropertyValueFactory<>("Projector"));
+        colScreen.setCellValueFactory(new PropertyValueFactory<>("Screen"));
+        colNrPeople.setCellValueFactory(new PropertyValueFactory<>("nrPeople"));
+        colPlugs.setCellValueFactory(new PropertyValueFactory<>("Plugs"));
+        colRoomReservations.setCellValueFactory((new PropertyValueFactory<>("RoomReservations")));
     }
 
     /**
      * Handles clicking of the Find Room button.
      */
-    public void room_id_ButtonClicked() {
-        int id = Integer.parseInt(roomFindByIdTextField.getText());
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Building Finder");
-        alert.setHeaderText(null);
-        alert.setContentText(ServerCommunication.findRoom(id));
-        alert.showAndWait();
+    public void roomIdButtonClicked() {
+        try {
+            int id = Integer.parseInt(roomFindByIdTextField.getText());
+            Room room = JsonMapper.roomMapper(ServerCommunication.findRoom(id));
+            roomResult.clear();
+            roomResult.add(room);
+            System.out.println("test1");
+            table.setItems(roomResult);
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Missing argument.");
+            alert.showAndWait();
+        }
     }
 
     /**

@@ -24,7 +24,6 @@ public class JsonMapper {
 
         try {
             // Convert JSON string to Object
-            System.out.println(buildingJson);
             Building building = mapper.readValue(buildingJson, Building.class);
             return building;
         } catch (JsonGenerationException e) {
@@ -34,7 +33,6 @@ public class JsonMapper {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return null;
     }
 
@@ -44,6 +42,47 @@ public class JsonMapper {
      * @return A list filled with object Buildings
      */
     public static List<Building> buildingListMapper(String buildingsJson) {
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        try {
+            // Convert JSON string to Object
+            List<Building> buildings = mapper.readValue(buildingsJson, new TypeReference<List<Building>>(){});
+            return buildings;
+        } catch (Exception e) {
+            System.out.println("test4");
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static Room roomMapper(String roomJson) {
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        try {
+            // Convert JSON string to Object
+            System.out.println(roomJson);
+            Room room = mapper.readValue(roomJson, Room.class);
+            return room;
+        } catch (JsonGenerationException e) {
+            e.printStackTrace();
+        } catch (JsonMappingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            System.out.println("test");
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * Maps all building JSONS to a list.
+     * @param buildingsJson a JSON string representing a list.
+     * @return A list filled with object Buildings
+     */
+    public static List<Building> roomListMapper(String buildingsJson) {
+
         ObjectMapper mapper = new ObjectMapper();
 
         try {
@@ -58,7 +97,6 @@ public class JsonMapper {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return null;
     }
 

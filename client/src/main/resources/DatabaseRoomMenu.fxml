@@ -1,8 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -19,8 +23,8 @@
       <Image url="@images/booknorderlogo.png" />
    </ImageView>
    <MenuBar layoutY="75.0" prefHeight="26.0" prefWidth="648.0" style="-fx-background-color: #00a6d6;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-      <Menu mnemonicParsing="false" text="Home" >
-         <MenuItem mnemonicParsing="false" onAction="#mainMenu" text="main menu"/>
+      <Menu mnemonicParsing="false" text="Home">
+         <MenuItem mnemonicParsing="false" onAction="#mainMenu" text="main menu" />
       </Menu>
       <Menu mnemonicParsing="false" text="Edit">
          <items>
@@ -53,7 +57,7 @@
          <Font size="17.0" />
       </font>
    </Text>
-   <Button fx:id="confirmFindByIdButton" layoutX="231.0" layoutY="193.0" mnemonicParsing="false" onAction="#room_id_ButtonClicked" prefHeight="26.0" prefWidth="61.0" style="-fx-background-color: #00a6d6;" text="Find" textFill="WHITE" AnchorPane.leftAnchor="231.0" AnchorPane.topAnchor="193.0" />
+   <Button fx:id="confirmFindByIdButton" layoutX="231.0" layoutY="193.0" mnemonicParsing="false" onAction="#roomIdButtonClicked" prefHeight="26.0" prefWidth="61.0" style="-fx-background-color: #00a6d6;" text="Find" textFill="WHITE" AnchorPane.leftAnchor="231.0" AnchorPane.topAnchor="193.0" />
    <TextField fx:id="roomDeleteByIdTextField" layoutX="50.0" layoutY="207.0" promptText="ID" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="260.0" />
    <Text layoutX="59.0" layoutY="189.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Delete a room" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="235.0">
       <font>
@@ -96,4 +100,18 @@
    <TextField fx:id="roomChangeToField" layoutX="548.0" layoutY="325.0" AnchorPane.leftAnchor="548.0" AnchorPane.topAnchor="325.0" />
    <Button fx:id="confirmChangeButton" layoutX="719.0" layoutY="324.0" mnemonicParsing="false" onAction="#updateRoomButtonClicked" style="-fx-background-color: #00a6d6;" text="Change" textFill="WHITE" AnchorPane.leftAnchor="725.0" AnchorPane.topAnchor="324.0" />
    <Button fx:id="roomFindAllButton" layoutX="305.0" layoutY="193.0" mnemonicParsing="false" onAction="#roomBuildingsButtonClicked" style="-fx-background-color: #00a6d6;" text="Find all" textFill="WHITE" />
+   <TableView fx:id="table" layoutX="29.0" layoutY="357.0" prefHeight="200.0" prefWidth="754.0">
+     <columns>
+       <TableColumn fx:id="colId" prefWidth="75.0" text="ID" />
+       <TableColumn fx:id="colName" prefWidth="75.0" text="Name" />
+         <TableColumn fx:id="colBuilding" prefWidth="75.0" text="Building" />
+         <TableColumn fx:id="colFaculty" prefWidth="75.0" text="Faculty" />
+         <TableColumn fx:id="colFacultySpecific" prefWidth="75.0" text="FacultySpecific" />
+         <TableColumn fx:id="colProjector" prefWidth="75.0" text="Projector" />
+         <TableColumn fx:id="colScreen" prefWidth="75.0" text="Screen" />
+         <TableColumn fx:id="colNrPeople" prefWidth="75.0" text="Capacity" />
+         <TableColumn fx:id="colPlugs" prefWidth="75.0" text="Plugs" />
+         <TableColumn fx:id="colRoomReservations" prefWidth="75.0" text="Room Reservations" />
+     </columns>
+   </TableView>
 </AnchorPane>
