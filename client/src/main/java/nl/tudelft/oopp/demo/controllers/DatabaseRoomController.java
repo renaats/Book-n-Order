@@ -2,6 +2,9 @@ package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
@@ -9,7 +12,11 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
@@ -95,11 +102,10 @@ public class DatabaseRoomController implements Initializable {
      * Handles clicking of the List Rooms button.
      */
     public void roomBuildingsButtonClicked() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("All buildings:");
-        alert.setHeaderText(null);
-        alert.setContentText(ServerCommunication.getRooms());
-        alert.showAndWait();
+        List<Room> rooms = new ArrayList<>(Objects.requireNonNull(JsonMapper.roomListMapper(ServerCommunication.getRooms())));
+        roomResult.clear();
+        roomResult.addAll(rooms);
+        table.setItems(roomResult);
     }
 
     /**
@@ -123,11 +129,14 @@ public class DatabaseRoomController implements Initializable {
      */
     public void deleteRoomButtonClicked() {
         int id = Integer.parseInt(roomDeleteByIdTextField.getText());
+
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Room remover");
         alert.setHeaderText(null);
         alert.setContentText(ServerCommunication.deleteRoom(id));
         alert.showAndWait();
+
+        roomResult.removeIf(room -> room.getId() == id);
     }
 
     /**
@@ -143,6 +152,8 @@ public class DatabaseRoomController implements Initializable {
             alert.setHeaderText(null);
             alert.setContentText(ServerCommunication.updateRoom(id, attribute, changeValue));
             alert.showAndWait();
+            roomResult.clear();
+            roomBuildingsButtonClicked();
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Error");

@@ -129,7 +129,7 @@ public class ServerCommunication {
     }
 
     /**
-     * Retrieves a String representation of all buildings from the server.
+     * Retrieves a JSON string representation of all rooms from the server.
      * @return the body of the response from the server.
      */
     public static String getRooms() {

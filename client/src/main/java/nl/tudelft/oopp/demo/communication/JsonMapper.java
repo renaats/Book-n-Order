@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.List;
 
+import javafx.scene.control.Alert;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Room;
 
@@ -50,12 +51,20 @@ public class JsonMapper {
             List<Building> buildings = mapper.readValue(buildingsJson, new TypeReference<List<Building>>(){});
             return buildings;
         } catch (Exception e) {
-            System.out.println("test4");
-            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText(buildingsJson);
+            alert.showAndWait();
         }
         return null;
     }
 
+    /**
+     * Maps JSON to Room entity.
+     * @param roomJson JSON representation of a room.
+     * @return Room entity.
+     */
     public static Room roomMapper(String roomJson) {
 
         ObjectMapper mapper = new ObjectMapper();
@@ -65,37 +74,36 @@ public class JsonMapper {
             System.out.println(roomJson);
             Room room = mapper.readValue(roomJson, Room.class);
             return room;
-        } catch (JsonGenerationException e) {
-            e.printStackTrace();
-        } catch (JsonMappingException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            System.out.println("test");
-            e.printStackTrace();
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText(roomJson);
+            alert.showAndWait();
         }
         return null;
     }
 
     /**
      * Maps all building JSONS to a list.
-     * @param buildingsJson a JSON string representing a list.
+     * @param roomsJson a JSON string representing a list.
      * @return A list filled with object Buildings
      */
-    public static List<Building> roomListMapper(String buildingsJson) {
+    public static List<Room> roomListMapper(String roomsJson) {
 
         ObjectMapper mapper = new ObjectMapper();
 
         try {
             // Convert JSON string to Object
-            System.out.println(buildingsJson);
-            List<Building> buildings = mapper.readValue(buildingsJson, new TypeReference<List<Building>>(){});
-            return buildings;
-        } catch (JsonGenerationException e) {
-            e.printStackTrace();
-        } catch (JsonMappingException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(roomsJson);
+            List<Room> rooms = mapper.readValue(roomsJson, new TypeReference<List<Room>>(){});
+            return rooms;
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText(roomsJson);
+            alert.showAndWait();
         }
         return null;
     }
