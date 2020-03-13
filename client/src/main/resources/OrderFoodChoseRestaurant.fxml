@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -27,6 +28,9 @@
     <Button fx:id="submitButton" layoutX="218.0" layoutY="184.0" mnemonicParsing="false" onAction="#applyFilters" text="Search for restaurants" />
     <ImageView fitHeight="41.0" fitWidth="44.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#mainMenu" pickOnBounds="true" preserveRatio="true">
         <Image url="@images/HomeIcon.png" />
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
     </ImageView>
     <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="67.0" layoutY="-32.0" pickOnBounds="true" preserveRatio="true">
         <image>
@@ -38,10 +42,13 @@
             <TableColumn prefWidth="224.66667556762695" text="Restaurants" />
         </columns>
     </TableView>
-    <ImageView fitHeight="41.0" fitWidth="69.0" layoutX="17.0" layoutY="67.0" onMouseClicked="#goToMainMenuReservations" pickOnBounds="true" preserveRatio="true">
+    <ImageView fitHeight="41.0" fitWidth="69.0" layoutX="14.0" layoutY="67.0" onMouseClicked="#goToMainMenuReservations" pickOnBounds="true" preserveRatio="true">
         <image>
             <Image url="@images/BackArrow.png" />
         </image>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
     </ImageView>
     <Button layoutX="958.0" layoutY="643.0" mnemonicParsing="false" onAction="#goToOrderFood" text="Place order" />
    <TableView layoutX="883.0" layoutY="225.0" prefHeight="384.0" prefWidth="226.0">
