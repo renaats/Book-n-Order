@@ -2,6 +2,9 @@ package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
@@ -15,6 +18,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
@@ -63,11 +67,11 @@ public class DatabaseBuildingController implements Initializable {
     /**
      * Handles clicking of the Find Building button.
      */
-    public void building_id_ButtonClicked() {
+    public void buildingIdButtonClicked() {
         try {
             int id = Integer.parseInt(buildingFindByIdTextField.getText());
-            Building building = (Building) ServerCommunication.findBuilding(id);
-            buildingResult.removeAll();
+            Building building = JsonMapper.buildingMapper(ServerCommunication.findBuilding(id));
+            buildingResult.clear();
             buildingResult.add(building);
             table.setItems(buildingResult);
         } catch (Exception e) {
@@ -83,11 +87,18 @@ public class DatabaseBuildingController implements Initializable {
      * Handles clicking of the List All Buildings button.
      */
     public void listBuildingsButtonClicked() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("All buildings:");
-        alert.setHeaderText(null);
-        alert.setContentText(ServerCommunication.getBuildings());
-        alert.showAndWait();
+        try {
+            List<Building> buildings = new ArrayList<>(Objects.requireNonNull(JsonMapper.buildingListMapper(ServerCommunication.getBuildings())));
+            buildingResult.clear();
+            buildingResult.addAll(buildings);
+            table.setItems(buildingResult);
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("No buildings found.");
+            alert.showAndWait();
+        }
     }
 
     /**

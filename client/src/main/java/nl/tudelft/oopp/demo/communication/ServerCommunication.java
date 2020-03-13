@@ -10,9 +10,11 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.errors.ErrorMessages;
 import nl.tudelft.oopp.demo.user.UserInformation;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
@@ -180,7 +182,7 @@ public class ServerCommunication {
      * @param buildingID = building id, which is parsed from a text field.
      * @return the body of the response.
      */
-    public static Object findBuilding(int buildingID) {
+    public static String findBuilding(int buildingID) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building/find/" + buildingID)).GET().header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
         HttpResponse<String> response;
         try {
@@ -196,7 +198,7 @@ public class ServerCommunication {
         if (response.body().equals("")) {
             return ErrorMessages.getErrorMessage(404);
         } else {
-            return JsonMapper.map(response.body());
+            return response.body();
         }
     }
 
@@ -248,7 +250,6 @@ public class ServerCommunication {
         if (response.body().equals("")) {
             return ErrorMessages.getErrorMessage(404);
         } else {
-            System.out.println(response.body());
             return response.body();
         }
     }
