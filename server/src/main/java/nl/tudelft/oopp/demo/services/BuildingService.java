@@ -65,7 +65,7 @@ public class BuildingService {
      * @return String to see if your request passed
      */
     public int delete(int id) {
-        if (!buildingRepository.existsById(id)) {
+        if (buildingRepository.findById(id).isEmpty()) {
             return 404;
         }
         if (buildingRepository.findById(id).get().hasRooms()) {

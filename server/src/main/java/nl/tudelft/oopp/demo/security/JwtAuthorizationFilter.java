@@ -27,7 +27,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     public JwtAuthorizationFilter(AuthenticationManager authManager, UserRepository userRepository) {
         super(authManager);
