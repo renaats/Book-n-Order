@@ -17,7 +17,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
-import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
@@ -189,11 +188,11 @@ public class BookRoomController implements Initializable {
     }
 
     /**
-     * Changes to orderFood.fxml.
+     * Changes to OrderFoodPickDate.fxml.
      * @throws IOException input will not be wrong, hence we throw.
      */
     public void orderFood(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/orderFood.fxml");
+        ApplicationDisplay.changeScene("/OrderFoodPickDate.fxml");
     }
 
     /**

@@ -58,23 +58,6 @@ public class DatabaseEditRoomController implements Initializable {
     }
 
     /**
-     * Changes to mainScene.fxml.
-     * @throws IOException again, all input will be valid. No need to check this, thus we throw.
-     */
-    public void databaseBuildingMenu() throws IOException {
-        ApplicationDisplay.changeScene("/DatabaseEditBuildings.fxml");
-    }
-
-    /**
-     * Changes to mainScene.fxml.
-     * @throws IOException again, all input will be valid. No need to check this, thus we throw.
-     */
-    public void databaseRoomMenu() throws IOException {
-        ApplicationDisplay.changeScene("/DatabaseEditRoom.fxml");
-    }
-
-
-    /**
      * Handles the sending of update values.
      */
     public void updateRoomButtonClicked() {
