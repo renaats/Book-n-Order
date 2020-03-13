@@ -29,6 +29,9 @@ public class BookRoomController implements Initializable {
     final ObservableList listOfTimeSlots = FXCollections.observableArrayList();
     final ObservableList listOfBuildings = FXCollections.observableArrayList();
 
+
+
+
     public class Search {
         private boolean screen;
         private boolean beamer;
@@ -123,10 +126,26 @@ public class BookRoomController implements Initializable {
     }
 
     /**
+     * return to the reservations menu when the back arrow button is clicked.
+     * @param mouseEvent The event tis the clicking of the arrow button
+     * @throws IOException the input will allways be the same, so it should never throw an IO exception
+     */
+    public void goToMainMenuReservations(MouseEvent mouseEvent) throws IOException {
+        ApplicationDisplay.changeScene("/mainMenuReservations.fxml");
+    }
+    /**
+     * return to the reservations menu when the back arrow button is clicked.
+     * @param actionEvent The event tis the clicking of the arrow button
+     * @throws IOException the input will allways be the same, so it should never throw an IO exception
+     */
+    public void goToRoomConfirmation(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/RooomConfirmation.fxml");
+    }
+    /**
      * Adds the items to the choice boxes
      */
     public void loadRoomData() {
-        rooms.setText("rooms=" + ServerCommunication.getRooms());
+        // rooms.setText("rooms=" + "ServerCommunication.getRooms()");
     }
 
     /**
@@ -183,7 +202,7 @@ public class BookRoomController implements Initializable {
      * @throws IOException input will not be wrong, hence we throw.
      */
     public void mainMenu(MouseEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/mainMenuReservations.fxml");
+        ApplicationDisplay.changeScene("/mainMenu.fxml");
     }
 
     /**

@@ -44,7 +44,7 @@ public class BikeReservationController implements Initializable {
     }
 
     public void bikeConfirmation(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/calendar.fxml");
+        ApplicationDisplay.changeScene("/bikeConfirmation.fxml");
     }
 
     @Override
@@ -73,6 +73,13 @@ public class BikeReservationController implements Initializable {
         dropOffTimeH.getItems().addAll(listTime);
         pickUpTimeMin.getItems().addAll(listMinutes);
         dropOffTimeMin.getItems().addAll(listMinutes);
-        screen.setText(ServerCommunication.getBuildings());
+    }
+    /**
+     * return to the reservations menu when the back arrow button is clicked.
+     * @param mouseEvent The event tis the clicking of the arrow button
+     * @throws IOException the input will allways be the same, so it should never throw an IO exception
+     */
+    public void goToMainMenuReservations(MouseEvent mouseEvent) throws IOException {
+        ApplicationDisplay.changeScene("/mainMenuReservations.fxml");
     }
 }

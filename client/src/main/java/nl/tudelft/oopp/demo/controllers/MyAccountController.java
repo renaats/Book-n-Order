@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
@@ -41,15 +42,16 @@ public class MyAccountController implements Initializable {
      * Changes to myCurrentBookings.fxml.
      * @throws IOException input will be valid.
      */
-    public void myCurrentBookings() throws IOException {
-        ApplicationDisplay.changeScene("/myCurrentBookings.fxml");
+
+    public void myCurrentBookings(MouseEvent mouseEvent) throws IOException {
+        ApplicationDisplay.changeScene("/DatabaseMainMenu.fxml");
     }
 
     /**
      * Changes to myPreviousBookings.fxml.
      * @throws IOException input will be valid.
      */
-    public void myPreviousBookings() throws IOException {
+    public void myPreviousBookings(MouseEvent mouseEvent) throws IOException {
         ApplicationDisplay.changeScene("/myPreviousBookings.fxml");
     }
 
@@ -107,4 +109,6 @@ public class MyAccountController implements Initializable {
         alert.showAndWait();
         ApplicationDisplay.changeScene("/login-screen.fxml");
     }
+
+
 }
