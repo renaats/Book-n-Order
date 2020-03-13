@@ -70,4 +70,19 @@
          <Cursor fx:constant="HAND" />
       </cursor>
     </ImageView>
+   <ImageView fitHeight="41.0" fitWidth="62.0" layoutX="14.0" layoutY="134.0" onMouseClicked="#myPreviousBookings" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@images/Previous-booking-icon-png.png" />
+      </image>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor></ImageView>
+   <ImageView fitHeight="48.0" fitWidth="41.0" layoutX="14.0" layoutY="201.0" onMouseClicked="#myCurrentBookings" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@images/CurrentBookingsIcon.png" />
+      </image>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </ImageView>
 </AnchorPane>

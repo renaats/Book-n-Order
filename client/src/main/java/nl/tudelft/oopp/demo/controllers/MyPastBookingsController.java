@@ -1,12 +1,10 @@
 package nl.tudelft.oopp.demo.controllers;
 
-import java.io.IOException;
-
-import javafx.event.ActionEvent;
-import javafx.scene.input.MouseEvent;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
-public class MyCurrentBookingsController {
+import java.io.IOException;
+
+public class MyPastBookingsController {
     /**
      * Changes to myAccountScene.fxml.
      * @throws IOException input will be valid.
@@ -14,6 +12,7 @@ public class MyCurrentBookingsController {
     public void myAccountScene() throws IOException {
         ApplicationDisplay.changeScene("/myAccountScene.fxml");
     }
+
 
     /**
      * Changes to myCurrentBookings.fxml.
@@ -32,27 +31,27 @@ public class MyCurrentBookingsController {
     }
 
     /**
-     * Changes to myCurrentBikeReservations.fxml.
+     * Changes to myPreviousBikeReservations.fxml.
      * @throws IOException input will be valid.
      */
-    public void myCurrentBikeReservations() throws IOException {
-        ApplicationDisplay.changeScene("/myCurrentBikeReservations.fxml");
+    public void myPreviousBikeReservations() throws IOException {
+        ApplicationDisplay.changeScene("/myPreviousTenBikeReservations.fxml");
     }
 
     /**
-     * Changes to myCurrentRoomBookings.fxml.
+     * Changes to myPreviousRoomBookings.fxml.
      * @throws IOException input will be valid.
      */
-    public void myCurrentRoomBookings() throws IOException {
-        ApplicationDisplay.changeScene("/myCurrentRoomReservations.fxml");
+    public void myPreviousRoomBookings() throws IOException {
+        ApplicationDisplay.changeScene("/myPreviousTenRoomBookings.fxml");
     }
 
     /**
-     * Changes to myCurrentFoodOrders.fxml.
+     * Changes to myPreviousFoodOrders.fxml.
      * @throws IOException input will be valid.
      */
-    public void myCurrentFoodOrders() throws IOException {
-        ApplicationDisplay.changeScene("/myCurrentFoodReservations.fxml");
+    public void myPreviousFoodOrders() throws IOException {
+        ApplicationDisplay.changeScene("/myPreviousTenFoodOrders.fxml");
     }
 
     /**
