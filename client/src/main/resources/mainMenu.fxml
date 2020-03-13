@@ -12,22 +12,15 @@
          <Image url="@images/mainMenuBackground.jpg" />
       </image>
    </ImageView>
-   <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="580.0" layoutY="72.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="624.0" AnchorPane.leftAnchor="580.0" AnchorPane.rightAnchor="580.0" AnchorPane.topAnchor="72.0">
+   <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="33.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@images/TuDelftLogo.png" />
+      </image>
+   </ImageView>
+   <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="233.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="576.0" AnchorPane.leftAnchor="233.0" AnchorPane.rightAnchor="927.0" AnchorPane.topAnchor="120.0">
       <Image url="@images/booknorderlogo.png" />
    </ImageView>
    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00a6d6" height="30.0" layoutX="1.0" layoutY="10.0" stroke="#00a6d6" strokeType="INSIDE" width="1280.0" />
-   <MenuBar layoutX="163.0" layoutY="11.0" maxHeight="28.0" maxWidth="1118.0" minHeight="28.0" minWidth="192.0" prefHeight="28.0" prefWidth="1118.0" style="-fx-background-color: #00a6d6;" AnchorPane.leftAnchor="163.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="11.0">
-      <Menu mnemonicParsing="false" text="New booking">
-         <MenuItem mnemonicParsing="false" onAction="#bookRoom" text="Book a room" />
-         <MenuItem mnemonicParsing="false" onAction="#rentBike" text="Rent a bike" />
-         <MenuItem mnemonicParsing="false" onAction="#orderFood" text="Order food" />
-      </Menu>
-      <Menu mnemonicParsing="false" text="My account">
-         <MenuItem mnemonicParsing="false" onAction="#myAccountScene" text="My profile" />
-         <MenuItem mnemonicParsing="false" onAction="#myCurrentBookings" text="My current bookings" />
-         <MenuItem mnemonicParsing="false" onAction="#myPreviousBookings" text="My previous bookings" />
-      </Menu>
-   </MenuBar>
    <Text fill="WHITE" layoutX="20.0" layoutY="555.576171875" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback is welcome" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0">
       <font>
          <Font size="18.0" />
@@ -60,14 +53,10 @@
          <Image url="@images/BookingIcon.png" />
       </image>
    </ImageView>
-   <Text layoutX="45.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Book 'n Order">
+   <Text layoutX="45.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Book 'n Order">
       <font>
          <Font name="Candara Bold" size="24.0" />
       </font></Text>
-   <Text layoutX="42.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Here you can check your calendar to see your appointments&#10; or you can make a new booking" wrappingWidth="319.30078125" />
-   <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="380.0" layoutY="-12.0" pickOnBounds="true" preserveRatio="true">
-      <image>
-         <Image url="@images/TuDelftLogo.png" />
-      </image>
-   </ImageView>
+   <Text layoutX="42.0" layoutY="210.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Here you can check your calendar to see your appointments&#10; or you can make a new booking" wrappingWidth="319.30078125" />
+
 </AnchorPane>
