@@ -14,7 +14,7 @@ import nl.tudelft.oopp.demo.entities.Room;
 public class JsonMapper {
 
     /**
-     * Current test mapper for buildings
+     * Current mapper for buildings
      * @param buildingJson JSON string representation of a building
      * @return Building object
      */
@@ -38,6 +38,11 @@ public class JsonMapper {
         return null;
     }
 
+    /**
+     * Maps all building JSONS to a list.
+     * @param buildingsJson a JSON string representing a list.
+     * @return A list filled with object Buildings
+     */
     public static List<Building> buildingListMapper(String buildingsJson) {
         ObjectMapper mapper = new ObjectMapper();
 
