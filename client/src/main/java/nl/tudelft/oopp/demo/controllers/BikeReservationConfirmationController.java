@@ -13,7 +13,7 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 public class BikeReservationConfirmationController implements Initializable {
     @FXML
-    private Label idNUmber;
+    private Label Number;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -21,9 +21,14 @@ public class BikeReservationConfirmationController implements Initializable {
     }
 
     private void loadData() {
-        idNUmber.setText("ID IS NOT FOUND");
+
     }
 
+    /**
+     * when you click on the background it takes you back to the main menu
+     * @param mouseEvent the clicking of the background
+     * @throws IOException the input is always the same, so it should not throw an IOException
+     */
     public void mainMenu(MouseEvent mouseEvent) throws IOException {
         ApplicationDisplay.changeScene("/mainMenu.fxml");
     }

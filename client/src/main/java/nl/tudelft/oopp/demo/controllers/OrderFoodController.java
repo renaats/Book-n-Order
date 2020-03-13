@@ -7,42 +7,49 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 public class OrderFoodController implements Initializable {
     final ObservableList listTime = FXCollections.observableArrayList();
 
-    final ObservableList listMinutes = FXCollections.observableArrayList();
-    @FXML
-    public ComboBox pickUpTimeMin;
-    public ComboBox pickUpTimeH;
-    public Label explanationOfTheRestaurantText;
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        loadData();
+    /**
+     * Changes to myCurrentBookings.fxml.
+     *
+     * @throws IOException input will not be wrong, hence we throw.
+     */
+    public void myCurrentBookings() throws IOException {
+        ApplicationDisplay.changeScene("/myCurrentBookings.fxml");
     }
 
     /**
-     * loads the content of the label depending on the restaurant
-     * and loads the times into the Comboboxes
+     * Changes to myPreviousBookings.fxml.
+     *
+     * @throws IOException input will not be wrong, hence we throw.
      */
     public void loadData(){
         setLabel();
         loadTime();
     }
     /**
+     * Changes to myAccountScene.fxml.
      *
+     * @throws IOException input will not be wrong, hence we throw.
      */
     public void setLabel(){
 
+    /**
+     * Changes to bikeReservations.fxml.
+     *
+     * @throws IOException input will not be wrong, hence we throw.
+     */
+    public void rentBike(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/bikeReservations.fxml");
     }
     /**
+     * Changes to bookRoom.fxml.
      *
+     * @throws IOException input will not be wrong, hence we throw.
      */
     public void loadTime() {
         listTime.removeAll(listTime);
@@ -65,7 +72,7 @@ public class OrderFoodController implements Initializable {
         pickUpTimeMin.getItems().addAll(listMinutes);
     }
     /**
-     * Changes to mainMenuReservations.fxml.
+     * Changes to orderFood.fxml.
      *
      * @throws IOException input will not be wrong, hence we throw.
      */
@@ -75,12 +82,30 @@ public class OrderFoodController implements Initializable {
 
     /**
      * Changes to mainMenuReservations.fxml.
+     *
      * @throws IOException input will not be wrong, hence we throw.
      */
     public void mainMenu(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/mainMenuReservations.fxml");
+        ApplicationDisplay.changeScene("/mainMenu.fxml");
     }
 
+    /**
+     * Changes to orderFood1.fxml.
+     *
+     * @throws IOException input will not be wrong, hence we throw.
+     */
+    public void restaurantChoice(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/orderFood1.fxml");
+    }
+
+    /**
+     * Changes to orderFoodAulaMenu.fxml.
+     *
+     * @throws IOException input will not be wrong, hence we throw.
+     */
+    public void goToFoodOrderConfirmation(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/FoodConfirmation.fxml");
+    }
     /**
      * return to the reservations menu when the back arrow button is clicked.
      * @param mouseEvent The event tis the clicking of the arrow button
@@ -89,15 +114,49 @@ public class OrderFoodController implements Initializable {
     public void goToMainMenuReservations(MouseEvent mouseEvent) throws IOException {
         ApplicationDisplay.changeScene("/mainMenuReservations.fxml");
     }
+    /**
+     * Changes to orderFoodFoodTruckMenu.fxml.
+     *
+     * @throws IOException input will not be wrong, hence we throw.
+     */
+    public void foodtruckMenu(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/orderFoodFoodTruckMenu.fxml");
+    }
+
+    /**
+     * Changes to orderFoodPulseMenu.fxml.
+     *
+     * @throws IOException input will not be wrong, hence we throw.
+     */
+    public void pulseMenu(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/orderFoodPulseMenu.fxml");
+    }
+
+    /**
+     * Changes to orderFoodCoffeeStarMenu.fxml.
+     *
+     * @throws IOException input will not be wrong, hence we throw.
+     */
+    public void coffeestarMenu(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/orderFoodCoffeeStarMenu.fxml");
+    }
+
+    /**
+     * Changes to orderFoodCafeXDinnerMenu.fxml.
+     *
+     * @throws IOException input will not be wrong, hence we throw.
+     */
+    public void cafexMenu(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/orderFoodCafeXDinnerMenu.fxml");
+    }
 
     /**
      * Changes to orderFoodConfirmation.fxml.
      *
      * @throws IOException input will not be wrong, hence we throw.
      */
-    public void goToFoodOrderConfirmation(ActionEvent actionEvent) throws IOException {
+    public void orderFoodConfirmation(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/FoodConfirmation.fxml");
     }
-
 
 }

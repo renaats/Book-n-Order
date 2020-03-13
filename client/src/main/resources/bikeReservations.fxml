@@ -11,6 +11,14 @@
          <Image url="@images/BikeBackground.jpg" />
       </image>
    </ImageView>
+   <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="67.0" layoutY="-32.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@images/TuDelftLogo.png" />
+      </image>
+   </ImageView>
+   <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="255.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="521.0" AnchorPane.leftAnchor="255.0" AnchorPane.rightAnchor="425.0" AnchorPane.topAnchor="55.0">
+      <Image url="@images/booknorderlogo.png" />
+   </ImageView>
       <Text fill="WHITE" layoutX="20.0" layoutY="555.576171875" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback is welcome" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0">
          <font>
             <Font size="18.0" />
@@ -92,14 +100,9 @@
    <ComboBox fx:id="dropOffTimeMin" layoutX="487.0" layoutY="368.0" prefHeight="25.0" prefWidth="53.0" />
    <ComboBox fx:id="pickUpTimeMin" layoutX="487.0" layoutY="253.0" prefHeight="25.0" prefWidth="53.0" />
    <ComboBox fx:id="pickUpTimeH" layoutX="433.0" layoutY="253.0" prefHeight="25.0" prefWidth="53.0" />
-   <TextField fx:id="screen" layoutX="39.0" layoutY="251.0" prefHeight="295.0" prefWidth="174.0" />
-   <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="67.0" layoutY="-32.0" pickOnBounds="true" preserveRatio="true">
+   <ImageView fitHeight="41.0" fitWidth="69.0" layoutX="17.0" layoutY="67.0" onMouseClicked="#goToMainMenuReservations" pickOnBounds="true" preserveRatio="true">
       <image>
-         <Image url="@images/TuDelftLogo.png" />
+         <Image url="@images/BackArrow.png" />
       </image>
-   </ImageView>
-   <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="255.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="521.0" AnchorPane.leftAnchor="255.0" AnchorPane.rightAnchor="425.0" AnchorPane.topAnchor="55.0">
-      <Image url="@images/booknorderlogo.png" />
->>>>>>> Edited mosy of the views, added database main menu
    </ImageView>
 </AnchorPane>
