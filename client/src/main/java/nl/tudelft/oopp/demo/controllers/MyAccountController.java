@@ -30,13 +30,6 @@ public class MyAccountController implements Initializable {
         email.setText(ServerCommunication.getUser());
     }
 
-    /**
-     * Changes to myAccountScene.fxml.
-     * @throws IOException input will be valid.
-     */
-    public void myAccountScene() throws IOException {
-        ApplicationDisplay.changeScene("/myAccountScene.fxml");
-    }
 
     /**
      * Changes to myCurrentBookings.fxml.
@@ -44,7 +37,7 @@ public class MyAccountController implements Initializable {
      */
 
     public void myCurrentBookings(MouseEvent mouseEvent) throws IOException {
-        ApplicationDisplay.changeScene("/DatabaseMainMenu.fxml");
+        ApplicationDisplay.changeScene("/myCurrentBookings.fxml");
     }
 
     /**
@@ -73,29 +66,6 @@ public class MyAccountController implements Initializable {
         ApplicationDisplay.changeScene("/mainMenu.fxml");
     }
 
-    /** Handles clicking the food button.
-     * @throws IOException Input will be valid, hence we throw.
-     */
-    public void orderFood() throws IOException {
-        ApplicationDisplay.changeScene("/orderFood.fxml");
-    }
-
-    /**
-     * Handels the clicking of the button under the bike image at the main menu.
-     * @throws IOException when it fails
-     */
-    public void rentBike() throws IOException {
-        ApplicationDisplay.changeScene("/bikeReservations.fxml");
-    }
-
-    /**
-     * Changes to bookRoom.fxml.
-     * @throws IOException again, all input will be valid. No need to check this, thus we throw.
-     */
-    public void bookRoom() throws IOException {
-        ApplicationDisplay.changeScene("/bookRoom.fxml");
-    }
-
     /**
      * Takes care of clicking the logout button and communicating it onwards
      * @throws IOException input is valid hence we throw.
@@ -110,5 +80,21 @@ public class MyAccountController implements Initializable {
         ApplicationDisplay.changeScene("/login-screen.fxml");
     }
 
+    /**
+     * Goes to change password scene when clicked
+     * @param actionEvent the clicking of the change password button
+     * @throws IOException this should never throw an exception
+     */
+    public void changePasswordScene(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/changePassword.fxml");
+    }
 
+    /**
+     * return to the main menu when the home icon is clicked.
+     * @param mouseEvent when th home icon is pressed
+     * @throws IOException this method should never throw an exception
+     */
+    public void mainMenuIcon(MouseEvent mouseEvent) throws IOException {
+        ApplicationDisplay.changeScene("/mainMenu.fxml");
+    }
 }

@@ -5,9 +5,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.OrderFoodController">
+<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.OrderFoodChoseRestaurantController">
 
-    <ImageView fitHeight="720.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+    <ImageView fitHeight="720.0" layoutX="-37.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
         <Image url="@images/Living-Campus-1-1280x600-c-center.jpg" />
     </ImageView>
     <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="255.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="521.0" AnchorPane.leftAnchor="255.0" AnchorPane.rightAnchor="425.0" AnchorPane.topAnchor="55.0">
@@ -23,29 +23,19 @@
             <Font name="Calibri" size="11.0" />
         </font>
     </Text>
-    <TextField fx:id="nOfPlugs" layoutX="193.0" layoutY="325.0" promptText="Number of plugs" />
-    <Button fx:id="submitButton" layoutX="214.0" layoutY="437.0" mnemonicParsing="false" onAction="#applyFilters" text="Search for rooms" />
-    <ChoiceBox fx:id="building" layoutX="192.0" layoutY="388.0" prefWidth="150.0" />
-    <Text layoutX="193.0" layoutY="383.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Building:">
-        <font>
-            <Font name="Arial" size="18.0" />
-        </font>
-    </Text>
-    <TextField fx:id="capacity" layoutX="193.0" layoutY="282.0" promptText="Capacity" />
+    <TextField fx:id="nameOfTheRestaurant" layoutX="210.0" layoutY="144.0" promptText="Name of the restaurant" />
+    <Button fx:id="submitButton" layoutX="218.0" layoutY="184.0" mnemonicParsing="false" onAction="#applyFilters" text="Search for restaurants" />
     <ImageView fitHeight="41.0" fitWidth="44.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#mainMenu" pickOnBounds="true" preserveRatio="true">
         <Image url="@images/HomeIcon.png" />
     </ImageView>
-    <CheckBox fx:id="beamer" layoutX="193.0" layoutY="250.0" mnemonicParsing="false" text="Beamer" />
-    <CheckBox fx:id="screen" layoutX="286.0" layoutY="250.0" mnemonicParsing="false" text="Screen" />
     <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="67.0" layoutY="-32.0" pickOnBounds="true" preserveRatio="true">
         <image>
             <Image url="@images/TuDelftLogo.png" />
         </image>
     </ImageView>
-    <TableView layoutX="532.0" layoutY="163.0" prefHeight="374.0" prefWidth="437.0">
+    <TableView fx:id="restaurantsTable" layoutX="171.0" layoutY="225.0" prefHeight="384.0" prefWidth="226.0">
         <columns>
-            <TableColumn prefWidth="75.0" text="C1" />
-            <TableColumn prefWidth="75.0" text="C2" />
+            <TableColumn prefWidth="224.66667556762695" text="Restaurants" />
         </columns>
     </TableView>
     <ImageView fitHeight="41.0" fitWidth="69.0" layoutX="17.0" layoutY="67.0" onMouseClicked="#goToMainMenuReservations" pickOnBounds="true" preserveRatio="true">
@@ -53,5 +43,12 @@
             <Image url="@images/BackArrow.png" />
         </image>
     </ImageView>
-    <Button layoutX="681.0" layoutY="560.0" mnemonicParsing="false" onAction="#goToRoomConfirmation" text="Reserve Selected Room" />
+    <Button layoutX="958.0" layoutY="643.0" mnemonicParsing="false" onAction="#goToOrderFood" text="Place order" />
+   <TableView layoutX="883.0" layoutY="225.0" prefHeight="384.0" prefWidth="226.0">
+      <columns>
+         <TableColumn fx:id="menuTable" prefWidth="224.66667556762695" text="Menu" />
+      </columns>
+   </TableView>
+   <Text layoutX="397.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please select the restaurant you want to torder from and the select the desiered menu items" />
+   <Button fx:id="chooseTheRestaurantButton" layoutX="177.0" layoutY="630.0" mnemonicParsing="false" onAction="#restaurantChoosen" text="Choose the selected restaurant" />
 </AnchorPane>
