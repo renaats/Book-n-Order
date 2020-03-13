@@ -24,6 +24,7 @@ public class JsonMapper {
 
         try {
             // Convert JSON string to Object
+            System.out.println(buildingJson);
             Building building = mapper.readValue(buildingJson, Building.class);
             return building;
         } catch (JsonGenerationException e) {
@@ -42,6 +43,7 @@ public class JsonMapper {
 
         try {
             // Convert JSON string to Object
+            System.out.println(buildingsJson);
             List<Building> buildings = mapper.readValue(buildingsJson, new TypeReference<List<Building>>(){});
             return buildings;
         } catch (JsonGenerationException e) {
@@ -54,4 +56,5 @@ public class JsonMapper {
 
         return null;
     }
+
 }
