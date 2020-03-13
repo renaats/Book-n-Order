@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -38,12 +39,18 @@
     <DatePicker fx:id="orderFoodDate" layoutX="553.0" layoutY="205.0" maxHeight="26.0" maxWidth="174.0" minHeight="26.0" minWidth="174.0" prefHeight="26.0" prefWidth="174.0" AnchorPane.leftAnchor="553.0" AnchorPane.topAnchor="205.0" />
     <ImageView fitHeight="41.0" fitWidth="44.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#mainMenu" pickOnBounds="true" preserveRatio="true">
         <Image url="@images/HomeIcon.png" />
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
     </ImageView>
 
-    <ImageView fitHeight="41.0" fitWidth="69.0" layoutX="17.0" layoutY="67.0" onMouseClicked="#goToMainMenuReservations" pickOnBounds="true" preserveRatio="true">
+    <ImageView fitHeight="41.0" fitWidth="69.0" layoutX="14.0" layoutY="67.0" onMouseClicked="#goToMainMenuReservations" pickOnBounds="true" preserveRatio="true">
         <image>
             <Image url="@images/BackArrow.png" />
         </image>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
     </ImageView>
     <ComboBox fx:id="pickUpTimeMin" layoutX="640.0" layoutY="250.0" prefHeight="25.0" prefWidth="53.0" />
     <ComboBox fx:id="pickUpTimeH" layoutX="587.0" layoutY="250.0" prefHeight="25.0" prefWidth="53.0" />
