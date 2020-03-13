@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -33,6 +34,9 @@
    <TextField fx:id="capacity" layoutX="193.0" layoutY="282.0" promptText="Capacity" />
     <ImageView fx:id="homeIcon" fitHeight="41.0" fitWidth="44.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#mainMenu" pickOnBounds="true" preserveRatio="true">
         <Image url="@images/HomeIcon.png" />
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
     </ImageView>
    <CheckBox fx:id="beamer" layoutX="193.0" layoutY="250.0" mnemonicParsing="false" text="Beamer" />
    <CheckBox fx:id="screen" layoutX="286.0" layoutY="250.0" mnemonicParsing="false" text="Screen" />
@@ -51,6 +55,9 @@
       <image>
          <Image url="@images/BackArrow.png" />
       </image>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
    </ImageView>
    <Button layoutX="681.0" layoutY="560.0" mnemonicParsing="false" onAction="#goToRoomConfirmation" text="Reserve Selected Room" />
 </AnchorPane>
