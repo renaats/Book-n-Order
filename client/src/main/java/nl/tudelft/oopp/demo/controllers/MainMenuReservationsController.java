@@ -32,7 +32,7 @@ public class MainMenuReservationsController {
      * @throws IOException Input will be valid, hence we throw.
      */
     public void orderFood() throws IOException {
-        ApplicationDisplay.changeScene("/orderFood.fxml");
+        ApplicationDisplay.changeScene("/OrderFoodChoseRestaurant.fxml");
     }
     
     /**
@@ -52,53 +52,6 @@ public class MainMenuReservationsController {
         ApplicationDisplay.changeScene("/myAccountScene.fxml");
     }
 
-    /**
-     * Changes to myPreviousTenRoomBookings.fxml.
-     * @throws IOException input will not be wrong, hence we throw.
-     */
-    public void myPreviousTenRoomBookings() throws IOException {
-        ApplicationDisplay.changeScene("/myPreviousTenRoomBookings.fxml");
-    }
-
-    /**
-     * Changes to myPreviousTenBikeReservations.fxml.
-     * @throws IOException input will not be wrong, hence we throw.
-     */
-    public void myPreviousTenBikeReservations() throws IOException {
-        ApplicationDisplay.changeScene("/myPreviousTenBikeReservations.fxml");
-    }
-
-    /**
-     * Changes to myPreviousTenFoodOrders.fxml.
-     * @throws IOException input will not be wrong, hence we throw.
-     */
-    public void myPreviousTenFoodOrders() throws IOException {
-        ApplicationDisplay.changeScene("/myPreviousTenFoodOrders.fxml");
-    }
-
-    /**
-     * Changes to myCurrentBikeReservations.fxml.
-     * @throws IOException input will not be wrong, hence we throw.
-     */
-    public void myCurrentBikeReservations() throws IOException {
-        ApplicationDisplay.changeScene("/myCurrentBikeReservations.fxml");
-    }
-
-    /**
-     * Changes to myCurrentRoomBookings.fxml.
-     * @throws IOException input will not be wrong, hence we throw.
-     */
-    public void myCurrentRoomBookings() throws IOException {
-        ApplicationDisplay.changeScene("/myCurrentRoomBookings.fxml");
-    }
-
-    /**
-     * Changes to myCurrentFoodOrders.fxml.
-     * @throws IOException input will not be wrong, hence we throw.
-     */
-    public void myCurrentFoodOrders() throws IOException {
-        ApplicationDisplay.changeScene("/myCurrentFoodOrders.fxml");
-    }
 
     public void template(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/Template.fxml");
@@ -108,7 +61,48 @@ public class MainMenuReservationsController {
 
     }
 
+    /**
+     * returns to the main menu when the home icon is clicked
+     * @param mouseEvent the clicking of the home icon
+     * @throws IOException this method should never throw an exception
+     */
     public void mainMenu(MouseEvent mouseEvent) throws IOException {
         ApplicationDisplay.changeScene("/mainMenu.fxml");
+    }
+
+    /**
+     * goes to room reservations when the room image is clicked
+     * @param mouseEvent the clicking of the room icon
+     * @throws IOException this method should never throw an exception
+     */
+    public void bookRoomIcon(MouseEvent mouseEvent) throws IOException {
+        ApplicationDisplay.changeScene("/bookRoom.fxml");
+    }
+
+    /**
+     * goes to food reservations when the food image is clicked
+     * @param mouseEvent the clicking of the food icon
+     * @throws IOException this method should never throw an exception
+     */
+    public void orderFoodIcon(MouseEvent mouseEvent) throws IOException {
+        ApplicationDisplay.changeScene("/OrderFoodChoseRestaurant.fxml");
+    }
+
+    /**
+     * goes to bike reservations when the bike image is clicked
+     * @param mouseEvent the clicking of the bike icon
+     * @throws IOException this method should never throw an exception
+     */
+    public void rentBikeIcon(MouseEvent mouseEvent) throws IOException {
+        ApplicationDisplay.changeScene("/bikeReservations.fxml");
+    }
+
+    /**
+     * goes back to my account scene when the back arrow icon is pressed
+     * @param mouseEvent
+     * @throws IOException
+     */
+    public void goToMainMenuReservations(MouseEvent mouseEvent) throws IOException {
+        ApplicationDisplay.changeScene("/myAccountScene.fxml");
     }
 }

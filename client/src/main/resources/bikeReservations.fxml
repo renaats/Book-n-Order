@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -29,56 +30,62 @@
             <Font name="Calibri" size="11.0" />
          </font>
       </Text>
-   <Text layoutX="336.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rent a bike" AnchorPane.leftAnchor="336.0" AnchorPane.topAnchor="146.0">
+   <Text layoutX="576.0" layoutY="118.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rent a bike" AnchorPane.leftAnchor="576.0" AnchorPane.topAnchor="89.943359375">
       <font>
          <Font size="26.0" />
       </font>
    </Text>
-   <Text layoutX="226.0" layoutY="306.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pick up location:" AnchorPane.leftAnchor="226.0" AnchorPane.topAnchor="290.0">
+   <Text layoutX="408.0" layoutY="307.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pick up location:" AnchorPane.leftAnchor="408.0" AnchorPane.topAnchor="289.734375">
       <font>
          <Font size="16.0" />
       </font>
    </Text>
-   <Text layoutX="226.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pick up time:" AnchorPane.leftAnchor="226.0" AnchorPane.topAnchor="255.0">
+   <Text layoutX="408.0" layoutY="271.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pick up time:" AnchorPane.leftAnchor="408.0" AnchorPane.topAnchor="253.734375">
       <font>
          <Font size="16.0" />
       </font>
    </Text>
-   <Text layoutX="226.0" layoutY="422.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Drop off location:" AnchorPane.leftAnchor="226.0" AnchorPane.topAnchor="410.0">
+   <Text layoutX="408.0" layoutY="427.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Drop off location:" AnchorPane.leftAnchor="408.0" AnchorPane.topAnchor="409.734375">
       <font>
          <Font size="16.0" />
       </font>
    </Text>
-   <Text layoutX="226.0" layoutY="233.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pick up date:" AnchorPane.leftAnchor="226.0" AnchorPane.topAnchor="215.0">
+   <Text layoutX="408.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pick up date:" AnchorPane.leftAnchor="408.0" AnchorPane.topAnchor="202.734375">
       <font>
          <Font size="16.0" />
       </font>
    </Text>
-   <Text layoutX="226.0" layoutY="382.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Drop off time:" AnchorPane.leftAnchor="226.0" AnchorPane.topAnchor="370.0">
+   <Text layoutX="408.0" layoutY="386.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Drop off time:" AnchorPane.leftAnchor="408.0" AnchorPane.topAnchor="368.734375">
       <font>
          <Font size="16.0" />
       </font>
    </Text>
-   <Text layoutX="226.0" layoutY="345.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Drop off date:" AnchorPane.leftAnchor="226.0" AnchorPane.topAnchor="330.0">
+   <Text layoutX="408.0" layoutY="346.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Drop off date:" AnchorPane.leftAnchor="408.0" AnchorPane.topAnchor="328.734375">
       <font>
          <Font size="16.0" />
       </font>
    </Text>
-   <ChoiceBox fx:id="pickUpLocation" layoutX="433.0" layoutY="287.0" maxHeight="26.0" maxWidth="174.0" minHeight="26.0" minWidth="174.0" prefHeight="26.0" prefWidth="174.0" AnchorPane.leftAnchor="433.0" AnchorPane.topAnchor="289.0" />
-   <Button fx:id="reserveButton" layoutX="284.0" layoutY="467.0" maxHeight="25.0" maxWidth="230.0" minHeight="25.0" minWidth="230.0" mnemonicParsing="false" onAction="#bikeConfirmation" prefHeight="25.0" prefWidth="230.0" style="-fx-background-color: #00a6d6;" text="Rent" textFill="WHITE" AnchorPane.leftAnchor="284.0" AnchorPane.topAnchor="467.0" />
-   <ChoiceBox fx:id="dropOffLocation" layoutX="433.0" layoutY="407.0" maxHeight="26.0" maxWidth="174.0" minHeight="26.0" minWidth="174.0" prefHeight="26.0" prefWidth="174.0" AnchorPane.leftAnchor="433.0" AnchorPane.topAnchor="407.0" />
+   <ChoiceBox fx:id="pickUpLocation" layoutX="553.0" layoutY="288.0" maxHeight="26.0" maxWidth="174.0" minHeight="26.0" minWidth="174.0" prefHeight="26.0" prefWidth="174.0" AnchorPane.leftAnchor="553.0" AnchorPane.topAnchor="288.0" />
+   <Button fx:id="reserveButton" layoutX="524.0" layoutY="470.0" maxHeight="25.0" maxWidth="230.0" minHeight="25.0" minWidth="230.0" mnemonicParsing="false" onAction="#bikeConfirmation" prefHeight="25.0" prefWidth="230.0" style="-fx-background-color: #00a6d6;" text="Rent" textFill="WHITE" AnchorPane.leftAnchor="524.0" AnchorPane.topAnchor="470.0" />
+   <ChoiceBox fx:id="dropOffLocation" layoutX="552.0" layoutY="408.0" maxHeight="26.0" maxWidth="174.0" minHeight="26.0" minWidth="174.0" prefHeight="26.0" prefWidth="174.0" AnchorPane.leftAnchor="552.0" AnchorPane.topAnchor="408.0" />
    <ImageView fitHeight="41.0" fitWidth="44.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#mainMenu" pickOnBounds="true" preserveRatio="true">
       <Image url="@images/HomeIcon.png" />
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
    </ImageView>
-   <DatePicker layoutX="433.0" layoutY="213.0" />
-   <DatePicker layoutX="433.0" layoutY="328.0" />
-   <ComboBox fx:id="dropOffTimeH" layoutX="433.0" layoutY="368.0" prefHeight="25.0" prefWidth="53.0" />
-   <ComboBox fx:id="dropOffTimeMin" layoutX="487.0" layoutY="368.0" prefHeight="25.0" prefWidth="53.0" />
-   <ComboBox fx:id="pickUpTimeMin" layoutX="487.0" layoutY="253.0" prefHeight="25.0" prefWidth="53.0" />
-   <ComboBox fx:id="pickUpTimeH" layoutX="433.0" layoutY="253.0" prefHeight="25.0" prefWidth="53.0" />
-   <ImageView fitHeight="41.0" fitWidth="69.0" layoutX="17.0" layoutY="67.0" onMouseClicked="#goToMainMenuReservations" pickOnBounds="true" preserveRatio="true">
+   <DatePicker layoutX="553.0" layoutY="202.0" />
+   <DatePicker layoutX="553.0" layoutY="328.0" />
+   <ComboBox fx:id="dropOffTimeH" layoutX="586.0" layoutY="368.0" prefHeight="25.0" prefWidth="53.0" />
+   <ComboBox fx:id="dropOffTimeMin" layoutX="640.0" layoutY="368.0" prefHeight="25.0" prefWidth="53.0" />
+   <ComboBox fx:id="pickUpTimeMin" layoutX="640.0" layoutY="253.0" prefHeight="25.0" prefWidth="53.0" />
+   <ComboBox fx:id="pickUpTimeH" layoutX="586.0" layoutY="253.0" prefHeight="25.0" prefWidth="53.0" />
+   <ImageView fitHeight="41.0" fitWidth="69.0" layoutX="14.0" layoutY="69.0" onMouseClicked="#goToMainMenuReservations" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@images/BackArrow.png" />
       </image>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
    </ImageView>
 </AnchorPane>

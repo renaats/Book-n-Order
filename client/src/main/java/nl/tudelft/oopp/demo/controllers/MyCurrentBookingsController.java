@@ -2,6 +2,8 @@ package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
 
+import javafx.event.ActionEvent;
+import javafx.scene.input.MouseEvent;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 public class MyCurrentBookingsController {
@@ -42,7 +44,7 @@ public class MyCurrentBookingsController {
      * @throws IOException input will be valid.
      */
     public void myCurrentRoomBookings() throws IOException {
-        ApplicationDisplay.changeScene("/myCurrentRoomBookings.fxml");
+        ApplicationDisplay.changeScene("/myCurrentRoomReservations.fxml");
     }
 
     /**
@@ -50,7 +52,7 @@ public class MyCurrentBookingsController {
      * @throws IOException input will be valid.
      */
     public void myCurrentFoodOrders() throws IOException {
-        ApplicationDisplay.changeScene("/myCurrentFoodOrders.fxml");
+        ApplicationDisplay.changeScene("/myCurrentFoodReservations.fxml");
     }
 
     /**
@@ -59,5 +61,13 @@ public class MyCurrentBookingsController {
      */
     public void mainMenu() throws IOException {
         ApplicationDisplay.changeScene("/templateScene.fxml");
+    }
+
+    /**
+     * method changes view to main menu
+     * @throws IOException
+     */
+    public void goToMyAccount() throws IOException {
+        ApplicationDisplay.changeScene("/myAccountScene.fxml");
     }
 }
