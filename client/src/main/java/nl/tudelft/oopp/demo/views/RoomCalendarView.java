@@ -2,6 +2,7 @@ package nl.tudelft.oopp.demo.views;
 
 import com.calendarfx.model.Calendar;
 import com.calendarfx.model.Calendar.Style;
+import com.calendarfx.model.CalendarEvent;
 import com.calendarfx.model.CalendarSource;
 import com.calendarfx.model.Entry;
 import com.calendarfx.view.CalendarView;
@@ -18,6 +19,7 @@ import java.util.Objects;
 
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
@@ -28,6 +30,7 @@ import nl.tudelft.oopp.demo.entities.RoomReservation;
 public class RoomCalendarView extends Application {
 
     private Room room;
+    private int buildingId;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -69,7 +72,6 @@ public class RoomCalendarView extends Application {
 
         roomCal.getCalendarSources().addAll(myCalendarSource);
         roomCal.setRequestedTime(LocalTime.now());
-
 
         Thread updateTimeThread = new Thread("Calendar: Update Time Thread") {
             @Override
@@ -118,4 +120,5 @@ public class RoomCalendarView extends Application {
         return LocalDateTime.ofInstant(instant1, ZoneId.systemDefault()).toLocalDate();
     }
 }
+
 
