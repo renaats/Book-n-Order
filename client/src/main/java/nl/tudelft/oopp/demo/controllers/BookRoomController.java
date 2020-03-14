@@ -6,7 +6,6 @@ import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -15,7 +14,6 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
@@ -136,7 +134,7 @@ public class BookRoomController implements Initializable {
      * @throws IOException the input will allways be the same, so it should never throw an IO exception
      */
     public void goToRoomConfirmation() throws IOException {
-        ApplicationDisplay.changeScene("/RooomConfirmation.fxml");
+        ApplicationDisplay.changeScene("/RoomConfirmation.fxml");
     }
     /**
      * Adds the items to the choice boxes

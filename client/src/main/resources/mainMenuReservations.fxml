@@ -43,18 +43,27 @@
       <viewport>
          <Rectangle2D />
       </viewport>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
    </ImageView>
    <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="565.0" layoutY="184.0" onMouseClicked="#orderFoodIcon" opacity="0.9" pickOnBounds="true">
       <viewport>
          <Rectangle2D />
       </viewport>
       <Image url="@images/45332.png" />
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
    </ImageView>
    <ImageView fitWidth="150.0" layoutX="936.0" layoutY="334.0" nodeOrientation="INHERIT" onMouseClicked="#rentBikeIcon" opacity="0.9" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="194.0" AnchorPane.topAnchor="334.0">
       <viewport>
          <Rectangle2D />
       </viewport>
       <Image url="@images/bikeIcon.png" />
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
    </ImageView>
    <Button fx:id="bookRoomButton" layoutX="188.0" layoutY="484.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#bookRoom" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: #00a6d6;" text="Book a room" textFill="WHITE" AnchorPane.leftAnchor="188.0" AnchorPane.topAnchor="484.0" />
    <Button fx:id="orderFoodButton" cache="true" layoutX="540.0" layoutY="334.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#orderFood" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: #00a6d6;" text="Order food" textFill="WHITE" AnchorPane.leftAnchor="540.0" AnchorPane.topAnchor="334.0" />
