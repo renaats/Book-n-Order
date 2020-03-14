@@ -26,7 +26,7 @@ public class ServerCommunication {
      * @return the body of the response from the server.
      */
     public static String getUser() {
-        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + UserInformation.getBearerKey()).uri(URI.create("http://localhost:8080/user")).build();
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + UserInformation.getBearerKey()).uri(URI.create("http://localhost:8080/user/find?email=r.jursevskis@student.tudelft.nl")).build();
         HttpResponse<String> response;
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());

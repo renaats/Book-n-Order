@@ -10,10 +10,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
+import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
+import nl.tudelft.oopp.demo.entities.AppUser;
+import nl.tudelft.oopp.demo.entities.Role;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 public class MyAccountController implements Initializable {
+
     @FXML
     private AnchorPane anchorPane;
     @FXML
@@ -21,8 +25,20 @@ public class MyAccountController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if ()
-        anchorPane.getChildren().remove(adminControl);
+        boolean showAdminButton = false;
+        try {
+            AppUser user = JsonMapper.appUserMapper(ServerCommunication.getUser());
+            for (Role role : user.getRoles()) {
+                if (role.getName().equals("ROLE_ADMIN")) {
+                    showAdminButton = true;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (!showAdminButton) {
+            anchorPane.getChildren().remove(adminControl);
+        }
     }
 
     /**

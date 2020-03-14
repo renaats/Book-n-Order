@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.List;
 
 import javafx.scene.control.Alert;
+import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Room;
 
@@ -106,4 +107,21 @@ public class JsonMapper {
         return null;
     }
 
+    public static AppUser appUserMapper(String roomJson) {
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        try {
+            // Convert JSON string to Object
+            AppUser appUser = mapper.readValue(roomJson, AppUser.class);
+            return appUser;
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText(roomJson);
+            alert.showAndWait();
+        }
+        return null;
+    }
 }
