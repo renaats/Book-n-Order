@@ -6,7 +6,7 @@ public class ErrorMessages {
     private static final String unAuthorizedMessage = "You do not have the proper authorization.";
     private static final String preConditionFailedMessage = "Attribute does not exist!";
     private static final String IdNotFoundMessage = "No results on ID.";
-    private static final String hasNoRoomsMessage = "Building has no rooms.";
+    private static final String hasRoomsMessage = "Building has rooms.";
     private static final String executedMessage = "Successfully executed.";
     private static final String alreadyReservedMessage = "Already reserved at this timeslot.";
     private static final String roomNotFoundMessage = "Room not found.";
