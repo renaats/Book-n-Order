@@ -71,7 +71,6 @@ public class JsonMapper {
 
         try {
             // Convert JSON string to Object
-            System.out.println(roomJson);
             Room room = mapper.readValue(roomJson, Room.class);
             return room;
         } catch (Exception e) {
@@ -95,7 +94,6 @@ public class JsonMapper {
 
         try {
             // Convert JSON string to Object
-            System.out.println(roomsJson);
             List<Room> rooms = mapper.readValue(roomsJson, new TypeReference<List<Room>>(){});
             return rooms;
         } catch (Exception e) {

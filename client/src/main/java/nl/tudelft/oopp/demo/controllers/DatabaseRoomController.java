@@ -87,7 +87,6 @@ public class DatabaseRoomController implements Initializable {
             Room room = JsonMapper.roomMapper(ServerCommunication.findRoom(id));
             roomResult.clear();
             roomResult.add(room);
-            System.out.println("test1");
             table.setItems(roomResult);
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
