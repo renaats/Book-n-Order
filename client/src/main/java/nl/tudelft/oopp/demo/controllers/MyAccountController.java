@@ -27,6 +27,9 @@ public class MyAccountController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         boolean showAdminButton = false;
         try {
+            // Server does not support it yet, try it out with
+            // HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + UserInformation.getBearerKey()).uri(URI.create("http://localhost:8080/user/find?email=r.jursevskis@student.tudelft.nl")).build();
+            // in ServerCommunication line 29. This would then work for Renats account that has been given in the auth merge request.
             AppUser user = JsonMapper.appUserMapper(ServerCommunication.getUser());
             for (Role role : user.getRoles()) {
                 if (role.getName().equals("ROLE_ADMIN")) {
