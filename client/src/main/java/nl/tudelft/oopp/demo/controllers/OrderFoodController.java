@@ -79,23 +79,6 @@ public class OrderFoodController implements Initializable {
     }
 
     /**
-     * Changes to orderFood1.fxml.
-     *
-     * @throws IOException input will not be wrong, hence we throw.
-     */
-    public void restaurantChoice(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/orderFood1.fxml");
-    }
-
-    /**
-     * Changes to orderFoodAulaMenu.fxml.
-     *
-     * @throws IOException input will not be wrong, hence we throw.
-     */
-    public void goToFoodOrderConfirmation(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/FoodConfirmation.fxml");
-    }
-    /**
      * return to the reservations menu when the back arrow button is clicked.
      * @param mouseEvent The event tis the clicking of the arrow button
      * @throws IOException the input will allways be the same, so it should never throw an IO exception

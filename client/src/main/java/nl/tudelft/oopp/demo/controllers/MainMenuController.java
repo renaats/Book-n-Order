@@ -15,8 +15,6 @@ public class MainMenuController {
      */
     public void calendarIcon() throws IOException {
         ApplicationDisplay.changeScene("/calendar.fxml");
-    public void calendarIcon() throws IOException {
-        ApplicationDisplay.changeScene("/calendar.fxml");
     }
 
     /**

@@ -58,16 +58,3 @@
       </Text>
    </children>
 </AnchorPane>
-=======
-    </TableView>
-    <ImageView fitHeight="41.0" fitWidth="44.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#mainMenu"
-               pickOnBounds="true" preserveRatio="true">
-        <Image url="@images/HomeIcon.png"/>
-    </ImageView>
-    <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="67.0" layoutY="-32.0" pickOnBounds="true" preserveRatio="true">
-        <image>
-            <Image url="@images/TuDelftLogo.png" />
-        </image>
-    </ImageView>
-</AnchorPane>
->>>>>>> Edited mosy of the views, added database main menu
