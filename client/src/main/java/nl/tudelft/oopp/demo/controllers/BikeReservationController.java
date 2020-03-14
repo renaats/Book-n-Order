@@ -79,7 +79,7 @@ public class BikeReservationController implements Initializable {
      * @param mouseEvent The event tis the clicking of the arrow button
      * @throws IOException the input will allways be the same, so it should never throw an IO exception
      */
-    public void goToMainMenuReservations(MouseEvent mouseEvent) throws IOException {
+    public void goToMainMenuReservations() throws IOException {
         ApplicationDisplay.changeScene("/mainMenuReservations.fxml");
     }
 }
