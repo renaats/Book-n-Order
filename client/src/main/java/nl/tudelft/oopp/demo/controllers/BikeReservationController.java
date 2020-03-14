@@ -66,7 +66,7 @@ public class BikeReservationController implements Initializable {
             if (i < 10) {
                 listTime.add("0" + i);
             } else {
-                listTime.add(i);
+                listTime.add("" + i);
             }
         }
         pickUpTimeH.getItems().addAll(listTime);
@@ -76,7 +76,6 @@ public class BikeReservationController implements Initializable {
     }
     /**
      * return to the reservations menu when the back arrow button is clicked.
-     * @param mouseEvent The event tis the clicking of the arrow button
      * @throws IOException the input will allways be the same, so it should never throw an IO exception
      */
     public void goToMainMenuReservations() throws IOException {
