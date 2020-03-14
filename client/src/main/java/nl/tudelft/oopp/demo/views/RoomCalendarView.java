@@ -55,20 +55,13 @@ public class RoomCalendarView extends Application {
         for (RoomReservation reservation : roomReservationList) {
             if (reservation.getRoom().equals(this.room)) {
                 Entry<RoomReservation> bookedEntry = new Entry<>("Room is booked or unavailable");
-                Date start = reservation.getFromTime();
-                Instant instant1 = Instant.ofEpochMilli(start.getTime());
-                LocalTime startTime = LocalDateTime.ofInstant(instant1, ZoneId.systemDefault()).toLocalTime();
 
-                Date end = reservation.getToTime();
-                Instant instant2 = Instant.ofEpochMilli(end.getTime());
-                LocalTime endTime = LocalDateTime.ofInstant(instant2, ZoneId.systemDefault()).toLocalTime();
-
-                Instant instant3 = Instant.ofEpochMilli(start.getDate());
-                LocalDate date = LocalDateTime.ofInstant(instant3, ZoneId.systemDefault()).toLocalDate();
+                LocalTime startTime = convertToLocalTime(reservation.getFromTime());
+                LocalTime endTime = convertToLocalTime(reservation.getToTime());
+                LocalDate date = convertToLocalDate(reservation.getFromTime());
 
                 bookedEntry.setInterval(startTime, endTime);
                 bookedEntry.setInterval(date);
-
                 bookedSlotsCalendar.addEntry(bookedEntry);
             }
         }
@@ -123,15 +116,9 @@ public class RoomCalendarView extends Application {
     private void entryHandler(CalendarEvent e) throws Exception {
 
         Entry<RoomReservation> newEntry = (Entry<RoomReservation>) e.getEntry();
-        LocalTime startTime = newEntry.getStartTime();
-        LocalTime endTime = newEntry.getEndTime();
-        LocalDate date = newEntry.getStartDate();
 
-        LocalDateTime startDateAndTime = LocalDateTime.of(date, startTime);
-        LocalDateTime endDateAndTime = LocalDateTime.of(date, endTime);
-
-        Date start = Date.from(startDateAndTime.atZone(ZoneId.systemDefault()).toInstant());
-        Date end = Date.from(endDateAndTime.atZone(ZoneId.systemDefault()).toInstant());
+        Date start = convertToDate(newEntry.getStartTime(), newEntry.getStartDate());
+        Date end = convertToDate(newEntry.getEndTime(), newEntry.getStartDate());
 
         //placeholder for user id
         int userId = 111111111;
@@ -146,6 +133,21 @@ public class RoomCalendarView extends Application {
         } else {
             //ServerCommunication.updateRoomReservation(reservationId, old value, new);
         }
+    }
+
+    public Date convertToDate(LocalTime time, LocalDate date){
+        LocalDateTime dateTime = LocalDateTime.of(date, time);
+        return Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant());
+    }
+
+    public LocalTime convertToLocalTime (Date date){
+        Instant instant1 = Instant.ofEpochMilli(date.getTime());
+        return LocalDateTime.ofInstant(instant1, ZoneId.systemDefault()).toLocalTime();
+    }
+
+    public LocalDate convertToLocalDate (Date date){
+        Instant instant1 = Instant.ofEpochMilli(date.getTime());
+        return LocalDateTime.ofInstant(instant1, ZoneId.systemDefault()).toLocalDate();
     }
 }
 
