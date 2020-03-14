@@ -12,6 +12,7 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
@@ -25,7 +26,6 @@ import nl.tudelft.oopp.demo.entities.RoomReservation;
 public class RoomCalendarView extends Application {
 
     private Room room;
-    private int buildingId;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -66,6 +66,7 @@ public class RoomCalendarView extends Application {
         roomCal.getCalendarSources().addAll(myCalendarSource);
         roomCal.setRequestedTime(LocalTime.now());
 
+
         Thread updateTimeThread = new Thread("Calendar: Update Time Thread") {
             @Override
             public void run() {
@@ -73,6 +74,7 @@ public class RoomCalendarView extends Application {
                     Platform.runLater(() -> {
                         roomCal.setToday(LocalDate.now());
                         roomCal.setTime(LocalTime.now());
+
                     });
 
                     try {
@@ -90,7 +92,6 @@ public class RoomCalendarView extends Application {
         updateTimeThread.setPriority(Thread.MIN_PRIORITY);
         updateTimeThread.setDaemon(true);
         updateTimeThread.start();
-
 
         Scene scene = new Scene(roomCal);
         primaryStage.setTitle("Room Bookings");
@@ -115,6 +116,3 @@ public class RoomCalendarView extends Application {
         return LocalDateTime.ofInstant(instant1, ZoneId.systemDefault()).toLocalDate();
     }
 }
-
-
-
