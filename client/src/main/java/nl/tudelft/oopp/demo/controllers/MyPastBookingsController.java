@@ -1,8 +1,9 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import java.io.IOException;
+
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
-import java.io.IOException;
 
 public class MyPastBookingsController {
     /**
@@ -64,7 +65,7 @@ public class MyPastBookingsController {
 
     /**
      * method changes view to main menu
-     * @throws IOException
+     * @throws IOException should never be thrown
      */
     public void goToMyAccount() throws IOException {
         ApplicationDisplay.changeScene("/myAccountScene.fxml");

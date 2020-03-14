@@ -133,11 +133,13 @@ public class BookRoomController implements Initializable {
      * return to the reservations menu when the back arrow button is clicked.
      * @throws IOException the input will allways be the same, so it should never throw an IO exception
      */
+
     public void goToRoomConfirmation() throws IOException {
         ApplicationDisplay.changeScene("/RoomConfirmation.fxml");
     }
     /**
      * Adds the items to the choice boxes
+
      */
     public void loadRoomData() {
         // rooms.setText("rooms=" + "ServerCommunication.getRooms()");

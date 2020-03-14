@@ -116,6 +116,7 @@ public class DatabaseEditBuildingController implements Initializable {
      * @param actionEvent the click on Go to add building button
      * @throws IOException this should not throw an exception, since the input is always the same
      */
+
     public void goToAddBuildings(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/DatabaseAddBuildings.fxml");
     }
@@ -124,6 +125,7 @@ public class DatabaseEditBuildingController implements Initializable {
      * @param actionEvent the click on Go to add building button
      * @throws IOException this should not throw an exception, since the input is always the same
      */
+
     public void goToRemoveBuildings(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/DatabaseRemoveBuildings.fxml");
     }
@@ -132,6 +134,7 @@ public class DatabaseEditBuildingController implements Initializable {
      * @param actionEvent the click on Go to add building button
      * @throws IOException this should not throw an exception, since the input is always the same
      */
+
     public void goToEditBuildings(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/DatabaseEditBuildings.fxml");
     }
@@ -140,6 +143,7 @@ public class DatabaseEditBuildingController implements Initializable {
      * @param mouseEvent the click on the home icon on the databased screens
      * @throws IOException this should not throw an exception, since the input is always the same
      */
+
     public void goToBuildingMenu(MouseEvent mouseEvent) throws IOException {
         ApplicationDisplay.changeScene("/DatabaseBuildingMenu.fxml");
     }

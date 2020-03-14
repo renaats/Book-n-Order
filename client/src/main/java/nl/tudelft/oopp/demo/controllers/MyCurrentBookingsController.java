@@ -65,7 +65,7 @@ public class MyCurrentBookingsController {
 
     /**
      * method changes view to main menu
-     * @throws IOException
+     * @throws IOException should never throw an exception
      */
     public void goToMyAccount() throws IOException {
         ApplicationDisplay.changeScene("/myAccountScene.fxml");
