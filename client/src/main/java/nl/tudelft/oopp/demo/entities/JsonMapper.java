@@ -107,6 +107,11 @@ public class JsonMapper {
         return null;
     }
 
+    /**
+     * Maps a JSON string to an AppUser object
+     * @param roomJson JSON representation of a String
+     * @return AppUser Object
+     */
     public static AppUser appUserMapper(String roomJson) {
 
         ObjectMapper mapper = new ObjectMapper();
