@@ -11,6 +11,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 import java.io.IOException;
+
+import com.github.tomakehurst.wiremock.common.Json;
+import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.errors.ErrorMessages;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -59,10 +62,9 @@ public class ServerCommunicationTest {
 
     /**
      * Tests the responses when the request is successful.
-     * @throws IOException - should not be a problem
      */
     @Test
-    public void testSuccessful() throws IOException {
+    public void testSuccessful() {
         stubFor(get(urlEqualTo("/user")).willReturn(aResponse().withStatus(200).withBody("Message1")));
         stubFor(post(urlEqualTo("/user/add?email=a&name=a&surname=a&faculty=a&password=a")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(post(urlEqualTo("/login")).willReturn(aResponse().withStatus(200).withBody("").withHeader("Authorization", "a b c")));

@@ -2,6 +2,9 @@ package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
@@ -11,8 +14,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
+import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
@@ -20,7 +28,8 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
  */
 public class DatabaseBuildingController implements Initializable {
 
-    final ObservableList updateChoiceBoxList = FXCollections.observableArrayList();
+    final ObservableList<String> updateChoiceBoxList = FXCollections.observableArrayList();
+    final ObservableList<Building> buildingResult = FXCollections.observableArrayList();
 
     @FXML
     private ChoiceBox<String> updateChoiceBox;
@@ -32,23 +41,39 @@ public class DatabaseBuildingController implements Initializable {
     private TextField buildingFindByIdUpdateField;
     @FXML
     private TextField buildingChangeToField;
+    @FXML
+    private TableView<Building> table;
+    @FXML
+    private TableColumn<Building, String> colId;
+    @FXML
+    private TableColumn<Building, String> colName;
+    @FXML
+    private TableColumn<Building, String> colStreet;
+    @FXML
+    private TableColumn<Building, Integer> colHouseNumber;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         loadDataUpdateChoiceBox();
+
+        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colStreet.setCellValueFactory(new PropertyValueFactory<>("street"));
+        colHouseNumber.setCellValueFactory(new PropertyValueFactory<>("houseNumber"));
+
     }
 
     /**
      * Handles clicking of the Find Building button.
      */
-    public void building_id_ButtonClicked() {
+    public void buildingIdButtonClicked() {
         try {
             int id = Integer.parseInt(buildingFindByIdTextField.getText());
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Building Finder");
-            alert.setHeaderText(null);
-            alert.setContentText(ServerCommunication.findBuilding(id));
-            alert.showAndWait();
+            Building building = JsonMapper.buildingMapper(ServerCommunication.findBuilding(id));
+            buildingResult.clear();
+            buildingResult.add(building);
+            table.setItems(buildingResult);
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Error");
@@ -62,11 +87,18 @@ public class DatabaseBuildingController implements Initializable {
      * Handles clicking of the List All Buildings button.
      */
     public void listBuildingsButtonClicked() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("All buildings:");
-        alert.setHeaderText(null);
-        alert.setContentText(ServerCommunication.getBuildings());
-        alert.showAndWait();
+        try {
+            List<Building> buildings = new ArrayList<>(Objects.requireNonNull(JsonMapper.buildingListMapper(ServerCommunication.getBuildings())));
+            buildingResult.clear();
+            buildingResult.addAll(buildings);
+            table.setItems(buildingResult);
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("No buildings found.");
+            alert.showAndWait();
+        }
     }
 
     /**
@@ -91,11 +123,8 @@ public class DatabaseBuildingController implements Initializable {
     public void deleteBuildingButtonClicked() {
         try {
             int id = Integer.parseInt(buildingDeleteByIdTextField.getText());
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Building remover");
-            alert.setHeaderText(null);
-            alert.setContentText(ServerCommunication.deleteBuilding(id));
-            alert.showAndWait();
+            ServerCommunication.deleteBuilding(id);
+            buildingResult.removeIf(b -> b.getId() == id);
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Error");
@@ -114,10 +143,12 @@ public class DatabaseBuildingController implements Initializable {
             String attribute = updateChoiceBox.getValue().replaceAll(" ", "");
             String changeValue = buildingChangeToField.getText();
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Building remover");
+            alert.setTitle("Building update");
             alert.setHeaderText(null);
             alert.setContentText(ServerCommunication.updateBuilding(id, attribute, changeValue));
             alert.showAndWait();
+            buildingResult.clear();
+            listBuildingsButtonClicked();
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Error");
@@ -131,7 +162,7 @@ public class DatabaseBuildingController implements Initializable {
      * Takes care of the options for the updateChoiceBox in the GUI
      */
     public void loadDataUpdateChoiceBox() {
-        updateChoiceBoxList.removeAll();
+        updateChoiceBoxList.clear();
         String a = "Name";
         String b = "Street";
         String c = "House Number";

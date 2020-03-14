@@ -13,6 +13,10 @@ public class ApplicationDisplay extends Application {
 
     private static Stage primaryStage;
 
+    /**
+     * Loads the initial view
+     * @throws IOException = All input will be valid, no need to check, this we throw.
+     */
     @Override
     public void start(Stage primaryStage) throws IOException {
         ApplicationDisplay.primaryStage = primaryStage;

@@ -160,8 +160,7 @@ public class UserService {
         if (!userRepository.existsById(email)) {
             return null;
         }
-        AppUser appUser = userRepository.getOne(email);
-        return appUser;
+        return userRepository.getOne(email);
     }
 
     /**

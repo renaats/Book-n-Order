@@ -64,7 +64,7 @@ public class ErrorMessages {
             case 416:
                 return IdNotFoundMessage;
             case 417:
-                return hasNoRoomsMessage;
+                return hasRoomsMessage;
             case 418:
                 return roomNotFoundMessage;
             case 419:
