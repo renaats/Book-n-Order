@@ -25,10 +25,9 @@ public class ChangePasswordController {
 
     /**
      * checks if the 2 versions of the password are the same and if they are it changes scene to the myAccount scene. if they are not It shows an alert
-     * @param actionEvent
      * @throws IOException
      */
-    public void changePassword(ActionEvent actionEvent) throws IOException {
+    public void changePassword() throws IOException {
         //String password1 = (String) newPassword1.getCharacters();
         //String password2 = (String) newPassword2.getCharacters();
         if (true){

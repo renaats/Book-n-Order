@@ -13,7 +13,7 @@ public class MainMenuController {
      * Handels the clicking of the calendar icon.
      * @throws IOException when it fails
      */
-    public void calendarIcon(MouseEvent mouseEvent) throws IOException {
+    public void calendarIcon() throws IOException {
         ApplicationDisplay.changeScene("/calendar.fxml");
     }
     /**
@@ -21,7 +21,7 @@ public class MainMenuController {
      * @throws IOException when it fails
      */
 
-    public void goToProfile(MouseEvent mouseEvent) throws IOException {
+    public void goToProfile() throws IOException {
         ApplicationDisplay.changeScene("/myAccountScene.fxml");
     }
     /**
@@ -29,35 +29,15 @@ public class MainMenuController {
      * @throws IOException when it fails
      */
 
-    public void goToMainReservationsMenu(MouseEvent mouseEvent) throws IOException {
+    public void goToMainReservationsMenu() throws IOException {
         ApplicationDisplay.changeScene("/MainMenuReservations.fxml");
     }
 
-
-
-
-
-
-
-    public void myAccountScene(ActionEvent actionEvent) {
-
-    }
-
-    public void bookRoom(ActionEvent actionEvent) {
-    }
-
-    public void rentBike(ActionEvent actionEvent) {
-    }
-
-    public void orderFood(ActionEvent actionEvent) {
-    }
-
-    public void myCurrentBookings(ActionEvent actionEvent) {
-    }
-
-    public void myPreviousBookings(ActionEvent actionEvent) {
-    }
-
+    /**
+     * testing method should be deleted
+     * @param actionEvent
+     * @throws IOException
+     */
     public void template(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/Template.fxml");
     }
