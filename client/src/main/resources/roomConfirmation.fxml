@@ -9,7 +9,7 @@
    <children>
       <ImageView fitWidth="1280.0" onMouseClicked="#mainMenu" opacity="0.7" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@images/BikeBackground.jpg" />
+            <Image url="@images/RoomsBackGround.jpg" />
          </image>
       </ImageView>
       <Text layoutX="40.0" layoutY="213.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your reservation has been completed">
@@ -22,11 +22,11 @@
             <Font size="36.0" />
          </font>
       </Text>
-      <Text layoutX="469.0" layoutY="512.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your reservation id is:">
+      <Text layoutX="478.0" layoutY="512.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your reservation id is:">
          <font>
             <Font size="18.0" />
          </font></Text>
-      <Label fx:id="idNumber" layoutX="640.0" layoutY="491.0" text="ID number">
+      <Label layoutX="661.0" layoutY="491.0" text="ID number">
          <font>
             <Font size="18.0" />
          </font></Label>
