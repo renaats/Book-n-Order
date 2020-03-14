@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -20,6 +21,9 @@
         <Image url="@images/booknorderlogo.png" />
     </ImageView>
     <ImageView fitHeight="41.0" fitWidth="44.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#mainMenu" pickOnBounds="true" preserveRatio="true"><Image url="@images/HomeIcon.png" />
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
     </ImageView>
     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00a6d6" height="28.0" layoutY="86.0" stroke="#00a6d6" strokeType="INSIDE" style="-fx-arc-height: 0; -fx-arc-width: 0;" width="1280.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0" />
     <MenuBar layoutX="79.0" layoutY="87.0" maxWidth="1280.0" minWidth="799.0" prefHeight="26.0" prefWidth="799.0" style="-fx-background-color: #00a6d6;" AnchorPane.leftAnchor="79.0" AnchorPane.rightAnchor="402.0">
@@ -31,11 +35,17 @@
                 <MenuItem mnemonicParsing="false" onAction="#goToRemoveBuildings" text="Remove" />
             </items>
         </Menu>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
     </MenuBar>
     <ImageView fx:id="goToBuildingMenuButton" fitHeight="26.0" fitWidth="41.0" layoutX="50.0" layoutY="86.0" onMouseClicked="#goToBuildingMenu" pickOnBounds="true" preserveRatio="true">
         <image>
             <Image url="@images/databaseMenuBuildingIcon.png" />
         </image>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
     </ImageView>
     <TextField fx:id="buildingDeleteByIdTextField" layoutX="50.0" layoutY="207.0" promptText="ID" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="260.0" />
     <Text layoutX="59.0" layoutY="189.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Delete a building" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="235.0">
@@ -43,6 +53,30 @@
             <Font size="17.0" />
         </font>
     </Text>
-    <Button fx:id="confirmDeleteByIdButton" layoutX="231.0" layoutY="260.0" mnemonicParsing="false" onAction="#deleteBuildingButtonClicked" style="-fx-background-color: #00a6d6;" text="Delete" textFill="WHITE" AnchorPane.leftAnchor="231.0" AnchorPane.topAnchor="260.0" />
-
+    <Button fx:id="confirmDeleteByIdButton" layoutX="231.0" layoutY="260.0" mnemonicParsing="false" onAction="#deleteBuildingButtonClicked" style="-fx-background-color: #00a6d6;" text="Delete" textFill="WHITE" AnchorPane.leftAnchor="231.0" AnchorPane.topAnchor="260.0">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor></Button>
+    <TableView layoutX="451.0" layoutY="160.0" prefHeight="420.0" prefWidth="562.0">
+        <columns>
+            <TableColumn prefWidth="75.0" text="C1" />
+            <TableColumn prefWidth="75.0" text="C2" />
+        </columns>
+    </TableView>
+    <Button layoutX="706.0" layoutY="592.0" mnemonicParsing="false" text="Delte selected">
+        <cursor>
+            <Cursor fx:constant="HAND" />
+        </cursor>
+    </Button>
+    <Text fill="WHITE" layoutX="26.0" layoutY="387.0" strokeType="OUTSIDE" strokeWidth="0.0" text="© 2020 TU Delft. All rights reserved." AnchorPane.bottomAnchor="20.0">
+        <font>
+            <Font name="Calibri" size="10.0" />
+        </font>
+    </Text>
+    <Text fill="WHITE" layoutX="26.0" layoutY="371.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback is welcome" AnchorPane.bottomAnchor="35.0" />
+    <Text layoutX="577.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rooms" AnchorPane.leftAnchor="577.0">
+        <font>
+            <Font size="26.0" />
+        </font>
+    </Text>
 </AnchorPane>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -11,6 +12,14 @@
       <image>
          <Image url="@images/mainMenuBackground.jpg" />
       </image></ImageView>
+   <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="67.0" layoutY="-32.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@images/TuDelftLogo.png" />
+      </image>
+      <cursor>
+         <Cursor fx:constant="DEFAULT" />
+      </cursor>
+   </ImageView>
    <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="67.0" layoutY="-32.0" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@images/TuDelftLogo.png" />
@@ -31,11 +40,17 @@
             <MenuItem mnemonicParsing="false" onAction="#goToRemoveBuildings" text="Remove" />
          </items>
       </Menu>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
    </MenuBar>
    <ImageView fx:id="goToBuildingMenuButton" fitHeight="26.0" fitWidth="41.0" layoutX="50.0" layoutY="86.0" onMouseClicked="#goToBuildingMenu" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@images/databaseMenuBuildingIcon.png" />
       </image>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
    </ImageView><Text fill="WHITE" layoutX="26.0" layoutY="387.0" strokeType="OUTSIDE" strokeWidth="0.0" text="© 2020 TU Delft. All rights reserved." AnchorPane.bottomAnchor="20.0">
       <font>
          <Font name="Calibri" size="10.0" />
@@ -53,33 +68,37 @@
          <Font size="17.0" />
       </font>
    </Text>
-   <Button fx:id="confirmFindByIdButton" layoutX="231.0" layoutY="193.0" mnemonicParsing="false" onAction="#building_id_ButtonClicked" prefHeight="26.0" prefWidth="61.0" style="-fx-background-color: #00a6d6;" text="Find" textFill="WHITE" AnchorPane.leftAnchor="231.0" AnchorPane.topAnchor="193.0" />
-   <Text layoutX="69.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Update a building" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="300.0">
+   <Button fx:id="confirmFindByIdButton" layoutX="236.0" layoutY="193.0" mnemonicParsing="false" onAction="#building_id_ButtonClicked" prefHeight="26.0" prefWidth="61.0" style="-fx-background-color: #00a6d6;" text="Find" textFill="WHITE" AnchorPane.leftAnchor="236.0" AnchorPane.topAnchor="193.0" />
+   <ChoiceBox fx:id="updateChoiceBox" layoutX="157.0" layoutY="383.0" prefHeight="26.0" prefWidth="119.0" style="-fx-background-color: #00a6d6;" AnchorPane.leftAnchor="157.0" />
+   <Text layoutX="40.0" layoutY="392.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Attribute:" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="373.6552734375">
       <font>
          <Font size="17.0" />
       </font>
    </Text>
-   <TextField fx:id="buildingFindByIdUpdateField" layoutX="60.0" layoutY="217.0" promptText="ID" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="325.0" />
-   <ChoiceBox fx:id="updateChoiceBox" layoutX="320.0" layoutY="324.0" prefHeight="26.0" prefWidth="119.0" style="-fx-background-color: #00a6d6;" AnchorPane.leftAnchor="320.0" />
-   <Text layoutX="231.0" layoutY="343.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Attribute:" AnchorPane.leftAnchor="231.0" AnchorPane.topAnchor="327.22021484375">
+   <Text layoutX="38.0" layoutY="444.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Change to:" AnchorPane.leftAnchor="38.0" AnchorPane.topAnchor="425.6552734375">
       <font>
          <Font size="17.0" />
       </font>
    </Text>
-   <Text layoutX="446.0" layoutY="343.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Change to:" AnchorPane.leftAnchor="446.0" AnchorPane.topAnchor="327.22021484375">
-      <font>
-         <Font size="17.0" />
-      </font>
-   </Text>
-   <TextField fx:id="buildingChangeToField" layoutX="548.0" layoutY="325.0" AnchorPane.leftAnchor="548.0" AnchorPane.topAnchor="325.0" />
-   <Button fx:id="confirmChangeButton" layoutX="719.0" layoutY="324.0" mnemonicParsing="false" onAction="#updateBuildingButtonClicked" style="-fx-background-color: #00a6d6;" text="Change" textFill="WHITE" AnchorPane.leftAnchor="725.0" AnchorPane.topAnchor="324.0" />
-   <Button fx:id="buildingFindAllButton" layoutX="305.0" layoutY="193.0" mnemonicParsing="false" onAction="#listBuildingsButtonClicked" style="-fx-background-color: #00a6d6;" text="Find all" textFill="WHITE" />
+   <TextField fx:id="buildingChangeToField" layoutX="143.0" layoutY="424.0" AnchorPane.leftAnchor="143.0" AnchorPane.topAnchor="424.0" />
+   <Button fx:id="confirmChangeButton" layoutX="170.0" layoutY="487.0" mnemonicParsing="false" onAction="#updateBuildingButtonClicked" style="-fx-background-color: #00a6d6;" text="Change" textFill="WHITE" AnchorPane.leftAnchor="170.0" AnchorPane.topAnchor="487.0" />
+   <Button fx:id="buildingFindAllButton" layoutX="240.0" layoutY="238.0" mnemonicParsing="false" onAction="#listBuildingsButtonClicked" style="-fx-background-color: #00a6d6;" text="Find all" textFill="WHITE" />
    <ImageView fitHeight="41.0" fitWidth="44.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#mainMenu" pickOnBounds="true" preserveRatio="true">
       <Image url="@images/HomeIcon.png" />
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
    </ImageView>
-   <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="67.0" layoutY="-32.0" pickOnBounds="true" preserveRatio="true">
-      <image>
-         <Image url="@images/TuDelftLogo.png" />
-      </image>
-   </ImageView>
+   <TableView layoutX="451.0" layoutY="238.0" prefHeight="420.0" prefWidth="562.0">
+      <columns>
+         <TableColumn prefWidth="75.0" text="C1" />
+         <TableColumn prefWidth="75.0" text="C2" />
+      </columns>
+   </TableView>
+   <Button layoutX="690.0" layoutY="695.0" mnemonicParsing="false" text="Edit selected">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
+   <TextField layoutX="50.0" layoutY="238.0" promptText="Name" />
 </AnchorPane>
