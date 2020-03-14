@@ -26,9 +26,6 @@ public class BookRoomController implements Initializable {
     final ObservableList<String> listOfTimeSlots = FXCollections.observableArrayList();
     final ObservableList<String> listOfBuildings = FXCollections.observableArrayList();
 
-
-
-
     public class Search {
         private boolean screen;
         private boolean beamer;
@@ -56,19 +53,12 @@ public class BookRoomController implements Initializable {
 
     @FXML
     private CheckBox screen;
-    @FXML
     private CheckBox beamer;
-    @FXML
     private ChoiceBox<String> building;
-    @FXML
     private Button submitButton;
-    @FXML
     private TextField capacity;
-    @FXML
     private TextField nuOfPlugs;
-    @FXML
     private TextArea rooms;
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -139,10 +129,10 @@ public class BookRoomController implements Initializable {
     }
     /**
      * Adds the items to the choice boxes
-
      */
+
     public void loadRoomData() {
-        // rooms.setText("rooms=" + "ServerCommunication.getRooms()");
+        rooms.setText("rooms=" + "ServerCommunication.getRooms()");
     }
 
     /**

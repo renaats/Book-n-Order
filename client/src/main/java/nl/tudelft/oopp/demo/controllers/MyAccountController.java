@@ -3,7 +3,6 @@ package nl.tudelft.oopp.demo.controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -25,17 +24,19 @@ public class MyAccountController implements Initializable {
         loadData();
     }
 
+    /**
+     * Should load the user information
+     */
     private void loadData() {
-        name.setText(ServerCommunication.getUser());
-        email.setText(ServerCommunication.getUser());
+        //TODO
+        //name.setText(ServerCommunication.getUser());
+        //email.setText(ServerCommunication.getUser());
     }
-
 
     /**
      * Changes current scene to myCurrentBookings.fxml.
      * @throws IOException input will be valid.
      */
-
     public void myCurrentBookings(MouseEvent mouseEvent) throws IOException {
         ApplicationDisplay.changeScene("/myCurrentBookings.fxml");
     }

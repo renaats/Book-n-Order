@@ -14,8 +14,11 @@ public class MyPreviousRoomReservationsController implements Initializable {
         loadData();
     }
 
+    /**
+     * will load the previous reservations
+     */
     public void loadData() {
-
+        //TODO
     }
 
     /**

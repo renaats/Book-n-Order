@@ -59,7 +59,11 @@ public class RoomEditOrAddController implements Initializable {
         ApplicationDisplay.changeScene("/DatabaseRemoveRoom.fxml");
     }
 
-    public void goToEditRooms(ActionEvent actionEvent) throws IOException {
+    /**
+     * changes scene to the edit room scene
+     * @throws IOException should never throw an exception
+     */
+    public void goToEditRooms() throws IOException {
         ApplicationDisplay.changeScene("/DatabaseEditRoom.fxml");
     }
 }

@@ -16,6 +16,7 @@ public class MainMenuController {
     public void calendarIcon() throws IOException {
         ApplicationDisplay.changeScene("/calendar.fxml");
     }
+
     /**
      * Handles the clicking of the Profile icon.
      * @throws IOException when it fails

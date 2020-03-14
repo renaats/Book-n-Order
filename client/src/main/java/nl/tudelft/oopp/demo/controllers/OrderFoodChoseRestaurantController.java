@@ -28,8 +28,11 @@ public class OrderFoodChoseRestaurantController implements Initializable {
         loadData();
     }
 
+    /**
+     * will load the restaurants
+     */
     public  void loadData(){
-
+        //TODO
     }
 
     /**

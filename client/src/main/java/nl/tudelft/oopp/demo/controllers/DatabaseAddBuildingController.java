@@ -21,6 +21,7 @@ public class DatabaseAddBuildingController {
     private TextField streetTextField;
     @FXML
     private TextField houseNumberTextField;
+
     /**
      * return to the database main menu when the home icon is clicked
      * @throws IOException this should not throw an exception, since the input is always the same
@@ -29,6 +30,7 @@ public class DatabaseAddBuildingController {
     public void mainMenu() throws IOException {
         ApplicationDisplay.changeScene("/DatabaseMainMenu.fxml");
     }
+
     /**
      * sends the user to the add building view
      * @throws IOException this should not throw an exception, since the input is always the same
@@ -37,6 +39,7 @@ public class DatabaseAddBuildingController {
     public void goToAddBuildings() throws IOException {
         ApplicationDisplay.changeScene("/DatabaseAddBuildings.fxml");
     }
+
     /**
      * sends the user to the remove building view
      * @param actionEvent the click on Go to add building button
@@ -46,6 +49,7 @@ public class DatabaseAddBuildingController {
     public void goToRemoveBuildings(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/DatabaseRemoveBuildings.fxml");
     }
+
     /**
      * sends the user to the edit building view
      * @param actionEvent the click on Go to add building button
@@ -55,6 +59,7 @@ public class DatabaseAddBuildingController {
     public void goToEditBuildings(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/DatabaseEditBuildings.fxml");
     }
+
     /**
      * Adds building to the database
      * @param actionEvent actionEvent parameter.

@@ -57,8 +57,11 @@ public class MainMenuReservationsController {
         ApplicationDisplay.changeScene("/Template.fxml");
     }
 
-    public void calendarIcon(MouseEvent mouseEvent) {
-
+    /**
+     * will lead to the calendar scene
+     */
+    public void calendarIcon() {
+        //TODO
     }
 
     /**
