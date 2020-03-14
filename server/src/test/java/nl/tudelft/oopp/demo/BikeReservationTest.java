@@ -56,10 +56,10 @@ public class BikeReservationTest {
         bikeRepository.saveAndFlush(bike);
 
         appUser = new AppUser();
-        appUser.setEmail("R.Jursevskis@student.tudelft.nl");
+        appUser.setEmail("l.j.jongejans@student.tudelft.nl");
         appUser.setPassword("1234");
-        appUser.setName("Renats");
-        appUser.setSurname("Jursevskis");
+        appUser.setName("Liselotte");
+        appUser.setSurname("Jongejans");
         appUser.setFaculty("EWI");
         appUser.setRoomReservations(new HashSet<>());
         userRepository.saveAndFlush(appUser);
@@ -70,13 +70,55 @@ public class BikeReservationTest {
         fromBuilding.setHouseNumber(4);
         buildingRepository.saveAndFlush(fromBuilding);
 
+        fromBuilding = new Building();
+        fromBuilding.setName("SportHal");
+        fromBuilding.setStreet("Mekelweg");
+        fromBuilding.setHouseNumber(8);
+        buildingRepository.saveAndFlush(toBuilding);
+
         bikeReservation = new BikeReservation();
         bikeReservation.setAppUser(userRepository.findAll().get(0));
-        //bikeReservation.setFromBuilding();
-        //bikeReservation.setToBuilding();
+        bikeReservation.setFromBuilding(fromBuilding);
+        bikeReservation.setToBuilding(toBuilding);
         bikeReservation.setFromTime(new Date(10000000000L));
         bikeReservation.setToTime(new Date(11000000000L));
         bikeReservationRepository.saveAndFlush(bikeReservation);
         bikeReservation = bikeReservationRepository.findAll().get(0);
+    }
+
+    @Test
+    public void saveAndRetrieveBikeReservation() {
+        bikeReservation2 = bikeReservationRepository.findAll().get(0);
+        assertEquals(bikeReservation, bikeReservation2);
+    }
+
+    @Test
+    public void testGetters() {
+        bikeReservation2 = bikeReservationRepository.findAll().get(0);
+        assertEquals(bikeReservation.getAppUser(), bikeReservation2.getAppUser());
+        assertEquals(bikeReservation.getBike(), bikeReservation2.getBike());
+        assertEquals(bikeReservation.getFromTime(), bikeReservation2.getFromTime());
+        assertEquals(bikeReservation.getToTime(), bikeReservation2.getToTime());
+    }
+
+    @Test
+    public void testEqualBikeReservations() {
+        bikeReservation2 = new BikeReservation();
+        bikeReservation2.setAppUser(appUser);
+        bikeReservation2.setBike(bike);
+        bikeReservation2.setFromTime(new Date(10000000000L));
+        bikeReservation2.setToTime(new Date(11000000000L));
+        assertEquals(bikeReservation, bikeReservation2);
+        assertNotSame(bikeReservation, bikeReservation2);
+    }
+
+    /** Deletes everything from the repositories after testing.
+     */
+    @AfterEach
+    public void cleanup() {
+        bikeReservationRepository.deleteAll();
+        bikeRepository.deleteAll();
+        userRepository.deleteAll();
+        buildingRepository.deleteAll();
     }
 }

@@ -1,6 +1,11 @@
 package nl.tudelft.oopp.demo.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.util.Date;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -25,6 +31,10 @@ public class Bike {
     private Building location;
 
     private boolean available;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "bike")
+    Set<BikeReservation> bikeReservations = new HashSet<>();
 
     public void setLocation(Building location) {
         this.location = location;
@@ -45,6 +55,24 @@ public class Bike {
 
     public boolean isAvailable() {
         return available;
+    }
+
+    /**
+     * Checks if this bike has a reservation between the specified times.
+     * @param fromTime = the starting time.
+     * @param toTime = the ending time.
+     * @return true if this bike has a reservation between these times, false otherwise.
+     */
+    public boolean hasBikeReservationBetween(Date fromTime, Date toTime) {
+        for (BikeReservation bikeReservation: bikeReservations) {
+            if (fromTime.compareTo(bikeReservation.getFromTime()) < 0 && toTime.compareTo(bikeReservation.getFromTime()) > 0) {
+                return true;
+            }
+            if (fromTime.compareTo(bikeReservation.getToTime()) < 0 && toTime.compareTo(bikeReservation.getToTime()) > 0) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
