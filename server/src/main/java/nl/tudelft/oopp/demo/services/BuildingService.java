@@ -93,6 +93,15 @@ public class BuildingService {
     }
 
     /**
+     * Finds a building with the specified name.
+     * @param name = the name of the building
+     * @return a building that matches the name
+     */
+    public Building find(String name) {
+        return buildingRepository.findByName(name);
+    }
+
+    /**
      * Return all rooms that are in the building with the specified id.
      * @param id = the id of the building
      * @return all rooms that are in the building that matches the id
