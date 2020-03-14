@@ -70,6 +70,7 @@ public class RoomCalendarView extends Application {
         roomCal.getCalendarSources().addAll(myCalendarSource);
         roomCal.setRequestedTime(LocalTime.now());
 
+
         Thread updateTimeThread = new Thread("Calendar: Update Time Thread") {
             @Override
             public void run() {
@@ -77,6 +78,7 @@ public class RoomCalendarView extends Application {
                     Platform.runLater(() -> {
                         roomCal.setToday(LocalDate.now());
                         roomCal.setTime(LocalTime.now());
+
                     });
 
                     try {
@@ -116,3 +118,4 @@ public class RoomCalendarView extends Application {
         return LocalDateTime.ofInstant(instant1, ZoneId.systemDefault()).toLocalDate();
     }
 }
+
