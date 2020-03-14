@@ -2,11 +2,13 @@ package nl.tudelft.oopp.demo.views;
 
 import com.calendarfx.model.Calendar;
 import com.calendarfx.model.Calendar.Style;
+import com.calendarfx.model.CalendarEvent;
 import com.calendarfx.model.CalendarSource;
 import com.calendarfx.model.Entry;
 import com.calendarfx.view.CalendarView;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
@@ -21,14 +23,16 @@ import java.util.List;
 public class RoomCalendarView extends Application {
 
     private Room room;
+    private int buildingId;
 
-//    public RoomCalendarView(Room room) {
+//    public RoomCalendarView(Room room, int buildingId) {
 //        this.room = room;
 //    }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         CalendarView weekView = new CalendarView();
+        weekView.defaultCalendarProviderProperty();
         weekView.setShowSearchField(false);
         weekView.setShowPrintButton(false);
         weekView.setShowPageToolBarControls(false);
@@ -37,8 +41,14 @@ public class RoomCalendarView extends Application {
         weekView.setShowSourceTray(false);
         weekView.setFocusTraversable(false);
 
-        Calendar bookedRooms = new Calendar("Booked Rooms");
-        bookedRooms.setStyle(Style.STYLE3);
+        Calendar bookedSlotsCalendar = new Calendar("Unavailable Slots"); //calendar that stores reserved slot entries
+        bookedSlotsCalendar.setStyle(Style.STYLE2); //sets color of calendar to blue
+        bookedSlotsCalendar.setReadOnly(true); //disables any user modification to the already reserved slot entries
+
+        Calendar myBookingCalendar = new Calendar("My Bookings");
+        myBookingCalendar.setStyle(Style.STYLE1);
+        EventHandler<CalendarEvent> handler = e -> entryHandler(e);
+        myBookingCalendar.addEventHandler(handler);
 
         List<RoomReservation> roomReservationList = JsonMapper.roomReservationsListMapper(ServerCommunication.getRoomReservations());
 
@@ -58,12 +68,15 @@ public class RoomCalendarView extends Application {
 
                 bookedEntry.setInterval(startTime, endTime);
                 bookedEntry.setInterval(date);
-                bookedRooms.addEntry(bookedEntry);
+
+                bookedSlotsCalendar.addEntry(bookedEntry);
             }
         }
 
         CalendarSource myCalendarSource = new CalendarSource("Calendars");
-        myCalendarSource.getCalendars().addAll(bookedRooms);
+        myCalendarSource.getCalendars().removeAll();
+        myCalendarSource.getCalendars().addAll(bookedSlotsCalendar, myBookingCalendar);
+
 
         weekView.getCalendarSources().addAll(myCalendarSource);
         weekView.setRequestedTime(LocalTime.now());
@@ -106,6 +119,35 @@ public class RoomCalendarView extends Application {
     public static void main(String[] args) {
         launch();
     }
+
+    private void entryHandler(CalendarEvent e) throws Exception {
+
+        Entry<RoomReservation> newEntry = (Entry<RoomReservation>) e.getEntry();
+        LocalTime startTime = newEntry.getStartTime();
+        LocalTime endTime = newEntry.getEndTime();
+        LocalDate date = newEntry.getStartDate();
+
+        LocalDateTime startDateAndTime = LocalDateTime.of(date, startTime);
+        LocalDateTime endDateAndTime = LocalDateTime.of(date, endTime);
+
+        Date start = Date.from(startDateAndTime.atZone(ZoneId.systemDefault()).toInstant());
+        Date end = Date.from(endDateAndTime.atZone(ZoneId.systemDefault()).toInstant());
+
+        //placeholder for user id
+        int userId = 111111111;
+        //placeholder for reservationId
+        int reservationId = 22222222;
+
+        if (e.isEntryAdded()) {
+            ServerCommunication.addRoomReservation(this.room.getName(), this.room.getBuilding().getId(), userId, start, end);
+            System.out.println(start.toString());
+        } else if (e.isEntryRemoved()){ System.out.println("entry removed");
+            ServerCommunication.deleteRoomReservation(reservationId);
+        } else {
+            //ServerCommunication.updateRoomReservation(reservationId, old value, new);
+        }
+    }
 }
+
 
 
