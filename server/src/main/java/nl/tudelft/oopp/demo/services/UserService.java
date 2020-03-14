@@ -57,9 +57,14 @@ public class UserService {
      * @param faculty = the faculty of the user
      * @return String to see if your request passed
      */
-    public int add(String email, String password, String name, String surname, String faculty) throws UnsupportedEncodingException {
-        if (!EmailValidator.getInstance().isValid(URLDecoder.decode(email, "UTF-8"))) {
-            return 423;
+    public int add(String email, String password, String name, String surname, String faculty) {
+        try {
+            if (!EmailValidator.getInstance().isValid(URLDecoder.decode(email, "UTF-8"))) {
+                return 423;
+            }
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return 502;
         }
         if (!email.contains("@student.tudelft.nl") && !email.contains("@tudelft.nl")) {
             return 424;
