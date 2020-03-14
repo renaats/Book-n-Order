@@ -16,7 +16,6 @@ import javax.persistence.OneToMany;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-
 @Entity // This tells Hibernate to make a table out of this class
 public class Restaurant {
     @Id
@@ -33,7 +32,6 @@ public class Restaurant {
     @JsonIgnore
     @OneToMany(mappedBy = "restaurant")
     Set<RestaurantHours> restaurantHours = new HashSet<>();
-
 
     public void setBuilding(Building building) {
         this.building = building;
