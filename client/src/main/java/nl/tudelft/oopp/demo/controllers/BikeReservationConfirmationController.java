@@ -13,7 +13,7 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 public class BikeReservationConfirmationController implements Initializable {
     @FXML
-    private Label Number;
+    private Label idNumber;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

@@ -40,5 +40,4 @@
             <Font name="DejaVu Sans ExtraLight" size="36.0" />
          </font>
       </Text>
-   <Button layoutX="141.0" layoutY="177.0" mnemonicParsing="false" onAction="#goTomainMenuTemp" text="Button" />
 </AnchorPane>

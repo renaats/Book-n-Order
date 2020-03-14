@@ -22,6 +22,7 @@ public class OrderFoodController implements Initializable {
     public ComboBox pickUpTimeMin;
     public ComboBox pickUpTimeH;
     public Label explanationOfTheRestaurantText;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         loadData();
@@ -31,19 +32,21 @@ public class OrderFoodController implements Initializable {
      * loads the content of the label depending on the restaurant
      * and loads the times into the Comboboxes
      */
-    public void loadData(){
+    public void loadData() {
         setLabel();
         loadTime();
     }
     /**
-     *
+     * Should set the label to the ID
      */
-    public void setLabel(){
 
+    public void setLabel() {
+        //TODO
     }
     /**
-     *
+     * loads the time to the choice boxes
      */
+
     public void loadTime() {
         listTime.removeAll(listTime);
         listMinutes.removeAll(listMinutes);
@@ -69,6 +72,7 @@ public class OrderFoodController implements Initializable {
      *
      * @throws IOException input will not be wrong, hence we throw.
      */
+
     public void mainMenu(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/mainMenu.fxml");
     }

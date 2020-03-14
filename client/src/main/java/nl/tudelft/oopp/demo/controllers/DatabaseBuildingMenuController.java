@@ -1,10 +1,11 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import java.io.IOException;
+
 import javafx.event.ActionEvent;
 import javafx.scene.input.MouseEvent;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
-import java.io.IOException;
 
 public class DatabaseBuildingMenuController {
     /**
@@ -21,6 +22,7 @@ public class DatabaseBuildingMenuController {
      * @param actionEvent the click on Go to add building button
      * @throws IOException this should not throw an exception, since the input is always the same
      */
+
     public void goToAddBuildings(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/DatabaseAddBuildings.fxml");
     }
@@ -29,6 +31,7 @@ public class DatabaseBuildingMenuController {
      * @param actionEvent the click on Go to add building button
      * @throws IOException this should not throw an exception, since the input is always the same
      */
+
     public void goToRemoveBuildings(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/DatabaseRemoveBuildings.fxml");
     }
@@ -37,6 +40,7 @@ public class DatabaseBuildingMenuController {
      * @param actionEvent the click on Go to add building button
      * @throws IOException this should not throw an exception, since the input is always the same
      */
+
     public void goToEditBuildings(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/DatabaseEditBuildings.fxml");
     }

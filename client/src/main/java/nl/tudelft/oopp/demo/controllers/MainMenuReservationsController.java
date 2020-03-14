@@ -96,13 +96,4 @@ public class MainMenuReservationsController {
     public void rentBikeIcon(MouseEvent mouseEvent) throws IOException {
         ApplicationDisplay.changeScene("/bikeReservations.fxml");
     }
-
-    /**
-     * goes back to my account scene when the back arrow icon is pressed
-     * @param mouseEvent
-     * @throws IOException
-     */
-    public void goToMainMenuReservations(MouseEvent mouseEvent) throws IOException {
-        ApplicationDisplay.changeScene("/myAccountScene.fxml");
-    }
 }

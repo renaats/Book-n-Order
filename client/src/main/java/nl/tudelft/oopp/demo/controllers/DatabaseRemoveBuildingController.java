@@ -1,5 +1,7 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import java.io.IOException;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -8,7 +10,6 @@ import javafx.scene.input.MouseEvent;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
-import java.io.IOException;
 
 public class DatabaseRemoveBuildingController {
     @FXML
@@ -28,6 +29,7 @@ public class DatabaseRemoveBuildingController {
      * @param actionEvent the click on Go to add building button
      * @throws IOException this should not throw an exception, since the input is always the same
      */
+
     public void goToAddBuildings(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/DatabaseAddBuildings.fxml");
     }
@@ -36,6 +38,7 @@ public class DatabaseRemoveBuildingController {
      * @param actionEvent the click on Go to add building button
      * @throws IOException this should not throw an exception, since the input is always the same
      */
+
     public void goToRemoveBuildings(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/DatabaseRemoveBuildings.fxml");
     }
@@ -44,6 +47,7 @@ public class DatabaseRemoveBuildingController {
      * @param actionEvent the click on Go to add building button
      * @throws IOException this should not throw an exception, since the input is always the same
      */
+
     public void goToEditBuildings(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/DatabaseEditBuildings.fxml");
     }
@@ -52,6 +56,7 @@ public class DatabaseRemoveBuildingController {
     /**
      * Handles clicking the remove button.
      */
+
     public void deleteBuildingButtonClicked() {
         try {
             int id = Integer.parseInt(buildingDeleteByIdTextField.getText());
@@ -74,6 +79,7 @@ public class DatabaseRemoveBuildingController {
      * @param mouseEvent the click on the home icon on the databased screens
      * @throws IOException this should not throw an exception, since the input is always the same
      */
+
     public void goToBuildingMenu(MouseEvent mouseEvent) throws IOException {
         ApplicationDisplay.changeScene("/DatabaseBuildingMenu.fxml");
     }

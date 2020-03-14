@@ -84,11 +84,6 @@ public class DatabaseAddRoomController {
     }
 
     /**
-     * Switches scene to DatabaseAddBuildings.fxml
-     * @throws IOException Input will be valid
-     */
-
-    /**
      * Switches scene to DatabaseAddRooms.fxml
      * @throws IOException Input will be valid
      */

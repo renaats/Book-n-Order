@@ -1,5 +1,9 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -10,9 +14,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class OrderFoodChoseRestaurantController implements Initializable {
     @FXML
@@ -60,17 +61,15 @@ public class OrderFoodChoseRestaurantController implements Initializable {
 
     /**
      * Should apply the filters of the nameOfTheRestaurant text field to the restaurantsTable
-     * @param actionEvent
      */
-    public void applyFilters(ActionEvent actionEvent) {
+    public void applyFilters() {
         //TODO
     }
 
     /**
      * Should cause the menu of the selected restaurant to show at the menuTable
-     * @param actionEvent
      */
-    public void restaurantChoosen(ActionEvent actionEvent) {
+    public void restaurantChoosen() {
         //TODO
     }
 

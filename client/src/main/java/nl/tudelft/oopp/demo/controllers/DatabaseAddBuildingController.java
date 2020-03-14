@@ -33,6 +33,7 @@ public class DatabaseAddBuildingController {
      * sends the user to the add building view
      * @throws IOException this should not throw an exception, since the input is always the same
      */
+
     public void goToAddBuildings() throws IOException {
         ApplicationDisplay.changeScene("/DatabaseAddBuildings.fxml");
     }
@@ -41,6 +42,7 @@ public class DatabaseAddBuildingController {
      * @param actionEvent the click on Go to add building button
      * @throws IOException this should not throw an exception, since the input is always the same
      */
+
     public void goToRemoveBuildings(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/DatabaseRemoveBuildings.fxml");
     }
@@ -49,6 +51,7 @@ public class DatabaseAddBuildingController {
      * @param actionEvent the click on Go to add building button
      * @throws IOException this should not throw an exception, since the input is always the same
      */
+
     public void goToEditBuildings(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/DatabaseEditBuildings.fxml");
     }
@@ -56,6 +59,7 @@ public class DatabaseAddBuildingController {
      * Adds building to the database
      * @param actionEvent actionEvent parameter.
      */
+
     public void databaseAddBuilding(ActionEvent actionEvent) {
         String name = nameTextField.getText();
         String street = streetTextField.getText();
