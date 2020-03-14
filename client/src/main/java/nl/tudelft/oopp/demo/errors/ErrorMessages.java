@@ -22,6 +22,7 @@ public class ErrorMessages {
     private static final String invalidDayMessage = "Invalid day.";
     private static final String endBeforeStartMessage = "End time cannot be before start time.";
     private static final String duplicateBuildingDayMessage = "This building already has a time for this day.";
+    private static final String restaurantNotFoundMessage = "Restaurant not found.";
     private static final String somethingWentWrongMessage = "Something went wrong.";
     private static int code;
 
@@ -84,6 +85,8 @@ public class ErrorMessages {
                 return endBeforeStartMessage;
             case 427:
                 return duplicateBuildingDayMessage;
+            case 428:
+                return restaurantNotFoundMessage;
             default:
                 return somethingWentWrongMessage;
         }
