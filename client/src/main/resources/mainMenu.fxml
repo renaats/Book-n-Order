@@ -31,7 +31,7 @@
       </font>
    </Text>
    <Accordion layoutX="76.0" layoutY="144.0" />
-   <ImageView fitWidth="200.0" layoutX="580.0" layoutY="184.0" onMouseClicked="#calendarIcon" pickOnBounds="true" preserveRatio="true">
+   <ImageView fitWidth="200.0" layoutX="540.0" layoutY="183.0" onMouseClicked="#calendarIcon" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@images/CalendarIcon.png" />
       </image>
@@ -39,22 +39,17 @@
          <Cursor fx:constant="HAND" />
       </cursor>
    </ImageView>
-   <ImageView fitHeight="51.0" fitWidth="32.0" layoutX="76.0" layoutY="9.0" onMouseClicked="#calendarIcon" pickOnBounds="true" preserveRatio="true">
+   <ImageView fitWidth="200.0" layoutX="250.0" layoutY="384.0" onMouseClicked="#goToProfile" pickOnBounds="true" preserveRatio="true">
       <image>
-         <Image url="@images/CalendarIcon.png" />
-      </image>
-   </ImageView>
-   <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="265.0" layoutY="384.0" onMouseClicked="#goToProfile" pickOnBounds="true" preserveRatio="true">
-      <image>
-         <Image url="@images/profileIcon.png" />
+         <Image url="@images/profileIconColor.png" />
       </image>
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor>
    </ImageView>
-   <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="927.0" layoutY="384.0" onMouseClicked="#goToMainReservationsMenu" pickOnBounds="true" preserveRatio="true">
+   <ImageView fitWidth="200.0" layoutX="830.0" layoutY="384.0" onMouseClicked="#goToMainReservationsMenu" pickOnBounds="true" preserveRatio="true">
       <image>
-         <Image url="@images/BookingIcon.png" />
+         <Image url="@images/bookingImageColor2.png" />
       </image>
       <cursor>
          <Cursor fx:constant="HAND" />
@@ -64,6 +59,6 @@
       <font>
          <Font name="Candara Bold" size="24.0" />
       </font></Text>
-   <Text layoutX="42.0" layoutY="210.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Here you can check your calendar to see your appointments&#10; or you can make a new booking" wrappingWidth="319.30078125" />
+   <Text layoutX="42.0" layoutY="210.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Here you can make new bookings by clicking on the&#10;bookings icon.&#10;In addition you can check your current bookings&#10;and events on the calendar" wrappingWidth="319.30078125" />
 
 </AnchorPane>

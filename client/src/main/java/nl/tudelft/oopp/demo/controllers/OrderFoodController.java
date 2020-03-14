@@ -15,9 +15,10 @@ import javafx.scene.input.MouseEvent;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 public class OrderFoodController implements Initializable {
-    final ObservableList listTime = FXCollections.observableArrayList();
 
+    final ObservableList listTime = FXCollections.observableArrayList();
     final ObservableList listMinutes = FXCollections.observableArrayList();
+
     @FXML
     public ComboBox pickUpTimeMin;
     public ComboBox pickUpTimeH;
@@ -36,10 +37,10 @@ public class OrderFoodController implements Initializable {
         setLabel();
         loadTime();
     }
+
     /**
      * Should set the label to the ID
      */
-
     public void setLabel() {
         //TODO
     }

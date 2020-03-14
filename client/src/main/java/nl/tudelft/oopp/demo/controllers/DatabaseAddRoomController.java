@@ -124,7 +124,6 @@ public class DatabaseAddRoomController {
         alert.showAndWait();
     }
 
-
     /**
      * returns to the main menu
      * @param mouseEvent the event is clicking the menu item

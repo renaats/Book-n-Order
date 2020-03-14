@@ -7,7 +7,12 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 
 public class RoomConfirmationController {
-    public void mainMenu(MouseEvent mouseEvent) throws IOException {
+
+    /**
+     * will change to main menu when the background is clicked
+     * @throws IOException should never throw an exception, since the input is always the same
+     */
+    public void mainMenu() throws IOException {
         ApplicationDisplay.changeScene("/mainMenu.fxml");
     }
 }

@@ -15,7 +15,6 @@ public class LoginController {
     @FXML
     private TextField passwordField;
 
-
     /**
      * Changes current to templateScene.fxml.
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
@@ -49,9 +48,5 @@ public class LoginController {
      */
     public void registrationScene(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/registrationScreen.fxml");
-    }
-
-    public void goTomainMenuTemp(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/mainMenu.fxml");
     }
 }

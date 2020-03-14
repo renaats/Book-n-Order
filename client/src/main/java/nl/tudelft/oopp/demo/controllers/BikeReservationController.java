@@ -12,7 +12,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
@@ -20,7 +19,6 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
  */
 
 public class BikeReservationController implements Initializable {
-
 
     final ObservableList listLocations = FXCollections.observableArrayList();
 

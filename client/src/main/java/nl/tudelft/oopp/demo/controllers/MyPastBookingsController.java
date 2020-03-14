@@ -1,9 +1,7 @@
 package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
-
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
-
 
 public class MyPastBookingsController {
     /**
@@ -13,7 +11,6 @@ public class MyPastBookingsController {
     public void myAccountScene() throws IOException {
         ApplicationDisplay.changeScene("/myAccountScene.fxml");
     }
-
 
     /**
      * Changes to myCurrentBookings.fxml.

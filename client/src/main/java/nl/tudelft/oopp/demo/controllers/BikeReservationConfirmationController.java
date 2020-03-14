@@ -10,7 +10,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
-
 public class BikeReservationConfirmationController implements Initializable {
     @FXML
     private Label idNumber;
@@ -20,8 +19,11 @@ public class BikeReservationConfirmationController implements Initializable {
         loadData();
     }
 
+    /**
+     * Should get the order ID and write it here
+     */
     private void loadData() {
-
+        //TODO
     }
 
     /**
