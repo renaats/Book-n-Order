@@ -1,9 +1,7 @@
 package nl.tudelft.oopp.demo.views;
 
-import java.rmi.ServerError;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.ZonedDateTime;
 
 import com.calendarfx.model.Calendar;
 import com.calendarfx.model.Calendar.Style;
@@ -16,30 +14,29 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.layout.Background;
 import javafx.stage.Stage;
-import nl.tudelft.oopp.demo.communication.ServerCommunication;
 
 public class MyCalendarView extends Application {
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         CalendarView weekView = new CalendarView ();
-        Calendar birthdays = new Calendar("Birthdays");
+        Calendar booked_rooms = new Calendar("Booked Rooms");
         weekView.setShowSearchField(false);
         weekView.setShowPrintButton(false);
         weekView.setShowPageToolBarControls(false);
         weekView.setShowPageSwitcher(true);
         weekView.setShowAddCalendarButton(false);
         weekView.setShowSourceTray(false);
-
+        weekView.setFocusTraversable(false);
 
         EventHandler<CalendarEvent> loadEntries = e -> addEntries (e);
         //weekView.addEventHandler(loadEntries);
 
-        birthdays.setStyle(Style.STYLE2);
+        booked_rooms.setStyle(Style.STYLE3);
 
         CalendarSource myCalendarSource = new CalendarSource("My Calendars");
-        myCalendarSource.getCalendars().addAll(birthdays);
+        myCalendarSource.getCalendars().addAll(booked_rooms);
 
         weekView.getCalendarSources().addAll(myCalendarSource);
 
