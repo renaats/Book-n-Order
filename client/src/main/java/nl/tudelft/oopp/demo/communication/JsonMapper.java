@@ -4,9 +4,12 @@ import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.IOException;
 import java.util.List;
+
 import javafx.scene.control.Alert;
+import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.entities.RoomReservation;
@@ -107,10 +110,33 @@ public class JsonMapper {
     }
 
     /**
-     * Maps JSON to RoomReservation entity.
-     * @param roomReservationJson representation of a room.
-     * @return Room entity.
+     * Maps a JSON string to an AppUser object
+     * @param appUserJson JSON representation of a String
+     * @return AppUser Object
      */
+    public static AppUser appUserMapper(String appUserJson) {
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        try {
+                // Convert JSON string to Object
+                AppUser appUser = mapper.readValue(appUserJson, AppUser.class);
+                return appUser;
+            } catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText(appUserJson);
+                alert.showAndWait();
+            }
+            return null;
+        }
+
+        /**
+         * Maps JSON to RoomReservation entity.
+         * @param roomReservationJson representation of a room.
+         * @return RoomReservation entity.
+         */
     public static RoomReservation roomReservationMapper(String roomReservationJson) {
 
         ObjectMapper mapper = new ObjectMapper();
@@ -151,5 +177,4 @@ public class JsonMapper {
         }
         return null;
     }
-
 }
