@@ -23,19 +23,17 @@ public class DatabaseAddBuildingController {
     private TextField houseNumberTextField;
     /**
      * return to the database main menu when the home icon is clicked
-     * @param mouseEvent the click on the home icon on the databased screens
      * @throws IOException this should not throw an exception, since the input is always the same
      */
 
-    public void mainMenu(MouseEvent mouseEvent) throws IOException {
+    public void mainMenu() throws IOException {
         ApplicationDisplay.changeScene("/DatabaseMainMenu.fxml");
     }
     /**
      * sends the user to the add building view
-     * @param actionEvent the click on Go to add building button
      * @throws IOException this should not throw an exception, since the input is always the same
      */
-    public void goToAddBuildings(ActionEvent actionEvent) throws IOException {
+    public void goToAddBuildings() throws IOException {
         ApplicationDisplay.changeScene("/DatabaseAddBuildings.fxml");
     }
     /**

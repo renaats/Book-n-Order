@@ -126,18 +126,16 @@ public class BookRoomController implements Initializable {
 
     /**
      * return to the reservations menu when the back arrow button is clicked.
-     * @param mouseEvent The event tis the clicking of the arrow button
      * @throws IOException the input will allways be the same, so it should never throw an IO exception
      */
-    public void goToMainMenuReservations(MouseEvent mouseEvent) throws IOException {
+    public void goToMainMenuReservations() throws IOException {
         ApplicationDisplay.changeScene("/mainMenuReservations.fxml");
     }
     /**
      * return to the reservations menu when the back arrow button is clicked.
-     * @param actionEvent The event tis the clicking of the arrow button
      * @throws IOException the input will allways be the same, so it should never throw an IO exception
      */
-    public void goToRoomConfirmation(ActionEvent actionEvent) throws IOException {
+    public void goToRoomConfirmation() throws IOException {
         ApplicationDisplay.changeScene("/RooomConfirmation.fxml");
     }
     /**
@@ -172,44 +170,11 @@ public class BookRoomController implements Initializable {
     }
 
     /**
-     * Changes to bikeReservations.fxml.
-     * @throws IOException input will not be wrong, hence we throw.
-     */
-    public void rentBike(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/bikeReservations.fxml");
-    }
-
-    /**
-     * Changes to bookRoom.fxml.
-     * @throws IOException input will not be wrong, hence we throw.
-     */
-    public void bookRoom(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/bookRoom.fxml");
-    }
-
-    /**
-     * Changes to OrderFoodPickDate.fxml.
-     * @throws IOException input will not be wrong, hence we throw.
-     */
-    public void orderFood(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/OrderFoodPickDate.fxml");
-    }
-
-    /**
      * Changes to mainMenuReservations.fxml.
-     * @param actionEvent should never throw
      * @throws IOException input will not be wrong, hence we throw.
      */
-    public void mainMenu(MouseEvent actionEvent) throws IOException {
+    public void mainMenu() throws IOException {
         ApplicationDisplay.changeScene("/mainMenu.fxml");
-    }
-
-    /**
-     * Changes to roomConfirmation.fxml.
-     * @throws IOException input will not be wrong, hence we throw.
-     */
-    public void roomConfirmation(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/roomConfirmation.fxml");
     }
 
 }
