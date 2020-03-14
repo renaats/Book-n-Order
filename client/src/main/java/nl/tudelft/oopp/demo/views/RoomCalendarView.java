@@ -30,7 +30,6 @@ import nl.tudelft.oopp.demo.entities.RoomReservation;
 public class RoomCalendarView extends Application {
 
     private Room room;
-    private int buildingId;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
