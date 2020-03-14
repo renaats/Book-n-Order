@@ -1,12 +1,30 @@
 package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
-public class MyAccountController {
+public class MyAccountController implements Initializable {
+    @FXML
+    private AnchorPane anchorPane;
+    @FXML
+    private Button adminControl;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        if ()
+        anchorPane.getChildren().remove(adminControl);
+    }
+
     /**
      * Changes current scene to myAccountScene.fxml.
      * @throws IOException input will be valid.
@@ -85,4 +103,5 @@ public class MyAccountController {
         alert.showAndWait();
         ApplicationDisplay.changeScene("/login-screen.fxml");
     }
+
 }
