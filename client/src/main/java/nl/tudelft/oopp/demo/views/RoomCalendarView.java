@@ -18,13 +18,13 @@ import java.time.*;
 import java.util.Date;
 import java.util.List;
 
-public class MyCalendarView extends Application {
+public class RoomCalendarView extends Application {
 
-    private static Room room;
+    private Room room;
 
-    public MyCalendarView(Room room){
-        this.room = room;
-    }
+//    public RoomCalendarView(Room room) {
+//        this.room = room;
+//    }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -37,15 +37,33 @@ public class MyCalendarView extends Application {
         weekView.setShowSourceTray(false);
         weekView.setFocusTraversable(false);
 
-        Calendar booked_rooms = new Calendar("Booked Rooms");
+        Calendar bookedRooms = new Calendar("Booked Rooms");
+        bookedRooms.setStyle(Style.STYLE3);
 
-//        EventHandler<CalendarEvent> loadEntries = e -> addEntries (e);
-//        //weekView.addEventHandler(loadEntries);
+        List<RoomReservation> roomReservationList = JsonMapper.roomReservationsListMapper(ServerCommunication.getRoomReservations());
 
-        booked_rooms.setStyle(Style.STYLE3);
+        for (RoomReservation reservation : roomReservationList) {
+            if (reservation.getRoom().equals(this.room)) {
+                Entry<RoomReservation> bookedEntry = new Entry<>("Room is booked or unavailable");
+                Date start = reservation.getFromTime();
+                Instant instant1 = Instant.ofEpochMilli(start.getTime());
+                LocalTime startTime = LocalDateTime.ofInstant(instant1, ZoneId.systemDefault()).toLocalTime();
+
+                Date end = reservation.getToTime();
+                Instant instant2 = Instant.ofEpochMilli(end.getTime());
+                LocalTime endTime = LocalDateTime.ofInstant(instant2, ZoneId.systemDefault()).toLocalTime();
+
+                Instant instant3 = Instant.ofEpochMilli(start.getDate());
+                LocalDate date = LocalDateTime.ofInstant(instant3, ZoneId.systemDefault()).toLocalDate();
+
+                bookedEntry.setInterval(startTime, endTime);
+                bookedEntry.setInterval(date);
+                bookedRooms.addEntry(bookedEntry);
+            }
+        }
 
         CalendarSource myCalendarSource = new CalendarSource("Calendars");
-        myCalendarSource.getCalendars().addAll(booked_rooms);
+        myCalendarSource.getCalendars().addAll(bookedRooms);
 
         weekView.getCalendarSources().addAll(myCalendarSource);
         weekView.setRequestedTime(LocalTime.now());
@@ -65,7 +83,6 @@ public class MyCalendarView extends Application {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-
                 }
             }
 
@@ -89,30 +106,6 @@ public class MyCalendarView extends Application {
     public static void main(String[] args) {
         launch();
     }
-
-    public void addEntries() {
-        List<RoomReservation> roomReservationList = JsonMapper.roomReservationsListMapper(ServerCommunication.getRoomReservations());
-
-        for (RoomReservation reservation : roomReservationList) {
-            if (reservation.getRoom().equals(this.room)) {
-                Entry<RoomReservation> bookedEntry = new Entry<>("Room is booked or unavailable");
-
-                Date start = reservation.getFromTime();
-                Instant instant1 = Instant.ofEpochMilli(start.getTime());
-                LocalTime startTime = LocalDateTime.ofInstant(instant1, ZoneId.systemDefault()).toLocalTime();
-
-                Date end = reservation.getToTime();
-                Instant instant2 = Instant.ofEpochMilli(end.getTime());
-                LocalTime endTime = LocalDateTime.ofInstant(instant2, ZoneId.systemDefault()).toLocalTime();
-
-                Instant instant3 = Instant.ofEpochMilli(start.getDate());
-                LocalDate date = LocalDateTime.ofInstant(instant3, ZoneId.systemDefault()).toLocalDate();
-
-                bookedEntry.setInterval(startTime, endTime);
-                bookedEntry.setInterval(date);
-            }
-        }
-
-    }
 }
+
 
