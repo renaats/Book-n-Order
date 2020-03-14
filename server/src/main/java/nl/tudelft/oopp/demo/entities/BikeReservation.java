@@ -48,15 +48,21 @@ public class BikeReservation {
     private Date toTime;
 
 
-    public void setBike(Bike bike) { this.bike = bike; }
+    public void setBike(Bike bike) {
+        this.bike = bike;
+    }
 
     public void setAppUser(AppUser appUser) {
         this.appUser = appUser;
     }
 
-    public void setFromBuilding (Building fromBuilding) { this.fromBuilding = fromBuilding; }
+    public void setFromBuilding(Building fromBuilding) {
+        this.fromBuilding = fromBuilding;
+    }
 
-    public void setToBuilding (Building toBuilding) { this.toBuilding = toBuilding; }
+    public void setToBuilding(Building toBuilding) {
+        this.toBuilding = toBuilding;
+    }
 
     public void setFromTime(Date fromTime) {
         this.fromTime = fromTime;
@@ -71,17 +77,29 @@ public class BikeReservation {
         return id;
     }
 
-    public Bike getBike() { return bike; }
+    public Bike getBike() {
+        return bike;
+    }
 
-    public AppUser getAppUser() { return appUser; }
+    public AppUser getAppUser() {
+        return appUser;
+    }
 
-    public Building getFromBuilding() { return fromBuilding; }
+    public Building getFromBuilding() {
+        return fromBuilding;
+    }
 
-    public Building getToBuilding() { return toBuilding; }
+    public Building getToBuilding() {
+        return toBuilding;
+    }
 
-    public Date getFromTime() { return fromTime; }
+    public Date getFromTime() {
+        return fromTime;
+    }
 
-    public Date getToTime() { return toTime; }
+    public Date getToTime() {
+        return toTime;
+    }
 
 
     @Override
