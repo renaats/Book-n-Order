@@ -32,7 +32,7 @@ public class Restaurant {
     @JsonIgnore
     @OneToMany(mappedBy = "restaurant")
     Set<RestaurantHours> restaurantHours = new HashSet<>();
-
+    
     public void setBuilding(Building building) {
         this.building = building;
     }
