@@ -132,7 +132,7 @@ public class BookRoomController implements Initializable {
      */
 
     public void loadRoomData() {
-        rooms.setText("rooms=" + "ServerCommunication.getRooms()");
+        //rooms.setText("rooms=" + "ServerCommunication.getRooms()");
     }
 
     /**

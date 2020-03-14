@@ -52,7 +52,6 @@ public class DatabaseBuildingController implements Initializable {
     @FXML
     private TableColumn<Building, Integer> colHouseNumber;
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         loadDataUpdateChoiceBox();
@@ -115,47 +114,6 @@ public class DatabaseBuildingController implements Initializable {
      */
     public void databaseRoomMenu() throws IOException {
         ApplicationDisplay.changeScene("/DatabaseEditRoom.fxml");
-    }
-
-    /**
-     * Handles clicking of the Remove Building button.
-     */
-    public void deleteBuildingButtonClicked() {
-        try {
-            int id = Integer.parseInt(buildingDeleteByIdTextField.getText());
-            ServerCommunication.deleteBuilding(id);
-            buildingResult.removeIf(b -> b.getId() == id);
-        } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Missing argument.");
-            alert.showAndWait();
-        }
-    }
-
-    /**
-     * Handles the sending of updated values.
-     */
-    public void updateBuildingButtonClicked() {
-        try {
-            int id = Integer.parseInt(buildingFindByIdUpdateField.getText());
-            String attribute = updateChoiceBox.getValue().replaceAll(" ", "");
-            String changeValue = buildingChangeToField.getText();
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Building update");
-            alert.setHeaderText(null);
-            alert.setContentText(ServerCommunication.updateBuilding(id, attribute, changeValue));
-            alert.showAndWait();
-            buildingResult.clear();
-            listBuildingsButtonClicked();
-        } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Missing argument.");
-            alert.showAndWait();
-        }
     }
 
     /**

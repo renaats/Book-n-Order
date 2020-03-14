@@ -164,6 +164,4 @@ public class DatabaseEditRoomController implements Initializable {
     public void databaseRemoveRooms(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/DatabaseRemoveRoom.fxml");
     }
-
-
 }

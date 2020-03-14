@@ -150,12 +150,12 @@ public class DatabaseAddRoomController {
     public void databaseEditRooms(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/DatabaseEditRoom.fxml");
     }
+
     /**
      * When the menu item remove is clicked it take you to the DatabaseAddRooms.fxml view
      * @param actionEvent the clicking of the menu item remove.
      * @throws IOException the input will always be correct, so it should never throw and exception.
      */
-
     public void databaseRemoveRooms(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/DatabaseRemoveRoom.fxml");
     }

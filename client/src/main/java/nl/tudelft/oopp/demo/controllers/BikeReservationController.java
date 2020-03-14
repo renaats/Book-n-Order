@@ -3,7 +3,6 @@ package nl.tudelft.oopp.demo.controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -72,11 +71,11 @@ public class BikeReservationController implements Initializable {
         pickUpTimeMin.getItems().addAll(listMinutes);
         dropOffTimeMin.getItems().addAll(listMinutes);
     }
+
     /**
      * return to the reservations menu when the back arrow button is clicked.
      * @throws IOException the input will allways be the same, so it should never throw an IO exception
      */
-
     public void goToMainMenuReservations() throws IOException {
         ApplicationDisplay.changeScene("/mainMenuReservations.fxml");
     }

@@ -44,10 +44,10 @@ public class OrderFoodController implements Initializable {
     public void setLabel() {
         //TODO
     }
+
     /**
      * loads the time to the choice boxes
      */
-
     public void loadTime() {
         listTime.removeAll(listTime);
         listMinutes.removeAll(listMinutes);
@@ -68,12 +68,12 @@ public class OrderFoodController implements Initializable {
         pickUpTimeH.getItems().addAll(listTime);
         pickUpTimeMin.getItems().addAll(listMinutes);
     }
+
     /**
      * Changes to mainMenuReservations.fxml.
      *
      * @throws IOException input will not be wrong, hence we throw.
      */
-
     public void mainMenu(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/mainMenu.fxml");
     }

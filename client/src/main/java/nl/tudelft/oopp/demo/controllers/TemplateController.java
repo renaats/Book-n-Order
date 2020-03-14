@@ -26,9 +26,4 @@ public class TemplateController {
         URL url = getClass().getResource("/login-screen.fxml");
         mainBorderPane.setCenter(FXMLLoader.load(url));
     }
-
-
-
-    public void mainMenu(MouseEvent mouseEvent) {
-    }
 }

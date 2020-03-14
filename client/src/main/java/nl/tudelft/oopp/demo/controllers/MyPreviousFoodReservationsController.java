@@ -13,8 +13,11 @@ public class MyPreviousFoodReservationsController implements Initializable {
         loadData();
     }
 
+    /**
+     * Should load the previous reservations
+     */
     public void loadData() {
-
+        //TODO
     }
 
     /**
