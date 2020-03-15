@@ -81,6 +81,7 @@ public class BikeReservationTest {
 
         bikeReservation = new BikeReservation();
         bikeReservation.setAppUser(userRepository.findAll().get(0));
+        bikeReservation.setBike(bike);
         bikeReservation.setFromBuilding(fromBuilding);
         bikeReservation.setToBuilding(toBuilding);
         bikeReservation.setFromTime(new Date(10000000000L));
@@ -96,15 +97,30 @@ public class BikeReservationTest {
     }
 
     @Test
-    public void testGetters() {
+    public void testGetAppUser() {
         bikeReservation2 = bikeReservationRepository.findAll().get(0);
         assertEquals(bikeReservation.getAppUser(), bikeReservation2.getAppUser());
+    }
+
+    @Test
+    public void testGetBike() {
+        bikeReservation2 = bikeReservationRepository.findAll().get(0);
         assertEquals(bikeReservation.getBike(), bikeReservation2.getBike());
+    }
+
+    @Test
+    public void testGetFromTime() {
+        bikeReservation2 = bikeReservationRepository.findAll().get(0);
         assertEquals(bikeReservation.getFromTime(), bikeReservation2.getFromTime());
+    }
+
+    @Test
+    public void testToTime() {
+        bikeReservation2 = bikeReservationRepository.findAll().get(0);
         assertEquals(bikeReservation.getToTime(), bikeReservation2.getToTime());
     }
 
-    /*@Test
+    @Test
     public void testEqualBikeReservations() {
         bikeReservation2 = new BikeReservation();
         bikeReservation2.setAppUser(appUser);
@@ -115,7 +131,7 @@ public class BikeReservationTest {
         bikeReservation2.setToTime(new Date(11000000000L));
         assertEquals(bikeReservation, bikeReservation2);
         assertNotSame(bikeReservation, bikeReservation2);
-    }*/
+    }
 
     /** Deletes everything from the repositories after testing.
      */
