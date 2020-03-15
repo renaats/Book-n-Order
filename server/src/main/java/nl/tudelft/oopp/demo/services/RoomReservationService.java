@@ -72,10 +72,10 @@ public class RoomReservationService {
 
         switch (attribute) {
             case "fromDate":
-                roomReservation.setFromTime(new Date(Integer.parseInt(value)));
+                roomReservation.setFromTime(new Date(Long.parseLong(value)));
                 break;
             case "toDate":
-                roomReservation.setToTime(new Date(Integer.parseInt(value)));
+                roomReservation.setToTime(new Date(Long.parseLong(value)));
                 break;
             case "roomId":
                 int roomId = Integer.parseInt(value);
