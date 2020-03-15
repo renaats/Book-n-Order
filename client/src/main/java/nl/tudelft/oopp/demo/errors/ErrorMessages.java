@@ -80,6 +80,14 @@ public class ErrorMessages {
                 return invalidEmailMessage;
             case 424:
                 return invalidEmailDomainMessage;
+            case 425:
+                return invalidDayMessage;
+            case 426:
+                return endBeforeStartMessage;
+            case 427:
+                return duplicateBuildingDayMessage;
+            case 428:
+                return restaurantNotFoundMessage;
             case 502:
                 return unsupportedEncodingMessage;
             default:
