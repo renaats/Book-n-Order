@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class RoomService {
     @Autowired
-    RoomRepository roomRepository;
+    private RoomRepository roomRepository;
     @Autowired
     private BuildingRepository buildingRepository;
 
@@ -28,7 +28,7 @@ public class RoomService {
      * @param buildingId = the id of the building of the room
      * @param nrPeople = the number of people this room fits
      * @param plugs = the number of plugs in this room
-     * @return String to see if your request passed
+     * @return Error code
      */
     public int add(String name,
                    String faculty,
@@ -65,7 +65,7 @@ public class RoomService {
      * @param id = the id of the room
      * @param attribute = the attribute that is changed
      * @param value = the new value of the attribute
-     * @return String to see if your request passed
+     * @return Error code
      */
     public int update(int id, String attribute, String value) {
         if (roomRepository.findById(id).isEmpty()) {
@@ -114,7 +114,7 @@ public class RoomService {
     /**
      * Deletes a room.
      * @param id = the id of the room
-     * @return String to see if your request passed
+     * @return Error code
      */
     public int delete(int id) {
         if (!roomRepository.existsById(id)) {

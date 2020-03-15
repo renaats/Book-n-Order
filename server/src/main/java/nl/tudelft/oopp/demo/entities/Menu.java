@@ -3,6 +3,7 @@ package nl.tudelft.oopp.demo.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -58,5 +59,18 @@ public class Menu {
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Menu menu = (Menu) o;
+        return id == menu.id &&
+                Objects.equals(name, menu.name) &&
+                Objects.equals(restaurant, menu.restaurant) &&
+                Objects.equals(dishes, menu.dishes);
     }
 }

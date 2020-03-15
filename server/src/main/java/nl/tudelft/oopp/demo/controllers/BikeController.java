@@ -25,7 +25,7 @@ public class BikeController {
      * Adds a bike.
      * @param buildingId = the building, where the bike is located
      * @param available = the availability of the bike
-     * @return String to see if your request passed
+     * @return Error code
      */
     @Secured({"ROLE_ADMIN", "ROLE_BIKE_ADMIN"})
     @PostMapping(path = "/add") // Map ONLY POST Requests
@@ -42,7 +42,7 @@ public class BikeController {
      * @param id = the id of the bike
      * @param attribute = the attribute that is changed
      * @param value = the new value of the attribute
-     * @return String to see if your request passed
+     * @return Error code
      */
     @Secured({"ROLE_ADMIN", "ROLE_BIKE_ADMIN"})
     @PostMapping(path = "/update")
@@ -55,7 +55,7 @@ public class BikeController {
     /**
      * Deletes a bike.
      * @param id = the id of the bike
-     * @return String to see if your request passed
+     * @return Error code
      */
     @Secured({"ROLE_ADMIN", "ROLE_BIKE_ADMIN"})
     @DeleteMapping(path = "/delete/{bikeID}")

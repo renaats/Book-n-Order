@@ -24,6 +24,8 @@ public class ErrorMessages {
     private static final String duplicateBuildingDayMessage = "This building already has a time for this day.";
     private static final String restaurantNotFoundMessage = "Restaurant not found.";
     private static final String somethingWentWrongMessage = "Something went wrong.";
+    private static final String menuNotFoundMessage = "Menu not found.";
+    private static final String dishNotFoundMessage = "Dish not found.";
     private static int code;
 
     /**
@@ -87,6 +89,10 @@ public class ErrorMessages {
                 return duplicateBuildingDayMessage;
             case 428:
                 return restaurantNotFoundMessage;
+            case 429:
+                return menuNotFoundMessage;
+            case 430:
+                return dishNotFoundMessage;
             default:
                 return somethingWentWrongMessage;
         }
