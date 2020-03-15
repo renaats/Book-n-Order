@@ -1,10 +1,7 @@
 package nl.tudelft.oopp.demo.views;
 
-import com.calendarfx.model.Calendar;
+import com.calendarfx.model.*;
 import com.calendarfx.model.Calendar.Style;
-import com.calendarfx.model.CalendarEvent;
-import com.calendarfx.model.CalendarSource;
-import com.calendarfx.model.Entry;
 import com.calendarfx.view.CalendarView;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -32,7 +29,6 @@ public class RoomCalendarView extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         CalendarView weekView = new CalendarView();
-        weekView.defaultCalendarProviderProperty();
         weekView.setShowSearchField(false);
         weekView.setShowPrintButton(false);
         weekView.setShowPageToolBarControls(false);
@@ -52,17 +48,19 @@ public class RoomCalendarView extends Application {
 
         List<RoomReservation> roomReservationList = JsonMapper.roomReservationsListMapper(ServerCommunication.getRoomReservations());
 
-        for (RoomReservation reservation : roomReservationList) {
-            if (reservation.getRoom().equals(this.room)) {
-                Entry<RoomReservation> bookedEntry = new Entry<>("Room is booked or unavailable");
+        if(roomReservationList != null && !roomReservationList.isEmpty()){
+            for (RoomReservation reservation : roomReservationList) {
+                    if (reservation.getRoom().equals(this.room)) {
+                    Entry<RoomReservation> bookedEntry = new Entry<>("Room is booked or unavailable");
 
-                LocalTime startTime = convertToLocalTime(reservation.getFromTime());
-                LocalTime endTime = convertToLocalTime(reservation.getToTime());
-                LocalDate date = convertToLocalDate(reservation.getFromTime());
+                    LocalTime startTime = convertToLocalTime(reservation.getFromTime());
+                    LocalTime endTime = convertToLocalTime(reservation.getToTime());
+                    LocalDate date = convertToLocalDate(reservation.getFromTime());
 
-                bookedEntry.setInterval(startTime, endTime);
-                bookedEntry.setInterval(date);
-                bookedSlotsCalendar.addEntry(bookedEntry);
+                    bookedEntry.setInterval(startTime, endTime);
+                    bookedEntry.setInterval(date);
+                    bookedSlotsCalendar.addEntry(bookedEntry);
+                }
             }
         }
 
@@ -113,8 +111,7 @@ public class RoomCalendarView extends Application {
         launch();
     }
 
-    private void entryHandler(CalendarEvent e) throws Exception {
-
+    private void entryHandler(CalendarEvent e){
         Entry<RoomReservation> newEntry = (Entry<RoomReservation>) e.getEntry();
 
         Date start = convertToDate(newEntry.getStartTime(), newEntry.getStartDate());
@@ -122,14 +119,12 @@ public class RoomCalendarView extends Application {
 
         //placeholder for user id
         int userId = 111111111;
-        //placeholder for reservationId
-        int reservationId = 22222222;
 
         if (e.isEntryAdded()) {
             ServerCommunication.addRoomReservation(this.room.getName(), this.room.getBuilding().getId(), userId, start, end);
             System.out.println(start.toString());
         } else if (e.isEntryRemoved()){ System.out.println("entry removed");
-            ServerCommunication.deleteRoomReservation(reservationId);
+            //ServerCommunication.deleteRoomReservation(e.getEntry().ge);
         } else {
             //ServerCommunication.updateRoomReservation(reservationId, old value, new);
         }
@@ -149,6 +144,12 @@ public class RoomCalendarView extends Application {
         Instant instant1 = Instant.ofEpochMilli(date.getTime());
         return LocalDateTime.ofInstant(instant1, ZoneId.systemDefault()).toLocalDate();
     }
+
+    public boolean isIntervalBooked(Interval interval){
+        if(interval.
+    }
+
+
 }
 
 
