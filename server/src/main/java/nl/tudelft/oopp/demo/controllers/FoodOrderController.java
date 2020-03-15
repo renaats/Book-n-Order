@@ -31,7 +31,7 @@ public class FoodOrderController {
     @Secured("ROLE_USER")
     @PostMapping(path = "/add") // Map ONLY POST Requests
     @ResponseBody
-    public int addNewBikeReservation(
+    public int addNewFoodOrder(
             @RequestParam String userEmail,
             @RequestParam int restaurantId,
             @RequestParam int deliverLocation,

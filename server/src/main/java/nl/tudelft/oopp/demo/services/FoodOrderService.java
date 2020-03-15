@@ -4,8 +4,10 @@ import java.util.Date;
 import java.util.Optional;
 
 import nl.tudelft.oopp.demo.entities.AppUser;
+import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.FoodOrder;
 import nl.tudelft.oopp.demo.entities.Restaurant;
+import nl.tudelft.oopp.demo.repositories.BuildingRepository;
 import nl.tudelft.oopp.demo.repositories.FoodOrderRepository;
 import nl.tudelft.oopp.demo.repositories.RestaurantRepository;
 import nl.tudelft.oopp.demo.repositories.UserRepository;
@@ -19,6 +21,9 @@ public class FoodOrderService {
 
     @Autowired
     private RestaurantRepository restaurantRepository;
+
+    @Autowired
+    private BuildingRepository buildingRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -44,10 +49,16 @@ public class FoodOrderService {
         }
         AppUser appUser = optionalUser.get();
 
+        Optional<Building> optionalDeliveryLocation = buildingRepository.findById(deliverLocation);
+        if (optionalDeliveryLocation.isEmpty()) {
+            return 416;
+        }
+        Building deliveryLocation = optionalDeliveryLocation.get();
+
         FoodOrder foodOrder = new FoodOrder();
         foodOrder.setRestaurant(restaurant);
         foodOrder.setAppUser(appUser);
-        foodOrder.setDeliveryLocation();
+        foodOrder.setDeliveryLocation(deliveryLocation);
         foodOrder.setDeliveryTime(new Date(deliverTimeMs));
         foodOrderRepository.save(foodOrder);
         return 201;
@@ -68,7 +79,13 @@ public class FoodOrderService {
 
         switch (attribute) {
             case "deliveryLocation":
-                foodOrder.setDeliveryLocation();
+                int buildingId = Integer.parseInt(value);
+                Optional<Building> optionalDeliveryLocation = buildingRepository.findById(buildingId);
+                if (optionalDeliveryLocation.isEmpty()) {
+                    return 416;
+                }
+                Building deliveryLocation = optionalDeliveryLocation.get();
+                foodOrder.setDeliveryLocation(deliveryLocation);
                 break;
             case "deliveryTime":
                 foodOrder.setDeliveryTime(new Date(Integer.parseInt(value)));
