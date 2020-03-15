@@ -1,10 +1,7 @@
 package nl.tudelft.oopp.demo.views;
 
-import com.calendarfx.model.Calendar;
+import com.calendarfx.model.*;
 import com.calendarfx.model.Calendar.Style;
-import com.calendarfx.model.CalendarEvent;
-import com.calendarfx.model.CalendarSource;
-import com.calendarfx.model.Entry;
 import com.calendarfx.view.CalendarView;
 
 import java.time.Instant;
@@ -33,6 +30,7 @@ public class RoomCalendarView extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+<<<<<<< HEAD
         CalendarView roomCal = new CalendarView();
         roomCal.setShowSearchField(false);
         roomCal.setShowPrintButton(false);
@@ -41,6 +39,16 @@ public class RoomCalendarView extends Application {
         roomCal.setShowAddCalendarButton(false);
         roomCal.setShowSourceTray(false);
         roomCal.setFocusTraversable(false);
+=======
+        CalendarView weekView = new CalendarView();
+        weekView.setShowSearchField(false);
+        weekView.setShowPrintButton(false);
+        weekView.setShowPageToolBarControls(false);
+        weekView.setShowPageSwitcher(true);
+        weekView.setShowAddCalendarButton(false);
+        weekView.setShowSourceTray(false);
+        weekView.setFocusTraversable(false);
+>>>>>>> Handled NullPointerException.
 
         Calendar bookedSlotsCalendar = new Calendar("Unavailable Slots"); //calendar that stores reserved slot entries
         bookedSlotsCalendar.setStyle(Style.STYLE2); //sets color of calendar to blue
@@ -52,6 +60,7 @@ public class RoomCalendarView extends Application {
         List<RoomReservation> roomReservationList =
                 new ArrayList<>(Objects.requireNonNull(JsonMapper.roomReservationsListMapper(ServerCommunication.getRoomReservations())));
 
+<<<<<<< HEAD
         for (RoomReservation reservation : roomReservationList) {
             //if (reservation.getRoom().equals(this.room)) {
             Entry<RoomReservation> bookedEntry = new Entry<>("Room is booked or unavailable");
@@ -62,6 +71,22 @@ public class RoomCalendarView extends Application {
             bookedEntry.setInterval(date);
             bookedEntry.setInterval(startTime, endTime);
             bookedSlotsCalendar.addEntry(bookedEntry);
+=======
+        if(roomReservationList != null && !roomReservationList.isEmpty()){
+            for (RoomReservation reservation : roomReservationList) {
+                    if (reservation.getRoom().equals(this.room)) {
+                    Entry<RoomReservation> bookedEntry = new Entry<>("Room is booked or unavailable");
+
+                    LocalTime startTime = convertToLocalTime(reservation.getFromTime());
+                    LocalTime endTime = convertToLocalTime(reservation.getToTime());
+                    LocalDate date = convertToLocalDate(reservation.getFromTime());
+
+                    bookedEntry.setInterval(startTime, endTime);
+                    bookedEntry.setInterval(date);
+                    bookedSlotsCalendar.addEntry(bookedEntry);
+                }
+            }
+>>>>>>> Handled NullPointerException.
         }
 
 
@@ -109,7 +134,35 @@ public class RoomCalendarView extends Application {
         launch();
     }
 
+<<<<<<< HEAD
     public LocalTime convertToLocalTime(Date date) {
+=======
+    private void entryHandler(CalendarEvent e){
+        Entry<RoomReservation> newEntry = (Entry<RoomReservation>) e.getEntry();
+
+        Date start = convertToDate(newEntry.getStartTime(), newEntry.getStartDate());
+        Date end = convertToDate(newEntry.getEndTime(), newEntry.getStartDate());
+
+        //placeholder for user id
+        int userId = 111111111;
+
+        if (e.isEntryAdded()) {
+            ServerCommunication.addRoomReservation(this.room.getName(), this.room.getBuilding().getId(), userId, start, end);
+            System.out.println(start.toString());
+        } else if (e.isEntryRemoved()){ System.out.println("entry removed");
+            //ServerCommunication.deleteRoomReservation(e.getEntry().ge);
+        } else {
+            //ServerCommunication.updateRoomReservation(reservationId, old value, new);
+        }
+    }
+
+    public Date convertToDate(LocalTime time, LocalDate date){
+        LocalDateTime dateTime = LocalDateTime.of(date, time);
+        return Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant());
+    }
+
+    public LocalTime convertToLocalTime (Date date){
+>>>>>>> Handled NullPointerException.
         Instant instant1 = Instant.ofEpochMilli(date.getTime());
         return LocalDateTime.ofInstant(instant1, ZoneId.systemDefault()).toLocalTime();
     }
@@ -118,6 +171,12 @@ public class RoomCalendarView extends Application {
         Instant instant1 = Instant.ofEpochMilli(date.getTime());
         return LocalDateTime.ofInstant(instant1, ZoneId.systemDefault()).toLocalDate();
     }
+
+    public boolean isIntervalBooked(Interval interval){
+        if(interval.
+    }
+
+
 }
 
 
