@@ -62,7 +62,7 @@ public class FoodOrderServiceTest {
     @BeforeEach
     public void setup() {
         building = new Building();
-        building.setName("EWI");
+        building.setName("Sporthal");
         building.setStreet("Mekelweg");
         building.setHouseNumber(8);
         buildingRepository.save(building);
