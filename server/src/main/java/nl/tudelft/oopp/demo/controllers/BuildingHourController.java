@@ -28,7 +28,7 @@ public class BuildingHourController {
      * @param day = the day of the week in number representation (1 to 7)
      * @param startTimeS = the starting time in seconds
      * @param endTimeS = the ending time in seconds
-     * @return String containing the result of your request.
+     * @return Error code
      */
     @Secured({"ROLE_ADMIN", "ROLE_BUILDING_ADMIN"})
     @PostMapping(path = "/add")
@@ -42,7 +42,7 @@ public class BuildingHourController {
      * @param id = the building hour id
      * @param attribute = the attribute that is changed
      * @param value = the new value of the attribute
-     * @return message if it passes
+     * @return Error code
      */
     @Secured({"ROLE_ADMIN", "ROLE_BUILDING_ADMIN"})
     @PostMapping(path = "/update")
@@ -55,7 +55,7 @@ public class BuildingHourController {
      * Deletes building hours.
      * @param buildingId = the id of the building
      * @param day = the day of the week
-     * @return String to see if your request passed
+     * @return Error code
      */
     @Secured({"ROLE_ADMIN", "ROLE_BUILDING_ADMIN"})
     @DeleteMapping(path = "/delete")

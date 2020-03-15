@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path = "/room_reservation")
 public class RoomReservationController {
     @Autowired
-    RoomReservationService roomReservationService;
+    private RoomReservationService roomReservationService;
 
     /**
      * Adds a room reservation.
@@ -27,7 +27,7 @@ public class RoomReservationController {
      * @param userEmail = the email of the user associated to the reservation.
      * @param fromTimeMs = the starting time of the reservation.
      * @param toTimeMs = the ending time of the reservation.
-     * @return String containing the result of your request.
+     * @return Error code
      */
     @Secured("ROLE_USER")
     @PostMapping(path = "/add") // Map ONLY POST Requests
@@ -45,7 +45,7 @@ public class RoomReservationController {
      * @param id = the id of the room reservation.
      * @param attribute = the attribute whose value is changed.
      * @param value = the new value of the attribute.
-     * @return String containing the result of your request.
+     * @return Error code
      */
     @Secured({"ROLE_ADMIN", "ROLE_BUILDING_ADMIN"})
     @PostMapping(path = "/update")
@@ -58,7 +58,7 @@ public class RoomReservationController {
     /**
      * Deletes a room reservation.
      * @param id = the id of the room reservation.
-     * @return String containing the result of your request.
+     * @return Error code
      */
     @Secured({"ROLE_ADMIN", "ROLE_BUILDING_ADMIN"})
     @DeleteMapping(path = "/delete")

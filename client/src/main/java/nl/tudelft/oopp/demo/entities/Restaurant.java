@@ -9,6 +9,8 @@ public class Restaurant {
 
     private String name;
 
+    private Menu menu;
+
     public void setBuilding(Building building) {
         this.building = building;
     }
@@ -17,6 +19,13 @@ public class Restaurant {
         this.name = name;
     }
 
+    public void setMenu(Menu menu) {
+        this.menu = menu;
+    }
+
+    public Menu getMenu() {
+        return menu;
+    }
 
     public int getId() {
         return id;

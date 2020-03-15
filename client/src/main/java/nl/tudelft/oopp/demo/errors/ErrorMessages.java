@@ -25,6 +25,8 @@ public class ErrorMessages {
     private static final String restaurantNotFoundMessage = "Restaurant not found.";
     private static final String unsupportedEncodingMessage = "Please enter an encoding that is supported by the URLEncode class.";
     private static final String somethingWentWrongMessage = "Something went wrong.";
+    private static final String menuNotFoundMessage = "Menu not found.";
+    private static final String dishNotFoundMessage = "Dish not found.";
     private static int code;
 
     /**
@@ -88,6 +90,10 @@ public class ErrorMessages {
                 return duplicateBuildingDayMessage;
             case 428:
                 return restaurantNotFoundMessage;
+            case 429:
+                return menuNotFoundMessage;
+            case 430:
+                return dishNotFoundMessage;
             case 502:
                 return unsupportedEncodingMessage;
             default:

@@ -10,12 +10,14 @@ import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
+
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+
 import nl.tudelft.oopp.demo.errors.ErrorMessages;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 
 public class ServerCommunicationTest {
     public WireMockServer wireMockServer;

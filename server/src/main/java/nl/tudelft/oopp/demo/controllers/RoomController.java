@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path = "/room")
 public class RoomController {
     @Autowired
-    RoomService roomService;
+    private RoomService roomService;
 
     /**
      * Adds a room to the database.
@@ -35,7 +35,7 @@ public class RoomController {
      * @param projector = boolean representing the availability of a projector.
      * @param nrPeople = the number of people this room fits.
      * @param plugs = the number of plugs in this room.
-     * @return String containing the result of your request.
+     * @return Error code
      */
     @Secured({"ROLE_ADMIN", "ROLE_BUILDING_ADMIN"})
     @PostMapping(path = "/add") // Map ONLY POST Requests
@@ -57,7 +57,7 @@ public class RoomController {
      * @param id = the id of the room.
      * @param attribute = the attribute that is to be changed.
      * @param value = the new value of the attribute.
-     * @return String containing the result of your request.
+     * @return Error code
      */
     @Secured({"ROLE_ADMIN", "ROLE_BUILDING_ADMIN"})
     @PostMapping(path = "/update")
@@ -69,7 +69,7 @@ public class RoomController {
     /**
      * Deletes a room.
      * @param id = the id of the room to be deleted.
-     * @return String containing the result of your request.
+     * @return Error code
      */
     @Secured({"ROLE_ADMIN", "ROLE_BUILDING_ADMIN"})
     @DeleteMapping(path = "/delete/{roomID}")

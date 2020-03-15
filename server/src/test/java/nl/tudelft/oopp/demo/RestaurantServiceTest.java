@@ -34,7 +34,6 @@ public class RestaurantServiceTest {
     @Autowired
     BuildingRepository buildingRepository;
 
-
     Building building;
     Building building2;
     Restaurant restaurant;
