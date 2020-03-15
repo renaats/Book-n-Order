@@ -38,6 +38,7 @@ public class RoomCalendarView extends Application {
         roomCal.setShowSourceTray(false);
         roomCal.setFocusTraversable(false);
 
+
         Calendar bookedSlotsCalendar = new Calendar("Unavailable Slots"); //calendar that stores reserved slot entries
         bookedSlotsCalendar.setStyle(Style.STYLE2); //sets color of calendar to blue
         bookedSlotsCalendar.setReadOnly(true); //disables any user modification to the already reserved slot entries
@@ -45,16 +46,14 @@ public class RoomCalendarView extends Application {
         Calendar myBookingCalendar = new Calendar("My Bookings");
         myBookingCalendar.setStyle(Style.STYLE1);
         List<RoomReservation> roomReservationList = JsonMapper.roomReservationsListMapper(ServerCommunication.getRoomReservations());
-        if (roomReservationList != null && !roomReservationList.isEmpty()) {
+        if(roomReservationList != null && !roomReservationList.isEmpty()){
             for (RoomReservation reservation : roomReservationList) {
-                if (reservation.getRoom().equals(this.room)) {
+                    if (reservation.getRoom().equals(this.room)) {
                     Entry<RoomReservation> bookedEntry = new Entry<>("Room is booked or unavailable");
+
                     LocalTime startTime = convertToLocalTime(reservation.getFromTime());
                     LocalTime endTime = convertToLocalTime(reservation.getToTime());
                     LocalDate date = convertToLocalDate(reservation.getFromTime());
-                    bookedEntry.setInterval(startTime, endTime);
-                    bookedEntry.setInterval(date);
-                    bookedSlotsCalendar.addEntry(bookedEntry);
                 }
             }
         }
