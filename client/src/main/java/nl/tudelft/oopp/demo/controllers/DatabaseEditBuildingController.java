@@ -20,8 +20,6 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
  * Adds the functionality to DatabaseEditBuildings.fxml file
  */
 public class DatabaseEditBuildingController implements Initializable {
-    @FXML
-    private TextField buildingDeleteByIdTextField;
 
     final ObservableList updateChoiceBoxList = FXCollections.observableArrayList();
 
@@ -61,26 +59,6 @@ public class DatabaseEditBuildingController implements Initializable {
     }
 
     /**
-     * Handles clicking the remove button.
-     */
-    public void deleteBuildingButtonClicked() {
-        try {
-            int id = Integer.parseInt(buildingDeleteByIdTextField.getText());
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Building remover");
-            alert.setHeaderText(null);
-            alert.setContentText(ServerCommunication.deleteBuilding(id));
-            alert.showAndWait();
-        } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Missing argument.");
-            alert.showAndWait();
-        }
-    }
-
-    /**
      * Handles clicking the list button.
      */
     public void listBuildingsButtonClicked() {
@@ -97,7 +75,7 @@ public class DatabaseEditBuildingController implements Initializable {
     public void updateBuildingButtonClicked() {
         try {
             int id = Integer.parseInt(buildingFindByIdUpdateField.getText());
-            String attribute = updateChoiceBox.getValue().replaceAll(" ", "").toLowerCase();
+            String attribute = updateChoiceBox.getValue().replaceAll(" ", "");
             String changeValue = buildingChangeToField.getText();
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Building remover");
@@ -127,33 +105,46 @@ public class DatabaseEditBuildingController implements Initializable {
 
     /**
      * return to the database main menu when the home icon is clicked
+     * @param mouseEvent the click on the home icon on the databased screens
      * @throws IOException this should not throw an exception, since the input is always the same
      */
-    public void mainMenu() throws IOException {
+    public void mainMenu(MouseEvent mouseEvent) throws IOException {
         ApplicationDisplay.changeScene("/DatabaseMainMenu.fxml");
     }
 
     /**
      * sends the user to the add building view
+     * @param actionEvent the click on Go to add building button
      * @throws IOException this should not throw an exception, since the input is always the same
      */
-    public void goToAddBuildings() throws IOException {
+    public void goToAddBuildings(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/DatabaseAddBuildings.fxml");
+    }
+    /**
+     * sends the user to the remove building view
+     * @param actionEvent the click on Go to add building button
+     * @throws IOException this should not throw an exception, since the input is always the same
+     */
+
+    public void goToRemoveBuildings(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/DatabaseRemoveBuildings.fxml");
     }
 
     /**
      * sends the user to the edit building view
+     * @param actionEvent the click on Go to add building button
      * @throws IOException this should not throw an exception, since the input is always the same
      */
-    public void goToEditBuildings() throws IOException {
+    public void goToEditBuildings(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/DatabaseEditBuildings.fxml");
     }
 
     /**
      * return to the database building menu when the building icon on the menu bar is clicked
+     * @param mouseEvent the click on the home icon on the databased screens
      * @throws IOException this should not throw an exception, since the input is always the same
      */
-    public void goToBuildingMenu() throws IOException {
+    public void goToBuildingMenu(MouseEvent mouseEvent) throws IOException {
         ApplicationDisplay.changeScene("/DatabaseBuildingMenu.fxml");
     }
 }

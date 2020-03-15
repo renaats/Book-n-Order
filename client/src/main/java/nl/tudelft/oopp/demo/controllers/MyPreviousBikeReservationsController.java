@@ -32,7 +32,7 @@ public class MyPreviousBikeReservationsController implements Initializable {
      * changes view to the my previous bookings view when the back arrow is clicked
      * @throws IOException should never throw an exception
      */
-    public void goToMyPreviousReservations() throws IOException {
+    public void goToMyCurrentReservations() throws IOException {
         ApplicationDisplay.changeScene("/myPreviousBookings.fxml");
     }
 }
