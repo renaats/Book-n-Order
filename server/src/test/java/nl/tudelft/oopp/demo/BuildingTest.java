@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.HashSet;
@@ -32,7 +31,8 @@ public class BuildingTest {
     Room room;
     Set<Room> rooms;
 
-    /** Sets up the classes before executing the tests.
+    /**
+     * Sets up the entities and saves them in the repository before executing every test.
      */
     @BeforeEach
     public void setup() {
@@ -57,7 +57,8 @@ public class BuildingTest {
         rooms.add(room);
     }
 
-    /** Tests the constructor of the Building class
+    /**
+     * Tests the constructor of the Building class
      */
     @Test
     public void testConstructor() {
@@ -65,71 +66,118 @@ public class BuildingTest {
         assertNotNull(building2);
     }
 
-    /** Tests the getters of the Building class
-     */
-    @Test
-    public void testGetters() {
-        building2 = buildingRepository.findAll().get(0);
-        assertEquals("EWI", building2.getName());
-        assertEquals("Mekelweg", building2.getStreet());
-        assertEquals(4, building2.getHouseNumber());
-        assertEquals(building.getId(), building2.getId());
-        assertEquals(building.getRooms(), building2.getRooms());
-        assertFalse(building.hasRooms());
-    }
-
-    /** Tests the setters of the Building class
-     */
-    @Test
-    public void testSetters() {
-        building2 = new Building();
-        building2.setName("Pulse");
-        building2.setStreet("Landbergstraat");
-        building2.setHouseNumber(19);
-        building2.setRooms(new HashSet<Room>());
-        assertEquals(building2.getName(),"Pulse");
-        assertEquals(building2.getStreet(),"Landbergstraat");
-        assertEquals(building2.getHouseNumber(),19);
-        assertNotNull(building2.getRooms());
-    }
-
-    /** Tests retrieving and saving data from the BuildingRepository.
+    /**
+     * Tests the saving and retrieval of an instance of Bike.
      */
     @Test
     public void saveAndRetrieveBuilding() {
+        assertNotEquals(building, building2);
         building2 = buildingRepository.findAll().get(0);
         assertEquals(building, building2);
     }
 
-    /** Tests the methods connected with the Set of rooms of the class Building.
+    /**
+     * Tests the getter for the name field.
      */
     @Test
-    public void testRooms() {
+    public void testNameGetter() {
+        building2 = buildingRepository.findAll().get(0);
+        assertEquals("EWI", building2.getName());
+    }
+
+    /**
+     * Tests the getter for the street field.
+     */
+    @Test
+    public void testStreetGetter() {
+        building2 = buildingRepository.findAll().get(0);
+        assertEquals("Mekelweg", building2.getStreet());
+    }
+
+    /**
+     * Tests the getter for the houseNumber field.
+     */
+    @Test
+    public void testHouseNumberGetter() {
+        building2 = buildingRepository.findAll().get(0);
+        assertEquals(4, building2.getHouseNumber());
+    }
+
+    /**
+     * Tests the getter for the room field.
+     */
+    @Test
+    public void testRoomGetter() {
+        building2 = buildingRepository.findAll().get(0);
+        assertEquals(new HashSet<>(), building2.getRooms());
+        assertFalse(building.hasRooms());
+    }
+
+    /**
+     * Tests the the change of the name by using a setter.
+     */
+    @Test
+    public void testChangeName() {
+        assertNotEquals(building.getName(),"Pulse");
+        building.setName("Pulse");
+        assertEquals(building.getName(),"Pulse");
+    }
+
+    /**
+     * Tests the the change of the street by using a setter.
+     */
+    @Test
+    public void testChangeStreet() {
+        assertNotEquals(building.getStreet(),"Landbergstraat");
+        building.setStreet("Landbergstraat");
+        assertEquals(building.getStreet(),"Landbergstraat");
+    }
+
+    /**
+     * Tests the the change of the house number by using a setter.
+     */
+    @Test
+    public void testChangeHouseNumber() {
+        assertNotEquals(building.getHouseNumber(),19);
+        building.setHouseNumber(19);
+        assertEquals(building.getHouseNumber(),19);
+    }
+
+    /**
+     * Tests the the change of the rooms by using a setter.
+     */
+    @Test
+    public void testChangeRooms() {
+        assertNotEquals(rooms, building.getRooms());
         building.setRooms(rooms);
         assertEquals(rooms, building.getRooms());
-        assertTrue(building.hasRooms());
+    }
+
+    /**
+     * Tests the hasRoomWithName method.
+     */
+    @Test
+    public void testHasRoom() {
+        building.setRooms(rooms);
         assertTrue(building.hasRoomWithName("Ampere"));
         assertFalse(building.hasRoomWithName("Boole"));
         building.getRooms().remove(roomRepository.findAll().get(0));
         assertFalse(building.hasRooms());
     }
 
-    /** Tests whether two objects are of instance Building and whether they are equal.
+    /**
+     * Tests the removal of rooms.
      */
     @Test
-    public void testEqualBuildings() {
-        building2 = new Building();
-        assertNotEquals(building,building2);
-        building2.setName("EWI");
-        assertNotEquals(building,building2);
-        building2.setStreet("Mekelweg");
-        assertNotEquals(building,building2);
-        building2.setHouseNumber(4);
-        assertEquals(building, building2);
-        assertNotSame(building, building2);
+    public void testRemoveRoom() {
+        building.setRooms(rooms);
+        assertTrue(building.hasRooms());
+        building.getRooms().remove(roomRepository.findAll().get(0));
+        assertFalse(building.hasRooms());
     }
 
-    /** Deletes everything from the repositories after testing.
+    /**
+     * Cleans up the repositories after executing every test.
      */
     @AfterEach
     public void cleanup() {
