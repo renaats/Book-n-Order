@@ -1,11 +1,12 @@
 package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
+
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 public class MyCurrentBookingsController {
     /**
-     * Changes to myAccountScene.fxml.
+     * Changes current scene to myAccountScene.fxml.
      * @throws IOException input will be valid.
      */
     public void myAccountScene() throws IOException {
@@ -13,7 +14,7 @@ public class MyCurrentBookingsController {
     }
 
     /**
-     * Changes to myCurrentBookings.fxml.
+     * Changes current scene to myCurrentBookings.fxml.
      * @throws IOException input will be valid.
      */
     public void myCurrentBookings() throws IOException {
@@ -21,7 +22,7 @@ public class MyCurrentBookingsController {
     }
 
     /**
-     * Changes to myPreviousBookings.fxml.
+     * Changes current scene to myPreviousBookings.fxml.
      * @throws IOException input will be valid.
      */
     public void myPreviousBookings() throws IOException {
@@ -29,7 +30,7 @@ public class MyCurrentBookingsController {
     }
 
     /**
-     * Changes to myCurrentBikeReservations.fxml.
+     * Changes current scene to myCurrentBikeReservations.fxml.
      * @throws IOException input will be valid.
      */
     public void myCurrentBikeReservations() throws IOException {
@@ -37,7 +38,7 @@ public class MyCurrentBookingsController {
     }
 
     /**
-     * Changes to myCurrentRoomBookings.fxml.
+     * Changes current scene to myCurrentRoomBookings.fxml.
      * @throws IOException input will be valid.
      */
     public void myCurrentRoomBookings() throws IOException {
@@ -45,7 +46,7 @@ public class MyCurrentBookingsController {
     }
 
     /**
-     * Changes to myCurrentFoodOrders.fxml.
+     * Changes current scene to myCurrentFoodOrders.fxml.
      * @throws IOException input will be valid.
      */
     public void myCurrentFoodOrders() throws IOException {
@@ -53,7 +54,7 @@ public class MyCurrentBookingsController {
     }
 
     /**
-     * Changes to templateScene.fxml.
+     * Changes current scene to templateScene.fxml.
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
     public void mainMenu() throws IOException {

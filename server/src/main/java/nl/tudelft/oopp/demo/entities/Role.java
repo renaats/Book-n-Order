@@ -1,7 +1,10 @@
 package nl.tudelft.oopp.demo.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Set;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,15 +16,17 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
-    @ManyToMany(mappedBy = "roles")
-    private Set<User> users;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
+    private Set<AppUser> appUsers;
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setUsers(Set<User> users) {
-        this.users = users;
+    public void setAppUsers(Set<AppUser> appUsers) {
+        this.appUsers = appUsers;
     }
 
     public int getId() {
@@ -32,7 +37,7 @@ public class Role {
         return name;
     }
 
-    public Set<User> getUsers() {
-        return users;
+    public Set<AppUser> getAppUsers() {
+        return appUsers;
     }
 }

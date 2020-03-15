@@ -1,6 +1,7 @@
 package nl.tudelft.oopp.demo.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -24,6 +25,18 @@ public class Building {
     @JsonIgnore
     @OneToMany(mappedBy = "building")
     Set<Room> rooms = new HashSet<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "location")
+    Set<Bike> bikes = new HashSet<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "building")
+    Set<Restaurant> restaurants = new HashSet<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "building")
+    Set<BuildingHours> buildingHours = new HashSet<>();
 
     public void setName(String name) {
         this.name = name;
@@ -69,8 +82,8 @@ public class Building {
 
     /**
      * Checks if this building has a room with the specified name.
-     * @param name = the name of the room
-     * @return a boolean whether this building has the specified room
+     * @param name = the name of the room.
+     * @return true if this building contains the specified room, false otherwise.
      */
     public boolean hasRoomWithName(String name) {
         for (Room room: rooms) {

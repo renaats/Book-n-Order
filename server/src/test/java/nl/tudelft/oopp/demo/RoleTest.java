@@ -1,18 +1,20 @@
 package nl.tudelft.oopp.demo;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.Role;
-import nl.tudelft.oopp.demo.entities.User;
 import nl.tudelft.oopp.demo.repositories.RoleRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-
-import java.util.HashSet;
-import java.util.Set;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 class RoleTest {
@@ -28,7 +30,7 @@ class RoleTest {
     public void setup() {
         role = new Role();
         role.setName("Tutor");
-        role.setUsers(new HashSet<>());
+        role.setAppUsers(new HashSet<>());
         roleRepository.save(role);
     }
 
@@ -45,7 +47,7 @@ class RoleTest {
     @Test
     public void testGetters() {
         role2 = roleRepository.findAll().get(0);
-        Set<User> userSet = new HashSet<User>();
+        Set<AppUser> userSet = new HashSet<AppUser>();
         assertEquals(role.getName(), role2.getName());
         assertEquals(role2.getName(), "Tutor");
     }
@@ -54,12 +56,12 @@ class RoleTest {
      */
     @Test
     public void testSetters() {
-        Set<User> userSet = new HashSet<User>();
+        Set<AppUser> userSet = new HashSet<AppUser>();
         role2 = new Role();
         role2.setName("Manager");
-        role2.setUsers(userSet);
+        role2.setAppUsers(userSet);
         assertEquals(role2.getName(), "Manager");
-        assertEquals(role2.getUsers(), userSet);
+        assertEquals(role2.getAppUsers(), userSet);
     }
 
     /** Tests retrieving and saving data from the RoleRepository.

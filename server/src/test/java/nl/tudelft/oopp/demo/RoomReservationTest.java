@@ -1,9 +1,19 @@
 package nl.tudelft.oopp.demo;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.entities.RoomReservation;
-import nl.tudelft.oopp.demo.entities.User;
 import nl.tudelft.oopp.demo.repositories.BuildingRepository;
 import nl.tudelft.oopp.demo.repositories.RoomRepository;
 import nl.tudelft.oopp.demo.repositories.RoomReservationRepository;
@@ -15,12 +25,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
@@ -38,7 +42,7 @@ public class RoomReservationTest {
     RoomReservation roomReservation2;
     RoomReservation roomReservation3;
     Room room;
-    User user;
+    AppUser appUser;
     Building building;
 
     /** Sets up the classes before executing the tests.
@@ -63,17 +67,17 @@ public class RoomReservationTest {
         room.setRoomReservations(new HashSet<>());
         roomRepository.saveAndFlush(room);
 
-        user = new User();
-        user.setEmail("R.Jursevskis@student.tudelft.nl");
-        user.setPassword("1234");
-        user.setName("Renats");
-        user.setSurname("Jursevskis");
-        user.setFaculty("EWI");
-        user.setRoomReservations(new HashSet<>());
-        userRepository.saveAndFlush(user);
+        appUser = new AppUser();
+        appUser.setEmail("R.Jursevskis@student.tudelft.nl");
+        appUser.setPassword("1234");
+        appUser.setName("Renats");
+        appUser.setSurname("Jursevskis");
+        appUser.setFaculty("EWI");
+        appUser.setRoomReservations(new HashSet<>());
+        userRepository.saveAndFlush(appUser);
 
         roomReservation = new RoomReservation();
-        roomReservation.setUser(userRepository.findAll().get(0));
+        roomReservation.setAppUser(userRepository.findAll().get(0));
         roomReservation.setRoom(roomRepository.findAll().get(0));
         roomReservation.setFromTime(new Date(10000000000L));
         roomReservation.setToTime(new Date(11000000000L));
@@ -87,7 +91,7 @@ public class RoomReservationTest {
     public void testConstructor() {
         assertNotNull(building);
         assertNotNull(room);
-        assertNotNull(user);
+        assertNotNull(appUser);
         assertNotNull(roomReservation);
     }
 
@@ -96,8 +100,7 @@ public class RoomReservationTest {
     @Test
     public void testGetters() {
         roomReservation2 = roomReservationRepository.findAll().get(0);
-        assertNotNull(roomReservation.getId());
-        assertEquals(roomReservation.getUser(), roomReservation2.getUser());
+        assertEquals(roomReservation.getAppUser(), roomReservation2.getAppUser());
         assertEquals(roomReservation.getRoom(), roomReservation2.getRoom());
         assertEquals(roomReservation.getFromTime(), roomReservation2.getFromTime());
         assertEquals(roomReservation.getToTime(), roomReservation2.getToTime());
@@ -109,15 +112,15 @@ public class RoomReservationTest {
     public void testSetters() {
         roomReservation3 = new RoomReservation();
         Room newRoom = new Room();
-        User newUser = new User();
+        AppUser newUser = new AppUser();
         Date newFromTime = new Date(9900000000L);
         Date newToTime = new Date(1060000000L);
         roomReservation3.setRoom(newRoom);
-        roomReservation3.setUser(newUser);
+        roomReservation3.setAppUser(newUser);
         roomReservation3.setFromTime(newFromTime);
         roomReservation3.setToTime(newToTime);
         assertEquals(roomReservation3.getRoom(), newRoom);
-        assertEquals(roomReservation3.getUser(), newUser);
+        assertEquals(roomReservation3.getAppUser(), newUser);
         assertEquals(roomReservation3.getFromTime(), newFromTime);
         assertEquals(roomReservation3.getToTime(), newToTime);
     }
@@ -140,6 +143,7 @@ public class RoomReservationTest {
         assertFalse(room.hasRoomReservationBetween(new Date(11500000000L), new Date(1160000000L)));
         assertFalse(room.hasRoomReservationBetween(new Date(10900000000L), new Date(10500000000L)));
     }
+
     /** Tests retrieving and saving data from the RoomReservationRepository.
      */
     @Test
@@ -153,7 +157,7 @@ public class RoomReservationTest {
     @Test
     public void testEqualRoomReservations() {
         roomReservation2 = new RoomReservation();
-        roomReservation2.setUser(user);
+        roomReservation2.setAppUser(appUser);
         roomReservation2.setRoom(room);
         roomReservation2.setFromTime(new Date(10000000000L));
         roomReservation2.setToTime(new Date(11000000000L));

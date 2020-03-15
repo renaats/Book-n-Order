@@ -6,7 +6,7 @@ import javafx.scene.control.Alert;
 public class TemplateController {
 
     /**
-     * Template for all pages
+     * Acts as placeholder for all other pages.
      */
     public void template() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
