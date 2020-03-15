@@ -6,13 +6,8 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
+
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -29,10 +24,14 @@ public class Restaurant {
 
     private String name;
 
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn
+    private Menu menu;
+
     @JsonIgnore
     @OneToMany(mappedBy = "restaurant")
     Set<RestaurantHours> restaurantHours = new HashSet<>();
-    
+
     public void setBuilding(Building building) {
         this.building = building;
     }
@@ -41,6 +40,9 @@ public class Restaurant {
         this.name = name;
     }
 
+    public void setMenu(Menu menu) {
+        this.menu = menu;
+    }
 
     public int getId() {
         return id;
@@ -52,6 +54,10 @@ public class Restaurant {
 
     public String getName() {
         return name;
+    }
+
+    public Menu getMenu() {
+        return menu;
     }
 
     @Override
