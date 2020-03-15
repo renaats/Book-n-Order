@@ -8,15 +8,15 @@
 
 <AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.OrderFoodChoseRestaurantController">
 
-    <ImageView fitHeight="720.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+    <ImageView fitHeight="720.0" layoutX="-37.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
         <Image url="@images/Living-Campus-1-1280x600-c-center.jpg" />
     </ImageView>
-    <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="63.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+    <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="67.0" layoutY="-32.0" pickOnBounds="true" preserveRatio="true">
         <image>
-            <Image url="@images/TuDelftLogoFinal.png" />
+            <Image url="@images/TuDelftLogo.png" />
         </image>
     </ImageView>
-    <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="258.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="576.0" AnchorPane.leftAnchor="258.0" AnchorPane.rightAnchor="902.0" AnchorPane.topAnchor="120.0">
+    <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="255.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="521.0" AnchorPane.leftAnchor="255.0" AnchorPane.rightAnchor="425.0" AnchorPane.topAnchor="55.0">
         <Image url="@images/booknorderlogo.png" />
     </ImageView>
     <Text fill="WHITE" layoutX="20.0" layoutY="555.576171875" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback is welcome" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0">
@@ -30,12 +30,17 @@
         </font>
     </Text>
     <TextField fx:id="nameOfTheRestaurant" layoutX="210.0" layoutY="144.0" promptText="Name of the restaurant" />
-    <Button fx:id="submitButton" layoutX="169.0" layoutY="192.0" maxHeight="25.0" maxWidth="230.0" minHeight="25.0" minWidth="230.0" mnemonicParsing="false" onAction="#applyFilters" style="-fx-background-color: #00a6d6;" text="Search for restaurants" textFill="WHITE" />
+    <Button fx:id="submitButton" layoutX="169.0" layoutY="192.0" maxHeight="25.0" maxWidth="230.0" minHeight="25.0" minWidth="230.0" mnemonicParsing="false" onAction="#applyFilters" style="-fx-background-color: #00a6d6;" text="Search for restaurants" />
     <ImageView fitHeight="41.0" fitWidth="44.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#mainMenu" pickOnBounds="true" preserveRatio="true">
-        <Image url="@images/HomeIconTransparent.png" />
+        <Image url="@images/HomeIcon.png" />
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor>
+    </ImageView>
+    <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="67.0" layoutY="-32.0" pickOnBounds="true" preserveRatio="true">
+        <image>
+            <Image url="@images/TuDelftLogo.png" />
+        </image>
     </ImageView>
     <TableView fx:id="restaurantsTable" layoutX="171.0" layoutY="225.0" prefHeight="384.0" prefWidth="226.0">
         <columns>
@@ -50,14 +55,14 @@
          <Cursor fx:constant="HAND" />
       </cursor>
     </ImageView>
-    <Button layoutX="881.0" layoutY="630.0" maxHeight="25.0" maxWidth="230.0" minHeight="25.0" minWidth="230.0" mnemonicParsing="false" onAction="#goToOrderFood" style="-fx-background-color: #00a6d6;" text="Place order" textFill="WHITE" />
+    <Button layoutX="881.0" layoutY="630.0" maxHeight="25.0" maxWidth="230.0" minHeight="25.0" minWidth="230.0" mnemonicParsing="false" onAction="#goToOrderFood" style="-fx-background-color: #00a6d6;" text="Place order" />
    <TableView layoutX="883.0" layoutY="225.0" prefHeight="384.0" prefWidth="226.0">
       <columns>
          <TableColumn fx:id="menuTable" prefWidth="224.66667556762695" text="Menu" />
       </columns>
    </TableView>
-   <Text layoutX="397.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please select the restaurant you want to order from and the select the desired menu items" />
-   <Button fx:id="chooseTheRestaurantButton" layoutX="169.0" layoutY="630.0" maxHeight="25.0" maxWidth="230.0" minHeight="25.0" minWidth="230.0" mnemonicParsing="false" onAction="#restaurantChoosen" style="-fx-background-color: #00a6d6;" text="Choose the selected restaurant" textFill="WHITE" />
+   <Text layoutX="397.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please select the restaurant you want to torder from and the select the desiered menu items" />
+   <Button fx:id="chooseTheRestaurantButton" layoutX="169.0" layoutY="630.0" maxHeight="25.0" maxWidth="230.0" minHeight="25.0" minWidth="230.0" mnemonicParsing="false" onAction="#restaurantChoosen" style="-fx-background-color: #00a6d6;" text="Choose the selected restaurant" />
     <Text layoutX="576.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Order food" AnchorPane.leftAnchor="576.0" AnchorPane.topAnchor="125.0">
         <font>
             <Font size="26.0" />
