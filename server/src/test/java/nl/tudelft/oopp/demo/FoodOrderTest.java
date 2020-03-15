@@ -69,7 +69,7 @@ public class FoodOrderTest {
         foodOrder = new FoodOrder();
         foodOrder.setAppUser(userRepository.findAll().get(0));
         foodOrder.setRestaurant(restaurantRepository.findAll().get(0));
-        foodOrder.setDeliveryLocation(buildingRepository.findAll().get(0));
+        foodOrder.setDeliveryLocation(buildingRepository.findAll().get(1));
         foodOrder.setDeliveryTime(new Date(11000000000L));
         foodOrderRepository.saveAndFlush(foodOrder);
         foodOrder = foodOrderRepository.findAll().get(0);
@@ -90,7 +90,7 @@ public class FoodOrderTest {
         assertEquals(foodOrder.getDeliveryTime(), foodOrder2.getDeliveryTime());
     }
 
-    /*@Test
+    @Test
     public void testEqualFoodOrder() {
         foodOrder2 = new FoodOrder();
         foodOrder2.setAppUser(appUser);
@@ -99,7 +99,7 @@ public class FoodOrderTest {
         foodOrder2.setDeliveryTime(new Date(11000000000L));
         assertEquals(foodOrder, foodOrder2);
         assertNotSame(foodOrder, foodOrder2);
-    }*/
+    }
 
     /** Deletes everything from the repositories after testing.
      */
