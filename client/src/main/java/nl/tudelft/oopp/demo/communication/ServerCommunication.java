@@ -22,6 +22,22 @@ public class ServerCommunication {
 
     private static final HttpClient client = HttpClient.newBuilder().build();
 
+    public static String helper(HttpRequest request) {
+        HttpResponse<String> response;
+        try {
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Communication with server failed";
+        }
+        if(response.statusCode() == 403) {
+            return ErrorMessages.getErrorMessage(401);
+        }
+        if (response.statusCode() != 200) {
+            System.out.println("Status: " + response.statusCode());
+        }
+        return response.body();
+    }
     /**
      * Retrieves the String representation of a user from the server.
      * @return the body of the response from the server.
