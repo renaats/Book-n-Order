@@ -20,7 +20,7 @@
     <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="255.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="521.0" AnchorPane.leftAnchor="255.0" AnchorPane.rightAnchor="425.0" AnchorPane.topAnchor="55.0">
         <Image url="@images/booknorderlogo.png" />
     </ImageView>
-    <Button layoutX="151.0" layoutY="413.0" maxHeight="25.0" maxWidth="230.0" minHeight="25.0" minWidth="120.0" mnemonicParsing="false" onAction="#changePasswordScene" prefHeight="25.0" prefWidth="120.0" style="-fx-background-color: #00a6d6;" text="Change password" textFill="WHITE" AnchorPane.leftAnchor="151.0" AnchorPane.topAnchor="413.0">
+    <Button layoutX="151.0" layoutY="378.0" maxHeight="25.0" maxWidth="230.0" minHeight="25.0" minWidth="120.0" mnemonicParsing="false" onAction="#changePasswordScene" prefHeight="25.0" prefWidth="120.0" style="-fx-background-color: #00a6d6;" text="Change password" textFill="WHITE" AnchorPane.leftAnchor="151.0" AnchorPane.topAnchor="378.0">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor></Button>
@@ -34,22 +34,22 @@
             <Font name="Calibri" size="11.0" />
         </font>
     </Text>
-    <Text layoutX="73.0" layoutY="242.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My profile information:" AnchorPane.leftAnchor="73.0" AnchorPane.topAnchor="216.1015625">
+    <Text layoutX="95.0" layoutY="215.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My profile information:" AnchorPane.leftAnchor="95.0" AnchorPane.topAnchor="189.1015625">
         <font>
             <Font size="24.0" />
         </font>
     </Text>
-    <Text layoutX="104.0" layoutY="356.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" AnchorPane.leftAnchor="104.0" AnchorPane.topAnchor="340.892578125">
+    <Text layoutX="104.0" layoutY="276.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" AnchorPane.leftAnchor="104.0" AnchorPane.topAnchor="260.892578125">
         <font>
             <Font size="14.0" />
         </font>
     </Text>
-    <Text layoutX="104.0" layoutY="393.0" strokeType="OUTSIDE" strokeWidth="0.0" text="E-mail address:" AnchorPane.leftAnchor="104.0" AnchorPane.topAnchor="377.892578125">
+    <Text layoutX="104.0" layoutY="337.0" strokeType="OUTSIDE" strokeWidth="0.0" text="E-mail address:" AnchorPane.leftAnchor="104.0" AnchorPane.topAnchor="321.892578125">
         <font>
             <Font size="14.0" />
         </font>
     </Text>
-    <Button fx:id="LogoutButton" layoutX="146.0" layoutY="480.0" mnemonicParsing="false" onAction="#logoutUser" prefHeight="32.0" prefWidth="130.0" style="-fx-background-color: #00a6d6;" text="Logout" textFill="WHITE" AnchorPane.leftAnchor="146.0" AnchorPane.topAnchor="480.0">
+    <Button fx:id="LogoutButton" layoutX="146.0" layoutY="477.0" mnemonicParsing="false" onAction="#logoutUser" prefHeight="32.0" prefWidth="130.0" style="-fx-background-color: #00a6d6;" text="Logout" textFill="WHITE" AnchorPane.leftAnchor="146.0" AnchorPane.topAnchor="477.0">
         <font>
             <Font size="14.0" />
         </font>
@@ -65,9 +65,9 @@
          <Cursor fx:constant="HAND" />
       </cursor>
     </Button>
-   <Label fx:id="name" layoutX="240.0" layoutY="342.0" text="Name goes here" />
-   <Label fx:id="email" layoutX="239.0" layoutY="371.0" text="E-mail goes here" />
-   <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="855.0" layoutY="158.0" onMouseClicked="#myPreviousBookings" pickOnBounds="true" preserveRatio="true">
+   <Label fx:id="name" layoutX="232.0" layoutY="262.0" text="Name goes here" />
+   <Label fx:id="email" layoutX="231.0" layoutY="323.0" text="E-mail goes here" />
+   <ImageView fitHeight="256.0" fitWidth="266.0" layoutX="827.0" layoutY="222.0" onMouseClicked="#myPreviousBookings" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@images/Previous-booking-icon-png.png" />
       </image>
@@ -75,7 +75,7 @@
          <Cursor fx:constant="HAND" />
       </cursor>
    </ImageView>
-   <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="855.0" layoutY="387.0" onMouseClicked="#myCurrentBookings" pickOnBounds="true" preserveRatio="true">
+   <ImageView fitHeight="256.0" fitWidth="329.0" layoutX="478.0" layoutY="231.0" onMouseClicked="#myCurrentBookings" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@images/CurrentBookingsIcon.png" />
       </image>
@@ -89,7 +89,13 @@
          <Cursor fx:constant="HAND" />
       </cursor>
     </ImageView>
-   <Text layoutX="893.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Past Bookings" />
-   <Text layoutX="884.0" layoutY="364.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Current Bookings" />
+   <Text layoutX="932.0" layoutY="507.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Past Bookings">
+      <font>
+         <Font size="14.0" />
+      </font></Text>
+   <Text layoutX="552.0" layoutY="508.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Current Bookings">
+      <font>
+         <Font size="14.0" />
+      </font></Text>
 
 </AnchorPane>
