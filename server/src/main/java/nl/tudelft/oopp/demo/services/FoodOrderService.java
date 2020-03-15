@@ -39,7 +39,7 @@ public class FoodOrderService {
     public int add(int restaurantId, String userEmail, int deliverLocation, long deliverTimeMs) {
         Optional<Restaurant> optionalRestaurant = restaurantRepository.findById(restaurantId);
         if (optionalRestaurant.isEmpty()) {
-            return 416;
+            return 428;
         }
         Restaurant restaurant = optionalRestaurant.get();
 
@@ -51,7 +51,7 @@ public class FoodOrderService {
 
         Optional<Building> optionalDeliveryLocation = buildingRepository.findById(deliverLocation);
         if (optionalDeliveryLocation.isEmpty()) {
-            return 416;
+            return 422;
         }
         Building deliveryLocation = optionalDeliveryLocation.get();
 
@@ -82,7 +82,7 @@ public class FoodOrderService {
                 int buildingId = Integer.parseInt(value);
                 Optional<Building> optionalDeliveryLocation = buildingRepository.findById(buildingId);
                 if (optionalDeliveryLocation.isEmpty()) {
-                    return 416;
+                    return 422;
                 }
                 Building deliveryLocation = optionalDeliveryLocation.get();
                 foodOrder.setDeliveryLocation(deliveryLocation);
