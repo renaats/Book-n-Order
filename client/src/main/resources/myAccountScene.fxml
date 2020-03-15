@@ -91,4 +91,5 @@
     </ImageView>
    <Text layoutX="893.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Past Bookings" />
    <Text layoutX="884.0" layoutY="364.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Current Bookings" />
+
 </AnchorPane>
