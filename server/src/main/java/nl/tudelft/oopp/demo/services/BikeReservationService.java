@@ -115,9 +115,9 @@ public class BikeReservationService {
                     return 422;
                 }
                 Building toBuilding = optionalToBuilding.get();
-                bikeReservation.setFromBuilding(toBuilding);
+                bikeReservation.setToBuilding(toBuilding);
                 break;
-            case "roomId":
+            case "bike":
                 int bikeId = Integer.parseInt(value);
                 Optional<Bike> optionalBike = bikeRepository.findById(bikeId);
                 if (optionalBike.isEmpty()) {

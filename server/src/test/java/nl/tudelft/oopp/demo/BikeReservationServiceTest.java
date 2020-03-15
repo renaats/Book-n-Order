@@ -134,8 +134,8 @@ public class BikeReservationServiceTest {
         bikeReservation = bikeReservations.get(0);
         bikeReservation2 = bikeReservations.get(1);
         assertNotEquals(bikeReservationService.find(bikeReservation.getId()), bikeReservationService.find(bikeReservation2.getId()));
-        //bikeReservationService.update(bikeReservation2.getId(), "toBuilding", toBuilding.getId().toString());
-        //assertEquals(bikeReservationService.find(bikeReservation.getId()), bikeReservationService.find(bikeReservation2.getId()));
+        bikeReservationService.update(bikeReservation2.getId(), "toBuilding", toBuilding.getId().toString());
+        assertEquals(bikeReservationService.find(bikeReservation.getId()), bikeReservationService.find(bikeReservation2.getId()));
     }
 
     @Test
