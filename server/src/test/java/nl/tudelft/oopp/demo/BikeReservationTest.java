@@ -16,6 +16,7 @@ import nl.tudelft.oopp.demo.repositories.BuildingRepository;
 import nl.tudelft.oopp.demo.repositories.UserRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -72,10 +73,10 @@ public class BikeReservationTest {
         fromBuilding.setHouseNumber(4);
         buildingRepository.saveAndFlush(fromBuilding);
 
-        fromBuilding = new Building();
-        fromBuilding.setName("SportHal");
-        fromBuilding.setStreet("Mekelweg");
-        fromBuilding.setHouseNumber(8);
+        toBuilding = new Building();
+        toBuilding.setName("SportHal");
+        toBuilding.setStreet("Mekelweg");
+        toBuilding.setHouseNumber(8);
         buildingRepository.saveAndFlush(toBuilding);
 
         bikeReservation = new BikeReservation();
@@ -88,7 +89,7 @@ public class BikeReservationTest {
         bikeReservation = bikeReservationRepository.findAll().get(0);
     }
 
-    /*@Test
+    @Test
     public void saveAndRetrieveBikeReservation() {
         bikeReservation2 = bikeReservationRepository.findAll().get(0);
         assertEquals(bikeReservation, bikeReservation2);
@@ -108,11 +109,13 @@ public class BikeReservationTest {
         bikeReservation2 = new BikeReservation();
         bikeReservation2.setAppUser(appUser);
         bikeReservation2.setBike(bike);
+        bikeReservation2.setFromBuilding(fromBuilding);
+        bikeReservation2.setToBuilding(toBuilding);
         bikeReservation2.setFromTime(new Date(10000000000L));
         bikeReservation2.setToTime(new Date(11000000000L));
         assertEquals(bikeReservation, bikeReservation2);
         assertNotSame(bikeReservation, bikeReservation2);
-    }*/
+    }
 
     /** Deletes everything from the repositories after testing.
      */
