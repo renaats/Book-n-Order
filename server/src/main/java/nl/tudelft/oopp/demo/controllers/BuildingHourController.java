@@ -1,12 +1,7 @@
 package nl.tudelft.oopp.demo.controllers;
 
-import java.util.Set;
-
-import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.BuildingHours;
-import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.services.BuildingHourService;
-import nl.tudelft.oopp.demo.services.BuildingService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -92,5 +87,4 @@ public class BuildingHourController {
     public BuildingHours findBuildingHours(@PathVariable(value = "buildingID") int buildingId, @PathVariable(value = "day") int day) {
         return buildingHourService.find(buildingId, day);
     }
-
 }

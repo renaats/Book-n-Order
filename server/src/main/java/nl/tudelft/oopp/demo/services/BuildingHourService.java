@@ -1,18 +1,11 @@
 package nl.tudelft.oopp.demo.services;
 
 import java.time.LocalTime;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
 
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.BuildingHours;
-import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.repositories.BuildingHourRepository;
-import nl.tudelft.oopp.demo.repositories.BuildingRepository;
-import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -127,5 +120,4 @@ public class BuildingHourService {
         }
         return buildingHourRepository.findByBuilding_IdAndDay(buildingId, day);
     }
-
 }

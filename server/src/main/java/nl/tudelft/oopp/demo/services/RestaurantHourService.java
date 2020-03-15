@@ -120,5 +120,4 @@ public class RestaurantHourService {
         }
         return restaurantHourRepository.findByRestaurant_IdAndDay(restaurantId, day);
     }
-
 }

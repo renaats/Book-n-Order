@@ -60,7 +60,6 @@ public class BuildingHours {
         this.endTime = endTime;
     }
 
-
     public int getId() {
         return id;
     }

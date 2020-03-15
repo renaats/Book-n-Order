@@ -60,7 +60,6 @@ public class RestaurantHours {
         this.endTime = endTime;
     }
 
-
     public int getId() {
         return id;
     }

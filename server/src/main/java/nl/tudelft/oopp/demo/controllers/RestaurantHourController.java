@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-
-
 @Repository
 @RestController
 @RequestMapping(path = "/restaurant_hours")
@@ -88,5 +86,4 @@ public class RestaurantHourController {
     public RestaurantHours findRestaurantHours(@PathVariable(value = "restaurantID") int restaurantId, @PathVariable(value = "day") int day) {
         return restaurantHourService.find(restaurantId, day);
     }
-
 }
