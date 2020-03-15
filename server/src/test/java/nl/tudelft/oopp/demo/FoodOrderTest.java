@@ -87,15 +87,6 @@ public class FoodOrderTest {
     }
 
     @Test
-    public void testGetters() {
-        foodOrder2 = foodOrderRepository.findAll().get(0);
-        assertEquals(foodOrder.getAppUser(), foodOrder2.getAppUser());
-        assertEquals(foodOrder.getRestaurant(), foodOrder2.getRestaurant());
-        assertEquals(foodOrder.getDeliveryLocation(), foodOrder2.getDeliveryLocation());
-        assertEquals(foodOrder.getDeliveryTime(), foodOrder2.getDeliveryTime());
-    }
-
-    @Test
     public void testGetAppUser() {
         foodOrder2 = foodOrderRepository.findAll().get(0);
         assertEquals(foodOrder.getAppUser(), foodOrder2.getAppUser());
@@ -113,10 +104,11 @@ public class FoodOrderTest {
         assertEquals(foodOrder.getDeliveryLocation(), foodOrder2.getDeliveryLocation());
     }
 
-    /*@Test
+    @Test
     public void testGetDeliveryTime() {
+        foodOrder2 = foodOrderRepository.findAll().get(0);
         assertEquals(foodOrder.getDeliveryTime(), foodOrder2.getDeliveryTime());
-    }*/
+    }
 
     @Test
     public void testEqualFoodOrder() {

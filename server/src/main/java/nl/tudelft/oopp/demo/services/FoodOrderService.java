@@ -76,7 +76,6 @@ public class FoodOrderService {
             return 421;
         }
         FoodOrder foodOrder = foodOrderRepository.findById(id).get();
-
         switch (attribute) {
             case "deliveryLocation":
                 int buildingId = Integer.parseInt(value);
@@ -124,5 +123,14 @@ public class FoodOrderService {
      */
     public Iterable<FoodOrder> all() {
         return foodOrderRepository.findAll();
+    }
+
+    /**
+     * Finds a food order with the specified id.
+     * @param id = the food order id
+     * @return a food order that matches the id
+     */
+    public FoodOrder find(int id) {
+        return foodOrderRepository.findById(id).orElse(null);
     }
 }
