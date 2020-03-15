@@ -171,12 +171,6 @@ public class RoomCalendarView extends Application {
         Instant instant1 = Instant.ofEpochMilli(date.getTime());
         return LocalDateTime.ofInstant(instant1, ZoneId.systemDefault()).toLocalDate();
     }
-
-    public boolean isIntervalBooked(Interval interval){
-        if(interval.
-    }
-
-
 }
 
 
