@@ -67,7 +67,6 @@ public class DishTest {
         dishes.add(dish2);
         dishes1.add(dish);
 
-
         menu1 = new Menu();
         menu1.setName("KFC menu");
         menu1.setRestaurant(restaurant1);

@@ -37,7 +37,6 @@ public class DishServiceTest {
         public MenuService menuService() {
             return new MenuService();
         }
-
     }
 
     @Autowired

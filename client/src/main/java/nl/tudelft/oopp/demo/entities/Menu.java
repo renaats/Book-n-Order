@@ -8,9 +8,7 @@ public class Menu {
     private int id;
     private String name;
 
-
     private Dish dish;
-
 
     private Restaurant restaurant;
 
