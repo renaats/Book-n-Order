@@ -34,9 +34,10 @@ public class ServerCommunication {
             return ErrorMessages.getErrorMessage(401);
         }
         if (response.statusCode() != 200) {
+            System.out.println(response.body());
             System.out.println("Status: " + response.statusCode());
         }
-        return response.body();
+        return ErrorMessages.getErrorMessage(Integer.parseInt(response.body()));
     }
     /**
      * Retrieves the String representation of a user from the server.
@@ -175,21 +176,7 @@ public class ServerCommunication {
      */
     public static String deleteBuilding(int id) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building/delete/" + id)).DELETE().header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
-        HttpResponse<String> response;
-        try {
-            response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "Communication with server failed";
-        }
-        if (response.statusCode() == 403) {
-            return ErrorMessages.getErrorMessage(401);
-        }
-        if (response.statusCode() != 200) {
-            System.out.println(response.body());
-            System.out.println("Status: " + response.statusCode());
-        }
-        return ErrorMessages.getErrorMessage(Integer.parseInt(response.body()));
+        return helperOne(request);
     }
 
     /**
@@ -227,21 +214,7 @@ public class ServerCommunication {
      */
     public static String updateBuilding(int id, String attribute, String changeValue) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building/update?id=" + id + "&attribute=" + attribute + "&value=" + changeValue)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
-        HttpResponse<String> response;
-        try {
-            response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "Communication with server failed";
-        }
-        if (response.statusCode() == 403) {
-            return ErrorMessages.getErrorMessage(401);
-        }
-        if (response.statusCode() != 200) {
-            System.out.println(response.body());
-            System.out.println("Status: " + response.statusCode());
-        }
-        return ErrorMessages.getErrorMessage(Integer.parseInt(response.body()));
+        return helperOne(request);
     }
 
     /**
