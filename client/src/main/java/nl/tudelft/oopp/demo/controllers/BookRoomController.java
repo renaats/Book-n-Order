@@ -53,9 +53,13 @@ public class BookRoomController implements Initializable {
 
     @FXML
     private CheckBox screen;
+    @FXML
     private CheckBox beamer;
+    @FXML
     private ChoiceBox<String> building;
+    @FXML
     private Button submitButton;
+    @FXML
     private TextField capacity;
     private TextField nuOfPlugs;
     private TextArea rooms;

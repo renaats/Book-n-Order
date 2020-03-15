@@ -7,20 +7,23 @@
 <?import javafx.scene.text.*?>
 
 <AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.MyAccountController">
-   <ImageView fitWidth="1280.0" pickOnBounds="true" preserveRatio="true" opacity="0.5">
+   <ImageView fitWidth="1280.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@images/mainMenuBackground.jpg" />
       </image>
    </ImageView>
-    <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="67.0" layoutY="-32.0" pickOnBounds="true" preserveRatio="true">
+    <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="33.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
         <image>
             <Image url="@images/TuDelftLogo.png" />
         </image>
     </ImageView>
-    <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="255.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="521.0" AnchorPane.leftAnchor="255.0" AnchorPane.rightAnchor="425.0" AnchorPane.topAnchor="55.0">
+    <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="233.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="576.0" AnchorPane.leftAnchor="233.0" AnchorPane.rightAnchor="927.0" AnchorPane.topAnchor="120.0">
         <Image url="@images/booknorderlogo.png" />
     </ImageView>
-    <Button layoutX="289.0" layoutY="255.0" maxHeight="25.0" maxWidth="230.0" minHeight="25.0" minWidth="120.0" mnemonicParsing="false" onAction="#changePasswordScene" prefHeight="25.0" prefWidth="120.0" style="-fx-background-color: #00a6d6;" text="Change password" textFill="WHITE" AnchorPane.leftAnchor="289.0" AnchorPane.topAnchor="255.0" />
+    <Button layoutX="151.0" layoutY="413.0" maxHeight="25.0" maxWidth="230.0" minHeight="25.0" minWidth="120.0" mnemonicParsing="false" onAction="#changePasswordScene" prefHeight="25.0" prefWidth="120.0" style="-fx-background-color: #00a6d6;" text="Change password" textFill="WHITE" AnchorPane.leftAnchor="151.0" AnchorPane.topAnchor="413.0">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor></Button>
     <Text fill="WHITE" layoutX="20.0" layoutY="555.576171875" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback is welcome" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0">
         <font>
             <Font size="18.0" />
@@ -31,33 +34,39 @@
             <Font name="Calibri" size="11.0" />
         </font>
     </Text>
-    <Text layoutX="227.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My profile information:" AnchorPane.leftAnchor="227.0" AnchorPane.topAnchor="128.1015625">
+    <Text layoutX="73.0" layoutY="242.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My profile information:" AnchorPane.leftAnchor="73.0" AnchorPane.topAnchor="216.1015625">
         <font>
             <Font size="24.0" />
         </font>
     </Text>
-    <Text layoutX="227.0" layoutY="198.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" AnchorPane.leftAnchor="227.0" AnchorPane.topAnchor="182.892578125">
+    <Text layoutX="104.0" layoutY="356.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" AnchorPane.leftAnchor="104.0" AnchorPane.topAnchor="340.892578125">
         <font>
             <Font size="14.0" />
         </font>
     </Text>
-    <Text layoutX="227.0" layoutY="230.0" strokeType="OUTSIDE" strokeWidth="0.0" text="E-mail address:" AnchorPane.leftAnchor="227.0" AnchorPane.topAnchor="214.892578125">
+    <Text layoutX="104.0" layoutY="393.0" strokeType="OUTSIDE" strokeWidth="0.0" text="E-mail address:" AnchorPane.leftAnchor="104.0" AnchorPane.topAnchor="377.892578125">
         <font>
             <Font size="14.0" />
         </font>
     </Text>
-    <Button fx:id="LogoutButton" layoutX="284.0" layoutY="386.0" mnemonicParsing="false" onAction="#logoutUser" prefHeight="32.0" prefWidth="130.0" style="-fx-background-color: #00a6d6;" text="Logout" textFill="WHITE" AnchorPane.leftAnchor="284.0" AnchorPane.topAnchor="386.0">
+    <Button fx:id="LogoutButton" layoutX="146.0" layoutY="480.0" mnemonicParsing="false" onAction="#logoutUser" prefHeight="32.0" prefWidth="130.0" style="-fx-background-color: #00a6d6;" text="Logout" textFill="WHITE" AnchorPane.leftAnchor="146.0" AnchorPane.topAnchor="480.0">
         <font>
             <Font size="14.0" />
         </font>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
     </Button>
     <Button fx:id="adminControl" layoutX="1136.0" layoutY="130.0" mnemonicParsing="false" onAction="#adminPanel" prefHeight="0.0" prefWidth="130.0" style="-fx-background-color: #00a6d6;" text="Admin Control" textFill="WHITE">
         <font>
             <Font size="14.0" />
         </font>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
     </Button>
-   <Label fx:id="name" layoutX="365.0" layoutY="184.0" text="Name goes here" />
-   <Label fx:id="email" layoutX="369.0" layoutY="216.0" text="E-mail goes here" />
+   <Label fx:id="name" layoutX="240.0" layoutY="342.0" text="Name goes here" />
+   <Label fx:id="email" layoutX="239.0" layoutY="371.0" text="E-mail goes here" />
    <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="855.0" layoutY="158.0" onMouseClicked="#myPreviousBookings" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@images/Previous-booking-icon-png.png" />
@@ -66,7 +75,7 @@
          <Cursor fx:constant="HAND" />
       </cursor>
    </ImageView>
-   <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="855.0" layoutY="380.0" onMouseClicked="#myCurrentBookings" pickOnBounds="true" preserveRatio="true">
+   <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="855.0" layoutY="387.0" onMouseClicked="#myCurrentBookings" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@images/CurrentBookingsIcon.png" />
       </image>

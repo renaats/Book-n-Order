@@ -12,10 +12,13 @@
       <image>
          <Image url="@images/DatabaseRoomBackground.jpg" />
       </image></ImageView>
-   <ImageView fitHeight="101.0" fitWidth="200.0" layoutX="64.0" layoutY="-16.0" pickOnBounds="true" preserveRatio="true">
+   <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="67.0" layoutY="-32.0" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@images/TuDelftLogo.png" />
       </image>
+   </ImageView>
+   <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="255.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="521.0" AnchorPane.leftAnchor="255.0" AnchorPane.rightAnchor="425.0" AnchorPane.topAnchor="55.0">
+      <Image url="@images/booknorderlogo.png" />
    </ImageView>
    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00a6d6" height="28.0" layoutY="86.0" stroke="#00a6d6" strokeType="INSIDE" style="-fx-arc-height: 0; -fx-arc-width: 0;" width="1280.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0" />
    <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="255.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="521.0" AnchorPane.leftAnchor="255.0" AnchorPane.rightAnchor="425.0" AnchorPane.topAnchor="55.0">
@@ -67,16 +70,20 @@
       <Image url="@images/HomeIcon.png" />
    </ImageView>
    <TextField layoutX="66.0" layoutY="224.0" promptText="Name" />
-   <TextField layoutX="66.0" layoutY="257.0" promptText="Building" />
-   <TableView layoutX="451.0" layoutY="160.0" prefHeight="420.0" prefWidth="562.0">
-      <columns>
-         <TableColumn prefWidth="75.0" text="C1" />
-         <TableColumn prefWidth="75.0" text="C2" />
-      </columns>
-   </TableView>
-   <Button layoutX="706.0" layoutY="592.0" mnemonicParsing="false" text="Edit selected">
+   <TextField layoutX="66.0" layoutY="257.0" promptText="Building" /><TableView layoutX="451.0" layoutY="199.0" prefHeight="420.0" prefWidth="562.0">
+   <columns>
+      <TableColumn prefWidth="75.0" text="C1" />
+      <TableColumn prefWidth="75.0" text="C2" />
+   </columns>
+</TableView>
+   <Button layoutX="632.0" layoutY="635.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" style="-fx-background-color: #00a6d6;" text="Edit selected">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor>
    </Button>
+   <Text layoutX="451.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rooms:" AnchorPane.leftAnchor="451.0">
+      <font>
+         <Font size="26.0" />
+      </font>
+   </Text>
 </AnchorPane>

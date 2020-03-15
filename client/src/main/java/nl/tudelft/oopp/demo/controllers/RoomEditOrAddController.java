@@ -27,7 +27,8 @@ public class RoomEditOrAddController implements Initializable {
      * Loads the current rooms to the text area.
      */
     public void loadData() {
-        roomsDisplay.setText(ServerCommunication.getRooms());
+        //TODO
+        //roomsDisplay.setText(ServerCommunication.getRooms());
     }
     /**
      * Changes the scene to the main menu of the database.

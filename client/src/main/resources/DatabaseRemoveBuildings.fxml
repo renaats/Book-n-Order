@@ -27,7 +27,6 @@
     </ImageView>
     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00a6d6" height="28.0" layoutY="86.0" stroke="#00a6d6" strokeType="INSIDE" style="-fx-arc-height: 0; -fx-arc-width: 0;" width="1280.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0" />
     <MenuBar layoutX="79.0" layoutY="87.0" maxWidth="1280.0" minWidth="799.0" prefHeight="26.0" prefWidth="799.0" style="-fx-background-color: #00a6d6;" AnchorPane.leftAnchor="79.0" AnchorPane.rightAnchor="402.0">
-
         <Menu mnemonicParsing="false" text="Building edit">
             <items>
                 <MenuItem mnemonicParsing="false" onAction="#goToAddBuildings" text="Add" />
@@ -57,24 +56,24 @@
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor></Button>
-    <TableView layoutX="451.0" layoutY="160.0" prefHeight="420.0" prefWidth="562.0">
-        <columns>
-            <TableColumn prefWidth="75.0" text="C1" />
-            <TableColumn prefWidth="75.0" text="C2" />
-        </columns>
-    </TableView>
-    <Button layoutX="706.0" layoutY="592.0" mnemonicParsing="false" text="Delte selected">
-        <cursor>
-            <Cursor fx:constant="HAND" />
-        </cursor>
-    </Button>
     <Text fill="WHITE" layoutX="26.0" layoutY="387.0" strokeType="OUTSIDE" strokeWidth="0.0" text="© 2020 TU Delft. All rights reserved." AnchorPane.bottomAnchor="20.0">
         <font>
             <Font name="Calibri" size="10.0" />
         </font>
     </Text>
     <Text fill="WHITE" layoutX="26.0" layoutY="371.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback is welcome" AnchorPane.bottomAnchor="35.0" />
-    <Text layoutX="577.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rooms" AnchorPane.leftAnchor="577.0">
+    <TableView layoutX="451.0" layoutY="199.0" prefHeight="420.0" prefWidth="562.0">
+        <columns>
+            <TableColumn prefWidth="75.0" text="C1" />
+            <TableColumn prefWidth="75.0" text="C2" />
+        </columns>
+    </TableView>
+    <Button layoutX="632.0" layoutY="635.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" style="-fx-background-color: #00a6d6;" text="Delete selected">
+        <cursor>
+            <Cursor fx:constant="HAND" />
+        </cursor>
+    </Button>
+    <Text layoutX="451.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Buildings:" AnchorPane.leftAnchor="451.0">
         <font>
             <Font size="26.0" />
         </font>

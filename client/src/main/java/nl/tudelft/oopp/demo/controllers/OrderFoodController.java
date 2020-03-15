@@ -95,4 +95,15 @@ public class OrderFoodController implements Initializable {
     public void goToFoodOrderConfirmation(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/FoodConfirmation.fxml");
     }
+
+    /**
+     * Applies the filter to the menu
+     */
+    public void applyFilters() {
+        //TODO
+    }
+
+    public void restaurantChoice(ActionEvent actionEvent) {
+
+    }
 }
