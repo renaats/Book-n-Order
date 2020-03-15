@@ -19,6 +19,10 @@ public class ErrorMessages {
     private static final String improperLoginCredentialsMessage = "Login and/or password is incorrect.";
     private static final String invalidEmailMessage = "You have to input a valid email.";
     private static final String invalidEmailDomainMessage = "A TU Delft email is required. To create a restaurant account please contact an admin.";
+    private static final String invalidDayMessage = "Invalid day.";
+    private static final String endBeforeStartMessage = "End time cannot be before start time.";
+    private static final String duplicateBuildingDayMessage = "This building already has a time for this day.";
+    private static final String restaurantNotFoundMessage = "Restaurant not found.";
     private static final String unsupportedEncodingMessage = "Please enter an encoding that is supported by the URLEncode class.";
     private static final String somethingWentWrongMessage = "Something went wrong.";
     private static int code;

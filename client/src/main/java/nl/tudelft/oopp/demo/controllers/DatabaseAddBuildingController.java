@@ -1,7 +1,6 @@
 package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -57,7 +56,7 @@ public class DatabaseAddBuildingController {
      * Adds building to the database
      * @param actionEvent actionEvent parameter.
      */
-    public void databaseAddBuilding(ActionEvent actionEvent) throws UnsupportedEncodingException {
+    public void databaseAddBuilding(ActionEvent actionEvent) {
         String name = nameTextField.getText();
         String street = streetTextField.getText();
         int houseNumber = Integer.parseInt(houseNumberTextField.getText());
