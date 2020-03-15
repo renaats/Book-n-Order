@@ -39,7 +39,6 @@ public class FoodOrder {
     @Temporal(TemporalType.TIMESTAMP)
     private Date deliveryTime;
 
-
     public void setRestaurant(Restaurant restaurant) {
         this.restaurant = restaurant;
     }
@@ -55,7 +54,6 @@ public class FoodOrder {
     public void setDeliveryTime(Date deliveryTime) {
         this.deliveryTime = deliveryTime;
     }
-
 
     public Integer getId() {
         return id;
