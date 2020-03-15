@@ -1,6 +1,7 @@
 package nl.tudelft.oopp.demo.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -11,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity // This tells Hibernate to make a table out of this class
 public class AppUser {
     @Id
