@@ -1,6 +1,7 @@
 package nl.tudelft.oopp.demo.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -32,6 +33,10 @@ public class Building {
     @JsonIgnore
     @OneToMany(mappedBy = "building")
     Set<Restaurant> restaurants = new HashSet<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "building")
+    Set<BuildingHours> buildingHours = new HashSet<>();
 
     public void setName(String name) {
         this.name = name;
