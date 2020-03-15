@@ -24,11 +24,11 @@ public class MainMenuController {
     public void goToProfile() throws IOException {
         ApplicationDisplay.changeScene("/myAccountScene.fxml");
     }
+
     /**
      * Handles the clicking of the Bookings icon.
      * @throws IOException when it fails
      */
-
     public void goToMainReservationsMenu() throws IOException {
         ApplicationDisplay.changeScene("/MainMenuReservations.fxml");
     }

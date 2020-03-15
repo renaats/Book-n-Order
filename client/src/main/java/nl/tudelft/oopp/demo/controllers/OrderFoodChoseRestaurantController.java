@@ -75,6 +75,4 @@ public class OrderFoodChoseRestaurantController implements Initializable {
     public void restaurantChoosen() {
         //TODO
     }
-
-
 }

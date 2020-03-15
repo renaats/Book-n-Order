@@ -95,6 +95,4 @@ public class OrderFoodController implements Initializable {
     public void goToFoodOrderConfirmation(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/FoodConfirmation.fxml");
     }
-
-
 }
