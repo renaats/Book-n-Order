@@ -70,4 +70,9 @@
          <Font size="18.0" />
       </font>
    </Text>
+    <Text layoutX="576.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book a Room" AnchorPane.leftAnchor="576.0" AnchorPane.topAnchor="121.943359375">
+        <font>
+            <Font size="26.0" />
+        </font>
+    </Text>
 </AnchorPane>

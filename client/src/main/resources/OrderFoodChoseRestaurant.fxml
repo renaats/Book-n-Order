@@ -61,6 +61,11 @@
          <TableColumn fx:id="menuTable" prefWidth="224.66667556762695" text="Menu" />
       </columns>
    </TableView>
-   <Text layoutX="397.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please select the restaurant you want to torder from and the select the desiered menu items" />
+   <Text layoutX="397.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please select the restaurant you want to torder from and the select the desiered menu items" />
    <Button fx:id="chooseTheRestaurantButton" layoutX="169.0" layoutY="630.0" maxHeight="25.0" maxWidth="230.0" minHeight="25.0" minWidth="230.0" mnemonicParsing="false" onAction="#restaurantChoosen" style="-fx-background-color: #00a6d6;" text="Choose the selected restaurant" />
+    <Text layoutX="576.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Order food" AnchorPane.leftAnchor="576.0" AnchorPane.topAnchor="125.0">
+        <font>
+            <Font size="26.0" />
+        </font>
+    </Text>
 </AnchorPane>

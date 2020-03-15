@@ -47,7 +47,7 @@
          <Cursor fx:constant="HAND" />
       </cursor>
    </ImageView>
-   <ImageView fitWidth="200.0" layoutX="830.0" layoutY="384.0" onMouseClicked="#goToMainReservationsMenu" pickOnBounds="true" preserveRatio="true">
+   <ImageView fitWidth="200.0" layoutX="830.0" layoutY="375.0" onMouseClicked="#goToMainReservationsMenu" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@images/bookingImageColor2.png" />
       </image>
@@ -60,5 +60,8 @@
          <Font name="Candara Bold" size="24.0" />
       </font></Text>
    <Text layoutX="42.0" layoutY="210.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Here you can make new bookings by clicking on the&#10;bookings icon.&#10;In addition you can check your current bookings&#10;and events on the calendar" wrappingWidth="319.30078125" />
+   <Text layoutX="607.0" layoutY="388.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My Calendar" />
+   <Text layoutX="334.0" layoutY="588.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My Profile" />
+   <Text layoutX="896.0" layoutY="588.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My Bookings" />
 
 </AnchorPane>
