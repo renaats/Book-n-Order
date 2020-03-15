@@ -21,7 +21,7 @@
    <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="255.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="521.0" AnchorPane.leftAnchor="255.0" AnchorPane.rightAnchor="425.0" AnchorPane.topAnchor="55.0">
       <Image url="@images/booknorderlogo.png" />
    </ImageView>
-   <ImageView fitHeight="41.0" fitWidth="44.0" layoutX="13.0" layoutY="4.0" onMouseClicked="#mainMenu" pickOnBounds="true" preserveRatio="true">
+   <ImageView fitHeight="41.0" fitWidth="44.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#mainMenu" pickOnBounds="true" preserveRatio="true">
       <Image url="@images/HomeIcon.png" />
       <cursor>
          <Cursor fx:constant="HAND" />
@@ -56,7 +56,7 @@
          <Cursor fx:constant="HAND" />
       </cursor>
    </ImageView>
-   <ImageView fitWidth="150.0" layoutX="936.0" layoutY="334.0" nodeOrientation="INHERIT" onMouseClicked="#rentBikeIcon" opacity="0.9" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="194.0" AnchorPane.topAnchor="334.0">
+   <ImageView fitWidth="150.0" layoutX="929.0" layoutY="334.0" nodeOrientation="INHERIT" onMouseClicked="#rentBikeIcon" opacity="0.9" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="201.0" AnchorPane.topAnchor="334.0">
       <viewport>
          <Rectangle2D />
       </viewport>
@@ -65,9 +65,9 @@
          <Cursor fx:constant="HAND" />
       </cursor>
    </ImageView>
-   <Button fx:id="bookRoomButton" layoutX="188.0" layoutY="484.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#bookRoom" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: #00a6d6;" text="Book a room" textFill="WHITE" AnchorPane.leftAnchor="188.0" AnchorPane.topAnchor="484.0" />
-   <Button fx:id="orderFoodButton" cache="true" layoutX="540.0" layoutY="334.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#orderFood" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: #00a6d6;" text="Order food" textFill="WHITE" AnchorPane.leftAnchor="540.0" AnchorPane.topAnchor="334.0" />
-   <Button fx:id="rentBikeButton" layoutX="911.0" layoutY="484.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#rentBike" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: #00a6d6;" text="Rent a bike" textFill="WHITE" AnchorPane.rightAnchor="169.0" AnchorPane.topAnchor="484.0" />
+   <Button fx:id="bookRoomButton" layoutX="188.0" layoutY="496.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#bookRoom" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: #00a6d6;" text="Book a room" textFill="WHITE" AnchorPane.leftAnchor="188.0" AnchorPane.topAnchor="496.0" />
+   <Button fx:id="orderFoodButton" cache="true" layoutX="540.0" layoutY="341.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#orderFood" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: #00a6d6;" text="Order food" textFill="WHITE" AnchorPane.leftAnchor="540.0" AnchorPane.topAnchor="341.0" />
+   <Button fx:id="rentBikeButton" layoutX="911.0" layoutY="496.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#rentBike" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: #00a6d6;" text="Rent a bike" textFill="WHITE" AnchorPane.rightAnchor="169.0" AnchorPane.topAnchor="496.0" />
    <ImageView fitHeight="51.0" fitWidth="32.0" layoutX="18.0" layoutY="85.0" onMouseClicked="#calendarIcon" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@images/CalendarIcon.png" />
@@ -76,9 +76,14 @@
          <Cursor fx:constant="HAND" />
       </cursor>
    </ImageView>
-   <Text layoutX="411.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please select the type of the next Booking">
+   <Text layoutX="410.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please select the type of the next Booking">
       <font>
          <Font size="25.0" />
+      </font>
+   </Text>
+   <Text layoutX="557.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New Booking">
+      <font>
+         <Font size="28.0" />
       </font>
    </Text>
 </AnchorPane>

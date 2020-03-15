@@ -65,9 +65,9 @@
       </cursor>
    </ImageView>
    <Button layoutX="651.0" layoutY="557.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#goToRoomConfirmation" style="-fx-background-color: #00a6d6;" text="Reserve Selected Room" />
-   <Text layoutX="185.0" layoutY="231.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Room characteristics">
+   <Text layoutX="149.0" layoutY="221.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Room characteristics">
       <font>
-         <Font size="18.0" />
+         <Font size="26.0" />
       </font>
    </Text>
     <Text layoutX="576.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book a Room" AnchorPane.leftAnchor="576.0" AnchorPane.topAnchor="121.943359375">
