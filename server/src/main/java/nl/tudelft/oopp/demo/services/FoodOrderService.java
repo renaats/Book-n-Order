@@ -87,7 +87,7 @@ public class FoodOrderService {
                 foodOrder.setDeliveryLocation(deliveryLocation);
                 break;
             case "deliveryTime":
-                foodOrder.setDeliveryTime(new Date(Integer.parseInt(value)));
+                foodOrder.setDeliveryTime(new Date(Long.parseLong(value)));
                 break;
             case "userEmail":
                 Optional<AppUser> optionalUser = userRepository.findById(value);
