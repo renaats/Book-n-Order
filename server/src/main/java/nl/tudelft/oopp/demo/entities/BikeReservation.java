@@ -47,7 +47,6 @@ public class BikeReservation {
     @Temporal(TemporalType.TIMESTAMP)
     private Date toTime;
 
-
     public void setBike(Bike bike) {
         this.bike = bike;
     }
@@ -71,7 +70,6 @@ public class BikeReservation {
     public void setToTime(Date toTime) {
         this.toTime = toTime;
     }
-
 
     public Integer getId() {
         return id;
@@ -100,7 +98,6 @@ public class BikeReservation {
     public Date getToTime() {
         return toTime;
     }
-
 
     @Override
     public boolean equals(Object o) {
