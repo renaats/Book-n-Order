@@ -100,9 +100,23 @@ public class BikeReservationService {
                 bikeReservation.setToTime(new Date(Integer.parseInt(value)));
                 break;
             case "fromBuilding":
-
+                int fromBuildingId = Integer.parseInt(value);
+                Optional<Building> optionalFromBuilding = buildingRepository.findById(fromBuildingId);
+                if (optionalFromBuilding.isEmpty()) {
+                    return 418;
+                }
+                Building fromBuilding = optionalFromBuilding.get();
+                bikeReservation.setFromBuilding(fromBuilding);
+                break;
             case "toBuilding":
-
+                int toBuildingId = Integer.parseInt(value);
+                Optional<Building> optionalToBuilding = buildingRepository.findById(toBuildingId);
+                if (optionalToBuilding.isEmpty()) {
+                    return 418;
+                }
+                Building toBuilding = optionalToBuilding.get();
+                bikeReservation.setFromBuilding(toBuilding);
+                break;
             case "roomId":
                 int bikeId = Integer.parseInt(value);
                 Optional<Bike> optionalBike = bikeRepository.findById(bikeId);

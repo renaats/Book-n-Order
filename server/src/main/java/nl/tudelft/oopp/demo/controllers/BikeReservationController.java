@@ -50,7 +50,7 @@ public class BikeReservationController {
      * @param value = the new value of the attribute.
      * @return String containing the result of your request.
      */
-    @Secured({"ROLE_ADMIN", "ROLE_BUILDING_ADMIN"})
+    @Secured({"ROLE_ADMIN"})
     @PostMapping(path = "/update")
     @ResponseBody
     public int updateAttribute(@RequestParam int id, @RequestParam String attribute, @RequestParam String value) {
@@ -62,7 +62,7 @@ public class BikeReservationController {
      * @param id = the id of the bike reservation.
      * @return String containing the result of your request.
      */
-    @Secured({"ROLE_ADMIN", "ROLE_BUILDING_ADMIN"})
+    @Secured({"ROLE_ADMIN"})
     @DeleteMapping(path = "/delete")
     @ResponseBody
     public int deleteBikeReservation(@RequestParam int id) {
