@@ -161,4 +161,14 @@ public class BikeReservationService {
     public List<BikeReservation> all() {
         return bikeReservationRepository.findAll();
     }
+
+    /**
+     * Finds a bike reservation with the specified id.
+     * @param id = the bike reservation id
+     * @return a bike reservation that matches the id
+     */
+    public BikeReservation find(int id) {
+        return bikeReservationRepository.findById(id).orElse(null);
+    }
+
 }

@@ -39,96 +39,115 @@ public class BikeReservationServiceTest {
     BikeReservationService bikeReservationService;
 
     @Autowired
+    BikeRepository bikeRepository;
+
+    @Autowired
     BuildingRepository buildingRepository;
 
     @Autowired
     UserRepository userRepository;
 
-    Building building;
-    Building deliverLocation;
+    Building fromBuilding;
+    Building toBuilding;
+    Building toBuilding2;
     Bike bike;
     AppUser appUser;
+    Date fromTime;
+    Date toTime;
+    long fromTimeMs;
+    long toTimeMs;
+    BikeReservation bikeReservation;
+    BikeReservation bikeReservation2;
     
     /** Sets up the classes before executing the tests.
      */
     @BeforeEach
     public void setup() {
-        building = new Building();
-        building.setName("EWI");
-        building.setStreet("Mekelweg");
-        building.setHouseNumber(8);
-        buildingRepository.save(building);
-
-        restaurant = new Restaurant();
-        restaurant.setName("Cafe X");
-        restaurant.setBuilding(building);
-        restaurantRepository.save(restaurant);
-
         appUser = new AppUser();
         appUser.setEmail("l.j.jongejans@student.tudelft.nl");
         appUser.setPassword("1234");
         appUser.setName("Liselotte");
         appUser.setSurname("Jongejans");
         appUser.setFaculty("EWI");
-        appUser.setFoodOrder(new HashSet<>());
+        appUser.setBikeReservations(new HashSet<>());
         userRepository.save(appUser);
 
-        deliverLocation = new Building();
-        deliverLocation.setName("EWI");
-        deliverLocation.setStreet("Mekelweg");
-        deliverLocation.setHouseNumber(4);
-        buildingRepository.save(deliverLocation);
+        fromBuilding = new Building();
+        fromBuilding.setName("Sporthal");
+        fromBuilding.setStreet("Mekelweg");
+        fromBuilding.setHouseNumber(8);
+        buildingRepository.save(fromBuilding);
 
-        deliverTime = new Date(11000000000L);
-        deliverTimeMs = deliverTime.getTime();
+        toBuilding = new Building();
+        toBuilding.setName("EWI");
+        toBuilding.setStreet("Mekelweg");
+        toBuilding.setHouseNumber(4);
+        buildingRepository.save(toBuilding);
 
-        deliverTime2 = new Date(10000000000L);
-        deliverTimeMs2 = deliverTime2.getTime();
+        toBuilding2 = new Building();
+        toBuilding2.setName("Library");
+        toBuilding2.setStreet("Prometheusplein");
+        toBuilding2.setHouseNumber(1);
+        buildingRepository.save(toBuilding2);
 
-        foodOrder = new FoodOrder();
-        foodOrder.setAppUser(appUser);
-        foodOrder.setDeliveryLocation(deliverLocation);
-        foodOrder.setDeliveryTime(deliverTime);
-        foodOrder.setRestaurant(restaurant);
+        bike = new Bike();
+        bike.setLocation(fromBuilding);
+        bike.setAvailable(true);
+        bikeRepository.save(bike);
 
-        foodOrder2 = new FoodOrder();
-        foodOrder2.setAppUser(appUser);
-        foodOrder2.setDeliveryLocation(deliverLocation);
-        foodOrder2.setDeliveryTime(deliverTime2);
-        foodOrder2.setRestaurant(restaurant);
+        fromTime = new Date(10000000000L);
+        fromTimeMs = fromTime.getTime();
+
+        toTime = new Date(11000000000L);
+        toTimeMs = toTime.getTime();
+
+        bikeReservation = new BikeReservation();
+        bikeReservation.setAppUser(appUser);
+        bikeReservation.setFromBuilding(fromBuilding);
+        bikeReservation.setToBuilding(toBuilding);
+        bikeReservation.setBike(bike);
+        bikeReservation.setFromTime(fromTime);
+        bikeReservation.setToTime(toTime);
+
+        bikeReservation2 = new BikeReservation();
+        bikeReservation2.setAppUser(appUser);
+        bikeReservation2.setFromBuilding(fromBuilding);
+        bikeReservation2.setToBuilding(toBuilding2);
+        bikeReservation2.setBike(bike);
+        bikeReservation2.setFromTime(fromTime);
+        bikeReservation2.setToTime(toTime);
     }
 
     @Test
     public void testAdd() {
-        foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMs);
-        assertEquals(foodOrderService.all(), Collections.singletonList(foodOrder));
+        bikeReservationService.add(bike.getId(), appUser.getEmail(), fromBuilding.getId(), toBuilding.getId(), fromTimeMs, toTimeMs);
+        assertEquals(bikeReservationService.all(), Collections.singletonList(bikeReservation));
     }
 
     @Test
     public void testUpdate() {
-        foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMs);
-        foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMs2);
-        List<FoodOrder> foodOrders = new ArrayList<>();
-        foodOrderService.all().forEach(foodOrders::add);
-        assertEquals(2, foodOrders.size());
-        foodOrder = foodOrders.get(0);
-        foodOrder2 = foodOrders.get(1);
-        assertNotEquals(foodOrderService.find(foodOrder.getId()), foodOrderService.find(foodOrder2.getId()));
-        //foodOrderService.update(foodOrder2.getId(), "deliveryTime", Long.toString(deliverTimeMs));
-        //assertEquals(foodOrderService.find(foodOrder.getId()), foodOrderService.find(foodOrder2.getId()));
+        bikeReservationService.add(bike.getId(), appUser.getEmail(), fromBuilding.getId(), toBuilding.getId(), fromTimeMs, toTimeMs);
+        bikeReservationService.add(bike.getId(), appUser.getEmail(), fromBuilding.getId(), toBuilding2.getId(), fromTimeMs, toTimeMs);
+        List<BikeReservation> bikeReservations = new ArrayList<>();
+        bikeReservationService.all().forEach(bikeReservations::add);
+        assertEquals(2, bikeReservations.size());
+        bikeReservation = bikeReservations.get(0);
+        bikeReservation2 = bikeReservations.get(1);
+        assertNotEquals(bikeReservationService.find(bikeReservation.getId()), bikeReservationService.find(bikeReservation2.getId()));
+        //bikeReservationService.update(bikeReservation2.getId(), "toBuilding", toBuilding.getId().toString());
+        //assertEquals(bikeReservationService.find(bikeReservation.getId()), bikeReservationService.find(bikeReservation2.getId()));
     }
 
     @Test
     public void testDelete() {
-        foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMs);
-        foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMs2);
-        List<FoodOrder> foodOrders = new ArrayList<>();
-        foodOrderService.all().forEach(foodOrders::add);
-        assertEquals(2, foodOrders.size());
-        foodOrderService.delete(foodOrders.get(0).getId());
-        foodOrders = new ArrayList<>();
-        foodOrderService.all().forEach(foodOrders::add);
-        assertEquals(1, foodOrders.size());
+        bikeReservationService.add(bike.getId(), appUser.getEmail(), fromBuilding.getId(), toBuilding.getId(), fromTimeMs, toTimeMs);
+        bikeReservationService.add(bike.getId(), appUser.getEmail(), fromBuilding.getId(), toBuilding2.getId(), fromTimeMs, toTimeMs);
+        List<BikeReservation> bikeReservations = new ArrayList<>();
+        bikeReservationService.all().forEach(bikeReservations::add);
+        assertEquals(2, bikeReservations.size());
+        bikeReservationService.delete(bikeReservations.get(0).getId());
+        bikeReservations = new ArrayList<>();
+        bikeReservationService.all().forEach(bikeReservations::add);
+        assertEquals(1, bikeReservations.size());
     }
-
 }
