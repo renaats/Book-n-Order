@@ -12,7 +12,6 @@ import javax.persistence.ManyToOne;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-
 @Entity // This tells Hibernate to make a table out of this class
 public class Dish {
     @Id

@@ -25,7 +25,7 @@ public class MenuController {
      * @param restaurantId restaurant id
      * @return Error code
      */
-    @Secured({"ROLE_RESTAURANT_OWNER"})
+    @Secured({"Missing argumentSTAURANT_OWNER"})
     @PostMapping(path = "/add")
     @ResponseBody
     public int addNewMenu(@RequestParam String name, @RequestParam int restaurantId) {
@@ -37,7 +37,7 @@ public class MenuController {
      * @param id menu id
      * @return Error code
      */
-    @Secured({"ROLE_RESTAURANT_OWNER"})
+    @Secured({"ROLE_RESTAURANT"})
     @DeleteMapping(path = "/delete/{menuID}")
     @ResponseBody
     public int deleteMenu(@PathVariable(value = "menuID") int id) {
