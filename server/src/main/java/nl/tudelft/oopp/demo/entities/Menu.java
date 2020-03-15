@@ -15,11 +15,7 @@ public class Menu {
     private int id;
     private String name;
 
-    @ManyToOne
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private Dish dish;
-
-    @ManyToOne
+    @OneToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn
     private Restaurant restaurant;
