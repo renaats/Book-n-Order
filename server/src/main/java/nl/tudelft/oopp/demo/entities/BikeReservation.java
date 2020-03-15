@@ -2,7 +2,6 @@ package nl.tudelft.oopp.demo.entities;
 
 import java.util.Date;
 import java.util.Objects;
-import java.util.Optional;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
