@@ -32,6 +32,7 @@ public class DishService {
         Dish dish = new Dish();
         dish.setName(name);
         dish.setMenu(menu);
+        dishRepository.save(dish);
         return 201;
     }
 
@@ -46,5 +47,22 @@ public class DishService {
         }
         dishRepository.deleteById(id);
         return 200;
+    }
+
+    /**
+     * Lists all dishes
+     * @return all menus
+     */
+    public Iterable<Dish> all() {
+        return dishRepository.findAll();
+    }
+
+    /**
+     * Finds a dish with a certain id
+     * @param id menu id
+     * @return menu
+     */
+    public Dish find(int id) {
+        return dishRepository.findById(id).orElse(null);
     }
 }

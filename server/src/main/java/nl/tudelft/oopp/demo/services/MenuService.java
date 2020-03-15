@@ -48,4 +48,21 @@ public class MenuService {
         menuRepository.deleteById(id);
         return 200;
     }
+
+    /**
+     * Lists all menus
+     * @return all menus
+     */
+    public Iterable<Menu> all() {
+        return menuRepository.findAll();
+    }
+
+    /**
+     * Finds a menu with a certain id
+     * @param id menu id
+     * @return menu
+     */
+    public Menu find(int id) {
+        return menuRepository.findById(id).orElse(null);
+    }
 }

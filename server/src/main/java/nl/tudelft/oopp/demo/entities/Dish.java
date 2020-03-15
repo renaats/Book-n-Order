@@ -54,8 +54,7 @@ public class Dish {
             return false;
         }
         Dish dish = (Dish) o;
-        return id == dish.id
-                && Objects.equals(name, dish.name)
+        return name.equals(name)
                 && Objects.equals(menu, dish.menu);
     }
 }
