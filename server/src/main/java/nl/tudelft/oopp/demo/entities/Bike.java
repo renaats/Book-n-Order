@@ -64,7 +64,9 @@ public class Bike {
      * @return true if this bike has a reservation between these times, false otherwise.
      */
     public boolean hasBikeReservationBetween(Date fromTime, Date toTime) {
-        if(fromTime.compareTo(toTime) > 0) return false;
+        if (fromTime.compareTo(toTime) > 0) {
+            return false;
+        }
         for (BikeReservation bikeReservation: bikeReservations) {
             if (fromTime.compareTo(bikeReservation.getFromTime()) < 0 && toTime.compareTo(bikeReservation.getFromTime()) > 0) {
                 return true;
