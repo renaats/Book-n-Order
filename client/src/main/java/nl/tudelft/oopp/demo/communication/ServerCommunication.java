@@ -27,7 +27,7 @@ public class ServerCommunication {
      * @param request HttpRequest that was made
      * @return the error message corresponding to the server's response.
      */
-    public static String helperOne(HttpRequest request) {
+    public static String communicateAndReturnErrorMessage(HttpRequest request) {
         HttpResponse<String> response;
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
@@ -50,7 +50,7 @@ public class ServerCommunication {
      * @param request HttpRequest that was made
      * @return the body of the response from the server.
      */
-    public static String helperTwo(HttpRequest request) {
+    public static String communicateAndReturnBodyOfResponse(HttpRequest request) {
         HttpResponse<String> response;
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
@@ -101,7 +101,7 @@ public class ServerCommunication {
      */
     public static String addUser(String email, String name, String surname, String faculty, String password) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/user/add?email=" + email + "&name=" + name + "&surname=" + surname + "&faculty=" + faculty + "&password=" + password)).POST(HttpRequest.BodyPublishers.noBody()).build();
-        return helperOne(request);
+        return communicateAndReturnErrorMessage(request);
     }
 
     /**
@@ -146,7 +146,7 @@ public class ServerCommunication {
      */
     public static String getBuildings() {
         HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + UserInformation.getBearerKey()).uri(URI.create("http://localhost:8080/building/all")).build();
-        return helperTwo(request);
+        return communicateAndReturnBodyOfResponse(request);
     }
 
     /**
@@ -155,7 +155,7 @@ public class ServerCommunication {
      */
     public static String getRooms() {
         HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + UserInformation.getBearerKey()).uri(URI.create("http://localhost:8080/room/all")).build();
-        return helperTwo(request);
+        return communicateAndReturnBodyOfResponse(request);
     }
 
     /**
@@ -165,7 +165,7 @@ public class ServerCommunication {
      */
     public static String deleteBuilding(int id) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building/delete/" + id)).DELETE().header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
-        return helperOne(request);
+        return communicateAndReturnErrorMessage(request);
     }
 
     /**
@@ -175,7 +175,7 @@ public class ServerCommunication {
      */
     public static String findBuilding(int buildingID) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building/find/" + buildingID)).GET().header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
-        return helperTwo(request);
+        return communicateAndReturnBodyOfResponse(request);
     }
 
 
@@ -188,7 +188,7 @@ public class ServerCommunication {
      */
     public static String updateBuilding(int id, String attribute, String changeValue) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building/update?id=" + id + "&attribute=" + attribute + "&value=" + changeValue)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
-        return helperOne(request);
+        return communicateAndReturnErrorMessage(request);
     }
 
     /**
@@ -198,7 +198,7 @@ public class ServerCommunication {
      */
     public static String findRoom(int roomId) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room/find/" + roomId)).GET().header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
-        return helperTwo(request);
+        return communicateAndReturnBodyOfResponse(request);
     }
 
     /**
@@ -208,7 +208,7 @@ public class ServerCommunication {
      */
     public static String deleteRoom(int id) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room/delete/" + id)).DELETE().header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
-        return helperOne(request);
+        return communicateAndReturnErrorMessage(request);
     }
 
     /**
@@ -220,7 +220,7 @@ public class ServerCommunication {
      */
     public static String updateRoom(int id, String attribute, String changeValue) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room/update?id=" + id + "&attribute=" + attribute + "&value=" + changeValue)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
-        return helperOne(request);
+        return communicateAndReturnErrorMessage(request);
     }
 
     /**
@@ -240,7 +240,7 @@ public class ServerCommunication {
                                  boolean screen, boolean projector,
                                  int capacity, int plugs) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room/add?name=" + name + "&faculty=" + faculty + "&facultySpecific=" + facultySpecific + "&screen=" + screen + "&projector=" + projector + "&buildingId=" + buildingId + "&nrPeople=" + capacity + "&plugs=" + plugs)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
-        return helperOne(request);
+        return communicateAndReturnErrorMessage(request);
     }
 
     /**
@@ -252,7 +252,7 @@ public class ServerCommunication {
      */
     public static String addBuilding(String name, String street, int houseNumber) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building/add?name=" + name + "&street=" + street + "&houseNumber=" + houseNumber)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
-        return helperOne(request);
+        return communicateAndReturnErrorMessage(request);
     }
 
     /**
@@ -261,7 +261,7 @@ public class ServerCommunication {
      */
     public static String logoutUser() {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/user/logout")).POST(HttpRequest.BodyPublishers.noBody()).build();
-        return helperOne(request);
+        return communicateAndReturnErrorMessage(request);
     }
 
     /**
@@ -272,7 +272,7 @@ public class ServerCommunication {
      */
     public static String getRoomReservations() {
         HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + UserInformation.getBearerKey()).uri(URI.create("http://localhost:8080/room_reservation/all")).build();
-        return helperTwo(request);
+        return communicateAndReturnBodyOfResponse(request);
     }
 
     /**
@@ -282,7 +282,7 @@ public class ServerCommunication {
      */
     public static String findRoomReservation(int roomReservationId) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room_reservation/find/" + roomReservationId)).GET().header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
-        return helperTwo(request);
+        return communicateAndReturnBodyOfResponse(request);
     }
 
     /**
@@ -296,7 +296,7 @@ public class ServerCommunication {
      */
     public static String addRoomReservation(String room, int buildingId, int userId, Date from, Date to) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room_reservation/add?room" + room + "&buildingId=" + buildingId + "&userId=" + userId + "&from=" + from + "&to=" + to)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
-        return helperOne(request);
+        return communicateAndReturnErrorMessage(request);
     }
 
     /**
@@ -308,7 +308,7 @@ public class ServerCommunication {
      */
     public static String updateRoomReservation(int id, String attribute, String changeValue) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room_reservation/update?id=" + id + "&attribute=" + attribute + "&value=" + changeValue)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
-        return helperOne(request);
+        return communicateAndReturnErrorMessage(request);
     }
 
     /**
@@ -318,6 +318,6 @@ public class ServerCommunication {
      */
     public static String deleteRoomReservation(int id) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room_reservation/delete/" + id)).DELETE().header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
-        return helperOne(request);
+        return communicateAndReturnErrorMessage(request);
     }
 }
