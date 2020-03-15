@@ -23,6 +23,7 @@ public class ErrorMessages {
     private static final String endBeforeStartMessage = "End time cannot be before start time.";
     private static final String duplicateBuildingDayMessage = "This building already has a time for this day.";
     private static final String restaurantNotFoundMessage = "Restaurant not found.";
+    private static final String unsupportedEncodingMessage = "Please enter an encoding that is supported by the URLEncode class.";
     private static final String somethingWentWrongMessage = "Something went wrong.";
     private static final String menuNotFoundMessage = "Menu not found.";
     private static final String dishNotFoundMessage = "Dish not found.";
@@ -38,7 +39,7 @@ public class ErrorMessages {
      * 4xx: Client Error. This category of error status codes points the finger at clients.
      * 5xx: Server Error. The server takes responsibility for these error status codes.
      *.............
-     * Moreover, none of the alreadt existing HTTP Status Codes have been used see https://restfulapi.net/http-status-codes/ for reference.
+     * Moreover, none of the already existing HTTP Status Codes have been used see https://restfulapi.net/http-status-codes/ for reference.
      *
      * @param code error code
      * @return message, string
@@ -93,6 +94,8 @@ public class ErrorMessages {
                 return menuNotFoundMessage;
             case 430:
                 return dishNotFoundMessage;
+            case 502:
+                return unsupportedEncodingMessage;
             default:
                 return somethingWentWrongMessage;
         }
