@@ -1,5 +1,7 @@
 package nl.tudelft.oopp.demo.entities;
 
+import java.util.Objects;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,7 +12,6 @@ import javax.persistence.ManyToOne;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import java.util.Objects;
 
 @Entity // This tells Hibernate to make a table out of this class
 public class Dish {
@@ -46,11 +47,15 @@ public class Dish {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Dish dish = (Dish) o;
-        return id == dish.id &&
-                Objects.equals(name, dish.name) &&
-                Objects.equals(menu, dish.menu);
+        return id == dish.id
+                && Objects.equals(name, dish.name)
+                && Objects.equals(menu, dish.menu);
     }
 }

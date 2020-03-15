@@ -1,13 +1,13 @@
 package nl.tudelft.oopp.demo.services;
 
+import java.util.Optional;
+
 import nl.tudelft.oopp.demo.entities.Dish;
 import nl.tudelft.oopp.demo.entities.Menu;
 import nl.tudelft.oopp.demo.repositories.DishRepository;
 import nl.tudelft.oopp.demo.repositories.MenuRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class DishService {
@@ -41,7 +41,7 @@ public class DishService {
      * @return Error code
      */
     public int delete(int id) {
-        if(!dishRepository.existsById(id)) {
+        if (!dishRepository.existsById(id)) {
             return 430;
         }
         dishRepository.deleteById(id);
