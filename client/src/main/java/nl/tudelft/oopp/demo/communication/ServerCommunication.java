@@ -22,7 +22,7 @@ public class ServerCommunication {
 
     private static final HttpClient client = HttpClient.newBuilder().build();
 
-    public static String helper(HttpRequest request) {
+    public static String helperOne(HttpRequest request) {
         HttpResponse<String> response;
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
@@ -124,7 +124,7 @@ public class ServerCommunication {
 
     /**
      * Retrieves all buildings from the server.
-     * @return the body of a get request to the server.
+     * @return the body of the response from the server.
      */
     public static String getBuildings() {
         HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + UserInformation.getBearerKey()).uri(URI.create("http://localhost:8080/building/all")).build();
