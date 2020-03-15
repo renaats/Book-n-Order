@@ -8,9 +8,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.type.ResolvedRecursiveType;
 import javafx.scene.control.Alert;
 import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.Building;
+import nl.tudelft.oopp.demo.entities.Restaurant;
 import nl.tudelft.oopp.demo.entities.Room;
 
 public class JsonMapper {
@@ -85,7 +87,7 @@ public class JsonMapper {
     }
 
     /**
-     * Maps all building JSONS to a list.
+     * Maps all room JSONS to a list.
      * @param roomsJson a JSON string representing a list.
      * @return A list filled with object Buildings
      */
@@ -125,6 +127,52 @@ public class JsonMapper {
             alert.setTitle("Error");
             alert.setHeaderText(null);
             alert.setContentText(roomJson);
+            alert.showAndWait();
+        }
+        return null;
+    }
+
+    /**
+     * Maps a JSON string to an Restaurant object
+     * @param restaurantJson JSON representation of a String
+     * @return Restaurant Object
+     */
+    public static Restaurant restaurantMapper(String restaurantJson) {
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        try {
+            // Convert JSON string to Object
+            Restaurant restaurant = mapper.readValue(restaurantJson, Restaurant.class);
+            return restaurant;
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText(restaurantJson);
+            alert.showAndWait();
+        }
+        return null;
+    }
+
+    /**
+     * Maps all restaurant JSONS to a list.
+     * @param restaurantsJson a JSON string representing a list.
+     * @return A list filled with object Buildings
+     */
+    public static List<Restaurant> restaurantListMapper(String restaurantsJson) {
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        try {
+            // Convert JSON string to Object
+            List<Restaurant> restaurantsList = mapper.readValue(restaurantsJson, new TypeReference<List<Restaurant>>(){});
+            return restaurantsList;
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText(restaurantsJson);
             alert.showAndWait();
         }
         return null;
