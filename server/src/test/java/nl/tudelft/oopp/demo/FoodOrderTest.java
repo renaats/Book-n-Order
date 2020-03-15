@@ -6,8 +6,14 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import java.util.Date;
 import java.util.HashSet;
 
-import nl.tudelft.oopp.demo.entities.*;
-import nl.tudelft.oopp.demo.repositories.*;
+import nl.tudelft.oopp.demo.entities.AppUser;
+import nl.tudelft.oopp.demo.entities.Building;
+import nl.tudelft.oopp.demo.entities.FoodOrder;
+import nl.tudelft.oopp.demo.entities.Restaurant;
+import nl.tudelft.oopp.demo.repositories.BuildingRepository;
+import nl.tudelft.oopp.demo.repositories.FoodOrderRepository;
+import nl.tudelft.oopp.demo.repositories.RestaurantRepository;
+import nl.tudelft.oopp.demo.repositories.UserRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
