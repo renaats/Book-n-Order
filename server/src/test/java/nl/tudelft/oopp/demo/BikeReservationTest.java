@@ -104,7 +104,7 @@ public class BikeReservationTest {
         assertEquals(bikeReservation.getToTime(), bikeReservation2.getToTime());
     }
 
-    @Test
+    /*@Test
     public void testEqualBikeReservations() {
         bikeReservation2 = new BikeReservation();
         bikeReservation2.setAppUser(appUser);
@@ -115,7 +115,7 @@ public class BikeReservationTest {
         bikeReservation2.setToTime(new Date(11000000000L));
         assertEquals(bikeReservation, bikeReservation2);
         assertNotSame(bikeReservation, bikeReservation2);
-    }
+    }*/
 
     /** Deletes everything from the repositories after testing.
      */
