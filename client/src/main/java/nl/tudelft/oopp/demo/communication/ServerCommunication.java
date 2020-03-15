@@ -130,7 +130,7 @@ public class ServerCommunication {
     }
 
     /**
-     * Retrieves a String representation of all buildings from the server.
+     * Retrieves a JSON string representation of all rooms from the server.
      * @return the body of the response from the server.
      */
     public static String getRooms() {
@@ -197,7 +197,6 @@ public class ServerCommunication {
         if (response.body().equals("")) {
             return ErrorMessages.getErrorMessage(404);
         } else {
-            System.out.println(response.body());
             return response.body();
         }
     }
@@ -250,7 +249,6 @@ public class ServerCommunication {
         if (response.body().equals("")) {
             return ErrorMessages.getErrorMessage(404);
         } else {
-            System.out.println(response.body());
             return response.body();
         }
     }

@@ -1,42 +1,21 @@
 package nl.tudelft.oopp.demo.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
-@Entity // This tells Hibernate to make a table out of this class
 public class Building {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
 
+    private int id;
     private String name;
     private String street;
     private int houseNumber;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "building")
     Set<Room> rooms = new HashSet<>();
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "location")
     Set<Bike> bikes = new HashSet<>();
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "building")
     Set<Restaurant> restaurants = new HashSet<>();
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "building")
-    Set<BuildingHours> buildingHours = new HashSet<>();
 
     public void setName(String name) {
         this.name = name;
