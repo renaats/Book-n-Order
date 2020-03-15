@@ -103,7 +103,7 @@ public class BikeReservationService {
                 int fromBuildingId = Integer.parseInt(value);
                 Optional<Building> optionalFromBuilding = buildingRepository.findById(fromBuildingId);
                 if (optionalFromBuilding.isEmpty()) {
-                    return 418;
+                    return 422;
                 }
                 Building fromBuilding = optionalFromBuilding.get();
                 bikeReservation.setFromBuilding(fromBuilding);
@@ -112,7 +112,7 @@ public class BikeReservationService {
                 int toBuildingId = Integer.parseInt(value);
                 Optional<Building> optionalToBuilding = buildingRepository.findById(toBuildingId);
                 if (optionalToBuilding.isEmpty()) {
-                    return 418;
+                    return 422;
                 }
                 Building toBuilding = optionalToBuilding.get();
                 bikeReservation.setFromBuilding(toBuilding);
@@ -121,7 +121,7 @@ public class BikeReservationService {
                 int bikeId = Integer.parseInt(value);
                 Optional<Bike> optionalBike = bikeRepository.findById(bikeId);
                 if (optionalBike.isEmpty()) {
-                    return 418;
+                    return 416;
                 }
                 Bike bike = optionalBike.get();
                 bikeReservation.setBike(bike);
