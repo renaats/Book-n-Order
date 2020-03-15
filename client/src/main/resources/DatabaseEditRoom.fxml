@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.DatabaseEditRoomController">
+   <ImageView fitHeight="720.0" fitWidth="1306.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@images/DatabaseRoomBackground.jpg" />
+      </image></ImageView>
+   <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="67.0" layoutY="-32.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@images/TuDelftLogo.png" />
+      </image>
+   </ImageView>
+   <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="255.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="521.0" AnchorPane.leftAnchor="255.0" AnchorPane.rightAnchor="425.0" AnchorPane.topAnchor="55.0">
+      <Image url="@images/booknorderlogo.png" />
+   </ImageView>
+   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00a6d6" height="28.0" layoutY="86.0" stroke="#00a6d6" strokeType="INSIDE" style="-fx-arc-height: 0; -fx-arc-width: 0;" width="1280.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0" />
+   <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="255.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="521.0" AnchorPane.leftAnchor="255.0" AnchorPane.rightAnchor="425.0" AnchorPane.topAnchor="55.0">
+      <Image url="@images/booknorderlogo.png" />
+   </ImageView>
+   <MenuBar layoutX="76.0" layoutY="86.0" maxWidth="1126.0" minWidth="600.0" prefHeight="26.0" prefWidth="1126.0" style="-fx-background-color: #00a6d6;" AnchorPane.leftAnchor="76.0" AnchorPane.rightAnchor="78.0">
+
+      <Menu mnemonicParsing="false" text="Building edit">
+         <items>
+            <MenuItem mnemonicParsing="false" onAction="#databaseAddRooms" text="Add" />
+            <MenuItem mnemonicParsing="false" onAction="#databaseEditRooms" text="Edit" />
+            <MenuItem mnemonicParsing="false" onAction="#databaseRemoveRooms" text="Remove" />
+         </items>
+      </Menu>
+   </MenuBar>
+   <ImageView fx:id="goToRoomMenuButton" fitHeight="26.0" fitWidth="41.0" layoutX="50.0" layoutY="86.0" onMouseClicked="#goToRoomMenu" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@images/DatabasemenuRoomIcon.png" />
+      </image>
+   </ImageView>
+   <Text fill="WHITE" layoutX="26.0" layoutY="387.0" strokeType="OUTSIDE" strokeWidth="0.0" text="© 2020 TU Delft. All rights reserved." AnchorPane.bottomAnchor="20.0">
+      <font>
+         <Font name="Calibri" size="10.0" />
+      </font>
+   </Text>
+   <Text fill="WHITE" layoutX="26.0" layoutY="371.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback is welcome" AnchorPane.bottomAnchor="35.0" />
+   <TextField fx:id="roomFindByIdTextField" layoutX="66.0" layoutY="193.0" promptText="ID" AnchorPane.leftAnchor="66.0" AnchorPane.topAnchor="193.0" />
+   <Text layoutX="67.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Find a room by:" AnchorPane.leftAnchor="67.0" AnchorPane.topAnchor="156.6552734375">
+      <font>
+         <Font size="17.0" />
+      </font>
+   </Text>
+   <Button fx:id="confirmFindByIdButton" layoutX="313.0" layoutY="193.0" mnemonicParsing="false" onAction="#room_id_ButtonClicked" prefHeight="26.0" prefWidth="61.0" style="-fx-background-color: #00a6d6;" text="Find" textFill="WHITE" AnchorPane.leftAnchor="313.0" AnchorPane.topAnchor="193.0" />
+   <ChoiceBox fx:id="updateChoiceBox" layoutX="113.0" layoutY="411.0" prefHeight="26.0" prefWidth="119.0" style="-fx-background-color: #00a6d6;" AnchorPane.leftAnchor="113.0" />
+   <Text layoutX="32.0" layoutY="431.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Attribute:" AnchorPane.leftAnchor="32.0" AnchorPane.topAnchor="412.6552734375">
+      <font>
+         <Font size="17.0" />
+      </font>
+   </Text>
+   <Text layoutX="26.0" layoutY="515.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Change to:" AnchorPane.leftAnchor="26.0" AnchorPane.topAnchor="496.6552734375">
+      <font>
+         <Font size="17.0" />
+      </font>
+   </Text>
+   <TextField fx:id="roomChangeToField" layoutX="113.0" layoutY="495.0" AnchorPane.leftAnchor="113.0" AnchorPane.topAnchor="495.0" />
+   <Button fx:id="confirmChangeButton" layoutX="287.0" layoutY="495.0" mnemonicParsing="false" onAction="#updateRoomButtonClicked" style="-fx-background-color: #00a6d6;" text="Change" textFill="WHITE" AnchorPane.leftAnchor="287.0" AnchorPane.topAnchor="495.0" />
+   <Button fx:id="roomFindAllButton" layoutX="319.0" layoutY="224.0" mnemonicParsing="false" onAction="#roomBuildingsButtonClicked" style="-fx-background-color: #00a6d6;" text="List all" textFill="WHITE" />
+   <ImageView fitHeight="41.0" fitWidth="44.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#mainMenu" pickOnBounds="true" preserveRatio="true">
+      <Image url="@images/HomeIcon.png" />
+   </ImageView>
+   <TextField layoutX="66.0" layoutY="224.0" promptText="Name" />
+   <TextField layoutX="66.0" layoutY="257.0" promptText="Building" /><TableView layoutX="451.0" layoutY="199.0" prefHeight="420.0" prefWidth="562.0">
+   <columns>
+      <TableColumn prefWidth="75.0" text="C1" />
+      <TableColumn prefWidth="75.0" text="C2" />
+   </columns>
+</TableView>
+   <Button layoutX="632.0" layoutY="635.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" style="-fx-background-color: #00a6d6;" text="Edit selected">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
+   <Text layoutX="451.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rooms:" AnchorPane.leftAnchor="451.0">
+      <font>
+         <Font size="26.0" />
+      </font>
+   </Text>
+</AnchorPane>
