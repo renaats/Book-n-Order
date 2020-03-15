@@ -1,10 +1,14 @@
 package nl.tudelft.oopp.demo.entities;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-
-import java.util.ArrayList;
-import javax.persistence.*;
 
 @Entity // This tells Hibernate to make a table out of this class
 public class Dish {
