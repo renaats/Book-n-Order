@@ -1,0 +1,119 @@
+package nl.tudelft.oopp.demo.views;
+
+import com.calendarfx.model.Calendar;
+import com.calendarfx.model.CalendarSource;
+import com.calendarfx.model.Entry;
+import com.calendarfx.view.CalendarView;
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import nl.tudelft.oopp.demo.communication.JsonMapper;
+import nl.tudelft.oopp.demo.communication.ServerCommunication;
+import nl.tudelft.oopp.demo.entities.AppUser;
+import nl.tudelft.oopp.demo.entities.RoomReservation;
+
+import java.time.*;
+import java.util.Date;
+import java.util.List;
+
+public class PersonalCalendarView extends Application {
+
+    private AppUser currentUser;
+    //Constructor
+//    public PersonalCalendarView(AppUser currentUser){
+//        this.currentUser = currentUser;
+//    }
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        CalendarView personalCalendar = new CalendarView();
+        Calendar bookedRooms = new Calendar("Room Bookings"); //calendar that stores reserved slot entries
+        bookedRooms.setStyle(Calendar.Style.STYLE2); //sets color of calendar to blue
+
+        Calendar orderedFood = new Calendar("Food Orders");
+        orderedFood.setStyle(Calendar.Style.STYLE1);
+
+        Calendar rentedBikes = new Calendar("Bike Rent");
+        rentedBikes.setStyle(Calendar.Style.STYLE3);
+
+        CalendarSource myCalendarSource = new CalendarSource("Calendars");
+        myCalendarSource.getCalendars().removeAll();
+        myCalendarSource.getCalendars().addAll(bookedRooms, orderedFood, rentedBikes);
+
+        personalCalendar.getCalendarSources().addAll(myCalendarSource);
+        personalCalendar.setRequestedTime(LocalTime.now());
+
+        List<RoomReservation> roomReservationList = JsonMapper.roomReservationsListMapper(ServerCommunication.getRoomReservations());
+
+        if(roomReservationList != null && !roomReservationList.isEmpty()){
+            for (RoomReservation reservation : roomReservationList) {
+                if (reservation.getAppUser().equals(this.currentUser)) {
+                    Entry<RoomReservation> bookedEntry = new Entry<>("Booking of " + reservation.getRoom().getName());
+
+                    LocalTime startTime = convertToLocalTime(reservation.getFromTime());
+                    LocalTime endTime = convertToLocalTime(reservation.getToTime());
+                    LocalDate date = convertToLocalDate(reservation.getFromTime());
+
+                    bookedEntry.setInterval(startTime, endTime);
+                    bookedEntry.setInterval(date);
+                    bookedRooms.addEntry(bookedEntry);
+                }
+            }
+        }
+
+        //Placeholder for loop to load food orders
+
+        //Placeholder for loop to load bike rentals
+
+        Thread updateTimeThread = new Thread("Calendar: Update Time Thread") {
+            @Override
+            public void run() {
+                while (true) {
+                    Platform.runLater(() -> {
+                        personalCalendar.setToday(LocalDate.now());
+                        personalCalendar.setTime(LocalTime.now());
+                    });
+
+                    try {
+                        // update every 10 seconds
+                        sleep(10000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+
+        updateTimeThread.setPriority(Thread.MIN_PRIORITY);
+        updateTimeThread.setDaemon(true);
+        updateTimeThread.start();
+
+        Scene scene = new Scene(personalCalendar);
+        primaryStage.setTitle("Room Bookings");
+        primaryStage.setScene(scene);
+        primaryStage.setWidth(1000);
+        primaryStage.setHeight(800);
+        primaryStage.centerOnScreen();
+        primaryStage.show();
+    }
+
+    public static void main(String[] args) {
+        launch();
+    }
+
+    public Date convertToDate(LocalTime time, LocalDate date){
+        LocalDateTime dateTime = LocalDateTime.of(date, time);
+        return Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant());
+    }
+
+    public LocalTime convertToLocalTime (Date date){
+        Instant instant1 = Instant.ofEpochMilli(date.getTime());
+        return LocalDateTime.ofInstant(instant1, ZoneId.systemDefault()).toLocalTime();
+    }
+
+    public LocalDate convertToLocalDate (Date date){
+        Instant instant1 = Instant.ofEpochMilli(date.getTime());
+        return LocalDateTime.ofInstant(instant1, ZoneId.systemDefault()).toLocalDate();
+    }
+}

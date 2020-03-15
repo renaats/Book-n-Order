@@ -123,7 +123,7 @@ public class RoomCalendarView extends Application {
         if (e.isEntryAdded()) {
             ServerCommunication.addRoomReservation(this.room.getName(), this.room.getBuilding().getId(), userId, start, end);
             System.out.println(start.toString());
-        } else if (e.isEntryRemoved()){ System.out.println("entry removed");
+        } else if (e.isEntryRemoved()){System.out.println("entry removed");
             //ServerCommunication.deleteRoomReservation(e.getEntry().ge);
         } else {
             //ServerCommunication.updateRoomReservation(reservationId, old value, new);
