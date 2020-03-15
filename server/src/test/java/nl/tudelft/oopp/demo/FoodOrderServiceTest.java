@@ -122,8 +122,8 @@ public class FoodOrderServiceTest {
         foodOrder = foodOrders.get(0);
         foodOrder2 = foodOrders.get(1);
         assertNotEquals(foodOrderService.find(foodOrder.getId()), foodOrderService.find(foodOrder2.getId()));
-        //foodOrderService.update(foodOrder2.getId(), "deliveryTime", Long.toString(deliverTimeMs));
-        //assertEquals(foodOrderService.find(foodOrder.getId()), foodOrderService.find(foodOrder2.getId()));
+        foodOrderService.update(foodOrder2.getId(), "deliveryTime", Long.toString(deliverTimeMs));
+        assertEquals(foodOrderService.find(foodOrder.getId()), foodOrderService.find(foodOrder2.getId()));
     }
 
     @Test
