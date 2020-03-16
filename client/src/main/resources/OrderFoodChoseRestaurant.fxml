@@ -13,7 +13,7 @@
     </ImageView>
     <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="67.0" layoutY="-32.0" pickOnBounds="true" preserveRatio="true">
         <image>
-            <Image url="@images/TuDelftLogo.png" />
+            <Image url="@images/TuDelftLogoFinal.png" />
         </image>
     </ImageView>
     <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="255.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="521.0" AnchorPane.leftAnchor="255.0" AnchorPane.rightAnchor="425.0" AnchorPane.topAnchor="55.0">
@@ -39,7 +39,7 @@
     </ImageView>
     <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="67.0" layoutY="-32.0" pickOnBounds="true" preserveRatio="true">
         <image>
-            <Image url="@images/TuDelftLogo.png" />
+            <Image url="@images/TuDelftLogoFinal.png" />
         </image>
     </ImageView>
     <TableView fx:id="restaurantsTable" layoutX="171.0" layoutY="225.0" prefHeight="384.0" prefWidth="226.0">

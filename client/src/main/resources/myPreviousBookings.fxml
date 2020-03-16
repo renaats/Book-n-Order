@@ -14,7 +14,7 @@
     </ImageView>
     <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="67.0" layoutY="-32.0" pickOnBounds="true" preserveRatio="true">
         <image>
-            <Image url="@images/TuDelftLogo.png" />
+            <Image url="@images/TuDelftLogoFinal.png" />
         </image>
     </ImageView>
     <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="255.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="521.0" AnchorPane.leftAnchor="255.0" AnchorPane.rightAnchor="425.0" AnchorPane.topAnchor="55.0">
@@ -39,7 +39,7 @@
     <Button layoutX="845.0" layoutY="463.0" maxHeight="26.0" maxWidth="174.0" minHeight="26.0" minWidth="136.0" mnemonicParsing="false" onAction="#myPreviousBikeReservations" prefHeight="26.0" prefWidth="174.0" style="-fx-background-color: #00a6d6;" text="My past bike reservations" textFill="WHITE" AnchorPane.leftAnchor="845.0" AnchorPane.rightAnchor="261.0" AnchorPane.topAnchor="463.0" />
     <Button layoutX="255.0" layoutY="463.0" maxHeight="26.0" maxWidth="174.0" minHeight="26.0" minWidth="174.0" mnemonicParsing="false" onAction="#myPreviousRoomBookings" prefHeight="26.0" prefWidth="174.0" style="-fx-background-color: #00a6d6;" text="My past room bookings" textFill="WHITE" AnchorPane.leftAnchor="255.0" AnchorPane.topAnchor="463.0" />
     <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="857.0" layoutY="308.0" onMouseClicked="#myPreviousBikeReservations" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="273.0" AnchorPane.topAnchor="308.0">
-        <Image url="@images/bikeIcon.png" />
+        <Image url="@images/bikeIconFinalWithCircle.png" />
         <cursor>
             <Cursor fx:constant="HAND" />
         </cursor>
@@ -64,7 +64,7 @@
     </ImageView>
     <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="67.0" layoutY="-32.0" pickOnBounds="true" preserveRatio="true">
         <image>
-            <Image url="@images/TuDelftLogo.png" />
+            <Image url="@images/TuDelftLogoFinal.png" />
         </image>
     </ImageView>
     <ImageView fitHeight="41.0" fitWidth="69.0" layoutX="14.0" layoutY="69.0" onMouseClicked="#goToMyAccount" pickOnBounds="true" preserveRatio="true">

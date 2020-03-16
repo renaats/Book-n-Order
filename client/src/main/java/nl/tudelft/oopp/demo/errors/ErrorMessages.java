@@ -1,13 +1,13 @@
 package nl.tudelft.oopp.demo.errors;
 
 public class ErrorMessages {
-    private static final String addedMessage = "Succesfully added!";
+    private static final String addedMessage = "Successfully added!";
     private static final String notFoundMessage = "Not found.";
     private static final String unAuthorizedMessage = "You do not have the proper authorization.";
     private static final String preConditionFailedMessage = "Attribute does not exist!";
     private static final String IdNotFoundMessage = "No results on ID.";
     private static final String hasRoomsMessage = "Building has rooms.";
-    private static final String executedMessage = "Succesfully executed.";
+    private static final String executedMessage = "Successfully executed.";
     private static final String alreadyReservedMessage = "Already reserved at this timeslot.";
     private static final String roomNotFoundMessage = "Room not found.";
     private static final String userNotFoundMessage = "User not found.";
@@ -16,10 +16,17 @@ public class ErrorMessages {
     private static final String buildingNotFoundMessage = "Building not found.";
     private static final String nameAlreadyExistsMessage = "Name already exists.";
     private static final String emailAlreadyExistsMessage = "Email already exists.";
-    private static final String inproperLoginCredentialsMessage = "Login and/or password is incorrect.";
+    private static final String improperLoginCredentialsMessage = "Login and/or password is incorrect.";
     private static final String invalidEmailMessage = "You have to input a valid email.";
     private static final String invalidEmailDomainMessage = "A TU Delft email is required. To create a restaurant account please contact an admin.";
+    private static final String invalidDayMessage = "Invalid day.";
+    private static final String endBeforeStartMessage = "End time cannot be before start time.";
+    private static final String duplicateBuildingDayMessage = "This building already has a time for this day.";
+    private static final String restaurantNotFoundMessage = "Restaurant not found.";
+    private static final String unsupportedEncodingMessage = "Please enter an encoding that is supported by the URLEncode class.";
     private static final String somethingWentWrongMessage = "Something went wrong.";
+    private static final String menuNotFoundMessage = "Menu not found.";
+    private static final String dishNotFoundMessage = "Dish not found.";
     private static int code;
 
     /**
@@ -32,7 +39,7 @@ public class ErrorMessages {
      * 4xx: Client Error. This category of error status codes points the finger at clients.
      * 5xx: Server Error. The server takes responsibility for these error status codes.
      *.............
-     * Moreover, none of the alreadt existing HTTP Status Codes have been used see https://restfulapi.net/http-status-codes/ for reference.
+     * Moreover, none of the already existing HTTP Status Codes have been used see https://restfulapi.net/http-status-codes/ for reference.
      *
      * @param code error code
      * @return message, string
@@ -50,7 +57,7 @@ public class ErrorMessages {
             case 310:
                 return emailAlreadyExistsMessage;
             case 311:
-                return inproperLoginCredentialsMessage;
+                return improperLoginCredentialsMessage;
             case 401:
                 return unAuthorizedMessage;
             case 404:
@@ -75,6 +82,20 @@ public class ErrorMessages {
                 return invalidEmailMessage;
             case 424:
                 return invalidEmailDomainMessage;
+            case 425:
+                return invalidDayMessage;
+            case 426:
+                return endBeforeStartMessage;
+            case 427:
+                return duplicateBuildingDayMessage;
+            case 428:
+                return restaurantNotFoundMessage;
+            case 429:
+                return menuNotFoundMessage;
+            case 430:
+                return dishNotFoundMessage;
+            case 502:
+                return unsupportedEncodingMessage;
             default:
                 return somethingWentWrongMessage;
         }
