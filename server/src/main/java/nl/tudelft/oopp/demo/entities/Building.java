@@ -26,6 +26,21 @@ public class Building {
     private String street;
     private int houseNumber;
 
+    /** Creates a new instance of Building.
+     * @param name the name of the building.
+     * @param street the street name of the building's address.
+     * @param houseNumber the house number of the building.
+     */
+    public Building(String name, String street, int houseNumber) {
+        this.name = name;
+        this.street = street;
+        this.houseNumber = houseNumber;
+    }
+
+    public Building() {
+
+    }
+
     @JsonIgnore
     @OneToMany(mappedBy = "building")
     Set<Room> rooms = new HashSet<>();

@@ -14,6 +14,20 @@ public class Menu {
 
     Set<Dish> dishes = new HashSet<>();
 
+    /**
+     * Creates a new instance of Menu.
+     * @param name = name of the menu.
+     * @param restaurant = restaurant to which menu is associated.
+     */
+    public Menu(String name, Restaurant restaurant) {
+        this.name = name;
+        this.restaurant = restaurant;
+    }
+
+    public Menu() {
+
+    }
+
     public Restaurant getRestaurant() {
         return restaurant;
     }

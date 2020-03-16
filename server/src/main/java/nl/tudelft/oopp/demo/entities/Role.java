@@ -26,6 +26,19 @@ public class Role {
     @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
     private Set<AppUser> appUsers;
 
+    /**
+     * Creates a new instance of Role.
+     * @param name = name of the role.
+
+     */
+    public Role(String name) {
+        this.name = name;
+    }
+
+    public Role() {
+
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -44,17 +57,5 @@ public class Role {
 
     public Set<AppUser> getAppUsers() {
         return appUsers;
-    }
-
-    /**
-     * Constructs a Role entity.
-     * @param id the unique id of this role.
-     * @param name the name of this role.
-     * @param users the set of users with this role.
-     */
-    public Role(int id, String name, Set<User> users) {
-        this.id = id;
-        this.name = name;
-        this.users = users;
     }
 }

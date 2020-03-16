@@ -31,8 +31,7 @@ class RoleTest {
      */
     @BeforeEach
     public void setup() {
-        role = new Role();
-        role.setName("ROLE_USER");
+        role = new Role("ROLE_USER");
         role.setAppUsers(new HashSet<>());
         roleRepository.save(role);
     }
@@ -74,8 +73,7 @@ class RoleTest {
         AppUser user = new AppUser();
         Set<AppUser> userSet = new HashSet<>();
         userSet.add(user);
-        role2 = new Role();
-        role2.setName("ROLE_ADMIN");
+        role2 = new Role("ROLE_ADMIN");
         role2.setAppUsers(userSet);
         assertEquals(role2.getName(), "ROLE_ADMIN");
         assertEquals(role2.getAppUsers(), userSet);
@@ -86,12 +84,7 @@ class RoleTest {
      */
     @Test
     public void testUserRole() {
-        AppUser appUser = new AppUser();
-        appUser.setEmail("R.Jursevskis@student.tudelft.nl");
-        appUser.setPassword("1234");
-        appUser.setName("Renats");
-        appUser.setSurname("Jursevskis");
-        appUser.setFaculty("EWI");
+        AppUser appUser = new AppUser("R.Jursevskis@student.tudelft.nl", "1234", "Renats", "Jursevskis", "EWI");
         appUser.setRoomReservations(new HashSet<>());
 
         Set<Role> roleSet = new HashSet<>();

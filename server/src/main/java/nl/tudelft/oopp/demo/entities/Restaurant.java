@@ -42,6 +42,27 @@ public class Restaurant {
     @JoinColumn
     private Menu menu;
 
+    /**
+     * Creates a new instance of Restaurant.
+     * @param building = building in which restaurant is located.
+     * @param name = name of the restaurant.
+     * @param menu = menu of the restaurant.
+     */
+    public Restaurant(Building building, String name, Menu menu) {
+        this.building = building;
+        this.name = name;
+        this.menu = menu;
+    }
+
+    public Restaurant(Building building, String name) {
+        this.building = building;
+        this.name = name;
+    }
+
+    public Restaurant() {
+
+    }
+
     @JsonIgnore
     @OneToMany(mappedBy = "restaurant")
     Set<RestaurantHours> restaurantHours = new HashSet<>();

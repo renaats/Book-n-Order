@@ -3,7 +3,6 @@ package nl.tudelft.oopp.demo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -71,49 +70,31 @@ public class MenuServiceTest {
      */
     @BeforeEach
     public void setup() {
-        building2 = new Building();
-        building2.setName("EWI2");
-        building2.setStreet("Mekelweg2");
-        building2.setHouseNumber(42);
+        building2 = new Building("EWI2", "Mekelweg2", 42);
         buildingRepository.save(building2);
 
-        restaurant1 = new Restaurant();
-        restaurant1.setName("Hangout");
-        restaurant1.setBuilding(building);
+        restaurant1 = new Restaurant(building, "Hangout");
         restaurantRepository.save(restaurant1);
 
-        restaurant2 = new Restaurant();
-        restaurant2.setName("Food station");
-        restaurant2.setBuilding(building2);
+        restaurant2 = new Restaurant(building2, "Food station");
         restaurantRepository.save(restaurant2);
 
-        dish = new Dish();
-        dish.setMenu(menu1);
-        dish.setName("Chicken");
+        dish = new Dish("Chicken", menu1);
         dishRepository.save(dish);
 
-        dish2 = new Dish();
-        dish.setMenu(menu2);
-        dish.setName("Spicy Chicken");
+        dish2 = new Dish("Spicy Chicken", menu2);
         dishRepository.save(dish2);
 
         dishes = new HashSet<>();
         dishes.add(dish);
         dishes.add(dish2);
 
-        menu1 = new Menu();
-        menu1.setName("KFC menu");
-        menu1.setRestaurant(restaurant1);
+        menu1 = new Menu("KFC menu", restaurant1);
         menu1.setDishes(dishes);
 
-        menu2 = new Menu();
-        menu2.setName("BK menu");
-        menu2.setRestaurant(restaurant2);
+        menu2 = new Menu("BK menu", restaurant2);
 
-        building = new Building();
-        building.setName("EWI");
-        building.setStreet("Mekelweg");
-        building.setHouseNumber(4);
+        building = new Building("EWI", "Mekelweg", 4);
         buildingRepository.save(building);
     }
 

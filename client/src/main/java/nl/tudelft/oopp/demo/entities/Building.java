@@ -17,6 +17,21 @@ public class Building {
 
     Set<Restaurant> restaurants = new HashSet<>();
 
+    /** Creates a new instance of Building.
+     * @param name the name of the building.
+     * @param street the street name of the building's address.
+     * @param houseNumber the house number of the building.
+     */
+    public Building(String name, String street, int houseNumber) {
+        this.name = name;
+        this.street = street;
+        this.houseNumber = houseNumber;
+    }
+
+    public Building() {
+
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -32,7 +47,6 @@ public class Building {
     public void setRooms(Set<Room> rooms) {
         this.rooms = rooms;
     }
-
 
     public Integer getId() {
         return id;
@@ -53,7 +67,6 @@ public class Building {
     public Set<Room> getRooms() {
         return rooms;
     }
-
 
     public boolean hasRooms() {
         return rooms.size() > 0;

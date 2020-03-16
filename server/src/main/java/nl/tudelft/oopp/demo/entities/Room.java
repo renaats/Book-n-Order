@@ -42,10 +42,35 @@ public class Room {
     private int nrPeople;
     private int plugs;
 
+    /**
+     * Creates a new instance of Room.
+     * @param name = name of the room.
+     * @param building = building in which room is situated.
+     * @param faculty = name of the faculty.
+     * @param facultySpecific = whether the room is faculty specific.
+     * @param projector = whether the room has a projector.
+     * @param screen = whether the room has a screen.
+     * @param nrPeople = number of people who can sit in the room.
+     * @param plugs = number of plugs in the room.
+     */
+    public Room(String name, Building building, String faculty, boolean facultySpecific, boolean projector, boolean screen, int nrPeople, int plugs) {
+        this.name = name;
+        this.building = building;
+        this.faculty = faculty;
+        this.facultySpecific = facultySpecific;
+        this.projector = projector;
+        this.screen = screen;
+        this.nrPeople = nrPeople;
+        this.plugs = plugs;
+    }
+
+    public Room() {
+
+    }
+
     @JsonIgnore
     @OneToMany(mappedBy = "room")
     Set<RoomReservation> roomReservations = new HashSet<>();
-
 
     public void setName(String name) {
         this.name = name;

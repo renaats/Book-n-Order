@@ -66,36 +66,20 @@ public class BikeReservationServiceTest {
      */
     @BeforeEach
     public void setup() {
-        appUser = new AppUser();
-        appUser.setEmail("l.j.jongejans@student.tudelft.nl");
-        appUser.setPassword("1234");
-        appUser.setName("Liselotte");
-        appUser.setSurname("Jongejans");
-        appUser.setFaculty("EWI");
+        appUser = new AppUser("l.j.jongejans@student.tudelft.nl", "1234", "Liselotte", "Jongejans", "EWI");
         appUser.setBikeReservations(new HashSet<>());
         userRepository.save(appUser);
 
-        fromBuilding = new Building();
-        fromBuilding.setName("Sporthal");
-        fromBuilding.setStreet("Mekelweg");
-        fromBuilding.setHouseNumber(8);
+        fromBuilding = new Building("Sporthal", "Mekelweg", 8);
         buildingRepository.save(fromBuilding);
 
-        toBuilding = new Building();
-        toBuilding.setName("EWI");
-        toBuilding.setStreet("Mekelweg");
-        toBuilding.setHouseNumber(4);
+        toBuilding = new Building("EWI", "Mekelweg", 4);
         buildingRepository.save(toBuilding);
 
-        toBuilding2 = new Building();
-        toBuilding2.setName("Library");
-        toBuilding2.setStreet("Prometheusplein");
-        toBuilding2.setHouseNumber(1);
+        toBuilding2 = new Building("Library", "Prometheusplein", 1);
         buildingRepository.save(toBuilding2);
 
-        bike = new Bike();
-        bike.setLocation(fromBuilding);
-        bike.setAvailable(true);
+        bike = new Bike(fromBuilding, true);
         bikeRepository.save(bike);
 
         fromTime = new Date(10000000000L);
@@ -104,21 +88,9 @@ public class BikeReservationServiceTest {
         toTime = new Date(11000000000L);
         toTimeMs = toTime.getTime();
 
-        bikeReservation = new BikeReservation();
-        bikeReservation.setAppUser(appUser);
-        bikeReservation.setFromBuilding(fromBuilding);
-        bikeReservation.setToBuilding(toBuilding);
-        bikeReservation.setBike(bike);
-        bikeReservation.setFromTime(fromTime);
-        bikeReservation.setToTime(toTime);
+        bikeReservation = new BikeReservation(bike, appUser, fromBuilding, toBuilding, fromTime, toTime);
 
-        bikeReservation2 = new BikeReservation();
-        bikeReservation2.setAppUser(appUser);
-        bikeReservation2.setFromBuilding(fromBuilding);
-        bikeReservation2.setToBuilding(toBuilding2);
-        bikeReservation2.setBike(bike);
-        bikeReservation2.setFromTime(fromTime);
-        bikeReservation2.setToTime(toTime);
+        bikeReservation2 = new BikeReservation(bike, appUser, fromBuilding, toBuilding2, fromTime, toTime);
     }
 
     @Test

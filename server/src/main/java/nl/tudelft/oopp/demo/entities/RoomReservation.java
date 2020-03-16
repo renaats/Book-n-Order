@@ -43,6 +43,22 @@ public class RoomReservation {
     @Temporal(TemporalType.TIMESTAMP)
     private Date toTime;
 
+    /** Creates a new instance of FoodOrder.
+     * @param room the reserved room.
+     * @param appUser user who booked the room.
+     * @param fromTime time at which the room reservation starts.
+     * @param toTime time at which the room reservation ends.
+     */
+    public RoomReservation(Room room, AppUser appUser, Date fromTime, Date toTime) {
+        this.room = room;
+        this.appUser = appUser;
+        this.fromTime = fromTime;
+        this.toTime = toTime;
+    }
+
+    public RoomReservation() {
+
+    }
 
     public void setRoom(Room room) {
         this.room = room;
@@ -59,7 +75,6 @@ public class RoomReservation {
     public void setToTime(Date toTime) {
         this.toTime = toTime;
     }
-
 
     public Integer getId() {
         return id;
@@ -79,22 +94,6 @@ public class RoomReservation {
 
     public Date getToTime() {
         return toTime;
-    }
-
-    /**
-     * Constructs a RoomReservation entity.
-     * @param id unique id of the RoomReservation.
-     * @param room the room that this reservation corresponds to.
-     * @param user the user this reservations was made by.
-     * @param fromTime starting time of this reservation.
-     * @param toTime ending time of this reservation.
-     */
-    public RoomReservation(Integer id, Room room, User user, Date fromTime, Date toTime) {
-        this.id = id;
-        this.room = room;
-        this.user = user;
-        this.fromTime = fromTime;
-        this.toTime = toTime;
     }
 
     @Override

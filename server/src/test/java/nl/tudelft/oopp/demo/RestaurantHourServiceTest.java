@@ -81,18 +81,11 @@ public class RestaurantHourServiceTest {
      */
     @BeforeEach
     public void setup() {
-        building = new Building();
-        building.setName("EWI");
-        building.setStreet("Mekelweg");
-        building.setHouseNumber(4);
+        building = new Building("EWI", "Mekelweg", 4);
 
-        restaurant = new Restaurant();
-        restaurant.setName("Food Station");
-        restaurant.setBuilding(building);
+        restaurant = new Restaurant(building, "Food Station");
 
-        restaurant2 = new Restaurant();
-        restaurant2.setName("Hangout");
-        restaurant2.setBuilding(building);
+        restaurant2 = new Restaurant(building, "Hangout");
 
         assertEquals(201, buildingService.add("EWI", "Mekelweg", 4));
         building = buildingService.find("EWI");

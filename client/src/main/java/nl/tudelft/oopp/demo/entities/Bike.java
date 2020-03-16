@@ -8,6 +8,19 @@ public class Bike {
     private Building location;
     private boolean available;
 
+    /** Creates a new instance of Bike.
+     * @param location the location of the building where the bike is located.
+     * @param available whether the bike is available for renting.
+     */
+    public Bike(Building location, boolean available) {
+        this.location = location;
+        this.available = available;
+    }
+
+    public Bike() {
+
+    }
+
     public void setLocation(Building location) {
         this.location = location;
     }
@@ -15,7 +28,6 @@ public class Bike {
     public void setAvailable(boolean available) {
         this.available = available;
     }
-
 
     public int getId() {
         return id;

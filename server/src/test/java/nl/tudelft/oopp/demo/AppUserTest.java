@@ -32,12 +32,7 @@ public class AppUserTest {
      */
     @BeforeEach
     public void setup() {
-        appUser = new AppUser();
-        appUser.setEmail("R.Jursevskis@student.tudelft.nl");
-        appUser.setPassword("1234");
-        appUser.setName("Renats");
-        appUser.setSurname("Jursevskis");
-        appUser.setFaculty("EWI");
+        appUser = new AppUser("R.Jursevskis@student.tudelft.nl", "1234", "Renats", "Jursevskis", "EWI");
         appUser.setRoomReservations(new HashSet<>());
         userRepository.save(appUser);
     }

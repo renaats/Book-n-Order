@@ -11,7 +11,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 @Entity // This tells Hibernate to make a table out of this class
-public class User {
+public class AppUser {
     @Id
     private String email;
     private String password;
@@ -20,6 +20,28 @@ public class User {
     private String faculty;
     @ManyToMany
     private Set<Role> roles;
+
+    /**
+     * Constructs an AppUser entity.
+     * @param email the user's email.
+     * @param password the user's password.
+     * @param name the user's first name.
+     * @param surname the user's last name.
+     * @param faculty the faculty the user belongs to.
+     */
+    public AppUser(String email, String password, String name, String surname, String faculty) {
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.surname = surname;
+        this.faculty = faculty;
+        this.roles = roles;
+        this.roomReservations = roomReservations;
+    }
+
+    public AppUser() {
+
+    }
 
     @JsonIgnore
     @OneToMany(mappedBy = "user")
@@ -82,24 +104,6 @@ public class User {
         return roomReservations;
     }
 
-    /**
-     * Constructs a User entity.
-     * @param email the user's email.
-     * @param password the user's password.
-     * @param name the user's first name.
-     * @param surname the user's last name.
-     * @param faculty the faculty the user belongs to.
-     */
-    public User(String email, String password, String name, String surname, String faculty) {
-        this.email = email;
-        this.password = password;
-        this.name = name;
-        this.surname = surname;
-        this.faculty = faculty;
-        this.roles = roles;
-        this.roomReservations = roomReservations;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -108,14 +112,14 @@ public class User {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        User user = (User) o;
-        return email.equals(user.email)
-                && Objects.equals(password, user.password)
-                && Objects.equals(name, user.name)
-                && Objects.equals(surname, user.surname)
-                && Objects.equals(faculty, user.faculty)
-                && Objects.equals(roles, user.roles)
-                && Objects.equals(roomReservations, user.roomReservations);
+        AppUser appUser = (AppUser) o;
+        return email.equals(appUser.email)
+                && Objects.equals(password, appUser.password)
+                && Objects.equals(name, appUser.name)
+                && Objects.equals(surname, appUser.surname)
+                && Objects.equals(faculty, appUser.faculty)
+                && Objects.equals(roles, appUser.roles)
+                && Objects.equals(roomReservations, appUser.roomReservations);
     }
 
 }

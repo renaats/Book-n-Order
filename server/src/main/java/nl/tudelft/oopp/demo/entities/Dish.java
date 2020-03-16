@@ -29,6 +29,20 @@ public class Dish {
     @JoinColumn
     private Menu menu;
 
+    /**
+     * Creates a new instance of Dish.
+     * @param name = name of the dish.
+     * @param menu = menu to which dish is associated.
+     */
+    public Dish(String name, Menu menu) {
+        this.name = name;
+        this.menu = menu;
+    }
+
+    public Dish() {
+
+    }
+
     public Menu getMenu() {
         return menu;
     }
