@@ -1,60 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.RegistrationController">
+<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.RegistrationController">
    <children>
-      <ImageView cache="true" cacheHint="QUALITY" depthTest="DISABLE" fitHeight="600.0" fitWidth="800.0" opacity="0.5" pickOnBounds="true">
+      <ImageView cache="true" cacheHint="QUALITY" depthTest="DISABLE" fitHeight="720.0" fitWidth="1280.0" opacity="0.5" pickOnBounds="true">
          <image>
             <Image url="@../../../../images/tudelft.jpeg" />
          </image>
       </ImageView>
       <Pane layoutX="167.0" layoutY="300.0" opacity="0.75" prefHeight="342.0" prefWidth="466.0" style="-fx-border-color: #439FDA; -fx-border-width: 5; -fx-background-color: white;" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="167.0" AnchorPane.rightAnchor="167.0">
          <children>
-            <Text fill="#439fd9" layoutX="33.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email">
+            <Text fill="#439fd9" layoutX="272.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
             </Text>
-            <Text fill="#439fd9" layoutX="33.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
+            <Text fill="#439fd9" layoutX="270.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
             </Text>
-            <TextField fx:id="emailField" layoutX="33.0" layoutY="69.0" prefHeight="25.0" prefWidth="400.0" />
-            <TextField fx:id="nameField" layoutX="33.0" layoutY="136.0" prefHeight="25.0" prefWidth="183.0" />
-            <TextField fx:id="surnameField" layoutX="250.0" layoutY="136.0" prefHeight="25.0" prefWidth="183.0" />
-            <ChoiceBox fx:id="facultyChoiceBox" layoutX="34.0" layoutY="199.0" prefHeight="25.0" prefWidth="400.0" />
-            <PasswordField fx:id="passwordField" layoutX="33.0" layoutY="263.0" prefHeight="26.0" prefWidth="400.0" />
-            <Text layoutX="143.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Registration form">
+            <TextField fx:id="emailField" layoutX="272.0" layoutY="61.0" prefHeight="25.0" prefWidth="400.0" promptText="Email" />
+            <TextField fx:id="nameField" layoutX="273.0" layoutY="124.0" prefHeight="25.0" prefWidth="183.0" promptText="First Name" />
+            <TextField fx:id="surnameField" layoutX="489.0" layoutY="124.0" prefHeight="25.0" prefWidth="183.0" promptText="Surname" />
+            <ChoiceBox fx:id="facultyChoiceBox" layoutX="273.0" layoutY="189.0" prefHeight="25.0" prefWidth="400.0" />
+            <PasswordField fx:id="passwordField" layoutX="273.0" layoutY="262.0" prefHeight="26.0" prefWidth="400.0" promptText="Password" />
+            <Text layoutX="381.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Registration form">
                <font>
                   <Font name="DejaVu Sans ExtraLight" size="21.0" />
                </font>
             </Text>
-            <Text fill="#439fd9" layoutX="33.0" layoutY="254.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password">
+            <Text fill="#439fd9" layoutX="270.0" layoutY="247.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
             </Text>
-            <Text fill="#439fd9" layoutX="250.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Surname">
+            <Text fill="#439fd9" layoutX="489.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Surname">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
             </Text>
-            <Text fill="#439fd9" layoutX="33.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Faculty">
+            <Text fill="#439fd9" layoutX="273.0" layoutY="177.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Faculty">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
             </Text>
+            <PasswordField layoutX="273.0" layoutY="303.0" prefHeight="25.0" prefWidth="400.0" promptText="Re-enter Password" />
          </children></Pane>
       <ImageView fitHeight="141.0" fitWidth="200.0" layoutX="30.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
@@ -66,12 +61,12 @@
             <Font name="System Bold" size="17.0" />
          </font>
       </Button>
-      <Text layoutX="276.0" layoutY="264.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book 'n Order" AnchorPane.bottomAnchor="500.0" AnchorPane.leftAnchor="275.8078125" AnchorPane.rightAnchor="276.9921875">
+      <Text layoutX="516.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book 'n Order" AnchorPane.bottomAnchor="560.509765625" AnchorPane.leftAnchor="516.0" AnchorPane.rightAnchor="516.9921875">
          <font>
             <Font name="DejaVu Sans ExtraLight" size="36.0" />
          </font>
       </Text>
-      <Button fx:id="loginButton" layoutX="643.0" layoutY="67.0" mnemonicParsing="false" onAction="#loginScene" prefHeight="38.0" prefWidth="90.0" style="-fx-background-color: #439fd9;" text="Login" textAlignment="CENTER" textFill="WHITE">
+      <Button fx:id="loginButton" layoutX="1035.0" layoutY="139.0" mnemonicParsing="false" onAction="#loginScene" prefHeight="38.0" prefWidth="90.0" style="-fx-background-color: #439fd9;" text="Login" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>
