@@ -75,6 +75,14 @@ public class RoomReservation {
         return toTime;
     }
 
+    /**
+     * Constructs a RoomReservation entity.
+     * @param id unique id of the RoomReservation.
+     * @param room the room that this reservation corresponds to.
+     * @param user the user this reservations was made by.
+     * @param fromTime starting time of this reservation.
+     * @param toTime ending time of this reservation.
+     */
     public RoomReservation(Integer id, Room room, User user, Date fromTime, Date toTime) {
         this.id = id;
         this.room = room;

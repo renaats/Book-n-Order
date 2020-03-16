@@ -82,8 +82,15 @@ public class User {
         return roomReservations;
     }
 
-    public User(String email, String password, String name, String surname, String faculty, Set<Role> roles,
-                Set<RoomReservation> roomReservations) {
+    /**
+     * Constructs a User entity.
+     * @param email the user's email.
+     * @param password the user's password.
+     * @param name the user's first name.
+     * @param surname the user's last name.
+     * @param faculty the faculty the user belongs to.
+     */
+    public User(String email, String password, String name, String surname, String faculty) {
         this.email = email;
         this.password = password;
         this.name = name;

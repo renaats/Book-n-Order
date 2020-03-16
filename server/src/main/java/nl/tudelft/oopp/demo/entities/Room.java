@@ -124,6 +124,19 @@ public class Room {
         return roomReservations.size() > 0;
     }
 
+    /**
+     * Constructs a Room entity.
+     * @param id the unique id of this room.
+     * @param name the name of this room.
+     * @param building the building that this room belongs to.
+     * @param faculty the faculty that this room belongs to.
+     * @param facultySpecific true if this building belongs to a faculty, false otherwise.
+     * @param projector true if this room has a projector, false otherwise.
+     * @param screen true if this room has a screen, false otherwise.
+     * @param nrPeople number of people this room is designed to accomodate.
+     * @param plugs number of electric plugs available in this room.
+     * @param roomReservations reservations of this room.
+     */
     public Room(Integer id, String name, Building building, String faculty, boolean facultySpecific, boolean projector,
                 boolean screen, int nrPeople, int plugs, Set<RoomReservation> roomReservations) {
         this.id = id;

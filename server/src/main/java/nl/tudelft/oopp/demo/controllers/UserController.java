@@ -39,13 +39,7 @@ public class UserController {
         if (userRepository.existsById(email)) {
             return "The account with email " + email + " already exists!";
         }
-        User user = new User();
-
-        user.setEmail(email);
-        user.setPassword(password);
-        user.setName(name);
-        user.setSurname(surname);
-        user.setFaculty(faculty);
+        User user = new User(email, password, name, surname, faculty);
         userRepository.save(user);
         return "Account created!";
     }

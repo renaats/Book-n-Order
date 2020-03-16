@@ -40,6 +40,12 @@ public class Role {
         return users;
     }
 
+    /**
+     * Constructs a Role entity.
+     * @param id the unique id of this role.
+     * @param name the name of this role.
+     * @param users the set of users with this role.
+     */
     public Role(int id, String name, Set<User> users) {
         this.id = id;
         this.name = name;
