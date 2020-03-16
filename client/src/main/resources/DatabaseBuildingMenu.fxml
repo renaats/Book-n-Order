@@ -29,10 +29,6 @@
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor></Button>
-    <Button fx:id="goToRemoveRooms" layoutX="138.0" layoutY="369.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#goToRemoveBuildings" style="-fx-background-color: #00a6d6;" text="Go to remove Buildings" textFill="WHITE">
-      <cursor>
-         <Cursor fx:constant="HAND" />
-      </cursor></Button>
     <TextArea fx:id="BuildingDisplay" layoutX="550.0" layoutY="205.0" prefHeight="379.0" prefWidth="511.0" />
     <Button fx:id="goToEditRooms" layoutX="138.0" layoutY="426.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#goToEditBuildings" style="-fx-background-color: #00a6d6;" text="Go to edit Buildings" textFill="WHITE">
       <cursor>

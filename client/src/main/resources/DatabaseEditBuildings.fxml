@@ -4,10 +4,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.DatabaseEditBuildingController">
+<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.DatabaseEditBuildingController">
    <ImageView fitWidth="1280.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@images/mainMenuBackground.jpg" />
@@ -22,21 +21,7 @@
    </ImageView>
    <ImageView fitHeight="41.0" fitWidth="44.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#mainMenu" pickOnBounds="true" preserveRatio="true"><Image url="@images/HomeIconTransparent.png" />
    </ImageView>
-   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00a6d6" height="28.0" layoutY="86.0" stroke="#00a6d6" strokeType="INSIDE" style="-fx-arc-height: 0; -fx-arc-width: 0;" width="1280.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0" />
-   <MenuBar layoutX="79.0" layoutY="87.0" maxWidth="1280.0" minWidth="799.0" prefHeight="26.0" prefWidth="799.0" style="-fx-background-color: #00a6d6;" AnchorPane.leftAnchor="79.0" AnchorPane.rightAnchor="402.0">
-
-      <Menu mnemonicParsing="false" text="Building edit">
-         <items>
-            <MenuItem mnemonicParsing="false" onAction="#goToAddBuildings" text="Add" />
-            <MenuItem mnemonicParsing="false" onAction="#goToEditBuildings" text="Edit" />
-            <MenuItem mnemonicParsing="false" onAction="#goToRemoveBuildings" text="Remove" />
-         </items>
-      </Menu>
-      <cursor>
-         <Cursor fx:constant="HAND" />
-      </cursor>
-   </MenuBar>
-   <ImageView fx:id="goToBuildingMenuButton" fitHeight="26.0" fitWidth="41.0" layoutX="50.0" layoutY="86.0" onMouseClicked="#goToBuildingMenu" pickOnBounds="true" preserveRatio="true">
+   <ImageView fx:id="goToBuildingMenuButton" fitHeight="26.0" fitWidth="41.0" layoutX="22.0" layoutY="119.0" onMouseClicked="#goToBuildingMenu" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@images/databaseMenuBuildingIcon.png" />
       </image>
@@ -71,7 +56,7 @@
    <Button fx:id="confirmChangeButton" layoutX="170.0" layoutY="487.0" mnemonicParsing="false" onAction="#updateBuildingButtonClicked" style="-fx-background-color: #00a6d6;" text="Change" textFill="WHITE" AnchorPane.leftAnchor="170.0" AnchorPane.topAnchor="487.0" />
    <Button fx:id="buildingFindAllButton" layoutX="240.0" layoutY="238.0" mnemonicParsing="false" onAction="#listBuildingsButtonClicked" style="-fx-background-color: #00a6d6;" text="Find all" textFill="WHITE" />
    <ImageView fitHeight="41.0" fitWidth="44.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#mainMenu" pickOnBounds="true" preserveRatio="true">
-      <Image url="@images/HomeIcon.png" />
+      <Image url="@images/HomeIconTransparent.png" />
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor>
@@ -93,4 +78,35 @@
          <Font size="26.0" />
       </font>
    </Text>
+   <TextField fx:id="buildingDeleteByIdTextField" layoutX="50.0" layoutY="322.0" promptText="ID" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="322.0" />
+   <Text layoutX="46.0" layoutY="304.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Delete a building" AnchorPane.leftAnchor="46.0" AnchorPane.topAnchor="285.6552734375">
+      <font>
+         <Font size="17.0" />
+      </font>
+   </Text>
+   <Button fx:id="confirmDeleteByIdButton" layoutX="241.0" layoutY="322.0" mnemonicParsing="false" onAction="#deleteBuildingButtonClicked" style="-fx-background-color: #00a6d6;" text="Delete" textFill="WHITE" AnchorPane.leftAnchor="241.0" AnchorPane.topAnchor="322.0">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor></Button>
+   <Button fx:id="confirmDeleteByIdButton1" layoutX="632.0" layoutY="680.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" style="-fx-background-color: #00a6d6;" text="Delete Selected" textFill="WHITE">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
+   <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="62.0" layoutY="119.0" onMouseClicked="#goToAddBuildings" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@images/ko7djzvdIPehWkkQYeDHv7ZYArEETK3uclcEy1WmrEHakj5qfn1nysOSyuNxsI2FsTJGcKNFdQ-9TIGRXV3le_sG-lyGg6Lu2OpiVNdwOZw_Fw16XYOh.png" />
+      </image>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor></ImageView>
+   <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="111.0" layoutY="119.0" onMouseClicked="#goToEditBuildings" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@images/EditIcon.png" />
+      </image>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </ImageView>
+
 </AnchorPane>

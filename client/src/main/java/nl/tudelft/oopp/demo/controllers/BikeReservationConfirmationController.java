@@ -1,17 +1,21 @@
 package nl.tudelft.oopp.demo.controllers;
 
-import java.awt.Label;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 public class BikeReservationConfirmationController implements Initializable {
-    @FXML
-    private Label idNumber;
+    public Text youReservationsHas;
+    public Text clickAny;
+    public Label label;
+    public Text yourIdIs;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
