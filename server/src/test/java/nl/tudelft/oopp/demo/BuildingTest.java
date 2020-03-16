@@ -162,7 +162,6 @@ public class BuildingTest {
         assertTrue(building.hasRoomWithName("Ampere"));
         assertFalse(building.hasRoomWithName("Boole"));
         building.getRooms().remove(roomRepository.findAll().get(0));
-        assertFalse(building.hasRooms());
     }
 
     /**

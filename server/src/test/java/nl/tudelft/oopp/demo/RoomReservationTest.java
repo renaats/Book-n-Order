@@ -91,9 +91,6 @@ public class RoomReservationTest {
      */
     @Test
     public void testConstructor() {
-        assertNotNull(building);
-        assertNotNull(room);
-        assertNotNull(appUser);
         assertNotNull(roomReservation);
     }
 

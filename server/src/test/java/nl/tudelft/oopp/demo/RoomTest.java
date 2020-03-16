@@ -226,7 +226,6 @@ public class RoomTest {
         Set<RoomReservation> roomReservationSet = new HashSet<>();
         room.setRoomReservations(roomReservationSet);
         assertEquals(300, room.getPlugs());
-        assertEquals(roomReservationSet, room.getRoomReservations());
     }
 
     /**
@@ -238,7 +237,7 @@ public class RoomTest {
         RoomReservation roomReservation = new RoomReservation();
         roomReservationSet.add(roomReservation);
         room.setRoomReservations(roomReservationSet);
-        assertEquals(room.getRoomReservations(),roomReservationSet);
+        assertEquals(roomReservationSet, room.getRoomReservations());
         assertTrue(room.hasRoomReservations());
     }
 
