@@ -22,6 +22,13 @@ import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.entities.RoomReservation;
 
+import java.time.LocalTime;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.util.Date;
+import java.util.List;
 
 public class RoomCalendarView extends Application {
 
@@ -46,6 +53,7 @@ public class RoomCalendarView extends Application {
         Calendar myBookingCalendar = new Calendar("My Bookings");
         myBookingCalendar.setStyle(Style.STYLE1);
         List<RoomReservation> roomReservationList = JsonMapper.roomReservationsListMapper(ServerCommunication.getRoomReservations());
+
         if(roomReservationList != null && !roomReservationList.isEmpty()){
             for (RoomReservation reservation : roomReservationList) {
                     if (reservation.getRoom().equals(this.room)) {
@@ -57,7 +65,8 @@ public class RoomCalendarView extends Application {
                 }
             }
         }
-        
+
+
         CalendarSource myCalendarSource = new CalendarSource("Calendars");
         myCalendarSource.getCalendars().removeAll();
         myCalendarSource.getCalendars().addAll(bookedSlotsCalendar, myBookingCalendar);
@@ -69,7 +78,7 @@ public class RoomCalendarView extends Application {
         Thread updateTimeThread = new Thread("Calendar: Update Time Thread") {
             @Override
             public void run() {
-                while (true) {
+                while(true) {
                     Platform.runLater(() -> {
                         roomCal.setToday(LocalDate.now());
                         roomCal.setTime(LocalTime.now());
