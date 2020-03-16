@@ -82,6 +82,17 @@ public class User {
         return roomReservations;
     }
 
+    public User(String email, String password, String name, String surname, String faculty, Set<Role> roles,
+                Set<RoomReservation> roomReservations) {
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.surname = surname;
+        this.faculty = faculty;
+        this.roles = roles;
+        this.roomReservations = roomReservations;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

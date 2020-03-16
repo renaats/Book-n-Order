@@ -39,4 +39,10 @@ public class Role {
     public Set<User> getUsers() {
         return users;
     }
+
+    public Role(int id, String name, Set<User> users) {
+        this.id = id;
+        this.name = name;
+        this.users = users;
+    }
 }

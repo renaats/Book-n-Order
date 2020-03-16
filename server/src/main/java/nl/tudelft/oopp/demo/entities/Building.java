@@ -67,6 +67,14 @@ public class Building {
         return rooms.size() > 0;
     }
 
+    public Building(int id, String name, String street, int houseNumber, Set<Room> rooms) {
+        this.id = id;
+        this.name = name;
+        this.street = street;
+        this.houseNumber = houseNumber;
+        this.rooms = rooms;
+    }
+
     /**
      * Checks if this building has a room with the specified name.
      * @param name = the name of the room

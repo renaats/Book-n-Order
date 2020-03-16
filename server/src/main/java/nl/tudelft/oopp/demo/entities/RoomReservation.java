@@ -75,6 +75,14 @@ public class RoomReservation {
         return toTime;
     }
 
+    public RoomReservation(Integer id, Room room, User user, Date fromTime, Date toTime) {
+        this.id = id;
+        this.room = room;
+        this.user = user;
+        this.fromTime = fromTime;
+        this.toTime = toTime;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

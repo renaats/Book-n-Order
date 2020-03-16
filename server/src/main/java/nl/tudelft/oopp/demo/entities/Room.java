@@ -124,6 +124,20 @@ public class Room {
         return roomReservations.size() > 0;
     }
 
+    public Room(Integer id, String name, Building building, String faculty, boolean facultySpecific, boolean projector,
+                boolean screen, int nrPeople, int plugs, Set<RoomReservation> roomReservations) {
+        this.id = id;
+        this.name = name;
+        this.building = building;
+        this.faculty = faculty;
+        this.facultySpecific = facultySpecific;
+        this.projector = projector;
+        this.screen = screen;
+        this.nrPeople = nrPeople;
+        this.plugs = plugs;
+        this.roomReservations = roomReservations;
+    }
+
     /**
      * Checks if this room has a reservation between the specified times.
      * @param fromTime = the starting time
