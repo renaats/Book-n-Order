@@ -94,10 +94,10 @@ public class BikeReservationService {
 
         switch (attribute) {
             case "fromTime":
-                bikeReservation.setFromTime(new Date(Integer.parseInt(value)));
+                bikeReservation.setFromTime(new Date(Long.parseLong(value)));
                 break;
             case "toTime":
-                bikeReservation.setToTime(new Date(Integer.parseInt(value)));
+                bikeReservation.setToTime(new Date(Long.parseLong(value)));
                 break;
             case "fromBuilding":
                 int fromBuildingId = Integer.parseInt(value);
