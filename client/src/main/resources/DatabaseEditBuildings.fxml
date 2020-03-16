@@ -62,18 +62,18 @@
       </cursor>
    </ImageView>
    <TextField layoutX="50.0" layoutY="238.0" promptText="Name" />
-   <TableView layoutX="451.0" layoutY="199.0" prefHeight="420.0" prefWidth="562.0">
+   <TableView layoutX="451.0" layoutY="157.0" prefHeight="420.0" prefWidth="562.0">
       <columns>
          <TableColumn prefWidth="75.0" text="C1" />
          <TableColumn prefWidth="75.0" text="C2" />
       </columns>
    </TableView>
-   <Button layoutX="632.0" layoutY="635.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" style="-fx-background-color: #00a6d6;" text="Edit selected" textFill="WHITE">
+   <Button layoutX="632.0" layoutY="594.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" style="-fx-background-color: #00a6d6;" text="Edit selected" textFill="WHITE">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor>
    </Button>
-   <Text layoutX="451.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Buildings:" AnchorPane.leftAnchor="451.0">
+   <Text layoutX="451.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Buildings:" AnchorPane.leftAnchor="451.0">
       <font>
          <Font size="26.0" />
       </font>
@@ -88,7 +88,7 @@
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor></Button>
-   <Button fx:id="confirmDeleteByIdButton1" layoutX="632.0" layoutY="680.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" style="-fx-background-color: #00a6d6;" text="Delete Selected" textFill="WHITE">
+   <Button fx:id="confirmDeleteByIdButton1" layoutX="632.0" layoutY="642.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" style="-fx-background-color: #00a6d6;" text="Delete Selected" textFill="WHITE">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor>

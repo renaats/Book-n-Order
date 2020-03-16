@@ -39,7 +39,7 @@
          <Cursor fx:constant="HAND" />
       </cursor>
    </ImageView>
-   <ImageView fitHeight="178.0" fitWidth="179.0" layoutX="272.0" layoutY="384.0" onMouseClicked="#goToProfile" pickOnBounds="true" preserveRatio="true">
+   <ImageView fitHeight="170.0" layoutX="270.0" layoutY="396.0" onMouseClicked="#goToProfile" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@images/ProfileIconColorFinal.png" />
       </image>
@@ -47,9 +47,9 @@
          <Cursor fx:constant="HAND" />
       </cursor>
    </ImageView>
-   <ImageView fitHeight="200.0" fitWidth="178.0" layoutX="835.0" layoutY="360.0" onMouseClicked="#goToMainReservationsMenu" pickOnBounds="true">
+   <ImageView fitHeight="170.0" fitWidth="170.0" layoutX="839.0" layoutY="396.0" onMouseClicked="#goToMainReservationsMenu" pickOnBounds="true">
       <image>
-         <Image url="@images/Bookings-Icon-300px-300x300.png" />
+         <Image url="@images/Booking%20Logo%202.png" />
       </image>
       <cursor>
          <Cursor fx:constant="HAND" />
