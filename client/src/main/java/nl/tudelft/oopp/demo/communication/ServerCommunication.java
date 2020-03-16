@@ -2,9 +2,11 @@ package nl.tudelft.oopp.demo.communication;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -21,6 +23,53 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 public class ServerCommunication {
 
     private static final HttpClient client = HttpClient.newBuilder().build();
+
+    /**
+     * Handles the request/response process between client/server.
+     * @param request HttpRequest that was made
+     * @return the error message corresponding to the server's response.
+     */
+    public static String communicateAndReturnErrorMessage(HttpRequest request) {
+        HttpResponse<String> response;
+        try {
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Communication with server failed";
+        }
+        if (response.statusCode() == 403) {
+            return ErrorMessages.getErrorMessage(401);
+        }
+        if (response.statusCode() != 200) {
+            System.out.println(response.body());
+            System.out.println("Status: " + response.statusCode());
+        }
+        return ErrorMessages.getErrorMessage(Integer.parseInt(response.body()));
+    }
+
+    /**
+     * Handles the request/response process between client/server.
+     * @param request HttpRequest that was made
+     * @return the body of the response from the server.
+     */
+    public static String communicateAndReturnBodyOfResponse(HttpRequest request) {
+        HttpResponse<String> response;
+        try {
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Communication with server failed";
+        }
+        if (response.statusCode() != 200) {
+            System.out.println(response.body());
+            System.out.println("Status: " + response.statusCode());
+        }
+        if (response.body().equals("[]") || response.body().equals("")) {
+            return ErrorMessages.getErrorMessage(404);
+        } else {
+            return response.body();
+        }
+    }
 
     /**
      * Retrieves the String representation of a user from the server.
@@ -53,21 +102,14 @@ public class ServerCommunication {
      * @return the body of a get request to the server.
      */
     public static String addUser(String email, String name, String surname, String faculty, String password) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/user/add?email=" + email + "&name=" + name + "&surname=" + surname + "&faculty=" + faculty + "&password=" + password)).POST(HttpRequest.BodyPublishers.noBody()).build();
-        HttpResponse<String> response;
+        HttpRequest request;
         try {
-            response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        } catch (Exception e) {
+            request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/user/add?email=" + URLEncoder.encode(email,"UTF-8")  + "&name=" + URLEncoder.encode(name,"UTF-8") + "&surname=" + URLEncoder.encode(surname,"UTF-8") + "&faculty=" + faculty + "&password=" + URLEncoder.encode(password,"UTF-8"))).POST(HttpRequest.BodyPublishers.noBody()).build();
+        } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
-            return "Communication with server failed";
+            return "Please enter an encoding that is supported by the URLEncode class.";
         }
-        if (response.statusCode() == 403) {
-            return ErrorMessages.getErrorMessage(401);
-        }
-        if (response.statusCode() != 200) {
-            System.out.println("Status: " + response.statusCode());
-        }
-        return ErrorMessages.getErrorMessage(Integer.parseInt(response.body()));
+        return communicateAndReturnErrorMessage(request);
     }
 
     /**
@@ -108,25 +150,11 @@ public class ServerCommunication {
 
     /**
      * Retrieves all buildings from the server.
-     * @return the body of a get request to the server.
+     * @return the body of the response from the server.
      */
     public static String getBuildings() {
         HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + UserInformation.getBearerKey()).uri(URI.create("http://localhost:8080/building/all")).build();
-        HttpResponse<String> response;
-        try {
-            response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "Communication with server failed";
-        }
-        if (response.statusCode() != 200) {
-            System.out.println("Status: " + response.statusCode());
-        }
-        if (response.body().equals("[]")) {
-            return ErrorMessages.getErrorMessage(404);
-        } else {
-            return response.body();
-        }
+        return communicateAndReturnBodyOfResponse(request);
     }
 
     /**
@@ -135,21 +163,7 @@ public class ServerCommunication {
      */
     public static String getRooms() {
         HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + UserInformation.getBearerKey()).uri(URI.create("http://localhost:8080/room/all")).build();
-        HttpResponse<String> response;
-        try {
-            response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "Communication with server failed";
-        }
-        if (response.statusCode() != 200) {
-            System.out.println("Status: " + response.statusCode());
-        }
-        if (response.body().equals("[]")) {
-            return ErrorMessages.getErrorMessage(404);
-        } else {
-            return response.body();
-        }
+        return communicateAndReturnBodyOfResponse(request);
     }
 
     /**
@@ -159,21 +173,7 @@ public class ServerCommunication {
      */
     public static String deleteBuilding(int id) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building/delete/" + id)).DELETE().header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
-        HttpResponse<String> response;
-        try {
-            response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "Communication with server failed";
-        }
-        if (response.statusCode() == 403) {
-            return ErrorMessages.getErrorMessage(401);
-        }
-        if (response.statusCode() != 200) {
-            System.out.println(response.body());
-            System.out.println("Status: " + response.statusCode());
-        }
-        return ErrorMessages.getErrorMessage(Integer.parseInt(response.body()));
+        return communicateAndReturnErrorMessage(request);
     }
 
     /**
@@ -183,22 +183,7 @@ public class ServerCommunication {
      */
     public static String findBuilding(int buildingID) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building/find/" + buildingID)).GET().header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
-        HttpResponse<String> response;
-        try {
-            response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "Communication with server failed";
-        }
-        if (response.statusCode() != 200) {
-            System.out.println(response.body());
-            System.out.println("Status: " + response.statusCode());
-        }
-        if (response.body().equals("")) {
-            return ErrorMessages.getErrorMessage(404);
-        } else {
-            return response.body();
-        }
+        return communicateAndReturnBodyOfResponse(request);
     }
 
 
@@ -210,22 +195,14 @@ public class ServerCommunication {
      * @return The body of the response from the server.
      */
     public static String updateBuilding(int id, String attribute, String changeValue) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building/update?id=" + id + "&attribute=" + attribute + "&value=" + changeValue)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
-        HttpResponse<String> response;
+        HttpRequest request;
         try {
-            response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        } catch (Exception e) {
+            request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building/update?id=" + id + "&attribute=" + attribute + "&value=" + URLEncoder.encode(changeValue, "UTF-8"))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
+        } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
-            return "Communication with server failed";
+            return "Please enter an encoding that is supported by the URLEncode class.";
         }
-        if (response.statusCode() == 403) {
-            return ErrorMessages.getErrorMessage(401);
-        }
-        if (response.statusCode() != 200) {
-            System.out.println(response.body());
-            System.out.println("Status: " + response.statusCode());
-        }
-        return ErrorMessages.getErrorMessage(Integer.parseInt(response.body()));
+        return communicateAndReturnErrorMessage(request);
     }
 
     /**
@@ -235,22 +212,7 @@ public class ServerCommunication {
      */
     public static String findRoom(int roomId) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room/find/" + roomId)).GET().header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
-        HttpResponse<String> response;
-        try {
-            response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "Communication with server failed";
-        }
-        if (response.statusCode() != 200) {
-            System.out.println(response.body());
-            System.out.println("Status: " + response.statusCode());
-        }
-        if (response.body().equals("")) {
-            return ErrorMessages.getErrorMessage(404);
-        } else {
-            return response.body();
-        }
+        return communicateAndReturnBodyOfResponse(request);
     }
 
     /**
@@ -260,21 +222,7 @@ public class ServerCommunication {
      */
     public static String deleteRoom(int id) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room/delete/" + id)).DELETE().header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
-        HttpResponse<String> response;
-        try {
-            response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "Communication with server failed";
-        }
-        if (response.statusCode() == 403) {
-            return ErrorMessages.getErrorMessage(401);
-        }
-        if (response.statusCode() != 200) {
-            System.out.println(response.body());
-            System.out.println("Status: " + response.statusCode());
-        }
-        return ErrorMessages.getErrorMessage(Integer.parseInt(response.body()));
+        return communicateAndReturnErrorMessage(request);
     }
 
     /**
@@ -285,22 +233,14 @@ public class ServerCommunication {
      * @return the body of the response from the server.
      */
     public static String updateRoom(int id, String attribute, String changeValue) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room/update?id=" + id + "&attribute=" + attribute + "&value=" + changeValue)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
-        HttpResponse<String> response;
+        HttpRequest request;
         try {
-            response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        } catch (Exception e) {
+            request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room/update?id=" + id + "&attribute=" + attribute + "&value=" + URLEncoder.encode(changeValue, "UTF-8"))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
+        } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
-            return "Communication with server failed";
+            return "Please enter an encoding that is supported by the URLEncode class.";
         }
-        if (response.statusCode() == 403) {
-            return ErrorMessages.getErrorMessage(401);
-        }
-        if (response.statusCode() != 200) {
-            System.out.println(response.body());
-            System.out.println("Status: " + response.statusCode());
-        }
-        return ErrorMessages.getErrorMessage(Integer.parseInt(response.body()));
+        return communicateAndReturnErrorMessage(request);
     }
 
     /**
@@ -319,22 +259,14 @@ public class ServerCommunication {
                                  int buildingId, boolean facultySpecific,
                                  boolean screen, boolean projector,
                                  int capacity, int plugs) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room/add?name=" + name + "&faculty=" + faculty + "&facultySpecific=" + facultySpecific + "&screen=" + screen + "&projector=" + projector + "&buildingId=" + buildingId + "&nrPeople=" + capacity + "&plugs=" + plugs)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
-        HttpResponse<String> response;
+        HttpRequest request;
         try {
-            response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        } catch (Exception e) {
+            request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room/add?name=" + URLEncoder.encode(name, "UTF-8") + "&faculty=" + URLEncoder.encode(faculty, "UTF-8") + "&facultySpecific=" + facultySpecific + "&screen=" + screen + "&projector=" + projector + "&buildingId=" + buildingId + "&nrPeople=" + capacity + "&plugs=" + plugs)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
+        } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
-            return "Communication with server failed";
+            return "Please enter an encoding that is supported by the URLEncode class.";
         }
-        if (response.statusCode() == 403) {
-            return ErrorMessages.getErrorMessage(401);
-        }
-        if (response.statusCode() != 200) {
-            System.out.println(response.body());
-            System.out.println("Status: " + response.statusCode());
-        }
-        return ErrorMessages.getErrorMessage(Integer.parseInt(response.body()));
+        return communicateAndReturnErrorMessage(request);
     }
 
     /**
@@ -345,22 +277,14 @@ public class ServerCommunication {
      * @return response body
      */
     public static String addBuilding(String name, String street, int houseNumber) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building/add?name=" + name + "&street=" + street + "&houseNumber=" + houseNumber)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
-        HttpResponse<String> response;
+        HttpRequest request;
         try {
-            response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        } catch (Exception e) {
+            request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building/add?name=" + URLEncoder.encode(name, "UTF-8") + "&street=" + URLEncoder.encode(street, "UTF-8") + "&houseNumber=" + houseNumber)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
+        } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
-            return "Communication with server failed";
+            return "Please enter an encoding that is supported by the URLEncode class.";
         }
-        if (response.statusCode() == 403) {
-            return ErrorMessages.getErrorMessage(401);
-        }
-        if (response.statusCode() != 200) {
-            System.out.println(response.body());
-            System.out.println("Status: " + response.statusCode());
-        }
-        return ErrorMessages.getErrorMessage(Integer.parseInt(response.body()));
+        return communicateAndReturnErrorMessage(request);
     }
 
     /**
@@ -369,21 +293,7 @@ public class ServerCommunication {
      */
     public static String logoutUser() {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/user/logout")).POST(HttpRequest.BodyPublishers.noBody()).build();
-        HttpResponse<String> response;
-        try {
-            response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "Communication with server failed";
-        }
-        if (response.statusCode() == 403) {
-            return ErrorMessages.getErrorMessage(401);
-        }
-        if (response.statusCode() != 200) {
-            System.out.println(response.body());
-            System.out.println("Status: " + response.statusCode());
-        }
-        return ErrorMessages.getErrorMessage(Integer.parseInt(response.body()));
+        return communicateAndReturnErrorMessage(request);
     }
 
     /**
@@ -394,21 +304,7 @@ public class ServerCommunication {
      */
     public static String getRoomReservations() {
         HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + UserInformation.getBearerKey()).uri(URI.create("http://localhost:8080/room_reservation/all")).build();
-        HttpResponse<String> response = null;
-        try {
-            response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "Communication with server failed";
-        }
-        if (response.statusCode() != 200) {
-            System.out.println("Status: " + response.statusCode());
-        }
-        if (response.body().equals("[]")) {
-            return ErrorMessages.getErrorMessage(404);
-        } else {
-            return response.body();
-        }
+        return communicateAndReturnBodyOfResponse(request);
     }
 
     /**
@@ -418,23 +314,7 @@ public class ServerCommunication {
      */
     public static String findRoomReservation(int roomReservationId) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room_reservation/find/" + roomReservationId)).GET().header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
-        HttpResponse<String> response;
-        try {
-            response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "Communication with server failed";
-        }
-        if (response.statusCode() != 200) {
-            System.out.println(response.body());
-            System.out.println("Status: " + response.statusCode());
-        }
-        if (response.body().equals("")) {
-            return ErrorMessages.getErrorMessage(404);
-        } else {
-            System.out.println(response.body());
-            return response.body();
-        }
+        return communicateAndReturnBodyOfResponse(request);
     }
 
     /**
@@ -448,21 +328,7 @@ public class ServerCommunication {
      */
     public static String addRoomReservation(String room, int buildingId, int userId, Date from, Date to) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room_reservation/add?room" + room + "&buildingId=" + buildingId + "&userId=" + userId + "&from=" + from + "&to=" + to)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
-        HttpResponse<String> response = null;
-        try {
-            response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "Communication with server failed";
-        }
-        if (response.statusCode() == 403) {
-            return ErrorMessages.getErrorMessage(401);
-        }
-        if (response.statusCode() != 200) {
-            System.out.println(response.body());
-            System.out.println("Status: " + response.statusCode());
-        }
-        return ErrorMessages.getErrorMessage(Integer.parseInt(response.body()));
+        return communicateAndReturnErrorMessage(request);
     }
 
     /**
@@ -474,21 +340,7 @@ public class ServerCommunication {
      */
     public static String updateRoomReservation(int id, String attribute, String changeValue) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room_reservation/update?id=" + id + "&attribute=" + attribute + "&value=" + changeValue)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
-        HttpResponse<String> response;
-        try {
-            response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "Communication with server failed";
-        }
-        if (response.statusCode() == 403) {
-            return ErrorMessages.getErrorMessage(401);
-        }
-        if (response.statusCode() != 200) {
-            System.out.println(response.body());
-            System.out.println("Status: " + response.statusCode());
-        }
-        return ErrorMessages.getErrorMessage(Integer.parseInt(response.body()));
+        return communicateAndReturnErrorMessage(request);
     }
 
     /**
@@ -498,20 +350,6 @@ public class ServerCommunication {
      */
     public static String deleteRoomReservation(int id) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room_reservation/delete/" + id)).DELETE().header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
-        HttpResponse<String> response;
-        try {
-            response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "Communication with server failed";
-        }
-        if (response.statusCode() == 403) {
-            return ErrorMessages.getErrorMessage(401);
-        }
-        if (response.statusCode() != 200) {
-            System.out.println(response.body());
-            System.out.println("Status: " + response.statusCode());
-        }
-        return ErrorMessages.getErrorMessage(Integer.parseInt(response.body()));
+        return communicateAndReturnErrorMessage(request);
     }
 }

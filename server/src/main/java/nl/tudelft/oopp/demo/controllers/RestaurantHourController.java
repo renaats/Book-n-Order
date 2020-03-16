@@ -27,7 +27,7 @@ public class RestaurantHourController {
      * @param day = the day of the week in number representation (1 to 7)
      * @param startTimeS = the starting time in seconds
      * @param endTimeS = the ending time in seconds
-     * @return String containing the result of your request.
+     * @return Error code
      */
     @Secured({"ROLE_ADMIN", "ROLE_RESTAURANT"})
     @PostMapping(path = "/add")
@@ -41,7 +41,7 @@ public class RestaurantHourController {
      * @param id = the restaurant hour id
      * @param attribute = the attribute that is changed
      * @param value = the new value of the attribute
-     * @return message if it passes
+     * @return Error code
      */
     @Secured({"ROLE_ADMIN", "ROLE_RESTAURANT"})
     @PostMapping(path = "/update")
@@ -54,7 +54,7 @@ public class RestaurantHourController {
      * Deletes restaurant hours.
      * @param restaurantId = the id of the restaurant
      * @param day = the day of the week
-     * @return String to see if your request passed
+     * @return Error code
      */
     @Secured({"ROLE_ADMIN", "ROLE_RESTAURANT"})
     @DeleteMapping(path = "/delete")
