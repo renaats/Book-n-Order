@@ -4,9 +4,7 @@ import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.entities.RoomReservation;
 import nl.tudelft.oopp.demo.services.BuildingService;
-import nl.tudelft.oopp.demo.services.BuildingServiceImpl;
 import nl.tudelft.oopp.demo.services.RoomService;
-import nl.tudelft.oopp.demo.services.RoomServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -27,7 +25,7 @@ public class RoomServiceTest {
     static class BuildingServiceTestConfiguration {
         @Bean
         public BuildingService buildingService() {
-            return new BuildingServiceImpl();
+            return new BuildingService();
         }
     }
 
@@ -35,7 +33,7 @@ public class RoomServiceTest {
     static class RoomServiceTestConfiguration {
         @Bean
         public RoomService roomService() {
-            return new RoomServiceImpl();
+            return new RoomService();
         }
     }
 

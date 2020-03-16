@@ -4,7 +4,6 @@ import nl.tudelft.oopp.demo.entities.Bike;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.repositories.BuildingRepository;
 import nl.tudelft.oopp.demo.services.BikeService;
-import nl.tudelft.oopp.demo.services.BikeServiceImpl;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,13 +19,16 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Tests the BikeService service.
+ */
 @DataJpaTest
 public class BikeServiceTest {
     @TestConfiguration
     static class BikeServiceTestConfiguration {
         @Bean
         public BikeService bikeService() {
-            return new BikeServiceImpl();
+            return new BikeService();
         }
     }
 

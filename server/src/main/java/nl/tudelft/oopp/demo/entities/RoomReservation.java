@@ -7,7 +7,13 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
 
-@Entity // This tells Hibernate to make a table out of this class
+/**
+ * Represents a room reservation. Holds all necessary information about the room reservation that is then stored in the database.
+ * Is uniquely identified by its id.
+ * Contains Room as a foreign key.
+ * Contains AppUser as a foreign key.
+ */
+@Entity
 public class RoomReservation {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

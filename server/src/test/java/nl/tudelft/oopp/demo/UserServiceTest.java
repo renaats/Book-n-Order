@@ -3,7 +3,6 @@ package nl.tudelft.oopp.demo;
 import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.Role;
 import nl.tudelft.oopp.demo.services.UserService;
-import nl.tudelft.oopp.demo.services.UserServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,7 +23,7 @@ class UserServiceTest {
     static class UserServiceTestConfiguration {
         @Bean
         public UserService userService() {
-            return new UserServiceImpl();
+            return new UserService();
         }
     }
 

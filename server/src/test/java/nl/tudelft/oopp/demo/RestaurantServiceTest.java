@@ -1,10 +1,11 @@
 package nl.tudelft.oopp.demo;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Restaurant;
 import nl.tudelft.oopp.demo.repositories.BuildingRepository;
 import nl.tudelft.oopp.demo.services.RestaurantService;
-import nl.tudelft.oopp.demo.services.RestaurantServiceImpl;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,15 +19,16 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+/**
+ * Tests the RestaurantService service.
+ */
 @DataJpaTest
 public class RestaurantServiceTest {
     @TestConfiguration
     static class RestaurantServiceTestConfiguration {
         @Bean
         public RestaurantService restaurantService() {
-            return new RestaurantServiceImpl();
+            return new RestaurantService();
         }
     }
 
@@ -35,7 +37,6 @@ public class RestaurantServiceTest {
 
     @Autowired
     BuildingRepository buildingRepository;
-
 
     Building building;
     Building building2;

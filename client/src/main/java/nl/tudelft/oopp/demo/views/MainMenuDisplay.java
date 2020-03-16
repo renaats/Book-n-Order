@@ -14,7 +14,7 @@ public class MainMenuDisplay extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        URL xmlUrl = getClass().getResource("/mainMenu.fxml");
+        URL xmlUrl = getClass().getResource("/mainMenuReservations.fxml");
         loader.setLocation(xmlUrl);
         Parent root = loader.load();
 

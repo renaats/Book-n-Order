@@ -1,62 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="600.0" maxWidth="800.0" minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.MainMenuController">
-    <ImageView fitHeight="45.0" fitWidth="112.0" layoutX="18.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="548.0" AnchorPane.leftAnchor="17.400003051757807" AnchorPane.rightAnchor="683.3999969482422" AnchorPane.topAnchor="7.0">
-        <Image url="@images/tudelftlogo.png" />
-    </ImageView>
-    <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="55.0" layoutY="51.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="525.0" AnchorPane.leftAnchor="55.0" AnchorPane.rightAnchor="625.0" AnchorPane.topAnchor="51.0">
-        <Image url="@images/booknorderlogo.png" />
-    </ImageView>
-    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00a6d6" height="28.0" layoutY="86.0" stroke="#00a6d6" strokeType="INSIDE" style="-fx-arc-height: 0; -fx-arc-width: 0;" width="800.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0" />
-    <Button layoutX="51.0" layoutY="85.0" maxHeight="25.0" maxWidth="49.0" minHeight="25.0" minWidth="49.0" mnemonicParsing="false" onAction="#myAccountScene" prefHeight="25.0" prefWidth="49.0" style="-fx-background-color: #00a6d6;" text="Home" AnchorPane.leftAnchor="46.0" AnchorPane.rightAnchor="700.0" AnchorPane.topAnchor="85.0" />
-    <MenuBar layoutX="108.0" layoutY="85.0" maxHeight="28.0" maxWidth="192.0" minHeight="28.0" minWidth="192.0" prefHeight="28.0" prefWidth="192.0" style="-fx-background-color: #00a6d6;" AnchorPane.leftAnchor="94.0" AnchorPane.rightAnchor="514.0" AnchorPane.topAnchor="85.0">
-        <Menu mnemonicParsing="false" text="New booking">
-            <MenuItem mnemonicParsing="false" onAction="#bookRoom" text="Book a room" />
-            <MenuItem mnemonicParsing="false" onAction="#rentBike" text="Rent a bike" />
-            <MenuItem mnemonicParsing="false" onAction="#orderFood" text="Order food" />
-        </Menu>
-        <Menu mnemonicParsing="false" text="My account">
-            <MenuItem mnemonicParsing="false" onAction="#myAccountScene" text="My profile" />
-            <MenuItem mnemonicParsing="false" onAction="#myCurrentBookings" text="My current bookings" />
-            <MenuItem mnemonicParsing="false" onAction="#myPreviousBookings" text="My previous bookings" />
-        </Menu>
-    </MenuBar>
-    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00a6d6" height="79.0" layoutX="-1.0" layoutY="521.0" stroke="#00a6d6" strokeType="INSIDE" style="-fx-arc-height: 0; -fx-arc-width: 0;" width="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-    <Text fill="WHITE" layoutX="20.0" layoutY="555.576171875" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback is welcome" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0">
-        <font>
-            <Font size="18.0" />
-        </font>
-    </Text>
-    <Text fill="WHITE" layoutX="20.0" layoutY="578.75" strokeType="OUTSIDE" strokeWidth="0.0" text="© 2020 TU Delft. All rights reserved." AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0">
-        <font>
-            <Font name="Calibri" size="11.0" />
-        </font>
-    </Text>
-    <Text layoutX="204.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My previous ten bike reservations" AnchorPane.leftAnchor="204.0" AnchorPane.rightAnchor="387.47734375000005" AnchorPane.topAnchor="146.0">
-        <font>
-            <Font size="24.0" />
-        </font>
-    </Text>
-    <TableView layoutX="165.0" layoutY="213.0" prefHeight="200.0" prefWidth="469.0" AnchorPane.leftAnchor="165.0" AnchorPane.rightAnchor="166.0" AnchorPane.topAnchor="213.0">
-        <columns>
-            <TableColumn prefWidth="84.0" text="Booking code" />
-            <TableColumn prefWidth="82.4000244140625" text="Day" />
-            <TableColumn prefWidth="83.20001220703125" text="Time" />
-            <TableColumn prefWidth="113.5999755859375" text="Location From" />
-            <TableColumn prefWidth="103.4000244140625" text="Location To" />
-        </columns>
-    </TableView>
+<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.MyPreviousBikeReservationsController">
+    <children>
+        <ImageView fitHeight="720.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@images/BikeBackground.jpg" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="67.0" layoutY="-32.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@images/TuDelftLogoFinal.png" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="255.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="521.0" AnchorPane.leftAnchor="255.0" AnchorPane.rightAnchor="425.0" AnchorPane.topAnchor="55.0">
+            <Image url="@images/booknorderlogo.png" />
+        </ImageView>
+        <Text fill="WHITE" layoutX="20.0" layoutY="555.576171875" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback is welcome" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Text>
+        <Text fill="WHITE" layoutX="20.0" layoutY="578.75" strokeType="OUTSIDE" strokeWidth="0.0" text="© 2020 TU Delft. All rights reserved." AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0">
+            <font>
+                <Font name="Calibri" size="11.0" />
+            </font>
+        </Text>
+        <ImageView fitHeight="41.0" fitWidth="69.0" layoutX="14.0" layoutY="69.0" onMouseClicked="#goToMyCurrentReservations" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@images/BackArrow.png" />
+            </image>
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+        </ImageView>
+        <ImageView fitHeight="41.0" fitWidth="44.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#mainMenu" pickOnBounds="true" preserveRatio="true">
+            <Image url="@images/HomeIcon.png" />
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+        </ImageView>
+        <TableView layoutX="327.0" layoutY="198.0" prefHeight="380.0" prefWidth="626.0">
+            <columns>
+                <TableColumn prefWidth="75.0" text="C1" />
+                <TableColumn prefWidth="75.0" text="C2" />
+            </columns>
+        </TableView>
+        <Text layoutX="409.0" layoutY="146.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Previous Bike Reservations">
+            <font>
+                <Font size="33.0" />
+            </font>
+        </Text>
+    </children>
 </AnchorPane>

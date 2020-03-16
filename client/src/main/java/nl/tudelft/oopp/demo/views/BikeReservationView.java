@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 /**
  * boots up the bike reservations.fxml file
  */
-public class BikeReservationView extends Application {
+public class    BikeReservationView extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {

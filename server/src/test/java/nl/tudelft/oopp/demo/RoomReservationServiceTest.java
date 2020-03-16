@@ -6,7 +6,7 @@ import nl.tudelft.oopp.demo.entities.RoomReservation;
 import nl.tudelft.oopp.demo.repositories.RoomRepository;
 import nl.tudelft.oopp.demo.repositories.UserRepository;
 import nl.tudelft.oopp.demo.services.RoomReservationService;
-import nl.tudelft.oopp.demo.services.RoomReservationServiceImpl;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,7 +24,9 @@ class RoomReservationServiceTest {
     @TestConfiguration
     static class RoomReservationServiceTestConfiguration {
         @Bean
-        public RoomReservationService roomReservationService() { return new RoomReservationServiceImpl(); }
+        public RoomReservationService roomReservationService() {
+            return new RoomReservationService();
+        }
     }
 
     @Autowired

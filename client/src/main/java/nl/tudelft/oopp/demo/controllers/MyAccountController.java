@@ -1,33 +1,53 @@
 package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
+import nl.tudelft.oopp.demo.entities.AppUser;
+import nl.tudelft.oopp.demo.entities.Role;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
-public class MyAccountController {
-    /**
-     * Changes to myAccountScene.fxml.
-     * @throws IOException input will be valid.
-     */
-    public void myAccountScene() throws IOException {
-        ApplicationDisplay.changeScene("/myAccountScene.fxml");
+public class MyAccountController implements Initializable {
+
+    @FXML
+    private Label name;
+    @FXML
+    private Label email;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        loadData();
     }
 
     /**
-     * Changes to myCurrentBookings.fxml.
+     * Should load the user information
+     */
+    private void loadData() {
+        //TODO
+        //name.setText(ServerCommunication.getUser());
+        //email.setText(ServerCommunication.getUser());
+    }
+
+    /**
+     * Changes current scene to myCurrentBookings.fxml.
      * @throws IOException input will be valid.
      */
-    public void myCurrentBookings() throws IOException {
+    public void myCurrentBookings(MouseEvent mouseEvent) throws IOException {
         ApplicationDisplay.changeScene("/myCurrentBookings.fxml");
     }
 
     /**
-     * Changes to myPreviousBookings.fxml.
+     * Changes current scene to myPreviousBookings.fxml.
      * @throws IOException input will be valid.
      */
-    public void myPreviousBookings() throws IOException {
+    public void myPreviousBookings(MouseEvent mouseEvent) throws IOException {
         ApplicationDisplay.changeScene("/myPreviousBookings.fxml");
     }
 
@@ -37,7 +57,7 @@ public class MyAccountController {
      * @throws IOException the method will never throw an exception
      */
     public void adminPanel(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/DatabaseMenu.fxml");
+        ApplicationDisplay.changeScene("/DatabaseMainMenu.fxml");
     }
 
     /**
@@ -47,29 +67,6 @@ public class MyAccountController {
      */
     public void mainMenu(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/mainMenu.fxml");
-    }
-
-    /** Handles clicking the food button.
-     * @throws IOException Input will be valid, hence we throw.
-     */
-    public void orderFood() throws IOException {
-        ApplicationDisplay.changeScene("/orderFood.fxml");
-    }
-
-    /**
-     * Handels the clicking of the button under the bike image at the main menu.
-     * @throws IOException when it fails
-     */
-    public void rentBike() throws IOException {
-        ApplicationDisplay.changeScene("/bikeReservations.fxml");
-    }
-
-    /**
-     * Changes to bookRoom.fxml.
-     * @throws IOException again, all input will be valid. No need to check this, thus we throw.
-     */
-    public void bookRoom() throws IOException {
-        ApplicationDisplay.changeScene("/bookRoom.fxml");
     }
 
     /**
@@ -84,5 +81,23 @@ public class MyAccountController {
         alert.setContentText("Logged out!");
         alert.showAndWait();
         ApplicationDisplay.changeScene("/login-screen.fxml");
+    }
+
+    /**
+     * Goes to change password scene when clicked
+     * @param actionEvent the clicking of the change password button
+     * @throws IOException this should never throw an exception
+     */
+    public void changePasswordScene(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/changePassword.fxml");
+    }
+
+    /**
+     * return to the main menu when the home icon is clicked.
+     * @param mouseEvent when th home icon is pressed
+     * @throws IOException this method should never throw an exception
+     */
+    public void mainMenuIcon(MouseEvent mouseEvent) throws IOException {
+        ApplicationDisplay.changeScene("/mainMenu.fxml");
     }
 }

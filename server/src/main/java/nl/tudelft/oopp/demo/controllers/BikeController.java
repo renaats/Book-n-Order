@@ -14,6 +14,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Creates server side endpoints and routes requests to the BikeService.
+ * Maps all requests that start with "/bike".
+ * Manages access control on a per-method basis.
+ */
 @Repository
 @RestController // This means that this class is a Controller
 @RequestMapping(path = "/bike") // This means URL's start with /bike (after Application path)
@@ -25,7 +30,7 @@ public class BikeController {
      * Adds a bike.
      * @param buildingId = the building, where the bike is located
      * @param available = the availability of the bike
-     * @return String to see if your request passed
+     * @return Error code
      */
     @Secured({"ROLE_ADMIN", "ROLE_BIKE_ADMIN"})
     @PostMapping(path = "/add") // Map ONLY POST Requests
@@ -42,7 +47,7 @@ public class BikeController {
      * @param id = the id of the bike
      * @param attribute = the attribute that is changed
      * @param value = the new value of the attribute
-     * @return String to see if your request passed
+     * @return Error code
      */
     @Secured({"ROLE_ADMIN", "ROLE_BIKE_ADMIN"})
     @PostMapping(path = "/update")
@@ -55,7 +60,7 @@ public class BikeController {
     /**
      * Deletes a bike.
      * @param id = the id of the bike
-     * @return String to see if your request passed
+     * @return Error code
      */
     @Secured({"ROLE_ADMIN", "ROLE_BIKE_ADMIN"})
     @DeleteMapping(path = "/delete/{bikeID}")

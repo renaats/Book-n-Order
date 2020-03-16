@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
-import nl.tudelft.oopp.demo.errors.ErrorMessages;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 public class LoginController {
@@ -16,9 +15,8 @@ public class LoginController {
     @FXML
     private TextField passwordField;
 
-
     /**
-     * Changes to templateScene.fxml.
+     * Changes current to templateScene.fxml.
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
     public void mainMenu() throws IOException {

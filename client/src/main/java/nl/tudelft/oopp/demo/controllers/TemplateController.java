@@ -1,17 +1,29 @@
 package nl.tudelft.oopp.demo.controllers;
 
-import javafx.scene.control.Alert;
+import java.io.IOException;
+import java.net.URL;
+
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
+
+
 
 
 public class TemplateController {
 
-    /**
-     * Template for all pages
-     */
-    public void template() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("not implemented");
-        alert.setHeaderText(null);
-        alert.showAndWait();
+    @FXML
+    private BorderPane mainBorderPane;
+
+    @FXML
+    private void changecenterView(){
+
+    }
+
+    public void bookRoom(ActionEvent actionEvent) throws IOException {
+        URL url = getClass().getResource("/login-screen.fxml");
+        mainBorderPane.setCenter(FXMLLoader.load(url));
     }
 }

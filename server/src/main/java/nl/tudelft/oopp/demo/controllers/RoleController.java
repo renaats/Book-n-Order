@@ -14,18 +14,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-
+/**
+ * Creates server side endpoints and routes requests to the RoleService.
+ * Maps all requests that start with "/role".
+ * Manages access control on a per-method basis.
+ */
 @Repository
 @RestController
 @RequestMapping(path = "/role")
 public class RoleController {
     @Autowired
-    RoleService roleService;
+     private RoleService roleService;
 
     /**
-     * Adds a role.
-     * @param name = the name of the role
-     * @return String to see if your request passed
+     * Adds a role to the database.
+     * @param name = the name of the new role.
+     * @return Error code
      */
     @Secured("ROLE_ADMIN")
     @PostMapping(path = "/add")
@@ -35,10 +39,10 @@ public class RoleController {
     }
 
     /**
-     * Updates a role name.
-     * @param id = the role id
-     * @param name = The role name
-     * @return message if it passes
+     * Updates a the name of a role.
+     * @param id = the role id.
+     * @param name = new name.
+     * @return Error code
      */
     @Secured("ROLE_ADMIN")
     @PostMapping(path = "/update_name")
@@ -48,9 +52,9 @@ public class RoleController {
     }
 
     /**
-     * Deletes a role.
-     * @param id = the id of the role
-     * @return String to see if your request passed
+     * Updates a the users of a role,
+     * @param id = the role id.
+     * @return Error code
      */
     @Secured("ROLE_ADMIN")
     @DeleteMapping(path = "/delete")
@@ -60,8 +64,8 @@ public class RoleController {
     }
 
     /**
-     * Lists all roles.
-     * @return all roles
+     * Lists all roles in the database.
+     * @return An Iterable of all roles.
      */
     @Secured("ROLE_ADMIN")
     @GetMapping(path = "/all")

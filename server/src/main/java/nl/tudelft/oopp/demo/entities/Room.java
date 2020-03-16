@@ -9,8 +9,12 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-
-@Entity // This tells Hibernate to make a table out of this class
+/**
+ * Represents a room. Holds all necessary information about the room that is then stored in the database.
+ * Is uniquely identified by its id.
+ * Contains Building as a foreign key.
+ */
+@Entity
 public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -118,12 +122,14 @@ public class Room {
 
     /**
      * Checks if this room has a reservation between the specified times.
-     * @param fromTime = the starting time
-     * @param toTime = the ending time
-     * @return a boolean whether this room has a reservation between these times
+     * @param fromTime = the starting time.
+     * @param toTime = the ending time.
+     * @return true if this room has a reservation between these times, false otherwise.
      */
     public boolean hasRoomReservationBetween(Date fromTime, Date toTime) {
-        if(fromTime.compareTo(toTime) > 0) return false;
+        if (fromTime.compareTo(toTime) > 0) {
+            return false;
+        }
         for (RoomReservation roomReservation: roomReservations) {
             if (fromTime.compareTo(roomReservation.getFromTime()) < 0 && toTime.compareTo(roomReservation.getFromTime()) > 0) {
                 return true;

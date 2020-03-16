@@ -2,7 +2,6 @@ package nl.tudelft.oopp.demo;
 
 import nl.tudelft.oopp.demo.entities.Role;
 import nl.tudelft.oopp.demo.services.RoleService;
-import nl.tudelft.oopp.demo.services.RoleServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,7 +24,7 @@ public class RoleServiceTest {
     static class RoleServiceTestConfiguration {
         @Bean
         public RoleService roleService() {
-            return new RoleServiceImpl();
+            return new RoleService();
         }
     }
 

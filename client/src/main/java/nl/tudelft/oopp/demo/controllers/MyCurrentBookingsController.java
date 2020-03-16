@@ -1,13 +1,13 @@
 package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
-
 import javafx.event.ActionEvent;
+import javafx.scene.input.MouseEvent;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 public class MyCurrentBookingsController {
     /**
-     * Changes to myAccountScene.fxml.
+     * Changes current scene to myAccountScene.fxml.
      * @throws IOException input will be valid.
      */
     public void myAccountScene() throws IOException {
@@ -15,7 +15,7 @@ public class MyCurrentBookingsController {
     }
 
     /**
-     * Changes to myCurrentBookings.fxml.
+     * Changes current scene to myCurrentBookings.fxml.
      * @throws IOException input will be valid.
      */
     public void myCurrentBookings() throws IOException {
@@ -23,7 +23,7 @@ public class MyCurrentBookingsController {
     }
 
     /**
-     * Changes to myPreviousBookings.fxml.
+     * Changes current scene to myPreviousBookings.fxml.
      * @throws IOException input will be valid.
      */
     public void myPreviousBookings() throws IOException {
@@ -31,7 +31,7 @@ public class MyCurrentBookingsController {
     }
 
     /**
-     * Changes to myCurrentBikeReservations.fxml.
+     * Changes current scene to myCurrentBikeReservations.fxml.
      * @throws IOException input will be valid.
      */
     public void myCurrentBikeReservations() throws IOException {
@@ -39,26 +39,34 @@ public class MyCurrentBookingsController {
     }
 
     /**
-     * Changes to myCurrentRoomBookings.fxml.
+     * Changes current scene to myCurrentRoomBookings.fxml.
      * @throws IOException input will be valid.
      */
     public void myCurrentRoomBookings() throws IOException {
-        ApplicationDisplay.changeScene("/myCurrentRoomBookings.fxml");
+        ApplicationDisplay.changeScene("/myCurrentRoomReservations.fxml");
     }
 
     /**
-     * Changes to myCurrentFoodOrders.fxml.
+     * Changes current scene to myCurrentFoodOrders.fxml.
      * @throws IOException input will be valid.
      */
     public void myCurrentFoodOrders() throws IOException {
-        ApplicationDisplay.changeScene("/myCurrentFoodOrders.fxml");
+        ApplicationDisplay.changeScene("/myCurrentFoodReservations.fxml");
     }
 
     /**
-     *  method changes the view to that of the main menu
-     * @throws IOException the method will never throw an exception
+     * Changes current scene to templateScene.fxml.
+     * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
     public void mainMenu() throws IOException {
-        ApplicationDisplay.changeScene("/templateScene.fxml");
+        ApplicationDisplay.changeScene("/mainMenu.fxml");
+    }
+
+    /**
+     * method changes view to main menu
+     * @throws IOException should never throw an exception
+     */
+    public void goToMyAccount() throws IOException {
+        ApplicationDisplay.changeScene("/myAccountScene.fxml");
     }
 }

@@ -3,7 +3,6 @@ package nl.tudelft.oopp.demo.controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,7 +16,7 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 public class RegistrationController implements Initializable {
 
-    ObservableList facultyList = FXCollections.observableArrayList();
+    private final ObservableList<String> facultyList = FXCollections.observableArrayList();
 
     @FXML
     private ChoiceBox<String> facultyChoiceBox;
@@ -60,7 +59,7 @@ public class RegistrationController implements Initializable {
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
     public void mainMenu() throws IOException {
-        ApplicationDisplay.changeScene("/mainMenu.fxml");
+        ApplicationDisplay.changeScene("/mainMenuReservations.fxml");
     }
 
     /**
@@ -73,7 +72,7 @@ public class RegistrationController implements Initializable {
     }
 
     private void loadData() {
-        facultyList.removeAll(facultyList);
+        facultyList.clear();
         String a = "Architecture and the build Environment";
         String b = "Civil Engineering and Geosciences";
         String c = "Eletrical Engineering, Mathematics & Computer Science";
