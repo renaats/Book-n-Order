@@ -2,7 +2,7 @@ package nl.tudelft.oopp.demo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 import nl.tudelft.oopp.demo.entities.Building;
@@ -26,10 +26,12 @@ public class RestaurantTest {
     private BuildingRepository buildingRepository;
 
     Building building;
+    Building building2;
     Restaurant restaurant;
     Restaurant restaurant2;
 
-    /** Sets up the classes before executing the tests.
+    /**
+     * Sets up the entities and saves them in the repository before executing every test.
      */
     @BeforeEach
     public void setup() {
@@ -39,35 +41,69 @@ public class RestaurantTest {
         building.setHouseNumber(4);
         buildingRepository.save(building);
 
+        building2 = new Building();
+        building2.setName("EWI2");
+        building2.setStreet("Mekelweg2");
+        building2.setHouseNumber(42);
+        buildingRepository.save(building2);
+
         restaurant = new Restaurant();
         restaurant.setBuilding(building);
         restaurant.setName("Hangout");
         restaurantRepository.save(restaurant);
     }
 
+    /**
+     * Tests the constructor of the Restaurant class
+     */
     @Test
-    public void saveAndRetrieveBike() {
+    public void testConstructor() {
+        restaurant2 = new Restaurant();
+        assertNotNull(restaurant2);
+    }
+
+    /**
+     * Tests the saving and retrieval of an instance of Restaurant.
+     */
+    @Test
+    public void saveAndRetrieveRestaurant() {
         restaurant2 = restaurantRepository.findAll().get(0);
         assertEquals(restaurant, restaurant2);
     }
 
+    /**
+     * Tests the getters of the Restaurant class.
+     */
     @Test
     public void testGetters() {
         restaurant2 = restaurantRepository.findAll().get(0);
-        assertEquals(restaurant2.getName(), restaurant.getName());
-        assertSame(restaurant.getBuilding(), restaurant2.getBuilding());
+        assertEquals("Hangout", restaurant2.getName());
+        assertSame(building, restaurant2.getBuilding());
     }
 
+    /**
+     * Tests the the change of the name by using a setter.
+     */
     @Test
-    public void testEqualBikes() {
-        restaurant2 = new Restaurant();
-        restaurant2.setBuilding(building);
-        restaurant2.setName("Hangout");
-        assertEquals(restaurant, restaurant2);
-        assertNotSame(restaurant, restaurant2);
-        assertNotEquals(restaurant.getId(), restaurant2.getId());
+    public void testChangeName() {
+        assertNotEquals("Food Station", restaurant.getName());
+        restaurant.setName("Food Station");
+        assertEquals("Food Station", restaurant.getName());
     }
 
+    /**
+     * Tests the the change of the building by using a setter.
+     */
+    @Test
+    public void testChangeBuilding() {
+        assertNotEquals(building2, restaurant.getBuilding());
+        restaurant.setBuilding(building2);
+        assertEquals(building2, restaurant.getBuilding());
+    }
+
+    /**
+     * Cleans up the repositories after executing every test.
+     */
     @AfterEach
     public void cleanup() {
         restaurantRepository.deleteAll();

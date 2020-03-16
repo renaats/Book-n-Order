@@ -2,6 +2,7 @@ package nl.tudelft.oopp.demo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.time.LocalTime;
 
@@ -53,7 +54,16 @@ public class BuildingHourTest {
     }
 
     /**
-     * Tests the saving and retrieval of an instance of buildingHours.
+     * Tests the constructor of the BuildingHours class
+     */
+    @Test
+    public void testConstructor() {
+        buildingHours2 = new BuildingHours();
+        assertNotNull(buildingHours2);
+    }
+
+    /**
+     * Tests the saving and retrieval of an instance of BuildingHours.
      */
     @Test
     public void saveAndRetrieveBuildingHours() {
