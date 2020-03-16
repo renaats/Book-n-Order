@@ -35,17 +35,14 @@ public class BuildingController {
     @PostMapping(path = "/add") // Map ONLY POST Requests
     @ResponseBody
     public String addNewBuilding(
+            @RequestParam int id,
             @RequestParam String name,
             @RequestParam String street,
             @RequestParam int houseNumber
     ) {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
-        Building building = new Building();
-        building.setName(name);
-        building.setStreet(street);
-        building.setHouseNumber(houseNumber);
-        building.setRooms(new HashSet<>());
+        Building building = new Building(id, name, street, houseNumber, new HashSet<>());
         buildingRepository.save(building);
         return "Saved";
     }
