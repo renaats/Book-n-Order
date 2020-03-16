@@ -31,6 +31,10 @@ public class AppUser {
 
     @JsonIgnore
     @OneToMany(mappedBy = "appUser")
+    Set<BikeReservation> bikeReservations = new HashSet<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "appUser")
     Set<FoodOrder> foodOrders = new HashSet<>();
 
     public void setEmail(String email) {
@@ -61,6 +65,10 @@ public class AppUser {
         this.roomReservations = roomReservations;
     }
 
+    public void setBikeReservations(Set<BikeReservation> bikeReservations) {
+        this.bikeReservations = bikeReservations;
+    }
+    
     public void setFoodOrder(Set<FoodOrder> foodOrders) {
         this.foodOrders = foodOrders;
     }
@@ -102,6 +110,10 @@ public class AppUser {
         return roomReservations;
     }
 
+    public Set<BikeReservation> getBikeReservations() {
+        return bikeReservations;
+    }
+    
     public Set<FoodOrder> getFoodOrders() {
         return foodOrders;
     }
@@ -128,5 +140,4 @@ public class AppUser {
                 && Objects.equals(roomReservations, appUser.roomReservations)
                 && Objects.equals(foodOrders, appUser.foodOrders);
     }
-
 }
