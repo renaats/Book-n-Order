@@ -5,6 +5,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+/**
+ * Spring boot application that is executed whenever the server is launched.
+ * Includes the base packages, as they are not recognised otherwise.
+ */
 @SpringBootApplication(scanBasePackages = {
         "nl.tudelft.oopp.demo.repositories",
         "nl.tudelft.oopp.demo.controllers",

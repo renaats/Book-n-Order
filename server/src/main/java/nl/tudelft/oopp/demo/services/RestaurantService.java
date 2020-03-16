@@ -9,6 +9,11 @@ import nl.tudelft.oopp.demo.repositories.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * Supports CRUD operations for the Restaurant entity.
+ * Receives requests from the RestaurantController, manipulates the database and returns the answer.
+ * Uses error codes defined in the client side package "errors".
+ */
 @Service
 public class RestaurantService {
     @Autowired

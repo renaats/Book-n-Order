@@ -22,6 +22,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+/**
+ * Tests the FoodOrder entity.
+ */
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
 public class FoodOrderTest {

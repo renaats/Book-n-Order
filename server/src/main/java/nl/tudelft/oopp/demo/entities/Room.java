@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,7 +17,12 @@ import javax.persistence.OneToMany;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-@Entity // This tells Hibernate to make a table out of this class
+/**
+ * Represents a room. Holds all necessary information about the room that is then stored in the database.
+ * Is uniquely identified by its id.
+ * Contains Building as a foreign key.
+ */
+@Entity
 public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -131,11 +135,20 @@ public class Room {
      * @return true if this room has a reservation between these times, false otherwise.
      */
     public boolean hasRoomReservationBetween(Date fromTime, Date toTime) {
+        if (fromTime.compareTo(toTime) > 0) {
+            return false;
+        }
         for (RoomReservation roomReservation: roomReservations) {
             if (fromTime.compareTo(roomReservation.getFromTime()) < 0 && toTime.compareTo(roomReservation.getFromTime()) > 0) {
                 return true;
             }
             if (fromTime.compareTo(roomReservation.getToTime()) < 0 && toTime.compareTo(roomReservation.getToTime()) > 0) {
+                return true;
+            }
+            if (fromTime.compareTo(roomReservation.getFromTime()) > 0 && fromTime.compareTo(roomReservation.getToTime()) < 0) {
+                return true;
+            }
+            if (toTime.compareTo(roomReservation.getFromTime()) > 0 && toTime.compareTo(roomReservation.getToTime()) < 0) {
                 return true;
             }
         }

@@ -2,6 +2,7 @@ package nl.tudelft.oopp.demo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.time.LocalTime;
 
@@ -18,6 +19,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+/**
+ * Tests the RestaurantHour entity.
+ */
 @DataJpaTest
 public class RestaurantHourTest {
     @Autowired
@@ -59,7 +63,16 @@ public class RestaurantHourTest {
     }
 
     /**
-     * Tests the saving and retrieval of an instance of restaurantHours.
+     * Tests the constructor of the RestaurantHours class
+     */
+    @Test
+    public void testConstructor() {
+        restaurantHours2 = new RestaurantHours();
+        assertNotNull(restaurantHours2);
+    }
+
+    /**
+     * Tests the saving and retrieval of an instance of RestaurantHours.
      */
     @Test
     public void saveAndRetrieveBuildingHours() {

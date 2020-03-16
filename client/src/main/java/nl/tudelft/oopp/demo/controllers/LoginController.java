@@ -15,7 +15,6 @@ public class LoginController {
     @FXML
     private TextField passwordField;
 
-
     /**
      * Changes current to templateScene.fxml.
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.

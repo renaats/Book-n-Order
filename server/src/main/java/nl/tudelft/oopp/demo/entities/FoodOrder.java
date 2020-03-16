@@ -15,7 +15,14 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-@Entity // This tells Hibernate to make a table out of this
+/**
+ * Represents a food order. Holds all necessary information about the food order that is then stored in the database.
+ * Is uniquely identified by its id.
+ * Contains Restaurant as a foreign key.
+ * Contains AppUser as a foreign key.
+ * Contains Building as a foreign key.
+ */
+@Entity
 public class FoodOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

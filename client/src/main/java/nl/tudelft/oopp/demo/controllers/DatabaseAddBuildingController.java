@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
@@ -21,35 +22,39 @@ public class DatabaseAddBuildingController {
     private TextField houseNumberTextField;
 
     /**
-     * Switches scene to DatabaseAddBuildings.fxml
-     * @throws IOException Input will be valid
+     * return to the database main menu when the home icon is clicked
+     * @throws IOException this should not throw an exception, since the input is always the same
      */
-    public void databaseAddBuildings() throws IOException {
+
+    public void mainMenu() throws IOException {
+        ApplicationDisplay.changeScene("/DatabaseMainMenu.fxml");
+    }
+
+    /**
+     * sends the user to the add building view
+     * @throws IOException this should not throw an exception, since the input is always the same
+     */
+
+    public void goToAddBuildings() throws IOException {
         ApplicationDisplay.changeScene("/DatabaseAddBuildings.fxml");
     }
 
     /**
-     * Switches scene to DatabaseAddRooms.fxml
-     * @throws IOException Input will be valid
+     * sends the user to the remove building view
+     * @param actionEvent the click on Go to add building button
+     * @throws IOException this should not throw an exception, since the input is always the same
      */
-    public void databaseAddRooms() throws IOException {
-        ApplicationDisplay.changeScene("/DatabaseAddRooms.fxml");
+    public void goToRemoveBuildings(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/DatabaseRemoveBuildings.fxml");
     }
 
     /**
-     * Changes to DatabaseMenu.fxml.
-     * @throws IOException again, all input will be valid. No need to check this, thus we throw.
+     * sends the user to the edit building view
+     * @param actionEvent the click on Go to add building button
+     * @throws IOException this should not throw an exception, since the input is always the same
      */
-    public void databaseBuildingMenu() throws IOException {
-        ApplicationDisplay.changeScene("/DatabaseMenu.fxml");
-    }
-
-    /**
-     * Changes to DatabaseRoomMenu.fxml.
-     * @throws IOException again, all input will be valid. No need to check this, thus we throw.
-     */
-    public void databaseRoomMenu() throws IOException {
-        ApplicationDisplay.changeScene("/DatabaseRoomMenu.fxml");
+    public void goToEditBuildings(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/DatabaseEditBuildings.fxml");
     }
 
     /**
@@ -66,13 +71,13 @@ public class DatabaseAddBuildingController {
         alert.setContentText(ServerCommunication.addBuilding(name, street, houseNumber));
         alert.showAndWait();
     }
-    /**
-     * returns to the main menu
-     * @param actionEvent the event is clicking the menu item
-     * @throws IOException again, all input will be valid. No need to check this, thus we throw.
-     */
 
-    public void mainMenu(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/mainMenu.fxml");
+    /**
+     * Goes back to the database building menu when the icon is clicked
+     * @paramthe click on the building icon on the databased screens
+     * @throws IOException this should not throw an exception, since the input is always the same
+     */
+    public void goToBuildingMenu(MouseEvent mouseEvent) throws IOException {
+        ApplicationDisplay.changeScene("/DatabaseBuildingMenu.fxml");
     }
 }
