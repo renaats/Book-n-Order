@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.BikeReservationController">
+   <ImageView fitHeight="854.0" fitWidth="1280.0" layoutY="-6.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@images/BikeBackground.jpg" />
+      </image>
+   </ImageView>
+   <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="67.0" layoutY="-32.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@images/TuDelftLogoFinal.png" />
+      </image>
+   </ImageView>
+   <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="255.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="521.0" AnchorPane.leftAnchor="255.0" AnchorPane.rightAnchor="425.0" AnchorPane.topAnchor="55.0">
+      <Image url="@images/booknorderlogo.png" />
+   </ImageView>
+      <Text fill="WHITE" layoutX="20.0" layoutY="555.576171875" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback is welcome" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="20.0" layoutY="578.75" strokeType="OUTSIDE" strokeWidth="0.0" text="© 2020 TU Delft. All rights reserved." AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0">
+         <font>
+            <Font name="Calibri" size="11.0" />
+         </font>
+      </Text>
+   <Text layoutX="576.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rent a bike" AnchorPane.leftAnchor="576.0" AnchorPane.topAnchor="121.943359375">
+      <font>
+         <Font size="26.0" />
+      </font>
+   </Text>
+   <Text layoutX="408.0" layoutY="307.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pick up location:" AnchorPane.leftAnchor="408.0" AnchorPane.topAnchor="289.734375">
+      <font>
+         <Font size="16.0" />
+      </font>
+   </Text>
+   <Text layoutX="408.0" layoutY="271.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pick up time:" AnchorPane.leftAnchor="408.0" AnchorPane.topAnchor="253.734375">
+      <font>
+         <Font size="16.0" />
+      </font>
+   </Text>
+   <Text layoutX="408.0" layoutY="427.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Drop off location:" AnchorPane.leftAnchor="408.0" AnchorPane.topAnchor="409.734375">
+      <font>
+         <Font size="16.0" />
+      </font>
+   </Text>
+   <Text layoutX="408.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pick up date:" AnchorPane.leftAnchor="408.0" AnchorPane.topAnchor="202.734375">
+      <font>
+         <Font size="16.0" />
+      </font>
+   </Text>
+   <Text layoutX="408.0" layoutY="386.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Drop off time:" AnchorPane.leftAnchor="408.0" AnchorPane.topAnchor="368.734375">
+      <font>
+         <Font size="16.0" />
+      </font>
+   </Text>
+   <Text layoutX="408.0" layoutY="346.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Drop off date:" AnchorPane.leftAnchor="408.0" AnchorPane.topAnchor="328.734375">
+      <font>
+         <Font size="16.0" />
+      </font>
+   </Text>
+   <ChoiceBox fx:id="pickUpLocation" layoutX="553.0" layoutY="288.0" maxHeight="26.0" maxWidth="174.0" minHeight="26.0" minWidth="174.0" prefHeight="26.0" prefWidth="174.0" AnchorPane.leftAnchor="553.0" AnchorPane.topAnchor="288.0" />
+   <Button fx:id="reserveButton" layoutX="524.0" layoutY="490.0" maxHeight="25.0" maxWidth="230.0" minHeight="25.0" minWidth="230.0" mnemonicParsing="false" onAction="#bikeConfirmation" prefHeight="25.0" prefWidth="230.0" style="-fx-background-color: #00a6d6;" text="Rent" textFill="WHITE" AnchorPane.leftAnchor="524.0" AnchorPane.topAnchor="490.0" />
+   <ChoiceBox fx:id="dropOffLocation" layoutX="552.0" layoutY="408.0" maxHeight="26.0" maxWidth="174.0" minHeight="26.0" minWidth="174.0" prefHeight="26.0" prefWidth="174.0" AnchorPane.leftAnchor="552.0" AnchorPane.topAnchor="408.0" />
+   <ImageView fitHeight="41.0" fitWidth="44.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#mainMenu" pickOnBounds="true" preserveRatio="true">
+      <Image url="@images/HomeIcon.png" />
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </ImageView>
+   <DatePicker layoutX="553.0" layoutY="202.0" />
+   <DatePicker layoutX="553.0" layoutY="328.0" />
+   <ComboBox fx:id="dropOffTimeH" layoutX="586.0" layoutY="368.0" prefHeight="25.0" prefWidth="53.0" />
+   <ComboBox fx:id="dropOffTimeMin" layoutX="640.0" layoutY="368.0" prefHeight="25.0" prefWidth="53.0" />
+   <ComboBox fx:id="pickUpTimeMin" layoutX="640.0" layoutY="253.0" prefHeight="25.0" prefWidth="53.0" />
+   <ComboBox fx:id="pickUpTimeH" layoutX="586.0" layoutY="253.0" prefHeight="25.0" prefWidth="53.0" />
+   <ImageView fitHeight="41.0" fitWidth="69.0" layoutX="14.0" layoutY="69.0" onMouseClicked="#goToMainMenuReservations" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@images/BackArrow.png" />
+      </image>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </ImageView>
+</AnchorPane>

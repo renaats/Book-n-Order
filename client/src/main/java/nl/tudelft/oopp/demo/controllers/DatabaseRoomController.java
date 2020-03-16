@@ -3,9 +3,9 @@ package nl.tudelft.oopp.demo.controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -16,7 +16,7 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 public class DatabaseRoomController implements Initializable {
 
-    final ObservableList updateChoiceBoxList = FXCollections.observableArrayList();
+    final ObservableList<String> updateChoiceBoxList = FXCollections.observableArrayList();
 
     @FXML
     private ChoiceBox<String> updateChoiceBox;
@@ -35,7 +35,7 @@ public class DatabaseRoomController implements Initializable {
     }
 
     /**
-     * Handles clicking the building find button.
+     * Handles clicking of the Find Room button.
      */
     public void room_id_ButtonClicked() {
         int id = Integer.parseInt(roomFindByIdTextField.getText());
@@ -47,7 +47,7 @@ public class DatabaseRoomController implements Initializable {
     }
 
     /**
-     * Handles clicking the list button.
+     * Handles clicking of the List Rooms button.
      */
     public void roomBuildingsButtonClicked() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -58,25 +58,23 @@ public class DatabaseRoomController implements Initializable {
     }
 
     /**
-     * Changes to mainScene.fxml.
+     * Changes current scene to mainScene.fxml.
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
     public void databaseBuildingMenu() throws IOException {
-        loadDataUpdateChoiceBox();
-        ApplicationDisplay.changeScene("/DatabaseMenu.fxml");
+        ApplicationDisplay.changeScene("/DatabaseEdditBuildings.fxml");
     }
 
     /**
-     * Changes to mainScene.fxml.
+     * Changes current scene to mainScene.fxml.
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
     public void databaseRoomMenu() throws IOException {
-        loadDataUpdateChoiceBox();
         ApplicationDisplay.changeScene("/DatabaseRoomMenu.fxml");
     }
 
     /**
-     * Handles clicking the remove button.
+     * Handles clicking of the Remove Room button.
      */
     public void deleteRoomButtonClicked() {
         int id = Integer.parseInt(roomDeleteByIdTextField.getText());
@@ -91,21 +89,29 @@ public class DatabaseRoomController implements Initializable {
      * Handles the sending of update values.
      */
     public void updateRoomButtonClicked() {
-        int id = Integer.parseInt(roomFindByIdUpdateField.getText());
-        String attribute = updateChoiceBox.getValue().replaceAll(" ","").toLowerCase();
-        String changeValue = roomChangeToField.getText();
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Building remover");
-        alert.setHeaderText(null);
-        alert.setContentText(ServerCommunication.updateRoom(id, attribute, changeValue));
-        alert.showAndWait();
+        try {
+            int id = Integer.parseInt(roomFindByIdUpdateField.getText());
+            String attribute = updateChoiceBox.getValue().replaceAll(" ", "").toLowerCase();
+            String changeValue = roomChangeToField.getText();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Building remover");
+            alert.setHeaderText(null);
+            alert.setContentText(ServerCommunication.updateRoom(id, attribute, changeValue));
+            alert.showAndWait();
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Missing argument.");
+            alert.showAndWait();
+        }
     }
 
     /**
-     * Takes care of the options for the updateChoiceBox in the GUI
+     * Adds options to the updateChoiceBox.
      */
     public void loadDataUpdateChoiceBox() {
-        updateChoiceBoxList.removeAll();
+        updateChoiceBoxList.clear();
         String a = "Name";
         String b = "Faculty";
         String c = "Building ID";
@@ -118,4 +124,36 @@ public class DatabaseRoomController implements Initializable {
         updateChoiceBox.getItems().addAll(updateChoiceBoxList);
     }
 
+    /**
+     * Switches scene to DatabaseAddBuildings.fxml
+     * @throws IOException Input will be valid
+     */
+    public void databaseAddBuildings() throws IOException {
+        ApplicationDisplay.changeScene("/DatabaseAddBuildings.fxml");
+    }
+
+    /**
+     * Switches scene to DatabaseAddRooms.fxml
+     * @throws IOException Input will be valid
+     */
+    public void databaseAddRooms() throws IOException {
+        ApplicationDisplay.changeScene("/DatabaseAddRooms.fxml");
+    }
+
+    /**
+     * Changes to myAccountScene.fxml.
+     * @throws IOException input will not be wrong, hence we throw.
+     */
+    public void myAccountScene(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/myAccountScene.fxml");
+    }
+
+    /**
+     * returns to the main menu
+     * @param actionEvent the event is clicking the menu item
+     * @throws IOException again, all input will be valid. No need to check this, thus we throw.
+     */
+    public void mainMenu(ActionEvent actionEvent) throws IOException {
+        ApplicationDisplay.changeScene("/mainMenuReservations.fxml");
+    }
 }

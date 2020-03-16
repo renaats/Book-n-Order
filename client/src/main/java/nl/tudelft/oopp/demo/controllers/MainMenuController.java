@@ -1,43 +1,36 @@
 package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-import javafx.fxml.Initializable;
+import javafx.event.ActionEvent;
+import javafx.scene.input.MouseEvent;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
-public class MainMenuController implements Initializable {
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+public class MainMenuController {
 
+    /**
+     * Handles the clicking of the calendar icon.
+     * @throws IOException when it fails
+     */
+    public void calendarIcon() throws IOException {
+        ApplicationDisplay.changeScene("/calendar.fxml");
     }
 
     /**
-     * Changes to templateScene.fxml.
-     * @throws IOException again, all input will be valid. No need to check this, thus we throw.
+     * Handles the clicking of the Profile icon.
+     * @throws IOException when it fails
      */
-    public void mainMenu() throws IOException {
-        ApplicationDisplay.changeScene("/templateScene.fxml");
-    }
 
-    /**
-     * Changes to myCurrentBookings.fxml.
-     * @throws IOException input will not be wrong, hence we throw.
-     */
-    public void myCurrentBookings() throws IOException {
-        ApplicationDisplay.changeScene("/myCurrentBookings.fxml");
-    }
-
-    /**
-     * Changes to myPreviousBookings.fxml.
-     * @throws IOException input will not be wrong, hence we throw.
-     */
-    public void myPreviousBookings() throws IOException {
-        ApplicationDisplay.changeScene("/myPreviousBookings.fxml");
-    }
-
-    public void myAccountScene() throws IOException {
+    public void goToProfile() throws IOException {
         ApplicationDisplay.changeScene("/myAccountScene.fxml");
     }
+
+    /**
+     * Handles the clicking of the Bookings icon.
+     * @throws IOException when it fails
+     */
+    public void goToMainReservationsMenu() throws IOException {
+        ApplicationDisplay.changeScene("/MainMenuReservations.fxml");
+    }
+
 }

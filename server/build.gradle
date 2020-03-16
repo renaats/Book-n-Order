@@ -28,7 +28,12 @@ dependencies {
 	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
 	testImplementation 'org.springframework.security:spring-security-test'
 
+	compile 'commons-validator:commons-validator:1.6'
 	compile("org.springframework.boot:spring-boot-starter-web")
+	compile("org.springframework.boot:spring-boot-starter-security")
+	compile 'com.auth0:java-jwt:3.4.0'
+
+
 	// Use MySQL Connector-J
 	compile 'mysql:mysql-connector-java'
 }
