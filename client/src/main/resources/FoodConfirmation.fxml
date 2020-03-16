@@ -38,6 +38,15 @@
       <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="258.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="576.0" AnchorPane.leftAnchor="258.0" AnchorPane.rightAnchor="902.0" AnchorPane.topAnchor="120.0">
          <Image url="@images/booknorderlogo.png" />
       </ImageView>
+      <Button fx:id="addButton" layoutX="524.0" layoutY="557.0" mnemonicParsing="false" onAction="#mainMenu" prefHeight="25.0" prefWidth="240.0" style="-fx-background-color: #00a6d6;" text="Add Event To Calendar" textFill="WHITE" AnchorPane.leftAnchor="524.0" AnchorPane.rightAnchor="516.0" AnchorPane.topAnchor="557.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Text fill="WHITE" layoutX="619.0" layoutY="513.0" stroke="BLACK" strokeType="OUTSIDE" text="Order ID" wrappingWidth="268.54296875">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
       <Text fill="WHITE" layoutX="20.0" layoutY="555.576171875" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback is welcome" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0">
          <font>
             <Font size="18.0" />
@@ -48,14 +57,6 @@
             <Font name="Calibri" size="11.0" />
          </font>
       </Text>
-      <Button fx:id="addButton" layoutX="524.0" layoutY="557.0" mnemonicParsing="false" onAction="#mainMenu" prefHeight="25.0" prefWidth="240.0" style="-fx-background-color: #00a6d6;" text="Add Event To Calendar" textFill="WHITE" AnchorPane.leftAnchor="524.0" AnchorPane.rightAnchor="516.0" AnchorPane.topAnchor="557.0">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor></Button>
-      <Text fill="WHITE" layoutX="619.0" layoutY="513.0" stroke="BLACK" strokeType="OUTSIDE" text="Order ID" wrappingWidth="268.54296875">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Text>
+
    </children>
 </AnchorPane>

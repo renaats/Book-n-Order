@@ -88,4 +88,5 @@
          <Cursor fx:constant="HAND" />
       </cursor>
    </ImageView>
+
 </AnchorPane>

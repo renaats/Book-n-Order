@@ -31,9 +31,9 @@
       </font>
    </Text>
    <Accordion layoutX="76.0" layoutY="144.0" />
-   <ImageView fitWidth="200.0" layoutX="540.0" layoutY="183.0" onMouseClicked="#calendarIcon" pickOnBounds="true" preserveRatio="true">
+   <ImageView fitHeight="191.0" fitWidth="229.0" layoutX="526.0" layoutY="182.0" onMouseClicked="#calendarIcon" pickOnBounds="true" preserveRatio="true">
       <image>
-         <Image url="@images/CalendarIcon.png" />
+         <Image url="@images/calendar lgo 2.png" />
       </image>
       <cursor>
          <Cursor fx:constant="HAND" />
@@ -49,7 +49,7 @@
    </ImageView>
    <ImageView fitHeight="170.0" fitWidth="170.0" layoutX="839.0" layoutY="396.0" onMouseClicked="#goToMainReservationsMenu" pickOnBounds="true">
       <image>
-         <Image url="@images/Booking%20Logo%202.png" />
+         <Image url="@images/Booking%20Logo%202.2.png" />
       </image>
       <cursor>
          <Cursor fx:constant="HAND" />

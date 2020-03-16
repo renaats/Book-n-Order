@@ -34,15 +34,20 @@
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor></Button>
-    <Text fill="WHITE" layoutX="26.0" layoutY="387.0" strokeType="OUTSIDE" strokeWidth="0.0" text="© 2020 TU Delft. All rights reserved." AnchorPane.bottomAnchor="20.0">
-        <font>
-            <Font name="Calibri" size="10.0" />
-        </font>
-    </Text>
-    <Text fill="WHITE" layoutX="26.0" layoutY="371.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback is welcome" AnchorPane.bottomAnchor="35.0" />
     <Text layoutX="588.0" layoutY="178.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Buildings:" AnchorPane.leftAnchor="588.0">
         <font>
             <Font size="26.0" />
         </font>
     </Text>
+    <Text fill="WHITE" layoutX="20.0" layoutY="555.576171875" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback is welcome" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0">
+        <font>
+            <Font size="18.0" />
+        </font>
+    </Text>
+    <Text fill="WHITE" layoutX="20.0" layoutY="578.75" strokeType="OUTSIDE" strokeWidth="0.0" text="© 2020 TU Delft. All rights reserved." AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0">
+        <font>
+            <Font name="Calibri" size="11.0" />
+        </font>
+    </Text>
+
 </AnchorPane>

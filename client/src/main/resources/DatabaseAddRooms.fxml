@@ -7,7 +7,7 @@
 <?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: white;" stylesheets="@DatabaseAddRooms.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.DatabaseAddRoomController">
-    <ImageView fitHeight="720.0" layoutX="-5.0" layoutY="-8.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+    <ImageView fitHeight="720.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
         <image>
             <Image url="@images/DatabaseRoomBackground.jpg" />
         </image></ImageView>
@@ -27,12 +27,6 @@
          <Cursor fx:constant="HAND" />
       </cursor>
     </ImageView>
-    <Text fill="WHITE" layoutX="26.0" layoutY="387.0" strokeType="OUTSIDE" strokeWidth="0.0" text="© 2020 TU Delft. All rights reserved." AnchorPane.bottomAnchor="20.0">
-        <font>
-            <Font name="Calibri" size="10.0" />
-        </font>
-    </Text>
-    <Text fill="WHITE" layoutX="26.0" layoutY="371.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback is welcome" AnchorPane.bottomAnchor="35.0" />
     <Text layoutX="577.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rooms" AnchorPane.leftAnchor="577.0">
         <font>
             <Font size="26.0" />
@@ -126,5 +120,16 @@
          <Cursor fx:constant="HAND" />
       </cursor>
     </ImageView>
+    <Text fill="WHITE" layoutX="20.0" layoutY="555.576171875" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback is welcome" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0">
+        <font>
+            <Font size="18.0" />
+        </font>
+    </Text>
+    <Text fill="WHITE" layoutX="20.0" layoutY="578.75" strokeType="OUTSIDE" strokeWidth="0.0" text="© 2020 TU Delft. All rights reserved." AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0">
+        <font>
+            <Font name="Calibri" size="11.0" />
+        </font>
+    </Text>
+
 
 </AnchorPane>

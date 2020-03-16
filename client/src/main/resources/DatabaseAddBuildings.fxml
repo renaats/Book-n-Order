@@ -32,12 +32,6 @@
          <Cursor fx:constant="HAND" />
       </cursor>
     </ImageView>
-    <Text fill="WHITE" layoutX="26.0" layoutY="387.0" strokeType="OUTSIDE" strokeWidth="0.0" text="© 2020 TU Delft. All rights reserved." AnchorPane.bottomAnchor="20.0">
-        <font>
-            <Font name="Calibri" size="10.0" />
-        </font>
-    </Text>
-    <Text fill="WHITE" layoutX="26.0" layoutY="371.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback is welcome" AnchorPane.bottomAnchor="35.0" />
     <Text layoutX="588.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Buildings" AnchorPane.leftAnchor="588.0" AnchorPane.topAnchor="137.943359375">
         <font>
             <Font size="26.0" />
@@ -82,4 +76,15 @@
       </cursor>
     </ImageView>
     <Button fx:id="addButton" layoutX="520.0" layoutY="386.0" mnemonicParsing="false" onAction="#databaseAddBuilding" prefHeight="25.0" prefWidth="240.0" style="-fx-background-color: #00a6d6;" text="Add" textFill="WHITE" AnchorPane.leftAnchor="520.0" AnchorPane.rightAnchor="520.0" AnchorPane.topAnchor="386.0" />
+    <Text fill="WHITE" layoutX="20.0" layoutY="555.576171875" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback is welcome" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0">
+        <font>
+            <Font size="18.0" />
+        </font>
+    </Text>
+    <Text fill="WHITE" layoutX="20.0" layoutY="578.75" strokeType="OUTSIDE" strokeWidth="0.0" text="© 2020 TU Delft. All rights reserved." AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0">
+        <font>
+            <Font name="Calibri" size="11.0" />
+        </font>
+    </Text>
+
 </AnchorPane>
