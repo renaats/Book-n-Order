@@ -1,5 +1,11 @@
 package nl.tudelft.oopp.demo;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
 import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.Role;
 import nl.tudelft.oopp.demo.repositories.UserRepository;
@@ -16,12 +22,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
 class UserDetailsServiceTest {
@@ -35,6 +35,7 @@ class UserDetailsServiceTest {
             return new UserDetailsServiceImpl(userRepository);
         }
     }
+
     @Autowired
     UserDetailsServiceImpl userDetailsService;
     @Autowired
@@ -56,18 +57,12 @@ class UserDetailsServiceTest {
         roleSet = new HashSet<>();
         roleSet.add(role);
         appUser.setRoles(roleSet);
-//        userRepository.save(appUser);
     }
 
     @Test
     public void testLoadUserByUsername() {
-        Exception exception = assertThrows(UsernameNotFoundException.class, () -> {
+        assertThrows(UsernameNotFoundException.class, () -> {
             userDetailsService.loadUserByUsername("not.a.student@student.tudelft.nl");
         });
-      //  userDetails = userDetailsService.loadUserByUsername(appUser.getEmail());
-//        authorities = new ArrayList<>();
-//        authorities.add(new SimpleGrantedAuthority(role.getName()));
-   //     assertEquals(userDetails.getAuthorities(), authorities);
-
     }
 }

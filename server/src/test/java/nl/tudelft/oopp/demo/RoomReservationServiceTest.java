@@ -1,5 +1,19 @@
 package nl.tudelft.oopp.demo;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+
 import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.entities.RoomReservation;
@@ -14,10 +28,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
-
-import java.util.*;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 class RoomReservationServiceTest {
@@ -145,7 +155,7 @@ class RoomReservationServiceTest {
 
     @Test
     public void testDelete() {
-        roomReservationService.add(room.getId(), appUser.getEmail(), 50 ,100);
+        roomReservationService.add(room.getId(), appUser.getEmail(), 50,100);
         roomReservationService.add(room2.getId(), appUser2.getEmail(), 70, 90);
         List<RoomReservation> roomReservations = new ArrayList<>();
         roomReservationService.all().forEach(roomReservations::add);

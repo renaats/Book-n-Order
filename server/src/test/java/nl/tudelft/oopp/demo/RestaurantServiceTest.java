@@ -1,6 +1,16 @@
 package nl.tudelft.oopp.demo;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Restaurant;
@@ -13,11 +23,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
 
 /**
  * Tests the RestaurantService service.
@@ -75,7 +80,7 @@ public class RestaurantServiceTest {
 
     @Test
     public void testCreate() {
-        assertEquals("Could not find building with id -3!",restaurantService.add(-3,"The Ghost Restaurant"));
+        assertEquals(422, restaurantService.add(-3,"The Ghost Restaurant"));
         restaurantService.add(restaurant.getBuilding().getId(), restaurant.getName());
         assertEquals(restaurantService.all(), Collections.singletonList(restaurant));
     }
