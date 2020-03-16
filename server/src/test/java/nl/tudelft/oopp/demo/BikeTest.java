@@ -1,8 +1,9 @@
 package nl.tudelft.oopp.demo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -24,10 +25,12 @@ public class BikeTest {
     private BuildingRepository buildingRepository;
 
     Building building;
+    Building building2;
     Bike bike;
     Bike bike2;
 
-    /** Sets up the classes before executing the tests.
+    /**
+     * Sets up the entities and saves them in the repository before executing every test.
      */
     @BeforeEach
     public void setup() {
@@ -37,35 +40,69 @@ public class BikeTest {
         building.setHouseNumber(4);
         buildingRepository.save(building);
 
+        building2 = new Building();
+        building2.setName("EWI2");
+        building2.setStreet("Mekelweg2");
+        building2.setHouseNumber(42);
+        buildingRepository.save(building2);
+
         bike = new Bike();
         bike.setAvailable(true);
         bike.setLocation(building);
         bikeRepository.save(bike);
     }
 
+    /**
+     * Tests the constructor of the Bike class
+     */
+    @Test
+    public void testConstructor() {
+        bike2 = new Bike();
+        assertNotNull(bike2);
+    }
+
+    /**
+     * Tests the saving and retrieval of an instance of Bike.
+     */
     @Test
     public void saveAndRetrieveBike() {
         bike2 = bikeRepository.findAll().get(0);
         assertEquals(bike, bike2);
     }
 
+    /**
+     * Tests the getters of the Bike class.
+     */
     @Test
     public void testGetters() {
         bike2 = bikeRepository.findAll().get(0);
         assertTrue(bike2.isAvailable());
-        assertSame(bike.getLocation(), bike2.getLocation());
+        assertSame(building, bike2.getLocation());
     }
 
+    /**
+     * Tests the change of the availability field.
+     */
     @Test
-    public void testEqualBikes() {
-        bike2 = new Bike();
-        bike2.setAvailable(true);
-        bike2.setLocation(building);
-        assertEquals(bike, bike2);
-        assertNotSame(bike, bike2);
-        assertNotEquals(bike.getId(), bike2.getId());
+    public void testChangeAvailability() {
+        assertTrue(bike.isAvailable());
+        bike.setAvailable(false);
+        assertFalse(bike.isAvailable());
     }
 
+    /**
+     * Tests the change of the location field.
+     */
+    @Test
+    public void testChangeLocation() {
+        assertNotEquals(building2, bike.getLocation());
+        bike.setLocation(building2);
+        assertEquals(building2, bike.getLocation());
+    }
+
+    /**
+     * Cleans up the repositories after executing every test.
+     */
     @AfterEach
     public void cleanup() {
         bikeRepository.deleteAll();
