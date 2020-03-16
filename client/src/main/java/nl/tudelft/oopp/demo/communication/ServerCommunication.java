@@ -1,5 +1,9 @@
 package nl.tudelft.oopp.demo.communication;
 
+import nl.tudelft.oopp.demo.errors.ErrorMessages;
+import nl.tudelft.oopp.demo.user.UserInformation;
+import nl.tudelft.oopp.demo.views.ApplicationDisplay;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
@@ -12,9 +16,12 @@ import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+<<<<<<< HEAD
 import nl.tudelft.oopp.demo.errors.ErrorMessages;
 import nl.tudelft.oopp.demo.user.UserInformation;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
+=======
+>>>>>>> Fixed some checkstyle issues
 
 public class ServerCommunication {
 
@@ -444,7 +451,8 @@ public class ServerCommunication {
      * @return body response
      */
     public static String addRoomReservation(int roomId, String userEmail, long from, long to) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room_reservation/add?room=" + roomId + "&userId=" + userEmail + "&from=" + from + "&to=" + to)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room_reservation/add?room=" +
+                roomId + "&userId=" + userEmail + "&from=" + from + "&to=" + to)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
         HttpResponse<String> response = null;
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
