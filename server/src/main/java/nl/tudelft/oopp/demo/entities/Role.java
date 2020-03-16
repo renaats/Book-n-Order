@@ -10,7 +10,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
-@Entity // This tells Hibernate to make a table out of this class
+/**
+ * Represents a user role. Holds all necessary information about the role that is then stored in the database.
+ * Is uniquely identified by its id.
+ * By default, roles "ROLE_USER", "ROLE_ADMIN", "ROLE_BUILDING_ADMIN", "ROLE_BIKE_ADMIN", "ROLE_RESTAURANT" have predefined access control.
+ */
+@Entity
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

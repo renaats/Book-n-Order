@@ -15,7 +15,14 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-@Entity // This tells Hibernate to make a table out of this class
+/**
+ * Represents a bike reservation. Holds all necessary information about the bike reservation that is then stored in the database.
+ * Is uniquely identified by its id.
+ * Contains Bike as a foreign key.
+ * Contains AppUser as a foreign key.
+ * Contains 2 Buildings as foreign keys.
+ */
+@Entity
 public class BikeReservation {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

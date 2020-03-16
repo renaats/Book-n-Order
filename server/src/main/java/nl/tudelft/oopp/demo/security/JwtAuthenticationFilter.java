@@ -30,6 +30,11 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+/**
+ * Supports custom user authentication by integrating the AppUser class together with the user roles defined in Role.
+ * Uses the Spring security class User to store the user credentials and permissions.
+ * Has custom implementations to the attemptAuthentication and successfulAuthentication.
+ */
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;
     private final UserRepository userRepository;

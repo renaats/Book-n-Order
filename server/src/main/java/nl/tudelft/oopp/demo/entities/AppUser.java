@@ -12,8 +12,13 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+/**
+ * Represents a user account. Holds all necessary information about the user that is then stored in the database.
+ * Is uniquely identified by its email.
+ * Contains the password encoded with BCryptPasswordEncoder.
+ */
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@Entity // This tells Hibernate to make a table out of this class
+@Entity
 public class AppUser {
     @Id
     private String email;

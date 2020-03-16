@@ -19,7 +19,13 @@ import javax.persistence.OneToOne;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-@Entity // This tells Hibernate to make a table out of this class
+/**
+ * Represents a restaurant. Holds all necessary information about the restaurant that is then stored in the database.
+ * Is uniquely identified by its id.
+ * Contains Building as a foreign key.
+ * Contains Menu as a foreign key.
+ */
+@Entity
 public class Restaurant {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -14,6 +14,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Creates server side endpoints and routes requests to the RestaurantService.
+ * Maps all requests that start with "/restaurant".
+ * Manages access control on a per-method basis.
+ */
 @Repository
 @RestController
 @RequestMapping(path = "/restaurant")

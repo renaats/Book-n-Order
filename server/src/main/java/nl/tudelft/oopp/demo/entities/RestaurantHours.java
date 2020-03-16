@@ -12,6 +12,11 @@ import javax.persistence.ManyToOne;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+/**
+ * Represents working hours for a restaurant. Holds all necessary information about the restaurant hours that is then stored in the database.
+ * Is uniquely identified by its id.
+ * Contains an instance of Restaurant as a foreign key.
+ */
 @Entity
 public class RestaurantHours {
     @Id
