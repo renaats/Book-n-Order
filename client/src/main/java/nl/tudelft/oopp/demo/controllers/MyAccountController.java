@@ -1,12 +1,49 @@
 package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
+import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
+import nl.tudelft.oopp.demo.entities.AppUser;
+import nl.tudelft.oopp.demo.entities.Role;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
-public class MyAccountController {
+public class MyAccountController implements Initializable {
+
+    @FXML
+    private AnchorPane anchorPane;
+    @FXML
+    private Button adminControl;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        boolean showAdminButton = false;
+        try {
+            // Server does not support it yet, try it out with
+            // HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + UserInformation.getBearerKey()).uri(URI.create("http://localhost:8080/user/find?email=r.jursevskis@student.tudelft.nl")).build();
+            // in ServerCommunication line 29. This would then work for Renats account that has been given in the auth merge request.
+            AppUser user = JsonMapper.appUserMapper(ServerCommunication.getUser());
+            for (Role role : user.getRoles()) {
+                if (role.getName().equals("ROLE_ADMIN")) {
+                    showAdminButton = true;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (!showAdminButton) {
+            anchorPane.getChildren().remove(adminControl);
+        }
+    }
+
     /**
      * Changes current scene to myAccountScene.fxml.
      * @throws IOException input will be valid.
@@ -85,4 +122,5 @@ public class MyAccountController {
         alert.showAndWait();
         ApplicationDisplay.changeScene("/login-screen.fxml");
     }
+
 }

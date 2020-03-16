@@ -7,12 +7,10 @@ import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -20,52 +18,47 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 @Entity // This tells Hibernate to make a table out of this class
-public class Restaurant {
+public class Menu {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
-    @ManyToOne
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn
-    private Building building;
-
     private String name;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn
-    private Menu menu;
+    private Restaurant restaurant;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "restaurant")
-    Set<RestaurantHours> restaurantHours = new HashSet<>();
+    @OneToMany(mappedBy = "menu")
+    Set<Dish> dishes = new HashSet<>();
 
-    public void setBuilding(Building building) {
-        this.building = building;
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
+    }
+
+    public Set<Dish> getDishes() {
+        return dishes;
+    }
+
+    public void setDishes(Set<Dish> dishes) {
+        this.dishes = dishes;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setMenu(Menu menu) {
-        this.menu = menu;
-    }
-
     public int getId() {
         return id;
     }
 
-    public Building getBuilding() {
-        return building;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public Menu getMenu() {
-        return menu;
     }
 
     @Override
@@ -76,8 +69,10 @@ public class Restaurant {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Restaurant restaurant = (Restaurant) o;
-        return name.equals(restaurant.name)
-                && Objects.equals(building, restaurant.building);
+        Menu menu = (Menu) o;
+        return id == menu.id
+                && Objects.equals(name, menu.name)
+                && Objects.equals(restaurant, menu.restaurant)
+                && Objects.equals(dishes, menu.dishes);
     }
 }

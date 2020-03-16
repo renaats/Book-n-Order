@@ -20,12 +20,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path = "/role")
 public class RoleController {
     @Autowired
-    RoleService roleService;
+     private RoleService roleService;
 
     /**
      * Adds a role to the database.
      * @param name = the name of the new role.
-     * @return String containing the result of your request.
+     * @return Error code
      */
     @Secured("ROLE_ADMIN")
     @PostMapping(path = "/add")
@@ -38,7 +38,7 @@ public class RoleController {
      * Updates a the name of a role.
      * @param id = the role id.
      * @param name = new name.
-     * @return String containing the result of your request.
+     * @return Error code
      */
     @Secured("ROLE_ADMIN")
     @PostMapping(path = "/update_name")
@@ -50,7 +50,7 @@ public class RoleController {
     /**
      * Updates a the users of a role,
      * @param id = the role id.
-     * @return String containing the result of your request.
+     * @return Error code
      */
     @Secured("ROLE_ADMIN")
     @DeleteMapping(path = "/delete")

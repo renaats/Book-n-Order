@@ -6,11 +6,10 @@ import static nl.tudelft.oopp.demo.security.SecurityConstants.TOKEN_PREFIX;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.HashSet;
-
 import javax.servlet.http.HttpServletRequest;
-
 import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.Role;
 import nl.tudelft.oopp.demo.repositories.RoleRepository;
@@ -59,9 +58,13 @@ public class UserService {
      * @return String to see if your request passed
      */
     public int add(String email, String password, String name, String surname, String faculty) {
-        if (!EmailValidator.getInstance().isValid(email)) {
-            System.out.println(email);
-            return 423;
+        try {
+            if (!EmailValidator.getInstance().isValid(URLDecoder.decode(email, "UTF-8"))) {
+                return 423;
+            }
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return 502;
         }
         if (!email.contains("@student.tudelft.nl") && !email.contains("@tudelft.nl")) {
             return 424;
