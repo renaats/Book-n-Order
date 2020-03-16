@@ -8,7 +8,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Dish;
 import nl.tudelft.oopp.demo.entities.Menu;
 import nl.tudelft.oopp.demo.entities.Restaurant;
@@ -56,8 +55,6 @@ public class DishServiceTest {
     Dish dish;
     Dish dish2;
     Set<Dish> dishes;
-    Building building;
-    Building building2;
     Restaurant restaurant1;
     Restaurant restaurant2;
 
@@ -65,24 +62,16 @@ public class DishServiceTest {
      */
     @BeforeEach
     public void setup() {
-        menu1 = new Menu();
-        menu1.setName("KFC menu");
-        menu1.setRestaurant(restaurant1);
+        menu1 = new Menu("KFC menu", restaurant1);
         menu1.setDishes(dishes);
         menuRepository.save(menu1);
 
-        menu2 = new Menu();
-        menu2.setName("BK menu");
-        menu2.setRestaurant(restaurant2);
+        menu2 = new Menu("BK menu", restaurant2);
         menuRepository.save(menu2);
 
-        dish = new Dish();
-        dish.setMenu(menu1);
-        dish.setName("Chicken");
+        dish = new Dish("Chicken", menu1);
 
-        dish2 = new Dish();
-        dish2.setMenu(menu2);
-        dish2.setName("Spicy Chicken");
+        dish2 = new Dish("Spicy Chicken", menu2);
 
         dishes = new HashSet<>();
         dishes.add(dish);

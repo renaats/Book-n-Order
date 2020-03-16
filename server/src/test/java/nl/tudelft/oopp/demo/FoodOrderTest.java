@@ -48,37 +48,21 @@ public class FoodOrderTest {
      */
     @BeforeEach
     public void setup() {
-        building = new Building();
-        building.setName("XTUDelft");
-        building.setStreet("Mekelweg");
-        building.setHouseNumber(8);
+        building = new Building("XTUDelft", "Mekelweg", 8);
         buildingRepository.saveAndFlush(building);
 
-        restaurant = new Restaurant();
-        restaurant.setName("CafeX");
-        restaurant.setBuilding(building);
+        restaurant = new Restaurant(building, "CafeX");
         restaurantRepository.saveAndFlush(restaurant);
 
-        deliveryLocation = new Building();
-        deliveryLocation.setName("EWI");
-        deliveryLocation.setStreet("Mekelweg");
-        deliveryLocation.setHouseNumber(4);
+        deliveryLocation = new Building("EWI", "Mekelweg", 4);
         buildingRepository.saveAndFlush(deliveryLocation);
 
-        appUser = new AppUser();
-        appUser.setEmail("l.j.jongejans@student.tudelft.nl");
-        appUser.setPassword("1234");
-        appUser.setName("Liselotte");
-        appUser.setSurname("Jongejans");
-        appUser.setFaculty("EWI");
+        appUser = new AppUser("l.j.jongejans@student.tudelft.nl", "1234", "Liselotte", "Jongejans", "EWI");
         appUser.setRoomReservations(new HashSet<>());
         userRepository.saveAndFlush(appUser);
 
-        foodOrder = new FoodOrder();
-        foodOrder.setAppUser(userRepository.findAll().get(0));
-        foodOrder.setRestaurant(restaurantRepository.findAll().get(0));
-        foodOrder.setDeliveryLocation(buildingRepository.findAll().get(1));
-        foodOrder.setDeliveryTime(new Date(11000000000L));
+        foodOrder = new FoodOrder(restaurantRepository.findAll().get(0), userRepository.findAll().get(0),
+                buildingRepository.findAll().get(1), new Date(11000000000L));
         foodOrderRepository.saveAndFlush(foodOrder);
         foodOrder = foodOrderRepository.findAll().get(0);
     }
@@ -115,11 +99,7 @@ public class FoodOrderTest {
 
     @Test
     public void testEqualFoodOrder() {
-        foodOrder2 = new FoodOrder();
-        foodOrder2.setAppUser(appUser);
-        foodOrder2.setRestaurant(restaurant);
-        foodOrder2.setDeliveryLocation(deliveryLocation);
-        foodOrder2.setDeliveryTime(new Date(11000000000L));
+        foodOrder2 = new FoodOrder(restaurant, appUser, deliveryLocation, new Date(11000000000L));
         assertEquals(foodOrder, foodOrder2);
         assertNotSame(foodOrder, foodOrder2);
     }

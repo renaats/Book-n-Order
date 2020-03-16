@@ -50,46 +50,31 @@ public class MenuTest {
      */
     @BeforeEach
     public void setup() {
-        dish = new Dish();
-        dish.setMenu(menu1);
-        dish.setName("Chicken");
+        dish = new Dish("Chicken", menu1);
         dishRepository.saveAndFlush(dish);
 
-        dish2 = new Dish();
-        dish.setMenu(menu2);
-        dish.setName("Spicy Chicken");
+        dish2 = new Dish("Spicy Chicken", menu2);
         dishRepository.saveAndFlush(dish2);
 
         dishes = new HashSet<>();
         dishes.add(dish);
         dishes.add(dish2);
 
-        menu1 = new Menu();
-        menu1.setName("KFC menu");
-        menu1.setRestaurant(restaurant1);
+        menu1 = new Menu("KFC menu", restaurant1);
         menu1.setDishes(dishes);
         menuRepository.saveAndFlush(menu1);
 
-        menu2 = new Menu();
-        menu2.setName("BK menu");
-        menu2.setRestaurant(restaurant2);
+        menu2 = new Menu("BK menu", restaurant2);
         menuRepository.saveAndFlush(menu2);
 
-        building = new Building();
-        building.setName("EWI");
-        building.setStreet("Mekelweg");
-        building.setHouseNumber(4);
+        building = new Building("EWI", "Mekelweg", 4);
         buildingRepository.saveAndFlush(building);
 
-        restaurant1 = new Restaurant();
-        restaurant1.setBuilding(building);
-        restaurant1.setName("KFC");
+        restaurant1 = new Restaurant(building, "KFC");
         restaurant1.setMenu(menu1);
         restaurantRepository.saveAndFlush(restaurant1);
 
-        restaurant2 = new Restaurant();
-        restaurant2.setBuilding(building);
-        restaurant2.setName("Burger King");
+        restaurant2 = new Restaurant(building, "Burger King");
         restaurant2.setMenu(menu2);
         restaurantRepository.saveAndFlush(restaurant2);
     }

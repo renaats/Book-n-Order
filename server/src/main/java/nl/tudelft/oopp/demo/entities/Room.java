@@ -42,10 +42,35 @@ public class Room {
     private int nrPeople;
     private int plugs;
 
+    /**
+     * Creates a new instance of Room.
+     * @param name = name of the room.
+     * @param building = building in which room is situated.
+     * @param faculty = name of the faculty.
+     * @param facultySpecific = whether the room is faculty specific.
+     * @param projector = whether the room has a projector.
+     * @param screen = whether the room has a screen.
+     * @param nrPeople = number of people who can sit in the room.
+     * @param plugs = number of plugs in the room.
+     */
+    public Room(String name, Building building, String faculty, boolean facultySpecific, boolean projector, boolean screen, int nrPeople, int plugs) {
+        this.name = name;
+        this.building = building;
+        this.faculty = faculty;
+        this.facultySpecific = facultySpecific;
+        this.projector = projector;
+        this.screen = screen;
+        this.nrPeople = nrPeople;
+        this.plugs = plugs;
+    }
+
+    public Room() {
+
+    }
+
     @JsonIgnore
     @OneToMany(mappedBy = "room")
     Set<RoomReservation> roomReservations = new HashSet<>();
-
 
     public void setName(String name) {
         this.name = name;
@@ -126,6 +151,33 @@ public class Room {
 
     public boolean hasRoomReservations() {
         return roomReservations.size() > 0;
+    }
+
+    /**
+     * Constructs a Room entity.
+     * @param id the unique id of this room.
+     * @param name the name of this room.
+     * @param building the building that this room belongs to.
+     * @param faculty the faculty that this room belongs to.
+     * @param facultySpecific true if this building belongs to a faculty, false otherwise.
+     * @param projector true if this room has a projector, false otherwise.
+     * @param screen true if this room has a screen, false otherwise.
+     * @param nrPeople number of people this room is designed to accomodate.
+     * @param plugs number of electric plugs available in this room.
+     * @param roomReservations reservations of this room.
+     */
+    public Room(Integer id, String name, Building building, String faculty, boolean facultySpecific, boolean projector,
+                boolean screen, int nrPeople, int plugs, Set<RoomReservation> roomReservations) {
+        this.id = id;
+        this.name = name;
+        this.building = building;
+        this.faculty = faculty;
+        this.facultySpecific = facultySpecific;
+        this.projector = projector;
+        this.screen = screen;
+        this.nrPeople = nrPeople;
+        this.plugs = plugs;
+        this.roomReservations = roomReservations;
     }
 
     /**

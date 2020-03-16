@@ -42,20 +42,13 @@ public class RestaurantHourTest {
      */
     @BeforeEach
     public void setup() {
-        building = new Building();
-        building.setName("EWI");
-        building.setStreet("Mekelweg");
-        building.setHouseNumber(4);
+        building = new Building("EWI", "Mekelweg", 4);
         buildingRepository.save(building);
 
-        restaurant = new Restaurant();
-        restaurant.setBuilding(building);
-        restaurant.setName("Hangout");
+        restaurant = new Restaurant(building, "Hangout");
         restaurantRepository.save(restaurant);
 
-        restaurant2 = new Restaurant();
-        restaurant2.setBuilding(building);
-        restaurant2.setName("Food Station");
+        restaurant2 = new Restaurant(building, "Food Station");
         restaurantRepository.save(restaurant2);
 
         restaurantHours = new RestaurantHours(1, restaurant, LocalTime.ofSecondOfDay(1000), LocalTime.ofSecondOfDay(3000));
@@ -121,11 +114,7 @@ public class RestaurantHourTest {
      */
     @Test
     public void testChangeDay() {
-        restaurantHours2 = new RestaurantHours();
-        restaurantHours2.setDay(2);
-        restaurantHours2.setRestaurant(restaurant);
-        restaurantHours2.setStartTime(LocalTime.ofSecondOfDay(1000));
-        restaurantHours2.setEndTime(LocalTime.ofSecondOfDay(3000));
+        restaurantHours2 = new RestaurantHours(2, restaurant, LocalTime.ofSecondOfDay(1000), LocalTime.ofSecondOfDay(3000));
         assertNotEquals(restaurantHours, restaurantHours2);
         restaurantHours2.setDay(1);
         assertEquals(restaurantHours, restaurantHours2);
@@ -136,11 +125,7 @@ public class RestaurantHourTest {
      */
     @Test
     public void testChangeRestaurant() {
-        restaurantHours2 = new RestaurantHours();
-        restaurantHours2.setDay(1);
-        restaurantHours2.setRestaurant(restaurant2);
-        restaurantHours2.setStartTime(LocalTime.ofSecondOfDay(1000));
-        restaurantHours2.setEndTime(LocalTime.ofSecondOfDay(3000));
+        restaurantHours2 = new RestaurantHours(1, restaurant2, LocalTime.ofSecondOfDay(1000), LocalTime.ofSecondOfDay(3000));
         assertNotEquals(restaurantHours, restaurantHours2);
         restaurantHours2.setRestaurant(restaurant);
         assertEquals(restaurantHours, restaurantHours2);
@@ -151,11 +136,7 @@ public class RestaurantHourTest {
      */
     @Test
     public void testChangeStartTime() {
-        restaurantHours2 = new RestaurantHours();
-        restaurantHours2.setDay(1);
-        restaurantHours2.setRestaurant(restaurant);
-        restaurantHours2.setStartTime(LocalTime.ofSecondOfDay(2000));
-        restaurantHours2.setEndTime(LocalTime.ofSecondOfDay(3000));
+        restaurantHours2 = new RestaurantHours(1, restaurant, LocalTime.ofSecondOfDay(2000),LocalTime.ofSecondOfDay(3000));
         assertNotEquals(restaurantHours, restaurantHours2);
         restaurantHours2.setStartTime(LocalTime.ofSecondOfDay(1000));
         assertEquals(restaurantHours, restaurantHours2);
@@ -166,11 +147,7 @@ public class RestaurantHourTest {
      */
     @Test
     public void testChangeEndTime() {
-        restaurantHours2 = new RestaurantHours();
-        restaurantHours2.setDay(1);
-        restaurantHours2.setRestaurant(restaurant);
-        restaurantHours2.setStartTime(LocalTime.ofSecondOfDay(1000));
-        restaurantHours2.setEndTime(LocalTime.ofSecondOfDay(4000));
+        restaurantHours2 = new RestaurantHours(1, restaurant, LocalTime.ofSecondOfDay(1000), LocalTime.ofSecondOfDay(4000));
         assertNotEquals(restaurantHours, restaurantHours2);
         restaurantHours2.setEndTime(LocalTime.ofSecondOfDay(3000));
         assertEquals(restaurantHours, restaurantHours2);

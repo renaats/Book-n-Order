@@ -66,15 +66,9 @@ public class BuildingHourServiceTest {
      */
     @BeforeEach
     public void setup() {
-        building = new Building();
-        building.setName("EWI");
-        building.setStreet("Mekelweg");
-        building.setHouseNumber(4);
+        building = new Building("EWI", "Mekelweg", 4);
 
-        building2 = new Building();
-        building2.setName("EWI2");
-        building2.setStreet("Mekelweg2");
-        building2.setHouseNumber(42);
+        building2 = new Building("EWI2", "Mekelweg2", 42);
 
         assertEquals(201, buildingService.add("EWI", "Mekelweg", 4));
         assertEquals(201, buildingService.add("EWI2", "Mekelweg2", 42));

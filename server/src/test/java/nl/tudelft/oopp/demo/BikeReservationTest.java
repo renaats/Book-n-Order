@@ -49,10 +49,7 @@ public class BikeReservationTest {
      */
     @BeforeEach
     public void setup() {
-        building = new Building();
-        building.setName("EWI");
-        building.setStreet("Mekelweg");
-        building.setHouseNumber(4);
+        building = new Building("EWI", "Mekelweg", 4);
         buildingRepository.saveAndFlush(building);
 
         bike = new Bike();
@@ -60,34 +57,18 @@ public class BikeReservationTest {
         bike.setAvailable(true);
         bikeRepository.saveAndFlush(bike);
 
-        appUser = new AppUser();
-        appUser.setEmail("l.j.jongejans@student.tudelft.nl");
-        appUser.setPassword("1234");
-        appUser.setName("Liselotte");
-        appUser.setSurname("Jongejans");
-        appUser.setFaculty("EWI");
+        appUser = new AppUser("l.j.jongejans@student.tudelft.nl", "1234", "Liselotte", "Jongejans", "EWI");
         appUser.setRoomReservations(new HashSet<>());
         userRepository.saveAndFlush(appUser);
 
-        fromBuilding = new Building();
-        fromBuilding.setName("EWI");
-        fromBuilding.setStreet("Mekelweg");
-        fromBuilding.setHouseNumber(4);
+        fromBuilding = new Building("EWI", "Mekelweg", 4);
         buildingRepository.saveAndFlush(fromBuilding);
 
-        toBuilding = new Building();
-        toBuilding.setName("SportHal");
-        toBuilding.setStreet("Mekelweg");
-        toBuilding.setHouseNumber(8);
+        toBuilding = new Building("SportHal", "Mekelweg", 8);
         buildingRepository.saveAndFlush(toBuilding);
 
-        bikeReservation = new BikeReservation();
-        bikeReservation.setAppUser(userRepository.findAll().get(0));
-        bikeReservation.setBike(bike);
-        bikeReservation.setFromBuilding(fromBuilding);
-        bikeReservation.setToBuilding(toBuilding);
-        bikeReservation.setFromTime(new Date(10000000000L));
-        bikeReservation.setToTime(new Date(11000000000L));
+        bikeReservation = new BikeReservation(bike, userRepository.findAll().get(0), fromBuilding, toBuilding,
+                new Date(10000000000L), new Date(11000000000L));
         bikeReservationRepository.saveAndFlush(bikeReservation);
         bikeReservation = bikeReservationRepository.findAll().get(0);
     }
@@ -124,13 +105,7 @@ public class BikeReservationTest {
 
     @Test
     public void testEqualBikeReservations() {
-        bikeReservation2 = new BikeReservation();
-        bikeReservation2.setAppUser(appUser);
-        bikeReservation2.setBike(bike);
-        bikeReservation2.setFromBuilding(fromBuilding);
-        bikeReservation2.setToBuilding(toBuilding);
-        bikeReservation2.setFromTime(new Date(10000000000L));
-        bikeReservation2.setToTime(new Date(11000000000L));
+        bikeReservation2 = new BikeReservation(bike, appUser, fromBuilding, toBuilding, new Date(10000000000L), new Date(11000000000L));
         assertEquals(bikeReservation, bikeReservation2);
         assertNotSame(bikeReservation, bikeReservation2);
     }
