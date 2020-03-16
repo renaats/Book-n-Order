@@ -4,10 +4,9 @@ import nl.tudelft.oopp.demo.entities.Building;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-
-// This will be AUTO IMPLEMENTED by Spring into a Bean called userRepository
-// CRUD refers Create, Read, Update, Delete
-
+/**
+ * Supports the persistence of Building entities by storing them in the database.
+ */
 @Repository
 public interface BuildingRepository extends JpaRepository<Building, Integer> {
     Building findByName(String name);

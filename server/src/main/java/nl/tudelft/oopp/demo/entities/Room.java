@@ -17,7 +17,12 @@ import javax.persistence.OneToMany;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-@Entity // This tells Hibernate to make a table out of this class
+/**
+ * Represents a room. Holds all necessary information about the room that is then stored in the database.
+ * Is uniquely identified by its id.
+ * Contains Building as a foreign key.
+ */
+@Entity
 public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

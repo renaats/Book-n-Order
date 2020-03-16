@@ -14,6 +14,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Creates server side endpoints and routes requests to the BikeService.
+ * Maps all requests that start with "/bike".
+ * Manages access control on a per-method basis.
+ */
 @Repository
 @RestController // This means that this class is a Controller
 @RequestMapping(path = "/bike") // This means URL's start with /bike (after Application path)

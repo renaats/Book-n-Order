@@ -19,6 +19,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+/**
+ * Supports CRUD operations for the AppUser entity.
+ * Receives requests from the UserController, manipulates the database and returns the answer.
+ * Uses error codes defined in the client side package "errors".
+ */
 @Service
 public class UserService {
     @Autowired

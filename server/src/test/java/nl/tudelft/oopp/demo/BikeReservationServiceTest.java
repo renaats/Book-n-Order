@@ -25,6 +25,9 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 
+/**
+ * Tests the BikeReservationService service.
+ */
 @DataJpaTest
 public class BikeReservationServiceTest {
     @TestConfiguration

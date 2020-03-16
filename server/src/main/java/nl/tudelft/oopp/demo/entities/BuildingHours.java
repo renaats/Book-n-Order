@@ -12,6 +12,11 @@ import javax.persistence.ManyToOne;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+/**
+ * Represents working hours for a building. Holds all necessary information about the building hours that is then stored in the database.
+ * Is uniquely identified by its id.
+ * Contains Building as a foreign key.
+ */
 @Entity
 public class BuildingHours {
     @Id

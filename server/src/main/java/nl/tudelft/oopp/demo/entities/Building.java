@@ -12,7 +12,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-@Entity // This tells Hibernate to make a table out of this class
+/**
+ * Represents a building. Holds all necessary information about the building that is then stored in the database.
+ * Is uniquely identified by its id.
+ */
+@Entity
 public class Building {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

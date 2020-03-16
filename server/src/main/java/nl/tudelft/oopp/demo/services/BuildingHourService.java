@@ -8,6 +8,11 @@ import nl.tudelft.oopp.demo.repositories.BuildingHourRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * Supports CRUD operations for the BuildingHours entity.
+ * Receives requests from the BuildingHourController, manipulates the database and returns the answer.
+ * Uses error codes defined in the client side package "errors".
+ */
 @Service
 public class BuildingHourService {
     @Autowired
