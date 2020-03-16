@@ -12,12 +12,12 @@
          <Image url="@images/mainMenuBackground.jpg" />
       </image>
    </ImageView>
-   <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="67.0" layoutY="-32.0" pickOnBounds="true" preserveRatio="true">
+   <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="63.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@images/TuDelftLogoFinal.png" />
       </image>
    </ImageView>
-   <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="255.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="521.0" AnchorPane.leftAnchor="255.0" AnchorPane.rightAnchor="425.0" AnchorPane.topAnchor="55.0">
+   <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="258.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="576.0" AnchorPane.leftAnchor="258.0" AnchorPane.rightAnchor="902.0" AnchorPane.topAnchor="120.0">
       <Image url="@images/booknorderlogo.png" />
    </ImageView>
    <Text fill="WHITE" layoutX="20.0" layoutY="555.576171875" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback is welcome" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0">
@@ -55,13 +55,24 @@
          <Cursor fx:constant="HAND" />
       </cursor>
    </ImageView>
-   <Text layoutX="45.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Book 'n Order">
+   <Text layoutX="76.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Book 'n Order!">
       <font>
          <Font name="Candara Bold" size="24.0" />
       </font></Text>
-   <Text layoutX="42.0" layoutY="210.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Here you can make new bookings by clicking on the&#10;bookings icon.&#10;In addition you can check your current bookings&#10;and events on the calendar" wrappingWidth="319.30078125" />
-   <Text layoutX="607.0" layoutY="388.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My Calendar" />
-   <Text layoutX="334.0" layoutY="588.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My Profile" />
-   <Text layoutX="890.0" layoutY="587.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My Bookings" />
-
+   <Text layoutX="76.0" layoutY="215.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book 'n Order is the TU Delft app for booking rooms, renting bikes and picking up food!" wrappingWidth="319.30078125" />
+   <Button layoutX="824.0" layoutY="571.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#goToMainReservationsMenu" style="-fx-background-color: #00a6d6;" text="New Bookings" textFill="WHITE">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
+   <Button layoutX="540.0" layoutY="371.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#calendarIcon" style="-fx-background-color: #00a6d6;" text="My Calendar" textFill="WHITE">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
+   <Button layoutX="261.0" layoutY="571.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#goToProfile" style="-fx-background-color: #00a6d6;" text="My Profile" textFill="WHITE">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
 </AnchorPane>
