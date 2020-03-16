@@ -5,20 +5,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 
-@Entity // This tells Hibernate to make a table out of this class
 public class AppUser {
-    @Id
     private String email;
     private String password;
     private String name;
     private String surname;
     private String faculty;
-    @ManyToMany
+
     private Set<Role> roles;
 
     /**
@@ -35,16 +29,12 @@ public class AppUser {
         this.name = name;
         this.surname = surname;
         this.faculty = faculty;
-        this.roles = roles;
-        this.roomReservations = roomReservations;
     }
 
     public AppUser() {
 
     }
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "user")
     Set<RoomReservation> roomReservations = new HashSet<>();
 
     public void setEmail(String email) {
@@ -121,5 +111,4 @@ public class AppUser {
                 && Objects.equals(roles, appUser.roles)
                 && Objects.equals(roomReservations, appUser.roomReservations);
     }
-
 }
