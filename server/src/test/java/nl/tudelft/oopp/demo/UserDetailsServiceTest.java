@@ -50,6 +50,7 @@ class UserDetailsServiceTest {
     UserRepository userRepository;
     @Autowired
     RoleRepository roleRepository;
+
     AppUser appUser;
     Role role;
     Set<Role> roleSet;
