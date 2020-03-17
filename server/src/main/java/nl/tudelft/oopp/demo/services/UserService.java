@@ -1,23 +1,23 @@
 package nl.tudelft.oopp.demo.services;
 
-import static nl.tudelft.oopp.demo.security.SecurityConstants.HEADER_STRING;
-import static nl.tudelft.oopp.demo.security.SecurityConstants.SECRET;
-import static nl.tudelft.oopp.demo.security.SecurityConstants.TOKEN_PREFIX;
-
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.util.HashSet;
-import javax.servlet.http.HttpServletRequest;
 import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.Role;
+import nl.tudelft.oopp.demo.entities.VerificationToken;
 import nl.tudelft.oopp.demo.repositories.RoleRepository;
 import nl.tudelft.oopp.demo.repositories.UserRepository;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.util.HashSet;
+
+import static nl.tudelft.oopp.demo.security.SecurityConstants.*;
 
 /**
  * Supports CRUD operations for the AppUser entity.
@@ -32,6 +32,11 @@ public class UserService {
     private BCryptPasswordEncoder bcryptPasswordEncoder;
     @Autowired
     private RoleRepository roleRepository;
+
+    public void createVerificationToken(AppUser user, String token) {
+        VerificationToken newUserToken = new VerificationToken(token, user);
+        tokenDAO.save(newUserToken);
+    }
 
     /**
      * Logs out from the current account.
