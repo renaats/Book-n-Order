@@ -49,7 +49,7 @@
    </ImageView>
    <ImageView fitHeight="170.0" fitWidth="170.0" layoutX="839.0" layoutY="396.0" onMouseClicked="#goToMainReservationsMenu" pickOnBounds="true">
       <image>
-         <Image url="@images/BookingLogoChangeFinal.png" />
+         <Image url="@images/BookingLogoChangeWithoutShadow.png" />
       </image>
       <cursor>
          <Cursor fx:constant="HAND" />
