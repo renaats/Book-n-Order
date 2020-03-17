@@ -87,7 +87,11 @@ public class RestaurantHourServiceTest {
 
         restaurant2 = new Restaurant(building, "Hangout");
 
+        buildingService.add("EWI", "Mekelweg", 4);
         building = buildingService.find("EWI");
+
+        restaurantService.add(building.getId(), "Food Station");
+        restaurantService.add(building.getId(), "Hangout");
 
         restaurant = restaurantService.find("Food Station");
         restaurant2 = restaurantService.find("Hangout");

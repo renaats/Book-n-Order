@@ -70,6 +70,9 @@ public class BuildingHourServiceTest {
 
         building2 = new Building("EWI2", "Mekelweg2", 42);
 
+        buildingService.add("EWI", "Mekelweg", 4);
+        buildingService.add("EWI2", "Mekelweg2", 42);
+
         building = buildingService.find("EWI");
         building2 = buildingService.find("EWI2");
 
