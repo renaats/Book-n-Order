@@ -87,11 +87,7 @@ public class RestaurantHourServiceTest {
 
         restaurant2 = new Restaurant(building, "Hangout");
 
-        assertEquals(201, buildingService.add("EWI", "Mekelweg", 4));
         building = buildingService.find("EWI");
-
-        assertEquals(201, restaurantService.add(building.getId(), "Food Station"));
-        assertEquals(201, restaurantService.add(building.getId(), "Hangout"));
 
         restaurant = restaurantService.find("Food Station");
         restaurant2 = restaurantService.find("Hangout");

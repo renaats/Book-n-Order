@@ -70,9 +70,6 @@ public class BuildingHourServiceTest {
 
         building2 = new Building("EWI2", "Mekelweg2", 42);
 
-        assertEquals(201, buildingService.add("EWI", "Mekelweg", 4));
-        assertEquals(201, buildingService.add("EWI2", "Mekelweg2", 42));
-
         building = buildingService.find("EWI");
         building2 = buildingService.find("EWI2");
 
@@ -144,7 +141,7 @@ public class BuildingHourServiceTest {
      */
     @Test
     public void testNonEmptyIterator() {
-        assertEquals(201, buildingHourService.add(building.getId(), buildingHours.getDay(), 1000, 3000));
+        buildingHourService.add(building.getId(), buildingHours.getDay(), 1000, 3000);
 
         Iterator<BuildingHours> iterator = buildingHourService.all().iterator();
         assertTrue(iterator.hasNext());
