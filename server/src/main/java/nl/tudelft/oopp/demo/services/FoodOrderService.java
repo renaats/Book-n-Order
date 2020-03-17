@@ -1,6 +1,7 @@
 package nl.tudelft.oopp.demo.services;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import nl.tudelft.oopp.demo.entities.AppUser;
@@ -82,7 +83,7 @@ public class FoodOrderService {
         }
         FoodOrder foodOrder = foodOrderRepository.findById(id).get();
         switch (attribute) {
-            case "deliveryLocation":
+            case "deliverylocation":
                 int buildingId = Integer.parseInt(value);
                 Optional<Building> optionalDeliveryLocation = buildingRepository.findById(buildingId);
                 if (optionalDeliveryLocation.isEmpty()) {
@@ -91,10 +92,10 @@ public class FoodOrderService {
                 Building deliveryLocation = optionalDeliveryLocation.get();
                 foodOrder.setDeliveryLocation(deliveryLocation);
                 break;
-            case "deliveryTime":
+            case "deliverytime":
                 foodOrder.setDeliveryTime(new Date(Long.parseLong(value)));
                 break;
-            case "userEmail":
+            case "useremail":
                 Optional<AppUser> optionalUser = userRepository.findById(value);
                 if (optionalUser.isEmpty()) {
                     return 419;
@@ -126,7 +127,7 @@ public class FoodOrderService {
      * Lists all food orders.
      * @return Iterable of all food orders.
      */
-    public Iterable<FoodOrder> all() {
+    public List<FoodOrder> all() {
         return foodOrderRepository.findAll();
     }
 

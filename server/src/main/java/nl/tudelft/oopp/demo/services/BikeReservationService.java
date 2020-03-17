@@ -98,13 +98,13 @@ public class BikeReservationService {
         BikeReservation bikeReservation = bikeReservationRepository.findById(id).get();
 
         switch (attribute) {
-            case "fromTime":
+            case "fromtime":
                 bikeReservation.setFromTime(new Date(Long.parseLong(value)));
                 break;
-            case "toTime":
+            case "totime":
                 bikeReservation.setToTime(new Date(Long.parseLong(value)));
                 break;
-            case "fromBuilding":
+            case "frombuilding":
                 int fromBuildingId = Integer.parseInt(value);
                 Optional<Building> optionalFromBuilding = buildingRepository.findById(fromBuildingId);
                 if (optionalFromBuilding.isEmpty()) {
@@ -113,7 +113,7 @@ public class BikeReservationService {
                 Building fromBuilding = optionalFromBuilding.get();
                 bikeReservation.setFromBuilding(fromBuilding);
                 break;
-            case "toBuilding":
+            case "tobuilding":
                 int toBuildingId = Integer.parseInt(value);
                 Optional<Building> optionalToBuilding = buildingRepository.findById(toBuildingId);
                 if (optionalToBuilding.isEmpty()) {
@@ -131,7 +131,7 @@ public class BikeReservationService {
                 Bike bike = optionalBike.get();
                 bikeReservation.setBike(bike);
                 break;
-            case "userEmail":
+            case "useremail":
                 Optional<AppUser> optionalUser = userRepository.findById(value);
                 if (optionalUser.isEmpty()) {
                     return 419;
