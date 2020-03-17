@@ -36,7 +36,7 @@
       </font>
    </Text>
    <Button fx:id="confirmFindByIdButton" layoutX="236.0" layoutY="193.0" mnemonicParsing="false" onAction="#building_id_ButtonClicked" prefHeight="26.0" prefWidth="61.0" style="-fx-background-color: #00a6d6;" text="Find" textFill="WHITE" AnchorPane.leftAnchor="236.0" AnchorPane.topAnchor="193.0" />
-   <ChoiceBox fx:id="updateChoiceBox" layoutX="157.0" layoutY="383.0" prefHeight="26.0" prefWidth="119.0" style="-fx-background-color: #00a6d6;" AnchorPane.leftAnchor="157.0" />
+   <ChoiceBox fx:id="updateChoiceBox" layoutX="157.0" layoutY="372.0" prefHeight="26.0" prefWidth="119.0" style="-fx-background-color: #00a6d6;" AnchorPane.leftAnchor="157.0" />
    <Text layoutX="40.0" layoutY="392.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Attribute:" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="373.6552734375">
       <font>
          <Font size="17.0" />
@@ -114,5 +114,7 @@
       </font>
    </Text>
 
+   <Text layoutX="64.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add" />
+   <Text layoutX="114.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit" />
 
 </AnchorPane>
