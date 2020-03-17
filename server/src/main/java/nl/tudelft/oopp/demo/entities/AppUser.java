@@ -27,6 +27,7 @@ public class AppUser {
     private String surname;
     private String faculty;
     private boolean loggedIn = false;
+    private boolean enabled;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
@@ -106,6 +107,8 @@ public class AppUser {
         this.loggedIn = loggedIn;
     }
 
+    public void setEnabled(boolean enabled) { this.enabled = enabled; }
+
 
     public String getEmail() {
         return email;
@@ -146,6 +149,8 @@ public class AppUser {
     public boolean isLoggedIn() {
         return loggedIn;
     }
+
+    public boolean isEnabled() { return enabled; }
 
     @Override
     public boolean equals(Object o) {

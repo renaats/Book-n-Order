@@ -25,7 +25,13 @@ public class RegistrationEmailListener {
             AppUser user = event.getUser();
             String token = UUID.randomUUID().toString();
             userService.createVerificationToken(user,token);
-        }
+            String recipent = user.getEmail();
+            String subject = "Registration Confirmation";
+            String url = event.getAppUrl() + "/confirmRegistration?token=" + token;
+            String message = "Thank you for registering. Please click on the below link to activate your account.";
+            SimpleMailMessage email = new SimpleMailMessage();
+
+         }
 
     }
 }

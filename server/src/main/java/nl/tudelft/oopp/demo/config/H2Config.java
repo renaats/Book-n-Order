@@ -35,4 +35,10 @@ public class H2Config {
 
         return dataSource;
     }
+
+    @Bean(name = "mailSender")
+    public MailSender javaMailService() {
+        JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
+
+    }
 }

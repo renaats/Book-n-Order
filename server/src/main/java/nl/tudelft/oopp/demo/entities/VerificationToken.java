@@ -14,17 +14,23 @@ import java.util.Date;
 @Entity
 @Table(name = “verification_token”)
 public class VerificationToken {
+
     private static final int EXPIRATION = 60 * 24;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @Column(name=”token”)
     private String token;
+
     @OneToOne(targetEntity = AppUser.class, fetch = FetchType.EAGER)
     @JoinColumn(name = “user_id”, nullable = false)
     private AppUser user;
+
     @Column(name=”created_date”)
     private Date createdDate;
+
     @Column(name=”expiry_date”)
     private Date expiryDate;
 }

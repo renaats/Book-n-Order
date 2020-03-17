@@ -7,6 +7,7 @@ import nl.tudelft.oopp.demo.entities.Role;
 import nl.tudelft.oopp.demo.entities.VerificationToken;
 import nl.tudelft.oopp.demo.repositories.RoleRepository;
 import nl.tudelft.oopp.demo.repositories.UserRepository;
+import nl.tudelft.oopp.demo.repositories.VerificationTokenRepository;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -32,10 +33,12 @@ public class UserService {
     private BCryptPasswordEncoder bcryptPasswordEncoder;
     @Autowired
     private RoleRepository roleRepository;
+    @Autowired
+    private VerificationTokenRepository verificationTokenRepository;
 
     public void createVerificationToken(AppUser user, String token) {
         VerificationToken newUserToken = new VerificationToken(token, user);
-        tokenDAO.save(newUserToken);
+        verificationTokenRepository.save(newUserToken);
     }
 
     /**
