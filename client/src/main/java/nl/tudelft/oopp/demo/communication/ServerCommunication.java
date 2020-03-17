@@ -14,7 +14,6 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -439,15 +438,14 @@ public class ServerCommunication {
 
     /**
      * Communicates addRoomReservation to the database
-     * @param room name of the room
-     * @param buildingId building ID
+     * @param roomId room ID
      * @param userId user ID
      * @param from start date and time of the reservation
      * @param to end date and time of the reservation
      * @return body response
      */
-    public static String addRoomReservation(String room, int buildingId, int userId, Date from, Date to) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room_reservation/add?room" + room + "&buildingId=" + buildingId + "&userId=" + userId + "&from=" + from.toString() + "&to=" + to.toString())).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
+    public static String addRoomReservation(int roomId, int userId, long from, long to) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room_reservation/add?room=" + roomId + "&userId=" + userId + "&from=" + from + "&to=" + to)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
         HttpResponse<String> response = null;
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
