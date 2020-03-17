@@ -1,18 +1,16 @@
 package nl.tudelft.oopp.demo.controllers;
 
-import javax.servlet.http.HttpServletRequest;
 import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Creates server side endpoints and routes requests to the UserService.
@@ -104,7 +102,6 @@ public class UserController {
         return userService.find(email);
     }
 
-
     /**
      * Adds a role to an account. If the role does not exist, it is created.
      * @param email = the email of the account
@@ -115,5 +112,11 @@ public class UserController {
     @ResponseBody
     public void addRole(@RequestParam String email, @RequestParam String roleName) {
         userService.addRole(email, roleName);
+    }
+
+    @PostMapping(path = "/addUser") // Map ONLY POST Requests
+    @ResponseBody
+    public String registerNewUser(@ModelAttribute(“user”) UserDTO userDto, BindingResult result, WebRequest request, Model model) {
+
     }
 }
