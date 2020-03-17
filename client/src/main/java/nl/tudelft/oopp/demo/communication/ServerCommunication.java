@@ -1,9 +1,5 @@
 package nl.tudelft.oopp.demo.communication;
 
-import nl.tudelft.oopp.demo.errors.ErrorMessages;
-import nl.tudelft.oopp.demo.user.UserInformation;
-import nl.tudelft.oopp.demo.views.ApplicationDisplay;
-
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
