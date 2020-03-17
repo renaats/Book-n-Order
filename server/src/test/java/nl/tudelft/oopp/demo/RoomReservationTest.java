@@ -53,38 +53,19 @@ public class RoomReservationTest {
      */
     @BeforeEach
     public void setup() {
-        building = new Building();
-        building.setName("EWI");
-        building.setStreet("Mekelweg");
-        building.setHouseNumber(4);
+        building = new Building("EWI", "Mekelweg", 4);
         buildingRepository.saveAndFlush(building);
 
-        room = new Room();
-        room.setName("Ampere");
-        room.setBuilding(building);
-        room.setFaculty("EWI");
-        room.setFacultySpecific(false);
-        room.setScreen(true);
-        room.setProjector(true);
-        room.setNrPeople(300);
-        room.setPlugs(250);
+        room = new Room("Ampere", building, "EWI", false, true, true, 300, 250);
         room.setRoomReservations(new HashSet<>());
         roomRepository.saveAndFlush(room);
 
-        appUser = new AppUser();
-        appUser.setEmail("R.Jursevskis@student.tudelft.nl");
-        appUser.setPassword("1234");
-        appUser.setName("Renats");
-        appUser.setSurname("Jursevskis");
-        appUser.setFaculty("EWI");
+        appUser = new AppUser("R.Jursevskis@student.tudelft.nl", "1234", "Renats", "Jursevskis", "EWI");
         appUser.setRoomReservations(new HashSet<>());
         userRepository.saveAndFlush(appUser);
 
-        roomReservation = new RoomReservation();
-        roomReservation.setAppUser(userRepository.findAll().get(0));
-        roomReservation.setRoom(roomRepository.findAll().get(0));
-        roomReservation.setFromTime(new Date(10000000000L));
-        roomReservation.setToTime(new Date(11000000000L));
+        roomReservation = new RoomReservation(roomRepository.findAll().get(0), userRepository.findAll().get(0),
+                new Date(10000000000L), new Date(11000000000L));
         roomReservationRepository.saveAndFlush(roomReservation);
         roomReservation = roomReservationRepository.findAll().get(0);
     }
@@ -256,11 +237,7 @@ public class RoomReservationTest {
      */
     @Test
     public void testEqualRoomReservations() {
-        roomReservation2 = new RoomReservation();
-        roomReservation2.setAppUser(appUser);
-        roomReservation2.setRoom(room);
-        roomReservation2.setFromTime(new Date(10000000000L));
-        roomReservation2.setToTime(new Date(11000000000L));
+        roomReservation2 = new RoomReservation(room, appUser, new Date(10000000000L), new Date(11000000000L));
         assertEquals(roomReservation, roomReservation2);
         assertNotSame(roomReservation, roomReservation2);
     }

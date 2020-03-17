@@ -37,16 +37,10 @@ public class BuildingHourTest {
      */
     @BeforeEach
     public void setup() {
-        building = new Building();
-        building.setName("EWI");
-        building.setStreet("Mekelweg");
-        building.setHouseNumber(4);
+        building = new Building("EWI", "Mekelweg", 4);
         buildingRepository.save(building);
 
-        building2 = new Building();
-        building2.setName("EWI2");
-        building2.setStreet("Mekelweg2");
-        building2.setHouseNumber(42);
+        building2 = new Building("EWI2", "Mekelweg2", 42);
         buildingRepository.save(building2);
 
         buildingHours = new BuildingHours(1, building, LocalTime.ofSecondOfDay(1000), LocalTime.ofSecondOfDay(3000));
@@ -112,11 +106,7 @@ public class BuildingHourTest {
      */
     @Test
     public void testChangeDay() {
-        buildingHours2 = new BuildingHours();
-        buildingHours2.setDay(2);
-        buildingHours2.setBuilding(building);
-        buildingHours2.setStartTime(LocalTime.ofSecondOfDay(1000));
-        buildingHours2.setEndTime(LocalTime.ofSecondOfDay(3000));
+        buildingHours2 = new BuildingHours(2, building, LocalTime.ofSecondOfDay(1000), LocalTime.ofSecondOfDay(3000));
         assertNotEquals(buildingHours, buildingHours2);
         buildingHours2.setDay(1);
         assertEquals(buildingHours, buildingHours2);
@@ -127,11 +117,7 @@ public class BuildingHourTest {
      */
     @Test
     public void testChangeBuilding() {
-        buildingHours2 = new BuildingHours();
-        buildingHours2.setDay(1);
-        buildingHours2.setBuilding(building2);
-        buildingHours2.setStartTime(LocalTime.ofSecondOfDay(1000));
-        buildingHours2.setEndTime(LocalTime.ofSecondOfDay(3000));
+        buildingHours2 = new BuildingHours(1, building2, LocalTime.ofSecondOfDay(1000), LocalTime.ofSecondOfDay(3000));
         assertNotEquals(buildingHours, buildingHours2);
         buildingHours2.setBuilding(building);
         assertEquals(buildingHours, buildingHours2);
@@ -142,11 +128,7 @@ public class BuildingHourTest {
      */
     @Test
     public void testChangeStartTime() {
-        buildingHours2 = new BuildingHours();
-        buildingHours2.setDay(1);
-        buildingHours2.setBuilding(building);
-        buildingHours2.setStartTime(LocalTime.ofSecondOfDay(2000));
-        buildingHours2.setEndTime(LocalTime.ofSecondOfDay(3000));
+        buildingHours2 = new BuildingHours(1, building, LocalTime.ofSecondOfDay(2000), LocalTime.ofSecondOfDay(3000));
         assertNotEquals(buildingHours, buildingHours2);
         buildingHours2.setStartTime(LocalTime.ofSecondOfDay(1000));
         assertEquals(buildingHours, buildingHours2);
@@ -158,11 +140,7 @@ public class BuildingHourTest {
      */
     @Test
     public void testChangeEndTime() {
-        buildingHours2 = new BuildingHours();
-        buildingHours2.setDay(1);
-        buildingHours2.setBuilding(building);
-        buildingHours2.setStartTime(LocalTime.ofSecondOfDay(1000));
-        buildingHours2.setEndTime(LocalTime.ofSecondOfDay(4000));
+        buildingHours2 = new BuildingHours(1, building, LocalTime.ofSecondOfDay(1000), LocalTime.ofSecondOfDay(4000));
         assertNotEquals(buildingHours, buildingHours2);
         buildingHours2.setEndTime(LocalTime.ofSecondOfDay(3000));
         assertEquals(buildingHours, buildingHours2);

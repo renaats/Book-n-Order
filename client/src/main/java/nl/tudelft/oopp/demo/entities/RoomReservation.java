@@ -11,6 +11,22 @@ public class RoomReservation {
     private Date fromTime;
     private Date toTime;
 
+    /** Creates a new instance of FoodOrder.
+     * @param room the reserved room.
+     * @param appUser user who booked the room.
+     * @param fromTime time at which the room reservation starts.
+     * @param toTime time at which the room reservation ends.
+     */
+    public RoomReservation(Room room, AppUser appUser, Date fromTime, Date toTime) {
+        this.room = room;
+        this.appUser = appUser;
+        this.fromTime = fromTime;
+        this.toTime = toTime;
+    }
+
+    public RoomReservation() {
+
+    }
 
     public void setRoom(Room room) {
         this.room = room;

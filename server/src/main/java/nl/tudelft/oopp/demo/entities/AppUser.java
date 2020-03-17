@@ -27,8 +27,28 @@ public class AppUser {
     private String surname;
     private String faculty;
     private boolean loggedIn = false;
+
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
+
+    /** Creates a new instance of AppUser.
+     * @param email the user's email address.
+     * @param password the user's password.
+     * @param name the user's first name.
+     * @param surname the user's surname.
+     * @param faculty the faculty the user is associated to.
+     */
+    public AppUser(String email, String password, String name, String surname, String faculty) {
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.surname = surname;
+        this.faculty = faculty;
+    }
+
+    public AppUser() {
+
+    }
 
     @JsonIgnore
     @OneToMany(mappedBy = "appUser")

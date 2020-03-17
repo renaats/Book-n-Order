@@ -52,25 +52,15 @@ public class RestaurantServiceTest {
      */
     @BeforeEach
     public void setup() {
-        building = new Building();
-        building.setName("EWI");
-        building.setStreet("Mekelweg");
-        building.setHouseNumber(4);
+        building = new Building("EWI", "Mekelweg", 4);
         buildingRepository.save(building);
 
-        building2 = new Building();
-        building2.setName("EWI2");
-        building2.setStreet("Mekelweg2");
-        building2.setHouseNumber(42);
+        building2 = new Building("EWI2", "Mekelweg2", 42);
         buildingRepository.save(building2);
 
-        restaurant = new Restaurant();
-        restaurant.setName("Hangout");
-        restaurant.setBuilding(building);
+        restaurant = new Restaurant(building, "Hangout");
 
-        restaurant2 = new Restaurant();
-        restaurant2.setName("Food station");
-        restaurant2.setBuilding(building2);
+        restaurant2 = new Restaurant(building2, "Food station");
     }
 
     @Test
@@ -138,7 +128,6 @@ public class RestaurantServiceTest {
         assertTrue(restaurants.contains(restaurant2));
         assertNotNull(restaurantService.find(restaurant2.getId()));
     }
-
     @AfterEach
     public void cleanup() {
         buildingRepository.deleteAll();

@@ -64,30 +64,17 @@ public class FoodOrderServiceTest {
      */
     @BeforeEach
     public void setup() {
-        building = new Building();
-        building.setName("Sporthal");
-        building.setStreet("Mekelweg");
-        building.setHouseNumber(8);
+        building = new Building("Sporthal", "Mekelweg", 8);
         buildingRepository.save(building);
 
-        restaurant = new Restaurant();
-        restaurant.setName("Cafe X");
-        restaurant.setBuilding(building);
+        restaurant = new Restaurant(building, "Cafe X");
         restaurantRepository.save(restaurant);
 
-        appUser = new AppUser();
-        appUser.setEmail("l.j.jongejans@student.tudelft.nl");
-        appUser.setPassword("1234");
-        appUser.setName("Liselotte");
-        appUser.setSurname("Jongejans");
-        appUser.setFaculty("EWI");
+        appUser = new AppUser("l.j.jongejans@student.tudelft.nl", "1234", "Liselotte", "Jongejans", "EWI");
         appUser.setFoodOrder(new HashSet<>());
         userRepository.save(appUser);
 
-        deliverLocation = new Building();
-        deliverLocation.setName("EWI");
-        deliverLocation.setStreet("Mekelweg");
-        deliverLocation.setHouseNumber(4);
+        deliverLocation = new Building("EWI", "Mekelweg", 4);
         buildingRepository.save(deliverLocation);
 
         deliverTime = new Date(11000000000L);
@@ -96,17 +83,9 @@ public class FoodOrderServiceTest {
         deliverTime2 = new Date(10000000000L);
         deliverTimeMs2 = deliverTime2.getTime();
 
-        foodOrder = new FoodOrder();
-        foodOrder.setAppUser(appUser);
-        foodOrder.setDeliveryLocation(deliverLocation);
-        foodOrder.setDeliveryTime(deliverTime);
-        foodOrder.setRestaurant(restaurant);
+        foodOrder = new FoodOrder(restaurant, appUser, deliverLocation, deliverTime);
 
-        foodOrder2 = new FoodOrder();
-        foodOrder2.setAppUser(appUser);
-        foodOrder2.setDeliveryLocation(deliverLocation);
-        foodOrder2.setDeliveryTime(deliverTime2);
-        foodOrder2.setRestaurant(restaurant);
+        foodOrder2 = new FoodOrder(restaurant, appUser, deliverLocation, deliverTime2);
     }
 
     @Test

@@ -39,21 +39,10 @@ public class BuildingTest {
      */
     @BeforeEach
     public void setup() {
-        building = new Building();
-        building.setName("EWI");
-        building.setStreet("Mekelweg");
-        building.setHouseNumber(4);
+        building = new Building("EWI", "Mekelweg", 4);
         buildingRepository.save(building);
 
-        room = new Room();
-        room.setName("Ampere");
-        room.setBuilding(building);
-        room.setFaculty("EWI");
-        room.setFacultySpecific(false);
-        room.setScreen(true);
-        room.setProjector(true);
-        room.setNrPeople(300);
-        room.setPlugs(250);
+        room = new Room("Ampere", building, "EWI", false, true, true, 300, 250);
         roomRepository.save(room);
 
         rooms = new HashSet<>();

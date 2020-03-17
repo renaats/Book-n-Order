@@ -26,6 +26,19 @@ public class Role {
     @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
     private Set<AppUser> appUsers;
 
+    /**
+     * Creates a new instance of Role.
+     * @param name = name of the role.
+
+     */
+    public Role(String name) {
+        this.name = name;
+    }
+
+    public Role() {
+
+    }
+
     public void setName(String name) {
         this.name = name;
     }
