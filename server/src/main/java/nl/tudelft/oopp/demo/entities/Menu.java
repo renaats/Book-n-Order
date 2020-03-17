@@ -89,8 +89,7 @@ public class Menu {
             return false;
         }
         Menu menu = (Menu) o;
-        return id == menu.id
-                && Objects.equals(name, menu.name)
+        return Objects.equals(name, menu.name)
                 && Objects.equals(restaurant, menu.restaurant)
                 && Objects.equals(dishes, menu.dishes);
     }

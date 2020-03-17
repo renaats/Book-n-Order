@@ -1,5 +1,6 @@
 package nl.tudelft.oopp.demo.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import nl.tudelft.oopp.demo.entities.Building;
@@ -90,7 +91,7 @@ public class RestaurantService {
      * Lists all restaurants.
      * @return all restaurants
      */
-    public Iterable<Restaurant> all() {
+    public List<Restaurant> all() {
         return restaurantRepository.findAll();
     }
 

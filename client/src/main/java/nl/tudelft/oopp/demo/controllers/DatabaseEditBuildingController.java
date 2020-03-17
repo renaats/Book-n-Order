@@ -75,7 +75,7 @@ public class DatabaseEditBuildingController implements Initializable {
     public void updateBuildingButtonClicked() {
         try {
             int id = Integer.parseInt(buildingFindByIdUpdateField.getText());
-            String attribute = updateChoiceBox.getValue().replaceAll(" ", "");
+            String attribute = updateChoiceBox.getValue().replaceAll(" ", "").toLowerCase();
             String changeValue = buildingChangeToField.getText();
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Building remover");

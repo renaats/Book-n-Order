@@ -9,6 +9,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.HashSet;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.Role;
@@ -116,9 +117,6 @@ public class UserService {
         AppUser appUser = userRepository.findById(email).get();
 
         switch (attribute) {
-            case "email":
-                appUser.setEmail(value);
-                break;
             case "password":
                 appUser.setPassword(value);
                 break;
@@ -156,7 +154,7 @@ public class UserService {
      * Should be removed for the finished version!
      * @return all accounts
      */
-    public Iterable<AppUser> all() {
+    public List<AppUser> all() {
         return userRepository.findAll();
     }
 
@@ -176,9 +174,9 @@ public class UserService {
      * @param email = the email of the account
      * @param roleName = the name of the role
      */
-    public void addRole(String email, String roleName) {
+    public int addRole(String email, String roleName) {
         if (!userRepository.existsById(email)) {
-            return;
+            return 419;
         }
         AppUser appUser = userRepository.getOne(email);
         Role role;
@@ -190,5 +188,6 @@ public class UserService {
         role = roleRepository.findByName(roleName);
         appUser.addRole(role);
         userRepository.save(appUser);
+        return 201;
     }
 }

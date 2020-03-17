@@ -1,5 +1,6 @@
 package nl.tudelft.oopp.demo.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import nl.tudelft.oopp.demo.entities.Dish;
@@ -58,7 +59,7 @@ public class DishService {
      * Lists all dishes
      * @return all menus
      */
-    public Iterable<Dish> all() {
+    public List<Dish> all() {
         return dishRepository.findAll();
     }
 

@@ -1,5 +1,7 @@
 package nl.tudelft.oopp.demo.services;
 
+import java.util.List;
+
 import nl.tudelft.oopp.demo.entities.Role;
 import nl.tudelft.oopp.demo.repositories.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +26,7 @@ public class RoleService {
         Role role = new Role();
         role.setName(name);
         roleRepository.save(role);
-        return 200;
+        return 201;
     }
 
     /**
@@ -34,11 +36,14 @@ public class RoleService {
      * @return message if it passes
      */
     public int update(int id, String name) {
+        if (!roleRepository.existsById(id)) {
+            return 416;
+        }
         Role role = roleRepository.getOne(id);
         String old = role.getName();
         role.setName(name);
         roleRepository.save(role);
-        return 200;
+        return 201;
     }
 
     /**
@@ -58,7 +63,7 @@ public class RoleService {
      * Lists all roles.
      * @return all roles
      */
-    public Iterable<Role> all() {
+    public List<Role> all() {
         return roleRepository.findAll();
     }
 

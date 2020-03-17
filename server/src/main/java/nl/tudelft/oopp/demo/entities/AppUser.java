@@ -106,7 +106,6 @@ public class AppUser {
         this.loggedIn = loggedIn;
     }
 
-
     public String getEmail() {
         return email;
     }
@@ -157,7 +156,6 @@ public class AppUser {
         }
         AppUser appUser = (AppUser) o;
         return email.equals(appUser.email)
-                && Objects.equals(password, appUser.password)
                 && Objects.equals(name, appUser.name)
                 && Objects.equals(surname, appUser.surname)
                 && Objects.equals(faculty, appUser.faculty)

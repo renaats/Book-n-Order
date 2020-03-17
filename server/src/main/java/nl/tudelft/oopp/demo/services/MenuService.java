@@ -1,5 +1,6 @@
 package nl.tudelft.oopp.demo.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import nl.tudelft.oopp.demo.entities.Menu;
@@ -58,7 +59,7 @@ public class MenuService {
      * Lists all menus
      * @return all menus
      */
-    public Iterable<Menu> all() {
+    public List<Menu> all() {
         return menuRepository.findAll();
     }
 
