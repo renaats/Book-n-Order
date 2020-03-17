@@ -1,5 +1,6 @@
 package nl.tudelft.oopp.demo.services;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -133,7 +134,7 @@ public class RoomService {
      * Lists all rooms.
      * @return all rooms
      */
-    public Iterable<Room> all() {
+    public List<Room> all() {
         return roomRepository.findAll();
     }
 
