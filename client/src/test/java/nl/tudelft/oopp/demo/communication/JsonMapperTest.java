@@ -2,6 +2,11 @@ package nl.tudelft.oopp.demo.communication;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.common.Json;
+import static com.github.tomakehurst.wiremock.client.WireMock.configureFor;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Room;
 import org.eclipse.jetty.server.Server;
@@ -9,12 +14,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-
-import static com.github.tomakehurst.wiremock.client.WireMock.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 class JsonMapperTest {
     public WireMockServer wireMockServer;

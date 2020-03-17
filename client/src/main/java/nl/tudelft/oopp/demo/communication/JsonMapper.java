@@ -4,13 +4,13 @@ import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
+import java.util.List;
 import javafx.scene.control.Alert;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.entities.RoomReservation;
 
-import java.io.IOException;
-import java.util.List;
 
 public class JsonMapper {
 
