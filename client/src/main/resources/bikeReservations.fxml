@@ -7,17 +7,17 @@
 <?import javafx.scene.text.*?>
 
 <AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.BikeReservationController">
-   <ImageView fitHeight="854.0" fitWidth="1280.0" layoutY="-6.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+   <ImageView fitWidth="1280.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@images/BikeBackground.jpg" />
       </image>
    </ImageView>
-   <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="67.0" layoutY="-32.0" pickOnBounds="true" preserveRatio="true">
+   <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="63.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@images/TuDelftLogoFinal.png" />
       </image>
    </ImageView>
-   <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="255.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="521.0" AnchorPane.leftAnchor="255.0" AnchorPane.rightAnchor="425.0" AnchorPane.topAnchor="55.0">
+   <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="258.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="576.0" AnchorPane.leftAnchor="258.0" AnchorPane.rightAnchor="902.0" AnchorPane.topAnchor="120.0">
       <Image url="@images/booknorderlogo.png" />
    </ImageView>
       <Text fill="WHITE" layoutX="20.0" layoutY="555.576171875" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback is welcome" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0">
@@ -69,7 +69,7 @@
    <Button fx:id="reserveButton" layoutX="524.0" layoutY="490.0" maxHeight="25.0" maxWidth="230.0" minHeight="25.0" minWidth="230.0" mnemonicParsing="false" onAction="#bikeConfirmation" prefHeight="25.0" prefWidth="230.0" style="-fx-background-color: #00a6d6;" text="Rent" textFill="WHITE" AnchorPane.leftAnchor="524.0" AnchorPane.topAnchor="490.0" />
    <ChoiceBox fx:id="dropOffLocation" layoutX="552.0" layoutY="408.0" maxHeight="26.0" maxWidth="174.0" minHeight="26.0" minWidth="174.0" prefHeight="26.0" prefWidth="174.0" AnchorPane.leftAnchor="552.0" AnchorPane.topAnchor="408.0" />
    <ImageView fitHeight="41.0" fitWidth="44.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#mainMenu" pickOnBounds="true" preserveRatio="true">
-      <Image url="@images/HomeIcon.png" />
+      <Image url="@images/HomeIconTransparent.png" />
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor>
@@ -88,4 +88,5 @@
          <Cursor fx:constant="HAND" />
       </cursor>
    </ImageView>
+
 </AnchorPane>

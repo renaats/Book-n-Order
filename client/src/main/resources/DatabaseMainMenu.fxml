@@ -13,15 +13,12 @@
             <Image url="@images/mainMenuBackground.jpg" />
          </image>
       </ImageView>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="67.0" layoutY="-32.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="63.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/TuDelftLogoFinal.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="255.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="521.0" AnchorPane.leftAnchor="255.0" AnchorPane.rightAnchor="425.0" AnchorPane.topAnchor="55.0">
-         <Image url="@images/booknorderlogo.png" />
-      </ImageView>
-      <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="255.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="521.0" AnchorPane.leftAnchor="255.0" AnchorPane.rightAnchor="425.0" AnchorPane.topAnchor="55.0">
+      <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="258.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="576.0" AnchorPane.leftAnchor="258.0" AnchorPane.rightAnchor="902.0" AnchorPane.topAnchor="120.0">
          <Image url="@images/booknorderlogo.png" />
       </ImageView>
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="565.0" layoutY="264.0" onMouseClicked="#databaseBuildings" pickOnBounds="true" preserveRatio="true">
@@ -40,21 +37,17 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </ImageView>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="253.0" layoutY="360.0" onMouseClicked="#databaseFood" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="253.0" layoutY="352.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/DatabaseMenuFoodIcon.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="885.0" layoutY="360.0" onMouseClicked="#dataBaseBikes" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="885.0" layoutY="360.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/bikeIconFinalWithCircle.png" />
          </image>
       </ImageView>
-      <Text layoutX="284.0" layoutY="534.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit Food Points" />
-      <Text layoutX="604.0" layoutY="418.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit Buildings" />
-      <Text layoutX="610.0" layoutY="661.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit Rooms" />
-      <Text layoutX="935.0" layoutY="503.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit Bikes" />
-      <Button layoutX="67.0" layoutY="101.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#mainMenu" style="-fx-background-color: #00a6d6;" text="Exit admin panel">
+      <Button layoutX="82.0" layoutY="145.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#mainMenu" style="-fx-background-color: #00a6d6;" text="Exit admin panel" textFill="WHITE">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
@@ -68,5 +61,25 @@
             <Font name="Calibri" size="11.0" />
          </font>
       </Text>
+      <Button layoutX="540.0" layoutY="646.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#databaseRooms" style="-fx-background-color: #00a6d6;" text="Edit  Rooms" textFill="WHITE">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button layoutX="540.0" layoutY="407.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#databaseBuildings" style="-fx-background-color: #00a6d6;" text="Edit  Buildings" textFill="WHITE">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button layoutX="860.0" layoutY="510.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" style="-fx-background-color: #00a6d6;" text="Edit  Bikes" textFill="WHITE">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button layoutX="228.0" layoutY="510.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" style="-fx-background-color: #00a6d6;" text="Edit  Food Places" textFill="WHITE">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
    </children>
 </AnchorPane>
