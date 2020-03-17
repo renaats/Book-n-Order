@@ -2,7 +2,6 @@ package nl.tudelft.oopp.demo.views;
 
 import com.calendarfx.model.Calendar;
 import com.calendarfx.model.Calendar.Style;
-import com.calendarfx.model.CalendarEvent;
 import com.calendarfx.model.CalendarSource;
 import com.calendarfx.model.Entry;
 import com.calendarfx.view.CalendarView;
@@ -19,7 +18,6 @@ import java.util.Objects;
 
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
@@ -75,9 +73,8 @@ public class RoomCalendarView extends Application {
         Thread updateTimeThread = new Thread("Calendar: Update Time Thread") {
             @Override
             public void run() {
-                while(true) {
+                while (true) {
                     Platform.runLater(() -> {
-
                         roomCal.setToday(LocalDate.now());
                         roomCal.setTime(LocalTime.now());
                     });
@@ -113,7 +110,6 @@ public class RoomCalendarView extends Application {
         Instant instant1 = Instant.ofEpochMilli(date.getTime());
         return LocalDateTime.ofInstant(instant1, ZoneId.systemDefault()).toLocalTime();
     }
-
 
     public LocalDate convertToLocalDate(Date date) {
         Instant instant1 = Instant.ofEpochMilli(date.getTime());
