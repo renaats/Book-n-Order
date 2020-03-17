@@ -19,58 +19,60 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
-import nl.tudelft.oopp.demo.entities.Room;
+import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.RoomReservation;
 
+public class PersonalCalendarView extends Application {
 
-public class RoomCalendarView extends Application {
-
-    private Room room;
+    private AppUser currentUser;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        CalendarView roomCal = new CalendarView();
-        roomCal.setShowSearchField(false);
-        roomCal.setShowPrintButton(false);
-        roomCal.setShowPageToolBarControls(false);
-        roomCal.setShowPageSwitcher(true);
-        roomCal.setShowAddCalendarButton(false);
-        roomCal.setShowSourceTray(false);
-        roomCal.setFocusTraversable(false);
+        Calendar bookedRooms = new Calendar("Room Bookings");   //calendar that stores reserved slot entries
+        bookedRooms.setStyle(Calendar.Style.STYLE2);                   //sets color of calendar to blue
 
-        Calendar bookedSlotsCalendar = new Calendar("Unavailable Slots"); //calendar that stores reserved slot entries
-        bookedSlotsCalendar.setStyle(Style.STYLE2); //sets color of calendar to blue
-        bookedSlotsCalendar.setReadOnly(true); //disables any user modification to the already reserved slot entries
+        Calendar orderedFood = new Calendar("Food Orders");     //calendar that stores food orders
+        orderedFood.setStyle(Calendar.Style.STYLE1);                   //sets color of calendar to green
 
-        Calendar myBookingCalendar = new Calendar("My Bookings");
-        myBookingCalendar.setStyle(Style.STYLE1);
+        Calendar rentedBikes = new Calendar("Bike Rent");       //calendar that stores reserved bikes
+        rentedBikes.setStyle(Calendar.Style.STYLE3);                   //sets color of calendar to red
+
+        CalendarSource myCalendarSource = new CalendarSource("Calendars"); //source that saves all calendars
+        myCalendarSource.getCalendars().removeAll();
+        myCalendarSource.getCalendars().addAll(bookedRooms, orderedFood, rentedBikes);
+
+        CalendarView personalCalendar = new CalendarView();  //calendar view
+        personalCalendar.getCalendarSources().addAll(myCalendarSource);
+        personalCalendar.setRequestedTime(LocalTime.now());  //sets time to current time
+
         List<RoomReservation> roomReservationList = JsonMapper.roomReservationsListMapper(ServerCommunication.getRoomReservations());
         if (roomReservationList != null && !roomReservationList.isEmpty()) {
             for (RoomReservation reservation : roomReservationList) {
-                if (reservation.getRoom().equals(this.room)) {
-                    Entry<RoomReservation> bookedEntry = new Entry<>("Room is booked or unavailable");
+                if (reservation.getAppUser().equals(this.currentUser)) {
+                    Entry<RoomReservation> bookedEntry = new Entry<>("Booking of " + reservation.getRoom().getName());
 
                     LocalTime startTime = convertToLocalTime(reservation.getFromTime());
                     LocalTime endTime = convertToLocalTime(reservation.getToTime());
                     LocalDate date = convertToLocalDate(reservation.getFromTime());
+
+                    bookedEntry.setInterval(startTime, endTime);
+                    bookedEntry.setInterval(date);
+                    bookedRooms.addEntry(bookedEntry);
                 }
             }
         }
 
-        CalendarSource myCalendarSource = new CalendarSource("Calendars");
-        myCalendarSource.getCalendars().removeAll();
-        myCalendarSource.getCalendars().addAll(bookedSlotsCalendar, myBookingCalendar);
+        //Placeholder for loop to load food orders
 
-        roomCal.getCalendarSources().addAll(myCalendarSource);
-        roomCal.setRequestedTime(LocalTime.now());
+        //Placeholder for loop to load bike rentals
 
         Thread updateTimeThread = new Thread("Calendar: Update Time Thread") {
             @Override
             public void run() {
                 while (true) {
                     Platform.runLater(() -> {
-                        roomCal.setToday(LocalDate.now());
-                        roomCal.setTime(LocalTime.now());
+                        personalCalendar.setToday(LocalDate.now());
+                        personalCalendar.setTime(LocalTime.now());
                     });
 
                     try {
@@ -81,15 +83,13 @@ public class RoomCalendarView extends Application {
                     }
                 }
             }
-
-            ;
         };
 
         updateTimeThread.setPriority(Thread.MIN_PRIORITY);
         updateTimeThread.setDaemon(true);
         updateTimeThread.start();
 
-        Scene scene = new Scene(roomCal);
+        Scene scene = new Scene(personalCalendar);
         primaryStage.setTitle("Room Bookings");
         primaryStage.setScene(scene);
         primaryStage.setWidth(1000);
@@ -100,6 +100,11 @@ public class RoomCalendarView extends Application {
 
     public static void main(String[] args) {
         launch();
+    }
+
+    public Date convertToDate(LocalTime time, LocalDate date) {
+        LocalDateTime dateTime = LocalDateTime.of(date, time);
+        return Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant());
     }
 
     public LocalTime convertToLocalTime(Date date) {
