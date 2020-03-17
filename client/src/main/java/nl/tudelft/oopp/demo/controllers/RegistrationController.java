@@ -52,7 +52,8 @@ public class RegistrationController implements Initializable {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Registration");
                 alert.setHeaderText(null);
-                alert.setContentText("The passwords you inputted are not the same, please check that you are inputting the same password twice and retry.");
+                alert.setContentText("The passwords you inputted are not the same, "
+                        + "please check that you are inputting the same password twice and retry.");
                 alert.showAndWait();
             }
         } catch (Exception e) {
