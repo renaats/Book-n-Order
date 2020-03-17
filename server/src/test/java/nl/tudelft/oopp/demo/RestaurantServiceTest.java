@@ -1,22 +1,18 @@
 package nl.tudelft.oopp.demo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Restaurant;
 import nl.tudelft.oopp.demo.repositories.BuildingRepository;
 import nl.tudelft.oopp.demo.services.RestaurantService;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +21,7 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 
 /**
- * Tests the RestaurantService service.
+ * Tests the Restaurant service.
  */
 @DataJpaTest
 public class RestaurantServiceTest {
@@ -48,7 +44,8 @@ public class RestaurantServiceTest {
     Restaurant restaurant;
     Restaurant restaurant2;
 
-    /** Sets up the classes before executing the tests.
+    /**
+     * Sets up the entities and saves them via a service before executing every test.
      */
     @BeforeEach
     public void setup() {
@@ -63,73 +60,121 @@ public class RestaurantServiceTest {
         restaurant2 = new Restaurant(building2, "Food station");
     }
 
+    /**
+     * Tests the constructor creating a new instance of the service.
+     */
     @Test
     public void testConstructor() {
         assertNotNull(restaurantService);
     }
 
+    /**
+     * Tests the saving and retrieval of an instance of Restaurant.
+     */
     @Test
     public void testCreate() {
+        assertEquals(201, restaurantService.add(restaurant.getBuilding().getId(), restaurant.getName()));
+        assertEquals(Collections.singletonList(restaurant), restaurantService.all());
+    }
+
+    /**
+     * Tests the creation of an instance with an invalid building id.
+     */
+    @Test
+    public void testCreateIllegalBuilding() {
         assertEquals(422, restaurantService.add(-3,"The Ghost Restaurant"));
-        restaurantService.add(restaurant.getBuilding().getId(), restaurant.getName());
-        assertEquals(restaurantService.all(), Collections.singletonList(restaurant));
     }
 
+    /**
+     * Tests the search for a non-existing object.
+     */
     @Test
-    public void testAll() {
-        Iterator<Restaurant> iterator = restaurantService.all().iterator();
-        assertFalse(iterator.hasNext());
-        restaurantService.add(restaurant.getBuilding().getId(), restaurant.getName());
-        iterator = restaurantService.all().iterator();
-        assertTrue(iterator.hasNext());
-        iterator.next();
-        assertFalse(iterator.hasNext());
+    public void testFindNonExisting() {
+        assertNull(restaurantService.find(0));
     }
 
+    /**
+     * Tests the search for an existing object.
+     */
     @Test
-    public void testFind() {
+    public void testFindExisting() {
         restaurantService.add(restaurant.getBuilding().getId(), restaurant.getName());
-        assertEquals(restaurantService.all().iterator().next(), restaurantService.find(restaurantService.all().iterator().next().getId()));
-        assertNull(restaurantService.find(-3));
+        int id = restaurantService.all().get(0).getId();
+        assertNotNull(restaurantService.find(id));
     }
 
+    /**
+     * Tests the update operation on a non-existent object.
+     */
     @Test
-    public void testUpdate() {
+    public void testUpdateNonExistingInstance() {
+        assertEquals(428, restaurantService.update(0, "a", "a"));
+    }
+
+    /**
+     * Tests the update operation on a non-existent attribute.
+     */
+    @Test
+    public void testUpdateNonExistingAttribute() {
+        restaurantService.add(restaurant.getBuilding().getId(), restaurant.getName());
+        int id = restaurantService.all().get(0).getId();
+        assertEquals(412, restaurantService.update(id, "a", "a"));
+    }
+
+    /**
+     * Tests the change of the name by using the service.
+     */
+    @Test
+    public void testChangeName() {
+        restaurantService.add(restaurant.getBuilding().getId(), restaurant.getName());
+        int id = restaurantService.all().get(0).getId();
+        assertNotEquals("Food Station", restaurantService.find(id).getName());
+        restaurantService.update(id, "name", "Food Station");
+        assertEquals("Food Station", restaurantService.find(id).getName());
+    }
+
+    /**
+     * Tests the change of the building by using the service.
+     */
+    @Test
+    public void testChangeBuilding() {
+        restaurantService.add(restaurant.getBuilding().getId(), restaurant.getName());
+        int id = restaurantService.all().get(0).getId();
+        assertNotEquals(building2, restaurantService.find(id).getBuilding());
+        restaurantService.update(id, "building", building2.getId().toString());
+        assertEquals(building2, restaurantService.find(id).getBuilding());
+    }
+
+    /**
+     * Tests the retrieval of multiple instances.
+     */
+    @Test
+    public void testMultipleInstances() {
         restaurantService.add(restaurant.getBuilding().getId(), restaurant.getName());
         restaurantService.add(restaurant2.getBuilding().getId(), restaurant2.getName());
+        assertEquals(2, restaurantService.all().size());
         List<Restaurant> restaurants = new ArrayList<>();
-        restaurantService.all().forEach(restaurants::add);
-        assertEquals(2, restaurants.size());
-        restaurant = restaurants.get(0);
-        restaurant2 = restaurants.get(1);
-
-        assertNotEquals(restaurantService.find(restaurant.getId()), restaurantService.find(restaurant2.getId()));
-        restaurantService.update(restaurant2.getId(), "building", building.getId().toString());
-        assertNotEquals(restaurantService.find(restaurant.getId()), restaurantService.find(restaurant2.getId()));
-        restaurantService.update(restaurant2.getId(), "name", restaurant.getName());
-        assertEquals(restaurantService.find(restaurant.getId()), restaurantService.find(restaurant2.getId()));
+        restaurants.add(restaurant);
+        restaurants.add(restaurant2);
+        assertEquals(restaurants, restaurantService.all());
     }
 
+    /**
+     * Tests the deletion of an instance.
+     */
     @Test
     public void testDelete() {
         restaurantService.add(restaurant.getBuilding().getId(), restaurant.getName());
-        restaurantService.add(restaurant2.getBuilding().getId(), restaurant2.getName());
-        List<Restaurant> restaurants = new ArrayList<>();
-        restaurantService.all().forEach(restaurants::add);
-        assertEquals(2, restaurants.size());
-        restaurant = restaurants.get(0);
-        restaurant2 = restaurants.get(1);
-        restaurantService.delete(restaurants.get(0).getId());
-        restaurants = new ArrayList<>();
-        restaurantService.all().forEach(restaurants::add);
-        assertEquals(1, restaurants.size());
-        assertFalse(restaurants.contains(restaurant));
-        assertNull(restaurantService.find(restaurant.getId()));
-        assertTrue(restaurants.contains(restaurant2));
-        assertNotNull(restaurantService.find(restaurant2.getId()));
+        int id = restaurantService.all().get(0).getId();
+        assertEquals(200, restaurantService.delete(id));
+        assertEquals(0, restaurantService.all().size());
     }
-    @AfterEach
-    public void cleanup() {
-        buildingRepository.deleteAll();
+
+    /**
+     * Tests the deletion of a non-existing instance.
+     */
+    @Test
+    public void testDeleteIllegal() {
+        assertEquals(428, restaurantService.delete(0));
     }
 }

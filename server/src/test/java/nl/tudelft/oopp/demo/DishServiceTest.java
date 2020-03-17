@@ -1,6 +1,8 @@
 package nl.tudelft.oopp.demo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,7 +26,7 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 
 /**
- * Tests the DishService service.
+ * Tests the Dish service.
  */
 @DataJpaTest
 public class DishServiceTest {
@@ -58,7 +60,8 @@ public class DishServiceTest {
     Restaurant restaurant1;
     Restaurant restaurant2;
 
-    /** Sets up the classes before executing the tests.
+    /**
+     * Sets up the entities and saves them via a service before executing every test.
      */
     @BeforeEach
     public void setup() {
@@ -78,44 +81,80 @@ public class DishServiceTest {
         dishes.add(dish2);
     }
 
+    /**
+     * Tests the constructor creating a new instance of the service.
+     */
+    @Test
+    public void testConstructor() {
+        assertNotNull(dishService);
+    }
+
+    /**
+     * Tests the saving and retrieval of an instance of Dish.
+     */
     @Test
     public void testCreate() {
-        dishService.add(dish.getName(), dish.getMenu().getId());
-        assertEquals(dishService.all(), Collections.singletonList(dish));
-    }
-
-    @Test
-    public void testCreate2() {
         assertEquals(201, dishService.add(dish.getName(), dish.getMenu().getId()));
+        assertEquals(Collections.singletonList(dish), dishService.all());
     }
 
+    /**
+     * Tests the creation of an instance with an invalid menu id.
+     */
     @Test
-    public void testAdded() {
+    public void testCreateIllegalMenu() {
+        assertEquals(429, dishService.add(dish.getName(), 0));
+    }
+
+    /**
+     * Tests the search for a non-existing object.
+     */
+    @Test
+    public void testFindNonExisting() {
+        assertNull(dishService.find(0));
+    }
+
+    /**
+     * Tests the search for an existing object.
+     */
+    @Test
+    public void testFindExisting() {
+        dishService.add(dish.getName(), dish.getMenu().getId());
+        int id = dishService.all().get(0).getId();
+        assertNotNull(dishService.find(id));
+    }
+
+    /**
+     * Tests the retrieval of multiple instances.
+     */
+    @Test
+    public void testMultipleInstances() {
         dishService.add(dish.getName(), dish.getMenu().getId());
         dishService.add(dish2.getName(), dish2.getMenu().getId());
+        assertEquals(2, dishService.all().size());
         List<Dish> dishes = new ArrayList<>();
-        dishService.all().forEach(dishes::add);
-        assertEquals(2, dishes.size());
+        dishes.add(dish);
+        dishes.add(dish2);
+        assertEquals(dishes, dishService.all());
     }
 
-    @Test
-    public void testErrorCode() {
-        dishService.add(dish.getName(), dish.getMenu().getId());
-        dishService.add(dish2.getName(), dish2.getMenu().getId());
-        List<Dish> dishes = new ArrayList<>();
-        dishService.all().forEach(dishes::add);
-        assertEquals(200, dishService.delete(dishes.get(0).getId()));
-    }
-
+    /**
+     * Tests the deletion of an instance.
+     */
     @Test
     public void testDelete() {
         dishService.add(dish.getName(), dish.getMenu().getId());
         dishService.add(dish2.getName(), dish2.getMenu().getId());
-        List<Dish> dishes = new ArrayList<>();
-        dishService.all().forEach(dishes::add);
-        dishService.delete(dishes.get(0).getId());
-        dishes = new ArrayList<>();
-        dishService.all().forEach(dishes::add);
-        dishService.delete(dishes.get(0).getId());
+        int id = dishService.all().get(0).getId();
+        assertEquals(200, dishService.delete(id));
+        assertEquals(1, dishService.all().size());
+    }
+
+    /**
+     * Tests the deletion of a non-existing instance.
+     */
+    @Test
+    public void testDeleteIllegal() {
+        assertEquals(430, dishService.delete(0));
     }
 }

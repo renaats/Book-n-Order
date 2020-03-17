@@ -210,13 +210,13 @@ public class RoomReservationTest {
      * Tests the case where two reservations share an end point.
      */
     @Test
-    public void testReservationsShareAndPoint() {
+    public void testReservationsShareEndPoint() {
         room = roomRepository.findAll().get(0);
         Set<RoomReservation> setOfRoomReservations = new HashSet<>();
         setOfRoomReservations.add(roomReservationRepository.findAll().get(0));
         room.setRoomReservations(setOfRoomReservations);
-        assertFalse(room.hasRoomReservationBetween(new Date(10000000000L), new Date(1100000000L)));
-        assertFalse(room.hasRoomReservationBetween(new Date(11000000000L), new Date(1200000000L)));
+        assertFalse(room.hasRoomReservationBetween(new Date(9000000000L), new Date(10000000000L)));
+        assertFalse(room.hasRoomReservationBetween(new Date(11000000000L), new Date(12000000000L)));
     }
 
     /**
@@ -228,8 +228,8 @@ public class RoomReservationTest {
         Set<RoomReservation> setOfRoomReservations = new HashSet<>();
         setOfRoomReservations.add(roomReservationRepository.findAll().get(0));
         room.setRoomReservations(setOfRoomReservations);
-        assertFalse(room.hasRoomReservationBetween(new Date(10500000000L), new Date(1050000L)));
-        assertFalse(room.hasRoomReservationBetween(new Date(10000000000L), new Date(11000000000L)));
+        assertTrue(room.hasRoomReservationBetween(new Date(10500000000L), new Date(1050000L)));
+        assertTrue(room.hasRoomReservationBetween(new Date(10000000000L), new Date(11000000000L)));
     }
 
     /**

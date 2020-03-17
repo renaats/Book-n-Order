@@ -9,14 +9,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
 
 import nl.tudelft.oopp.demo.entities.Bike;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.repositories.BuildingRepository;
 import nl.tudelft.oopp.demo.services.BikeService;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +22,7 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 
 /**
- * Tests the BikeService service.
+ * Tests the Bike service.
  */
 @DataJpaTest
 public class BikeServiceTest {
@@ -48,7 +45,8 @@ public class BikeServiceTest {
     Bike bike;
     Bike bike2;
 
-    /** Sets up the classes before executing the tests.
+    /**
+     * Sets up the entities and saves them via a service before executing every test.
      */
     @BeforeEach
     public void setup() {
@@ -67,75 +65,121 @@ public class BikeServiceTest {
         bike2.setLocation(building2);
     }
 
+    /**
+     * Tests the constructor creating a new instance of the service.
+     */
     @Test
     public void testConstructor() {
         assertNotNull(bikeService);
     }
 
+    /**
+     * Tests the creation of an instance with an invalid building id.
+     */
     @Test
-    public void testCreate() {
-        bikeService.add(building.getId(), true);
-        assertEquals(bikeService.all(), Collections.singletonList(bike));
-        assertEquals(416,bikeService.add(137, true));
+    public void testCreateIllegalBuilding() {
+        assertEquals(416, bikeService.add(0, true));
     }
 
+    /**
+     * Tests the saving and retrieval of an instance of Bike.
+     */
     @Test
-    public void testAll() {
-        Iterator<Bike> iterator = bikeService.all().iterator();
-        assertFalse(iterator.hasNext());
-        bikeService.add(building.getId(), true);
-        iterator = bikeService.all().iterator();
-        assertTrue(iterator.hasNext());
-        iterator.next();
-        assertFalse(iterator.hasNext());
+    public void testAdd() {
+        assertEquals(201, bikeService.add(building.getId(), true));
+        assertEquals(Collections.singletonList(bike), bikeService.all());
     }
 
+    /**
+     * Tests the search for a non-existing object.
+     */
     @Test
-    public void testFind() {
-        bikeService.add(building.getId(), true);
-        assertEquals(bikeService.all().iterator().next(), bikeService.find(bikeService.all().iterator().next().getId()));
-        assertNull(bikeService.find(-3));
+    public void testFindNonExisting() {
+        assertNull(bikeService.find(0));
     }
 
+    /**
+     * Tests the search for an existing object.
+     */
     @Test
-    public void testUpdate() {
+    public void testFindExisting() {
+        bikeService.add(building.getId(), true);
+        int id = bikeService.all().get(0).getId();
+        assertNotNull(bikeService.find(id));
+    }
+
+    /**
+     * Tests the update operation on a non-existent object.
+     */
+    @Test
+    public void testUpdateNonExistingInstance() {
+        assertEquals(416, bikeService.update(0, "a", "a"));
+    }
+
+    /**
+     * Tests the update operation on a non-existent attribute.
+     */
+    @Test
+    public void testUpdateNonExistingAttribute() {
+        bikeService.add(building.getId(), true);
+        int id = bikeService.all().get(0).getId();
+        assertEquals(412, bikeService.update(id, "a", "a"));
+    }
+
+    /**
+     * Tests the change of the location by using the service.
+     */
+    @Test
+    public void testChangeLocation() {
+        bikeService.add(building.getId(), true);
+        int id = bikeService.all().get(0).getId();
+        assertNotEquals(building2, bikeService.find(id).getLocation());
+        bikeService.update(id, "location", building2.getId().toString());
+        assertEquals(building2, bikeService.find(id).getLocation());
+    }
+
+    /**
+     * Tests the change of the availability by using the service.
+     */
+    @Test
+    public void testChangeAvailability() {
+        bikeService.add(building.getId(), true);
+        int id = bikeService.all().get(0).getId();
+        assertTrue(bikeService.find(id).isAvailable());
+        bikeService.update(id, "available", "false");
+        assertFalse(bikeService.find(id).isAvailable());
+    }
+
+    /**
+     * Tests the retrieval of multiple instances.
+     */
+    @Test
+    public void testMultipleInstances() {
         bikeService.add(building.getId(), true);
         bikeService.add(building2.getId(), false);
-        List<Bike> bikes = new ArrayList<>();
-        bikeService.all().forEach(bikes::add);
-        assertEquals(2, bikes.size());
-        bike = bikes.get(0);
-        bike2 = bikes.get(1);
-
-        assertEquals(412, bikeService.update(bike.getId(), "nonexistent attribute", "random value"));
-        assertNotEquals(bikeService.find(bike.getId()), bikeService.find(bike2.getId()));
-        bikeService.update(bike2.getId(), "location", building.getId().toString());
-        assertNotEquals(bikeService.find(bike.getId()), bikeService.find(bike2.getId()));
-        bikeService.update(bike2.getId(), "available", "true");
-        assertEquals(bikeService.find(bike.getId()), bikeService.find(bike2.getId()));
+        assertEquals(2, bikeService.all().size());
+        ArrayList<Bike> bikes = new ArrayList<>();
+        bikes.add(bike);
+        bikes.add(bike2);
+        assertEquals(bikes, bikeService.all());
     }
 
+    /**
+     * Tests the deletion of an instance.
+     */
     @Test
     public void testDelete() {
         bikeService.add(building.getId(), true);
-        bikeService.add(building2.getId(), false);
-        List<Bike> bikes = new ArrayList<>();
-        bikeService.all().forEach(bikes::add);
-        assertEquals(2, bikes.size());
-        bike = bikes.get(0);
-        bike2 = bikes.get(1);
-        bikeService.delete(bikes.get(0).getId());
-        bikes = new ArrayList<>();
-        bikeService.all().forEach(bikes::add);
-        assertEquals(1, bikes.size());
-        assertNull(bikeService.find(bike.getId()));
-        assertFalse(bikes.contains(bike));
-        assertNotNull(bikeService.find(bike2.getId()));
-        assertTrue(bikes.contains(bike2));
+        int id = bikeService.all().get(0).getId();
+        assertEquals(200, bikeService.delete(id));
+        assertEquals(0, bikeService.all().size());
     }
 
-    @AfterEach
-    public void cleanup() {
-        buildingRepository.deleteAll();
+    /**
+     * Tests the deletion of a non-existing instance.
+     */
+    @Test
+    public void testDeleteIllegal() {
+        assertEquals(404, bikeService.delete(0));
     }
 }

@@ -1,14 +1,12 @@
 package nl.tudelft.oopp.demo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Collections;
 import java.util.List;
 
 import nl.tudelft.oopp.demo.entities.Role;
@@ -22,6 +20,9 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+/**
+ * Tests the Role service.
+ */
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
 public class RoleServiceTest {
@@ -39,75 +40,103 @@ public class RoleServiceTest {
     Role role;
     Role role2;
 
+    /**
+     * Sets up the entities and saves them via a service before executing every test.
+     */
     @BeforeEach
     public void setup() {
         role = new Role();
-        role.setName("Manager");
+        role.setName("ROLE_USER");
 
         role2 = new Role();
-        role.setName("Tutor");
+        role2.setName("ROLE_ADMIN");
     }
 
+    /**
+     * Tests the constructor creating a new instance of the service.
+     */
     @Test
     public void testConstructor() {
         assertNotNull(roleService);
     }
 
+    /**
+     * Tests the saving and retrieval of an instance of Role.
+     */
     @Test
     public void testCreate() {
-        roleService.add(role.getName());
-        assertEquals(role.getName(), roleService.all().iterator().next().getName());
+        assertEquals(201, roleService.add(role.getName()));
+        assertEquals(Collections.singletonList(role), roleService.all());
     }
 
+    /**
+     * Tests the search for a non-existing object.
+     */
     @Test
-    public void testAll() {
-        Iterator<Role> iterator = roleService.all().iterator();
-        assertFalse(iterator.hasNext());
-        roleService.add(role.getName());
-        iterator = roleService.all().iterator();
-        assertTrue(iterator.hasNext());
-        iterator.next();
-        assertFalse(iterator.hasNext());
+    public void testFindNonExisting() {
+        assertNull(roleService.find(0));
     }
 
+    /**
+     * Tests the search for an existing object.
+     */
     @Test
-    public void testFind() {
+    public void testFindExisting() {
         roleService.add(role.getName());
-        assertEquals(roleService.all().iterator().next(), roleService.find(roleService.all().iterator().next().getId()));
-        assertNull(roleService.find(-3));
+        int id = roleService.all().get(0).getId();
+        assertNotNull(roleService.find(id));
     }
 
+    /**
+     * Tests the update operation on a non-existent object.
+     */
     @Test
-    public void testUpdate() {
+    public void testUpdateNonExistingInstance() {
+        assertEquals(416, roleService.update(0, "a"));
+    }
+
+    /**
+     * Tests the change of the name by using the service.
+     */
+    @Test
+    public void testChangeName() {
+        roleService.add(role.getName());
+        int id = roleService.all().get(0).getId();
+        assertNotEquals("ROLE_ADMIN", roleService.find(id).getName());
+        roleService.update(id, "ROLE_ADMIN");
+        assertEquals("ROLE_ADMIN", roleService.find(id).getName());
+    }
+
+    /**
+     * Tests the retrieval of multiple instances.
+     */
+    @Test
+    public void testMultipleInstances() {
         roleService.add(role.getName());
         roleService.add(role2.getName());
-        List<Role> roles = new ArrayList<Role>();
-        roleService.all().forEach(roles::add);
-        assertEquals(2, roles.size());
-        role = roles.get(0);
-        role2 = roles.get(1);
-
-        assertNotEquals(roleService.find(role.getId()).getName(), roleService.find(role2.getId()).getName());
-        roleService.update(role2.getId(), role.getName());
-        assertEquals(roleService.find(role2.getId()).getName(), roleService.find(role.getId()).getName());
+        assertEquals(2, roleService.all().size());
+        List<Role> roles = new ArrayList<>();
+        roles.add(role);
+        roles.add(role2);
+        assertEquals(roles, roleService.all());
     }
 
+    /**
+     * Tests the deletion of an instance.
+     */
     @Test
     public void testDelete() {
         roleService.add(role.getName());
-        roleService.add(role2.getName());
-        List<Role> roles = new ArrayList<>();
-        roleService.all().forEach(roles::add);
-        assertEquals(2, roles.size());
-        role = roles.get(0);
-        role2 = roles.get(1);
-        roleService.delete(roles.get(0).getId());
-        roles = new ArrayList<>();
-        roleService.all().forEach(roles::add);
-        assertEquals(1, roles.size());
-        assertNull(roleService.find(role.getId()));
-        assertFalse(roles.contains(role));
-        assertNotNull(roleService.find(role2.getId()));
-        assertTrue(roles.contains(role2));
+        int id = roleService.all().get(0).getId();
+        assertEquals(200, roleService.delete(id));
+        assertEquals(0, roleService.all().size());
+    }
+
+    /**
+     * Tests the deletion of a non-existing instance.
+     */
+    @Test
+    public void testDeleteIllegal() {
+        assertEquals(416, roleService.delete(0));
     }
 }

@@ -2,6 +2,8 @@ package nl.tudelft.oopp.demo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,7 +27,7 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 
 /**
- * Tests the FoodOrderService service.
+ * Tests the FoodOrder service.
  */
 @DataJpaTest
 public class FoodOrderServiceTest {
@@ -53,6 +55,7 @@ public class FoodOrderServiceTest {
     Building deliverLocation;
     Restaurant restaurant;
     AppUser appUser;
+    AppUser appUser2;
     Date deliverTime;
     Date deliverTime2;
     long deliverTimeMs;
@@ -60,7 +63,8 @@ public class FoodOrderServiceTest {
     FoodOrder foodOrder;
     FoodOrder foodOrder2;
 
-    /** Sets up the classes before executing the tests.
+    /**
+     * Sets up the entities and saves them via a service before executing every test.
      */
     @BeforeEach
     public void setup() {
@@ -73,6 +77,10 @@ public class FoodOrderServiceTest {
         appUser = new AppUser("l.j.jongejans@student.tudelft.nl", "1234", "Liselotte", "Jongejans", "EWI");
         appUser.setFoodOrder(new HashSet<>());
         userRepository.save(appUser);
+
+        appUser2 = new AppUser("l.j.jongejans@tudelft.nl", "1234", "Liselotte", "Jongejans", "EWI");
+        appUser2.setFoodOrder(new HashSet<>());
+        userRepository.save(appUser2);
 
         deliverLocation = new Building("EWI", "Mekelweg", 4);
         buildingRepository.save(deliverLocation);
@@ -88,36 +96,149 @@ public class FoodOrderServiceTest {
         foodOrder2 = new FoodOrder(restaurant, appUser, deliverLocation, deliverTime2);
     }
 
+    /**
+     * Tests the constructor creating a new instance of the service.
+     */
+    @Test
+    public void testConstructor() {
+        assertNotNull(foodOrderService);
+    }
+
+    /**
+     * Tests the saving and retrieval of an instance of FoodOrder.
+     */
     @Test
     public void testAdd() {
-        foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMs);
-        assertEquals(foodOrderService.all(), Collections.singletonList(foodOrder));
+        assertEquals(201, foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMs));
+        assertEquals(Collections.singletonList(foodOrder), foodOrderService.all());
     }
 
+    /**
+     * Tests the creation of an instance with an invalid restaurant id.
+     */
     @Test
-    public void testUpdate() {
+    public void testCreateIllegalRestaurant() {
+        assertEquals(428, foodOrderService.add(0, appUser.getEmail(), deliverLocation.getId(), deliverTimeMs));
+    }
+
+    /**
+     * Tests the creation of an instance with an invalid user id.
+     */
+    @Test
+    public void testCreateIllegalUser() {
+        assertEquals(404, foodOrderService.add(restaurant.getId(), "a", deliverLocation.getId(), deliverTimeMs));
+    }
+
+    /**
+     * Tests the creation of an instance with an invalid deliver location id.
+     */
+    @Test
+    public void testCreateIllegalLocation() {
+        assertEquals(422, foodOrderService.add(restaurant.getId(), appUser.getEmail(), 0, deliverTimeMs));
+    }
+
+    /**
+     * Tests the search for a non-existing object.
+     */
+    @Test
+    public void testFindNonExisting() {
+        assertNull(foodOrderService.find(0));
+    }
+
+    /**
+     * Tests the search for an existing object.
+     */
+    @Test
+    public void testFindExisting() {
+        foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMs);
+        int id = foodOrderService.all().get(0).getId();
+        assertNotNull(foodOrderService.find(id));
+    }
+
+    /**
+     * Tests the update operation on a non-existent object.
+     */
+    @Test
+    public void testUpdateNonExistingInstance() {
+        assertEquals(421, foodOrderService.update(0, "a", "a"));
+    }
+
+    /**
+     * Tests the update operation on a non-existent attribute.
+     */
+    @Test
+    public void testUpdateNonExistingAttribute() {
+        foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMs);
+        int id = foodOrderService.all().get(0).getId();
+        assertEquals(420, foodOrderService.update(id, "a", "a"));
+    }
+
+    /**
+     * Tests the change of the delivery location by using the service.
+     */
+    @Test
+    public void testChangeDeliveryLocation() {
+        foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMs);
+        int id = foodOrderService.all().get(0).getId();
+        assertNotEquals(building, foodOrderService.find(id).getDeliveryLocation());
+        foodOrderService.update(id, "deliverylocation", building.getId().toString());
+        assertEquals(building, foodOrderService.find(id).getDeliveryLocation());
+    }
+
+    /**
+     * Tests the change of the delivery time by using the service.
+     */
+    @Test
+    public void testChangeDeliveryTime() {
+        foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMs);
+        int id = foodOrderService.all().get(0).getId();
+        assertNotEquals(deliverTimeMs2, foodOrderService.find(id).getDeliveryTime().getTime());
+        foodOrderService.update(id, "deliverytime", ((Long) deliverTimeMs2).toString());
+        assertEquals(deliverTimeMs2, foodOrderService.find(id).getDeliveryTime().getTime());
+    }
+
+    /**
+     * Tests the change of the user by using the service.
+     */
+    @Test
+    public void testChangeUser() {
+        foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMs);
+        int id = foodOrderService.all().get(0).getId();
+        assertNotEquals(appUser2, foodOrderService.find(id).getAppUser());
+        foodOrderService.update(id, "useremail", appUser2.getEmail());
+        assertEquals(appUser2, foodOrderService.find(id).getAppUser());
+    }
+
+    /**
+     * Tests the retrieval of multiple instances.
+     */
+    @Test
+    public void testMultipleInstances() {
         foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMs);
         foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMs2);
+        assertEquals(2, foodOrderService.all().size());
         List<FoodOrder> foodOrders = new ArrayList<>();
-        foodOrderService.all().forEach(foodOrders::add);
-        assertEquals(2, foodOrders.size());
-        foodOrder = foodOrders.get(0);
-        foodOrder2 = foodOrders.get(1);
-        assertNotEquals(foodOrderService.find(foodOrder.getId()), foodOrderService.find(foodOrder2.getId()));
-        foodOrderService.update(foodOrder2.getId(), "deliveryTime", Long.toString(deliverTimeMs));
-        assertEquals(foodOrderService.find(foodOrder.getId()), foodOrderService.find(foodOrder2.getId()));
+        foodOrders.add(foodOrder);
+        foodOrders.add(foodOrder2);
+        assertEquals(foodOrders, foodOrderService.all());
     }
 
+    /**
+     * Tests the deletion of an instance.
+     */
     @Test
     public void testDelete() {
         foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMs);
-        foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMs2);
-        List<FoodOrder> foodOrders = new ArrayList<>();
-        foodOrderService.all().forEach(foodOrders::add);
-        assertEquals(2, foodOrders.size());
-        foodOrderService.delete(foodOrders.get(0).getId());
-        foodOrders = new ArrayList<>();
-        foodOrderService.all().forEach(foodOrders::add);
-        assertEquals(1, foodOrders.size());
+        int id = foodOrderService.all().get(0).getId();
+        assertEquals(200, foodOrderService.delete(id));
+        assertEquals(0, foodOrderService.all().size());
+    }
+
+    /**
+     * Tests the deletion of a non-existing instance.
+     */
+    @Test
+    public void testDeleteIllegal() {
+        assertEquals(421, foodOrderService.delete(0));
     }
 }

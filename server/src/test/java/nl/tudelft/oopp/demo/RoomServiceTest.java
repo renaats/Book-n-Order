@@ -8,15 +8,13 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Room;
-import nl.tudelft.oopp.demo.entities.RoomReservation;
 import nl.tudelft.oopp.demo.services.BuildingService;
 import nl.tudelft.oopp.demo.services.RoomService;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,6 +26,9 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+/**
+ * Tests the Room service.
+ */
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
 public class RoomServiceTest {
@@ -58,19 +59,16 @@ public class RoomServiceTest {
     Building building2;
     Room room;
     Room room2;
-    RoomReservation roomReservation;
-    Set<RoomReservation> roomReservationSet;
-    Set<Room> roomSet;
 
-    /** Sets up the classes before executing the tests.
+    /**
+     * Sets up the entities and saves them via a service before executing every test.
      */
     @BeforeEach
     public void setup() {
         buildingService.add("EWI", "Mekelweg", 4);
         buildingService.add("EWI2", "Mekelweg2", 42);
 
-        List<Building> buildings = new ArrayList<>();
-        buildingService.all().forEach(buildings::add);
+        List<Building> buildings = new ArrayList<>(buildingService.all());
         building = buildings.get(0);
         building2 = buildings.get(1);
 
@@ -84,89 +82,234 @@ public class RoomServiceTest {
         room.setNrPeople(200);
         room.setPlugs(200);
 
+        room2 = new Room();
+        room2.setName("Boole");
+        room2.setBuilding(building2);
+        room2.setFaculty("EWI2");
+        room2.setFacultySpecific(false);
+        room2.setScreen(true);
+        room2.setProjector(true);
+        room2.setNrPeople(200);
+        room2.setPlugs(200);
     }
 
+    /**
+     * Tests the constructor creating a new instance of the service.
+     */
     @Test
     public void testConstructor() {
         assertNotNull(roomService);
     }
 
+    /**
+     * Tests the saving and retrieval of an instance of Room.
+     */
     @Test
     public void testCreate() {
-        roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200);
-        assertEquals(Arrays.asList(room), roomService.all());
+        assertEquals(201, roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200));
+        assertEquals(Collections.singletonList(room), roomService.all());
+    }
+
+    /**
+     * Tests the creation of an instance with an invalid building id.
+     */
+    @Test
+    public void testCreateIllegalBuilding() {
         assertEquals(422, roomService.add("Not an actual room", "Faculty", false, true, true, -3, 300, 200));
-        roomSet = new HashSet<>();
-        roomSet.add(room);
-        building.setRooms(roomSet);
+    }
+
+    /**
+     * Tests the creation of an instance with an duplicate room.
+     */
+    @Test
+    public void testCreateDuplicateRoom() {
+        assertEquals(201, roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200));
+        Set<Room> rooms = new HashSet<>();
+        rooms.add(roomService.all().get(0));
+        building.setRooms(rooms);
         assertEquals(309, roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200));
     }
 
+    /**
+     * Tests the search for a non-existing object.
+     */
     @Test
-    public void testAll() {
-        Iterator<Room> iterator = roomService.all().iterator();
-        assertFalse(iterator.hasNext());
-        roomService.add(room.getName(), room.getFaculty(), false, true, true, building.getId(), room.getNrPeople(), room.getPlugs());
-        iterator = roomService.all().iterator();
-        assertTrue(iterator.hasNext());
-        iterator.next();
-        assertFalse(iterator.hasNext());
-    }
-
-    @Test
-    public void testFind() {
-        roomService.add(room.getName(), room.getFaculty(), false, true, true, building.getId(), room.getNrPeople(), room.getPlugs());
-        assertEquals(roomService.all().iterator().next(), roomService.find(roomService.all().iterator().next().getId()));
+    public void testFindNonExisting() {
         assertNull(roomService.find(-3));
     }
 
+    /**
+     * Tests the search for an existing object.
+     */
     @Test
-    public void testUpdate() {
+    public void testFindExisting() {
         roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200);
-        roomService.add("Auditorium", "Aula", true, false, false, building2.getId(), 500, 100);
-        List<Room> rooms = new ArrayList<>();
-        roomService.all().forEach(rooms::add);
-        assertEquals(2, rooms.size());
-        room = rooms.get(0);
-        room2 = rooms.get(1);
-
-        assertEquals(418, roomService.update(-3, "This is not an actual id of a room.", "value"));
-        assertEquals(422, roomService.update(room.getId(), "buildingid", "-3"));
-        assertEquals(412, roomService.update(room.getId(), "Non existent attribute", "value"));
-        assertNotEquals(roomService.find(room.getId()), roomService.find(room2.getId()));
-        roomService.update(room2.getId(), "name", room.getName());
-        assertNotEquals(roomService.find(room.getId()), roomService.find(room2.getId()));
-        roomService.update(room2.getId(), "faculty", room.getFaculty());
-        assertNotEquals(roomService.find(room.getId()), roomService.find(room2.getId()));
-        roomService.update(room2.getId(), "facultyspecific", ((Boolean) room.isFacultySpecific()).toString());
-        assertNotEquals(roomService.find(room.getId()), roomService.find(room2.getId()));
-        roomService.update(room2.getId(), "screen", ((Boolean) room.isScreen()).toString());
-        assertNotEquals(roomService.find(room.getId()), roomService.find(room2.getId()));
-        roomService.update(room2.getId(), "projector", ((Boolean) room.isProjector()).toString());
-        assertNotEquals(roomService.find(room.getId()), roomService.find(room2.getId()));
-        roomService.update(room2.getId(), "buildingid", ((Integer) room.getBuilding().getId()).toString());
-        assertNotEquals(roomService.find(room.getId()), roomService.find(room2.getId()));
-        roomService.update(room2.getId(), "amountofpeople", ((Integer) room.getNrPeople()).toString());
-        assertNotEquals(roomService.find(room.getId()), roomService.find(room2.getId()));
-        roomService.update(room2.getId(), "plugs", ((Integer) room.getPlugs()).toString());
-        assertEquals(roomService.find(room.getId()), roomService.find(room2.getId()));
+        int id = roomService.all().get(0).getId();
+        assertNotNull(roomService.find(id));
     }
 
+    /**
+     * Tests the update operation on a non-existent object.
+     */
+    @Test
+    public void testUpdateNonExistingInstance() {
+        assertEquals(418, roomService.update(-3, "This is not an actual id of a room.", "value"));
+    }
+
+    /**
+     * Tests the update operation on a non-existent attribute.
+     */
+    @Test
+    public void testUpdateNonExistingAttribute() {
+        roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200);
+        int id = roomService.all().get(0).getId();
+        assertEquals(412, roomService.update(id, "Non existent attribute", "value"));
+    }
+
+    /**
+     * Tests the change of the name by using the service.
+     */
+    @Test
+    public void testChangeName() {
+        roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200);
+        int id = roomService.all().get(0).getId();
+        assertNotEquals("Boole", roomService.all().get(0).getName());
+        roomService.update(id, "name", "Boole");
+        assertEquals("Boole", roomService.all().get(0).getName());
+    }
+
+    /**
+     * Tests the change of the faculty by using the service.
+     */
+    @Test
+    public void testChangeFaculty() {
+        roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200);
+        int id = roomService.all().get(0).getId();
+        assertNotEquals("3M", roomService.all().get(0).getFaculty());
+        roomService.update(id, "faculty", "3M");
+        assertEquals("3M", roomService.all().get(0).getFaculty());
+    }
+
+    /**
+     * Tests the change of facultySpecific by using the service.
+     */
+    @Test
+    public void testChangeFacultySpecific() {
+        roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200);
+        int id = roomService.all().get(0).getId();
+        assertFalse(roomService.all().get(0).isFacultySpecific());
+        roomService.update(id, "facultyspecific", "true");
+        assertTrue(roomService.all().get(0).isFacultySpecific());
+    }
+
+    /**
+     * Tests the change of screen by using the service.
+     */
+    @Test
+    public void testChangeScreen() {
+        roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200);
+        int id = roomService.all().get(0).getId();
+        assertTrue(roomService.all().get(0).isScreen());
+        roomService.update(id, "screen", "false");
+        assertFalse(roomService.all().get(0).isScreen());
+    }
+
+    /**
+     * Tests the change of projector by using the service.
+     */
+    @Test
+    public void testChangeProjector() {
+        roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200);
+        int id = roomService.all().get(0).getId();
+        assertTrue(roomService.all().get(0).isProjector());
+        roomService.update(id, "projector", "false");
+        assertFalse(roomService.all().get(0).isProjector());
+    }
+
+    /**
+     * Tests the change of the capacity by using the service.
+     */
+    @Test
+    public void testChangeCapacity() {
+        roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200);
+        int id = roomService.all().get(0).getId();
+        assertNotEquals(400, roomService.all().get(0).getNrPeople());
+        roomService.update(id, "amountofpeople", "400");
+        assertEquals(400, roomService.all().get(0).getNrPeople());
+    }
+
+    /**
+     * Tests the change of the plugs by using the service.
+     */
+    @Test
+    public void testChangePlugs() {
+        roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200);
+        int id = roomService.all().get(0).getId();
+        assertNotEquals(400, roomService.all().get(0).getPlugs());
+        roomService.update(id, "plugs", "400");
+        assertEquals(400, roomService.all().get(0).getPlugs());
+    }
+
+    /**
+     * Tests the change of the building by using the service.
+     */
+    @Test
+    public void testChangeBuilding() {
+        roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200);
+        int id = roomService.all().get(0).getId();
+        assertNotEquals(building2, roomService.all().get(0).getBuilding());
+        roomService.update(id, "buildingid", building2.getId().toString());
+        assertEquals(building2, roomService.all().get(0).getBuilding());
+    }
+
+    /**
+     * Tests the change of the building to a non-existing building by using the service.
+     */
+    @Test
+    public void testChangeBuildingNonExisting() {
+        roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200);
+        int id = roomService.all().get(0).getId();
+        assertEquals(422, roomService.update(id, "buildingid", "-3"));
+    }
+
+    /**
+     * Tests the retrieval of room reservations for a non-existing room.
+     */
+    @Test
+    public void testReservationsNonExistentRoom() {
+        assertNull(roomService.reservations(0));
+    }
+
+    /**
+     * Tests the retrieval of multiple instances.
+     */
+    @Test
+    public void testMultipleInstances() {
+        roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200);
+        roomService.add("Boole", "EWI2", false, true, true, building2.getId(), 200, 200);
+        assertEquals(2, roomService.all().size());
+        List<Room> rooms = new ArrayList<>();
+        rooms.add(room);
+        rooms.add(room2);
+        assertEquals(rooms, roomService.all());
+    }
+
+    /**
+     * Tests the deletion of an instance.
+     */
     @Test
     public void testDelete() {
         roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200);
-        roomService.add("Auditorium", "Aula", true, false, false, building2.getId(), 500, 100);
-        List<Room> rooms = new ArrayList<>();
-        roomService.all().forEach(rooms::add);
-        assertEquals(2, rooms.size());
-        room = rooms.get(0);
-        room2 = rooms.get(1);
-        assertEquals(200, roomService.delete(rooms.get(0).getId()));
-        rooms = new ArrayList<>();
-        roomService.all().forEach(rooms::add);
-        assertEquals(1, rooms.size());
-        assertNull(roomService.find(room.getId()));
-        assertNotNull(roomService.find(room2.getId()));
-        assertEquals(418, roomService.delete(-3));
+        int id = roomService.all().get(0).getId();
+        assertEquals(200, roomService.delete(id));
+        assertEquals(0, roomService.all().size());
+    }
+
+    /**
+     * Tests the deletion of a non-existing instance.
+     */
+    @Test
+    public void testDeleteIllegal() {
+        assertEquals(418, roomService.delete(0));
     }
 }
