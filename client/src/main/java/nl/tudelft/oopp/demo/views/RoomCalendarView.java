@@ -5,22 +5,14 @@ import com.calendarfx.model.Calendar.Style;
 import com.calendarfx.model.CalendarSource;
 import com.calendarfx.model.Entry;
 import com.calendarfx.view.CalendarView;
-<<<<<<< HEAD
 import java.time.Instant;
 import java.time.LocalDate;
-=======
-import java.time.LocalDate;
-import java.time.Instant;
->>>>>>> Chekstyle Warnings
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
-<<<<<<< HEAD
 
-=======
->>>>>>> Chekstyle Warnings
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
