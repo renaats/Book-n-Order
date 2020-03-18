@@ -1,31 +1,51 @@
 package nl.tudelft.oopp.demo.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.util.Objects;
 import java.util.Set;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
-@Entity // This tells Hibernate to make a table out of this class
+/**
+ * Represents a user role. Holds all necessary information about the role that is then stored in the database.
+ * Is uniquely identified by its id.
+ * By default, roles "ROLE_USER", "ROLE_ADMIN", "ROLE_BUILDING_ADMIN", "ROLE_BIKE_ADMIN", "ROLE_RESTAURANT" have predefined access control.
+ */
+@Entity
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
-    @ManyToMany(mappedBy = "roles")
-    private Set<User> users;
 
-    public void setId(int id) {
-        this.id = id;
+    @JsonIgnore
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
+    private Set<AppUser> appUsers;
+
+    /**
+     * Creates a new instance of Role.
+     * @param name = name of the role.
+
+     */
+    public Role(String name) {
+        this.name = name;
+    }
+
+    public Role() {
+
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setUsers(Set<User> users) {
-        this.users = users;
+    public void setAppUsers(Set<AppUser> appUsers) {
+        this.appUsers = appUsers;
     }
 
     public int getId() {
@@ -36,7 +56,20 @@ public class Role {
         return name;
     }
 
-    public Set<User> getUsers() {
-        return users;
+    public Set<AppUser> getAppUsers() {
+        return appUsers;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Role role = (Role) o;
+        return Objects.equals(name, role.name)
+                && Objects.equals(appUsers, role.appUsers);
     }
 }

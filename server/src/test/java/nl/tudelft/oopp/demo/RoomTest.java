@@ -2,12 +2,17 @@ package nl.tudelft.oopp.demo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotSame;
-import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.HashSet;
+import java.util.Set;
 
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Room;
+import nl.tudelft.oopp.demo.entities.RoomReservation;
 import nl.tudelft.oopp.demo.repositories.BuildingRepository;
 import nl.tudelft.oopp.demo.repositories.RoomRepository;
 import org.junit.jupiter.api.AfterEach;
@@ -16,6 +21,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+/**
+ * Tests the Room entity.
+ */
 @DataJpaTest
 public class RoomTest {
     @Autowired
@@ -27,64 +35,220 @@ public class RoomTest {
     Room room;
     Room room2;
 
-    /** Sets up the classes before executing the tests.
+    /**
+     * Sets up the entities and saves them in the repository before executing every test.
      */
     @BeforeEach
     public void setup() {
-        building = new Building();
-        building.setName("EWI");
-        building.setStreet("Mekelweg");
-        building.setHouseNumber(4);
+        building = new Building("EWI", "Mekelweg", 4);
         buildingRepository.save(building);
 
-        room = new Room();
-        room.setName("Ampere");
-        room.setBuilding(building);
-        room.setFaculty("EWI");
-        room.setFacultySpecific(false);
-        room.setScreen(true);
-        room.setProjector(true);
-        room.setNrPeople(300);
-        room.setPlugs(250);
+        room = new Room("Ampere", building, "EWI", false, true, true, 300, 250);
 
         roomRepository.save(room);
     }
 
+    /**
+     * Tests the constructor of the RoomReservation class
+     */
+    @Test
+    public void testConstructor() {
+        room2 = new Room();
+        assertNotNull(room2);
+    }
+
+    /**
+     * Tests the saving and retrieval of an instance of Room.
+     */
     @Test
     public void saveAndRetrieveRoom() {
         room2 = roomRepository.findAll().get(0);
         assertEquals(room, room2);
     }
 
+    /**
+     * Tests the getter for the name field.
+     */
     @Test
-    public void testGetters() {
+    public void testNameGetter() {
         room2 = roomRepository.findAll().get(0);
         assertEquals("Ampere", room2.getName());
-        assertEquals(building, room2.getBuilding());
-        assertEquals("EWI", room2.getFaculty());
-        assertFalse(room2.isFacultySpecific());
-        assertTrue(room2.isProjector());
-        assertTrue(room2.isScreen());
-        assertEquals(300, room2.getNrPeople());
-        assertEquals(250, room2.getPlugs());
-        assertTrue(room2.getId() > 0);
     }
 
+    /**
+     * Tests the getter for the building field.
+     */
     @Test
-    public void testEqualRooms() {
-        room2 = new Room();
-        room2.setName("Ampere");
-        room2.setBuilding(building);
-        room2.setFaculty("EWI");
-        room2.setFacultySpecific(false);
-        room2.setScreen(true);
-        room2.setProjector(true);
-        room2.setNrPeople(300);
-        room2.setPlugs(250);
-        assertEquals(room, room2);
-        assertNotSame(room, room2);
+    public void testBuildingGetter() {
+        room2 = roomRepository.findAll().get(0);
+        assertEquals(building, room2.getBuilding());
     }
 
+    /**
+     * Tests the getter for the faculty field.
+     */
+    @Test
+    public void testFacultyGetter() {
+        room2 = roomRepository.findAll().get(0);
+        assertEquals("EWI", room2.getFaculty());
+    }
+
+    /**
+     * Tests the getter for the facultySpecific field.
+     */
+    @Test
+    public void testFacultySpecificGetter() {
+        room2 = roomRepository.findAll().get(0);
+        assertFalse(room2.isFacultySpecific());
+    }
+
+    /**
+     * Tests the getter for the projector field.
+     */
+    @Test
+    public void testProjectorGetter() {
+        room2 = roomRepository.findAll().get(0);
+        assertTrue(room2.isProjector());
+    }
+
+    /**
+     * Tests the getter for the screen field.
+     */
+    @Test
+    public void testScreenGetter() {
+        room2 = roomRepository.findAll().get(0);
+        assertTrue(room2.isScreen());
+    }
+
+    /**
+     * Tests the getter for the nrPeople field.
+     */
+    @Test
+    public void testNrPeopleGetter() {
+        room2 = roomRepository.findAll().get(0);
+        assertEquals(300, room2.getNrPeople());
+    }
+
+    /**
+     * Tests the getter for the plugs field.
+     */
+    @Test
+    public void testPlugsGetter() {
+        room2 = roomRepository.findAll().get(0);
+        assertEquals(250, room2.getPlugs());
+    }
+
+    /**
+     * Tests the the change of the name by using a setter.
+     */
+    @Test
+    public void testChangeName() {
+        assertNotEquals("Boole", room.getName());
+        room.setName("Boole");
+        assertEquals("Boole", room.getName());
+    }
+
+    /**
+     * Tests the the change of the building by using a setter.
+     */
+    @Test
+    public void testChangeBuilding() {
+        assertNotNull(room.getBuilding());
+        room.setBuilding(null);
+        assertNull(room.getBuilding());
+    }
+
+    /**
+     * Tests the the change of the faculty by using a setter.
+     */
+    @Test
+    public void testChangeFaculty() {
+        assertNotEquals("EEMCS", room.getFaculty());
+        room.setFaculty("EEMCS");
+        assertEquals("EEMCS", room.getFaculty());
+    }
+
+    /**
+     * Tests the the change of the facultySpecific by using a setter.
+     */
+    @Test
+    public void testChangeFacultySpecific() {
+        assertFalse(room.isFacultySpecific());
+        room.setFacultySpecific(true);
+        assertTrue(room.isFacultySpecific());
+    }
+
+    /**
+     * Tests the the change of the projector by using a setter.
+     */
+    @Test
+    public void testChangeProjector() {
+        assertTrue(room.isProjector());
+        room.setProjector(false);
+        assertFalse(room.isProjector());
+    }
+
+    /**
+     * Tests the the change of the screen by using a setter.
+     */
+    @Test
+    public void testChangeScreen() {
+        assertTrue(room.isScreen());
+        room.setScreen(false);
+        assertFalse(room.isScreen());
+    }
+
+    /**
+     * Tests the the change of the capacity by using a setter.
+     */
+    @Test
+    public void testChangeCapacity() {
+        assertNotEquals(400, room.getNrPeople());
+        room.setNrPeople(400);
+        assertEquals(400, room.getNrPeople());
+    }
+
+    /**
+     * Tests the the change of the plugs by using a setter.
+     */
+    @Test
+    public void testChangePlugs() {
+        assertNotEquals(300, room.getPlugs());
+        room.setPlugs(300);
+        Set<RoomReservation> roomReservationSet = new HashSet<>();
+        room.setRoomReservations(roomReservationSet);
+        assertEquals(300, room.getPlugs());
+    }
+
+    /**
+     * Tests the addition of a room for a building.
+     */
+    @Test
+    public void testRoomReservations() {
+        Set<RoomReservation> roomReservationSet = new HashSet<>();
+        RoomReservation roomReservation = new RoomReservation();
+        roomReservationSet.add(roomReservation);
+        room.setRoomReservations(roomReservationSet);
+        assertEquals(roomReservationSet, room.getRoomReservations());
+        assertTrue(room.hasRoomReservations());
+    }
+
+    /**
+     * Tests the removal of a room for a building.
+     */
+    @Test
+    public void testRoomReservationsRemove() {
+        Set<RoomReservation> roomReservationSet = new HashSet<>();
+        RoomReservation roomReservation = new RoomReservation();
+        roomReservationSet.add(roomReservation);
+        room.setRoomReservations(roomReservationSet);
+        room.getRoomReservations().remove(roomReservation);
+        assertFalse(room.hasRoomReservations());
+    }
+
+    /**
+     * Cleans up the repositories after executing every test.
+     */
     @AfterEach
     public void cleanup() {
         roomRepository.deleteAll();
