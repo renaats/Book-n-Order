@@ -15,15 +15,17 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
  */
 public class ChangePasswordController {
     @FXML
-    public PasswordField newPassword2;
-    public PasswordField newPassword1;
+    private PasswordField password;
+    @FXML
+    private PasswordField newPassword2;
+    @FXML
+    private PasswordField newPassword1;
 
     /**
      * returns to the "myAccount" scene when the back arrow is pressed
-     * @param mouseEvent the pressing of the back arrow icon
      * @throws IOException this method should never throw an exception
      */
-    public void goToMyAccountScene(MouseEvent mouseEvent) throws IOException {
+    public void goToMyAccountScene() throws IOException {
         ApplicationDisplay.changeScene("/myAccountScene.fxml");
     }
 
@@ -33,8 +35,17 @@ public class ChangePasswordController {
      * @throws IOException should never throw an exception
      */
     public void changePassword() throws IOException {
-        if (newPassword1.getText().equals(newPassword2.getText())) {
-            ApplicationDisplay.changeScene("/myAccountScene.fxml");
+        String password = password.getText();
+        String password1 = newPassword1.getText();
+        String password2 = newPassword2.getText();
+        if (password1.equals(password2)) {
+            String response = ServerCommunication.ChangePassword("r.jursevskis@student.tudelft.nl",password1);
+            System.out.println(response);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Change password successful");
+            alert.setHeaderText(null);
+            alert.setContentText("Your passwords match, they have been changed");
+            alert.showAndWait();
         } else {
             CustomAlert.errorAlert("Passwords do not match.");
         }
