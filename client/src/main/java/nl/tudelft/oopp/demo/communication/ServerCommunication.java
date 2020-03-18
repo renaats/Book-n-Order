@@ -309,8 +309,9 @@ public class ServerCommunication {
 
     /**
      * Updates a given attribute of a room reservation.
-     * @param id = the id of the room reservation.
-     * @param attribute = The attribute whose value is to be changed.
+     *
+     * @param id          = the id of the room reservation.
+     * @param attribute   = The attribute whose value is to be changed.
      * @param changeValue = New value.
      * @return the body of the response from the server.
      */
@@ -322,6 +323,7 @@ public class ServerCommunication {
 
     /**
      * Removes a room reservation from the database.
+     *
      * @param id = the id of the room reservation.
      * @return the body of the response from the server.
      */
