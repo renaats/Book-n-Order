@@ -17,7 +17,7 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 public class ChangePasswordController {
 
     @FXML
-    private PasswordField oldPassword;
+    private PasswordField password;
     @FXML
     private PasswordField newPassword2;
     @FXML
@@ -37,6 +37,7 @@ public class ChangePasswordController {
      * @throws IOException should never throw an exception
      */
     public void changePassword() throws IOException {
+        String password = password.getText();
         String password1 = newPassword1.getText();
         String password2 = newPassword2.getText();
         if (password1.equals(password2)) {
