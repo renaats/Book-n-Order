@@ -6,9 +6,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.PasswordField;
 import javafx.scene.input.MouseEvent;
-import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
-import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
@@ -40,9 +38,8 @@ public class ChangePasswordController {
     public void changePassword() throws IOException {
         String password1 = newPassword1.getText();
         String password2 = newPassword2.getText();
-        //String email = AppUser.getEmail();
         if (password1.equals(password2)) {
-            String response = ServerCommunication.ChangePassword("",password1);
+            String response = ServerCommunication.ChangePassword("a@student.tudelft.nl",password1);
             System.out.println(response);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Change password successful");
