@@ -19,7 +19,7 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 public class ChangePasswordController {
 
     @FXML
-    private PasswordField oldPassword;
+    private PasswordField password;
     @FXML
     private PasswordField newPassword2;
     @FXML
@@ -39,12 +39,11 @@ public class ChangePasswordController {
      * @throws IOException should never throw an exception
      */
     public void changePassword() throws IOException {
-        UserInformation userInformation = JsonMapper.userInformationMapper(ServerCommunication.getOwnUserInformation());
+        String password = password.getText();
         String password1 = newPassword1.getText();
         String password2 = newPassword2.getText();
-        String email = userInformation.getEmail();
         if (password1.equals(password2)) {
-            String response = ServerCommunication.changeUserPassword(email,password1);
+            String response = ServerCommunication.ChangePassword("r.jursevskis@student.tudelft.nl",password1);
             System.out.println(response);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Change password successful");
