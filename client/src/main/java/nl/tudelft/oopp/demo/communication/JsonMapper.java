@@ -11,6 +11,7 @@ import java.util.List;
 import javafx.scene.control.Alert;
 import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.Building;
+import nl.tudelft.oopp.demo.entities.FoodOrder;
 import nl.tudelft.oopp.demo.entities.Room;
 
 public class JsonMapper {
@@ -125,6 +126,52 @@ public class JsonMapper {
             alert.setTitle("Error");
             alert.setHeaderText(null);
             alert.setContentText(roomJson);
+            alert.showAndWait();
+        }
+        return null;
+    }
+    
+    /**
+     * Current mapper for buildings
+     * @param foodOrderJson JSON string representation of a building
+     * @return Building object
+     */
+    public static FoodOrder foodOrderMapper(String foodOrderJson) {
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        try {
+            // Convert JSON string to Object
+            FoodOrder foodOrder = mapper.readValue(foodOrderJson, FoodOrder.class);
+            return foodOrder;
+        } catch (JsonGenerationException e) {
+            e.printStackTrace();
+        } catch (JsonMappingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * Maps all building JSONS to a list.
+     * @param foodOrdersJson a JSON string representing a list.
+     * @return A list filled with object Buildings
+     */
+    public static List<FoodOrder> foodOrdersListMapper(String foodOrdersJson) {
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        try {
+            // Convert JSON string to Object
+            List<FoodOrder> foodOrders = mapper.readValue(foodOrdersJson, new TypeReference<List<FoodOrder>>(){});
+            return foodOrders;
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText(foodOrdersJson);
             alert.showAndWait();
         }
         return null;
