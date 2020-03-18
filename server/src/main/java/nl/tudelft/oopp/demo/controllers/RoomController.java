@@ -1,27 +1,21 @@
 package nl.tudelft.oopp.demo.controllers;
 
-<<<<<<< HEAD
 import java.util.List;
 import java.util.Optional;
-=======
->>>>>>> origin/develop
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.entities.RoomReservation;
-<<<<<<< HEAD
 import nl.tudelft.oopp.demo.repositories.BuildingRepository;
 import nl.tudelft.oopp.demo.repositories.RoomRepository;
 import nl.tudelft.oopp.demo.specifications.RoomSpecificationsBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
-=======
 import nl.tudelft.oopp.demo.services.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
->>>>>>> origin/develop
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
@@ -128,7 +122,7 @@ public class RoomController {
     /**
      *
      */
-    @RequestMapping(method = RequestMethod.GET, value = "/users")
+    @RequestMapping(method = RequestMethod.GET, value = "/rooms")
     @ResponseBody
     public static List<Room> search(@RequestParam(value = "search") String search, RoomRepository repository) {
         RoomSpecificationsBuilder builder = new RoomSpecificationsBuilder();

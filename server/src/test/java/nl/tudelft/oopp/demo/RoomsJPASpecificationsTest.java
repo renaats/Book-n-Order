@@ -28,7 +28,7 @@ import static org.hamcrest.Matchers.not;
 
 @Transactional
 @DataJpaTest
-public class JPASpecificationsTest {
+public class RoomsJPASpecificationsTest {
 
     @Autowired
     private RoomRepository roomRepository;
