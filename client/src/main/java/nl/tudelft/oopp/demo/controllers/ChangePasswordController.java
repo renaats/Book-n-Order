@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.input.MouseEvent;
+import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 public class ChangePasswordController {
@@ -27,10 +28,16 @@ public class ChangePasswordController {
      * @throws IOException should never throw an exception
      */
     public void changePassword() throws IOException {
-        //String password1 = (String) newPassword1.getCharacters();
-        //String password2 = (String) newPassword2.getCharacters();
-        if (true) {
-            ApplicationDisplay.changeScene("/myAccountScene.fxml");
+        String password1 = newPassword1.getText();
+        String password2 = newPassword2.getText();
+        if (password1.equals(password2)) {
+            String response = ServerCommunication.ChangePassword("a@student.tudelft.nl",password1);
+            System.out.println(response);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Change password successful");
+            alert.setHeaderText(null);
+            alert.setContentText("Your passwords match, they have been changed");
+            alert.showAndWait();
         } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Authenticator");
