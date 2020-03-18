@@ -1,6 +1,9 @@
 package nl.tudelft.oopp.demo.controllers;
 
 import nl.tudelft.oopp.demo.entities.AppUser;
+import nl.tudelft.oopp.demo.entities.VerificationToken;
+import nl.tudelft.oopp.demo.events.OnRegistrationSuccessEvent;
+import nl.tudelft.oopp.demo.repositories.VerificationTokenRepository;
 import nl.tudelft.oopp.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -114,9 +117,46 @@ public class UserController {
         userService.addRole(email, roleName);
     }
 
-    @PostMapping(path = "/addUser") // Map ONLY POST Requests
-    @ResponseBody
-    public String registerNewUser(@ModelAttribute(“user”) UserDTO userDto, BindingResult result, WebRequest request, Model model) {
-
-    }
+//    @PostMapping("/registration")
+//    public String registerNewUser(@ModelAttribute("user")AppUser appUser, BindingResult result, WebRequest request, Model model) {
+//        AppUser registeredUser = new AppUser();
+//        String email = appUser.getEmail();
+//        if (result.hasErrors()) {
+//            return "registration";
+//        }
+//        registeredUser = userService.find(email);
+//        if(registeredUser!=null) {
+//            model.addAttribute("error","There is already an account with this email: " + email);
+//            return "registration";
+//        }
+//        registeredUser = appUser;
+//        userService.add(registeredUser.getEmail(),registeredUser.getPassword(),registeredUser.getName(),registeredUser.getSurname(),registeredUser.getFaculty());
+//        try {
+//            String appUrl = request.getContextPath();
+//            eventPublisher.publishEvent(new OnRegistrationSuccessEvent(registeredUser, request.getLocale(),appUrl));
+//        }catch(Exception e) {
+//            e.printStackTrace();
+//        }
+//        return "registrationSuccess";
+//    }
+//
+//    @GetMapping("/confirmRegistration")
+//    public String confirmRegistration(WebRequest request, Model model,@RequestParam("token") String token) {
+//        VerificationToken verificationToken =      VerificationTokenRepository.(token);
+//        if(verificationToken == null) {
+//            String message = messages.getMessage("auth.message.invalidToken", null, locale);
+//            model.addAttribute("message", message);
+//            return "redirect:access-denied";
+//        }
+//        User user = verificationToken.getUser();
+//        Calendar calendar = Calendar.getInstance();
+//        if((verificationToken.getExpiryDate().getTime()-calendar.getTime().getTime())<=0) {
+//            String message = messages.getMessage("auth.message.expired", null, locale);
+//            model.addAttribute("message", message);
+//            return "redirect:access-denied";
+//        }
+//        user.setEnabled(true);
+//        service.enableRegisteredUser(user);
+//        return null;
+//    }
 }
