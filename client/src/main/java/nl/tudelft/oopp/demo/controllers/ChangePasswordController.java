@@ -38,6 +38,7 @@ public class ChangePasswordController {
      * @throws IOException should never throw an exception
      */
     public void changePassword() throws IOException {
+        String password = password.getText();
         String password1 = newPassword1.getText();
         String password2 = newPassword2.getText();
         //String email = AppUser.getEmail();
