@@ -46,9 +46,15 @@ public class ServerCommunicationTest {
         stubFor(post(urlEqualTo("/building/update?id=1&attribute=a&value=a")).willReturn(aResponse().withStatus(403).withBody("")));
         stubFor(delete(urlEqualTo("/room/delete/1")).willReturn(aResponse().withStatus(403).withBody("")));
         stubFor(post(urlEqualTo("/room/update?id=1&attribute=a&value=a")).willReturn(aResponse().withStatus(403).withBody("")));
+        stubFor(post(urlEqualTo("/room_reservation/delete/1")).willReturn(aResponse().withStatus(403).withBody("")));
+        stubFor(post(urlEqualTo("/room_reservation/update?id=1&attribute=a&value=a")).willReturn(aResponse().withStatus(403).withBody("")));
+        stubFor(post(urlEqualTo("/food_order/delete/1")).willReturn(aResponse().withStatus(403).withBody("")));
+        stubFor(post(urlEqualTo("/food_order/update?id=1&attribute=a&value=a")).willReturn(aResponse().withStatus(403).withBody("")));
         stubFor(post(urlEqualTo("/room/add?name=a&faculty=a&facultySpecific=true&screen=true&projector=true&buildingId=1&nrPeople=1&plugs=1"))
                 .willReturn(aResponse().withStatus(403).withBody("")));
         stubFor(post(urlEqualTo("/building/add?name=a&street=a&houseNumber=1")).willReturn(aResponse().withStatus(403).withBody("")));
+        stubFor(post(urlEqualTo("/room_reservation/add?room=1&userId=1&from=1111111111&to=111111112")).willReturn(aResponse().withStatus(403).withBody("")));
+        stubFor(post(urlEqualTo("/food_order/add?restaurant=1&userId=1&from=1111111111&to=111111112")).willReturn(aResponse().withStatus(403).withBody("")));
         assertEquals(ErrorMessages.getErrorMessage(401), ServerCommunication.getUser());
         assertEquals(ErrorMessages.getErrorMessage(401), ServerCommunication.addUser("a", "a", "a", "a", "a"));
         assertEquals(ErrorMessages.getErrorMessage(311), ServerCommunication.loginUser("a", "a"));
@@ -56,8 +62,14 @@ public class ServerCommunicationTest {
         assertEquals(ErrorMessages.getErrorMessage(401), ServerCommunication.updateBuilding(1, "a", "a"));
         assertEquals(ErrorMessages.getErrorMessage(401), ServerCommunication.deleteRoom(1));
         assertEquals(ErrorMessages.getErrorMessage(401), ServerCommunication.updateRoom(1, "a", "a"));
+        assertEquals(ErrorMessages.getErrorMessage(401),ServerCommunication.deleteRoomReservation(1));
+        assertEquals(ErrorMessages.getErrorMessage(401), ServerCommunication.updateRoomReservation(1, "a", "a"));
+        assertEquals(ErrorMessages.getErrorMessage(401),ServerCommunication.deleteFoodOrder(1));
+        assertEquals(ErrorMessages.getErrorMessage(401), ServerCommunication.updateFoodOrder(1, "a", "a"));
         assertEquals(ErrorMessages.getErrorMessage(401), ServerCommunication.addRoom("a", "a", 1, true, true, true, 1, 1));
         assertEquals(ErrorMessages.getErrorMessage(401), ServerCommunication.addBuilding("a", "a", 1));
+        assertEquals(ErrorMessages.getErrorMessage(401), ServerCommunication.addRoomReservation(1, 1, 1111111111, 111111112));
+        assertEquals(ErrorMessages.getErrorMessage(401), ServerCommunication.addFoodOrder(1, 1, 1111111111, 111111112));
     }
 
     /**
