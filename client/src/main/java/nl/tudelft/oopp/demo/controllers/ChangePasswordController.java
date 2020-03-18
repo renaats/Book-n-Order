@@ -10,15 +10,17 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 public class ChangePasswordController {
     @FXML
-    public PasswordField newPassword2;
-    public PasswordField newPassword1;
+    private PasswordField password;
+    @FXML
+    private PasswordField newPassword2;
+    @FXML
+    private PasswordField newPassword1;
 
     /**
      * returns to the "myAccount" scene when the back arrow is pressed
-     * @param mouseEvent the pressing of the back arrow icon
      * @throws IOException this method should never throw an exception
      */
-    public void goToMyAccountScene(MouseEvent mouseEvent) throws IOException {
+    public void goToMyAccountScene() throws IOException {
         ApplicationDisplay.changeScene("/myAccountScene.fxml");
     }
 
@@ -28,6 +30,7 @@ public class ChangePasswordController {
      * @throws IOException should never throw an exception
      */
     public void changePassword() throws IOException {
+        String password = password.getText();
         String password1 = newPassword1.getText();
         String password2 = newPassword2.getText();
         if (password1.equals(password2)) {
