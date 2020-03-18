@@ -252,11 +252,10 @@ public class ServerCommunication {
         return communicateAndReturnErrorMessage(request);
     }
 
-    public static String changePassword(String email, String password) throws UnsupportedEncodingException {
-        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/user/update?email=" +  URLEncoder.encode(email, "UTF-8") + "&attribute=password" + "&value=" + URLEncoder.encode(password, "UTF-8"))).POST(HttpRequest.BodyPublishers.noBody()).build();
+    public static String ChangePassword(String email, String password) throws UnsupportedEncodingException {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + UserInformation.getBearerKey()).uri(URI.create("http://localhost:8080/user/update?email="+ email + "&password="+URLEncoder.encode(password, "UTF-8"))).POST(HttpRequest.BodyPublishers.noBody()).build();
         return communicateAndReturnBodyOfResponse(request);
     }
-
     /**
      * Communicates addRoom to the database
      *
