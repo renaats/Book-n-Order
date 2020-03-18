@@ -167,7 +167,7 @@ public class ServerCommunication {
     }
 
     public static String ChangePassword(String email, String password) throws UnsupportedEncodingException {
-        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + UserInformation.getBearerKey()).uri(URI.create("http://localhost:8080/user/update?email="+ URLEncoder.encode(email, "UTF-8") + "&attribute=password" + "&value="+URLEncoder.encode(password, "UTF-8"))).POST(HttpRequest.BodyPublishers.noBody()).build();
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + UserInformation.getBearerKey()).uri(URI.create("http://localhost:8080/user/update?email="+ email + "&password="+URLEncoder.encode(password, "UTF-8"))).POST(HttpRequest.BodyPublishers.noBody()).build();
         return communicateAndReturnBodyOfResponse(request);
     }
     /**
@@ -460,11 +460,24 @@ public class ServerCommunication {
     }
 
     /**
+     * Retrieves a room reservation by given id.
+     *
+     * @param roomReservationId = the id of the room reservation.
+     * @return The body of the response from the server.
+     */
+    public static String findRoomReservation(int roomReservationId) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room_reservation/find/" + roomReservationId)).GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
      * Communicates addRoomReservation to the database
-     * @param roomId id of the room
-     * @param userEmail user email
-     * @param fromTimeMs start time of the reservation in milliseconds
-     * @param toTimeMs end time of the reservation in milliseconds
+     *
+     * @param room       name of the room
+     * @param buildingId building ID
+     * @param userId     user ID
+     * @param from       start date and time of the reservation
+     * @param to         end date and time of the reservation
      * @return body response
      */
     public static String addRoomReservation(int roomId, String userEmail, long fromTimeMs, long toTimeMs) {
