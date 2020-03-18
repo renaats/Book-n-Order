@@ -124,7 +124,7 @@ public class ServerCommunication {
     }
 
     public static String ChangePassword(String email, String password) throws UnsupportedEncodingException {
-        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + UserInformation.getBearerKey()).uri(URI.create("http://localhost:8080/user/update?email="+ URLEncoder.encode(email, "UTF-8") + "&attribute=password" + "&value="+URLEncoder.encode(password, "UTF-8"))).POST(HttpRequest.BodyPublishers.noBody()).build();
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + UserInformation.getBearerKey()).uri(URI.create("http://localhost:8080/user/update?email="+ email + "&attribute=password" + "&value="+URLEncoder.encode(password, "UTF-8"))).POST(HttpRequest.BodyPublishers.noBody()).build();
         return communicateAndReturnBodyOfResponse(request);
     }
     /**
