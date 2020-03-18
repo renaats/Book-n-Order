@@ -16,6 +16,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import javax.transaction.Transactional;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.List;
 
 import static org.hamcrest.Matchers.in;
@@ -101,9 +105,12 @@ public class JPASpecificationsTest {
 
     @Test
     public void searchTest() {
-        List<Room> results = RoomController.search("faculty:E,plugs>100");
+        List<Room> results = RoomController.search("name:Auditorium,nrPeople>10", roomRepository);
 
-        assertThat(roomBeta, in(results));
+        assertThat(roomAlpha, in(results));
+        assertThat(roomBeta, not(in(results)));
+
     }
+
 }
 
