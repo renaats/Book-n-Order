@@ -96,6 +96,10 @@ public class ServerCommunication {
         return communicateAndReturnErrorMessage(request);
     }
 
+    public static String ChangePassword(String email, String password) throws UnsupportedEncodingException {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + UserInformation.getBearerKey()).uri(URI.create("http://localhost:8080/user/update?email="+ email + "&password="+URLEncoder.encode(password, "UTF-8"))).POST(HttpRequest.BodyPublishers.noBody()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
     /**
      * Retrieves a building in the database by id.
      * @param buildingID = building id, which is parsed from a text field.
@@ -204,6 +208,7 @@ public class ServerCommunication {
 
     /**
      * Retrieves a room by given id.
+     *
      * @param roomId = the id of the room.
      * @return The body of the response from the server.
      */
@@ -224,8 +229,9 @@ public class ServerCommunication {
 
     /**
      * Updates a given attribute of a room.
-     * @param id = the id of the room.
-     * @param attribute = The attribute whose value is to be changed.
+     *
+     * @param id          = the id of the room.
+     * @param attribute   = The attribute whose value is to be changed.
      * @param changeValue = New value.
      * @return the body of the response from the server.
      */
@@ -237,14 +243,15 @@ public class ServerCommunication {
 
     /**
      * Communicates addRoom to the database
-     * @param name room name
-     * @param faculty faculty name
-     * @param buildingId building ID
+     *
+     * @param name            room name
+     * @param faculty         faculty name
+     * @param buildingId      building ID
      * @param facultySpecific is it specific for a faculty
-     * @param screen does the room have a screen
-     * @param projector does the room have a projector
-     * @param capacity capacity of the room in people
-     * @param plugs amount of available plugs
+     * @param screen          does the room have a screen
+     * @param projector       does the room have a projector
+     * @param capacity        capacity of the room in people
+     * @param plugs           amount of available plugs
      * @return body response
      */
     public static String addRoom(String name, String faculty,
@@ -642,6 +649,7 @@ public class ServerCommunication {
 
     /**
      * Should log the user out
+     *
      * @return confirmation message
      */
     public static String logoutUser() {
