@@ -12,6 +12,7 @@ import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
@@ -35,11 +36,6 @@ public class UserService {
     private RoleRepository roleRepository;
     @Autowired
     private VerificationTokenRepository verificationTokenRepository;
-
-    public void createVerificationToken(AppUser user, String token) {
-        VerificationToken newUserToken = new VerificationToken(token, user);
-        verificationTokenRepository.save(newUserToken);
-    }
 
     /**
      * Logs out from the current account.
@@ -198,5 +194,20 @@ public class UserService {
         role = roleRepository.findByName(roleName);
         appUser.addRole(role);
         userRepository.save(appUser);
+    }
+
+    public void createVerificationToken(AppUser user, String token) {
+        VerificationToken newUserToken = new VerificationToken(token, user);
+        verificationTokenRepository.save(newUserToken);
+    }
+
+    @Transactional
+    public VerificationToken getVerificationToken(String verificationToken) {
+        return verificationTokenRepository.findByToken(verificationToken);
+    }
+
+    @Transactional
+    public void enableRegisteredUser(AppUser user) {
+        userRepository.save(user);
     }
 }

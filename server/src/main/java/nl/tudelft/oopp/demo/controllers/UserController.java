@@ -3,11 +3,10 @@ package nl.tudelft.oopp.demo.controllers;
 import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.VerificationToken;
 import nl.tudelft.oopp.demo.events.OnRegistrationSuccessEvent;
-import nl.tudelft.oopp.demo.repositories.VerificationTokenRepository;
 import nl.tudelft.oopp.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.MessageSource;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
@@ -16,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Calendar;
+import java.util.Locale;
 
 /**
  * Creates server side endpoints and routes requests to the UserService.
@@ -31,6 +32,9 @@ public class UserController {
 
     @Autowired
     private ApplicationEventPublisher eventPublisher;
+
+    @Autowired
+    private MessageSource messages;
 
     /**
      * Logs out from the current account.
@@ -144,24 +148,25 @@ public class UserController {
         }
         return "registrationSuccess";
     }
-//
-//    @GetMapping("/confirmRegistration")
-//    public String confirmRegistration(WebRequest request, Model model,@RequestParam("token") String token) {
-//        VerificationToken verificationToken =      VerificationTokenRepository.(token);
-//        if(verificationToken == null) {
-//            String message = messages.getMessage("auth.message.invalidToken", null, locale);
-//            model.addAttribute("message", message);
-//            return "redirect:access-denied";
-//        }
-//        User user = verificationToken.getUser();
-//        Calendar calendar = Calendar.getInstance();
-//        if((verificationToken.getExpiryDate().getTime()-calendar.getTime().getTime())<=0) {
-//            String message = messages.getMessage("auth.message.expired", null, locale);
-//            model.addAttribute("message", message);
-//            return "redirect:access-denied";
-//        }
-//        user.setEnabled(true);
-//        service.enableRegisteredUser(user);
-//        return null;
-//    }
+
+    @GetMapping("/confirmRegistration")
+    public String confirmRegistration(WebRequest request, Model model,@RequestParam("token") String token) {
+        Locale locale=request.getLocale();
+        VerificationToken verificationToken = userService.getVerificationToken(token);
+        if(verificationToken == null) {
+            String message = messages.getMessage("auth.message.invalidToken", null, locale);
+            model.addAttribute("message", message);
+            return "redirect:access-denied";
+        }
+        AppUser user = verificationToken.getUser();
+        Calendar calendar = Calendar.getInstance();
+        if((verificationToken.getExpiryDate().getTime()-calendar.getTime().getTime())<=0) {
+            String message = messages.getMessage("auth.message.expired", null, locale);
+            model.addAttribute("message", message);
+            return "redirect:access-denied";
+        }
+        user.setEnabled(true);
+        userService.enableRegisteredUser(user);
+        return null;
+    }
 }
