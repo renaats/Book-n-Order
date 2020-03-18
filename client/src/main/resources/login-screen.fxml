@@ -40,4 +40,9 @@
             <Font name="DejaVu Sans ExtraLight" size="36.0" />
          </font>
       </Text>
+   <Button fx:id="forgotPasswordButton" layoutX="200.0" layoutY="653.0" mnemonicParsing="false" onAction="#forgotPassword" prefHeight="38.0" prefWidth="880.0" style="-fx-background-color: #439fd9;" text="Forgot Password?" textAlignment="CENTER" textFill="WHITE">
+      <font>
+         <Font name="System Bold" size="17.0" />
+      </font>
+   </Button>
 </AnchorPane>
