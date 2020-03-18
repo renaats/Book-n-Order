@@ -1,10 +1,9 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
-
-import java.io.IOException;
 
 public class ForgotPasswordController {
     /**

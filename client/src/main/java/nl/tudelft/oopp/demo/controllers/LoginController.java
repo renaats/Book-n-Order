@@ -51,8 +51,8 @@ public class LoginController {
     }
 
     /**
-     *
-     * @throws IOException
+     * Changes scene to forgot password scene
+     * @throws IOException should never throw, since the input is always the same
      */
     public void forgotPassword() throws IOException {
         ApplicationDisplay.changeScene("/ForgotPasswordScene.fxml");
