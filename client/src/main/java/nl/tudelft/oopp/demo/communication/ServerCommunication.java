@@ -353,13 +353,13 @@ public class ServerCommunication {
     }
 
     /**
-     * Communicates addRoomReservation to the database
-     * @param room name of the room
-     * @param buildingId building ID
-     * @param userId user ID
-     * @param from start date and time of the reservation
-     * @param to end date and time of the reservation
-     * @return body response
+     * Communicates addRoomReservation to the database.
+     * @param room name of the room.
+     * @param buildingId building ID.
+     * @param userId user ID.
+     * @param from start date and time of the reservation.
+     * @param to end date and time of the reservation.
+     * @return body response.
      */
     public static String addRoomReservation(String room, int buildingId, int userId, Date from, Date to) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room_reservation/add?room" + room + "&buildingId=" + buildingId + "&userId=" + userId + "&from=" + from + "&to=" + to)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
@@ -385,6 +385,62 @@ public class ServerCommunication {
      */
     public static String deleteRoomReservation(int id) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room_reservation/delete/" + id)).DELETE().header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
+        return communicateAndReturnErrorMessage(request);
+    }
+
+    /**
+     * Retrieves all food orders from the server.
+     *
+     * @return the body of a get request to the server.
+     * @throws Exception if communication with the server fails.
+     */
+    public static String getFoodOrders() {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + UserInformation.getBearerKey()).uri(URI.create("http://localhost:8080/food_order/all")).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Retrieves a food order by given id.
+     * @param foodOrderId = the id of the food order.
+     * @return The body of the response from the server.
+     */
+    public static String findFoodOrder(int foodOrderId) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/food_order/find/" + foodOrderId)).GET().header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Communicates addFoodOrder to the database
+     * @param restaurantId ID.
+     * @param userId user ID.
+     * @param from start date and time of the reservation.
+     * @param to end date and time of the reservation.
+     * @return body response
+     */
+    public static String addFoodOrder(int restaurantId, int userId, long from, long to) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/food_order/add?restaurant=" + restaurantId + "&userId=" + userId + "&from=" + from + "&to=" + to)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
+        return communicateAndReturnErrorMessage(request);
+    }
+
+    /**
+     * Updates a given attribute of a room reservation.
+     * @param id = the id of the food order.
+     * @param attribute = The attribute whose value is to be changed.
+     * @param changeValue = New value.
+     * @return the body of the response from the server.
+     */
+    public static String updateFoodOrder(int id, String attribute, String changeValue) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/food_order/update?id=" + id + "&attribute=" + attribute + "&value=" + changeValue)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
+        return communicateAndReturnErrorMessage(request);
+    }
+
+    /**
+     * Removes a food order from the database.
+     * @param id = the id of the food order.
+     * @return the body of the response from the server.
+     */
+    public static String deleteFoodOrder(int id) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/food_order/delete/" + id)).DELETE().header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
         return communicateAndReturnErrorMessage(request);
     }
 }
