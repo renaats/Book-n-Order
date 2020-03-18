@@ -39,10 +39,15 @@ public class ChangePasswordController {
     public void changePassword() throws IOException {
         String password1 = newPassword1.getText();
         String password2 = newPassword2.getText();
-        //String email = AppUser.getEmail();
         if (password1.equals(password2)) {
-            String response = ServerCommunication.ChangePassword("",password1);
+            String response = ServerCommunication.ChangePassword("r.jursevskis@student.tudelft.nl",password1);
             System.out.println(response);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Change password successful");
+            alert.setHeaderText(null);
+            alert.setContentText("Your passwords match, they have been changed");
+            alert.showAndWait();
+        } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Change password successful");
             alert.setHeaderText(null);
