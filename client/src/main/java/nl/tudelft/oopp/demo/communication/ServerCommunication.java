@@ -27,6 +27,7 @@ public class ServerCommunication {
 
     /**
      * Handles the request/response process between client/server.
+     *
      * @param request HttpRequest that was made
      * @return the error message corresponding to the server's response.
      */
@@ -49,6 +50,7 @@ public class ServerCommunication {
 
     /**
      * Handles the request/response process between client/server.
+     *
      * @param request HttpRequest that was made
      * @return the body of the response from the server.
      */
@@ -75,6 +77,7 @@ public class ServerCommunication {
 
     /**
      * Retrieves the String representation of a user from the server.
+     *
      * @return the body of the response from the server.
      */
     public static String getUser() {
@@ -163,6 +166,10 @@ public class ServerCommunication {
         return communicateAndReturnErrorMessage(request);
     }
 
+    public static String ChangePassword(String email, String password) throws UnsupportedEncodingException {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + UserInformation.getBearerKey()).uri(URI.create("http://localhost:8080/user/update?email="+ email + "&password="+URLEncoder.encode(password, "UTF-8"))).POST(HttpRequest.BodyPublishers.noBody()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
     /**
      * Validates the six digit code of the user.
      * @param sixDigitCode The six digit code that the user inputs
@@ -175,7 +182,8 @@ public class ServerCommunication {
 
     /**
      * Authorizes the user.
-     * @param email User's email
+     *
+     * @param email    User's email
      * @param password User's password
      * @return the body of a get request to the server.
      */
@@ -218,6 +226,7 @@ public class ServerCommunication {
 
     /**
      * Retrieves all buildings from the server.
+     *
      * @return the body of the response from the server.
      */
     public static String getBuildings() {
@@ -245,6 +254,7 @@ public class ServerCommunication {
 
     /**
      * Retrieves a JSON string representation of all rooms from the server.
+     *
      * @return the body of the response from the server.
      */
     public static String getRooms() {
@@ -254,6 +264,7 @@ public class ServerCommunication {
 
     /**
      * Removes a building from the database.
+     *
      * @param id = id of the building to be removed.
      * @return the body of the response from the server.
      */
@@ -264,6 +275,7 @@ public class ServerCommunication {
 
     /**
      * Retrieves a building in the database by id.
+     *
      * @param buildingID = building id, which is parsed from a text field.
      * @return the body of the response.
      */
@@ -296,8 +308,9 @@ public class ServerCommunication {
 
     /**
      * Updates a given attribute of building.
-     * @param id = id of the building to be updated.
-     * @param attribute = The attribute whose value is to be updated.
+     *
+     * @param id          = id of the building to be updated.
+     * @param attribute   = The attribute whose value is to be updated.
      * @param changeValue = New value.
      * @return The body of the response from the server.
      */
@@ -336,6 +349,7 @@ public class ServerCommunication {
 
     /**
      * Retrieves a room by given id.
+     *
      * @param roomId = the id of the room.
      * @return The body of the response from the server.
      */
@@ -346,6 +360,7 @@ public class ServerCommunication {
 
     /**
      * Removes a room from the database.
+     *
      * @param id = the id of the room.
      * @return the body of the response from the server.
      */
@@ -378,8 +393,9 @@ public class ServerCommunication {
 
     /**
      * Updates a given attribute of a room.
-     * @param id = the id of the room.
-     * @param attribute = The attribute whose value is to be changed.
+     *
+     * @param id          = the id of the room.
+     * @param attribute   = The attribute whose value is to be changed.
      * @param changeValue = New value.
      * @return the body of the response from the server.
      */
@@ -391,14 +407,15 @@ public class ServerCommunication {
 
     /**
      * Communicates addRoom to the database
-     * @param name room name
-     * @param faculty faculty name
-     * @param buildingId building ID
+     *
+     * @param name            room name
+     * @param faculty         faculty name
+     * @param buildingId      building ID
      * @param facultySpecific is it specific for a faculty
-     * @param screen does the room have a screen
-     * @param projector does the room have a projector
-     * @param capacity capacity of the room in people
-     * @param plugs amount of available plugs
+     * @param screen          does the room have a screen
+     * @param projector       does the room have a projector
+     * @param capacity        capacity of the room in people
+     * @param plugs           amount of available plugs
      * @return body response
      */
     public static String addRoom(String name, String faculty,
@@ -412,8 +429,9 @@ public class ServerCommunication {
 
     /**
      * Communicates the buildings to add to the database
-     * @param name building name
-     * @param street street name
+     *
+     * @param name        building name
+     * @param street      street name
      * @param houseNumber house number
      * @return response body
      */
@@ -425,6 +443,7 @@ public class ServerCommunication {
 
     /**
      * Should log the user out
+     *
      * @return confirmation message
      */
     public static String logoutUser() {
@@ -456,8 +475,9 @@ public class ServerCommunication {
 
     /**
      * Updates a given attribute of a room reservation.
-     * @param id = the id of the room reservation.
-     * @param attribute = The attribute whose value is to be changed.
+     *
+     * @param id          = the id of the room reservation.
+     * @param attribute   = The attribute whose value is to be changed.
      * @param changeValue = New value.
      * @return the body of the response from the server.
      */
@@ -469,6 +489,7 @@ public class ServerCommunication {
 
     /**
      * Removes a room reservation from the database.
+     *
      * @param id = the id of the room reservation.
      * @return the body of the response from the server.
      */
