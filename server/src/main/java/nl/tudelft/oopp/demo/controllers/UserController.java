@@ -6,6 +6,8 @@ import nl.tudelft.oopp.demo.events.OnRegistrationSuccessEvent;
 import nl.tudelft.oopp.demo.repositories.VerificationTokenRepository;
 import nl.tudelft.oopp.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEvent;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
@@ -26,6 +28,9 @@ import javax.servlet.http.HttpServletRequest;
 public class UserController {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ApplicationEventPublisher eventPublisher;
 
     /**
      * Logs out from the current account.
@@ -117,28 +122,28 @@ public class UserController {
         userService.addRole(email, roleName);
     }
 
-//    @PostMapping("/registration")
-//    public String registerNewUser(@ModelAttribute("user")AppUser appUser, BindingResult result, WebRequest request, Model model) {
-//        AppUser registeredUser = new AppUser();
-//        String email = appUser.getEmail();
-//        if (result.hasErrors()) {
-//            return "registration";
-//        }
-//        registeredUser = userService.find(email);
-//        if(registeredUser!=null) {
-//            model.addAttribute("error","There is already an account with this email: " + email);
-//            return "registration";
-//        }
-//        registeredUser = appUser;
-//        userService.add(registeredUser.getEmail(),registeredUser.getPassword(),registeredUser.getName(),registeredUser.getSurname(),registeredUser.getFaculty());
-//        try {
-//            String appUrl = request.getContextPath();
-//            eventPublisher.publishEvent(new OnRegistrationSuccessEvent(registeredUser, request.getLocale(),appUrl));
-//        }catch(Exception e) {
-//            e.printStackTrace();
-//        }
-//        return "registrationSuccess";
-//    }
+    @PostMapping("/registration")
+    public String registerNewUser(@ModelAttribute("user")AppUser appUser, BindingResult result, WebRequest request, Model model) {
+        AppUser registeredUser = new AppUser();
+        String email = appUser.getEmail();
+        if (result.hasErrors()) {
+            return "registration";
+        }
+        registeredUser = userService.find(email);
+        if(registeredUser!=null) {
+            model.addAttribute("error","There is already an account with this email: " + email);
+            return "registration";
+        }
+        registeredUser = appUser;
+        userService.add(registeredUser.getEmail(),registeredUser.getPassword(),registeredUser.getName(),registeredUser.getSurname(),registeredUser.getFaculty());
+        try {
+            String appUrl = request.getContextPath();
+            eventPublisher.publishEvent(new OnRegistrationSuccessEvent(registeredUser, request.getLocale(),appUrl));
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+        return "registrationSuccess";
+    }
 //
 //    @GetMapping("/confirmRegistration")
 //    public String confirmRegistration(WebRequest request, Model model,@RequestParam("token") String token) {
