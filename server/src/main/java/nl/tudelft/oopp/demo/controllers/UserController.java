@@ -54,15 +54,21 @@ public class UserController {
      * @param faculty = the faculty of the user
      * @return Error code
      */
-    @PostMapping(path = "/add") // Map ONLY POST Requests
+    @GetMapping(path = "/registration") // Map ONLY POST Requests
     @ResponseBody
-    public int addUser(
+    public String addUser(
             @RequestParam String email,
             @RequestParam String password,
             @RequestParam String name,
             @RequestParam String surname,
             @RequestParam String faculty) {
-        return userService.add(email, password, name, surname, faculty);
+        AppUser appUser = new AppUser();
+        appUser.setEmail(email);
+        appUser.setPassword(password);
+        appUser.setName(name);
+        appUser.setSurname(surname);
+        appUser.setFaculty(faculty);
+        return "registration";
     }
 
     /**
@@ -126,7 +132,7 @@ public class UserController {
         userService.addRole(email, roleName);
     }
 
-    @PostMapping("/registration")
+    @PostMapping(path = "/registration")
     public String registerNewUser(@ModelAttribute("user")AppUser appUser, BindingResult result, WebRequest request, Model model) {
         AppUser registeredUser = new AppUser();
         String email = appUser.getEmail();
@@ -149,7 +155,7 @@ public class UserController {
         return "registrationSuccess";
     }
 
-    @GetMapping("/confirmRegistration")
+    @GetMapping(path = "/confirmRegistration")
     public String confirmRegistration(WebRequest request, Model model,@RequestParam("token") String token) {
         Locale locale=request.getLocale();
         VerificationToken verificationToken = userService.getVerificationToken(token);
