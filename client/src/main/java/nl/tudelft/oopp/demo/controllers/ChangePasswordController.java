@@ -28,8 +28,16 @@ public class ChangePasswordController {
      * @throws IOException should never throw an exception
      */
     public void changePassword() throws IOException {
-        if (true) {
-            ApplicationDisplay.changeScene("/myAccountScene.fxml");
+        String password1 = newPassword1.getText();
+        String password2 = newPassword2.getText();
+        if (password1.equals(password2)) {
+            String response = ServerCommunication.ChangePassword("r.jursevskis@student.tudelft.nl",password1);
+            System.out.println(response);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Change password successful");
+            alert.setHeaderText(null);
+            alert.setContentText("Your passwords match, they have been changed");
+            alert.showAndWait();
         } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Authenticator");
