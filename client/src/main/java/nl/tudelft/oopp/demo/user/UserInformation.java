@@ -1,5 +1,8 @@
 package nl.tudelft.oopp.demo.user;
 
+/**
+ * Class
+ */
 public class UserInformation {
     private static String bearerKey;
 

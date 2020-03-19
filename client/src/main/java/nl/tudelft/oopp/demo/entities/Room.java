@@ -5,6 +5,9 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+/**
+ * Creates and maneges an object for the current Rooms in the database when in client side
+ */
 public class Room {
 
     private Integer id;

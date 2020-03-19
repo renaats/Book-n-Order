@@ -3,6 +3,9 @@ package nl.tudelft.oopp.demo.entities;
 import java.util.Date;
 import java.util.Objects;
 
+/**
+ * Creates and maneges an object for the current Room reservations in the database when in client side
+ */
 public class RoomReservation {
 
     private Integer id;

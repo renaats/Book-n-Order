@@ -3,6 +3,9 @@ package nl.tudelft.oopp.demo.entities;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Creates and maneges an object for the current menus of the different restaurants in the database when in client side
+ */
 public class Menu {
 
     private int id;
