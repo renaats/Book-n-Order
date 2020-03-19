@@ -22,7 +22,7 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
  * Controls all client to server communications
- * sends the appropriate HTTP request depending on the method
+ * Sends the appropriate HTTP request depending on the method
  */
 public class ServerCommunication {
 

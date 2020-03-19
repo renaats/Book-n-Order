@@ -4,6 +4,9 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+/**
+ * Creates and maneges an object for the current Buildings in the database when in client side
+ */
 public class Building {
 
     private int id;

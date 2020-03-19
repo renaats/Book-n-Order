@@ -3,6 +3,9 @@ package nl.tudelft.oopp.demo.entities;
 import java.util.Date;
 import java.util.Objects;
 
+/**
+ * Creates and maneges an object for the current Food orders in the database when in client side
+ */
 public class FoodOrder {
     private Integer id;
     private Restaurant restaurant;

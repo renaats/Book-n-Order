@@ -8,6 +8,9 @@ import java.util.Set;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+/**
+ * Creates and maneges an object for the current Rooms in the database when in client side
+ */
 public class Room {
 
     private Integer id;

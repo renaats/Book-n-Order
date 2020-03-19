@@ -1,5 +1,8 @@
 package nl.tudelft.oopp.demo.entities;
 
+/**
+ * Creates and maneges an object for the current dishes in the database when in client side
+ */
 public class Dish {
 
     private int id;

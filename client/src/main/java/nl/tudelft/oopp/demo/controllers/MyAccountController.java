@@ -19,8 +19,8 @@ import nl.tudelft.oopp.demo.user.UserInformation;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
- * Loads the content correct content into the FXML objects that need to display server information and
- * controls all the user inputs thought the GUI made by the user in the "myAccountScene.fxml" file
+ * Loads the correct content into the FXML objects that need to display server information and
+ * controls all the user inputs made through the GUI in the "myAccountScene.fxml" file
  */
 public class MyAccountController implements Initializable {
 
