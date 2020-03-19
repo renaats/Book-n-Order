@@ -10,8 +10,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -44,18 +46,22 @@ public class RoomCalendarView extends Application {
 
         Calendar myBookingCalendar = new Calendar("My Bookings");
         myBookingCalendar.setStyle(Style.STYLE1);
-        List<RoomReservation> roomReservationList = JsonMapper.roomReservationsListMapper(ServerCommunication.getRoomReservations());
-        if (roomReservationList != null && !roomReservationList.isEmpty()) {
-            for (RoomReservation reservation : roomReservationList) {
-                if (reservation.getRoom().equals(this.room)) {
-                    Entry<RoomReservation> bookedEntry = new Entry<>("Room is booked or unavailable");
 
-                    LocalTime startTime = convertToLocalTime(reservation.getFromTime());
-                    LocalTime endTime = convertToLocalTime(reservation.getToTime());
-                    LocalDate date = convertToLocalDate(reservation.getFromTime());
-                }
-            }
+        List<RoomReservation> roomReservationList =
+                new ArrayList<>(Objects.requireNonNull(JsonMapper.roomReservationsListMapper(ServerCommunication.getRoomReservations())));
+
+        for (RoomReservation reservation : roomReservationList) {
+            //if (reservation.getRoom().equals(this.room)) {
+            Entry<RoomReservation> bookedEntry = new Entry<>("Room is booked or unavailable");
+
+            LocalTime startTime = convertToLocalTime(reservation.getFromTime());
+            LocalTime endTime = convertToLocalTime(reservation.getToTime());
+            LocalDate date = convertToLocalDate(reservation.getFromTime());
+            bookedEntry.setInterval(date);
+            bookedEntry.setInterval(startTime, endTime);
+            bookedSlotsCalendar.addEntry(bookedEntry);
         }
+
 
         CalendarSource myCalendarSource = new CalendarSource("Calendars");
         myCalendarSource.getCalendars().removeAll();
