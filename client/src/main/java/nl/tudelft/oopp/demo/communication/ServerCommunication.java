@@ -438,13 +438,13 @@ public class ServerCommunication {
     /**
      * Communicates addRoomReservation to the database
      * @param roomId room ID
-     * @param userId user ID
+     * @param userEmail user ID
      * @param from start date and time of the reservation
      * @param to end date and time of the reservation
      * @return body response
      */
-    public static String addRoomReservation(int roomId, int userId, long from, long to) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room_reservation/add?room=" + roomId + "&userId=" + userId + "&from=" + from + "&to=" + to)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
+    public static String addRoomReservation(int roomId, String userEmail, long from, long to) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room_reservation/add?room=" + roomId + "&userId=" + userEmail + "&from=" + from + "&to=" + to)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
         HttpResponse<String> response = null;
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
