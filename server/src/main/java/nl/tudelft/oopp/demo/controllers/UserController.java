@@ -35,7 +35,10 @@ public class UserController {
         return userService.logout(request);
     }
 
-
+    /**
+     * Returns information about the user account.
+     * @return account information about the account that requests it.
+     */
     @GetMapping(path = "/info")
     public String userInfo(HttpServletRequest request) {
         return userService.userInfo(request);

@@ -168,5 +168,4 @@ public class AppUser {
                 && Objects.equals(roomReservations, appUser.roomReservations)
                 && Objects.equals(foodOrders, appUser.foodOrders);
     }
-
 }
