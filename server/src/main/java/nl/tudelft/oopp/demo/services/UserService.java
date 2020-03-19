@@ -6,6 +6,7 @@ import static nl.tudelft.oopp.demo.security.SecurityConstants.TOKEN_PREFIX;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
