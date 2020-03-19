@@ -5,7 +5,7 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
- * Creates and maneges an object for the current user of the application
+ * Creates and manages an object for the current user of the application
  */
 public class AppUser {
     private String email;
