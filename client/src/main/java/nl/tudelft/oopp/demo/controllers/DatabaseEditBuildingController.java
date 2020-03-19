@@ -17,7 +17,8 @@ import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
- * Adds the functionality to DatabaseEditBuildings.fxml file
+ * Loads the content correct content into the FXML objects that need to display server information and
+ * controls all the user inputs thought the GUI made by the user in the "DatabaseEditBuildings.fxml" file
  */
 public class DatabaseEditBuildingController implements Initializable {
     @FXML

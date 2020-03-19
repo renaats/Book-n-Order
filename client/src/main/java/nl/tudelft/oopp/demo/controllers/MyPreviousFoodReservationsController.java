@@ -6,7 +6,10 @@ import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
-
+/**
+ * Loads the content correct content into the FXML objects that need to display server information and
+ * controls all the user inputs thought the GUI made by the user in the "myPreviousTenFoodOrders.fxml" file
+ */
 public class MyPreviousFoodReservationsController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
