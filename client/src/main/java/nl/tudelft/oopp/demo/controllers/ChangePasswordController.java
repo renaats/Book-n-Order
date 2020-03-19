@@ -7,6 +7,10 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.input.MouseEvent;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
+/**
+ * Loads the content correct content into the FXML objects that need to display server information and
+ * controls all the user inputs thought the GUI made by the user in the "changePassword.fxml" file
+ */
 public class ChangePasswordController {
     @FXML
     public PasswordField newPassword2;

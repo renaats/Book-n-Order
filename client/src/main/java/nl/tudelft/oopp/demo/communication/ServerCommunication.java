@@ -20,6 +20,10 @@ import nl.tudelft.oopp.demo.authentication.AuthenticationKey;
 import nl.tudelft.oopp.demo.errors.ErrorMessages;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
+/**
+ * Controls all client to server communications
+ * sends the appropriate HTTP request depending on the method
+ */
 public class ServerCommunication {
 
     private static final HttpClient client = HttpClient.newBuilder().build();
