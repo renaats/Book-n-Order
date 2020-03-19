@@ -1,5 +1,6 @@
 package nl.tudelft.oopp.demo.services;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -11,10 +12,15 @@ import nl.tudelft.oopp.demo.repositories.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * Supports CRUD operations for the Room entity.
+ * Receives requests from the RoomController, manipulates the database and returns the answer.
+ * Uses error codes defined in the client side package "errors".
+ */
 @Service
 public class RoomService {
     @Autowired
-    RoomRepository roomRepository;
+    private RoomRepository roomRepository;
     @Autowired
     private BuildingRepository buildingRepository;
 
@@ -28,7 +34,7 @@ public class RoomService {
      * @param buildingId = the id of the building of the room
      * @param nrPeople = the number of people this room fits
      * @param plugs = the number of plugs in this room
-     * @return String to see if your request passed
+     * @return Error code
      */
     public int add(String name,
                    String faculty,
@@ -65,7 +71,7 @@ public class RoomService {
      * @param id = the id of the room
      * @param attribute = the attribute that is changed
      * @param value = the new value of the attribute
-     * @return String to see if your request passed
+     * @return Error code
      */
     public int update(int id, String attribute, String value) {
         if (roomRepository.findById(id).isEmpty()) {
@@ -114,7 +120,7 @@ public class RoomService {
     /**
      * Deletes a room.
      * @param id = the id of the room
-     * @return String to see if your request passed
+     * @return Error code
      */
     public int delete(int id) {
         if (!roomRepository.existsById(id)) {
@@ -128,7 +134,7 @@ public class RoomService {
      * Lists all rooms.
      * @return all rooms
      */
-    public Iterable<Room> all() {
+    public List<Room> all() {
         return roomRepository.findAll();
     }
 

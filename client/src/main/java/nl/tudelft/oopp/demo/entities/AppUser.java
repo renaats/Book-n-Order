@@ -1,20 +1,37 @@
 package nl.tudelft.oopp.demo.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 public class AppUser {
-
     private String email;
     private String password;
     private String name;
     private String surname;
     private String faculty;
-    private boolean loggedIn = false;
+
     private Set<Role> roles;
+
+    /**
+     * Constructs an AppUser entity.
+     * @param email the user's email.
+     * @param password the user's password.
+     * @param name the user's first name.
+     * @param surname the user's last name.
+     * @param faculty the faculty the user belongs to.
+     */
+    public AppUser(String email, String password, String name, String surname, String faculty) {
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.surname = surname;
+        this.faculty = faculty;
+    }
+
+    public AppUser() {
+
+    }
 
     Set<RoomReservation> roomReservations = new HashSet<>();
 
@@ -46,14 +63,6 @@ public class AppUser {
         this.roomReservations = roomReservations;
     }
 
-    public void addRole(Role role) {
-        roles.add(role);
-    }
-
-    public void setLoggedIn(boolean loggedIn) {
-        this.loggedIn = loggedIn;
-    }
-
 
     public String getEmail() {
         return email;
@@ -83,10 +92,6 @@ public class AppUser {
         return roomReservations;
     }
 
-    public boolean isLoggedIn() {
-        return loggedIn;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -104,5 +109,4 @@ public class AppUser {
                 && Objects.equals(roles, appUser.roles)
                 && Objects.equals(roomReservations, appUser.roomReservations);
     }
-
 }

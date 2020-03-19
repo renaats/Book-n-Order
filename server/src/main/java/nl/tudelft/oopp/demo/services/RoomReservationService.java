@@ -1,6 +1,7 @@
 package nl.tudelft.oopp.demo.services;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import nl.tudelft.oopp.demo.entities.AppUser;
@@ -12,6 +13,11 @@ import nl.tudelft.oopp.demo.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * Supports CRUD operations for the RoomReservation entity.
+ * Receives requests from the RoomReservationController, manipulates the database and returns the answer.
+ * Uses error codes defined in the client side package "errors".
+ */
 @Service
 public class RoomReservationService {
     @Autowired
@@ -71,13 +77,13 @@ public class RoomReservationService {
         RoomReservation roomReservation = roomReservationRepository.findById(id).get();
 
         switch (attribute) {
-            case "fromDate":
-                roomReservation.setFromTime(new Date(Integer.parseInt(value)));
+            case "fromdate":
+                roomReservation.setFromTime(new Date(Long.parseLong(value)));
                 break;
-            case "toDate":
-                roomReservation.setToTime(new Date(Integer.parseInt(value)));
+            case "todate":
+                roomReservation.setToTime(new Date(Long.parseLong(value)));
                 break;
-            case "roomId":
+            case "roomid":
                 int roomId = Integer.parseInt(value);
                 Optional<Room> optionalRoom = roomRepository.findById(roomId);
                 if (optionalRoom.isEmpty()) {
@@ -86,7 +92,7 @@ public class RoomReservationService {
                 Room room = optionalRoom.get();
                 roomReservation.setRoom(room);
                 break;
-            case "userEmail":
+            case "useremail":
                 Optional<AppUser> optionalUser = userRepository.findById(value);
                 if (optionalUser.isEmpty()) {
                     return 419;
@@ -115,10 +121,19 @@ public class RoomReservationService {
     }
 
     /**
-     * Lists all room reservations.
-     * @return Iterable of all room reservations.
+     * Finds a room reservation with the specified id.
+     * @param id = thre id of the room reservation
+     * @return a room reservation with the specified id  or null if no such reservation exists
      */
-    public Iterable<RoomReservation> all() {
+    public RoomReservation find(int id) {
+        return roomReservationRepository.findById(id).orElse(null);
+    }
+
+    /**
+     * Lists all room reservations.
+     * @return List of all room reservations.
+     */
+    public List<RoomReservation> all() {
         return roomReservationRepository.findAll();
     }
 }

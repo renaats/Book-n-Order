@@ -1,7 +1,6 @@
 package nl.tudelft.oopp.demo.controllers;
 
 import javax.servlet.http.HttpServletRequest;
-
 import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +14,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Creates server side endpoints and routes requests to the UserService.
+ * Maps all requests that start with "/user".
+ * Manages access control on a per-method basis.
+ */
 @Repository
 @RestController // This means that this class is a Controller
 @RequestMapping(path = "/user") // This means URL's start with /user (after Application path)
 public class UserController {
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     /**
      * Logs out from the current account.
@@ -38,7 +42,7 @@ public class UserController {
      * @param name = the name of the user
      * @param surname = the surname of the user
      * @param faculty = the faculty of the user
-     * @return String to see if your request passed
+     * @return Error code
      */
     @PostMapping(path = "/add") // Map ONLY POST Requests
     @ResponseBody
@@ -56,7 +60,7 @@ public class UserController {
      * @param email = the email address of the user.
      * @param attribute = the attribute whose value is to be changed.
      * @param value = the new value of the attribute.
-     * @return String containing the result of your request.
+     * @return Error code
      */
     @Secured("ROLE_ADMIN")
     @PostMapping(path = "/update")
@@ -68,7 +72,7 @@ public class UserController {
     /**
      * Deletes an account.
      * @param email = the email of the account
-     * @return String to see if your request passed
+     * @return Error code
      */
     @Secured("ROLE_ADMIN")
     @DeleteMapping(path = "/delete")

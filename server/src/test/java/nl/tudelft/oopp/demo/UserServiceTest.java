@@ -1,0 +1,251 @@
+package nl.tudelft.oopp.demo;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+
+import nl.tudelft.oopp.demo.entities.AppUser;
+import nl.tudelft.oopp.demo.entities.Role;
+import nl.tudelft.oopp.demo.repositories.RoleRepository;
+import nl.tudelft.oopp.demo.services.UserService;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Bean;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+/**
+ * Tests the User service.
+ */
+@ExtendWith(SpringExtension.class)
+@DataJpaTest
+class UserServiceTest {
+    @TestConfiguration
+    static class UserServiceTestConfiguration {
+        @Bean
+        public UserService userService() {
+            return new UserService();
+        }
+    }
+
+    @Autowired
+    UserService userService;
+
+    @Autowired
+    RoleRepository roleRepository;
+
+    AppUser appUser;
+    AppUser appUser2;
+    Role role;
+    Set<Role> roleSet;
+
+    /**
+     * Sets up the entities and saves them via a service before executing every test.
+     */
+    @BeforeEach
+    public void setup() {
+        appUser = new AppUser();
+        appUser.setEmail("m.b.spasov@student.tudelft.nl");
+        appUser.setPassword("1234");
+        appUser.setName("Mihail");
+        appUser.setSurname("Spasov");
+        appUser.setFaculty("EEMCS");
+        role = new Role();
+        role.setName("ROLE_USER");
+        roleSet = new HashSet<>();
+        roleSet.add(role);
+        appUser.setRoles(roleSet);
+
+        appUser2 = new AppUser();
+        appUser2.setEmail("staff@tudelft.nl");
+        appUser2.setPassword("1111");
+        appUser2.setName("Name");
+        appUser2.setSurname("Surname");
+        appUser2.setFaculty("IO");
+        appUser2.setRoles(roleSet);
+    }
+
+    /**
+     * Tests the constructor creating a new instance of the service.
+     */
+    @Test
+    public void testConstructor() {
+        assertNotNull(userService);
+    }
+
+    /**
+     * Tests the saving and retrieval of an instance of Room.
+     */
+    @Test
+    public void testCreate() {
+        roleRepository.save(role);
+        assertEquals(201, userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty()));
+        userService.find(appUser.getEmail()).setRoles(roleSet);
+        assertEquals(Collections.singletonList(appUser), userService.all());
+    }
+
+    /**
+     * Tests the error message when the entered email is not valid.
+     */
+    @Test
+    public void testCreateInvalidEmail() {
+        assertEquals(423, userService.add("notavalidemail", "1111", "name","surname","faculty"));
+    }
+
+    /**
+     * Tests the error message when the entered email is not from TU Delft.
+     */
+    @Test
+    public void testCreateNonDelftEmail() {
+        assertEquals(424, userService.add("r.jursevskis@gmail.com", "1111", "name","surname","faculty"));
+    }
+
+    /**
+     * Tests the error message when the entered email already has an account.
+     */
+    @Test
+    public void testCreateDuplicateAccount() {
+        assertEquals(201, userService.add(appUser.getEmail(), "1111", "name","surname","faculty"));
+        assertEquals(310, userService.add(appUser.getEmail(), "1111", "name","surname","faculty"));
+    }
+
+    /**
+     * Tests the search for a non-existing object.
+     */
+    @Test
+    public void testFindNonExisting() {
+        assertNull(userService.find("Not a valid email."));
+    }
+
+    /**
+     * Tests the search for an existing object.
+     */
+    @Test
+    public void testFindExisting() {
+        userService.add(appUser2.getEmail(), appUser2.getPassword(), appUser2.getName(), appUser2.getSurname(), appUser2.getFaculty());
+        String email = userService.all().get(0).getEmail();
+        assertNotNull(userService.find(email));
+    }
+
+    /**
+     * Tests the update operation on a non-existent object.
+     */
+    @Test
+    public void testUpdateNonExistingInstance() {
+        assertEquals(419, userService.update("not a valid email", "nonexistent attribute", "random value"));
+    }
+
+    /**
+     * Tests the update operation on a non-existent attribute.
+     */
+    @Test
+    public void testUpdateNonExistingAttribute() {
+        userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty());
+        String email = userService.all().get(0).getEmail();
+        assertEquals(412,  userService.update(email, "non_existent_attribute", "value"));
+    }
+
+    /**
+     * Tests the change of the name by using the service.
+     */
+    @Test
+    public void testChangeName() {
+        userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty());
+        String email = userService.all().get(0).getEmail();
+        assertNotEquals("Renats", userService.all().get(0).getName());
+        userService.update(email, "name", "Renats");
+        assertEquals("Renats", userService.all().get(0).getName());
+    }
+
+    /**
+     * Tests the change of the surname by using the service.
+     */
+    @Test
+    public void testChangeSurname() {
+        userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty());
+        String email = userService.all().get(0).getEmail();
+        assertNotEquals("Jursevskis", userService.all().get(0).getSurname());
+        userService.update(email, "surname", "Jursevskis");
+        assertEquals("Jursevskis", userService.all().get(0).getSurname());
+    }
+
+    /**
+     * Tests the change of the password by using the service.
+     */
+    @Test
+    public void testChangePassword() {
+        userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty());
+        String email = userService.all().get(0).getEmail();
+        assertNotEquals("abc", userService.all().get(0).getPassword());
+        userService.update(email, "password", "abc");
+        assertEquals("abc", userService.all().get(0).getPassword());
+    }
+
+    /**
+     * Tests the change of the faculty by using the service.
+     */
+    @Test
+    public void testChangeFaculty() {
+        userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty());
+        String email = userService.all().get(0).getEmail();
+        assertNotEquals("3M", userService.all().get(0).getFaculty());
+        userService.update(email, "faculty", "3M");
+        assertEquals("3M", userService.all().get(0).getFaculty());
+    }
+
+    /**
+     * Tests the deletion of an instance.
+     */
+    @Test
+    public void testDelete() {
+        userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty());
+        String email = userService.all().get(0).getEmail();
+        assertEquals(200, userService.delete(email));
+        assertEquals(0, userService.all().size());
+    }
+
+    /**
+     * Tests the deletion of a non-existing instance.
+     */
+    @Test
+    public void testDeleteIllegal() {
+        assertEquals(419, userService.delete("asd"));
+    }
+
+    /**
+     * Tests the addition of a role for a user.
+     */
+    @Test
+    public void testAddRole() {
+        userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty());
+        userService.addRole(appUser.getEmail(),"ROLE_ADMIN");
+        Iterator<Role> roles = userService.find(appUser.getEmail()).getRoles().iterator();
+        String role1 = roles.next().getName();
+        String role2 = roles.next().getName();
+        String swap;
+        if (role2.equals("ROLE_USER")) {
+            swap = role2;
+            role2 = role1;
+            role1 = swap;
+        }
+        assertEquals(role1, "ROLE_USER");
+        assertEquals(role2,"ROLE_ADMIN");
+    }
+
+    /**
+     * Tests the addition of a role to a non-existent user.
+     */
+    @Test
+    public void testAddRoleNonExistent() {
+        assertEquals(419, userService.addRole("a","ROLE_ADMIN"));
+    }
+}

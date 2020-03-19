@@ -3,7 +3,6 @@ package nl.tudelft.oopp.demo.controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -28,6 +27,8 @@ public class RegistrationController implements Initializable {
     @FXML
     private TextField passwordField;
     @FXML
+    private TextField passwordConfirm;
+    @FXML
     private TextField surnameField;
 
     /**
@@ -35,16 +36,26 @@ public class RegistrationController implements Initializable {
      */
     public void registerButton() {
         try {
+            String password2 = passwordConfirm.getText();
             String email = emailField.getText();
             String name = nameField.getText();
             String password = passwordField.getText();
             String surname = surnameField.getText();
             String faculty = facultyChoiceBox.getValue().replaceAll(" ", "");
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Registration");
-            alert.setHeaderText(null);
-            alert.setContentText(ServerCommunication.addUser(email, name, surname, faculty, password));
-            alert.showAndWait();
+            if (password.equals(password2)) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Registration");
+                alert.setHeaderText(null);
+                alert.setContentText(ServerCommunication.addUser(email, name, surname, faculty, password));
+                alert.showAndWait();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Registration");
+                alert.setHeaderText(null);
+                alert.setContentText("The passwords you inputted are not the same, "
+                        + "please check that you are inputting the same password twice and retry.");
+                alert.showAndWait();
+            }
         } catch (Exception e) {
             e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -60,7 +71,7 @@ public class RegistrationController implements Initializable {
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
     public void mainMenu() throws IOException {
-        ApplicationDisplay.changeScene("/mainMenu.fxml");
+        ApplicationDisplay.changeScene("/mainMenuReservations.fxml");
     }
 
     /**

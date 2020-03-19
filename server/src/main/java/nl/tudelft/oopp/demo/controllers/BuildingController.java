@@ -17,8 +17,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-
-
+/**
+ * Creates server side endpoints and routes requests to the BuildingService.
+ * Maps all requests that start with "/building".
+ * Manages access control on a per-method basis.
+ */
 @Repository
 @RestController
 @RequestMapping(path = "/building")
@@ -29,7 +32,7 @@ public class BuildingController {
     /**
      * Adds a building to the database.
      * @param name = the name of the new building.
-     * @return String containing the result of your request.
+     * @return Error code
      */
     @Secured({"ROLE_ADMIN", "ROLE_BUILDING_ADMIN"})
     @PostMapping(path = "/add")
@@ -41,7 +44,7 @@ public class BuildingController {
     /**
      * Deletes a building from the database.
      * @param id = the id of the existing building to be deleted.
-     * @return String containing the result of your request.
+     * @return Error code
      */
     @Secured({"ROLE_ADMIN", "ROLE_BUILDING_ADMIN"})
     @DeleteMapping(path = "/delete/{buildingID}")
@@ -55,7 +58,7 @@ public class BuildingController {
      * @param id = the id of the building whose value is to be updated.
      * @param attribute = the attribute whose value is updated.
      * @param value = the new value.
-     * @return String containing the result of your request.
+     * @return Error code
      */
     @Secured({"ROLE_ADMIN", "ROLE_BUILDING_ADMIN"})
     @PostMapping(path = "/update")

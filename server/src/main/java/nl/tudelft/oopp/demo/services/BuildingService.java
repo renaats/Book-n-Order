@@ -1,6 +1,7 @@
 package nl.tudelft.oopp.demo.services;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import nl.tudelft.oopp.demo.entities.Building;
@@ -9,6 +10,11 @@ import nl.tudelft.oopp.demo.repositories.BuildingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * Supports CRUD operations for the Building entity.
+ * Receives requests from the BuildingController, manipulates the database and returns the answer.
+ * Uses error codes defined in the client side package "errors".
+ */
 @Service
 public class BuildingService {
     @Autowired
@@ -52,7 +58,6 @@ public class BuildingService {
                 building.setHouseNumber(Integer.parseInt(value));
                 break;
             default:
-                System.out.println(attribute);
                 return 412;
         }
         buildingRepository.save(building);
@@ -79,7 +84,7 @@ public class BuildingService {
      * Lists all buildings.
      * @return all buildings
      */
-    public Iterable<Building> all() {
+    public List<Building> all() {
         return buildingRepository.findAll();
     }
 
@@ -90,6 +95,15 @@ public class BuildingService {
      */
     public Building find(int id) {
         return buildingRepository.findById(id).orElse(null);
+    }
+
+    /**
+     * Finds a building with the specified name.
+     * @param name = the name of the building
+     * @return a building that matches the name
+     */
+    public Building find(String name) {
+        return buildingRepository.findByName(name);
     }
 
     /**

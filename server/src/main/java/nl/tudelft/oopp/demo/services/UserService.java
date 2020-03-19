@@ -6,11 +6,11 @@ import static nl.tudelft.oopp.demo.security.SecurityConstants.TOKEN_PREFIX;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.HashSet;
-
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
-
 import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.Role;
 import nl.tudelft.oopp.demo.repositories.RoleRepository;
@@ -20,6 +20,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+/**
+ * Supports CRUD operations for the AppUser entity.
+ * Receives requests from the UserController, manipulates the database and returns the answer.
+ * Uses error codes defined in the client side package "errors".
+ */
 @Service
 public class UserService {
     @Autowired
@@ -59,9 +64,13 @@ public class UserService {
      * @return String to see if your request passed
      */
     public int add(String email, String password, String name, String surname, String faculty) {
-        if (!EmailValidator.getInstance().isValid(email)) {
-            System.out.println(email);
-            return 423;
+        try {
+            if (!EmailValidator.getInstance().isValid(URLDecoder.decode(email, "UTF-8"))) {
+                return 423;
+            }
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return 502;
         }
         if (!email.contains("@student.tudelft.nl") && !email.contains("@tudelft.nl")) {
             return 424;
@@ -108,9 +117,6 @@ public class UserService {
         AppUser appUser = userRepository.findById(email).get();
 
         switch (attribute) {
-            case "email":
-                appUser.setEmail(value);
-                break;
             case "password":
                 appUser.setPassword(value);
                 break;
@@ -148,7 +154,7 @@ public class UserService {
      * Should be removed for the finished version!
      * @return all accounts
      */
-    public Iterable<AppUser> all() {
+    public List<AppUser> all() {
         return userRepository.findAll();
     }
 
@@ -168,9 +174,9 @@ public class UserService {
      * @param email = the email of the account
      * @param roleName = the name of the role
      */
-    public void addRole(String email, String roleName) {
+    public int addRole(String email, String roleName) {
         if (!userRepository.existsById(email)) {
-            return;
+            return 419;
         }
         AppUser appUser = userRepository.getOne(email);
         Role role;
@@ -182,5 +188,6 @@ public class UserService {
         role = roleRepository.findByName(roleName);
         appUser.addRole(role);
         userRepository.save(appUser);
+        return 201;
     }
 }

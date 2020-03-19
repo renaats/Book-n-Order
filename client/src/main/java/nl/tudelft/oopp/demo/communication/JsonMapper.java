@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.List;
 import javafx.scene.control.Alert;
+import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.entities.RoomReservation;
@@ -106,14 +107,38 @@ public class JsonMapper {
         }
         return null;
     }
+    
+    /** Maps a JSON string to an AppUser object
+     * @param roomJson JSON representation of a String
+     * @return AppUser Object
+     */
+    public static AppUser appUserMapper(String userJson) {
+        
+        ObjectMapper mapper = new ObjectMapper();
 
+        try {
+            // Convert JSON string to Object
+            AppUser appUser = mapper.readValue(userJson, AppUser.class);
+            return appUser;
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            
+            alert.setContentText(userJson);
+            alert.showAndWait();
+        }
+        return null;
+    }
+        
+    
     /**
      * Maps JSON to RoomReservation entity.
      * @param roomReservationJson representation of a room.
-     * @return Room entity.
+     * @return RoomReservation entity.
      */
     public static RoomReservation roomReservationMapper(String roomReservationJson) {
-
+ 
         ObjectMapper mapper = new ObjectMapper();
 
         try {
@@ -152,5 +177,5 @@ public class JsonMapper {
         }
         return null;
     }
-
 }
+
