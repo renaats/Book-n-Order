@@ -1,7 +1,7 @@
 package nl.tudelft.oopp.demo.user;
 
 /**
- * Class
+ * Gets and sets the bearerKey for a user.
  */
 public class UserInformation {
     private static String bearerKey;
