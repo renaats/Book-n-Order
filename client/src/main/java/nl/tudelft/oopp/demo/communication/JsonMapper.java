@@ -109,7 +109,7 @@ public class JsonMapper {
     }
     
     /** Maps a JSON string to an AppUser object
-     * @param roomJson JSON representation of a String
+     * @param userJson JSON representation of a String
      * @return AppUser Object
      */
     public static AppUser appUserMapper(String userJson) {
