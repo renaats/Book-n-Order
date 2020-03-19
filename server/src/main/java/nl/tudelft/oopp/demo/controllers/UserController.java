@@ -31,8 +31,14 @@ public class UserController {
      * @param request = the Http request that calls this method
      */
     @PostMapping(path = "/logout")
-    public void logout(HttpServletRequest request) {
-        userService.logout(request);
+    public int logout(HttpServletRequest request) {
+        return userService.logout(request);
+    }
+
+
+    @GetMapping(path = "/info")
+    public String userInfo(HttpServletRequest request) {
+        return userService.userInfo(request);
     }
 
     /**
