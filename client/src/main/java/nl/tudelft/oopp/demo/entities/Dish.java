@@ -2,6 +2,9 @@ package nl.tudelft.oopp.demo.entities;
 
 import java.util.Set;
 
+/**
+ * Creates and maneges an object for the current dishes in the database when in client side
+ */
 public class Dish {
 
     private int id;

@@ -11,8 +11,8 @@ import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
- * Loads the content correct content into the FXML objects that need to display server information and
- * controls all the user inputs thought the GUI made by the user in the "DatabaseAddBuildings.fxml" file
+ * Loads the correct content into the FXML objects that need to display server information and
+ * controls all the user inputs made through the GUI in the "DatabaseAddBuildings.fxml" file
  */
 public class DatabaseAddBuildingController {
 

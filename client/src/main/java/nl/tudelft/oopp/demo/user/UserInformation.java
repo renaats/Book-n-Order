@@ -6,6 +6,9 @@ import java.util.Set;
 
 import nl.tudelft.oopp.demo.entities.RoomReservation;
 
+/**
+ * Class
+ */
 public class UserInformation {
     private String email;
     private String name;

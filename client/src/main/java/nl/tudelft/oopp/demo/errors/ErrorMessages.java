@@ -1,5 +1,8 @@
 package nl.tudelft.oopp.demo.errors;
 
+/**
+ * Creates the appropriate error messages when communication with the server encounters a problem
+ */
 public class ErrorMessages {
     private static final String addedMessage = "Successfully added!";
     private static final String notFoundMessage = "Not found.";

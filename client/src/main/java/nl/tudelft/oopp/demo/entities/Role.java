@@ -2,6 +2,9 @@ package nl.tudelft.oopp.demo.entities;
 
 import java.util.Set;
 
+/**
+ * Creates and maneges an object for the current role of a user
+ */
 public class Role {
 
     private int id;
