@@ -7,8 +7,11 @@ import javafx.scene.image.ImageView;
 
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
-
-public class DatabaseRemoveRoomController {
+/**
+ * Loads the content correct content into the FXML objects that need to display server information and
+ * controls all the user inputs thought the GUI made by the user in the "DatabaseRemoveRooms.fxml" file
+ */
+public class DatabaseRemoveRoomController implements Initializable {
 
     public Button confirmDeleteByIdButton;
     public ImageView goToRoomMenuButton;

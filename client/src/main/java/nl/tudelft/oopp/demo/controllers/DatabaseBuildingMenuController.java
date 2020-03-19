@@ -4,7 +4,10 @@ import java.io.IOException;
 
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
-
+/**
+ * Loads the content correct content into the FXML objects that need to display server information and
+ * controls all the user inputs thought the GUI made by the user in the "DatabaseBuildingMenu.fxml" file
+ */
 public class DatabaseBuildingMenuController {
     /**
      * return to the database main menu when the home icon is clicked

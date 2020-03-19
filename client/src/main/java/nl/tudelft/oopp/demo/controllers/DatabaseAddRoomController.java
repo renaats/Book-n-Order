@@ -14,7 +14,8 @@ import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
- * Takes care of the functionality  DataBaseAddRoom.fxml file
+ * Loads the content correct content into the FXML objects that need to display server information and
+ * controls all the user inputs thought the GUI made by the user in the "DatabaseAddRooms.fxml" file
  */
 public class DatabaseAddRoomController {
 

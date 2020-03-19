@@ -21,7 +21,8 @@ import javafx.stage.StageStyle;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
- * This class controls the functionality of the different buttons in bike reservations and creates the entries in the choice boxes
+ * Loads the content correct content into the FXML objects that need to display server information and
+ * controls all the user inputs thought the GUI made by the user in the "bookRoom.fxml" file
  */
 public class BookRoomController implements Initializable {
 
