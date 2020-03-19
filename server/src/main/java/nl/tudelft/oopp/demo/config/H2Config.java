@@ -48,8 +48,8 @@ public class H2Config {
         javaMailSender.setHost("smtp.gmail.com");
         javaMailSender.setPort(587);
         javaMailSender.setProtocol("smtp");
-        javaMailSender.setUsername("angela.webdevtesting@gmail.com");
-        javaMailSender.setPassword("WebDevTesting@321");
+        javaMailSender.setUsername("confirmationemail121@gmail.com");
+        javaMailSender.setPassword("998877@r");
         Properties mailProperties = new Properties();
         mailProperties.put("mail.smtp.auth", "true");
         mailProperties.put("mail.smtp.starttls.enable", "true");

@@ -22,8 +22,6 @@ public class DatabaseApplication {
         return new BCryptPasswordEncoder();
     }
 
-    public static void main(String[] args) {
-        SpringApplication.run(DatabaseApplication.class, args);
-    }
+    public static void main(String[] args) { SpringApplication.run(DatabaseApplication.class, args); }
 
 }
