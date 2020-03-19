@@ -21,7 +21,7 @@ public class ForgotPasswordController {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Password reset");
         alert.setHeaderText(null);
-        alert.setContentText("You will shortly receive an email to recover your account");
+        alert.setContentText("You will shortly receive an email to recover your account!");
         alert.showAndWait();
     }
 }
