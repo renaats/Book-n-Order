@@ -113,22 +113,4 @@ class JsonMapperTest {
                         .foodOrderMapper("{\"id\":1,\"\":\"restaurant\",\"userId\":\"1\",\"from\":1111111111\",\"to\":111111112}"),
                 JsonMapper.buildingMapper(ServerCommunication.findBuilding(1)));
     }
-
-    @Test
-    void foodOrderListMapper() {
-        stubFor(get(urlEqualTo("/food_order/all"))
-                .willReturn(aResponse()
-                        .withStatus(200)
-                        .withBody("[{\"id\":1,\"restaurant\":\"testffes\",\"userId\":\"1\",\"from\":1111111111\",\"to\":111111112},"
-                                + "{\"id\":2,\"restaurant\":\"testffes\",\"userId\":\"1\",\"from\":211111111\",\"to\":211111112},"
-                                + "{\"id\":3,\"restaurant\":\"testffes\",\"userId\":\"1\",\"from\":3111111111\",\"to\":311111112},"
-                                + "[{\"id\":4,\"restaurant\":\"testffes\",\"userId\":\"1\",\"from\":4111111111\",\"to\":411111112}]")));
-        assertEquals(
-                JsonMapper
-                        .foodOrdersListMapper("[{\"id\":1,\"restaurant\":\"testffes\",\"userId\":\"1\",\"from\":1111111111\",\"to\":111111112},"
-                                + "{\"id\":2,\"restaurant\":\"testffes\",\"userId\":\"1\",\"from\":211111111\",\"to\":211111112},"
-                                + "{\"id\":3,\"restaurant\":\"testffes\",\"userId\":\"1\",\"from\":3111111111\",\"to\":311111112},"
-                                + "[{\"id\":4,\"restaurant\":\"testffes\",\"userId\":\"1\",\"from\":4111111111\",\"to\":411111112}]"),
-                JsonMapper.foodOrdersListMapper(ServerCommunication.getFoodOrders()));
-    }
 }
