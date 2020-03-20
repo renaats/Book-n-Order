@@ -79,7 +79,7 @@ class RoomReservationServiceTest {
         room.setScreen(true);
         room.setProjector(true);
         room.setPlugs(250);
-        room.setNrPeople(300);
+        room.setCapacity(300);
         roomRepository.save(room);
 
         room2 = new Room();

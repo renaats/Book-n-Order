@@ -121,12 +121,12 @@ public class RoomTest {
     }
 
     /**
-     * Tests the getter for the nrPeople field.
+     * Tests the getter for the capacity field.
      */
     @Test
-    public void testNrPeopleGetter() {
+    public void testcapacityGetter() {
         room2 = roomRepository.findAll().get(0);
-        assertEquals(300, room2.getNrPeople());
+        assertEquals(300, room2.getCapacity());
     }
 
     /**
@@ -203,9 +203,9 @@ public class RoomTest {
      */
     @Test
     public void testChangeCapacity() {
-        assertNotEquals(400, room.getNrPeople());
-        room.setNrPeople(400);
-        assertEquals(400, room.getNrPeople());
+        assertNotEquals(400, room.getCapacity());
+        room.setCapacity(400);
+        assertEquals(400, room.getCapacity());
     }
 
     /**

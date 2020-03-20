@@ -17,7 +17,7 @@ public class Room {
     private boolean facultySpecific;
     private boolean projector;
     private boolean screen;
-    private int nrPeople;
+    private int capacity;
     private int plugs;
 
     Set<RoomReservation> roomReservations = new HashSet<>();
@@ -30,17 +30,17 @@ public class Room {
      * @param facultySpecific = whether the room is faculty specific.
      * @param projector = whether the room has a projector.
      * @param screen = whether the room has a screen.
-     * @param nrPeople = number of people who can sit in the room.
+     * @param capacity = number of people who can sit in the room.
      * @param plugs = number of plugs in the room.
      */
-    public Room(String name, Building building, String faculty, boolean facultySpecific, boolean projector, boolean screen, int nrPeople, int plugs) {
+    public Room(String name, Building building, String faculty, boolean facultySpecific, boolean projector, boolean screen, int capacity, int plugs) {
         this.name = name;
         this.building = building;
         this.faculty = faculty;
         this.facultySpecific = facultySpecific;
         this.projector = projector;
         this.screen = screen;
-        this.nrPeople = nrPeople;
+        this.capacity = capacity;
         this.plugs = plugs;
     }
 
@@ -72,8 +72,8 @@ public class Room {
         this.screen = screen;
     }
 
-    public void setNrPeople(int nrPeople) {
-        this.nrPeople = nrPeople;
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
     }
 
     public void setPlugs(int plugs) {
@@ -113,8 +113,8 @@ public class Room {
         return screen;
     }
 
-    public int getNrPeople() {
-        return nrPeople;
+    public int getCapacity() {
+        return capacity;
     }
 
     public int getPlugs() {
@@ -159,7 +159,7 @@ public class Room {
         return facultySpecific == room.facultySpecific
                 && projector == room.projector
                 && screen == room.screen
-                && nrPeople == room.nrPeople
+                && capacity == room.capacity
                 && plugs == room.plugs
                 && Objects.equals(name, room.name)
                 && Objects.equals(building, room.building)
