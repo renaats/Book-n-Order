@@ -55,7 +55,11 @@ public class DishController {
     }
 
     /**
-     *
+     * Allows for a multi-parameter Dish search in a DishRepository.
+     * @param search The search string in the format "[param1][operation][value],[param2][operation][value],..."
+     *               where [operation] is ':', '<', or '>'.
+     * @param repository The repository to search in.
+     * @return List of Dish objects that match the search criteria.
      */
     @RequestMapping(method = RequestMethod.GET, value = "/dishes")
     @ResponseBody

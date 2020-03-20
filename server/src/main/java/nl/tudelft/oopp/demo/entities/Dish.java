@@ -72,7 +72,7 @@ public class Dish {
             return false;
         }
         Dish dish = (Dish) o;
-        return name.equals(name)
+        return name.equals(dish.getName())
                 && Objects.equals(menu, dish.menu);
     }
 }
