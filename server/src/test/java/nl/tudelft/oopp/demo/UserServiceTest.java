@@ -1,11 +1,18 @@
 package nl.tudelft.oopp.demo;
 
+import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
+import static nl.tudelft.oopp.demo.security.SecurityConstants.EXPIRATION_TIME;
+import static nl.tudelft.oopp.demo.security.SecurityConstants.HEADER_STRING;
+import static nl.tudelft.oopp.demo.security.SecurityConstants.SECRET;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
+import com.auth0.jwt.JWT;
+
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -21,6 +28,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
@@ -247,5 +255,56 @@ class UserServiceTest {
     @Test
     public void testAddRoleNonExistent() {
         assertEquals(419, userService.addRole("a","ROLE_ADMIN"));
+    }
+
+    /**
+     * Tests the retrieval of user's own info for some user.
+     */
+    @Test
+    public void testUserInfo() {
+        userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty());
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        String token = JWT.create()
+                .withSubject(appUser.getEmail())
+                .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                .sign(HMAC512(SECRET.getBytes()));
+        request.addHeader(HEADER_STRING, token);
+        assertEquals("{\"email\":\"" + appUser.getEmail() + "\",\"name\":\"" + appUser.getName() + "\",\"surname\":\""
+                + appUser.getSurname() + "\",\"faculty\":\"" + appUser.getFaculty() + "\"}", userService.userInfo(request));
+    }
+
+    /**
+     * Tests the retrieval of user's own info for a non-existent user.
+     */
+    @Test
+    public void testNonExistentUserInfo() {
+        userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty());
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        assertNull(userService.userInfo(request));
+    }
+
+    /**
+     * Tests the logging out for some user.
+     */
+    @Test
+    public void testLogout() {
+        userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty());
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        String token = JWT.create()
+                .withSubject(appUser.getEmail())
+                .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                .sign(HMAC512(SECRET.getBytes()));
+        request.addHeader(HEADER_STRING, token);
+        assertEquals(201, userService.logout(request));
+    }
+
+    /**
+     * Tests the logging out for a non-existent user.
+     */
+    @Test
+    public void testNonExistentLogOut() {
+        userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty());
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        assertEquals(419, userService.logout(request));
     }
 }
