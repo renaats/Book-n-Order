@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.DatabaseEditBuildingController">
+<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.DatabaseEditBuildingController">
    <ImageView fitWidth="1280.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@images/mainMenuBackground.jpg" />
@@ -35,21 +41,21 @@
          <Font size="17.0" />
       </font>
    </Text>
-   <Button fx:id="confirmFindByIdButton" layoutX="236.0" layoutY="193.0" mnemonicParsing="false" onAction="#building_id_ButtonClicked" prefHeight="26.0" prefWidth="61.0" style="-fx-background-color: #00a6d6;" text="Find" textFill="WHITE" AnchorPane.leftAnchor="236.0" AnchorPane.topAnchor="193.0" />
-   <ChoiceBox fx:id="updateChoiceBox" layoutX="157.0" layoutY="372.0" prefHeight="26.0" prefWidth="119.0" style="-fx-background-color: #00a6d6;" AnchorPane.leftAnchor="157.0" />
-   <Text layoutX="40.0" layoutY="392.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Attribute:" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="373.6552734375">
+   <Button fx:id="confirmFindByIdButton" layoutX="236.0" layoutY="193.0" mnemonicParsing="false" onAction="#buildingIdButtonClicked" prefHeight="26.0" prefWidth="61.0" style="-fx-background-color: #00a6d6;" text="Find" textFill="WHITE" AnchorPane.leftAnchor="236.0" AnchorPane.topAnchor="193.0" />
+   <ChoiceBox fx:id="updateChoiceBox" layoutX="143.0" layoutY="371.0" prefHeight="26.0" prefWidth="149.0" style="-fx-background-color: #00a6d6;" AnchorPane.leftAnchor="143.0" />
+   <Text layoutX="50.0" layoutY="391.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Attribute:" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="372.6552734375">
       <font>
          <Font size="17.0" />
       </font>
    </Text>
-   <Text layoutX="38.0" layoutY="444.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Change to:" AnchorPane.leftAnchor="38.0" AnchorPane.topAnchor="425.6552734375">
+   <Text layoutX="47.0" layoutY="443.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Change to:" AnchorPane.leftAnchor="47.0" AnchorPane.topAnchor="424.0">
       <font>
          <Font size="17.0" />
       </font>
    </Text>
    <TextField fx:id="buildingChangeToField" layoutX="143.0" layoutY="424.0" AnchorPane.leftAnchor="143.0" AnchorPane.topAnchor="424.0" />
-   <Button fx:id="confirmChangeButton" layoutX="170.0" layoutY="487.0" mnemonicParsing="false" onAction="#updateBuildingButtonClicked" style="-fx-background-color: #00a6d6;" text="Change" textFill="WHITE" AnchorPane.leftAnchor="170.0" AnchorPane.topAnchor="487.0" />
-   <Button fx:id="buildingFindAllButton" layoutX="240.0" layoutY="238.0" mnemonicParsing="false" onAction="#listBuildingsButtonClicked" style="-fx-background-color: #00a6d6;" text="Find all" textFill="WHITE" />
+   <Button fx:id="confirmChangeButton" layoutX="189.0" layoutY="470.0" mnemonicParsing="false" onAction="#updateBuildingButtonClicked" style="-fx-background-color: #00a6d6;" text="Change" textFill="WHITE" AnchorPane.leftAnchor="189.0" AnchorPane.topAnchor="470.0" />
+   <Button fx:id="buildingFindAllButton" layoutX="235.0" layoutY="237.0" mnemonicParsing="false" onAction="#listBuildingsButtonClicked" prefHeight="26.0" prefWidth="62.0" style="-fx-background-color: #00a6d6;" text="Find all" textFill="WHITE" />
    <ImageView fitHeight="41.0" fitWidth="44.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#mainMenu" pickOnBounds="true" preserveRatio="true">
       <Image url="@images/HomeIconTransparent.png" />
       <cursor>
@@ -57,33 +63,36 @@
       </cursor>
    </ImageView>
    <TextField layoutX="50.0" layoutY="238.0" promptText="Name" />
-   <TableView layoutX="451.0" layoutY="157.0" prefHeight="420.0" prefWidth="562.0">
+   <TableView fx:id="table" layoutX="451.0" layoutY="157.0" prefHeight="420.0" prefWidth="562.0">
       <columns>
-         <TableColumn prefWidth="75.0" text="C1" />
-         <TableColumn prefWidth="75.0" text="C2" />
+         <TableColumn fx:id="colId" prefWidth="45.60003662109375" text="ID" />
+         <TableColumn fx:id="colName" prefWidth="126.39996337890625" text="Name" />
+         <TableColumn fx:id="colStreet" prefWidth="126.39996337890625" text="Street" />
+         <TableColumn fx:id="colHouseNumber" prefWidth="126.39996337890625" text="House Number" />
+         <TableColumn fx:id="colFaculty" prefWidth="135.199951171875" text="Faculty" />
       </columns>
    </TableView>
-   <Button layoutX="632.0" layoutY="594.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" style="-fx-background-color: #00a6d6;" text="Edit selected" textFill="WHITE">
+   <Button fx:id="editByTable" layoutX="632.0" layoutY="594.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#editBuildingButtonClickedByTable" style="-fx-background-color: #00a6d6;" text="Edit selected" textFill="WHITE">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor>
    </Button>
-   <Text layoutX="451.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Buildings:" AnchorPane.leftAnchor="451.0">
+   <Text layoutX="451.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Buildings" AnchorPane.leftAnchor="451.0">
       <font>
          <Font size="26.0" />
       </font>
    </Text>
    <TextField fx:id="buildingDeleteByIdTextField" layoutX="50.0" layoutY="322.0" promptText="ID" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="322.0" />
-   <Text layoutX="46.0" layoutY="304.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Delete a building" AnchorPane.leftAnchor="46.0" AnchorPane.topAnchor="285.6552734375">
+   <Text layoutX="50.0" layoutY="315.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Delete a building" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="296.0">
       <font>
          <Font size="17.0" />
       </font>
    </Text>
-   <Button fx:id="confirmDeleteByIdButton" layoutX="241.0" layoutY="322.0" mnemonicParsing="false" onAction="#deleteBuildingButtonClicked" style="-fx-background-color: #00a6d6;" text="Delete" textFill="WHITE" AnchorPane.leftAnchor="241.0" AnchorPane.topAnchor="322.0">
+   <Button fx:id="confirmDeleteByIdButton" layoutX="234.0" layoutY="322.0" mnemonicParsing="false" onAction="#deleteBuildingButtonClicked" prefHeight="26.0" prefWidth="62.0" style="-fx-background-color: #00a6d6;" text="Delete" textFill="WHITE" AnchorPane.leftAnchor="234.0" AnchorPane.topAnchor="322.0">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor></Button>
-   <Button fx:id="confirmDeleteByIdButton1" layoutX="632.0" layoutY="642.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" style="-fx-background-color: #00a6d6;" text="Delete Selected" textFill="WHITE">
+   <Button fx:id="confirmDeleteByIdButtonByTable" layoutX="632.0" layoutY="642.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#deleteBuildingButtonClickedByTable" style="-fx-background-color: #00a6d6;" text="Delete Selected" textFill="WHITE">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor>

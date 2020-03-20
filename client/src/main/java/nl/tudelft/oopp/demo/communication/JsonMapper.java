@@ -29,12 +29,12 @@ public class JsonMapper {
             // Convert JSON string to Object
             Building building = mapper.readValue(buildingJson, Building.class);
             return building;
-        } catch (JsonGenerationException e) {
-            e.printStackTrace();
-        } catch (JsonMappingException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Not Found.");
+            alert.showAndWait();
         }
         return null;
     }
