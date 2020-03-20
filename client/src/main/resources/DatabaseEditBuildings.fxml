@@ -65,11 +65,11 @@
    <TextField layoutX="50.0" layoutY="238.0" promptText="Name" />
    <TableView fx:id="table" layoutX="451.0" layoutY="157.0" prefHeight="420.0" prefWidth="562.0">
       <columns>
-         <TableColumn fx:id="colId" prefWidth="45.60003662109375" text="ID" />
-         <TableColumn fx:id="colName" prefWidth="126.39996337890625" text="Name" />
-         <TableColumn fx:id="colStreet" prefWidth="126.39996337890625" text="Street" />
-         <TableColumn fx:id="colHouseNumber" prefWidth="126.39996337890625" text="House Number" />
-         <TableColumn fx:id="colFaculty" prefWidth="135.199951171875" text="Faculty" />
+         <TableColumn fx:id="colId" prefWidth="45.0" text="ID" />
+         <TableColumn fx:id="colName" prefWidth="129.0" text="Name" />
+         <TableColumn fx:id="colStreet" prefWidth="129.0" text="Street" />
+         <TableColumn fx:id="colHouseNumber" prefWidth="129.0" text="House Number" />
+         <TableColumn fx:id="colFaculty" prefWidth="129.0" text="Faculty" />
       </columns>
    </TableView>
    <Button fx:id="editByTable" layoutX="632.0" layoutY="594.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#editBuildingButtonClickedByTable" style="-fx-background-color: #00a6d6;" text="Edit selected" textFill="WHITE">

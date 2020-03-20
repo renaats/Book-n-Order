@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.DatabaseEditRoomController">
+<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.DatabaseEditRoomController">
    <ImageView fitHeight="720.0" fitWidth="1306.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@images/DatabaseRoomBackground.jpg" />
@@ -28,13 +34,13 @@
       </cursor>
    </ImageView>
    <TextField fx:id="roomFindByIdTextField" layoutX="66.0" layoutY="193.0" promptText="ID" AnchorPane.leftAnchor="66.0" AnchorPane.topAnchor="193.0" />
-   <Text layoutX="67.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Find a room by:" AnchorPane.leftAnchor="67.0" AnchorPane.topAnchor="156.6552734375">
+   <Text layoutX="65.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Find a room by:" AnchorPane.leftAnchor="65.0" AnchorPane.topAnchor="168.6552734375">
       <font>
          <Font size="17.0" />
       </font>
    </Text>
-   <Button fx:id="confirmFindByIdButton" layoutX="313.0" layoutY="193.0" mnemonicParsing="false" onAction="#room_id_ButtonClicked" prefHeight="26.0" prefWidth="61.0" style="-fx-background-color: #00a6d6;" text="Find" textFill="WHITE" AnchorPane.leftAnchor="313.0" AnchorPane.topAnchor="193.0" />
-   <ChoiceBox fx:id="updateChoiceBox" layoutX="113.0" layoutY="411.0" prefHeight="26.0" prefWidth="119.0" style="-fx-background-color: #00a6d6;" AnchorPane.leftAnchor="113.0" />
+   <Button fx:id="confirmFindByIdButton" layoutX="313.0" layoutY="193.0" mnemonicParsing="false" onAction="#roomFindById" prefHeight="26.0" prefWidth="62.0" style="-fx-background-color: #00a6d6;" text="Find" textFill="WHITE" AnchorPane.leftAnchor="313.0" AnchorPane.topAnchor="193.0" />
+   <ChoiceBox fx:id="updateChoiceBox" layoutX="113.0" layoutY="411.0" prefHeight="26.0" prefWidth="149.0" style="-fx-background-color: #00a6d6;" AnchorPane.leftAnchor="113.0" />
    <Text layoutX="32.0" layoutY="431.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Attribute:" AnchorPane.leftAnchor="32.0" AnchorPane.topAnchor="412.6552734375">
       <font>
          <Font size="17.0" />
@@ -46,8 +52,8 @@
       </font>
    </Text>
    <TextField fx:id="roomChangeToField" layoutX="113.0" layoutY="495.0" AnchorPane.leftAnchor="113.0" AnchorPane.topAnchor="495.0" />
-   <Button fx:id="confirmChangeButton" layoutX="315.0" layoutY="495.0" mnemonicParsing="false" onAction="#updateRoomButtonClicked" style="-fx-background-color: #00a6d6;" text="Change" textFill="WHITE" AnchorPane.leftAnchor="315.0" AnchorPane.topAnchor="495.0" />
-   <Button fx:id="roomFindAllButton" layoutX="319.0" layoutY="224.0" mnemonicParsing="false" onAction="#roomBuildingsButtonClicked" style="-fx-background-color: #00a6d6;" text="List all" textFill="WHITE" />
+   <Button fx:id="confirmChangeButton" layoutX="310.0" layoutY="495.0" mnemonicParsing="false" onAction="#updateRoomButtonClicked" prefHeight="26.0" prefWidth="62.0" style="-fx-background-color: #00a6d6;" text="Change" textFill="WHITE" AnchorPane.leftAnchor="313.0" AnchorPane.topAnchor="495.0" />
+   <Button fx:id="roomFindAllButton" layoutX="312.0" layoutY="224.0" mnemonicParsing="false" onAction="#roomBuildingsButtonClicked" prefHeight="26.0" prefWidth="62.0" style="-fx-background-color: #00a6d6;" text="List all" textFill="WHITE" AnchorPane.leftAnchor="313.0" AnchorPane.topAnchor="224.0" />
    <ImageView fitHeight="41.0" fitWidth="44.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#mainMenu" pickOnBounds="true" preserveRatio="true">
       <Image url="@images/HomeIconTransparent.png" />
       <cursor>
@@ -56,13 +62,21 @@
    </ImageView>
    <TextField layoutX="66.0" layoutY="224.0" promptText="Name" />
    <TextField layoutX="66.0" layoutY="257.0" promptText="Building" />
-   <TableView layoutX="451.0" layoutY="149.0" prefHeight="420.0" prefWidth="562.0">
+   <TableView fx:id="table" layoutX="451.0" layoutY="149.0" prefHeight="420.0" prefWidth="805.0">
       <columns>
-         <TableColumn prefWidth="75.0" text="C1" />
-         <TableColumn prefWidth="75.0" text="C2" />
+         <TableColumn fx:id="colId" prefWidth="45.0" text="ID" />
+         <TableColumn fx:id="colName" prefWidth="75.0" text="Name" />
+         <TableColumn fx:id="colBuilding" prefWidth="75.0" text="Building" />
+         <TableColumn fx:id="colFaculty" prefWidth="75.0" text="Faculty" />
+         <TableColumn fx:id="colFacultySpecific" prefWidth="100.0" text="Faculty Specific" />
+         <TableColumn fx:id="colProjector" prefWidth="75.0" text="Projector" />
+         <TableColumn fx:id="colScreen" prefWidth="75.0" text="Screen" />
+         <TableColumn fx:id="colCapacity" prefWidth="75.0" text="Capacity" />
+         <TableColumn fx:id="colPlugs" prefWidth="75.0" text="Plugs" />
+         <TableColumn fx:id="colRoomReservations" prefWidth="134.0" text="Room Reservations" />
       </columns>
    </TableView>
-   <Button layoutX="632.0" layoutY="594.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" style="-fx-background-color: #00a6d6;" text="Edit selected" textFill="WHITE">
+   <Button layoutX="732.0" layoutY="584.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" style="-fx-background-color: #00a6d6;" text="Edit selected" textFill="WHITE">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor>
@@ -74,15 +88,15 @@
       </font>
    </Text>
    <TextField fx:id="roomDeleteByIdTextField" layoutX="66.0" layoutY="334.0" promptText="ID" AnchorPane.leftAnchor="66.0" AnchorPane.topAnchor="334.0" />
-   <Text layoutX="64.0" layoutY="322.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Delete a room by id:" AnchorPane.leftAnchor="64.0" AnchorPane.topAnchor="303.6552734375">
+   <Text layoutX="64.0" layoutY="327.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Delete a room by id:" AnchorPane.leftAnchor="64.0" AnchorPane.topAnchor="308.6552734375">
       <font>
          <Font size="17.0" />
       </font>
    </Text>
-   <Button fx:id="confirmDeleteByIdButton" layoutX="318.0" layoutY="334.0" mnemonicParsing="false" onAction="#deleteRoomButtonClicked" style="-fx-background-color: #00a6d6;" text="Delete" textFill="WHITE" AnchorPane.leftAnchor="318.0" AnchorPane.topAnchor="334.0" />
-   <Button fx:id="confirmDeleteByIdButton1" layoutX="632.0" layoutY="642.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: #00a6d6;" text="Delete Selected" textFill="WHITE" />
+   <Button fx:id="confirmDeleteByIdButton" layoutX="312.0" layoutY="333.0" mnemonicParsing="false" onAction="#deleteRoomButtonClicked" prefHeight="26.0" prefWidth="62.0" style="-fx-background-color: #00a6d6;" text="Delete" textFill="WHITE" AnchorPane.leftAnchor="313.0" AnchorPane.topAnchor="333.0" />
+   <Button fx:id="confirmDeleteByIdButton1" layoutX="732.0" layoutY="623.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: #00a6d6;" text="Delete Selected" textFill="WHITE" />
 
-   <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="62.0" layoutY="119.0" onMouseClicked="#databaseAddRooms" pickOnBounds="true" preserveRatio="true">
+   <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="62.0" layoutY="118.0" onMouseClicked="#databaseAddRooms" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@images/ko7djzvdIPehWkkQYeDHv7ZYArEETK3uclcEy1WmrEHakj5qfn1nysOSyuNxsI2FsTJGcKNFdQ-9TIGRXV3le_sG-lyGg6Lu2OpiVNdwOZw_Fw16XYOh.png" />
       </image>
