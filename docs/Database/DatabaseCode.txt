@@ -5,6 +5,7 @@
 Table User {
   id int [PK]
   email String
+  password String
   name String
   surname String
   faculty String
@@ -18,7 +19,7 @@ Table rooms {
   faculty_specific boolean
   nPeople int
   screen boolean
-  plugs boolean
+  plugs int
   beamer boolean
 }
 
@@ -46,7 +47,6 @@ Table restaurant_hours {
 Table bikes {
   id int PK
   location building_number
-  booked boolean
   available boolean
 }
 
@@ -56,15 +56,20 @@ Table bike_reservations {
   to datetime
   from_building building_number
   to_building building_number
-  User email
+  User User
+}
+
+Table room_reservations {
+  id id PK
+  from datetime
+  to datetime
+  User User
 }
 
 Table restaurant {
   id int PK
   building building_number
   name String
-  business_hours business_hours
-  menu menu
 }
 
 Table menu {
@@ -76,12 +81,39 @@ Table menu {
 }
 
 Table food_orders {
-  order_id int PK
+  id int PK
   User User
   restaurant restaurant
   delivery_time int
   delivery_date date
   delivery_location building_number
+}
+
+Table room_feedback {
+  feedback_id int PK
+  client User
+  recipient User
+  room_reservations room_reservations
+  feedback_date date
+  feedback_text String
+}
+
+Table food_feedback {
+  feedback_id int PK
+  client User
+  recipient User
+  food_orders food_orders
+  feedback_date date
+  feedback_text String
+}
+
+Table bike_feedback {
+  feedback_id int PK
+  client User
+  recipient User
+  bike_reservations bike_reservations
+  feedback_date date
+  feedback_text String
 }
 
 Ref: "User"."id" < "food_orders"."User"
@@ -96,8 +128,6 @@ Ref: "restaurant"."id" < "menu"."restaurant"
 
 Ref: "restaurant"."id" < "restaurant_hours"."restaurant"
 
-Ref: "restaurant"."menu" < "menu"."menu"
-
 Ref: "bikes"."id" < "bike_reservations"."id"
 
 Ref: "bikes"."location" < "building"."building_number"
@@ -111,3 +141,25 @@ Ref: "building"."building_number" < "food_orders"."delivery_location"
 Ref: "bike_reservations"."from_building" < "building"."building_number"
 
 Ref: "bike_reservations"."to_building" < "building"."building_number"
+
+Ref: "rooms"."room_name" < "room_reservations"."id"
+
+Ref: "room_reservations"."User" < "User"."id"
+
+Ref: "room_feedback"."client" < "User"."id"
+
+Ref: "room_feedback"."recipient" < "User"."id"
+
+Ref: "room_feedback"."room_reservations" < "room_reservations"."id"
+
+Ref: "food_feedback"."client" < "User"."id"
+
+Ref: "food_feedback"."recipient" < "User"."id"
+
+Ref: "food_feedback"."food_orders" < "food_orders"."id"
+
+Ref: "bike_feedback"."client" < "User"."id"
+
+Ref: "bike_feedback"."recipient" < "User"."id"
+
+Ref: "bike_feedback"."bike_reservations" < "bike_reservations"."id"
