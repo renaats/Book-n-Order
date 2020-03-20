@@ -95,7 +95,7 @@ public class DatabaseEditBuildingController implements Initializable {
     }
 
     /**
-     * Handles clicking of the Remove Building button.
+     * Handles clicking of the Remove Building button through the table.
      */
     public void deleteBuildingButtonClickedByTable() {
         try {
@@ -112,7 +112,7 @@ public class DatabaseEditBuildingController implements Initializable {
     }
 
     /**
-     * Handles clicking of the Remove Building button.
+     * Handles clicking of the edit Building button through the table.
      */
     public void editBuildingButtonClickedByTable() {
         try {

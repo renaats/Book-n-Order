@@ -17,6 +17,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
+import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
@@ -195,5 +196,38 @@ public class DatabaseEditRoomController implements Initializable {
         alert.showAndWait();
 
         roomResult.removeIf(room -> room.getId() == id);
+    }
+
+    /**
+     * Handles clicking of the edit room button through table.
+     */
+    public void editRoomByTable() {
+        try {
+            Room room = table.getSelectionModel().getSelectedItem();
+            roomFindByIdTextField.setText(Integer.toString(room.getId()));
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Missing argument.");
+            alert.showAndWait();
+        }
+    }
+
+    /**
+     * Handles clicking of the Remove Room button through the table.
+     */
+    public void deleteRoomByTable() {
+        try {
+            Room room = table.getSelectionModel().getSelectedItem();
+            ServerCommunication.deleteBuilding(room.getId());
+            roomResult.removeIf(r -> r.getId().equals(room.getId()));
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Missing argument.");
+            alert.showAndWait();
+        }
     }
 }
