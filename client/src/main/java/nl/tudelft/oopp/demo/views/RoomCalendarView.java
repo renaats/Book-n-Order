@@ -49,7 +49,7 @@ public class RoomCalendarView extends Application {
                 new ArrayList<>(Objects.requireNonNull(JsonMapper.roomReservationsListMapper(ServerCommunication.getRoomReservations())));
         for (RoomReservation reservation : roomReservationList) {
             if (reservation.getRoom().equals(this.room)) {
-                Entry<RoomReservation> bookedEntry = new Entry<>("Room is booked or unavailable");
+                Entry<RoomReservation> bookedEntry = new Entry<>("Room is booked or unavailable.");
 
                 LocalTime startTime = convertToLocalTime(reservation.getFromTime());
                 LocalTime endTime = convertToLocalTime(reservation.getToTime());
