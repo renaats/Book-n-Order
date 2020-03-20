@@ -5,12 +5,15 @@ import nl.tudelft.oopp.demo.entities.VerificationToken;
 import nl.tudelft.oopp.demo.events.OnRegistrationSuccessEvent;
 import nl.tudelft.oopp.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -36,6 +39,7 @@ public class UserController {
     @Autowired
     private ApplicationEventPublisher eventPublisher;
 
+    @Qualifier("messageSource")
     @Autowired
     private MessageSource messages;
 
@@ -57,31 +61,30 @@ public class UserController {
      * @param faculty = the faculty of the user
      * @return Error code
      */
-    @PostMapping(path = "/registration") // Map ONLY POST Requests
+    @PostMapping(path = "/add") // Map ONLY POST Requests
     @ResponseBody
-    public String addUser(
+    public int addUser(
             @RequestParam String email,
             @RequestParam String password,
             @RequestParam String name,
             @RequestParam String surname,
-            @RequestParam String faculty) {
+            @RequestParam String faculty,
+            WebRequest request) {
         AppUser appUser = new AppUser();
         appUser.setEmail(email);
         appUser.setPassword(password);
         appUser.setName(name);
         appUser.setSurname(surname);
         appUser.setFaculty(faculty);
-//        AppUser registeredUser = appUser;
-//        System.out.println("Stigna do tuk, bravo :)");
-//        userService.add(registeredUser.getEmail(),registeredUser.getPassword(),registeredUser.getName(),registeredUser.getSurname(),registeredUser.getFaculty());
-//        try {
-//            String appUrl = request.getContextPath();
-//            eventPublisher.publishEvent(new OnRegistrationSuccessEvent(registeredUser, request.getLocale(),appUrl));
-//        }catch(Exception e) {
-//            e.printStackTrace();
-//        }
-        userService.add(email,password,name,surname,faculty);
-        return "succcccces";
+        AppUser registeredUser = appUser;
+        int result = userService.add(registeredUser.getEmail(),registeredUser.getPassword(),registeredUser.getName(),registeredUser.getSurname(),registeredUser.getFaculty());
+        if(result != 201) return result;
+        try {
+            eventPublisher.publishEvent(new OnRegistrationSuccessEvent(registeredUser, request.getLocale(),"/user"));
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+        return 203;
     }
 
     /**
@@ -98,21 +101,6 @@ public class UserController {
         return userService.update(email, attribute, value);
     }
 
-    @GetMapping(path = "/test")
-    @ResponseBody
-    public int test() {
-    MailSender mailSender = new JavaMailSenderImpl();
-    String recipient = "misho1888@abv.bg";
-    String subject = "Registration Confirmation";
-    String url = "/user" + "/confirmRegistration?token=" + "tokenchetuuuu";
-    String message = "Thank you for registering. Please click on the below link to activate your account.";
-    SimpleMailMessage email = new SimpleMailMessage();
-        email.setTo(recipient);
-        email.setSubject(subject);
-        email.setText(message + "http://localhost:8080" + url);
-        mailSender.send(email);
-        return 0;
-    }
     /**
      * Deletes an account.
      * @param email = the email of the account
@@ -159,48 +147,23 @@ public class UserController {
     public void addRole(@RequestParam String email, @RequestParam String roleName) {
         userService.addRole(email, roleName);
     }
-//
-//    @PostMapping(path = "/registration")
-//    public String registerNewUser(@ModelAttribute("user")AppUser appUser, BindingResult result, WebRequest request, Model model) {
-//        AppUser registeredUser = new AppUser();
-//        String email = appUser.getEmail();
-//        if (result.hasErrors()) {
-//            return "registration";
-//        }
-//        registeredUser = userService.find(email);
-//        if(registeredUser!=null) {
-//            model.addAttribute("error","There is already an account with this email: " + email);
-//            return "registration";
-//        }
-//        registeredUser = appUser;
-//        userService.add(registeredUser.getEmail(),registeredUser.getPassword(),registeredUser.getName(),registeredUser.getSurname(),registeredUser.getFaculty());
-//        try {
-//            String appUrl = request.getContextPath();
-//            eventPublisher.publishEvent(new OnRegistrationSuccessEvent(registeredUser, request.getLocale(),appUrl));
-//        }catch(Exception e) {
-//            e.printStackTrace();
-//        }
-//        return "registrationSuccess";
-//    }
 
-    @GetMapping(path = "/confirmRegistration")
-    public String confirmRegistration(WebRequest request, Model model,@RequestParam("token") String token) {
-        Locale locale=request.getLocale();
-        VerificationToken verificationToken = userService.getVerificationToken(token);
-        if(verificationToken == null) {
-            String message = messages.getMessage("auth.message.invalidToken", null, locale);
-            model.addAttribute("message", message);
-            return "redirect:access-denied";
-        }
-        AppUser user = verificationToken.getUser();
-        Calendar calendar = Calendar.getInstance();
-        if((verificationToken.getExpiryDate().getTime()-calendar.getTime().getTime())<=0) {
-            String message = messages.getMessage("auth.message.expired", null, locale);
-            model.addAttribute("message", message);
-            return "redirect:access-denied";
-        }
-        user.setEnabled(true);
-        userService.enableRegisteredUser(user);
-        return null;
-    }
+//    @GetMapping(path = "/confirmRegistration")
+//    public String confirmRegistration(WebRequest request ,@RequestParam("token") String token) {
+//        Locale locale=request.getLocale();
+//        VerificationToken verificationToken = userService.getVerificationToken(token);
+//        if(verificationToken == null) {
+//            String message = messages.getMessage("auth.message.invalidToken", null, locale);
+//            return "redirect:access-denied";
+//        }
+//        AppUser user = verificationToken.getUser();
+//        Calendar calendar = Calendar.getInstance();
+//        if((verificationToken.getExpiryDate().getTime()-calendar.getTime().getTime())<=0) {
+//            String message = messages.getMessage("auth.message.expired", null, locale);
+//            return "redirect:access-denied";
+//        }
+//        user.setEnabled(true);
+//        userService.enableRegisteredUser(user);
+//        return null;
+//    }
 }
