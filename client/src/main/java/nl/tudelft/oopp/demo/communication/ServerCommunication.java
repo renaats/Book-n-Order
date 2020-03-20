@@ -104,14 +104,7 @@ public class ServerCommunication {
     public static String addUser(String email, String name, String surname, String faculty, String password) {
         HttpRequest request;
         try {
-            request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/user/add?email=" + URLEncoder.encode(email,"UTF-8")  + "&name=" + URLEncoder.encode(name,"UTF-8") + "&surname=" + URLEncoder.encode(surname,"UTF-8") + "&faculty=" + faculty + "&password=" + URLEncoder.encode(password,"UTF-8"))).POST(HttpRequest.BodyPublishers.noBody()).build();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            return "Please enter an encoding that is supported by the URLEncode class.";
-        }
-        HttpResponse<String> response;
-        try {
-            request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/user/add?email=" + URLEncoder.encode(email,"UTF-8")  + "&name=" + URLEncoder.encode(name,"UTF-8") + "&surname=" + URLEncoder.encode(surname,"UTF-8") + "&faculty=" + faculty + "&password=" + URLEncoder.encode(password,"UTF-8"))).POST(HttpRequest.BodyPublishers.noBody()).build();
+            request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/user/add?email=" + URLEncoder.encode(email,"UTF-8")  + "&name=" + URLEncoder.encode(name,"UTF-8") + "&surname=" + URLEncoder.encode(surname,"UTF-8") + "&faculty=" + URLEncoder.encode(faculty, "UTF-8") + "&password=" + URLEncoder.encode(password,"UTF-8"))).POST(HttpRequest.BodyPublishers.noBody()).build();
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
             return "Please enter an encoding that is supported by the URLEncode class.";
@@ -209,13 +202,6 @@ public class ServerCommunication {
             e.printStackTrace();
             return "Please enter an encoding that is supported by the URLEncode class.";
         }
-        HttpResponse<String> response;
-        try {
-            request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building/update?id=" + id + "&attribute=" + attribute + "&value=" + URLEncoder.encode(changeValue, "UTF-8"))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            return "Please enter an encoding that is supported by the URLEncode class.";
-        }
         return communicateAndReturnErrorMessage(request);
     }
 
@@ -254,13 +240,6 @@ public class ServerCommunication {
             e.printStackTrace();
             return "Please enter an encoding that is supported by the URLEncode class.";
         }
-        HttpResponse<String> response;
-        try {
-            request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room/update?id=" + id + "&attribute=" + attribute + "&value=" + URLEncoder.encode(changeValue, "UTF-8"))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            return "Please enter an encoding that is supported by the URLEncode class.";
-        }
         return communicateAndReturnErrorMessage(request);
     }
 
@@ -287,7 +266,6 @@ public class ServerCommunication {
             e.printStackTrace();
             return "Please enter an encoding that is supported by the URLEncode class.";
         }
-        HttpResponse<String> response;
         return communicateAndReturnErrorMessage(request);
     }
 
@@ -300,13 +278,6 @@ public class ServerCommunication {
      */
     public static String addBuilding(String name, String street, int houseNumber) {
         HttpRequest request;
-        try {
-            request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building/add?name=" + URLEncoder.encode(name, "UTF-8") + "&street=" + URLEncoder.encode(street, "UTF-8") + "&houseNumber=" + houseNumber)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            return "Please enter an encoding that is supported by the URLEncode class.";
-        }
-        HttpResponse<String> response;
         try {
             request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building/add?name=" + URLEncoder.encode(name, "UTF-8") + "&street=" + URLEncoder.encode(street, "UTF-8") + "&houseNumber=" + houseNumber)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
         } catch (UnsupportedEncodingException e) {
@@ -337,6 +308,7 @@ public class ServerCommunication {
     }
 
     /**
+    /**
      * Retrieves a room reservation by given id.
      * @param roomReservationId = the id of the room reservation.
      * @return The body of the response from the server.
@@ -356,7 +328,13 @@ public class ServerCommunication {
      * @return body response
      */
     public static String addRoomReservation(String room, int buildingId, int userId, Date from, Date to) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room_reservation/add?room" + room + "&buildingId=" + buildingId + "&userId=" + userId + "&from=" + from + "&to=" + to)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
+        HttpRequest request = null;
+        try {
+            request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room_reservation/add?room" + URLEncoder.encode(room, "UTF-8") + "&buildingId=" + buildingId + "&userId=" + userId + "&from=" + from + "&to=" + to)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return "Please enter an encoding that is supported by the URLEncode class.";
+        }
         return communicateAndReturnErrorMessage(request);
     }
 
@@ -368,7 +346,13 @@ public class ServerCommunication {
      * @return the body of the response from the server.
      */
     public static String updateRoomReservation(int id, String attribute, String changeValue) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room_reservation/update?id=" + id + "&attribute=" + attribute + "&value=" + changeValue)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
+        HttpRequest request = null;
+        try {
+            request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room_reservation/update?id=" + id + "&attribute=" + attribute + "&value=" + URLEncoder.encode(changeValue, "UTF-8"))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return "Please enter an encoding that is supported by the URLEncode class.";
+        }
         return communicateAndReturnErrorMessage(request);
     }
 
