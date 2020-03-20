@@ -82,6 +82,7 @@ Table food_orders {
   delivery_time int
   delivery_date date
   delivery_location building_number
+  menu menu
 }
 
 Ref: "User"."id" < "food_orders"."User"
@@ -97,6 +98,8 @@ Ref: "restaurant"."id" < "menu"."restaurant"
 Ref: "restaurant"."id" < "restaurant_hours"."restaurant"
 
 Ref: "restaurant"."menu" < "menu"."menu"
+
+Ref: "menu"."menu" < "food_orders"."menu"
 
 Ref: "bikes"."id" < "bike_reservations"."id"
 

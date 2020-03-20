@@ -10,12 +10,17 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.Building;
+import nl.tudelft.oopp.demo.entities.Dish;
 import nl.tudelft.oopp.demo.entities.FoodOrder;
+import nl.tudelft.oopp.demo.entities.Menu;
 import nl.tudelft.oopp.demo.entities.Restaurant;
 import nl.tudelft.oopp.demo.repositories.BuildingRepository;
+import nl.tudelft.oopp.demo.repositories.DishRepository;
+import nl.tudelft.oopp.demo.repositories.MenuRepository;
 import nl.tudelft.oopp.demo.repositories.RestaurantRepository;
 import nl.tudelft.oopp.demo.repositories.UserRepository;
 import nl.tudelft.oopp.demo.services.FoodOrderService;
@@ -51,6 +56,12 @@ public class FoodOrderServiceTest {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    DishRepository dishRepository;
+
+    @Autowired
+    MenuRepository menuRepository;
+
     Building building;
     Building deliverLocation;
     Restaurant restaurant;
@@ -60,6 +71,10 @@ public class FoodOrderServiceTest {
     Date deliverTime2;
     long deliverTimeMilliseconds;
     long deliverTimeMilliseconds2;
+    Menu menu;
+    Dish dish1;
+    Dish dish2;
+    Set<Dish> dishes;
     FoodOrder foodOrder;
     FoodOrder foodOrder2;
 
@@ -91,9 +106,20 @@ public class FoodOrderServiceTest {
         deliverTime2 = new Date(10000000000L);
         deliverTimeMilliseconds2 = deliverTime2.getTime();
 
-        foodOrder = new FoodOrder(restaurant, appUser, deliverLocation, deliverTime);
+        menu = new Menu("Lunch Menu", restaurant);
+        menuRepository.saveAndFlush(menu);
 
-        foodOrder2 = new FoodOrder(restaurant, appUser, deliverLocation, deliverTime2);
+        dish1 = new Dish("Pizza", menu);
+        dishRepository.saveAndFlush(dish1);
+        dish2 = new Dish("Salad", menu);
+        dishRepository.saveAndFlush(dish2);
+        dishes = new HashSet<>();
+        dishes.add(dish1);
+        dishes.add(dish2);
+
+        foodOrder = new FoodOrder(restaurant, appUser, deliverLocation, deliverTime, dishes);
+
+        foodOrder2 = new FoodOrder(restaurant, appUser, deliverLocation, deliverTime2, dishes);
     }
 
     /**

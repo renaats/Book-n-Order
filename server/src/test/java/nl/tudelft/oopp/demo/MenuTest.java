@@ -43,7 +43,6 @@ public class MenuTest {
     Dish dish;
     Dish dish2;
     Set<Dish> dishes;
-    Set<Dish> dishes1;
 
     /**
      * Setup for all the tests
