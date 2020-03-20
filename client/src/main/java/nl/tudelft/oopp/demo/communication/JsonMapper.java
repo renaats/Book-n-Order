@@ -150,7 +150,7 @@ public class JsonMapper {
             alert.setTitle("Error");
             alert.setHeaderText(null);
             alert.setContentText(roomReservationJson);
-                    alert.showAndWait();
+            alert.showAndWait();
         }
         return null;
     }    
