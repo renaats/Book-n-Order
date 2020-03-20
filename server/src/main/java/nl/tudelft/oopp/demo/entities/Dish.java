@@ -29,6 +29,11 @@ public class Dish {
     @JoinColumn
     private Menu menu;
 
+    @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn
+    private Allergy allergy;
+
     /**
      * Creates a new instance of Dish.
      * @param name = name of the dish.
@@ -55,12 +60,20 @@ public class Dish {
         this.name = name;
     }
 
+    public void setAllergy(Allergy allergy) {
+        this.allergy = allergy;
+    }
+
     public int getId() {
         return id;
     }
 
     public String getName() {
         return name;
+    }
+
+    public Allergy getAllergy() {
+        return allergy;
     }
 
     @Override
