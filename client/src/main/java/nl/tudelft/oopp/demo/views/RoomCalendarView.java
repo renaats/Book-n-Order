@@ -5,7 +5,6 @@ import com.calendarfx.model.Calendar.Style;
 import com.calendarfx.model.CalendarSource;
 import com.calendarfx.model.Entry;
 import com.calendarfx.view.CalendarView;
-
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -15,7 +14,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
@@ -88,7 +86,7 @@ public class RoomCalendarView extends Application {
                         e.printStackTrace();
                     }
                 }
-            };
+            }
         };
 
         updateTimeThread.setPriority(Thread.MIN_PRIORITY);
