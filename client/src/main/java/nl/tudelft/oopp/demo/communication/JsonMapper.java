@@ -129,7 +129,6 @@ public class JsonMapper {
         return null;
     }
         
-    
     /**
      * Maps JSON to RoomReservation entity.
      * @param roomReservationJson representation of a room.
