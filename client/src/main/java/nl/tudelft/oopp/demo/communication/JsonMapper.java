@@ -178,6 +178,7 @@ public class JsonMapper {
         return null;
     }
 
+    /**
      * Maps a JSON string to an Restaurant object
      * @param restaurantJson JSON representation of a String
      * @return Restaurant Object
