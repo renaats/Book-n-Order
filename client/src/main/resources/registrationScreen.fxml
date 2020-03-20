@@ -59,7 +59,7 @@
             <Font name="DejaVu Sans ExtraLight" size="36.0" />
          </font>
       </Text>
-      <Button fx:id="loginButton" layoutX="1100.0" layoutY="52.0" mnemonicParsing="false" onAction="#loginScene" prefHeight="38.0" prefWidth="90.0" style="-fx-background-color: #439fd9;" text="Login" textAlignment="CENTER" textFill="WHITE">
+      <Button fx:id="loginButton" layoutX="1113.0" layoutY="76.0" mnemonicParsing="false" onAction="#loginScene" prefHeight="38.0" prefWidth="90.0" style="-fx-background-color: #439fd9;" text="Login" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>
