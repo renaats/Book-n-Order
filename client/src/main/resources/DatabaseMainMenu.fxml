@@ -42,10 +42,13 @@
             <Image url="@images/DatabaseMenuFoodIcon.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="885.0" layoutY="360.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="885.0" layoutY="360.0" onMouseClicked="#databaseBikes" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/bikeIconFinalWithCircle.png" />
          </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </ImageView>
       <Button layoutX="82.0" layoutY="145.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#mainMenu" style="-fx-background-color: #00a6d6;" text="Exit admin panel" textFill="WHITE">
          <cursor>
@@ -71,7 +74,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button layoutX="860.0" layoutY="510.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" style="-fx-background-color: #00a6d6;" text="Edit  Bikes" textFill="WHITE">
+      <Button layoutX="860.0" layoutY="510.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#databaseBikes" style="-fx-background-color: #00a6d6;" text="Edit  Bikes" textFill="WHITE">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
