@@ -47,6 +47,22 @@ public class RoomCalendarView extends Application {
         Calendar myBookingCalendar = new Calendar("My Bookings");
         myBookingCalendar.setStyle(Style.STYLE1);
 
+        List<RoomReservation> roomReservationList =
+                new ArrayList<>(Objects.requireNonNull(JsonMapper.roomReservationsListMapper(ServerCommunication.getRoomReservations())));
+        for (RoomReservation reservation : roomReservationList) {
+            if (reservation.getRoom().equals(this.room)) {
+                Entry<RoomReservation> bookedEntry = new Entry<>("Room is booked or unavailable");
+
+                LocalTime startTime = convertToLocalTime(reservation.getFromTime());
+                LocalTime endTime = convertToLocalTime(reservation.getToTime());
+                LocalDate date = convertToLocalDate(reservation.getFromTime());
+
+                bookedEntry.setInterval(startTime, endTime);
+                bookedEntry.setInterval(date);
+                bookedSlotsCalendar.addEntry(bookedEntry);
+            }
+        }
+
         CalendarSource myCalendarSource = new CalendarSource("Calendars");
         myCalendarSource.getCalendars().removeAll();
         myCalendarSource.getCalendars().addAll(bookedSlotsCalendar, myBookingCalendar);
