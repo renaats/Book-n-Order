@@ -103,6 +103,18 @@ public class FoodOrderService {
                 AppUser appUser = optionalUser.get();
                 foodOrder.setAppUser(appUser);
                 break;
+            case "feedback":
+                boolean feedback;
+                if(value.equals("positive")) {
+                    if(foodOrder.getFeedback() != null) return 431;
+                    foodOrder.setFeedback(true);
+                    foodOrder.getRestaurant().setFeedbackCounter(foodOrder.getRestaurant().getFeedbackCounter() + 1);
+                }else if(value.equals("negative")) {
+                    if(foodOrder.getFeedback() != null) return 431;
+                    foodOrder.setFeedback(false);
+                    foodOrder.getRestaurant().setFeedbackCounter(foodOrder.getRestaurant().getFeedbackCounter() - 1);
+                }
+                break;
             default:
                 return 420;
         }

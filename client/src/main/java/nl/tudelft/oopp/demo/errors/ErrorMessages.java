@@ -2,13 +2,14 @@ package nl.tudelft.oopp.demo.errors;
 
 public class ErrorMessages {
     private static final String addedMessage = "Successfully added!";
+    private static final String alreadyReceivedFeedback = "Already gave a feedback.";
     private static final String notFoundMessage = "Not found.";
     private static final String unAuthorizedMessage = "You do not have the proper authorization.";
     private static final String preConditionFailedMessage = "Attribute does not exist!";
     private static final String IdNotFoundMessage = "No results on ID.";
     private static final String hasRoomsMessage = "Building has rooms.";
     private static final String executedMessage = "Successfully executed.";
-    private static final String alreadyReservedMessage = "Already reserved at this timeslot.";
+    private static final String alreadyReservedMessage = "Already reserved at this time slot.";
     private static final String roomNotFoundMessage = "Room not found.";
     private static final String userNotFoundMessage = "User not found.";
     private static final String attributeNotFoundMessage = "Attribute not found.";
@@ -94,6 +95,8 @@ public class ErrorMessages {
                 return menuNotFoundMessage;
             case 430:
                 return dishNotFoundMessage;
+            case 431:
+                return alreadyReceivedFeedback;
             case 502:
                 return unsupportedEncodingMessage;
             default:

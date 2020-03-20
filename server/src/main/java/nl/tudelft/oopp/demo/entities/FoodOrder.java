@@ -46,6 +46,10 @@ public class FoodOrder {
     @Temporal(TemporalType.TIMESTAMP)
     private Date deliveryTime;
 
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn
+    private Boolean feedback;
+
     /** Creates a new instance of FoodOrder.
      * @param restaurant the restaurant at which the food order is placed.
      * @param appUser user who placed the food order.
@@ -79,6 +83,8 @@ public class FoodOrder {
         this.deliveryTime = deliveryTime;
     }
 
+    public void setFeedback(Boolean feedback) { this.feedback = feedback; }
+
     public Integer getId() {
         return id;
     }
@@ -98,6 +104,8 @@ public class FoodOrder {
     public Date getDeliveryTime() {
         return deliveryTime;
     }
+
+    public Boolean getFeedback() { return feedback; }
 
     @Override
     public boolean equals(Object o) {

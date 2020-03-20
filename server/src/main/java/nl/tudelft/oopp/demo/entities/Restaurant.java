@@ -42,6 +42,9 @@ public class Restaurant {
     @JoinColumn
     private Menu menu;
 
+    @JoinColumn
+    private int feedbackCounter = 0;
+
     /**
      * Creates a new instance of Restaurant.
      * @param building = building in which restaurant is located.
@@ -79,6 +82,8 @@ public class Restaurant {
         this.menu = menu;
     }
 
+    public void setFeedbackCounter(int feedbackCounter) { this.feedbackCounter = feedbackCounter; }
+
     public int getId() {
         return id;
     }
@@ -94,6 +99,8 @@ public class Restaurant {
     public Menu getMenu() {
         return menu;
     }
+
+    public int getFeedbackCounter() { return feedbackCounter; }
 
     @Override
     public boolean equals(Object o) {
