@@ -1,12 +1,11 @@
 package nl.tudelft.oopp.demo.specifications;
 
-import nl.tudelft.oopp.demo.entities.Dish;
-import nl.tudelft.oopp.demo.entities.Room;
-import org.springframework.data.jpa.domain.Specification;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import nl.tudelft.oopp.demo.entities.Dish;
+import org.springframework.data.jpa.domain.Specification;
+
 
 public class DishSpecificationsBuilder {
 
@@ -21,6 +20,10 @@ public class DishSpecificationsBuilder {
         return this;
     }
 
+    /**
+     * Combines all parameters into a Dish specification.
+     * @return Dish Specification.
+     */
     public Specification<Dish> build() {
         if (params.size() == 0) {
             return null;

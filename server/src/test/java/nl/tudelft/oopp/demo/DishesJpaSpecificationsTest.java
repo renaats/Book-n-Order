@@ -1,39 +1,26 @@
 package nl.tudelft.oopp.demo;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.in;
+import static org.hamcrest.Matchers.not;
 
-import nl.tudelft.oopp.demo.controllers.RoomController;
-import nl.tudelft.oopp.demo.entities.Building;
+import java.util.List;
+import javax.transaction.Transactional;
 import nl.tudelft.oopp.demo.entities.Dish;
 import nl.tudelft.oopp.demo.entities.Menu;
-import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.repositories.DishRepository;
 import nl.tudelft.oopp.demo.repositories.MenuRepository;
 import nl.tudelft.oopp.demo.specifications.DishSpecification;
-import nl.tudelft.oopp.demo.specifications.RoomSpecification;
 import nl.tudelft.oopp.demo.specifications.SearchCriteria;
-import nl.tudelft.oopp.demo.repositories.BuildingRepository;
-import nl.tudelft.oopp.demo.repositories.RoomRepository;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import javax.transaction.Transactional;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.util.List;
-
-import static org.hamcrest.Matchers.in;
-import static org.hamcrest.Matchers.not;
-
-
 @Transactional
 @DataJpaTest
-public class DishesJPASpecificationsTest {
+public class DishesJpaSpecificationsTest {
 
     @Autowired
     private DishRepository dishRepository;
@@ -44,6 +31,9 @@ public class DishesJPASpecificationsTest {
     private Dish dish2;
     private Menu menu;
 
+    /**
+     * Initializes variables before each test.
+     */
     @BeforeEach
     public void init() {
 

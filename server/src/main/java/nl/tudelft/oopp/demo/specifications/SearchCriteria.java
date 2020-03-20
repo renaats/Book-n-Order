@@ -5,6 +5,12 @@ public class SearchCriteria {
     private String operation;
     private Object value;
 
+    /**
+     * Stores key, operation, and value fields for filtering.
+     * @param key the key whose value must be checked.
+     * @param operation the operation performed.
+     * @param value the value that needs to be matched.
+     */
     public SearchCriteria(String key, String operation, Object value) {
         this.key = key;
         this.operation = operation;

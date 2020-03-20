@@ -1,11 +1,12 @@
 package nl.tudelft.oopp.demo.specifications;
 
-import nl.tudelft.oopp.demo.entities.Room;
-import org.springframework.data.jpa.domain.Specification;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import nl.tudelft.oopp.demo.entities.Room;
+import org.springframework.data.jpa.domain.Specification;
+
+
 
 public class RoomSpecificationsBuilder {
 
@@ -20,6 +21,10 @@ public class RoomSpecificationsBuilder {
         return this;
     }
 
+    /**
+     * Combines all parameters into a Room specification.
+     * @return Room Specification.
+     */
     public Specification<Room> build() {
         if (params.size() == 0) {
             return null;

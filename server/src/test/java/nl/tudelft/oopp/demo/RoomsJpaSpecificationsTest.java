@@ -1,34 +1,27 @@
 package nl.tudelft.oopp.demo;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.in;
+import static org.hamcrest.Matchers.not;
 
+import java.util.List;
+import javax.transaction.Transactional;
 import nl.tudelft.oopp.demo.controllers.RoomController;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Room;
-import nl.tudelft.oopp.demo.specifications.RoomSpecification;
-import nl.tudelft.oopp.demo.specifications.SearchCriteria;
 import nl.tudelft.oopp.demo.repositories.BuildingRepository;
 import nl.tudelft.oopp.demo.repositories.RoomRepository;
+import nl.tudelft.oopp.demo.specifications.RoomSpecification;
+import nl.tudelft.oopp.demo.specifications.SearchCriteria;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import javax.transaction.Transactional;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.util.List;
-
-import static org.hamcrest.Matchers.in;
-import static org.hamcrest.Matchers.not;
-
-
 @Transactional
 @DataJpaTest
-public class RoomsJPASpecificationsTest {
+public class RoomsJpaSpecificationsTest {
 
     @Autowired
     private RoomRepository roomRepository;
@@ -39,6 +32,9 @@ public class RoomsJPASpecificationsTest {
     private Room roomBeta;
     private Building building;
 
+    /**
+     * Initializes variables before each test.
+     */
     @BeforeEach
     public void init() {
 

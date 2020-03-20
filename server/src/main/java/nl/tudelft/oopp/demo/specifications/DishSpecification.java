@@ -1,13 +1,14 @@
 package nl.tudelft.oopp.demo.specifications;
 
-import nl.tudelft.oopp.demo.entities.Dish;
-import nl.tudelft.oopp.demo.entities.Room;
-import org.springframework.data.jpa.domain.Specification;
-
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Root;
+
+import nl.tudelft.oopp.demo.entities.Dish;
+import org.springframework.data.jpa.domain.Specification;
+
+
 public class DishSpecification implements Specification<Dish> {
 
     private SearchCriteria criteria;
@@ -21,11 +22,9 @@ public class DishSpecification implements Specification<Dish> {
 
         if (criteria.getOperation().equalsIgnoreCase(">")) {
             return builder.greaterThanOrEqualTo(root.<String>get(criteria.getKey()), criteria.getValue().toString());
-        }
-        else if (criteria.getOperation().equalsIgnoreCase("<")) {
+        } else if (criteria.getOperation().equalsIgnoreCase("<")) {
             return builder.lessThanOrEqualTo(root.<String>get(criteria.getKey()), criteria.getValue().toString());
-        }
-        else if (criteria.getOperation().equalsIgnoreCase(":")) {
+        } else if (criteria.getOperation().equalsIgnoreCase(":")) {
             if (root.get(criteria.getKey()).getJavaType() == String.class) {
                 return builder.like(root.<String>get(criteria.getKey()), "%" + criteria.getValue() + "%");
             } else {
