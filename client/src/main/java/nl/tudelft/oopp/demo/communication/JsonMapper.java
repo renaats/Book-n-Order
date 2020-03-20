@@ -157,7 +157,7 @@ public class JsonMapper {
     /**
      * Maps all restaurant JSONS to a list.
      * @param restaurantsJson a JSON string representing a list.
-     * @return A list filled with object Buildings
+     * @return A list filled with object Restaurant
      */
     public static List<Restaurant> restaurantListMapper(String restaurantsJson) {
 
