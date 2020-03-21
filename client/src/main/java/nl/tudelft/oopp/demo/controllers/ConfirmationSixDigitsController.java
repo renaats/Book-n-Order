@@ -28,8 +28,6 @@ public class ConfirmationSixDigitsController {
             alert.showAndWait();
             if(response == "Successfully executed.") {
                 ApplicationDisplay.changeScene("/mainMenu.fxml");
-            }else {
-            UserInformation.setBearerKey(null);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -42,6 +40,7 @@ public class ConfirmationSixDigitsController {
     }
 
     public void goToLoginScreen(MouseEvent mouseEvent) throws IOException {
+        UserInformation.setBearerKey(null);
         ApplicationDisplay.changeScene("/login-screen.fxml");
     }
 }
