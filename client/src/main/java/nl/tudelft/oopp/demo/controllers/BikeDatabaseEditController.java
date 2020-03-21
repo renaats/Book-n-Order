@@ -12,13 +12,13 @@ import javafx.collections.ObservableList;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-import nl.tudelft.oopp.demo.communication.JsonMapper;
-import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.Bike;
-import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
@@ -62,6 +62,9 @@ public class BikeDatabaseEditController implements Initializable {
     private TableColumn<Bike, String> colLocation;
     @FXML
     private TableColumn<Bike, String> colAvailable;
+    @FXML
+    private ChoiceBox<String> updateChoiceBox;
+
     @FXML
     private ChoiceBox<String> updateChoiceBox;
 
