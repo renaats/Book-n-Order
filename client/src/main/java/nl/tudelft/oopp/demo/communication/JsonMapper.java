@@ -4,15 +4,13 @@ import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+
+import javafx.scene.control.Alert;
+import nl.tudelft.oopp.demo.entities.*;
 
 import java.io.IOException;
 import java.util.List;
-
-import javafx.scene.control.Alert;
-import nl.tudelft.oopp.demo.entities.AppUser;
-import nl.tudelft.oopp.demo.entities.Building;
-import nl.tudelft.oopp.demo.entities.Restaurant;
-import nl.tudelft.oopp.demo.entities.Room;
 
 public class JsonMapper {
 
@@ -172,6 +170,55 @@ public class JsonMapper {
             alert.setTitle("Error");
             alert.setHeaderText(null);
             alert.setContentText(restaurantsJson);
+            alert.showAndWait();
+        }
+        return null;
+    }
+
+    /**
+     * Maps all restaurant hours JSONS to an object.
+     * @param restaurantHoursJson a JSON string
+     * @return Restaurant hour object
+     */
+    public static RestaurantHours restaurantHoursMapper(String restaurantHoursJson) {
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+        System.out.println(restaurantHoursJson);
+
+        try {
+            // Convert JSON string to Object
+            RestaurantHours restaurantHours = mapper.readValue(restaurantHoursJson, RestaurantHours.class);
+            return restaurantHours;
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText(restaurantHoursJson);
+            alert.showAndWait();
+        }
+        return null;
+    }
+
+    /**
+     * Maps all restaurant hours JSONS to an object.
+     * @param buildingHourJson a JSON string
+     * @return Restaurant hour object
+     */
+    public static BuildingHours buildingHoursMapper(String buildingHourJson) {
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+
+        try {
+            // Convert JSON string to Object
+            BuildingHours buildingHours = mapper.readValue(buildingHourJson, BuildingHours.class);
+            return buildingHours;
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText(buildingHourJson);
             alert.showAndWait();
         }
         return null;
