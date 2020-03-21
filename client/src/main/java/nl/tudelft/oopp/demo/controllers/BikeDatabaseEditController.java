@@ -11,13 +11,13 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-import nl.tudelft.oopp.demo.communication.JsonMapper;
-import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.Bike;
-import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 import javax.swing.*;
@@ -25,8 +25,6 @@ import javax.swing.*;
 public class BikeDatabaseEditController implements Initializable {
 
     final ObservableList updateChoiceBoxList = FXCollections.observableArrayList();
-    final ObservableList<Bike> bikeSearchResult = FXCollections.observableArrayList();
-    final ObservableList<Building> locationsSearchResults = FXCollections.observableArrayList();
 
     @FXML
     private TextField BikeChangeToField;
@@ -47,27 +45,30 @@ public class BikeDatabaseEditController implements Initializable {
     @FXML
     private TableColumn<Bike, String> colLocation;
     @FXML
-    private TableColumn<Bike, String> colAvailable;
+    private TableColumn colAvailable;
+    @FXML
+    private TextField buildingDeleteByIdTextField;
+
     @FXML
     private ChoiceBox<String> updateChoiceBox;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        colLocation.setCellValueFactory(new PropertyValueFactory<>("getBuildingName"));
-        colAvailable.setCellValueFactory(new PropertyValueFactory<>("available"));
-        loadDataIntoChoiceBox();
-        loadBikesIntoTable();
+        colLocation.setCellValueFactory(new PropertyValueFactory<>("Location"));
+        colAvailable.setCellValueFactory(new PropertyValueFactory<>("Available"));
+        loadDataUpdateChoiceBox();
     }
 
     /**
      * loads the current bikes into the table
      */
-    public void loadBikesIntoTable() {
-        List<Bike> bikes = new ArrayList<>(Objects.requireNonNull(JsonMapper.bikeListMapper(ServerCommunication.getBikes())));
-        bikeSearchResult.clear();
-        bikeSearchResult.addAll(bikes);
-        table.setItems(bikeSearchResult);
+    public void loadDataUpdateChoiceBox() {
+        updateChoiceBoxList.removeAll();
+        String a = "Location";
+        String b = "Available";
+        updateChoiceBoxList.addAll(a, b);
+        updateChoiceBox.getItems().addAll(updateChoiceBoxList);
     }
 
     public void loadBikesIntoTableAvailable() {
@@ -112,18 +113,6 @@ public class BikeDatabaseEditController implements Initializable {
         table.setItems(bikeSearchResult);
     }
     /**
-     * Takes care of the options for the updateChoiceBox in the GUI
-     */
-    public void loadDataIntoChoiceBox() {
-        updateChoiceBoxList.clear();
-        String a = "location";
-        String b = "available";
-        updateChoiceBoxList.addAll(a, b);
-        updateChoiceBox.getItems().addAll(updateChoiceBoxList);
-    }
-
-
-    /**
      * Changes view to main menu
      * @throws IOException should never throw an exception as the input is always the same
      */
@@ -155,58 +144,4 @@ public class BikeDatabaseEditController implements Initializable {
         ApplicationDisplay.changeScene("/BikeDatabaseEdit.fxml");
     }
 
-    /**
-     * deletes a bike based on the ID of the text box
-     */
-    public void deleteBikeById() {
-        int id = Integer.parseInt(bikeDeleteByIdTextField.getText());
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Bike remover");
-        alert.setHeaderText(null);
-        alert.setContentText(ServerCommunication.deleteBike(id));
-        alert.showAndWait();
-        loadBikesIntoTable();
-    }
-
-    public void updateBikeAttribute() {
-        String attribute = updateChoiceBox.getValue();
-        int id = bikeSearchResult.get(0).getId();
-        String value = BikeChangeToField.getText();
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Bike updater");
-        alert.setHeaderText(null);
-        alert.setContentText(ServerCommunication.updateBike(id,attribute,value));
-        alert.showAndWait();
-        loadBikesIntoTable();
-    }
-
-    /**
-     * Deletes the selected  bike from the table and the database
-     */
-    public void deleteBikeUsingTable() {
-        Bike bike = (Bike) table.getSelectionModel().getSelectedItem();
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Bike remover");
-        alert.setHeaderText(null);
-        alert.setContentText(ServerCommunication.deleteBike(bike.getId()));
-        alert.showAndWait();
-        loadBikesIntoTable();
-    }
-
-    /**
-     * allows you to select the bike you wish to update in the table
-     */
-    public void updateUsingTable() {
-        Bike bike = (Bike) table.getSelectionModel().getSelectedItem();
-        bikeFindByIdTextField.setText(""+bike.getId());
-        loadBikesIntoTableId();
-        String attribute = updateChoiceBox.getValue();
-        String value = BikeChangeToField.getText();
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Bike updater");
-        alert.setHeaderText(null);
-        alert.setContentText(ServerCommunication.updateBike(bike.getId(),attribute,value));
-        alert.showAndWait();
-        loadBikesIntoTable();
-    }
 }
