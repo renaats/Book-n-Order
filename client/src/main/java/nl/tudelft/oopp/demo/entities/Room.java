@@ -6,7 +6,7 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
- * Creates and maneges an object for the current Rooms in the database when in client side
+ * Manages the Room object that is retrieved from the server
  */
 public class Room {
 
