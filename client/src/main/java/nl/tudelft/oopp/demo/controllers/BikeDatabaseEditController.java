@@ -31,6 +31,8 @@ public class BikeDatabaseEditController implements Initializable {
     final ObservableList<Building> locationsSearchResults = FXCollections.observableArrayList();
 
     @FXML
+    private TextField BikeChangeToField;
+    @FXML
     private TextField bikeDeleteByIdTextField;
     @FXML
     private Button confirmDeleteByIdButton;
@@ -141,8 +143,8 @@ public class BikeDatabaseEditController implements Initializable {
      */
     public void loadDataIntoChoiceBox() {
         updateChoiceBoxList.clear();
-        String a = "Location";
-        String b = "Available";
+        String a = "location";
+        String b = "available";
         updateChoiceBoxList.addAll(a, b);
         updateChoiceBox.getItems().addAll(updateChoiceBoxList);
     }
@@ -184,6 +186,24 @@ public class BikeDatabaseEditController implements Initializable {
      * deletes a bike based on the ID of the text box
      */
     public void deleteBikeById() {
-        //TODO
+        int id = Integer.parseInt(bikeDeleteByIdTextField.getText());
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Bike remover");
+        alert.setHeaderText(null);
+        alert.setContentText(ServerCommunication.deleteBike(id));
+        alert.showAndWait();
+        loadBikesIntoTable();
+    }
+
+    public void updateBikeAttribute() {
+        String attribute = updateChoiceBox.getValue();
+        int id = bikeSearchResult.get(0).getId();
+        String value = BikeChangeToField.getText();
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Bike updater");
+        alert.setHeaderText(null);
+        alert.setContentText(ServerCommunication.updateBike(id,attribute,value));
+        alert.showAndWait();
+        loadBikesIntoTable();
     }
 }
