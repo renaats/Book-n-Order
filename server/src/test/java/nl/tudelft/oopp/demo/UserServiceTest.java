@@ -4,10 +4,13 @@ import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
 import static nl.tudelft.oopp.demo.security.SecurityConstants.EXPIRATION_TIME;
 import static nl.tudelft.oopp.demo.security.SecurityConstants.HEADER_STRING;
 import static nl.tudelft.oopp.demo.security.SecurityConstants.SECRET;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.auth0.jwt.JWT;
 
@@ -21,6 +24,7 @@ import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.Role;
 import nl.tudelft.oopp.demo.repositories.RoleRepository;
 import nl.tudelft.oopp.demo.services.UserService;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -306,5 +310,32 @@ class UserServiceTest {
         userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty());
         MockHttpServletRequest request = new MockHttpServletRequest();
         assertEquals(419, userService.logout(request));
+    }
+
+    /**
+     * Tests the admin request for some user with and without the required role.
+     */
+    @Test
+    public void testAdmin() {
+        userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty());
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        String token = JWT.create()
+                .withSubject(appUser.getEmail())
+                .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                .sign(HMAC512(SECRET.getBytes()));
+        request.addHeader(HEADER_STRING, token);
+        assertFalse(userService.isAdmin(request));
+        userService.addRole(appUser.getEmail(), "ROLE_ADMIN");
+        assertTrue(userService.isAdmin(request));
+    }
+
+    /**
+     * Tests the admin request for a non-existent user.
+     */
+    @Test
+    public void testNonExistentAdmin() {
+        userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty());
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        assertFalse(userService.isAdmin(request));
     }
 }
