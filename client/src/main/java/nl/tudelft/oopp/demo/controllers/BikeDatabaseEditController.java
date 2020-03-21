@@ -11,12 +11,11 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import nl.tudelft.oopp.demo.communication.JsonMapper;
+import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.Bike;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
@@ -25,6 +24,7 @@ import javax.swing.*;
 public class BikeDatabaseEditController implements Initializable {
 
     final ObservableList updateChoiceBoxList = FXCollections.observableArrayList();
+    final ObservableList<Bike> bikeResult = FXCollections.observableArrayList();
 
     @FXML
     private TextField BikeChangeToField;
@@ -69,6 +69,25 @@ public class BikeDatabaseEditController implements Initializable {
         String b = "Available";
         updateChoiceBoxList.addAll(a, b);
         updateChoiceBox.getItems().addAll(updateChoiceBoxList);
+        listBikesButtonClicked();
+    }
+
+    /**
+     * Handles clicking the list button.
+     */
+    public void listBikesButtonClicked() {
+        try {
+            List<Bike> bikes = new ArrayList<>(Objects.requireNonNull(JsonMapper.bikeListMapper(ServerCommunication.getBikes())));
+            bikeResult.clear();
+            bikeResult.addAll(bikes);
+            table.setItems(bikeResult);
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("No buildings found.");
+            alert.showAndWait();
+        }
     }
 
     public void loadBikesIntoTableAvailable() {
