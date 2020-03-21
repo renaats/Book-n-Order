@@ -606,8 +606,37 @@ public class ServerCommunication {
         return communicateAndReturnErrorMessage(request);
     }
 
+    /**
+     * Asks the server for all bikes in the database
+     * @return a Json string with all the bikes in the database
+     */
     public static String getBikes() {
         HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + UserInformation.getBearerKey()).uri(URI.create("http://localhost:8080/bike/all")).build();
         return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Updates a given attribute of a room.
+     * @param id = the id of the room.
+     * @param attribute = The attribute whose value is to be changed.
+     * @param changeValue = New value.
+     * @return the body of the response from the server.
+     */
+    public static String updateBike(int id, String attribute, String changeValue) {
+        HttpRequest request;
+        try {
+            request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/bike/update?id=" + id + "&attribute=" + attribute + "&value=" + URLEncoder.encode(changeValue, "UTF-8"))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return "Please enter an encoding that is supported by the URLEncode class.";
+        }
+        HttpResponse<String> response;
+        try {
+            request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/bike/update?id=" + id + "&attribute=" + attribute + "&value=" + URLEncoder.encode(changeValue, "UTF-8"))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return "Please enter an encoding that is supported by the URLEncode class.";
+        }
+        return communicateAndReturnErrorMessage(request);
     }
 }
