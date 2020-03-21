@@ -126,11 +126,17 @@ public class ServerCommunication {
         return ErrorMessages.getErrorMessage(Integer.parseInt(response.body()));
     }
 
+    /**
+     * Validates the six digit code of the user.
+     * @param sixDigitCode The six digit code that the user inputs
+     * @return  The error message corresponding to the response of the server
+     */
     public static String validateUser(int sixDigitCode) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/user/validate?sixDigitCode=" + sixDigitCode)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
         return communicateAndReturnErrorMessage(request);
 
     }
+
     /**
      * Authorizes the user.
      * @param email User's email
@@ -157,12 +163,17 @@ public class ServerCommunication {
         for (Map.Entry<String, List<String>> entry : map.entrySet()) {
             if (entry.getKey() != null) {
                 if (entry.getKey().equals("Authorization")) {
-                    if(UserInformation.getBearerKey() == null) {
-                        // Yes it's gross, it works, it grabs the key
+                    //if (UserInformation.getBearerKey() == null) {
+                    //   Yes it's gross, it works, it grabs the key
+                    // UserInformation.setBearerKey((Arrays.asList(entry.getValue().get(0).split(" ")).get(1)));
+                    //  ApplicationDisplay.changeScene("/ConfirmationSixDigits.fxml");
+                    // } else {
+                    //   ApplicationDisplay.changeScene("/mainMenu.fxml");
+                    // }
+                    if (UserInformation.getBearerKey() == null) {
                         UserInformation.setBearerKey((Arrays.asList(entry.getValue().get(0).split(" ")).get(1)));
-                        ApplicationDisplay.changeScene("/ConfirmationSixDigits.fxml");
-                    } else {
-                    ApplicationDisplay.changeScene("/mainMenu.fxml");}
+                        ApplicationDisplay.changeScene("/mainMenu.fxml");
+                    }
                     return ErrorMessages.getErrorMessage(200);
                 }
             }
@@ -351,7 +362,7 @@ public class ServerCommunication {
     public static String addRoomReservation(String room, int buildingId, int userId, Date from, Date to) {
         HttpRequest request = null;
         try {
-            request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room_reservation/add?room" + URLEncoder.encode(room, "UTF-8")+ "&buildingId=" + buildingId + "&userId=" + userId + "&from=" + from + "&to=" + to)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
+            request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room_reservation/add?room" + URLEncoder.encode(room, "UTF-8") + "&buildingId=" + buildingId + "&userId=" + userId + "&from=" + from + "&to=" + to)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
             return "Please enter an encoding that is supported by the URLEncode class.";

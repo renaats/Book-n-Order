@@ -6,7 +6,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 /**
  * Represents a user account. Holds all necessary information about the user that is then stored in the database.
@@ -23,7 +27,6 @@ public class AppUser {
     private String surname;
     private String faculty;
     private boolean loggedIn = false;
-    private boolean enabled;
     private int confirmationNumber;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -104,9 +107,9 @@ public class AppUser {
         this.loggedIn = loggedIn;
     }
 
-    public void setEnabled(boolean enabled) { this.enabled = enabled; }
-
-    public void setConfirmationNumber(int confirmationNumber) { this.confirmationNumber = confirmationNumber; }
+    public void setConfirmationNumber(int confirmationNumber) {
+        this.confirmationNumber = confirmationNumber;
+    }
 
     public String getEmail() {
         return email;
@@ -148,9 +151,9 @@ public class AppUser {
         return loggedIn;
     }
 
-    public boolean isEnabled() { return enabled; }
-
-    public int getConfirmationNumber() { return confirmationNumber; }
+    public int getConfirmationNumber() {
+        return confirmationNumber;
+    }
 
     @Override
     public boolean equals(Object o) {

@@ -1,5 +1,6 @@
 package nl.tudelft.oopp.demo;
 
+import java.util.Properties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.MessageSource;
@@ -8,8 +9,6 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
 import org.springframework.mail.MailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
-import java.util.Properties;
 
 /**
  * Spring boot application that is executed whenever the server is launched.
@@ -29,6 +28,10 @@ public class DatabaseApplication {
         return new BCryptPasswordEncoder();
     }
 
+    /**
+     * The bean responsible for making an object, which sends emails.
+     * @return MailSender
+     */
     @Bean(name = "mailSender")
     public MailSender javaMailService() {
         JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
@@ -45,15 +48,8 @@ public class DatabaseApplication {
         return javaMailSender;
     }
 
-    @Bean
-    public MessageSource messageSource() {
-        final ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-        messageSource.setBasename("classpath:messages");
-        messageSource.setUseCodeAsDefaultMessage(true);
-        messageSource.setDefaultEncoding("UTF-8");
-        messageSource.setCacheSeconds(0);
-        return messageSource;
+    public static void main(String[] args) {
+        SpringApplication.run(DatabaseApplication.class, args);
     }
-    public static void main(String[] args) { SpringApplication.run(DatabaseApplication.class, args); }
 
 }

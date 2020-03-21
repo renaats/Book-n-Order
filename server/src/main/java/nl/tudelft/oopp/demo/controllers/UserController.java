@@ -1,28 +1,24 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import javax.servlet.http.HttpServletRequest;
 import nl.tudelft.oopp.demo.entities.AppUser;
-import nl.tudelft.oopp.demo.entities.VerificationToken;
 import nl.tudelft.oopp.demo.events.OnRegistrationSuccessEvent;
 import nl.tudelft.oopp.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.context.MessageSource;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.Calendar;
-import java.util.Locale;
 
 /**
  * Creates server side endpoints and routes requests to the UserService.
@@ -64,8 +60,7 @@ public class UserController {
             @RequestParam String password,
             @RequestParam String name,
             @RequestParam String surname,
-            @RequestParam String faculty,
-            WebRequest request) {
+            @RequestParam String faculty) {
         AppUser appUser = new AppUser();
         appUser.setEmail(email);
         appUser.setPassword(password);
@@ -73,12 +68,16 @@ public class UserController {
         appUser.setSurname(surname);
         appUser.setFaculty(faculty);
         AppUser registeredUser = appUser;
-        int result = userService.add(registeredUser.getEmail(),registeredUser.getPassword(),registeredUser.getName(),registeredUser.getSurname(),registeredUser.getFaculty());
-        if(result != 201) return result;
+        int result = userService.add(registeredUser.getEmail(),registeredUser.getPassword(),registeredUser.getName(),
+                registeredUser.getSurname(),registeredUser.getFaculty());
+        if (result != 201) {
+            return result;
+        }
         try {
-            eventPublisher.publishEvent(new OnRegistrationSuccessEvent(registeredUser, request.getLocale(),"/user"));
-        }catch(Exception e) {
+            eventPublisher.publishEvent(new OnRegistrationSuccessEvent(registeredUser));
+        } catch (Exception e) {
             e.printStackTrace();
+            System.out.println("Event did not go as expected.");
         }
         return 203;
     }
@@ -149,23 +148,4 @@ public class UserController {
     public void addRole(@RequestParam String email, @RequestParam String roleName) {
         userService.addRole(email, roleName);
     }
-
-//    @GetMapping(path = "/confirmRegistration")
-//    public String confirmRegistration(WebRequest request ,@RequestParam("token") String token) {
-//        Locale locale=request.getLocale();
-//        VerificationToken verificationToken = userService.getVerificationToken(token);
-//        if(verificationToken == null) {
-//            String message = messages.getMessage("auth.message.invalidToken", null, locale);
-//            return "redirect:access-denied";
-//        }
-//        AppUser user = verificationToken.getUser();
-//        Calendar calendar = Calendar.getInstance();
-//        if((verificationToken.getExpiryDate().getTime()-calendar.getTime().getTime())<=0) {
-//            String message = messages.getMessage("auth.message.expired", null, locale);
-//            return "redirect:access-denied";
-//        }
-//        user.setEnabled(true);
-//        userService.enableRegisteredUser(user);
-//        return null;
-//    }
 }

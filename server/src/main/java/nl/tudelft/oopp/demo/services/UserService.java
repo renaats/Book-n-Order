@@ -1,25 +1,23 @@
 package nl.tudelft.oopp.demo.services;
 
+import static nl.tudelft.oopp.demo.security.SecurityConstants.HEADER_STRING;
+import static nl.tudelft.oopp.demo.security.SecurityConstants.SECRET;
+import static nl.tudelft.oopp.demo.security.SecurityConstants.TOKEN_PREFIX;
+
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.util.HashSet;
+import javax.servlet.http.HttpServletRequest;
 import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.Role;
-import nl.tudelft.oopp.demo.entities.VerificationToken;
 import nl.tudelft.oopp.demo.repositories.RoleRepository;
 import nl.tudelft.oopp.demo.repositories.UserRepository;
-import nl.tudelft.oopp.demo.repositories.VerificationTokenRepository;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import javax.servlet.http.HttpServletRequest;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.util.HashSet;
-
-import static nl.tudelft.oopp.demo.security.SecurityConstants.*;
 
 /**
  * Supports CRUD operations for the AppUser entity.
@@ -34,8 +32,6 @@ public class UserService {
     private BCryptPasswordEncoder bcryptPasswordEncoder;
     @Autowired
     private RoleRepository roleRepository;
-    @Autowired
-    private VerificationTokenRepository verificationTokenRepository;
 
     /**
      * Logs out from the current account.
@@ -106,6 +102,12 @@ public class UserService {
         return 201;
     }
 
+    /**
+     *  Checks whether the input of the user is equal to the one sent in the email.
+     * @param request The request, which validates the six digit code
+     * @param sixDigitCode User's six digit input
+     * @return  An error code corresponding outcome of the request
+     */
     public int validate(HttpServletRequest request, int sixDigitCode) {
         String token = request.getHeader(HEADER_STRING);
         if (token != null) {
@@ -116,8 +118,7 @@ public class UserService {
                     .getSubject();
             if (user != null && userRepository.existsById(user)) {
                 AppUser appUser = userRepository.findByEmail(user);
-                if(sixDigitCode == appUser.getConfirmationNumber()) {
-                    appUser.setEnabled(true);
+                if (sixDigitCode == appUser.getConfirmationNumber()) {
                     userRepository.save(appUser);
                     return 200;
                 }
@@ -126,6 +127,7 @@ public class UserService {
         }
         return 419;
     }
+
     /**
      * Updates a specified attribute for some user.
      * @param email = the email of the user
@@ -214,20 +216,5 @@ public class UserService {
         role = roleRepository.findByName(roleName);
         appUser.addRole(role);
         userRepository.save(appUser);
-    }
-
-    public void createVerificationToken(AppUser user, String token) {
-        VerificationToken newUserToken = new VerificationToken(token, user);
-        verificationTokenRepository.save(newUserToken);
-    }
-
-    @Transactional
-    public VerificationToken getVerificationToken(String verificationToken) {
-        return verificationTokenRepository.findByToken(verificationToken);
-    }
-
-    @Transactional
-    public void enableRegisteredUser(AppUser user) {
-        userRepository.save(user);
     }
 }

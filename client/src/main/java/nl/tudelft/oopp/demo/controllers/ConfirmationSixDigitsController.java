@@ -1,5 +1,6 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -9,13 +10,16 @@ import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.user.UserInformation;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
-import java.io.IOException;
-
 public class ConfirmationSixDigitsController {
 
     @FXML
     public TextField sixDigitCode;
 
+    /**
+     * Checks the authenticity of user's email.
+     * @param actionEvent A confirm button click
+     * @throws IOException Deals with improper ipnut
+     */
     public void confirmValidity(ActionEvent actionEvent) throws IOException {
 
         try {
@@ -26,7 +30,7 @@ public class ConfirmationSixDigitsController {
             alert.setHeaderText(null);
             alert.setContentText(response);
             alert.showAndWait();
-            if(response == "Successfully executed.") {
+            if (response == "Successfully executed.") {
                 ApplicationDisplay.changeScene("/mainMenu.fxml");
             }
         } catch (Exception e) {
