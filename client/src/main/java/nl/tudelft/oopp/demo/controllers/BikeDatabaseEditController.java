@@ -2,9 +2,6 @@ package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
@@ -26,14 +23,10 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
  */
 public class BikeDatabaseEditController implements Initializable {
 
-    final ObservableList updateChoiceBoxList = FXCollections.observableArrayList();
-    final ObservableList<Bike> bikeSearchResult = FXCollections.observableArrayList();
-    final ObservableList<Building> locationsSearchResults = FXCollections.observableArrayList();
-
     @FXML
-    private TextField BikeChangeToField;
+    private TableView<Bike> table;
     @FXML
-    private TextField bikeDeleteByIdTextField;
+    private TableColumn<Bike, String> colId;
     @FXML
     private Button confirmDeleteByIdButton;
     @FXML
@@ -61,82 +54,46 @@ public class BikeDatabaseEditController implements Initializable {
     @FXML
     private TableColumn<Bike, String> colLocation;
     @FXML
-    private TableColumn<Bike, Boolean> colAvailable;
-    @FXML
-    private ChoiceBox<String> updateChoiceBox;
+    private TableColumn colAvailable;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        colLocation.setCellValueFactory(new PropertyValueFactory<>("getBuildingName"));
-        colAvailable.setCellValueFactory(new PropertyValueFactory<>("available"));
-        loadDataIntoChoiceBox();
-        loadBikesIntoTable();
+        colLocation.setCellValueFactory(new PropertyValueFactory<>("Location"));
+        colAvailable.setCellValueFactory(new PropertyValueFactory<>("Available"));
+        loadDataUpdateChoiceBox();
+        listBuildingsButtonClicked();
     }
 
-    /**
-     * loads the current bikes into the table
-     */
-    public void loadBikesIntoTable() {
-        List<Bike> bikes = new ArrayList<>(Objects.requireNonNull(JsonMapper.bikeListMapper(ServerCommunication.getBikes())));
-        bikeSearchResult.clear();
-        bikeSearchResult.addAll(bikes);
-        table.setItems(bikeSearchResult);
-    }
-
-    public void loadBikesIntoTableAvailable() {
-        List<Bike> bikes = new ArrayList<>(Objects.requireNonNull(JsonMapper.bikeListMapper(ServerCommunication.getBikes())));
-        bikeSearchResult.clear();
-        for (Bike b : bikes) {
-            if (b.isAvailable() == available.isSelected()) {
-                bikeSearchResult.add(b);
-            }
-        }
-    }
-
-        /**
-         * Shows the bike with the chosen id in the table.
-         */
-    public void loadBikesIntoTableId() {
-        List<Bike> bikes = new ArrayList<>(Objects.requireNonNull(JsonMapper.bikeListMapper(ServerCommunication.getBikes())));
-        bikeSearchResult.clear();
-        for (int i = 0; i < bikes.size(); i++) {
-            if (bikes.get(i).getId() == Integer.parseInt(bikeFindByIdTextField.getText())) {
-                bikeSearchResult.add(bikes.get(i));
-            }
-        }
-        table.setItems(bikeSearchResult);
-    }
-
-    public void loadBikesIntoTableLocation() {
-        List<Building> locations = new ArrayList<>(Objects.requireNonNull(JsonMapper.buildingListMapper(ServerCommunication.getBuildings())));
-        List<Bike> bikes = new ArrayList<>(Objects.requireNonNull(JsonMapper.bikeListMapper(ServerCommunication.getBikes())));
-        locationsSearchResults.clear();
-        for (int i = 0; i < locations.size(); i++) {
-            if (locations.get(i).getName().equals(locationSearch.getText())) {
-                locationsSearchResults.add(locations.get(i));
-            }
-        }
-        bikeSearchResult.clear();
-        for (int i = 0; i < bikes.size(); i++) {
-            if (locationsSearchResults.contains(bikes.get(i).getLocation())){
-                bikeSearchResult.add(bikes.get(i));
-            }
-        }
-        table.setItems(bikeSearchResult);
-    }
     /**
      * Takes care of the options for the updateChoiceBox in the GUI
      */
-    public void loadDataIntoChoiceBox() {
-        updateChoiceBoxList.clear();
-        String a = "location";
-        String b = "available";
-        updateChoiceBoxList.addAll(a, b);
+    public void loadDataUpdateChoiceBox() {
+        updateChoiceBoxList.removeAll();
+        String a = "Name";
+        String b = "Street";
+        String c = "House Number";
+        updateChoiceBoxList.addAll(a, b, c);
         updateChoiceBox.getItems().addAll(updateChoiceBoxList);
     }
 
-
+    /**
+     * Handles clicking the list button.
+     */
+    public void listBuildingsButtonClicked() {
+        try {
+            //List<Bike> bikes = new ArrayList<>(Objects.requireNonNull(JsonMapper.bikeListMapper(ServerCommunication.getBuildings())));
+            buildingResult.clear();
+            buildingResult.addAll(bikes);
+            table.setItems(buildingResult);
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("No buildings found.");
+            alert.showAndWait();
+        }
+    }
     /**
      * Changes view to main menu
      * @throws IOException should never throw an exception as the input is always the same
@@ -169,58 +126,119 @@ public class BikeDatabaseEditController implements Initializable {
         ApplicationDisplay.changeScene("/BikeDatabaseEdit.fxml");
     }
 
-    /**
-     * deletes a bike based on the ID of the text box
-     */
-    public void deleteBikeById() {
-        int id = Integer.parseInt(bikeDeleteByIdTextField.getText());
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Bike remover");
-        alert.setHeaderText(null);
-        alert.setContentText(ServerCommunication.deleteBike(id));
-        alert.showAndWait();
-        loadBikesIntoTable();
-    }
 
-    public void updateBikeAttribute() {
-        String attribute = updateChoiceBox.getValue();
-        int id = bikeSearchResult.get(0).getId();
-        String value = BikeChangeToField.getText();
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Bike updater");
-        alert.setHeaderText(null);
-        alert.setContentText(ServerCommunication.updateBike(id,attribute,value));
-        alert.showAndWait();
-        loadBikesIntoTable();
-    }
+
+
+
+
+
+
+
+    @FXML
+    private TextField buildingDeleteByIdTextField;
+
+    final ObservableList updateChoiceBoxList = FXCollections.observableArrayList();
+    final ObservableList<Building> buildingResult = FXCollections.observableArrayList();
+
+    @FXML
+    private ChoiceBox<String> updateChoiceBox;
+    @FXML
+    private TextField buildingFindByIdTextField;
+    @FXML
+    private TextField buildingChangeToField;
+
 
     /**
-     * Deletes the selected  bike from the table and the database
+     * Handles clicking the building find button.
      */
-    public void deleteBikeUsingTable() {
-        Bike bike = (Bike) table.getSelectionModel().getSelectedItem();
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Bike remover");
-        alert.setHeaderText(null);
-        alert.setContentText(ServerCommunication.deleteBike(bike.getId()));
-        alert.showAndWait();
-        loadBikesIntoTable();
+    public void buildingIdButtonClicked() {
+        try {
+            int id = Integer.parseInt(buildingFindByIdTextField.getText());
+            Building building = JsonMapper.buildingMapper(ServerCommunication.findBuilding(id));
+            buildingResult.clear();
+            buildingResult.add(building);
+            table.setItems(buildingResult);
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Missing argument.");
+            alert.showAndWait();
+        }
     }
 
     /**
-     * allows you to select the bike you wish to update in the table
+     * Handles clicking of the Remove Building button.
      */
-    public void updateUsingTable() {
-        Bike bike = (Bike) table.getSelectionModel().getSelectedItem();
-        bikeFindByIdTextField.setText(""+bike.getId());
-        loadBikesIntoTableId();
-        String attribute = updateChoiceBox.getValue();
-        String value = BikeChangeToField.getText();
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Bike updater");
-        alert.setHeaderText(null);
-        alert.setContentText(ServerCommunication.updateBike(bike.getId(),attribute,value));
-        alert.showAndWait();
-        loadBikesIntoTable();
+    public void deleteBuildingButtonClicked() {
+        try {
+            int id = Integer.parseInt(buildingDeleteByIdTextField.getText());
+            ServerCommunication.deleteBuilding(id);
+            buildingResult.removeIf(b -> b.getId() == id);
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Missing argument.");
+            alert.showAndWait();
+        }
     }
+
+    /**
+     * Handles clicking of the Remove Building button through the table.
+     */
+    public void deleteBuildingButtonClickedByTable() {
+        try {
+            Building building = table.getSelectionModel().getSelectedItem();
+            ServerCommunication.deleteBuilding(building.getId());
+            buildingResult.removeIf(b -> b.getId().equals(building.getId()));
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Missing argument.");
+            alert.showAndWait();
+        }
+    }
+
+    /**
+     * Handles clicking of the edit Building button through the table.
+     */
+    public void editBuildingButtonClickedByTable() {
+        try {
+            Building building = table.getSelectionModel().getSelectedItem();
+            buildingFindByIdTextField.setText(Integer.toString(building.getId()));
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Missing argument.");
+            alert.showAndWait();
+        }
+    }
+
+    /**
+     * Handles the sending of updated values.
+     */
+    public void updateBuildingButtonClicked() {
+        try {
+            int id = Integer.parseInt(buildingFindByIdTextField.getText());
+            String attribute = updateChoiceBox.getValue().replaceAll(" ", "");
+            String changeValue = buildingChangeToField.getText();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Building update");
+            alert.setHeaderText(null);
+            alert.setContentText(ServerCommunication.updateBuilding(id, attribute, changeValue));
+            alert.showAndWait();
+            buildingResult.clear();
+            listBuildingsButtonClicked();
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Missing argument.");
+            alert.showAndWait();
+        }
+    }
+
 }
