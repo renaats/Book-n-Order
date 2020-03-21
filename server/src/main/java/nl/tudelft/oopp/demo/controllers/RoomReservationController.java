@@ -101,7 +101,7 @@ public class RoomReservationController {
      * @return a list of future room reservations for this user.
      */
     @Secured("ROLE_USER")
-    @GetMapping(path = "/past")
+    @GetMapping(path = "/future")
     public Iterable<RoomReservation> getFutureReservations(HttpServletRequest request) {
         return roomReservationService.future(request);
     }

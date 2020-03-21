@@ -101,7 +101,7 @@ public class FoodOrderController {
      * @return a list of future food orders for this user.
      */
     @Secured("ROLE_USER")
-    @GetMapping(path = "/past")
+    @GetMapping(path = "/future")
     public Iterable<FoodOrder> getFutureReservations(HttpServletRequest request) {
         return foodOrderService.future(request);
     }

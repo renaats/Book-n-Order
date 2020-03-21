@@ -105,7 +105,7 @@ public class BikeReservationController {
      * @return a list of future bike reservations for this user.
      */
     @Secured("ROLE_USER")
-    @GetMapping(path = "/past")
+    @GetMapping(path = "/future")
     public Iterable<BikeReservation> getFutureReservations(HttpServletRequest request) {
         return bikeReservationService.future(request);
     }
