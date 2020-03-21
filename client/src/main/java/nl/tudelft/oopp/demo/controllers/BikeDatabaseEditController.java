@@ -7,10 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import nl.tudelft.oopp.demo.entities.Bike;
@@ -19,7 +16,8 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 public class BikeDatabaseEditController implements Initializable {
 
     final ObservableList updateChoiceBoxList = FXCollections.observableArrayList();
-
+    @FXML
+    private TextField bikeFindByIdTextField;
     @FXML
     private TableView<Bike> table;
     @FXML
@@ -29,7 +27,7 @@ public class BikeDatabaseEditController implements Initializable {
     @FXML
     private TableColumn colAvailable;
     @FXML
-    private TextField buildingDeleteByIdTextField;
+    private TextField bikeDeleteByIdTextField;
 
     @FXML
     private ChoiceBox<String> updateChoiceBox;
