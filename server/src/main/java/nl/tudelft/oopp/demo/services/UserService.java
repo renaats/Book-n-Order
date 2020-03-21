@@ -65,6 +65,7 @@ public class UserService {
 
     /**
      * Returns information about the user account.
+     * @param request = the Http request that calls this method
      * @return account information about the account that requests it.
      */
     public String userInfo(HttpServletRequest request) {
@@ -219,5 +220,28 @@ public class UserService {
         appUser.addRole(role);
         userRepository.save(appUser);
         return 201;
+    }
+
+    /**
+     * Retrieves a boolean value representing whether the user is allowed to access the admin panel.
+     * @param request = the Http request that calls this method.
+     */
+    public boolean isAdmin(HttpServletRequest request) {
+        String token = request.getHeader(HEADER_STRING);
+        if (token != null) {
+            // parse the token.
+            String user = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
+                    .build()
+                    .verify(token.replace(TOKEN_PREFIX, ""))
+                    .getSubject();
+            if (user != null && userRepository.existsById(user)) {
+                AppUser appUser = userRepository.findByEmail(user);
+                return appUser.getRoles().contains(roleRepository.findByName("ROLE_ADMIN"))
+                        || appUser.getRoles().contains(roleRepository.findByName("ROLE_BUILDING_ADMIN"))
+                        || appUser.getRoles().contains(roleRepository.findByName("ROLE_BIKE_ADMIN"))
+                        || appUser.getRoles().contains(roleRepository.findByName("ROLE_RESTAURANT"));
+            }
+        }
+        return false;
     }
 }
