@@ -664,4 +664,9 @@ public class ServerCommunication {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/bike/delete/" + id)).DELETE().header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
         return communicateAndReturnErrorMessage(request);
     }
+
+    public static String getBikes() {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + UserInformation.getBearerKey()).uri(URI.create("http://localhost:8080/bike/all")).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
 }
