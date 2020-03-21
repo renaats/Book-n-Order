@@ -18,6 +18,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.Bike;
+import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
@@ -26,10 +27,14 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 public class BikeDatabaseEditController implements Initializable {
 
     final ObservableList updateChoiceBoxList = FXCollections.observableArrayList();
-    final ObservableList<Bike> bikeResult = FXCollections.observableArrayList();
-
+    final ObservableList<Bike> bikeSearchResult = FXCollections.observableArrayList();
+    final ObservableList<Building> locationsSearchResults = FXCollections.observableArrayList();
     @FXML
-    private TableView<Bike> table;
+    private TextField locationSearch;
+    @FXML
+    private TableView table;
+    @FXML
+    private TextField bikeFindByIdTextField;
     @FXML
     private TableColumn<Bike, String> colId;
     @FXML
@@ -59,70 +64,73 @@ public class BikeDatabaseEditController implements Initializable {
     @FXML
     private TableColumn<Bike, String> colLocation;
     @FXML
-    private TableColumn colAvailable;
-    @FXML
-    private TextField bikeDeleteByIdTextField;
+    private TableColumn<Bike, String> colAvailable;
     @FXML
     private ChoiceBox<String> updateChoiceBox;
-    @FXML
-    private TextField bikeFindByIdTextField;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        colLocation.setCellValueFactory(new PropertyValueFactory<>("Location"));
-        colAvailable.setCellValueFactory(new PropertyValueFactory<>("Available"));
-        loadDataUpdateChoiceBox();
+        colLocation.setCellValueFactory(new PropertyValueFactory<>("location"));
+        colAvailable.setCellValueFactory(new PropertyValueFactory<>("available"));
+        loadDataIntoChoiceBox();
+        loadBikesIntoTable();
     }
 
     /**
+     * loads the current bikes into the table
+     */
+    public void loadBikesIntoTable() {
+        List<Bike> bikes = new ArrayList<>(Objects.requireNonNull(JsonMapper.bikeListMapper(ServerCommunication.getBikes())));
+        bikeSearchResult.clear();
+        bikeSearchResult.addAll(bikes);
+        table.setItems(bikeSearchResult);
+    }
+
+    /**
+     * Shows the bike with the chosen id in the table.
+     * @param Button the pressing of the find button
+     */
+    public void loadBikesIntoTableId(ActionEvent Button) {
+        List<Bike> bikes = new ArrayList<>(Objects.requireNonNull(JsonMapper.bikeListMapper(ServerCommunication.getBikes())));
+        bikeSearchResult.clear();
+        for (int i = 0; i < bikes.size(); i++) {
+            if (bikes.get(i).getId() == Integer.parseInt(bikeFindByIdTextField.getText())) {
+                bikeSearchResult.add(bikes.get(i));
+            }
+        }
+        table.setItems(bikeSearchResult);
+    }
+
+    public void loadBikesIntoTableLocation(ActionEvent actionEvent) {
+        List<Building> locations = new ArrayList<>(Objects.requireNonNull(JsonMapper.buildingListMapper(ServerCommunication.getBuildings())));
+        List<Bike> bikes = new ArrayList<>(Objects.requireNonNull(JsonMapper.bikeListMapper(ServerCommunication.getBikes())));
+        locationsSearchResults.clear();
+        for (int i = 0; i < locations.size(); i++) {
+            if (locations.get(i).getName().equals(locationSearch.getText())) {
+                locationsSearchResults.add(locations.get(i));
+            }
+        }
+        bikeSearchResult.clear();
+        for (int i = 0; i < bikes.size(); i++) {
+            if (locationsSearchResults.contains(bikes.get(i).getLocation())){
+                bikeSearchResult.add(bikes.get(i));
+            }
+        }
+        table.setItems(bikeSearchResult);
+    }
+    /**
      * Takes care of the options for the updateChoiceBox in the GUI
      */
-    public void loadDataUpdateChoiceBox() {
-        updateChoiceBoxList.removeAll();
+    public void loadDataIntoChoiceBox() {
+        updateChoiceBoxList.clear();
         String a = "Location";
         String b = "Available";
         updateChoiceBoxList.addAll(a, b);
         updateChoiceBox.getItems().addAll(updateChoiceBoxList);
-        listBikesButtonClicked();
     }
 
-    /**
-     * Handles clicking the list button.
-     */
-    public void listBikesButtonClicked() {
-        try {
-            List<Bike> bikes = new ArrayList<>(Objects.requireNonNull(JsonMapper.bikeListMapper(ServerCommunication.getBikes())));
-            bikeResult.clear();
-            bikeResult.addAll(bikes);
-            table.setItems(bikeResult);
-        } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("No buildings found.");
-            alert.showAndWait();
-        }
-    }
 
-    /**
-     * Handles clicking the building find button.
-     */
-    public void buildingIdButtonClicked() {
-        try {
-            int id = Integer.parseInt(bikeFindByIdTextField.getText());
-            Bike building = JsonMapper.buildingMapper(ServerCommunication.findBuilding(id));
-            buildingResult.clear();
-            buildingResult.add(building);
-            table.setItems(buildingResult);
-        } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Missing argument.");
-            alert.showAndWait();
-        }
-    }
     /**
      * Changes view to main menu
      * @throws IOException should never throw an exception as the input is always the same
@@ -154,4 +162,5 @@ public class BikeDatabaseEditController implements Initializable {
     public void goToEditBike() throws IOException {
         ApplicationDisplay.changeScene("/BikeDatabaseEdit.fxml");
     }
+
 }
