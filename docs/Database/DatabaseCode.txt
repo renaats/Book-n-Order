@@ -75,6 +75,16 @@ Table menu {
   item_allergies String
 }
 
+Table dish {
+  dish id PK
+  menu id
+  item String
+  item_ingredients String
+  allergies id
+  price int
+  quantity int
+}
+
 Table food_orders {
   order_id int PK
   User User
@@ -83,6 +93,7 @@ Table food_orders {
   delivery_date date
   delivery_location building_number
   menu menu
+  dish id
 }
 
 Ref: "User"."id" < "food_orders"."User"
@@ -114,3 +125,5 @@ Ref: "building"."building_number" < "food_orders"."delivery_location"
 Ref: "bike_reservations"."from_building" < "building"."building_number"
 
 Ref: "bike_reservations"."to_building" < "building"."building_number"
+
+Ref: "dish"."dish" < "food_orders"."dish"

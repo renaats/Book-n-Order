@@ -29,6 +29,11 @@ public class Dish {
     @JoinColumn
     private Menu menu;
 
+    @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn
+    private FoodOrder foodOrder;
+
     /**
      * Creates a new instance of Dish.
      * @param name = name of the dish.

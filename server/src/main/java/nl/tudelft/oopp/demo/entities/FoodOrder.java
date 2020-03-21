@@ -57,7 +57,7 @@ public class FoodOrder {
     private Menu menu;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "menu")
+    @OneToMany(mappedBy = "foodOrder")
     Set<Dish> dishes = new HashSet<>();
 
     /** Creates a new instance of FoodOrder.
