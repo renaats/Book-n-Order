@@ -18,7 +18,6 @@ import java.util.Map;
 
 import nl.tudelft.oopp.demo.authentication.AuthenticationKey;
 import nl.tudelft.oopp.demo.errors.ErrorMessages;
-import nl.tudelft.oopp.demo.user.UserInformation;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 public class ServerCommunication {
@@ -115,6 +114,22 @@ public class ServerCommunication {
             System.out.println("Status: " + response.statusCode());
         }
         return response.body();
+    }
+
+    /**
+     * Retrieves a boolean value from the server, false = no admin access, true = admin access.
+     * @return the body of the response from the server.
+     */
+    public static boolean getAdminButtonPermission() {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/user/admin")).build();
+        HttpResponse<String> response;
+        try {
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return response.body().contains("true");
     }
 
     /**

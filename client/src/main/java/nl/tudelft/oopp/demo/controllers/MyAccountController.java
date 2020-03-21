@@ -40,11 +40,11 @@ public class MyAccountController implements Initializable {
 
 
         boolean showAdminButton = false;
-        //        try {
-        //            showAdminButton = ServerCommunication.getAdminButtonPermission();
-        //        } catch (Exception e) {
-        //            e.printStackTrace();
-        //        }
+        try {
+            showAdminButton = ServerCommunication.getAdminButtonPermission();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         if (!showAdminButton) {
             anchorPane.getChildren().remove(adminControl);
         }
