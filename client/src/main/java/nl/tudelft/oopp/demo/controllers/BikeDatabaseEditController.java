@@ -18,6 +18,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.Bike;
+import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
@@ -28,15 +29,6 @@ public class BikeDatabaseEditController implements Initializable {
     final ObservableList updateChoiceBoxList = FXCollections.observableArrayList();
     final ObservableList<Bike> bikeSearchResult = FXCollections.observableArrayList();
     final ObservableList<Building> locationsSearchResults = FXCollections.observableArrayList();
-
-    @FXML
-    private TextField BikeChangeToField;
-    @FXML
-    private TextField bikeDeleteByIdTextField;
-    @FXML
-    private Button confirmDeleteByIdButton;
-    @FXML
-    private CheckBox available;
     @FXML
     private ChoiceBox locationChangeChoiceBoxSearch;
     @FXML
@@ -62,16 +54,12 @@ public class BikeDatabaseEditController implements Initializable {
     @FXML
     private TableColumn<Bike, String> colAvailable;
     @FXML
-    private TextField bikeDeleteByIdTextField;
-    @FXML
     private ChoiceBox<String> updateChoiceBox;
-    @FXML
-    private TextField bikeFindByIdTextField;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        colLocation.setCellValueFactory(new PropertyValueFactory<>("getBuildingName"));
+        colLocation.setCellValueFactory(new PropertyValueFactory<>("location"));
         colAvailable.setCellValueFactory(new PropertyValueFactory<>("available"));
         loadDataIntoChoiceBox();
         loadBikesIntoTable();
@@ -87,20 +75,12 @@ public class BikeDatabaseEditController implements Initializable {
         table.setItems(bikeSearchResult);
     }
 
-    public void loadBikesIntoTableAvailable() {
-        List<Bike> bikes = new ArrayList<>(Objects.requireNonNull(JsonMapper.bikeListMapper(ServerCommunication.getBikes())));
-        bikeSearchResult.clear();
-        for (Bike b : bikes) {
-            if (b.isAvailable() == available.isSelected()) {
-                bikeSearchResult.add(b);
-            }
-        }
-    }
 
-        /**
-         * Shows the bike with the chosen id in the table.
-         */
-    public void loadBikesIntoTableId() {
+    /**
+     * Shows the bike with the chosen id in the table.
+     * @param Button the pressing of the find button
+     */
+    public void loadBikesIntoTableId(ActionEvent Button) {
         List<Bike> bikes = new ArrayList<>(Objects.requireNonNull(JsonMapper.bikeListMapper(ServerCommunication.getBikes())));
         bikeSearchResult.clear();
         for (int i = 0; i < bikes.size(); i++) {
@@ -111,7 +91,7 @@ public class BikeDatabaseEditController implements Initializable {
         table.setItems(bikeSearchResult);
     }
 
-    public void loadBikesIntoTableLocation() {
+    public void loadBikesIntoTableLocation(ActionEvent actionEvent) {
         List<Building> locations = new ArrayList<>(Objects.requireNonNull(JsonMapper.buildingListMapper(ServerCommunication.getBuildings())));
         List<Bike> bikes = new ArrayList<>(Objects.requireNonNull(JsonMapper.bikeListMapper(ServerCommunication.getBikes())));
         locationsSearchResults.clear();
@@ -133,50 +113,13 @@ public class BikeDatabaseEditController implements Initializable {
      */
     public void loadDataIntoChoiceBox() {
         updateChoiceBoxList.clear();
-        String a = "location";
-        String b = "available";
+        String a = "Location";
+        String b = "Available";
         updateChoiceBoxList.addAll(a, b);
         updateChoiceBox.getItems().addAll(updateChoiceBoxList);
-        listBikesButtonClicked();
     }
 
 
-    /**
-     * Handles clicking the list button.
-     */
-    public void listBikesButtonClicked() {
-        try {
-            List<Bike> bikes = new ArrayList<>(Objects.requireNonNull(JsonMapper.bikeListMapper(ServerCommunication.getBikes())));
-            bikeResult.clear();
-            bikeResult.addAll(bikes);
-            table.setItems(bikeResult);
-        } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("No buildings found.");
-            alert.showAndWait();
-        }
-    }
-
-    /**
-     * Handles clicking the building find button.
-     */
-    public void buildingIdButtonClicked() {
-        try {
-            int id = Integer.parseInt(bikeFindByIdTextField.getText());
-            Bike building = JsonMapper.buildingMapper(ServerCommunication.findBuilding(id));
-            buildingResult.clear();
-            buildingResult.add(building);
-            table.setItems(buildingResult);
-        } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Missing argument.");
-            alert.showAndWait();
-        }
-    }
     /**
      * Changes view to main menu
      * @throws IOException should never throw an exception as the input is always the same
@@ -208,4 +151,5 @@ public class BikeDatabaseEditController implements Initializable {
     public void goToEditBike() throws IOException {
         ApplicationDisplay.changeScene("/BikeDatabaseEdit.fxml");
     }
+
 }
