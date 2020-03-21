@@ -544,7 +544,6 @@ public class ServerCommunication {
 
     /**
      * Communicates addBike to the database
-     *
      * @return body response
      */
     public static String addBike(int buildingId, boolean available) {
@@ -552,6 +551,16 @@ public class ServerCommunication {
         request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/bike/add?buildingId=" + buildingId + "&available=" +available)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
         HttpResponse<String> response;
         request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/bike/add?buildingId=" + buildingId + "&available=" +available)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
+        return communicateAndReturnErrorMessage(request);
+    }
+
+    /**
+     * Removes a bike from the database.
+     * @param id = the id of the bike.
+     * @return the body of the response from the server.
+     */
+    public static String deleteBike(int id) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/bike/delete/" + id)).DELETE().header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
         return communicateAndReturnErrorMessage(request);
     }
 }
