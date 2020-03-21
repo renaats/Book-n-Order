@@ -3,7 +3,7 @@ package nl.tudelft.oopp.demo.entities;
 import java.util.Set;
 
 /**
- * Creates and maneges an object for the current role of a user
+ * Manages the user Role object that is retrieved from the server
  */
 public class Role {
 

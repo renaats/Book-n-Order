@@ -5,7 +5,7 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
- * Creates and maneges an object for the current Buildings in the database when in client side
+ * Manages the Building object that is retrieved from the server
  */
 public class Building {
 

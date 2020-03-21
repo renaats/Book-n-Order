@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.Objects;
 
 /**
- * CManages the Bike object that is retrieved from the server while they are on the client side
+ * Manages the Bike object that is retrieved from the server
  */
 public class BikeReservation {
     private Integer id;
