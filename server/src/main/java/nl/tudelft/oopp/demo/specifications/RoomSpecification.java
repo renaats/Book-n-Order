@@ -7,7 +7,6 @@ import javax.persistence.criteria.Root;
 import nl.tudelft.oopp.demo.entities.Room;
 import org.springframework.data.jpa.domain.Specification;
 
-
 public class RoomSpecification implements Specification<Room> {
 
     private SearchCriteria criteria;

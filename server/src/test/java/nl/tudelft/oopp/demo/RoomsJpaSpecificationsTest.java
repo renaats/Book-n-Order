@@ -54,7 +54,6 @@ public class RoomsJpaSpecificationsTest {
         roomAlpha.setProjector(true);
         roomAlpha.setScreen(true);
         roomRepository.save(roomAlpha);
-
         roomBeta = new Room();
         roomBeta.setBuilding(building);
         roomBeta.setFaculty("EWI");

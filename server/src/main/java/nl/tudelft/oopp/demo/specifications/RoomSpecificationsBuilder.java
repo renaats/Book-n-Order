@@ -6,8 +6,6 @@ import java.util.stream.Collectors;
 import nl.tudelft.oopp.demo.entities.Room;
 import org.springframework.data.jpa.domain.Specification;
 
-
-
 public class RoomSpecificationsBuilder {
 
     private final List<SearchCriteria> params;
