@@ -9,13 +9,16 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import nl.tudelft.oopp.demo.entities.Allergy;
 import nl.tudelft.oopp.demo.entities.Dish;
 import nl.tudelft.oopp.demo.entities.Menu;
+import nl.tudelft.oopp.demo.entities.Role;
 import nl.tudelft.oopp.demo.repositories.DishRepository;
 import nl.tudelft.oopp.demo.repositories.MenuRepository;
 import nl.tudelft.oopp.demo.services.AllergyService;
+import nl.tudelft.oopp.demo.services.RoleService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,35 +42,19 @@ public class AllergyServiceTest {
     @Autowired
     AllergyService allergyService;
 
-    @Autowired
-    DishRepository dishRepository;
-
-    @Autowired
-    MenuRepository menuRepository;
-
-    Dish dish1;
-    Dish dish2;
     Allergy allergy1;
     Allergy allergy2;
-    Menu menu;
 
     /**
      * Sets up the entities and saves them via a service before executing every test.
      */
     @BeforeEach
     public void setup() {
+        allergy1 = new Allergy();
+        allergy1.setAllergyName("Lactose");
 
-        menu = new Menu();
-        menuRepository.save(menu);
-
-        dish1 = new Dish("Tosti", menu);
-        dishRepository.save(dish1);
-
-        dish2 = new Dish("Hamburger", menu);
-        dishRepository.save(dish2);
-
-        allergy1 = new Allergy("lactose", dish1);
-        allergy2 = new Allergy("nuts", dish2);
+        allergy2 = new Allergy();
+        allergy2.setAllergyName("Nuts");
     }
 
     /**
@@ -79,19 +66,11 @@ public class AllergyServiceTest {
     }
 
     /**
-     * Tests the creation of an instance with an invalid dish id.
-     */
-    @Test
-    public void testCreateIllegalDish() {
-        assertEquals(416, allergyService.add("nuts", 0));
-    }
-
-    /**
      * Tests the saving and retrieval of an instance of Allergy.
      */
     @Test
-    public void testAdd() {
-        assertEquals(201, allergyService.add("lactose", dish1.getId()));
+    public void testCreate() {
+        assertEquals(201, allergyService.add(allergy1.getAllergyName()));
         assertEquals(Collections.singletonList(allergy1), allergyService.all());
     }
 
@@ -108,7 +87,7 @@ public class AllergyServiceTest {
      */
     @Test
     public void testFindExisting() {
-        allergyService.add("lactose", dish1.getId());
+        allergyService.add(allergy1.getAllergyName());
         int id = allergyService.all().get(0).getId();
         assertNotNull(allergyService.find(id));
     }
@@ -118,28 +97,19 @@ public class AllergyServiceTest {
      */
     @Test
     public void testUpdateNonExistingInstance() {
-        assertEquals(416, allergyService.update(0, "a", "a"));
+        assertEquals(416, allergyService.update(0, "a"));
     }
 
     /**
-     * Tests the update operation on a non-existent attribute.
+     * Tests the change of the name by using the service.
      */
     @Test
-    public void testUpdateNonExistingAttribute() {
-        allergyService.add("lactose", dish1.getId());
+    public void testChangeName() {
+        allergyService.add(allergy1.getAllergyName());
         int id = allergyService.all().get(0).getId();
-        assertEquals(412, allergyService.update(id, "a", "a"));
-    }
-
-    /**
-     * Tests the change of the availability by using the service.
-     */
-    @Test
-    public void testChangeAllergyName() {
-        allergyService.add("lactose", dish1.getId());
-        int id = allergyService.all().get(0).getId();
-        allergyService.update(id, "allergyName", "nuts");
-        assertNotEquals("lactose", allergyService.find(id).getAllergyName());
+        assertNotEquals("Nuts", allergyService.find(id).getAllergyName());
+        allergyService.update(id, "Nuts");
+        assertEquals("Nuts", allergyService.find(id).getAllergyName());
     }
 
     /**
@@ -147,10 +117,10 @@ public class AllergyServiceTest {
      */
     @Test
     public void testMultipleInstances() {
-        allergyService.add("lactose", dish1.getId());
-        allergyService.add("nuts", dish2.getId());
+        allergyService.add(allergy1.getAllergyName());
+        allergyService.add(allergy2.getAllergyName());
         assertEquals(2, allergyService.all().size());
-        ArrayList<Allergy> allergies = new ArrayList<>();
+        List<Allergy> allergies = new ArrayList<>();
         allergies.add(allergy1);
         allergies.add(allergy2);
         assertEquals(allergies, allergyService.all());
@@ -161,7 +131,7 @@ public class AllergyServiceTest {
      */
     @Test
     public void testDelete() {
-        allergyService.add("lactose", dish1.getId());
+        allergyService.add(allergy2.getAllergyName());
         int id = allergyService.all().get(0).getId();
         assertEquals(200, allergyService.delete(id));
         assertEquals(0, allergyService.all().size());
@@ -172,6 +142,6 @@ public class AllergyServiceTest {
      */
     @Test
     public void testDeleteIllegal() {
-        assertEquals(404, allergyService.delete(0));
+        assertEquals(416, allergyService.delete(0));
     }
 }

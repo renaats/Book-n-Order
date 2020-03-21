@@ -7,17 +7,19 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import nl.tudelft.oopp.demo.entities.Allergy;
-import nl.tudelft.oopp.demo.entities.Dish;
-import nl.tudelft.oopp.demo.entities.Menu;
+import nl.tudelft.oopp.demo.entities.*;
 import nl.tudelft.oopp.demo.repositories.AllergyRepository;
 import nl.tudelft.oopp.demo.repositories.DishRepository;
 import nl.tudelft.oopp.demo.repositories.MenuRepository;
+import nl.tudelft.oopp.demo.repositories.RoleRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Tests the Allergy entity.
@@ -43,17 +45,10 @@ public class AllergyTest {
      */
     @BeforeEach
     public void setup() {
-
         menu = new Menu();
-        menuRepository.save(menu);
 
-        dish1 = new Dish("Hamburger", menu);
-        dishRepository.save(dish1);
-
-        dish2 = new Dish("Tosti", menu);
-        dishRepository.save(dish2);
-
-        allergy1 = new Allergy("Lactose", dish1);
+        allergy1 = new Allergy("Lactose");
+        allergy1.setDish(new HashSet<>());
         allergyRepository.save(allergy1);
     }
 
@@ -72,7 +67,7 @@ public class AllergyTest {
     @Test
     public void saveAndRetrieveBike() {
         allergy2 = allergyRepository.findAll().get(0);
-        assertEquals(allergy1, allergy2);
+        assertEquals(allergy1.getAllergyName(), allergy2.getAllergyName());
     }
 
     /**
@@ -80,8 +75,24 @@ public class AllergyTest {
      */
     @Test
     public void testGetters() {
-        allergy3 = allergyRepository.findAll().get(0);
-        assertEquals(allergy3, allergy1);
+        allergy2 = allergyRepository.findAll().get(0);
+        Set<Dish> dishSet = new HashSet<>();
+        assertEquals(allergy1.getAllergyName(), allergy2.getAllergyName());
+        assertEquals(dishSet, allergy1.getDish());
+    }
+
+    /**
+     * Tests the setters of the Allergy class
+     */
+    @Test
+    public void testSetters() {
+        Dish dish = new Dish();
+        Set<Dish> dishSet = new HashSet<>();
+        dishSet.add(dish);
+        allergy2 = new Allergy("Lactose");
+        allergy2.setDish(dishSet);
+        assertEquals(allergy2.getAllergyName(), "Lactose");
+        assertEquals(allergy2.getDish(), dishSet);
     }
 
     /**

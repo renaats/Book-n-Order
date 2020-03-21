@@ -12,7 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -34,9 +34,10 @@ public class Dish {
     @JoinColumn
     private Menu menu;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "dish")
-    Set<Allergy> allergies = new HashSet<>();
+    @ManyToMany
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn
+    private Set<Allergy> allergies;
 
     /**
      * Creates a new instance of Dish.

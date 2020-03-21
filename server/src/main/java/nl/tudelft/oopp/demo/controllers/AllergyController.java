@@ -29,31 +29,28 @@ public class AllergyController {
     /**
      * Adds an allergy.
      * @param allergyName = the allergy
-     * @param dishId = the dish associated with the allergy
      * @return Error code
      */
     @Secured({"ROLE_ADMIN"})
     @PostMapping(path = "/add") // Map ONLY POST Requests
     @ResponseBody
     public int addNewAllergy(
-            @RequestParam String allergyName,
-            @RequestParam int dishId
+            @RequestParam String allergyName
     ) {
-        return allergyService.add(allergyName, dishId);
+        return allergyService.add(allergyName);
     }
 
     /**
-     * Updates a specified attribute for some allergy.
-     * @param id = the id of the allergy
-     * @param attribute = the attribute that is changed
-     * @param value = the new value of the attribute
+     * Updates a the name of an allergy.
+     * @param id = the allergy id
+     * @param name = new name
      * @return Error code
      */
-    @Secured({"ROLE_ADMIN"})
-    @PostMapping(path = "/update")
+    @Secured("ROLE_ADMIN")
+    @PostMapping(path = "/update_name")
     @ResponseBody
-    public int updateAttribute(@RequestParam int id, @RequestParam String attribute, @RequestParam String value) {
-        return allergyService.update(id, attribute, value);
+    public int updateName(@RequestParam int id, @RequestParam String name) {
+        return allergyService.update(id, name);
     }
 
     /**

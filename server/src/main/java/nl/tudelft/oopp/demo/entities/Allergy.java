@@ -1,13 +1,14 @@
 package nl.tudelft.oopp.demo.entities;
 
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -23,19 +24,18 @@ public class Allergy {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @ManyToOne
+    @ManyToMany
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn
-    private Dish dish;
+    private Set<Dish> dishes;
 
     private String allergyName;
 
     /** Creates a new instance of Allergy.
      * @param allergyName the name of the allergy.
      */
-    public Allergy(String allergyName, Dish dish) {
+    public Allergy(String allergyName) {
         this.allergyName = allergyName;
-        this.dish = dish;
     }
 
     public Allergy() {
@@ -46,8 +46,8 @@ public class Allergy {
         this.allergyName = allergyName;
     }
 
-    public void setDish(Dish dish) {
-        this.dish = dish;
+    public void setDish(Set<Dish> dishes) {
+        this.dishes = dishes;
     }
 
     public int getId() {
@@ -58,8 +58,8 @@ public class Allergy {
         return allergyName;
     }
 
-    public Dish getDish() {
-        return dish;
+    public Set<Dish> getDish() {
+        return dishes;
     }
 
     @Override
@@ -72,6 +72,6 @@ public class Allergy {
         }
         Allergy allergy = (Allergy) o;
         return allergyName == allergy.allergyName
-                && Objects.equals(dish, allergy.dish);
+                && Objects.equals(dishes, allergy.dishes);
     }
 }
