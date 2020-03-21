@@ -38,7 +38,7 @@ public class DatabaseEditRoomController implements Initializable {
     @FXML
     private TableView<Room> table;
     @FXML
-    private TableColumn<Room, String> colId;
+    private TableColumn<Room, Integer> colId;
     @FXML
     private TableColumn<Room, String> colName;
     @FXML
@@ -55,8 +55,6 @@ public class DatabaseEditRoomController implements Initializable {
     private TableColumn<Room, Integer> colCapacity;
     @FXML
     private TableColumn<Room, String> colPlugs;
-    @FXML
-    private TableColumn<Room, String> colRoomReservations;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -64,14 +62,15 @@ public class DatabaseEditRoomController implements Initializable {
 
         colId.setCellValueFactory(new PropertyValueFactory<>("Id"));
         colName.setCellValueFactory(new PropertyValueFactory<>("Name"));
-        colBuilding.setCellValueFactory(new PropertyValueFactory<>("Building"));
+        colBuilding.setCellValueFactory(new PropertyValueFactory<>("getBuildingName"));
         colFaculty.setCellValueFactory(new PropertyValueFactory<>("Faculty"));
         colFacultySpecific.setCellValueFactory(new PropertyValueFactory<>("FacultySpecific"));
         colProjector.setCellValueFactory(new PropertyValueFactory<>("Projector"));
         colScreen.setCellValueFactory(new PropertyValueFactory<>("Screen"));
         colCapacity.setCellValueFactory(new PropertyValueFactory<>("capacity"));
         colPlugs.setCellValueFactory(new PropertyValueFactory<>("Plugs"));
-        colRoomReservations.setCellValueFactory((new PropertyValueFactory<>("RoomReservations")));
+
+        roomBuildingsButtonClicked();
     }
 
     /**

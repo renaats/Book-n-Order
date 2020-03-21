@@ -1,5 +1,7 @@
 package nl.tudelft.oopp.demo.entities;
 
+import javafx.beans.property.StringProperty;
+
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;

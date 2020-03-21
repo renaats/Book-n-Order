@@ -168,7 +168,6 @@ public class DatabaseEditBuildingController implements Initializable {
             alert.setHeaderText(null);
             alert.setContentText("Missing argument.");
             alert.showAndWait();
-            e.printStackTrace();
         }
     }
 

@@ -308,7 +308,6 @@ public class ServerCommunication {
     }
 
     /**
-    /**
      * Retrieves a room reservation by given id.
      * @param roomReservationId = the id of the room reservation.
      * @return The body of the response from the server.

@@ -124,7 +124,7 @@ public class RoomTest {
      * Tests the getter for the capacity field.
      */
     @Test
-    public void testcapacityGetter() {
+    public void testCapacityGetter() {
         room2 = roomRepository.findAll().get(0);
         assertEquals(300, room2.getCapacity());
     }

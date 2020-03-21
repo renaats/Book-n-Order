@@ -1,5 +1,8 @@
 package nl.tudelft.oopp.demo.entities;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
@@ -95,6 +98,12 @@ public class Room {
 
     public Building getBuilding() {
         return building;
+    }
+
+    public StringProperty getBuildingNameProperty() {
+        String v = getBuilding().getName();;
+        StringProperty buildingNameProperty = new SimpleStringProperty(v);
+        return buildingNameProperty;
     }
 
     public String getFaculty() {
