@@ -1,6 +1,10 @@
 package nl.tudelft.oopp.demo.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -29,10 +34,9 @@ public class Dish {
     @JoinColumn
     private Menu menu;
 
-    @ManyToOne
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn
-    private Allergy allergy;
+    @JsonIgnore
+    @OneToMany(mappedBy = "dish")
+    Set<Allergy> allergies = new HashSet<>();
 
     /**
      * Creates a new instance of Dish.
@@ -60,8 +64,8 @@ public class Dish {
         this.name = name;
     }
 
-    public void setAllergy(Allergy allergy) {
-        this.allergy = allergy;
+    public void setAllergy(Set<Allergy> allergies) {
+        this.allergies = allergies;
     }
 
     public int getId() {
@@ -72,8 +76,8 @@ public class Dish {
         return name;
     }
 
-    public Allergy getAllergy() {
-        return allergy;
+    public Set<Allergy> getAllergy() {
+        return allergies;
     }
 
     @Override
