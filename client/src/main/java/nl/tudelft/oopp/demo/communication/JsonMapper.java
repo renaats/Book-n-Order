@@ -254,7 +254,7 @@ public class JsonMapper {
      * @param bikesJson a JSON string representing a list.
      * @return A list filled with object Buildings
      */
-    public static List<Building> bikeListMapper(String bikesJson) {
+    public static List<Bike> bikeListMapper(String bikesJson) {
 
         ObjectMapper mapper = new ObjectMapper();
 
