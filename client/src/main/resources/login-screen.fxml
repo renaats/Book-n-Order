@@ -33,7 +33,7 @@
             <Font name="System Bold" size="17.0" />
          </font>
       </Button>
-      <Button fx:id="register_button" layoutX="1113.0" layoutY="76.0" mnemonicParsing="false" onAction="#registrationScene" style="-fx-background-color: #439fd9;" text="Register" textAlignment="CENTER" textFill="WHITE" AnchorPane.rightAnchor="77.0" AnchorPane.topAnchor="76.0">
+      <Button fx:id="register_button" layoutX="1113.0" layoutY="76.0" mnemonicParsing="false" onAction="#registrationScene" prefHeight="38.0" prefWidth="90.0" style="-fx-background-color: #439fd9;" text="Register" textAlignment="CENTER" textFill="WHITE" AnchorPane.rightAnchor="77.0" AnchorPane.topAnchor="76.0">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>
