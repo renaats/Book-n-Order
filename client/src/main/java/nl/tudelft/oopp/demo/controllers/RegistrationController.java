@@ -34,7 +34,6 @@ public class RegistrationController implements Initializable {
      */
     public void registerButton() {
         try {
-//            ApplicationDisplay.changeScene("/ConfirmationSixDigits.fxml");
             String email = emailField.getText();
             String name = nameField.getText();
             String password = passwordField.getText();

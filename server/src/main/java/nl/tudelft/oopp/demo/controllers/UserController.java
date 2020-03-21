@@ -39,10 +39,6 @@ public class UserController {
     @Autowired
     private ApplicationEventPublisher eventPublisher;
 
-    @Qualifier("messageSource")
-    @Autowired
-    private MessageSource messages;
-
     /**
      * Logs out from the current account.
      * @param request = the Http request that calls this method
@@ -89,7 +85,7 @@ public class UserController {
 
     @PostMapping(path = "/validate")
     @ResponseBody
-    public int validateUser(@RequestParam int sixDigitCode, HttpServletRequest request) {
+    public int validateUser(HttpServletRequest request,  @RequestParam int sixDigitCode) {
         return userService.validate(request, sixDigitCode);
     }
 

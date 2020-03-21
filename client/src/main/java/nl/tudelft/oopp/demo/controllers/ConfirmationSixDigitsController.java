@@ -6,6 +6,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
+import nl.tudelft.oopp.demo.user.UserInformation;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 import java.io.IOException;
@@ -19,11 +20,17 @@ public class ConfirmationSixDigitsController {
 
         try {
             int code = Integer.parseInt(sixDigitCode.getText());
+            String response =  ServerCommunication.validateUser(code);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Registration");
             alert.setHeaderText(null);
-            alert.setContentText(ServerCommunication.validateUser(code));
+            alert.setContentText(response);
             alert.showAndWait();
+            if(response == "Successfully executed.") {
+                ApplicationDisplay.changeScene("/mainMenu.fxml");
+            }else {
+            UserInformation.setBearerKey(null);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -34,8 +41,8 @@ public class ConfirmationSixDigitsController {
         }
     }
 
-    public void goToMyAccountScene(MouseEvent mouseEvent) throws IOException {
-        ApplicationDisplay.changeScene("login-screen.fxml");
+    public void goToLoginScreen(MouseEvent mouseEvent) throws IOException {
+        ApplicationDisplay.changeScene("/login-screen.fxml");
     }
 }
 

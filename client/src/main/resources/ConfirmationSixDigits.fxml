@@ -35,7 +35,7 @@
             <Font name="Calibri" size="11.0" />
          </font>
       </Text>
-      <ImageView fitHeight="28.0" fitWidth="36.0" layoutX="20.0" layoutY="85.0" onMouseClicked="#goToMyAccountScene" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="28.0" fitWidth="36.0" layoutX="20.0" layoutY="85.0" onMouseClicked="#goToLoginScreen" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/BackArrow.png" />
          </image>
@@ -43,7 +43,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </ImageView>
-      <Text layoutX="550.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Confirmation " textAlignment="CENTER" wrappingWidth="168.00000190734863">
+      <Text layoutX="550.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Confirmation" textAlignment="CENTER" wrappingWidth="168.00000190734863">
          <font>
             <Font size="24.0" />
          </font>

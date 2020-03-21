@@ -157,9 +157,12 @@ public class ServerCommunication {
         for (Map.Entry<String, List<String>> entry : map.entrySet()) {
             if (entry.getKey() != null) {
                 if (entry.getKey().equals("Authorization")) {
-                    // Yes it's gross, it works, it grabs the key
-                    UserInformation.setBearerKey((Arrays.asList(entry.getValue().get(0).split(" ")).get(1)));
-                    ApplicationDisplay.changeScene("/mainMenu.fxml");
+                    if(UserInformation.getBearerKey() == null) {
+                        // Yes it's gross, it works, it grabs the key
+                        UserInformation.setBearerKey((Arrays.asList(entry.getValue().get(0).split(" ")).get(1)));
+                        ApplicationDisplay.changeScene("/ConfirmationSixDigits.fxml");
+                    } else {
+                    ApplicationDisplay.changeScene("/mainMenu.fxml");}
                     return ErrorMessages.getErrorMessage(200);
                 }
             }
