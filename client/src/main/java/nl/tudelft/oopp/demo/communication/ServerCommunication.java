@@ -636,16 +636,7 @@ public class ServerCommunication {
      * @return the body of the response from the server.
      */
     public static String deleteBike(int id) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/bike/delete/" + id)).DELETE().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/bike/delete/" + id)).DELETE().header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
         return communicateAndReturnErrorMessage(request);
-    }
-
-    /**
-     * Asks the server for all bikes in the database
-     * @return a Json string with all the bikes in the database
-     */
-    public static String getBikes() {
-        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/bike/all")).build();
-        return communicateAndReturnBodyOfResponse(request);
     }
 }
