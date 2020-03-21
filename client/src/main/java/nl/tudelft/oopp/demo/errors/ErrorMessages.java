@@ -9,6 +9,7 @@ public class ErrorMessages {
     private static final String IdNotFoundMessage = "No results on ID.";
     private static final String hasRoomsMessage = "Building has rooms.";
     private static final String executedMessage = "Successfully executed.";
+    private static final String codesDoNotMatchMessage = "The six digit code does not match with the one sent in the email. Try again.";
     private static final String alreadyReservedMessage = "Already reserved at this time slot.";
     private static final String roomNotFoundMessage = "Room not found.";
     private static final String userNotFoundMessage = "User not found.";
@@ -97,6 +98,8 @@ public class ErrorMessages {
                 return menuNotFoundMessage;
             case 430:
                 return dishNotFoundMessage;
+            case 431:
+                return codesDoNotMatchMessage;
             case 502:
                 return unsupportedEncodingMessage;
             default:

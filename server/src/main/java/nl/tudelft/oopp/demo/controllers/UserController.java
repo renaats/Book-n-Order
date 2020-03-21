@@ -89,8 +89,8 @@ public class UserController {
 
     @PostMapping(path = "/validate")
     @ResponseBody
-    public int validateUser(@RequestParam int sixDigitCode) {
-        return user
+    public int validateUser(@RequestParam int sixDigitCode, HttpServletRequest request) {
+        return userService.validate(request, sixDigitCode);
     }
 
     /**

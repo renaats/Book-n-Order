@@ -106,8 +106,25 @@ public class UserService {
         return 201;
     }
 
-    public int validate(int sixDigitCode) {
-        if(sixDigitCode == userRepository.findByEmail().get)
+    public int validate(HttpServletRequest request, int sixDigitCode) {
+        String token = request.getHeader(HEADER_STRING);
+        if (token != null) {
+            // parse the token.
+            String user = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
+                    .build()
+                    .verify(token.replace(TOKEN_PREFIX, ""))
+                    .getSubject();
+            if (user != null && userRepository.existsById(user)) {
+                AppUser appUser = userRepository.findByEmail(user);
+                if(sixDigitCode == appUser.getConfirmationNumber()) {
+                    appUser.setEnabled(true);
+                    userRepository.save(appUser);
+                    return 200;
+                }
+                return 431;
+            }
+        }
+        return 419;
     }
     /**
      * Updates a specified attribute for some user.

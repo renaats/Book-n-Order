@@ -123,13 +123,13 @@ public class ServerCommunication {
             System.out.println(response.body());
             System.out.println("Status: " + response.statusCode());
         }
-        if(Integer.parseInt(response.body()) != 203) { return ErrorMessages.getErrorMessage(Integer.parseInt(response.body())); }
-
-        this.validateUser()
+        return ErrorMessages.getErrorMessage(Integer.parseInt(response.body()));
     }
 
-    public static int validateUser(int sixDigitCode) {
-        return sixDigitCode;
+    public static String validateUser(int sixDigitCode) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/user/validate?sixDigitCode=" + sixDigitCode)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
+        return communicateAndReturnErrorMessage(request);
+
     }
     /**
      * Authorizes the user.

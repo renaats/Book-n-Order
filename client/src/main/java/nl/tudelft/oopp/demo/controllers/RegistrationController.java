@@ -34,6 +34,7 @@ public class RegistrationController implements Initializable {
      */
     public void registerButton() {
         try {
+//            ApplicationDisplay.changeScene("/ConfirmationSixDigits.fxml");
             String email = emailField.getText();
             String name = nameField.getText();
             String password = passwordField.getText();
@@ -44,8 +45,6 @@ public class RegistrationController implements Initializable {
             alert.setHeaderText(null);
             alert.setContentText(ServerCommunication.addUser(email, name, surname, faculty, password));
             alert.showAndWait();
-
-            ApplicationDisplay.changeScene("/ConfirmSixDigits.fxml");
         } catch (Exception e) {
             e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

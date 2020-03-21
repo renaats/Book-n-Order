@@ -27,14 +27,14 @@ import java.util.Random;
 //            userService.createVerificationToken(user,token);
             Random random = new Random();
             int sixDigitNumber = random.nextInt(99999);
-            String stringNumber = String.format("%06d", sixDigitNumber));
+            String stringNumber = String.format("%06d", sixDigitNumber);
             user.setConfirmationNumber(Integer.parseInt(stringNumber));
             String recipient = user.getEmail();
             String subject = "Registration Confirmation";
             SimpleMailMessage email = new SimpleMailMessage();
             email.setTo(recipient);
             email.setSubject(subject);
-            email.setText("This is the confirmation email message.\nPlease enter the six digits into the field in order to confirm this account.\n" + "Six-digit-code:    " + stringNumber;
+            email.setText("This is the confirmation email message.\nPlease enter the six digits into the field in order to confirm this account.\n" + "Six-digit-code:    " + stringNumber);
             mailSender.send(email);
 
         }
