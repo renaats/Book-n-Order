@@ -47,10 +47,11 @@ public class BikeDatabaseEditController implements Initializable {
     @FXML
     private TableColumn colAvailable;
     @FXML
-    private TextField buildingDeleteByIdTextField;
-
+    private TextField bikeDeleteByIdTextField;
     @FXML
     private ChoiceBox<String> updateChoiceBox;
+    @FXML
+    private TextField bikeFindByIdTextField;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -132,6 +133,24 @@ public class BikeDatabaseEditController implements Initializable {
         table.setItems(bikeSearchResult);
     }
     /**
+     * Handles clicking the building find button.
+     */
+    public void buildingIdButtonClicked() {
+        try {
+            int id = Integer.parseInt(bikeFindByIdTextField.getText());
+            Bike building = JsonMapper.buildingMapper(ServerCommunication.findBuilding(id));
+            buildingResult.clear();
+            buildingResult.add(building);
+            table.setItems(buildingResult);
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Missing argument.");
+            alert.showAndWait();
+        }
+    }
+    /**
      * Changes view to main menu
      * @throws IOException should never throw an exception as the input is always the same
      */
@@ -162,5 +181,4 @@ public class BikeDatabaseEditController implements Initializable {
     public void goToEditBike() throws IOException {
         ApplicationDisplay.changeScene("/BikeDatabaseEdit.fxml");
     }
-
 }
