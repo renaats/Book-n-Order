@@ -716,4 +716,17 @@ public class ServerCommunication {
         }
         return communicateAndReturnErrorMessage(request);
     }
+
+    /**
+     * Communicates addBike to the database
+     *
+     * @return body response
+     */
+    public static String addBike(int buildingId, boolean available) {
+        HttpRequest request;
+        request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/bike/add?buildingId=" + buildingId + "&available=" +available)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
+        HttpResponse<String> response;
+        request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/bike/add?buildingId=" + buildingId + "&available=" +available)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
+        return communicateAndReturnErrorMessage(request);
+    }
 }
