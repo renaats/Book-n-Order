@@ -9,19 +9,21 @@ import javafx.collections.ObservableList;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-import nl.tudelft.oopp.demo.communication.JsonMapper;
-import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.Bike;
-import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
  * Manages the user input from the database edit bike view
  */
 public class BikeDatabaseEditController implements Initializable {
+
+    final ObservableList updateChoiceBoxList = FXCollections.observableArrayList();
 
     @FXML
     private TableView<Bike> table;
@@ -55,6 +57,11 @@ public class BikeDatabaseEditController implements Initializable {
     private TableColumn<Bike, String> colLocation;
     @FXML
     private TableColumn colAvailable;
+    @FXML
+    private TextField buildingDeleteByIdTextField;
+
+    @FXML
+    private ChoiceBox<String> updateChoiceBox;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -62,7 +69,6 @@ public class BikeDatabaseEditController implements Initializable {
         colLocation.setCellValueFactory(new PropertyValueFactory<>("Location"));
         colAvailable.setCellValueFactory(new PropertyValueFactory<>("Available"));
         loadDataUpdateChoiceBox();
-        listBuildingsButtonClicked();
     }
 
     /**
@@ -70,30 +76,12 @@ public class BikeDatabaseEditController implements Initializable {
      */
     public void loadDataUpdateChoiceBox() {
         updateChoiceBoxList.removeAll();
-        String a = "Name";
-        String b = "Street";
-        String c = "House Number";
-        updateChoiceBoxList.addAll(a, b, c);
+        String a = "Location";
+        String b = "Available";
+        updateChoiceBoxList.addAll(a, b);
         updateChoiceBox.getItems().addAll(updateChoiceBoxList);
     }
 
-    /**
-     * Handles clicking the list button.
-     */
-    public void listBuildingsButtonClicked() {
-        try {
-            //List<Bike> bikes = new ArrayList<>(Objects.requireNonNull(JsonMapper.bikeListMapper(ServerCommunication.getBuildings())));
-            buildingResult.clear();
-            buildingResult.addAll(bikes);
-            table.setItems(buildingResult);
-        } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("No buildings found.");
-            alert.showAndWait();
-        }
-    }
     /**
      * Changes view to main menu
      * @throws IOException should never throw an exception as the input is always the same
@@ -124,121 +112,6 @@ public class BikeDatabaseEditController implements Initializable {
      */
     public void goToEditBike() throws IOException {
         ApplicationDisplay.changeScene("/BikeDatabaseEdit.fxml");
-    }
-
-
-
-
-
-
-
-
-
-    @FXML
-    private TextField buildingDeleteByIdTextField;
-
-    final ObservableList updateChoiceBoxList = FXCollections.observableArrayList();
-    final ObservableList<Building> buildingResult = FXCollections.observableArrayList();
-
-    @FXML
-    private ChoiceBox<String> updateChoiceBox;
-    @FXML
-    private TextField buildingFindByIdTextField;
-    @FXML
-    private TextField buildingChangeToField;
-
-
-    /**
-     * Handles clicking the building find button.
-     */
-    public void buildingIdButtonClicked() {
-        try {
-            int id = Integer.parseInt(buildingFindByIdTextField.getText());
-            Building building = JsonMapper.buildingMapper(ServerCommunication.findBuilding(id));
-            buildingResult.clear();
-            buildingResult.add(building);
-            table.setItems(buildingResult);
-        } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Missing argument.");
-            alert.showAndWait();
-        }
-    }
-
-    /**
-     * Handles clicking of the Remove Building button.
-     */
-    public void deleteBuildingButtonClicked() {
-        try {
-            int id = Integer.parseInt(buildingDeleteByIdTextField.getText());
-            ServerCommunication.deleteBuilding(id);
-            buildingResult.removeIf(b -> b.getId() == id);
-        } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Missing argument.");
-            alert.showAndWait();
-        }
-    }
-
-    /**
-     * Handles clicking of the Remove Building button through the table.
-     */
-    public void deleteBuildingButtonClickedByTable() {
-        try {
-            Building building = table.getSelectionModel().getSelectedItem();
-            ServerCommunication.deleteBuilding(building.getId());
-            buildingResult.removeIf(b -> b.getId().equals(building.getId()));
-        } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Missing argument.");
-            alert.showAndWait();
-        }
-    }
-
-    /**
-     * Handles clicking of the edit Building button through the table.
-     */
-    public void editBuildingButtonClickedByTable() {
-        try {
-            Building building = table.getSelectionModel().getSelectedItem();
-            buildingFindByIdTextField.setText(Integer.toString(building.getId()));
-        } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Missing argument.");
-            alert.showAndWait();
-        }
-    }
-
-    /**
-     * Handles the sending of updated values.
-     */
-    public void updateBuildingButtonClicked() {
-        try {
-            int id = Integer.parseInt(buildingFindByIdTextField.getText());
-            String attribute = updateChoiceBox.getValue().replaceAll(" ", "");
-            String changeValue = buildingChangeToField.getText();
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Building update");
-            alert.setHeaderText(null);
-            alert.setContentText(ServerCommunication.updateBuilding(id, attribute, changeValue));
-            alert.showAndWait();
-            buildingResult.clear();
-            listBuildingsButtonClicked();
-        } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Missing argument.");
-            alert.showAndWait();
-        }
     }
 
 }
