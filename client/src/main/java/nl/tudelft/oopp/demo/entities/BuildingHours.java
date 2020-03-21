@@ -11,6 +11,13 @@ public class BuildingHours {
     private LocalTime startTime;
     private LocalTime endTime;
 
+    /**
+     * Constructor for building hours
+     * @param day int representation of the day
+     * @param building building object
+     * @param startTime in seconds
+     * @param endTime in seconds
+     */
     public BuildingHours(int day, Building building, LocalTime startTime, LocalTime endTime) {
         this.day = day;
         this.building = building;

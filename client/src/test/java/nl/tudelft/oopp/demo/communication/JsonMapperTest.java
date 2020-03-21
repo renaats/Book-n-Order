@@ -1,6 +1,18 @@
 package nl.tudelft.oopp.demo.communication;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
+import static com.github.tomakehurst.wiremock.client.WireMock.configureFor;
+import static com.github.tomakehurst.wiremock.client.WireMock.get;
+import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
+import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import com.github.tomakehurst.wiremock.WireMockServer;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
 import nl.tudelft.oopp.demo.entities.BuildingHours;
 import nl.tudelft.oopp.demo.entities.RestaurantHours;
 import nl.tudelft.oopp.demo.entities.Room;
@@ -8,12 +20,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-
-import static com.github.tomakehurst.wiremock.client.WireMock.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class JsonMapperTest {
     public WireMockServer wireMockServer;
@@ -103,13 +109,14 @@ class JsonMapperTest {
     }
 
     @Test
-    void BuildingHoursMapperTest() {
+    void buildingHoursMapperTest() {
         stubFor(get(urlEqualTo("/building_hours/find/1/1"))
                 .willReturn(aResponse()
                         .withStatus(200)
-                        .withBody("{\"id\":3,\"day\":1,\"building\":{\"id\":1,\"name\":\"test\",\"street\":\"1\",\"houseNumber\":1},\"startTime\":\"00:16:40\",\"endTime\":\"00:33:20\"}")));
-
-        String json = "{\"id\":3,\"day\":1,\"building\":{\"id\":1,\"name\":\"test\",\"street\":\"1\",\"houseNumber\":1},\"startTime\":\"00:16:40\",\"endTime\":\"00:33:20\"}";
+                        .withBody("{\"id\":3,\"day\":1,\"building\":{\"id\":1,\"name\":\"test\","
+                                + "\"street\":\"1\",\"houseNumber\":1},\"startTime\":\"00:16:40\",\"endTime\":\"00:33:20\"}")));
+        String json = "{\"id\":3,\"day\":1,\"building\":{\"id\":1,\"name\":\"test\""
+                + ",\"street\":\"1\",\"houseNumber\":1},\"startTime\":\"00:16:40\",\"endTime\":\"00:33:20\"}";
 
         BuildingHours buildingHours = JsonMapper.buildingHoursMapper(json);
 
@@ -117,13 +124,17 @@ class JsonMapperTest {
     }
 
     @Test
-    void RestaurantHoursMapperTest() {
+    void restaurantHoursMapperTest() {
         stubFor(get(urlEqualTo("/restaurant_hours/find/1/1"))
                 .willReturn(aResponse()
                         .withStatus(200)
-                        .withBody("{\"id\":5,\"day\":1,\"restaurant\":{\"id\":4,\"building\":{\"id\":1,\"name\":\"test\",\"street\":\"1\",\"houseNumber\":1},\"name\":\"TestRestaurant\",\"menu\":null},\"startTime\":\"00:16:40\",\"endTime\":\"00:33:20\"}")));
+                        .withBody("{\"id\":5,\"day\":1,\"restaurant\":{\"id\":4,\"building\":"
+                                + "{\"id\":1,\"name\":\"test\",\"street\":\"1\",\"houseNumber\":1},"
+                                + "\"name\":\"TestRestaurant\",\"menu\":null},\"startTime\":\"00:16:40\",\"endTime\":\"00:33:20\"}")));
 
-        String json = "{\"id\":5,\"day\":1,\"restaurant\":{\"id\":4,\"building\":{\"id\":1,\"name\":\"test\",\"street\":\"1\",\"houseNumber\":1},\"name\":\"TestRestaurant\",\"menu\":null},\"startTime\":\"00:16:40\",\"endTime\":\"00:33:20\"}";
+        String json = "{\"id\":5,\"day\":1,\"restaurant\":{\"id\":4,\"building\":{\"id\":1,\"name\":"
+                + "\"test\",\"street\":\"1\",\"houseNumber\":1},\"name\":\"TestRestaurant\","
+                + "\"menu\":null},\"startTime\":\"00:16:40\",\"endTime\":\"00:33:20\"}";
 
         RestaurantHours restaurantHours = JsonMapper.restaurantHoursMapper(json);
 
