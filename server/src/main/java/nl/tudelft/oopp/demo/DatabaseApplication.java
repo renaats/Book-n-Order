@@ -44,6 +44,7 @@ public class DatabaseApplication {
         javaMailSender.setJavaMailProperties(mailProperties);
         return javaMailSender;
     }
+
     @Bean
     public MessageSource messageSource() {
         final ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();

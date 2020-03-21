@@ -44,6 +44,8 @@ public class RegistrationController implements Initializable {
             alert.setHeaderText(null);
             alert.setContentText(ServerCommunication.addUser(email, name, surname, faculty, password));
             alert.showAndWait();
+
+            ApplicationDisplay.changeScene("/ConfirmSixDigits.fxml");
         } catch (Exception e) {
             e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

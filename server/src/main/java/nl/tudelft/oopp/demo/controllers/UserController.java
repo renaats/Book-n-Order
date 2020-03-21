@@ -87,6 +87,12 @@ public class UserController {
         return 203;
     }
 
+    @PostMapping(path = "/validate")
+    @ResponseBody
+    public int validateUser(@RequestParam int sixDigitCode) {
+        return user
+    }
+
     /**
      * Updates a specified attribute for given user.
      * @param email = the email address of the user.

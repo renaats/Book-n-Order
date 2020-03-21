@@ -106,6 +106,9 @@ public class UserService {
         return 201;
     }
 
+    public int validate(int sixDigitCode) {
+        if(sixDigitCode == userRepository.findByEmail().get)
+    }
     /**
      * Updates a specified attribute for some user.
      * @param email = the email of the user
