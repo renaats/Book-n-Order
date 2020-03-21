@@ -43,9 +43,7 @@ public class BikeTest {
         building2 = new Building("EWI2", "Mekelweg2", 42);
         buildingRepository.save(building2);
 
-        bike = new Bike();
-        bike.setAvailable(true);
-        bike.setLocation(building);
+        bike = new Bike(building, true);
         bikeRepository.save(bike);
     }
 

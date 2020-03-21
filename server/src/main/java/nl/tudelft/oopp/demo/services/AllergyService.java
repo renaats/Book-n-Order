@@ -31,7 +31,7 @@ public class AllergyService {
     public int add(String allergyName, int dishId) {
         Optional<Dish> optionalDish = dishRepository.findById(dishId);
         if (optionalDish.isEmpty()) {
-            return 403;
+            return 416;
         }
 
         Allergy allergy = new Allergy();
