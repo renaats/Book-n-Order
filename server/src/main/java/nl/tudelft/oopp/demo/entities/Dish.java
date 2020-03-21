@@ -53,10 +53,6 @@ public class Dish {
 
     }
 
-    public Menu getMenu() {
-        return menu;
-    }
-
     public void setMenu(Menu menu) {
         this.menu = menu;
     }
@@ -80,6 +76,10 @@ public class Dish {
     public Set<Allergy> getAllergy() {
         return allergies;
     }
+    
+    public Menu getMenu() {
+        return menu;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -90,7 +90,7 @@ public class Dish {
             return false;
         }
         Dish dish = (Dish) o;
-        return name.equals(name)
+        return Objects.equals(name, dish.name)
                 && Objects.equals(menu, dish.menu);
     }
 }
