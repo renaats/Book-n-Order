@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
-
 public class BikeDatabaseMenuController {
 
     /**

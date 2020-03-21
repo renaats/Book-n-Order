@@ -18,7 +18,6 @@ import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
-
 public class BikeDatabaseAddController implements Initializable {
 
     public ChoiceBox locationsCheckBox;
@@ -92,6 +91,4 @@ public class BikeDatabaseAddController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         loadData();
     }
-
-
 }
