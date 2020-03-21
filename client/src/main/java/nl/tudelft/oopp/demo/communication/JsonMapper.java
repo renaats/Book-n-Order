@@ -355,13 +355,13 @@ public class JsonMapper {
      * @param bikesJson a JSON string representing a list.
      * @return A list filled with object Buildings
      */
-    public static List<Building> bikeListMapper(String bikesJson) {
+    public static List<Bike> bikeListMapper(String bikesJson) {
 
         ObjectMapper mapper = new ObjectMapper();
 
         try {
             // Convert JSON string to Object
-            List<Building> bikes = mapper.readValue(bikesJson, new TypeReference<List<Building>>(){});
+            List<Bike> bikes = mapper.readValue(bikesJson, new TypeReference<List<Bike>>(){});
             return bikes;
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
