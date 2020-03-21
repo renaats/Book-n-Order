@@ -1,25 +1,23 @@
 package nl.tudelft.oopp.demo.controllers;
 
-import nl.tudelft.oopp.demo.entities.Building;
+import java.io.IOException;
 
+import java.net.URL;
+
+import java.util.List;
+import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ToggleButton;
-import javafx.scene.input.MouseEvent;
+
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
+import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
-import java.io.IOException;
-import java.lang.annotation.ElementType;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
 
 public class BikeDatabaseAddController implements Initializable {
 
@@ -33,7 +31,7 @@ public class BikeDatabaseAddController implements Initializable {
      */
     private void loadData() {
         List<Building> buildings = JsonMapper.buildingListMapper(ServerCommunication.getBuildings());
-        for (int i = 0 ; i < buildings.size(); i++) {
+        for (int i = 0; i < buildings.size(); i++) {
             locationsCheckBox.getItems().add(buildings.get(i).getName());
         }
     }
