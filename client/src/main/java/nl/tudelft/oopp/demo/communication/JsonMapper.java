@@ -236,40 +236,18 @@ public class JsonMapper {
     }
 
     /**
-     * Maps all building hours JSONS to an object.
-     * @param buildingHourJson a JSON string.
-     * @return building hour object.
-     */
-    public static BuildingHours buildingHoursMapper(String buildingHourJson) {
-
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.registerModule(new JavaTimeModule());
-
-        try {
-            // Convert JSON string to Object
-            return mapper.readValue(buildingHourJson, BuildingHours.class);
-        } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText(buildingHourJson);
-            alert.showAndWait();
-        }
-        return null;
-    }
-
-    /**
      * Maps all bikes JSONS to a list of bike objects.
      * @param bikesJson a JSON string representing a list.
-     * @return A list filled with object Bikes.
+     * @return A list filled with object Buildings
      */
-    public static List<Bike> bikeListMapper(String bikesJson) {
+    public static Object bikeListMapper(String bikesJson) {
 
         ObjectMapper mapper = new ObjectMapper();
 
         try {
             // Convert JSON string to Object
-            return mapper.readValue(bikesJson, new TypeReference<List<Bike>>(){});
+            List<Building> bikes = mapper.readValue(bikesJson, new TypeReference<List<Building>>(){});
+            return bikes;
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Error");
