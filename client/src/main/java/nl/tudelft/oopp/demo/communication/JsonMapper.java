@@ -236,72 +236,25 @@ public class JsonMapper {
     }
 
     /**
-     * Maps all building hours JSONS to an object.
-     * @param buildingHourJson a JSON string
-     * @return building hour object
+     * Maps all bikes JSONS to a list of bike objects.
+     * @param bikesJson a JSON string representing a list.
+     * @return A list filled with object Buildings
      */
-    public static BuildingHours buildingHoursMapper(String buildingHourJson) {
+    public static Object bikeListMapper(String bikesJson) {
 
         ObjectMapper mapper = new ObjectMapper();
-        mapper.registerModule(new JavaTimeModule());
 
         try {
             // Convert JSON string to Object
-            return mapper.readValue(buildingHourJson, BuildingHours.class);
+            List<Building> bikes = mapper.readValue(bikesJson, new TypeReference<List<Building>>(){});
+            return bikes;
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Error");
             alert.setHeaderText(null);
-            alert.setContentText(buildingHourJson);
+            alert.setContentText(bikesJson);
             alert.showAndWait();
         }
         return null;
     }
-
-    /**
-     * Maps JSON to RoomReservation entity.
-     * @param roomReservationJson representation of a room.
-     * @return RoomReservation entity.
-     */
-    public static RoomReservation roomReservationMapper(String roomReservationJson) {
-
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.registerModule(new JavaTimeModule());
-
-        try {
-            // Convert JSON string to Object
-            return mapper.readValue(roomReservationJson, RoomReservation.class);
-        } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText(roomReservationJson);
-            alert.showAndWait();
-        }
-        return null;
-    }
-
-    /**
-     * Maps all Room Reservation JSONS to a list.
-     * @param roomReservationsJson a JSON string representing a list.
-     * @return A list filled with object Room Reservation
-     */
-    public static List<RoomReservation> roomReservationsListMapper(String roomReservationsJson) {
-
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.registerModule(new JavaTimeModule());
-
-        try {
-            // Convert JSON string to Object
-            return mapper.readValue(roomReservationsJson, new TypeReference<List<RoomReservation>>(){});
-        } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText(roomReservationsJson);
-            alert.showAndWait();
-        }
-        return null;
-    }
-
 }
