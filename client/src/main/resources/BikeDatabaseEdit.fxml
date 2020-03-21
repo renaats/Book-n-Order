@@ -35,7 +35,7 @@
             <Font size="17.0" />
         </font>
     </Text>
-    <Button fx:id="confirmFindByIdButton" layoutX="236.0" layoutY="193.0" mnemonicParsing="false" onAction="#loadBikesIntoTableId" prefHeight="26.0" prefWidth="61.0" style="-fx-background-color: #00a6d6;" text="Find" textFill="WHITE" AnchorPane.leftAnchor="236.0" AnchorPane.topAnchor="193.0" />
+    <Button fx:id="confirmFindByIdButton" layoutX="236.0" layoutY="193.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="61.0" style="-fx-background-color: #00a6d6;" text="Find" textFill="WHITE" AnchorPane.leftAnchor="236.0" AnchorPane.topAnchor="193.0" />
     <ChoiceBox fx:id="updateChoiceBox" layoutX="143.0" layoutY="371.0" prefHeight="26.0" prefWidth="149.0" style="-fx-background-color: #00a6d6;" AnchorPane.leftAnchor="143.0" />
     <Text layoutX="50.0" layoutY="391.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Attribute:" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="372.6552734375">
         <font>
@@ -47,16 +47,16 @@
             <Font size="17.0" />
         </font>
     </Text>
-    <TextField fx:id="BikeChangeToField" layoutX="143.0" layoutY="424.0" AnchorPane.leftAnchor="143.0" AnchorPane.topAnchor="424.0" />
-    <Button fx:id="confirmChangeButton" layoutX="189.0" layoutY="470.0" mnemonicParsing="false" onAction="#updateBikeAttribute" style="-fx-background-color: #00a6d6;" text="Change" textFill="WHITE" AnchorPane.leftAnchor="189.0" AnchorPane.topAnchor="470.0" />
-    <Button fx:id="buildingFindAllButton" layoutX="347.0" layoutY="193.0" mnemonicParsing="false" onAction="#loadBikesIntoTable" prefHeight="26.0" prefWidth="62.0" style="-fx-background-color: #00a6d6;" text="Find all" textFill="WHITE" />
+    <TextField fx:id="buildingChangeToField" layoutX="143.0" layoutY="424.0" AnchorPane.leftAnchor="143.0" AnchorPane.topAnchor="424.0" />
+    <Button fx:id="confirmChangeButton" layoutX="189.0" layoutY="470.0" mnemonicParsing="false" style="-fx-background-color: #00a6d6;" text="Change" textFill="WHITE" AnchorPane.leftAnchor="189.0" AnchorPane.topAnchor="470.0" />
+    <Button fx:id="buildingFindAllButton" layoutX="235.0" layoutY="237.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="62.0" style="-fx-background-color: #00a6d6;" text="Find all" textFill="WHITE" />
     <ImageView fitHeight="41.0" fitWidth="44.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#mainMenu" pickOnBounds="true" preserveRatio="true">
         <Image url="@images/HomeIconTransparent.png" />
         <cursor>
             <Cursor fx:constant="HAND" />
         </cursor>
     </ImageView>
-    <TextField fx:id="locationSearch" layoutX="50.0" layoutY="238.0" promptText="Location" />
+    <TextField layoutX="50.0" layoutY="238.0" promptText="Name" />
     <TableView fx:id="table" layoutX="451.0" layoutY="157.0" prefHeight="420.0" prefWidth="562.0">
         <columns>
             <TableColumn fx:id="colId" prefWidth="168.33331298828125" text="ID" />
@@ -64,7 +64,7 @@
             <TableColumn fx:id="colAvailable" prefWidth="174.0" text="Available" />
         </columns>
     </TableView>
-    <Button fx:id="editByTable" layoutX="632.0" layoutY="594.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#updateUsingTable" style="-fx-background-color: #00a6d6;" text="Edit selected" textFill="WHITE">
+    <Button fx:id="editByTable" layoutX="632.0" layoutY="594.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" style="-fx-background-color: #00a6d6;" text="Edit selected" textFill="WHITE">
         <cursor>
             <Cursor fx:constant="HAND" />
         </cursor>
@@ -74,17 +74,17 @@
             <Font size="26.0" />
         </font>
     </Text>
-    <TextField fx:id="bikeDeleteByIdTextField" layoutX="50.0" layoutY="322.0" promptText="ID" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="322.0" />
+    <TextField fx:id="buildingDeleteByIdTextField" layoutX="50.0" layoutY="322.0" promptText="ID" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="322.0" />
     <Text layoutX="50.0" layoutY="315.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Delete a bike" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="296.0">
         <font>
             <Font size="17.0" />
         </font>
     </Text>
-    <Button fx:id="confirmDeleteByIdButton" layoutX="234.0" layoutY="322.0" mnemonicParsing="false" onAction="#deleteBikeById" prefHeight="26.0" prefWidth="62.0" style="-fx-background-color: #00a6d6;" text="Delete" textFill="WHITE" AnchorPane.leftAnchor="234.0" AnchorPane.topAnchor="322.0">
+    <Button fx:id="confirmDeleteByIdButton" layoutX="234.0" layoutY="322.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="62.0" style="-fx-background-color: #00a6d6;" text="Delete" textFill="WHITE" AnchorPane.leftAnchor="234.0" AnchorPane.topAnchor="322.0">
         <cursor>
             <Cursor fx:constant="HAND" />
         </cursor></Button>
-    <Button fx:id="confirmDeleteByIdButtonByTable" layoutX="632.0" layoutY="642.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#deleteBikeUsingTable" style="-fx-background-color: #00a6d6;" text="Delete Selected" textFill="WHITE">
+    <Button fx:id="confirmDeleteByIdButtonByTable" layoutX="632.0" layoutY="642.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" style="-fx-background-color: #00a6d6;" text="Delete Selected" textFill="WHITE">
         <cursor>
             <Cursor fx:constant="HAND" />
         </cursor>
@@ -116,7 +116,4 @@
     </Text>
     <Text layoutX="64.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add" />
     <Text layoutX="114.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit" />
-   <Button fx:id="confirmFindByLocationButton" layoutX="236.0" layoutY="238.0" mnemonicParsing="false" onAction="#loadBikesIntoTableLocation" prefHeight="26.0" prefWidth="61.0" style="-fx-background-color: #00a6d6;" text="Find" textFill="WHITE" />
-   <CheckBox fx:id="available" layoutX="49.0" layoutY="279.0" mnemonicParsing="false" text="Available" />
-   <Button fx:id="confirmFindByLocationButton1" layoutX="236.0" layoutY="275.0" mnemonicParsing="false" onAction="#loadBikesIntoTableAvailable" prefHeight="26.0" prefWidth="61.0" style="-fx-background-color: #00a6d6;" text="Find" textFill="WHITE" />
 </AnchorPane>
