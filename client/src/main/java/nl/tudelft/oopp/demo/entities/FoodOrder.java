@@ -6,7 +6,7 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
- * Creates and maneges an object for the current Food orders in the database when in client side
+ * Manages the FoodOrder object that is retrieved from the server
  */
 public class FoodOrder {
     private Integer id;

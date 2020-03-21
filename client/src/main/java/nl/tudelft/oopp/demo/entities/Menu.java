@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Creates and maneges an object for the current menus of the different restaurants in the database when in client side
+ * Manages the Menu object that is retrieved from the server
  */
 public class Menu {
 

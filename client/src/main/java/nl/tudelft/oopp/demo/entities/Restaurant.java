@@ -3,7 +3,7 @@ package nl.tudelft.oopp.demo.entities;
 import java.util.Objects;
 
 /**
- * Creates and maneges an object for the current Restaurants in the database when in client side
+ * Manages the Restaurant object that is retrieved from the server
  */
 public class Restaurant {
     private int id;
