@@ -1,10 +1,10 @@
 package nl.tudelft.oopp.demo.user;
 
-import nl.tudelft.oopp.demo.entities.RoomReservation;
-
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+
+import nl.tudelft.oopp.demo.entities.RoomReservation;
 
 public class UserInformation {
     private String email;
@@ -55,13 +55,17 @@ public class UserInformation {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof UserInformation)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof UserInformation)) {
+            return false;
+        }
         UserInformation that = (UserInformation) o;
-        return Objects.equals(email, that.email) &&
-                Objects.equals(name, that.name) &&
-                Objects.equals(surname, that.surname) &&
-                Objects.equals(faculty, that.faculty) &&
-                Objects.equals(roomReservations, that.roomReservations);
+        return Objects.equals(email, that.email)
+                && Objects.equals(name, that.name)
+                && Objects.equals(surname, that.surname)
+                && Objects.equals(faculty, that.faculty)
+                && Objects.equals(roomReservations, that.roomReservations);
     }
 }

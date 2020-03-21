@@ -117,29 +117,6 @@ public class ServerCommunication {
         return response.body();
     }
 
-//    /**
-//     * Retrieves the String representation of a user from the server.
-//     * @return the body of the response from the server.
-//     */
-//    public static boolean getAdminButtonPermission() {
-//        // HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + UserInformation.getBearerKey()).uri(URI.create("http://localhost:8080/user/find?email=r.jursevskis@student.tudelft.nl")).build();
-//        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + UserInformation.getBearerKey()).uri(URI.create("http://localhost:8080/getAdminPermission")).build();
-//        HttpResponse<String> response;
-//        try {
-//            response = client.send(request, HttpResponse.BodyHandlers.ofString());
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return "Communication with server failed";
-//        }
-//        if (response.statusCode() == 403) {
-//            return ErrorMessages.getErrorMessage(401);
-//        }
-//        if (response.statusCode() != 200) {
-//            System.out.println("Status: " + response.statusCode());
-//        }
-//        return response.body();
-//    }
-
     /**
      * Registers a user.
      * @param email User's email
