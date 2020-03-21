@@ -37,7 +37,7 @@
             <Font size="26.0" />
         </font>
     </Text>
-    <Text layoutX="585.0" layoutY="313.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add a bikes" AnchorPane.leftAnchor="585.0" AnchorPane.topAnchor="294.0">
+    <Text layoutX="592.0" layoutY="310.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add bikes" AnchorPane.leftAnchor="592.0" AnchorPane.topAnchor="291.0">
         <font>
             <Font size="17.0" />
         </font>

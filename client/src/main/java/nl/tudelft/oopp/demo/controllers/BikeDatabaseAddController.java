@@ -34,7 +34,7 @@ public class BikeDatabaseAddController implements Initializable {
     private void loadData() {
         List<Building> buildings = JsonMapper.buildingListMapper(ServerCommunication.getBuildings());
         for (int i = 0 ; i < buildings.size(); i++) {
-            locationsCheckBox.getItems().add(buildings.get(i));
+            locationsCheckBox.getItems().add(buildings.get(i).getName());
         }
     }
 
