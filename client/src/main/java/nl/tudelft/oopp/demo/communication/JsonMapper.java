@@ -183,132 +183,18 @@ public class JsonMapper {
     }
 
     /**
-     * Maps all building hours JSONS to an object.
-     * @param buildingHourJson a JSON string.
-     * @return building hour object.
-     */
-    public static List<Bike> bikeListMapper(String bikesJson) {
-
-        ObjectMapper mapper = new ObjectMapper();
-
-        try {
-            // Convert JSON string to Object
-            List<Bike> bikes = mapper.readValue(bikesJson, new TypeReference<List<Bike>>(){});
-            return bikes;
-        } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText(bikesJson);
-            alert.showAndWait();
-        }
-        return null;
-    }
-
-    /**
-     * Maps all bikes JSONS to a list of bike objects.
-     * @param bikesJson a JSON string representing a list.
-     * @return A list filled with object Bikes.
-     */
-    public static List<Bike> bikeListMapper(String bikesJson) {
-
-        ObjectMapper mapper = new ObjectMapper();
-
-        try {
-            // Convert JSON string to Object
-            List<Bike> bikes = mapper.readValue(bikesJson, new TypeReference<List<Bike>>(){});
-            return bikes;
-        } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText(bikesJson);
-            alert.showAndWait();
-        }
-        return null;
-    }
-
-    /**
      * Maps all bikes JSONS to a list of bike objects.
      * @param bikesJson a JSON string representing a list.
      * @return A list filled with object Buildings
      */
-    public static List<Bike> bikeListMapper(String bikesJson) {
+    public static Object bikeListMapper(String bikesJson) {
 
         ObjectMapper mapper = new ObjectMapper();
 
         try {
             // Convert JSON string to Object
-            List<Bike> bikes = mapper.readValue(bikesJson, new TypeReference<List<Bike>>(){});
+            List<Building> bikes = mapper.readValue(bikesJson, new TypeReference<List<Building>>(){});
             return bikes;
-        } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText(bikesJson);
-            alert.showAndWait();
-        }
-        return null;
-    }
-
-    /**
-     * Maps all bikes JSONS to a list of bike objects.
-     * @param bikesJson a JSON string representing a list.
-     * @return A list filled with object Bikes
-     */
-    public static List<Bike> bikeListMapper(String bikesJson) {
-
-        ObjectMapper mapper = new ObjectMapper();
-
-        try {
-            // Convert JSON string to Object
-            List<Bike> bikes = mapper.readValue(bikesJson, new TypeReference<List<Bike>>(){});
-            return bikes;
-        } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText(bikesJson);
-            alert.showAndWait();
-        }
-        return null;
-    }
-
-    /**
-     * Maps all bikes JSONS to a list of bike objects.
-     * @param bikesJson a JSON string representing a list.
-     * @return A list filled with object Buildings
-     */
-    public static List<Bike> bikeListMapper(String bikesJson) {
-
-        ObjectMapper mapper = new ObjectMapper();
-
-        try {
-            // Convert JSON string to Object
-            List<Bike> bikes = mapper.readValue(bikesJson, new TypeReference<List<Bike>>(){});
-            return bikes;
-        } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText(bikesJson);
-            alert.showAndWait();
-        }
-        return null;
-    }
-
-    /**
-     * Maps all bikes JSONS to a list of bike objects.
-     * @param bikesJson a JSON string representing a list.
-     * @return A list filled with object Bikes.
-     */
-    public static List<Bike> bikeListMapper(String bikesJson) {
-
-        ObjectMapper mapper = new ObjectMapper();
-
-        try {
-            // Convert JSON string to Object
-            return mapper.readValue(bikesJson, new TypeReference<List<Bike>>(){});
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Error");
