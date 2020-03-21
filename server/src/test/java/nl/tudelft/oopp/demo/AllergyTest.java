@@ -1,25 +1,22 @@
 package nl.tudelft.oopp.demo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import nl.tudelft.oopp.demo.entities.*;
+import java.util.HashSet;
+import java.util.Set;
+
+import nl.tudelft.oopp.demo.entities.Allergy;
+import nl.tudelft.oopp.demo.entities.Dish;
+import nl.tudelft.oopp.demo.entities.Menu;
 import nl.tudelft.oopp.demo.repositories.AllergyRepository;
 import nl.tudelft.oopp.demo.repositories.DishRepository;
 import nl.tudelft.oopp.demo.repositories.MenuRepository;
-import nl.tudelft.oopp.demo.repositories.RoleRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Tests the Allergy entity.
@@ -35,9 +32,6 @@ public class AllergyTest {
 
     Allergy allergy1;
     Allergy allergy2;
-    Allergy allergy3;
-    Dish dish1;
-    Dish dish2;
     Menu menu;
 
     /**
