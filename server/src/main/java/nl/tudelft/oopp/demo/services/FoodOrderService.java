@@ -3,6 +3,7 @@ package nl.tudelft.oopp.demo.services;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.Building;
@@ -52,7 +53,7 @@ public class FoodOrderService {
      * @param deliverTimeMs = the deliver time of the food order.
      * @return String containing the result of your request.
      */
-    public int add(int restaurantId, String userEmail, int deliverLocation, long deliverTimeMs) {
+    public int add(int restaurantId, String userEmail, int deliverLocation, long deliverTimeMs, Set<Dish> dishes) {
         Optional<Restaurant> optionalRestaurant = restaurantRepository.findById(restaurantId);
         if (optionalRestaurant.isEmpty()) {
             return 428;
