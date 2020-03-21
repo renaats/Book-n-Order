@@ -1,6 +1,7 @@
 package nl.tudelft.oopp.demo.services;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import nl.tudelft.oopp.demo.entities.Building;
@@ -57,7 +58,6 @@ public class BuildingService {
                 building.setHouseNumber(Integer.parseInt(value));
                 break;
             default:
-                System.out.println(attribute);
                 return 412;
         }
         buildingRepository.save(building);
@@ -84,7 +84,7 @@ public class BuildingService {
      * Lists all buildings.
      * @return all buildings
      */
-    public Iterable<Building> all() {
+    public List<Building> all() {
         return buildingRepository.findAll();
     }
 

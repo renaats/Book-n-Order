@@ -40,28 +40,17 @@ public class DatabaseAddBuildingController {
     }
 
     /**
-     * sends the user to the remove building view
-     * @param actionEvent the click on Go to add building button
-     * @throws IOException this should not throw an exception, since the input is always the same
-     */
-    public void goToRemoveBuildings(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/DatabaseRemoveBuildings.fxml");
-    }
-
-    /**
      * sends the user to the edit building view
-     * @param actionEvent the click on Go to add building button
      * @throws IOException this should not throw an exception, since the input is always the same
      */
-    public void goToEditBuildings(ActionEvent actionEvent) throws IOException {
+    public void goToEditBuildings() throws IOException {
         ApplicationDisplay.changeScene("/DatabaseEditBuildings.fxml");
     }
 
     /**
      * Adds building to the database
-     * @param actionEvent actionEvent parameter.
      */
-    public void databaseAddBuilding(ActionEvent actionEvent) {
+    public void databaseAddBuilding() {
         String name = nameTextField.getText();
         String street = streetTextField.getText();
         int houseNumber = Integer.parseInt(houseNumberTextField.getText());
@@ -74,10 +63,9 @@ public class DatabaseAddBuildingController {
 
     /**
      * Goes back to the database building menu when the icon is clicked
-     * @paramthe click on the building icon on the databased screens
      * @throws IOException this should not throw an exception, since the input is always the same
      */
-    public void goToBuildingMenu(MouseEvent mouseEvent) throws IOException {
+    public void goToBuildingMenu() throws IOException {
         ApplicationDisplay.changeScene("/DatabaseBuildingMenu.fxml");
     }
 }

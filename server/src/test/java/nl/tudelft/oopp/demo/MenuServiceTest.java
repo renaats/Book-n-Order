@@ -1,8 +1,11 @@
 package nl.tudelft.oopp.demo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -24,7 +27,7 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 
 /**
- * Tests the MenuService service.
+ * Tests the Menu service.
  */
 @DataJpaTest
 public class MenuServiceTest {
@@ -66,7 +69,8 @@ public class MenuServiceTest {
     Restaurant restaurant1;
     Restaurant restaurant2;
 
-    /** Sets up the classes before executing the tests.
+    /**
+     * Sets up the entities and saves them via a service before executing every test.
      */
     @BeforeEach
     public void setup() {
@@ -98,38 +102,79 @@ public class MenuServiceTest {
         buildingRepository.save(building);
     }
 
+    /**
+     * Tests the constructor creating a new instance of the service.
+     */
+    @Test
+    public void testConstructor() {
+        assertNotNull(menuService);
+    }
+
     @Test
     public void testCreate() {
         assertEquals(201, menuService.add(menu1.getName(), menu1.getRestaurant().getId()));
+        menuService.all().get(0).setDishes(dishes);
+        assertEquals(Collections.singletonList(menu1), menuService.all());
     }
 
+    /**
+     * Tests the creation of an instance with an invalid restaurant id.
+     */
     @Test
-    public void testAdded() {
-        menuService.add(menu1.getName(), menu1.getRestaurant().getId());
-        menuService.add(menu2.getName(), menu2.getRestaurant().getId());
-        List<Menu> menus = new ArrayList<>();
-        menuService.all().forEach(menus::add);
-        assertEquals(2, menus.size());
+    public void testCreateIllegalRestaurant() {
+        assertEquals(428, menuService.add(menu1.getName(), 0));
     }
 
+    /**
+     * Tests the search for a non-existing object.
+     */
     @Test
-    public void testErrorCode() {
-        menuService.add(menu1.getName(), menu1.getRestaurant().getId());
-        menuService.add(menu2.getName(), menu2.getRestaurant().getId());
-        List<Menu> menus = new ArrayList<>();
-        menuService.all().forEach(menus::add);
-        assertEquals(200, menuService.delete(menus.get(0).getId()));
+    public void testFindNonExisting() {
+        assertNull(menuService.find(0));
     }
 
+    /**
+     * Tests the search for an existing object.
+     */
+    @Test
+    public void testFindExisting() {
+        menuService.add(menu1.getName(), menu1.getRestaurant().getId());
+        int id = menuService.all().get(0).getId();
+        assertNotNull(menuService.find(id));
+    }
+
+    /**
+     * Tests the retrieval of multiple instances.
+     */
+    @Test
+    public void testMultipleInstances() {
+        menuService.add(menu1.getName(), menu1.getRestaurant().getId());
+        menuService.all().get(0).setDishes(dishes);
+        menuService.add(menu2.getName(), menu2.getRestaurant().getId());
+        assertEquals(2, menuService.all().size());
+        List<Menu> menus = new ArrayList<>();
+        menus.add(menu1);
+        menus.add(menu2);
+        assertEquals(menus, menuService.all());
+    }
+
+    /**
+     * Tests the deletion of an instance.
+     */
     @Test
     public void testDelete() {
         menuService.add(menu1.getName(), menu1.getRestaurant().getId());
         menuService.add(menu2.getName(), menu2.getRestaurant().getId());
-        List<Menu> menus = new ArrayList<>();
-        menuService.all().forEach(menus::add);
-        menuService.delete(menus.get(0).getId());
-        List<Menu> menus2 = new ArrayList<>();
-        menuService.all().forEach(menus2::add);
-        assertEquals(1, menus2.size());
+        int id = menuService.all().get(0).getId();
+        menuService.delete(id);
+        assertEquals(1, menuService.all().size());
+    }
+
+    /**
+     * Tests the deletion of a non-existing instance.
+     */
+    @Test
+    public void testDeleteIllegal() {
+        assertEquals(429, menuService.delete(0));
     }
 }

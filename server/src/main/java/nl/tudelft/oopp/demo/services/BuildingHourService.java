@@ -1,6 +1,7 @@
 package nl.tudelft.oopp.demo.services;
 
 import java.time.LocalTime;
+import java.util.List;
 
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.BuildingHours;
@@ -84,7 +85,6 @@ public class BuildingHourService {
                 buildingHours.setEndTime(LocalTime.ofSecondOfDay(Integer.parseInt(value)));
                 break;
             default:
-                System.out.println(attribute);
                 return 412;
         }
         buildingHourRepository.save(buildingHours);
@@ -109,7 +109,7 @@ public class BuildingHourService {
      * Lists all building hours.
      * @return all building hours
      */
-    public Iterable<BuildingHours> all() {
+    public List<BuildingHours> all() {
         return buildingHourRepository.findAll();
     }
 

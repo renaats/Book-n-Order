@@ -39,7 +39,7 @@ public class MyAccountController implements Initializable {
      * Changes current scene to myCurrentBookings.fxml.
      * @throws IOException input will be valid.
      */
-    public void myCurrentBookings(MouseEvent mouseEvent) throws IOException {
+    public void myCurrentBookings() throws IOException {
         ApplicationDisplay.changeScene("/myCurrentBookings.fxml");
     }
 
@@ -47,7 +47,7 @@ public class MyAccountController implements Initializable {
      * Changes current scene to myPreviousBookings.fxml.
      * @throws IOException input will be valid.
      */
-    public void myPreviousBookings(MouseEvent mouseEvent) throws IOException {
+    public void myPreviousBookings() throws IOException {
         ApplicationDisplay.changeScene("/myPreviousBookings.fxml");
     }
 

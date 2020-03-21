@@ -1,6 +1,7 @@
 package nl.tudelft.oopp.demo.services;
 
 import java.time.LocalTime;
+import java.util.List;
 
 import nl.tudelft.oopp.demo.entities.Restaurant;
 import nl.tudelft.oopp.demo.entities.RestaurantHours;
@@ -84,7 +85,6 @@ public class RestaurantHourService {
                 restaurantHours.setEndTime(LocalTime.ofSecondOfDay(Integer.parseInt(value)));
                 break;
             default:
-                System.out.println(attribute);
                 return 412;
         }
         restaurantHourRepository.save(restaurantHours);
@@ -109,7 +109,7 @@ public class RestaurantHourService {
      * Lists all restaurant hours.
      * @return all restaurant hours
      */
-    public Iterable<RestaurantHours> all() {
+    public List<RestaurantHours> all() {
         return restaurantHourRepository.findAll();
     }
 

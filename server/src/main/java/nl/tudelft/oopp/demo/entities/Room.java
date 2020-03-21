@@ -108,7 +108,6 @@ public class Room {
         this.roomReservations = roomReservations;
     }
 
-
     public Integer getId() {
         return id;
     }
@@ -154,33 +153,6 @@ public class Room {
     }
 
     /**
-     * Constructs a Room entity.
-     * @param id the unique id of this room.
-     * @param name the name of this room.
-     * @param building the building that this room belongs to.
-     * @param faculty the faculty that this room belongs to.
-     * @param facultySpecific true if this building belongs to a faculty, false otherwise.
-     * @param projector true if this room has a projector, false otherwise.
-     * @param screen true if this room has a screen, false otherwise.
-     * @param nrPeople number of people this room is designed to accomodate.
-     * @param plugs number of electric plugs available in this room.
-     * @param roomReservations reservations of this room.
-     */
-    public Room(Integer id, String name, Building building, String faculty, boolean facultySpecific, boolean projector,
-                boolean screen, int nrPeople, int plugs, Set<RoomReservation> roomReservations) {
-        this.id = id;
-        this.name = name;
-        this.building = building;
-        this.faculty = faculty;
-        this.facultySpecific = facultySpecific;
-        this.projector = projector;
-        this.screen = screen;
-        this.nrPeople = nrPeople;
-        this.plugs = plugs;
-        this.roomReservations = roomReservations;
-    }
-
-    /**
      * Checks if this room has a reservation between the specified times.
      * @param fromTime = the starting time.
      * @param toTime = the ending time.
@@ -188,19 +160,19 @@ public class Room {
      */
     public boolean hasRoomReservationBetween(Date fromTime, Date toTime) {
         if (fromTime.compareTo(toTime) > 0) {
-            return false;
+            return true;
         }
         for (RoomReservation roomReservation: roomReservations) {
-            if (fromTime.compareTo(roomReservation.getFromTime()) < 0 && toTime.compareTo(roomReservation.getFromTime()) > 0) {
+            if (fromTime.compareTo(roomReservation.getFromTime()) <= 0 && toTime.compareTo(roomReservation.getFromTime()) > 0) {
                 return true;
             }
-            if (fromTime.compareTo(roomReservation.getToTime()) < 0 && toTime.compareTo(roomReservation.getToTime()) > 0) {
+            if (fromTime.compareTo(roomReservation.getToTime()) < 0 && toTime.compareTo(roomReservation.getToTime()) >= 0) {
                 return true;
             }
-            if (fromTime.compareTo(roomReservation.getFromTime()) > 0 && fromTime.compareTo(roomReservation.getToTime()) < 0) {
+            if (fromTime.compareTo(roomReservation.getFromTime()) >= 0 && fromTime.compareTo(roomReservation.getToTime()) < 0) {
                 return true;
             }
-            if (toTime.compareTo(roomReservation.getFromTime()) > 0 && toTime.compareTo(roomReservation.getToTime()) < 0) {
+            if (toTime.compareTo(roomReservation.getFromTime()) > 0 && toTime.compareTo(roomReservation.getToTime()) <= 0) {
                 return true;
             }
         }

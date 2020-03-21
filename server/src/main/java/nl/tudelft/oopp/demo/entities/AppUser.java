@@ -2,6 +2,7 @@ package nl.tudelft.oopp.demo.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.google.gson.annotations.Expose;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -20,11 +21,15 @@ import javax.persistence.OneToMany;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 public class AppUser {
+    @Expose
     @Id
     private String email;
     private String password;
+    @Expose
     private String name;
+    @Expose
     private String surname;
+    @Expose
     private String faculty;
     private boolean loggedIn = false;
     private int confirmationNumber;
@@ -53,15 +58,15 @@ public class AppUser {
 
     @JsonIgnore
     @OneToMany(mappedBy = "appUser")
-    Set<RoomReservation> roomReservations = new HashSet<>();
+    private Set<RoomReservation> roomReservations = new HashSet<>();
 
     @JsonIgnore
     @OneToMany(mappedBy = "appUser")
-    Set<BikeReservation> bikeReservations = new HashSet<>();
+    private Set<BikeReservation> bikeReservations = new HashSet<>();
 
     @JsonIgnore
     @OneToMany(mappedBy = "appUser")
-    Set<FoodOrder> foodOrders = new HashSet<>();
+    private Set<FoodOrder> foodOrders = new HashSet<>();
 
     public void setEmail(String email) {
         this.email = email;
@@ -165,7 +170,6 @@ public class AppUser {
         }
         AppUser appUser = (AppUser) o;
         return email.equals(appUser.email)
-                && Objects.equals(password, appUser.password)
                 && Objects.equals(name, appUser.name)
                 && Objects.equals(surname, appUser.surname)
                 && Objects.equals(faculty, appUser.faculty)

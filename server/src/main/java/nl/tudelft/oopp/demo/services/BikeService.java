@@ -1,5 +1,6 @@
 package nl.tudelft.oopp.demo.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import nl.tudelft.oopp.demo.entities.Bike;
@@ -90,7 +91,7 @@ public class BikeService {
      * Lists all bikes.
      * @return all bikes
      */
-    public Iterable<Bike> all() {
+    public List<Bike> all() {
         return bikeRepository.findAll();
     }
 

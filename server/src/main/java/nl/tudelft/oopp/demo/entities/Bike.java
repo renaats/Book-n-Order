@@ -61,6 +61,10 @@ public class Bike {
         this.available = available;
     }
 
+    public void setBikeReservations(Set<BikeReservation> bikeReservations) {
+        this.bikeReservations = bikeReservations;
+    }
+
     public int getId() {
         return id;
     }
@@ -73,6 +77,10 @@ public class Bike {
         return available;
     }
 
+    public Set<BikeReservation> getBikeReservations() {
+        return bikeReservations;
+    }
+
     /**
      * Checks if this bike has a reservation between the specified times.
      * @param fromTime = the starting time.
@@ -81,19 +89,19 @@ public class Bike {
      */
     public boolean hasBikeReservationBetween(Date fromTime, Date toTime) {
         if (fromTime.compareTo(toTime) > 0) {
-            return false;
+            return true;
         }
         for (BikeReservation bikeReservation: bikeReservations) {
-            if (fromTime.compareTo(bikeReservation.getFromTime()) < 0 && toTime.compareTo(bikeReservation.getFromTime()) > 0) {
+            if (fromTime.compareTo(bikeReservation.getFromTime()) <= 0 && toTime.compareTo(bikeReservation.getFromTime()) > 0) {
                 return true;
             }
-            if (fromTime.compareTo(bikeReservation.getToTime()) < 0 && toTime.compareTo(bikeReservation.getToTime()) > 0) {
+            if (fromTime.compareTo(bikeReservation.getToTime()) < 0 && toTime.compareTo(bikeReservation.getToTime()) >= 0) {
                 return true;
             }
-            if (fromTime.compareTo(bikeReservation.getFromTime()) > 0 && fromTime.compareTo(bikeReservation.getToTime()) < 0) {
+            if (fromTime.compareTo(bikeReservation.getFromTime()) >= 0 && fromTime.compareTo(bikeReservation.getToTime()) < 0) {
                 return true;
             }
-            if (toTime.compareTo(bikeReservation.getFromTime()) > 0 && toTime.compareTo(bikeReservation.getToTime()) < 0) {
+            if (toTime.compareTo(bikeReservation.getFromTime()) > 0 && toTime.compareTo(bikeReservation.getToTime()) <= 0) {
                 return true;
             }
         }

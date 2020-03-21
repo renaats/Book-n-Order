@@ -73,7 +73,6 @@ public class Building {
         this.rooms = rooms;
     }
 
-
     public Integer getId() {
         return id;
     }
@@ -94,25 +93,8 @@ public class Building {
         return rooms;
     }
 
-
     public boolean hasRooms() {
         return rooms.size() > 0;
-    }
-
-    /**
-     * Constructs a Building entity.
-     * @param id unique id of the building.
-     * @param name name of the building.
-     * @param street street the building is on.
-     * @param houseNumber house number of the building.
-     * @param rooms the amount of rooms in this building.
-     */
-    public Building(int id, String name, String street, int houseNumber, Set<Room> rooms) {
-        this.id = id;
-        this.name = name;
-        this.street = street;
-        this.houseNumber = houseNumber;
-        this.rooms = rooms;
     }
 
     /**

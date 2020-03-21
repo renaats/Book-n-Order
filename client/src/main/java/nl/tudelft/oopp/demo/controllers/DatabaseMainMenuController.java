@@ -7,23 +7,23 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 public class DatabaseMainMenuController {
 
-    public void dataBaseBikes(MouseEvent mouseEvent) throws IOException {
+    public void dataBaseBikes() throws IOException {
         ApplicationDisplay.changeScene("/mainMenu.fxml");
     }
 
-    public void databaseFood(MouseEvent mouseEvent) throws IOException {
+    public void databaseFood() throws IOException {
         ApplicationDisplay.changeScene("/mainMenu.fxml");
     }
 
-    public void databaseBuildings(MouseEvent mouseEvent) throws IOException {
+    public void databaseBuildings() throws IOException {
         ApplicationDisplay.changeScene("/DatabaseBuildingMenu.fxml");
     }
 
-    public void databaseRooms(MouseEvent mouseEvent) throws IOException {
+    public void databaseRooms() throws IOException {
         ApplicationDisplay.changeScene("/RoomsEditOrAdd.fxml");
     }
 
-    public void mainMenu(ActionEvent actionEvent) throws IOException {
+    public void mainMenu() throws IOException {
         ApplicationDisplay.changeScene("/mainMenu.fxml");
     }
 }

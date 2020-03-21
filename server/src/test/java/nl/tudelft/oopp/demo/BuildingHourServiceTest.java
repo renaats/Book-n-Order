@@ -70,8 +70,8 @@ public class BuildingHourServiceTest {
 
         building2 = new Building("EWI2", "Mekelweg2", 42);
 
-        assertEquals(201, buildingService.add("EWI", "Mekelweg", 4));
-        assertEquals(201, buildingService.add("EWI2", "Mekelweg2", 42));
+        buildingService.add("EWI", "Mekelweg", 4);
+        buildingService.add("EWI2", "Mekelweg2", 42);
 
         building = buildingService.find("EWI");
         building2 = buildingService.find("EWI2");
@@ -81,7 +81,7 @@ public class BuildingHourServiceTest {
     }
 
     /**
-     * Tests the constructor creating a new instance of the entity.
+     * Tests the constructor creating a new instance of the service.
      */
     @Test
     public void testConstructor() {
@@ -122,12 +122,11 @@ public class BuildingHourServiceTest {
     }
 
     /**
-     * Tests the saving and retrieval of an instance of BuildingHourService.
+     * Tests the saving and retrieval of an instance of BuildingHours.
      */
     @Test
     public void testRetrieveOne() {
         assertEquals(201, buildingHourService.add(building.getId(), buildingHours.getDay(), 1000, 3000));
-
         assertEquals(Collections.singletonList(buildingHours), buildingHourService.all());
     }
 
@@ -145,7 +144,7 @@ public class BuildingHourServiceTest {
      */
     @Test
     public void testNonEmptyIterator() {
-        assertEquals(201, buildingHourService.add(building.getId(), buildingHours.getDay(), 1000, 3000));
+        buildingHourService.add(building.getId(), buildingHours.getDay(), 1000, 3000);
 
         Iterator<BuildingHours> iterator = buildingHourService.all().iterator();
         assertTrue(iterator.hasNext());
@@ -185,8 +184,17 @@ public class BuildingHourServiceTest {
     public void testUpdateNonExisting() {
         buildingHourService.add(building.getId(), buildingHours.getDay(), 1000, 3000);
         buildingHourService.add(building2.getId(), buildingHours2.getDay(), 2000, 4000);
-
         assertEquals(416, buildingHourService.update(1234, "attr", "val"));
+    }
+
+    /**
+     * Tests the update operation on a non-existent attribute.
+     */
+    @Test
+    public void testUpdateNonExistingAttribute() {
+        buildingHourService.add(building.getId(), buildingHours.getDay(), 1000, 3000);
+        int id = buildingHourService.all().get(0).getId();
+        assertEquals(412, buildingHourService.update(id, "a", "a"));
     }
 
     /**

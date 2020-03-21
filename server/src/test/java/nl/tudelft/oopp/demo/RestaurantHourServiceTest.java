@@ -87,11 +87,11 @@ public class RestaurantHourServiceTest {
 
         restaurant2 = new Restaurant(building, "Hangout");
 
-        assertEquals(201, buildingService.add("EWI", "Mekelweg", 4));
+        buildingService.add("EWI", "Mekelweg", 4);
         building = buildingService.find("EWI");
 
-        assertEquals(201, restaurantService.add(building.getId(), "Food Station"));
-        assertEquals(201, restaurantService.add(building.getId(), "Hangout"));
+        restaurantService.add(building.getId(), "Food Station");
+        restaurantService.add(building.getId(), "Hangout");
 
         restaurant = restaurantService.find("Food Station");
         restaurant2 = restaurantService.find("Hangout");
@@ -202,8 +202,17 @@ public class RestaurantHourServiceTest {
     public void testUpdateNonExisting() {
         restaurantHourService.add(restaurant.getId(), restaurantHours.getDay(), 1000, 3000);
         restaurantHourService.add(restaurant2.getId(), restaurantHours2.getDay(), 2000, 4000);
-
         assertEquals(416, restaurantHourService.update(1234, "attr", "val"));
+    }
+
+    /**
+     * Tests the update operation on a non-existent attribute.
+     */
+    @Test
+    public void testUpdateNonExistingAttribute() {
+        restaurantHourService.add(restaurant.getId(), restaurantHours.getDay(), 1000, 3000);
+        int id = restaurantHourService.all().get(0).getId();
+        assertEquals(412, restaurantHourService.update(id, "a", "a"));
     }
 
     /**

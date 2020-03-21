@@ -40,8 +40,19 @@ public class UserController {
      * @param request = the Http request that calls this method
      */
     @PostMapping(path = "/logout")
-    public void logout(HttpServletRequest request) {
-        userService.logout(request);
+    public int logout(HttpServletRequest request) {
+        return userService.logout(request);
+    }
+
+    /**
+     * Returns information about the user account.
+     * @param request = the Http request that calls this method
+     * @return account information about the account that requests it.
+     */
+    @Secured("ROLE_USER")
+    @GetMapping(path = "/info")
+    public String userInfo(HttpServletRequest request) {
+        return userService.userInfo(request);
     }
 
     /**
@@ -147,5 +158,15 @@ public class UserController {
     @ResponseBody
     public void addRole(@RequestParam String email, @RequestParam String roleName) {
         userService.addRole(email, roleName);
+    }
+
+    /**
+     * Retrieves a boolean value representing whether the user is allowed to access the admin panel.
+     * @param request = the Http request that calls this method.
+     */
+    @Secured("ROLE_USER")
+    @GetMapping(path = "/admin")
+    public boolean isAdmin(HttpServletRequest request) {
+        return userService.isAdmin(request);
     }
 }
