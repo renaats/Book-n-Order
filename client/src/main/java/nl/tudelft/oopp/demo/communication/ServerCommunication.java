@@ -94,11 +94,41 @@ public class ServerCommunication {
     }
 
     /**
-     * Adds buildingHours to the server.
-     * @return the body of the response from the server.
+     * Adds building hours to the server
+     * @param buildingId building id
+     * @param day day represented by int
+     * @param startTimeS start time in seconds
+     * @param endTimeS end time in seconds
+     * @return response.body of the server
      */
     public static String addBuildingHours(int buildingId, int day, int startTimeS, int endTimeS) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building_hours/add?buildingId=" + buildingId + "&day=" + day + "&startTimeS=" + startTimeS + "&endTimeS=" + endTimeS)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
+        HttpResponse<String> response;
+        try {
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Communication with server failed";
+        }
+        if (response.statusCode() == 403) {
+            return ErrorMessages.getErrorMessage(401);
+        }
+        if (response.statusCode() != 200) {
+            System.out.println("Status: " + response.statusCode());
+        }
+        return response.body();
+    }
+
+    /**
+     * Adds restaurant hours to the server
+     * @param restaurantId restaurant id
+     * @param day day represented by int
+     * @param startTimeS start time in seconds
+     * @param endTimeS end time in seconds
+     * @return response.body of the server
+     */
+    public static String addRestaurantHours(int restaurantId, int day, int startTimeS, int endTimeS) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building_hours/add?restaurantId=" + restaurantId + "&day=" + day + "&startTimeS=" + startTimeS + "&endTimeS=" + endTimeS)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
         HttpResponse<String> response;
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
@@ -196,6 +226,15 @@ public class ServerCommunication {
     }
 
     /**
+     * Retrieves all restaurant hours from the server.
+     * @return the body of the response from the server.
+     */
+    public static String getRestaurantHours() {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + UserInformation.getBearerKey()).uri(URI.create("http://localhost:8080/restaurant_hours/all")).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
      * Retrieves a JSON string representation of all rooms from the server.
      * @return the body of the response from the server.
      */
@@ -226,12 +265,23 @@ public class ServerCommunication {
 
     /**
      * Retrieve specific building hours for specific day in the database by id.
-     * @param buildingHoursId = building hours id, which is parsed from a text field.
+     * @param buildingId = building id, which is parsed from a text field.
      * @param day = int representation for the day of the week
      * @return the body of the response.
      */
-    public static String findBuildingHours(int buildingHoursId, int day) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building_hours/find/" + buildingHoursId + "/" + day)).GET().header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
+    public static String findBuildingHours(int buildingId, int day) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building_hours/find/" + buildingId + "/" + day)).GET().header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Retrieve specific restaurant opening hours for specific day in the database by id.
+     * @param restaurantId = restaurant id, which is parsed from a text field.
+     * @param day = int representation for the day of the week
+     * @return the body of the response.
+     */
+    public static String findRestaurantHours(int restaurantId, int day) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant_hours/find/" + restaurantId + "/" + day)).GET().header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
         return communicateAndReturnBodyOfResponse(request);
     }
 
@@ -256,7 +306,7 @@ public class ServerCommunication {
 
     /**
      * Updates a given attribute of building hours.
-     * @param id = id of the building to be updated.
+     * @param id = id of the building hour to be updated.
      * @param attribute = The attribute whose value is to be updated.
      * @param changeValue = New value.
      * @return The body of the response from the server.
@@ -265,6 +315,25 @@ public class ServerCommunication {
         HttpRequest request;
         try {
             request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building_hours/update?id=" + id + "&attribute=" + attribute + "&value=" + URLEncoder.encode(changeValue, "UTF-8"))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return "Please enter an encoding that is supported by the URLEncode class.";
+        }
+        HttpResponse<String> response;
+        return communicateAndReturnErrorMessage(request);
+    }
+
+    /**
+     * Updates a given attribute of restaurant hours.
+     * @param id = id of the restaurant hour to be updated.
+     * @param attribute = The attribute whose value is to be updated.
+     * @param changeValue = New value.
+     * @return The body of the response from the server.
+     */
+    public static String updateRestaurantHours(int id, String attribute, String changeValue) {
+        HttpRequest request;
+        try {
+            request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant_hours/update?id=" + id + "&attribute=" + attribute + "&value=" + URLEncoder.encode(changeValue, "UTF-8"))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
             return "Please enter an encoding that is supported by the URLEncode class.";
@@ -294,13 +363,24 @@ public class ServerCommunication {
     }
 
     /**
-     * Removes buildinghours from the database.
-     * @param id = the id of the room.
+     * Removes building hours from the database.
+     * @param id = the id of the building.
      * @param day = the day of the week represented in an int.
      * @return the body of the response from the server.
      */
     public static String deleteBuildingHours(int id, int day) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building_hours/delete?id=" + id + "&day=" + day)).DELETE().header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
+        return communicateAndReturnErrorMessage(request);
+    }
+
+    /**
+     * Removes restaurant hours from the database.
+     * @param id = the id of the restaurant.
+     * @param day = the day of the week represented in an int.
+     * @return the body of the response from the server.
+     */
+    public static String deleteRestaurantHours(int id, int day) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant_hours/delete?id=" + id + "&day=" + day)).DELETE().header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
         return communicateAndReturnErrorMessage(request);
     }
 
