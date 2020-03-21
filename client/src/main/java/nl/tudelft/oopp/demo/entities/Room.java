@@ -1,12 +1,12 @@
 package nl.tudelft.oopp.demo.entities;
 
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 public class Room {
 
@@ -100,6 +100,10 @@ public class Room {
         return building;
     }
 
+    /**
+     * Makes the table list the building name instead of the building object
+     * @return String property, a property recognized by the tables.
+     */
     public StringProperty getBuildingNameProperty() {
         String v = getBuilding().getName();;
         StringProperty buildingNameProperty = new SimpleStringProperty(v);
