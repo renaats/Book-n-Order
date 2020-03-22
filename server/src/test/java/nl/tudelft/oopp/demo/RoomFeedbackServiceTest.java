@@ -1,6 +1,8 @@
 package nl.tudelft.oopp.demo;
 
 import nl.tudelft.oopp.demo.entities.*;
+import nl.tudelft.oopp.demo.repositories.RoomRepository;
+import nl.tudelft.oopp.demo.repositories.RoomReservationRepository;
 import nl.tudelft.oopp.demo.repositories.UserRepository;
 import nl.tudelft.oopp.demo.services.*;
 import org.junit.jupiter.api.BeforeEach;
@@ -56,7 +58,7 @@ public class RoomFeedbackServiceTest {
     }
 
     @Autowired
-    RoomFeedbackService  roomFeedbackService;
+    RoomFeedbackService roomFeedbackService;
 
     @Autowired
     RoomService roomService;
@@ -69,6 +71,12 @@ public class RoomFeedbackServiceTest {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    RoomReservationRepository roomReservationRepository;
+
+    @Autowired
+    RoomRepository roomRepository;
 
     Building building;
     Building building2;
@@ -102,6 +110,7 @@ public class RoomFeedbackServiceTest {
         room.setProjector(true);
         room.setNrPeople(200);
         room.setPlugs(200);
+        roomRepository.save(room);
 
         room2 = new Room();
         room2.setName("Boole");
@@ -112,6 +121,7 @@ public class RoomFeedbackServiceTest {
         room2.setProjector(true);
         room2.setNrPeople(200);
         room2.setPlugs(200);
+        roomRepository.save(room2);
 
         appUser = new AppUser();
         appUser.setEmail("a.delia@student.tudelft.nl");
@@ -123,6 +133,7 @@ public class RoomFeedbackServiceTest {
         appUser.setRoomReservations(new HashSet<>());
         appUser.setLoggedIn(false);
         userRepository.save(appUser);
+        appUser = userRepository.findByEmail("a.delia@student.tudelft.nl");
 
         appUser2 = new AppUser();
         appUser2.setEmail("R.Jursevskis@student.tudelft.nl");
@@ -133,6 +144,8 @@ public class RoomFeedbackServiceTest {
         roomReservation.setAppUser(appUser);
         roomReservation.setFromTime(new Date(300));
         roomReservation.setToTime(new Date(500));
+        roomReservationRepository.save(roomReservation);
+        roomReservation = roomReservationRepository.findAll().get(0);
         roomReservation2 = new RoomReservation();
         roomReservation2.setAppUser(appUser2);
         roomReservation2.setRoom(room2);
@@ -145,7 +158,7 @@ public class RoomFeedbackServiceTest {
         roomFeedback.setRoomReservation(roomReservation);
         roomFeedback.setTime(new Date(300));
         roomFeedback.setFeedback("good");
-        roomFeedback = new RoomFeedback();
+        roomFeedback2 = new RoomFeedback();
         roomFeedback2.setClient(appUser2);
         roomFeedback2.setRecipient(appUser);
         roomFeedback2.setRoomReservation(roomReservation2);
