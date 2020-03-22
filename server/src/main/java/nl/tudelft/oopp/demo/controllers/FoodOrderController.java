@@ -2,6 +2,8 @@ package nl.tudelft.oopp.demo.controllers;
 
 import java.util.Set;
 
+import javax.servlet.http.HttpServletRequest;
+
 import nl.tudelft.oopp.demo.entities.Dish;
 import nl.tudelft.oopp.demo.entities.FoodOrder;
 import nl.tudelft.oopp.demo.services.FoodOrderService;
@@ -92,5 +94,27 @@ public class FoodOrderController {
     @ResponseBody
     public Iterable<FoodOrder> getAllFoodOrders() {
         return foodOrderService.all();
+    }
+
+    /**
+     * Finds all past food orders for the user that sends the Http request.
+     * @param request = the Http request that calls this method
+     * @return a list of past food orders for this user.
+     */
+    @Secured("ROLE_USER")
+    @GetMapping(path = "/past")
+    public Iterable<FoodOrder> getPastReservations(HttpServletRequest request) {
+        return foodOrderService.past(request);
+    }
+
+    /**
+     * Finds all future food orders for the user that sends the Http request.
+     * @param request = the Http request that calls this method
+     * @return a list of future food orders for this user.
+     */
+    @Secured("ROLE_USER")
+    @GetMapping(path = "/future")
+    public Iterable<FoodOrder> getFutureReservations(HttpServletRequest request) {
+        return foodOrderService.future(request);
     }
 }

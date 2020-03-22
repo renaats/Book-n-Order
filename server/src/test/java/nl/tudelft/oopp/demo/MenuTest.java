@@ -2,6 +2,7 @@ package nl.tudelft.oopp.demo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -14,6 +15,7 @@ import nl.tudelft.oopp.demo.repositories.BuildingRepository;
 import nl.tudelft.oopp.demo.repositories.DishRepository;
 import nl.tudelft.oopp.demo.repositories.MenuRepository;
 import nl.tudelft.oopp.demo.repositories.RestaurantRepository;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,10 +47,16 @@ public class MenuTest {
     Set<Dish> dishes;
 
     /**
-     * Setup for all the tests
+     * Sets up the entities and saves them in the repository before executing every test.
      */
     @BeforeEach
     public void setup() {
+        restaurant1 = new Restaurant(building, "KFC");
+        restaurantRepository.saveAndFlush(restaurant1);
+
+        restaurant2 = new Restaurant(building, "Burger King");
+        restaurantRepository.saveAndFlush(restaurant2);
+
         dish = new Dish("Chicken", menu1);
         dishRepository.saveAndFlush(dish);
 
@@ -64,40 +72,98 @@ public class MenuTest {
         menuRepository.saveAndFlush(menu1);
 
         menu2 = new Menu("BK menu", restaurant2);
-        menuRepository.saveAndFlush(menu2);
 
         building = new Building("EWI", "Mekelweg", 4);
         buildingRepository.saveAndFlush(building);
+    }
 
-        restaurant1 = new Restaurant(building, "KFC");
+    /**
+     * Tests the constructor of the Menu class
+     */
+    @Test
+    public void testConstructor() {
+        assertNotNull(menu1);
+    }
+
+    /**
+     * Tests the saving and retrieval of an instance of Menu.
+     */
+    @Test
+    public void saveAndRetrieveMenu() {
+        assertNotEquals(menu1, menu2);
+        menu2 = menuRepository.findAll().get(0);
+        assertEquals(menu1, menu2);
+    }
+
+    /**
+     * Tests the getter for the name field.
+     */
+    @Test
+    public void testNameGetter() {
+        menu2 = menuRepository.findAll().get(0);
+        assertEquals("KFC menu", menu2.getName());
+    }
+
+    /**
+     * Tests the getter for the restaurant field.
+     */
+    @Test
+    public void testRestaurantGetter() {
+        menu2 = menuRepository.findAll().get(0);
+        assertEquals(restaurant1, menu2.getRestaurant());
+    }
+
+    /**
+     * Tests the the change of the name by using a setter.
+     */
+    @Test
+    public void testChangeName() {
+        assertNotEquals("Menu1", menu1.getName());
+        menu1.setName("Menu1");
+        assertEquals("Menu1", menu1.getName());
+    }
+
+    /**
+     * Tests the the change of the name by using a setter.
+     */
+    @Test
+    public void testChangeRestaurant() {
+        assertNotEquals(restaurant2, menu1.getRestaurant());
+        menu1.setRestaurant(restaurant2);
+        assertEquals(restaurant2, menu1.getRestaurant());
+    }
+
+    /**
+     * Tests the equals method for non-equal menus.
+     */
+    @Test
+    public void testNotEqualMenus() {
+        assertNotEquals(menu1, menu2);
+    }
+
+    /**
+     * Tests the retrieval of dishes for some menu.
+     */
+    @Test
+    public void testDishes() {
+        assertEquals(dishes, menu1.getDishes());
+    }
+
+    /**
+     * Tests the setter and getter for the Restaurant menu field.
+     */
+    @Test
+    public void testRestaurantSetMenu() {
         restaurant1.setMenu(menu1);
-        restaurantRepository.saveAndFlush(restaurant1);
-
-        restaurant2 = new Restaurant(building, "Burger King");
-        restaurant2.setMenu(menu2);
-        restaurantRepository.saveAndFlush(restaurant2);
+        assertEquals(menu1, restaurant1.getMenu());
     }
 
-    @Test
-    public void testRestaurant() {
-        restaurant3 = restaurantRepository.findAll().get(1);
-        assertEquals(restaurant3, restaurant2);
-    }
-
-    @Test
-    public void testRestaurantFalse() {
-        restaurant3 = restaurantRepository.findAll().get(1);
-        assertNotEquals(restaurant3, restaurant1);
-    }
-
-    @Test
-    public void testGetters() {
-        menu3 = menuRepository.findAll().get(1);
-        assertEquals(menu3, menu2);
-    }
-
-    @Test
-    public void testNotEqualsDishes() {
-        assertNotEquals(menu1.getDishes(), menu2.getDishes());
+    /**
+     * Cleans up the repositories after executing every test.
+     */
+    @AfterEach
+    public void cleanup() {
+        dishRepository.deleteAll();
+        menuRepository.deleteAll();
     }
 }

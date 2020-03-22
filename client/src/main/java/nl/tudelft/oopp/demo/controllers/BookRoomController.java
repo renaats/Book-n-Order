@@ -8,12 +8,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.StageStyle;
 
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
@@ -75,26 +78,35 @@ public class BookRoomController implements Initializable {
      */
     public Search applyFilters() {
         if (building.getValue() == null) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Authenticator");
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle(null);
             alert.setHeaderText(null);
-            alert.setContentText("Please select a building");
+            alert.setContentText("Please select a building.");
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/alertWarning.css").toExternalForm());
             alert.showAndWait();
             return null;
         }
         if (capacity.getCharacters() == null) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Authenticator");
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle(null);
             alert.setHeaderText(null);
-            alert.setContentText("Please select a capacity");
+            alert.setContentText("Please select a maximum capacity.");
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/alertWarning.css").toExternalForm());
             alert.showAndWait();
             return null;
         }
         if (nuOfPlugs.getCharacters() == null) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Authenticator");
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle(null);
             alert.setHeaderText(null);
-            alert.setContentText("Please select a number of plugs");
+            alert.setContentText("Please select the amount of plugs.");
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/alertWarning.css").toExternalForm());
             alert.showAndWait();
             return null;
         }

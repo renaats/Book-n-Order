@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.MyAccountController">
+<AnchorPane fx:id="anchorPane" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.MyAccountController">
    <ImageView fitWidth="1280.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@images/mainMenuBackground.jpg" />
@@ -20,7 +23,7 @@
     <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="258.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="576.0" AnchorPane.leftAnchor="258.0" AnchorPane.rightAnchor="902.0" AnchorPane.topAnchor="120.0">
         <Image url="@images/booknorderlogo.png" />
     </ImageView>
-    <Button layoutX="146.0" layoutY="386.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#changePasswordScene" style="-fx-background-color: #00a6d6;" text="Change password" textFill="WHITE" AnchorPane.leftAnchor="146.0" AnchorPane.topAnchor="386.0">
+    <Button layoutX="119.0" layoutY="349.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#changePasswordScene" style="-fx-background-color: #00a6d6;" text="Change password" textFill="WHITE" AnchorPane.leftAnchor="119.0" AnchorPane.topAnchor="349.0">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor></Button>
@@ -34,46 +37,30 @@
             <Font name="Calibri" size="11.0" />
         </font>
     </Text>
-    <Text layoutX="89.0" layoutY="204.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My profile information:" AnchorPane.leftAnchor="89.0" AnchorPane.topAnchor="178.1015625">
+    <Text layoutX="75.0" layoutY="215.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My profile information:" AnchorPane.leftAnchor="75.0" AnchorPane.topAnchor="189.1015625">
         <font>
             <Font size="24.0" />
         </font>
     </Text>
-    <Text layoutX="86.0" layoutY="280.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" AnchorPane.leftAnchor="86.0" AnchorPane.topAnchor="260.576171875">
+    <Text layoutX="86.0" layoutY="261.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" AnchorPane.leftAnchor="86.0" AnchorPane.topAnchor="241.576171875">
         <font>
             <Font size="18.0" />
         </font>
     </Text>
-    <Text layoutX="86.0" layoutY="341.0" strokeType="OUTSIDE" strokeWidth="0.0" text="E-mail address:" AnchorPane.leftAnchor="86.0" AnchorPane.topAnchor="321.576171875">
+    <Text layoutX="85.0" layoutY="289.0" strokeType="OUTSIDE" strokeWidth="0.0" text="E-mail:" AnchorPane.leftAnchor="85.0" AnchorPane.topAnchor="269.0">
         <font>
             <Font size="18.0" />
         </font>
     </Text>
-    <Button fx:id="LogoutButton" layoutX="146.0" layoutY="434.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#logoutUser" style="-fx-background-color: #00a6d6;" text="Logout" textFill="WHITE" AnchorPane.leftAnchor="146.0" AnchorPane.topAnchor="434.0">
-        <font>
-            <Font size="14.0" />
-        </font>
-      <cursor>
-         <Cursor fx:constant="HAND" />
-      </cursor>
-    </Button>
-    <Button fx:id="adminControl" layoutX="146.0" layoutY="485.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#adminPanel" style="-fx-background-color: #00a6d6;" text="Admin Control" textFill="WHITE">
-        <font>
-            <Font size="14.0" />
-        </font>
-      <cursor>
-         <Cursor fx:constant="HAND" />
-      </cursor>
-    </Button>
-   <Label fx:id="name" layoutX="219.0" layoutY="259.0" text="Name goes here">
+   <Label fx:id="fullNameLabel" layoutX="184.0" layoutY="241.0" text="name + surname">
       <font>
          <Font size="18.0" />
       </font></Label>
-   <Label fx:id="email" layoutX="218.0" layoutY="320.0" text="E-mail goes here">
+   <Label fx:id="emailLabel" layoutX="182.0" layoutY="268.0" text="tu delft E-mail">
       <font>
          <Font size="18.0" />
       </font></Label>
-   <ImageView fitHeight="256.0" fitWidth="266.0" layoutX="827.0" layoutY="222.0" onMouseClicked="#myPreviousBookings" pickOnBounds="true" preserveRatio="true">
+   <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="765.0" layoutY="365.0" onMouseClicked="#myPreviousBookings" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@images/Previous-booking-icon-png.png" />
       </image>
@@ -81,7 +68,7 @@
          <Cursor fx:constant="HAND" />
       </cursor>
    </ImageView>
-   <ImageView fitHeight="256.0" fitWidth="329.0" layoutX="478.0" layoutY="231.0" onMouseClicked="#myCurrentBookings" pickOnBounds="true" preserveRatio="true">
+   <ImageView fitHeight="200.0" fitWidth="329.0" layoutX="771.0" layoutY="124.0" onMouseClicked="#myCurrentBookings" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@images/CurrentBookingsIcon.png" />
       </image>
@@ -95,14 +82,34 @@
          <Cursor fx:constant="HAND" />
       </cursor>
     </ImageView>
-    <Button layoutX="506.0" layoutY="485.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#myCurrentBookings" style="-fx-background-color: #00a6d6;" text="Current Bookings" textFill="WHITE">
+    <Button layoutX="771.0" layoutY="324.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#myCurrentBookings" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: #00a6d6;" text="Current Bookings" textFill="WHITE">
         <cursor>
             <Cursor fx:constant="HAND" />
         </cursor>
     </Button>
-   <Button layoutX="867.0" layoutY="485.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#myPreviousBookings" style="-fx-background-color: #00a6d6;" text="Past Bookings" textFill="WHITE">
+   <Button layoutX="771.0" layoutY="571.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#myPreviousBookings" style="-fx-background-color: #00a6d6;" text="Past Bookings" textFill="WHITE">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor>
    </Button>
+   <Button fx:id="adminControl" layoutX="118.0" layoutY="419.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#adminPanel" style="-fx-background-color: #00a6d6;" text="Admin control" textFill="WHITE">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
+   <Button fx:id="logoutButton" layoutX="118.0" layoutY="384.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#logoutUser" style="-fx-background-color: #00a6d6;" text="Logout" textFill="WHITE">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
+   <Text layoutX="85.0" layoutY="316.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Faculty:">
+      <font>
+         <Font size="18.0" />
+      </font>
+   </Text>
+   <Label fx:id="facultyLabel" layoutX="183.0" layoutY="297.0" text="faculty">
+      <font>
+         <Font size="18.0" />
+      </font>
+   </Label>
 </AnchorPane>

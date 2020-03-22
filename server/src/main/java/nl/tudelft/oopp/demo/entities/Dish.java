@@ -52,10 +52,6 @@ public class Dish {
 
     }
 
-    public Menu getMenu() {
-        return menu;
-    }
-
     public void setMenu(Menu menu) {
         this.menu = menu;
     }
@@ -78,6 +74,10 @@ public class Dish {
 
     public Set<FoodOrder> getFoodOrders() {
         return foodOrders;
+    }
+    
+    public Menu getMenu() {
+        return menu;
     }
 
     @Override
