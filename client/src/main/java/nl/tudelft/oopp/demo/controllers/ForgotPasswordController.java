@@ -5,6 +5,9 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
+/**
+ * Manages the user input from the ForgotPassword View
+ */
 public class ForgotPasswordController {
     /**
      * Goes back to the login screen
