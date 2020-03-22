@@ -124,20 +124,19 @@ public class BookRoomController implements Initializable {
         int intPlugs;
         String stringPlugs = (String) nuOfPlugs.getCharacters();
         intPlugs = Integer.parseInt(stringPlugs);
-        Search search = new Search(isScreen, isBeamer, intCapacity, building.getValue(), intPlugs);
-        return search;
+        return new Search(isScreen, isBeamer, intCapacity, building.getValue(), intPlugs);
     }
 
     /**
      * return to the reservations menu when the back arrow button is clicked.
-     * @throws IOException the input will allways be the same, so it should never throw an IO exception
+     * @throws IOException the input will always be the same, so it should never throw an IO exception
      */
     public void goToMainMenuReservations() throws IOException {
         ApplicationDisplay.changeScene("/mainMenuReservations.fxml");
     }
     /**
      * return to the reservations menu when the back arrow button is clicked.
-     * @throws IOException the input will allways be the same, so it should never throw an IO exception
+     * @throws IOException the input will always be the same, so it should never throw an IO exception
      */
 
     public void goToRoomConfirmation() throws IOException {

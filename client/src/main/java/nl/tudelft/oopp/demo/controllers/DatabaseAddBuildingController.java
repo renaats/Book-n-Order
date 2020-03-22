@@ -54,7 +54,7 @@ public class DatabaseAddBuildingController {
     public void databaseAddBuilding() {
         String name = null;
         String street = null;
-        // -1 is a placeholder since you cannot intialize an empty integer.
+        // -1 is a placeholder since you cannot initialize an empty integer.
         int houseNumber = -1;
         try {
             name = nameTextField.getText();

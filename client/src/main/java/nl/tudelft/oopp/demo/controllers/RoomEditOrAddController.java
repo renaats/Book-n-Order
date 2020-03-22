@@ -33,7 +33,7 @@ public class RoomEditOrAddController implements Initializable {
     /**
      * Changes the scene to the main menu of the database.
      * @param mouseEvent the event is the clicking of the mouse icon
-     * @throws IOException the input is allways correct, so it should never throw and IOException.
+     * @throws IOException the input is always correct, so it should never throw and IOException.
      */
 
     public void mainMenu(MouseEvent mouseEvent) throws IOException {
@@ -43,7 +43,7 @@ public class RoomEditOrAddController implements Initializable {
     /**
      * takes the user to the view where they can add rooms to the database
      * @param actionEvent the event is the clicking of the mouse icon
-     * @throws IOException the input is allways correct, so it should never throw and IOException.
+     * @throws IOException the input is always correct, so it should never throw and IOException.
      */
     public void goToAddRooms(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/DatabaseAddRooms.fxml");
@@ -52,7 +52,7 @@ public class RoomEditOrAddController implements Initializable {
     /**
      * takes the user to the view where they can remove the rooms in the data base.
      * @param actionEvent the event is the clicking of the mouse icon
-     * @throws IOException the input is allways correct, so it should never throw and IOException.
+     * @throws IOException the input is always correct, so it should never throw and IOException.
      */
 
     public void goToRemoveRooms(ActionEvent actionEvent) throws IOException {

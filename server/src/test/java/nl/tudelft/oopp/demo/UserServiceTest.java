@@ -110,7 +110,7 @@ class UserServiceTest {
      */
     @Test
     public void testCreateInvalidEmail() {
-        assertEquals(423, userService.add("notavalidemail", "1111", "name","surname","faculty"));
+        assertEquals(423, userService.add("notValidEmail", "1111", "name","surname","faculty"));
     }
 
     /**

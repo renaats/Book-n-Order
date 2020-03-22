@@ -8,7 +8,7 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 public class MainMenuReservationsController {
 
     /**
-     * Handels the clicking of the button under the bike image at the main menu.
+     * Handles the clicking of the button under the bike image at the main menu.
      * @throws IOException when it fails
      */
     public void rentBike() throws IOException {

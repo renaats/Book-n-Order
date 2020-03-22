@@ -81,7 +81,7 @@ public class OrderFoodController implements Initializable {
     /**
      * return to the reservations menu when the back arrow button is clicked.
      * @param mouseEvent The event tis the clicking of the arrow button
-     * @throws IOException the input will allways be the same, so it should never throw an IO exception
+     * @throws IOException the input will always be the same, so it should never throw an IO exception
      */
     public void goToMainMenuReservations(MouseEvent mouseEvent) throws IOException {
         ApplicationDisplay.changeScene("/mainMenuReservations.fxml");

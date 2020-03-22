@@ -21,7 +21,7 @@ bikes
 * location currently stored
 * bike currently booked (Y/N)
 * bike booked for future (Y/N)
-* bike not available (for example incase of broken) (Y/N)
+* bike not available (for example in case of broken) (Y/N)
 
 
 bike reservations
