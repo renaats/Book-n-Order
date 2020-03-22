@@ -20,7 +20,7 @@ import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.user.UserInformation;
 
 /**
- * maps Json server responses into objects in the Entities folder
+ * Maps Json server responses into objects in the Entities folder
  */
 public class JsonMapper {
 
