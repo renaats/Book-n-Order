@@ -11,6 +11,9 @@ import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.user.UserInformation;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
+/**
+ * Adds the functionality to ConfirmationSixDigits.fxml file
+ */
 public class ConfirmationSixDigitsController {
 
     @FXML

@@ -274,7 +274,7 @@ public class ServerCommunicationTest {
      * Tests the response when the loginUser request is successful.
      */
     @Test
-    public void testSuccessfulLoginUser() {
+    public void testSuccessfulLoginUser() throws IOException {
         assertEquals(ErrorMessages.getErrorMessage(311), ServerCommunication.loginUser("a", "b"));
     }
 
