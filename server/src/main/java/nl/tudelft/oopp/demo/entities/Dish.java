@@ -1,8 +1,5 @@
 package nl.tudelft.oopp.demo.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -61,8 +58,12 @@ public class Dish {
         this.name = name;
     }
 
-    public void setAllergy(Set<Allergy> allergies) {
+    public void setAllergies(Set<Allergy> allergies) {
         this.allergies = allergies;
+    }
+
+    public void addAllergy(Allergy allergy) {
+        allergies.add(allergy);
     }
 
     public int getId() {

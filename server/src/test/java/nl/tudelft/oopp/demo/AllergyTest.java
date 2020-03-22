@@ -90,6 +90,22 @@ public class AllergyTest {
     }
 
     /**
+     * Tests allergy addition to a dish.
+     */
+    @Test
+    public void testUserRole() {
+        Dish dish = new Dish("Tosti", menu);
+        dish.setAllergies(new HashSet<>());
+
+        Set<Allergy> allergySet = new HashSet<>();
+        allergySet.add(allergy1);
+
+        dish.setAllergies(new HashSet<>());
+        dish.addAllergy(allergy1);
+        assertEquals(allergySet, dish.getAllergy());
+    }
+
+    /**
      * Cleans up the repositories after executing every test.
      */
     @AfterEach
