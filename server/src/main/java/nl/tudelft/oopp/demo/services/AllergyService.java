@@ -1,15 +1,10 @@
 package nl.tudelft.oopp.demo.services;
 
 import java.util.List;
-import java.util.Optional;
 
 import nl.tudelft.oopp.demo.entities.Allergy;
-import nl.tudelft.oopp.demo.entities.Dish;
-import nl.tudelft.oopp.demo.entities.Role;
 import nl.tudelft.oopp.demo.repositories.AllergyRepository;
-import nl.tudelft.oopp.demo.repositories.DishRepository;
 
-import nl.tudelft.oopp.demo.repositories.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,8 +16,6 @@ import org.springframework.stereotype.Service;
 public class AllergyService {
     @Autowired
     private AllergyRepository allergyRepository;
-    @Autowired
-    private DishRepository dishRepository;
 
     /**
      * Adds an allergy.
@@ -47,7 +40,6 @@ public class AllergyService {
             return 416;
         }
         Allergy allergy = allergyRepository.getOne(id);
-        String old = allergy.getAllergyName();
         allergy.setAllergyName(allergyName);
         allergyRepository.save(allergy);
         return 201;

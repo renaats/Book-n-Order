@@ -34,23 +34,21 @@ public class AllergyController {
     @Secured({"ROLE_ADMIN"})
     @PostMapping(path = "/add") // Map ONLY POST Requests
     @ResponseBody
-    public int addNewAllergy(
-            @RequestParam String allergyName
-    ) {
+    public int addAllergy(@RequestParam String allergyName) {
         return allergyService.add(allergyName);
     }
 
     /**
      * Updates a the name of an allergy.
      * @param id = the allergy id
-     * @param name = new name
+     * @param allergyName = new name
      * @return Error code
      */
     @Secured("ROLE_ADMIN")
     @PostMapping(path = "/update_name")
     @ResponseBody
-    public int updateName(@RequestParam int id, @RequestParam String name) {
-        return allergyService.update(id, name);
+    public int updateName(@RequestParam int id, @RequestParam String allergyName) {
+        return allergyService.update(id, allergyName);
     }
 
     /**

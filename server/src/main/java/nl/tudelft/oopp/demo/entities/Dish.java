@@ -4,6 +4,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,9 +32,7 @@ public class Dish {
     @JoinColumn
     private Menu menu;
 
-    @ManyToMany
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<Allergy> allergies;
 
     /**
@@ -74,7 +73,7 @@ public class Dish {
         return name;
     }
 
-    public Set<Allergy> getAllergy() {
+    public Set<Allergy> getAllergies() {
         return allergies;
     }
     
@@ -92,6 +91,7 @@ public class Dish {
         }
         Dish dish = (Dish) o;
         return Objects.equals(name, dish.name)
-                && Objects.equals(menu, dish.menu);
+                && Objects.equals(menu, dish.menu)
+                && Objects.equals(allergies, dish.allergies);
     }
 }

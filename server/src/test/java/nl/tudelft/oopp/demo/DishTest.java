@@ -31,11 +31,11 @@ public class DishTest {
 
     Menu menu1;
     Menu menu2;
-    Menu menu3;
     Restaurant restaurant1;
     Restaurant restaurant2;
     Dish dish;
     Dish dish2;
+    Dish dish3;
     Set<Dish> dishes;
     Set<Dish> dishes1;
     Set<Dish> dishes2;
@@ -52,6 +52,7 @@ public class DishTest {
         menuRepository.saveAndFlush(menu2);
 
         dish = new Dish("Chicken", menu1);
+        dish.setAllergies(new HashSet<>());
         dishRepository.saveAndFlush(dish);
 
         dish2 = new Dish("Spicy Chicken", menu2);
@@ -75,7 +76,8 @@ public class DishTest {
      */
     @Test
     public void testConstructor() {
-        assertNotNull(dish);
+        dish3 = new Dish();
+        assertNotNull(dish3);
     }
 
     /**

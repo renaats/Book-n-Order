@@ -38,6 +38,18 @@ public class DishController {
     }
 
     /**
+     * Adds an allergy to a dish. If the allergy does not exist, it is created.
+     * @param id = the id of the dish
+     * @param allergyName = the name of the allergy
+     */
+    //@Secured("ROLE_ADMIN") SHOULD BE UNCOMMENTED WHEN IN PRODUCTION!
+    @PostMapping(path = "/addAllergy")
+    @ResponseBody
+    public void addAllergy(@RequestParam int id, @RequestParam String allergyName) {
+        dishService.addAllergy(id, allergyName);
+    }
+
+    /**
      * Deletes a dish
      * @param id dish id
      * @return Error code
