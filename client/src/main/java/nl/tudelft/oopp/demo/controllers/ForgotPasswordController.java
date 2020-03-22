@@ -6,6 +6,9 @@ import javafx.scene.control.DialogPane;
 
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
+/**
+ * Manages the user input from the ForgotPassword View
+ */
 public class ForgotPasswordController {
     /**
      * Goes back to the login screen
