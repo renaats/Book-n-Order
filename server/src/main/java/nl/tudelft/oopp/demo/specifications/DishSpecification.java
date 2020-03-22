@@ -8,6 +8,9 @@ import javax.persistence.criteria.Root;
 import nl.tudelft.oopp.demo.entities.Dish;
 import org.springframework.data.jpa.domain.Specification;
 
+/**
+ * Used for creating predicates based on criteria to be used for Dish searching.
+ */
 public class DishSpecification implements Specification<Dish> {
 
     private SearchCriteria criteria;
