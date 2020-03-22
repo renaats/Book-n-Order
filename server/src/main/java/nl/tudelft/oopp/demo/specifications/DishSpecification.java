@@ -32,5 +32,4 @@ public class DishSpecification implements Specification<Dish> {
         }
         return null;
     }
-
 }
