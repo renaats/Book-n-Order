@@ -1,11 +1,20 @@
 package nl.tudelft.oopp.demo.entities;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
-import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 public class RoomFeedback {
@@ -37,6 +46,14 @@ public class RoomFeedback {
 
     }
 
+    /**
+     * Constructor for Bike Feedback.
+     * @param client client sending feedback.
+     * @param recipient admin receiving feedback.
+     * @param roomReservation bike reservation receiving feedback.
+     * @param time time when feedback was sent.
+     * @param feedback feedback text field.
+     */
     public RoomFeedback(AppUser client, AppUser recipient, RoomReservation roomReservation, Date time, String feedback) {
         this.client = client;
         this.recipient = recipient;
@@ -45,9 +62,13 @@ public class RoomFeedback {
         this.feedback = feedback;
     }
 
-    public Integer getId() { return id; }
+    public Integer getId() {
+        return id;
+    }
 
-    public void setId(Integer id) {this.id = id; }
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public AppUser getClient() {
         return client;
@@ -91,13 +112,17 @@ public class RoomFeedback {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof RoomFeedback)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RoomFeedback)) {
+            return false;
+        }
         RoomFeedback that = (RoomFeedback) o;
-        return Objects.equals(client, that.client) &&
-                Objects.equals(recipient, that.recipient) &&
-                Objects.equals(roomReservation, that.roomReservation) &&
-                Objects.equals(time, that.time) &&
-                Objects.equals(feedback, that.feedback);
+        return Objects.equals(client, that.client)
+                && Objects.equals(recipient, that.recipient)
+                && Objects.equals(roomReservation, that.roomReservation)
+                && Objects.equals(time, that.time)
+                && Objects.equals(feedback, that.feedback);
     }
 }

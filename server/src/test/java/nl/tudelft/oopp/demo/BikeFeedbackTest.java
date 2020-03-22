@@ -1,19 +1,29 @@
 package nl.tudelft.oopp.demo;
 
-import nl.tudelft.oopp.demo.entities.*;
-import nl.tudelft.oopp.demo.repositories.*;
-import org.junit.jupiter.api.AfterAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+
+import java.util.Date;
+import java.util.HashSet;
+
+import nl.tudelft.oopp.demo.entities.AppUser;
+import nl.tudelft.oopp.demo.entities.Bike;
+import nl.tudelft.oopp.demo.entities.BikeFeedback;
+import nl.tudelft.oopp.demo.entities.BikeReservation;
+import nl.tudelft.oopp.demo.entities.Building;
+import nl.tudelft.oopp.demo.repositories.BikeFeedbackRepository;
+import nl.tudelft.oopp.demo.repositories.BikeRepository;
+import nl.tudelft.oopp.demo.repositories.BikeReservationRepository;
+import nl.tudelft.oopp.demo.repositories.BuildingRepository;
+import nl.tudelft.oopp.demo.repositories.UserRepository;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-
-import java.util.Date;
-import java.util.HashSet;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Tests the RoomFeedbackTest entity.

@@ -1,14 +1,16 @@
 package nl.tudelft.oopp.demo.services;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.Date;
+
 import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.RoomFeedback;
 import nl.tudelft.oopp.demo.entities.RoomReservation;
 import nl.tudelft.oopp.demo.repositories.RoomFeedbackRepository;
 import nl.tudelft.oopp.demo.repositories.RoomReservationRepository;
 import nl.tudelft.oopp.demo.repositories.UserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -106,6 +108,7 @@ public class RoomFeedbackService {
                 break;
             case "feedback":
                 roomFeedback.setFeedback(value);
+                break;
             default:
                 return 420;
         }

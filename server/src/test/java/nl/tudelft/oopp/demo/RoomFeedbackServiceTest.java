@@ -1,23 +1,37 @@
 package nl.tudelft.oopp.demo;
 
-import nl.tudelft.oopp.demo.entities.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+
+import nl.tudelft.oopp.demo.entities.AppUser;
+import nl.tudelft.oopp.demo.entities.Building;
+import nl.tudelft.oopp.demo.entities.Room;
+import nl.tudelft.oopp.demo.entities.RoomFeedback;
+import nl.tudelft.oopp.demo.entities.RoomReservation;
 import nl.tudelft.oopp.demo.repositories.RoomRepository;
 import nl.tudelft.oopp.demo.repositories.RoomReservationRepository;
 import nl.tudelft.oopp.demo.repositories.UserRepository;
-import nl.tudelft.oopp.demo.services.*;
+import nl.tudelft.oopp.demo.services.BuildingService;
+import nl.tudelft.oopp.demo.services.RoomFeedbackService;
+import nl.tudelft.oopp.demo.services.RoomReservationService;
+import nl.tudelft.oopp.demo.services.RoomService;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-
-import java.util.*;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Tests the Role service.
@@ -52,7 +66,7 @@ public class RoomFeedbackServiceTest {
     @TestConfiguration
     static class RoomFeedbackServiceTestConfiguration {
         @Bean
-        public RoomFeedbackService roomFeedbackService () {
+        public RoomFeedbackService roomFeedbackService() {
             return new RoomFeedbackService();
         }
     }
@@ -279,18 +293,18 @@ public class RoomFeedbackServiceTest {
         assertEquals(roomReservation.getId(), roomFeedbackService.all().get(0).getRoomReservation().getId());
     }
 
-//
-//    /**
-//     * Tests the addition of a RoomReservation to a Room.
-//     */
-//    @Test
-//    public void testRoomFeedbackAddToRoomReservation() {
-//        roomFeedbackService.add(appUser.getEmail(), appUser2.getEmail(), roomReservation.getId(), 300, "good");
-//        Set<RoomFeedback> roomFeedbacks = new HashSet<>();
-//        roomFeedbacks.add(roomFeedbackService.all().get(0));
-//        roomReservation.setRoomFeedback
-//        assertEquals(roomFeedbacks, roomReservationService.feedback(roomService.all().get(0).getId()));
-//    }
+    //
+    //    /**
+    //     * Tests the addition of a RoomReservation to a Room.
+    //     */
+    //    @Test
+    //    public void testRoomFeedbackAddToRoomReservation() {
+    //        roomFeedbackService.add(appUser.getEmail(), appUser2.getEmail(), roomReservation.getId(), 300, "good");
+    //        Set<RoomFeedback> roomFeedbacks = new HashSet<>();
+    //        roomFeedbacks.add(roomFeedbackService.all().get(0));
+    //        roomReservation.setRoomFeedback
+    //        assertEquals(roomFeedbacks, roomReservationService.feedback(roomService.all().get(0).getId()));
+    //    }
 
     /**
      * Tests the retrieval of multiple instances.

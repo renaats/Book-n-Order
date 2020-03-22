@@ -1,20 +1,31 @@
 package nl.tudelft.oopp.demo;
 
-import nl.tudelft.oopp.demo.entities.*;
-import nl.tudelft.oopp.demo.repositories.*;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 
 import java.util.Date;
 import java.util.HashSet;
 
-import static org.junit.jupiter.api.Assertions.*;
+import nl.tudelft.oopp.demo.entities.AppUser;
+import nl.tudelft.oopp.demo.entities.Building;
+import nl.tudelft.oopp.demo.entities.Room;
+import nl.tudelft.oopp.demo.entities.RoomFeedback;
+import nl.tudelft.oopp.demo.entities.RoomReservation;
+import nl.tudelft.oopp.demo.repositories.BuildingRepository;
+import nl.tudelft.oopp.demo.repositories.RoomFeedbackRepository;
+import nl.tudelft.oopp.demo.repositories.RoomRepository;
+import nl.tudelft.oopp.demo.repositories.RoomReservationRepository;
+import nl.tudelft.oopp.demo.repositories.UserRepository;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
 
 /**
  * Tests the RoomFeedbackTest entity.

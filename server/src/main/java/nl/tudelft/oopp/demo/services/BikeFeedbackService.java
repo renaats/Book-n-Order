@@ -1,8 +1,8 @@
 package nl.tudelft.oopp.demo.services;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.Date;
 import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.BikeFeedback;
 import nl.tudelft.oopp.demo.entities.BikeReservation;
@@ -106,6 +106,7 @@ public class BikeFeedbackService {
                 break;
             case "feedback":
                 bikeFeedback.setFeedback(value);
+                break;
             default:
                 return 420;
         }

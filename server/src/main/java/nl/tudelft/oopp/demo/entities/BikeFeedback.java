@@ -1,11 +1,21 @@
 package nl.tudelft.oopp.demo.entities;
 
+import java.util.Date;
+import java.util.Objects;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import javax.persistence.*;
-import java.util.Date;
-import java.util.Objects;
 
 @Entity
 public class BikeFeedback {
@@ -37,6 +47,14 @@ public class BikeFeedback {
 
     }
 
+    /**
+     * Constructor for Bike Feedback.
+     * @param client client sending feedback.
+     * @param recipient admin receiving feedback.
+     * @param bikeReservation bike reservation receiving feedback.
+     * @param time time when feedback was sent.
+     * @param feedback feedback text field.
+     */
     public BikeFeedback(AppUser client, AppUser recipient, BikeReservation bikeReservation, Date time, String feedback) {
         this.client = client;
         this.recipient = recipient;
@@ -95,13 +113,18 @@ public class BikeFeedback {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof BikeFeedback)) return false;
+        if (this == o) {
+            return true;
+        }
+
+        if (!(o instanceof BikeFeedback)) {
+            return false;
+        }
         BikeFeedback that = (BikeFeedback) o;
-        return Objects.equals(client, that.client) &&
-                Objects.equals(recipient, that.recipient) &&
-                Objects.equals(bikeReservation, that.bikeReservation) &&
-                Objects.equals(time, that.time) &&
-                Objects.equals(feedback, that.feedback);
+        return Objects.equals(client, that.client)
+                && Objects.equals(recipient, that.recipient)
+                && Objects.equals(bikeReservation, that.bikeReservation)
+                && Objects.equals(time, that.time)
+                && Objects.equals(feedback, that.feedback);
     }
 }
