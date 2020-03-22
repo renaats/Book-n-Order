@@ -5,9 +5,12 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+<<<<<<< HEAD
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+=======
+>>>>>>> 132-CreateJavaDocsForClientSide
 /**
  * Manages the Room object that is retrieved from the server
  */
