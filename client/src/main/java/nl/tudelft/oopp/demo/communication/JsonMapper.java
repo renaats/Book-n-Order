@@ -1,12 +1,9 @@
 package nl.tudelft.oopp.demo.communication;
 
-import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
-import java.io.IOException;
 import java.util.List;
 
 import javafx.scene.control.Alert;
@@ -17,6 +14,7 @@ import nl.tudelft.oopp.demo.entities.BuildingHours;
 import nl.tudelft.oopp.demo.entities.Restaurant;
 import nl.tudelft.oopp.demo.entities.RestaurantHours;
 import nl.tudelft.oopp.demo.entities.Room;
+import nl.tudelft.oopp.demo.user.UserInformation;
 
 public class JsonMapper {
 
@@ -33,12 +31,12 @@ public class JsonMapper {
             // Convert JSON string to Object
             Building building = mapper.readValue(buildingJson, Building.class);
             return building;
-        } catch (JsonGenerationException e) {
-            e.printStackTrace();
-        } catch (JsonMappingException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Not Found.");
+            alert.showAndWait();
         }
         return null;
     }
@@ -114,22 +112,45 @@ public class JsonMapper {
 
     /**
      * Maps a JSON string to an AppUser object
-     * @param roomJson JSON representation of a String
+     * @param appUserJson JSON representation of a String
      * @return AppUser Object
      */
-    public static AppUser appUserMapper(String roomJson) {
+    public static AppUser appUserMapper(String appUserJson) {
 
         ObjectMapper mapper = new ObjectMapper();
 
         try {
             // Convert JSON string to Object
-            AppUser appUser = mapper.readValue(roomJson, AppUser.class);
+            AppUser appUser = mapper.readValue(appUserJson, AppUser.class);
             return appUser;
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Error");
             alert.setHeaderText(null);
-            alert.setContentText(roomJson);
+            alert.setContentText(appUserJson);
+            alert.showAndWait();
+        }
+        return null;
+    }
+
+    /**
+     * Maps a JSON string to an UserInformation object
+     * @param userInformationJson JSON representation of a String
+     * @return UserInformation Object
+     */
+    public static UserInformation userInformationMapper(String userInformationJson) {
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        try {
+            // Convert JSON string to Object
+            UserInformation userInformation = mapper.readValue(userInformationJson, UserInformation.class);
+            return userInformation;
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText(userInformationJson);
             alert.showAndWait();
         }
         return null;

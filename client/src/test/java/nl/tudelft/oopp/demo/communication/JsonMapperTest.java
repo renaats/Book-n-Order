@@ -74,12 +74,12 @@ class JsonMapperTest {
                 .willReturn(aResponse()
                         .withStatus(200)
                         .withBody("{\"id\":4,\"name\":\"432\",\"building\":{\"id\":1,\"name\":\"11\",\"street\":\"1\",\"houseNumber\":1},\"faculty\":"
-                                + "\"42342\",\"facultySpecific\":true,\"projector\":false,\"screen\":false,\"nrPeople\":4234,\"plugs\":42342}")));
+                                + "\"42342\",\"facultySpecific\":true,\"projector\":false,\"screen\":false,\"capacity\":4234,\"plugs\":42342}")));
         assertEquals(
                 JsonMapper
                         .roomMapper(
                                 "{\"id\":4,\"name\":\"432\",\"building\":{\"id\":1,\"name\":\"11\",\"street\":\"1\",\"houseNumber\":1},\"faculty\":"
-                                + "\"42342\",\"facultySpecific\":true,\"projector\":false,\"screen\":false,\"nrPeople\":4234,\"plugs\":42342}"),
+                                + "\"42342\",\"facultySpecific\":true,\"projector\":false,\"screen\":false,\"capacity\":4234,\"plugs\":42342}"),
                 JsonMapper.roomMapper((ServerCommunication.findRoom(4))));
     }
 
@@ -90,19 +90,19 @@ class JsonMapperTest {
                         .requireNonNull(JsonMapper
                                 .roomListMapper("[{\"id\":4,\"name\":\"432\","
                                         + "\"building\":{\"id\":1,\"name\":\"11\",\"street\":\"1\",\"houseNumber\":1},\"faculty\":\"42342\","
-                                        + "\"facultySpecific\":true,\"projector\":false,\"screen\":false,\"nrPeople\":4234,\"plugs\":42342},"
+                                        + "\"facultySpecific\":true,\"projector\":false,\"screen\":false,\"capacity\":4234,\"plugs\":42342},"
                                         + "{\"id\":5,\"name\":\"1\",\"building\":{\"id\":1,\"name\":\"11\",\"street\":\"1\",\"houseNumber\":1},"
                                         + "\"faculty\":\"1\",\"facultySpecific\":true,\"projector\":false,\"screen\":true,"
-                                        + "\"nrPeople\":1,\"plugs\":1}]\n")));
+                                        + "\"capacity\":1,\"plugs\":1}]\n")));
         stubFor(get(urlEqualTo("/room/all"))
                 .willReturn(aResponse()
                         .withStatus(200)
                         .withBody("[{\"id\":4,\"name\":\"432\",\"building\":{\"id\":1,\"name\":\"11\",\"street\":\"1\",\"houseNumber\":1}"
-                                + ",\"faculty\":\"42342\",\"facultySpecific\":true,\"projector\":false,\"screen\":false,\"nrPeople\":4234"
+                                + ",\"faculty\":\"42342\",\"facultySpecific\":true,\"projector\":false,\"screen\":false,\"capacity\":4234"
                                 + ","
                                 + "\"plugs\":42342},{\"id\":5,\"name\":\"1\",\"building\":{\"id\":1,\"name\":\"11\",\"street\":\"1\",\"houseNumber\":"
                                 + "1}"
-                                + ",\"faculty\":\"1\",\"facultySpecific\":true,\"projector\":false,\"screen\":true,\"nrPeople\":1,\"plugs\":1}]\n")));
+                                + ",\"faculty\":\"1\",\"facultySpecific\":true,\"projector\":false,\"screen\":true,\"capacity\":1,\"plugs\":1}]\n")));
         assertEquals(room, JsonMapper.roomListMapper(ServerCommunication.getRooms()));
     }
 

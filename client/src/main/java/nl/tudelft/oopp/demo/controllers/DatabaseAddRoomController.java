@@ -108,6 +108,7 @@ public class DatabaseAddRoomController {
         boolean projector = Boolean.parseBoolean(projectorToggle.getText());
         int capacity = Integer.parseInt(capacityTextField.getText());
         int plugs = Integer.parseInt(plugsTextField.getText());
+
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Room adder");
         alert.setHeaderText(null);
