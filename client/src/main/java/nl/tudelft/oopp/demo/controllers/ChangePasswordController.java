@@ -5,9 +5,11 @@ import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.StageStyle;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.AppUser;
+import nl.tudelft.oopp.demo.user.UserInformation;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
@@ -37,11 +39,12 @@ public class ChangePasswordController {
      * @throws IOException should never throw an exception
      */
     public void changePassword() throws IOException {
+        UserInformation userInformation = JsonMapper.userInformationMapper(ServerCommunication.getOwnUserInformation());
         String password1 = newPassword1.getText();
         String password2 = newPassword2.getText();
-        //String email = AppUser.getEmail();
+        String email = userInformation.getEmail();
         if (password1.equals(password2)) {
-            String response = ServerCommunication.ChangePassword("",password1);
+            String response = ServerCommunication.changePassword(email,password1);
             System.out.println(response);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Change password successful");
