@@ -61,7 +61,7 @@ public class BikeDatabaseEditController implements Initializable {
     @FXML
     private TableColumn<Bike, String> colLocation;
     @FXML
-    private TableColumn<Bike, String> colAvailable;
+    private TableColumn<Bike, Boolean> colAvailable;
     @FXML
     private ChoiceBox<String> updateChoiceBox;
 
