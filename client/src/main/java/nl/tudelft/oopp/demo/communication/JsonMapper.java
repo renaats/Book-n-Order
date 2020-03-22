@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.List;
 
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import javafx.scene.control.Alert;
 import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.Building;
@@ -139,6 +140,7 @@ public class JsonMapper {
     public static FoodOrder foodOrderMapper(String foodOrderJson) {
 
         ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
 
         try {
             // Convert JSON string to Object
@@ -162,7 +164,8 @@ public class JsonMapper {
     public static List<FoodOrder> foodOrdersListMapper(String foodOrdersJson) {
 
         ObjectMapper mapper = new ObjectMapper();
-
+        mapper.registerModule(new JavaTimeModule());
+        
         try {
             // Convert JSON string to Object
             List<FoodOrder> foodOrders = mapper.readValue(foodOrdersJson, new TypeReference<List<FoodOrder>>(){});
