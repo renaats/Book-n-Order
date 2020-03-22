@@ -12,7 +12,7 @@ public class FoodOrder {
     private AppUser appUser;
     private Building deliveryLocation;
     private Date deliveryTime;
-    Set<Dish> dishes = new HashSet<>();
+    private Set<Dish> dishes;
 
     /** Creates a new instance of FoodOrder.
      * @param restaurant the restaurant at which the food order is placed.
@@ -20,13 +20,12 @@ public class FoodOrder {
      * @param deliveryLocation location of building where food needs to be delivered to/will be picked up from.
      * @param deliveryTime time at which food needs to be delivered.
      */
-    public FoodOrder(Restaurant restaurant, AppUser appUser, Building deliveryLocation, Date deliveryTime, Menu menu, Set<Dish> dishes) {
+    public FoodOrder(Restaurant restaurant, AppUser appUser, Building deliveryLocation, Date deliveryTime, Menu menu) {
         this.restaurant = restaurant;
         this.appUser = appUser;
         this.deliveryLocation = deliveryLocation;
         this.deliveryTime = deliveryTime;
         this.menu = menu;
-        this.dishes = dishes;
     }
 
     public FoodOrder() {
