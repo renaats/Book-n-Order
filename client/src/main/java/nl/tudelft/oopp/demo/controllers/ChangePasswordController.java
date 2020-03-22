@@ -5,11 +5,9 @@ import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.StageStyle;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.AppUser;
-import nl.tudelft.oopp.demo.user.UserInformation;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
@@ -19,7 +17,7 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 public class ChangePasswordController {
 
     @FXML
-    private PasswordField password;
+    private PasswordField oldPassword;
     @FXML
     private PasswordField newPassword2;
     @FXML
@@ -39,11 +37,14 @@ public class ChangePasswordController {
      * @throws IOException should never throw an exception
      */
     public void changePassword() throws IOException {
-        String password = password.getText();
+        String password = oldPassword.getText();
         String password1 = newPassword1.getText();
         String password2 = newPassword2.getText();
-        if (password1.equals(password2)) {
-            String response = ServerCommunication.ChangePassword("r.jursevskis@student.tudelft.nl",password1);
+        AppUser user = JsonMapper.appUserMapper(ServerCommunication.getUser());
+        String serverPassword = user.getPassword();
+        String email = user.getEmail();
+        if (password1.equals(password2) && serverPassword.equals(password)) {
+            String response = ServerCommunication.ChangePassword(email,password1);
             System.out.println(response);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Change password successful");
