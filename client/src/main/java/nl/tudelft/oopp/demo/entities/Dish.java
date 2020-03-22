@@ -2,6 +2,9 @@ package nl.tudelft.oopp.demo.entities;
 
 import java.util.Set;
 
+/**
+ * Manages the Dish object that is retrieved from the server
+ */
 public class Dish {
 
     private int id;
