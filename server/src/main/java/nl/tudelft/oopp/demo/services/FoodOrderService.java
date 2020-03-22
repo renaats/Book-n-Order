@@ -50,7 +50,7 @@ public class FoodOrderService {
      * @param restaurantId = the id of the restaurant associated to the food order.
      * @param userEmail = the email of the user associated to the food order.
      * @param deliverLocation = the building where the food order needs to be delivered.
-     * @param deliverTimeMs = the deliver time of the food order.
+     * @param deliverTimeMs = the deliver time of the food order in milliseconds (Java Date).
      * @return String containing the result of your request.
      */
     public int add(int restaurantId, String userEmail, int deliverLocation, long deliverTimeMs, Set<Integer> dishIds) {
