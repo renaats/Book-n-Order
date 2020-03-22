@@ -64,7 +64,6 @@ public class RoomsJpaSpecificationsTest {
         roomBeta.setProjector(true);
         roomBeta.setScreen(false);
         roomRepository.save(roomBeta);
-
     }
 
     @Test
