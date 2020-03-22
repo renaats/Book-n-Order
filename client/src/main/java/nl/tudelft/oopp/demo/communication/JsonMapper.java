@@ -19,6 +19,9 @@ import nl.tudelft.oopp.demo.entities.RestaurantHours;
 import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.user.UserInformation;
 
+/**
+ * maps Json server responses into objects in the Entities folder
+ */
 public class JsonMapper {
 
     /**

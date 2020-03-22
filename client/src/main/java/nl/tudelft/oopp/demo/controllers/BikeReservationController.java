@@ -17,7 +17,6 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
  * Loads the correct content into the FXML objects that need to display server information and
  * controls all the user inputs made through the GUI in the "bikeReservations.fxml" file
  */
-
 public class BikeReservationController implements Initializable {
 
     final ObservableList<String> listLocations = FXCollections.observableArrayList();

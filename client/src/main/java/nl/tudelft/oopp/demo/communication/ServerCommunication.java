@@ -19,7 +19,7 @@ import nl.tudelft.oopp.demo.errors.ErrorMessages;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
- * Controls all client to server communications
+ * Controls all client to server communication
  * Sends the appropriate HTTP request depending on the method
  */
 public class ServerCommunication {
