@@ -2,12 +2,7 @@ package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 public class MainMenuReservationsController {
@@ -32,7 +27,7 @@ public class MainMenuReservationsController {
      * @throws IOException Input will be valid, hence we throw.
      */
     public void orderFood() throws IOException {
-        ApplicationDisplay.changeScene("/OrderFoodChoseRestaurant.fxml");
+        ApplicationDisplay.changeScene("/OrderFoodChooseRestaurant.fxml");
     }
     
     /**
@@ -88,7 +83,7 @@ public class MainMenuReservationsController {
      * @throws IOException this method should never throw an exception
      */
     public void orderFoodIcon(MouseEvent mouseEvent) throws IOException {
-        ApplicationDisplay.changeScene("/OrderFoodChoseRestaurant.fxml");
+        ApplicationDisplay.changeScene("/OrderFoodChooseRestaurant.fxml");
     }
 
     /**

@@ -4,9 +4,13 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.scene.control.Alert;
+import javafx.scene.control.DialogPane;
+import javafx.stage.StageStyle;
 
 import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.Building;
@@ -32,10 +36,13 @@ public class JsonMapper {
             Building building = mapper.readValue(buildingJson, Building.class);
             return building;
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle(null);
             alert.setHeaderText(null);
-            alert.setContentText("Not Found.");
+            alert.setContentText(buildingJson);
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(JsonMapper.class.getResource("/alertWarning.css").toExternalForm());
             alert.showAndWait();
         }
         return null;
@@ -46,22 +53,12 @@ public class JsonMapper {
      * @param buildingsJson a JSON string representing a list.
      * @return A list filled with object Buildings
      */
-    public static List<Building> buildingListMapper(String buildingsJson) {
+    public static List<Building> buildingListMapper(String buildingsJson) throws IOException {
 
         ObjectMapper mapper = new ObjectMapper();
 
-        try {
-            // Convert JSON string to Object
-            List<Building> buildings = mapper.readValue(buildingsJson, new TypeReference<List<Building>>(){});
-            return buildings;
-        } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText(buildingsJson);
-            alert.showAndWait();
-        }
-        return null;
+        List<Building> buildings = mapper.readValue(buildingsJson, new TypeReference<List<Building>>(){});
+        return buildings;
     }
 
     /**
@@ -78,10 +75,13 @@ public class JsonMapper {
             Room room = mapper.readValue(roomJson, Room.class);
             return room;
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle(null);
             alert.setHeaderText(null);
             alert.setContentText(roomJson);
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(JsonMapper.class.getResource("/alertWarning.css").toExternalForm());
             alert.showAndWait();
         }
         return null;
@@ -101,10 +101,13 @@ public class JsonMapper {
             List<Room> rooms = mapper.readValue(roomsJson, new TypeReference<List<Room>>(){});
             return rooms;
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle(null);
             alert.setHeaderText(null);
             alert.setContentText(roomsJson);
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(JsonMapper.class.getResource("/alertWarning.css").toExternalForm());
             alert.showAndWait();
         }
         return null;
@@ -124,10 +127,13 @@ public class JsonMapper {
             AppUser appUser = mapper.readValue(appUserJson, AppUser.class);
             return appUser;
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle(null);
             alert.setHeaderText(null);
             alert.setContentText(appUserJson);
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(JsonMapper.class.getResource("/alertWarning.css").toExternalForm());
             alert.showAndWait();
         }
         return null;
@@ -147,10 +153,13 @@ public class JsonMapper {
             UserInformation userInformation = mapper.readValue(userInformationJson, UserInformation.class);
             return userInformation;
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle(null);
             alert.setHeaderText(null);
             alert.setContentText(userInformationJson);
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(JsonMapper.class.getResource("/alertWarning.css").toExternalForm());
             alert.showAndWait();
         }
         return null;
@@ -170,10 +179,13 @@ public class JsonMapper {
             Restaurant restaurant = mapper.readValue(restaurantJson, Restaurant.class);
             return restaurant;
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle(null);
             alert.setHeaderText(null);
             alert.setContentText(restaurantJson);
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(JsonMapper.class.getResource("/alertWarning.css").toExternalForm());
             alert.showAndWait();
         }
         return null;
@@ -193,10 +205,13 @@ public class JsonMapper {
             List<Restaurant> restaurantsList = mapper.readValue(restaurantsJson, new TypeReference<List<Restaurant>>(){});
             return restaurantsList;
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle(null);
             alert.setHeaderText(null);
             alert.setContentText(restaurantsJson);
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(JsonMapper.class.getResource("/alertWarning.css").toExternalForm());
             alert.showAndWait();
         }
         return null;
