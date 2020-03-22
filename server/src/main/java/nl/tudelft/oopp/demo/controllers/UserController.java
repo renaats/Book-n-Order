@@ -1,5 +1,7 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import java.io.UnsupportedEncodingException;
+
 import javax.servlet.http.HttpServletRequest;
 import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.events.OnRegistrationSuccessEvent;
@@ -22,7 +24,6 @@ import org.springframework.web.context.request.WebRequest;
 
 import java.io.UnsupportedEncodingException;
 
-import java.io.UnsupportedEncodingException;
 
 /**
  * Creates server side endpoints and routes requests to the UserService.
@@ -101,7 +102,8 @@ public class UserController {
     @Secured("ROLE_ADMIN")
     @PostMapping(path = "/update")
     @ResponseBody
-    public int updateAttribute(@RequestParam String email, @RequestParam String attribute, @RequestParam String value) throws UnsupportedEncodingException {
+    public int updateAttribute(@RequestParam String email, @RequestParam String attribute, @RequestParam String value)
+            throws UnsupportedEncodingException {
         return userService.update(email, attribute, value);
     }
 
