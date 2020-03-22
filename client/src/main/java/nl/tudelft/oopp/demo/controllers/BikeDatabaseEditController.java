@@ -45,7 +45,7 @@ public class BikeDatabaseEditController implements Initializable {
     @FXML
     private TextField bikeFindByIdTextField;
     @FXML
-    private TableColumn<Bike, String> colId;
+    private TableColumn<Bike, Integer> colId;
     @FXML
     private Button confirmDeleteByIdButton;
     @FXML
@@ -73,7 +73,7 @@ public class BikeDatabaseEditController implements Initializable {
     @FXML
     private TableColumn<Bike, String> colLocation;
     @FXML
-    private TableColumn<Bike, String> colAvailable;
+    private TableColumn<Bike, Boolean> colAvailable;
     @FXML
     private ChoiceBox<String> updateChoiceBox;
 
