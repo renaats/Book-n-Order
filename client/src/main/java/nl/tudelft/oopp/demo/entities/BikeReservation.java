@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.Objects;
 
 /**
- * Manages the Bike object that is retrieved from the server
+ * Manages the BikeReservations object that is retrieved from the server
  */
 public class BikeReservation {
     private Integer id;

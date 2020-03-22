@@ -13,6 +13,9 @@ import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Room;
 
+/**
+ * maps Json server responses into objects in the Entities folder
+ */
 public class JsonMapper {
 
     /**
