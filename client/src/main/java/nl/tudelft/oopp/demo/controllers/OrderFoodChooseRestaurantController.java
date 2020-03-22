@@ -19,8 +19,8 @@ public class OrderFoodChooseRestaurantController implements Initializable {
     @FXML
     public TextField nameOfTheRestaurant;
     public Button submitButton;
-    public TableView restaurantsTable;
-    public TableColumn menuTable;
+    public TableView<Restaurant> restaurantsTable;
+    public TableColumn<Restaurant, String> menuTable;
     public Button chooseTheRestaurantButton;
 
     @Override

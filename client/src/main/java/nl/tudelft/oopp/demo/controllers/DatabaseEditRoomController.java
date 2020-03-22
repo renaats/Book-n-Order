@@ -28,7 +28,7 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 public class DatabaseEditRoomController implements Initializable {
 
-    final ObservableList updateChoiceBoxList = FXCollections.observableArrayList();
+    final ObservableList<String> updateChoiceBoxList = FXCollections.observableArrayList();
     final ObservableList<Room> roomResult = FXCollections.observableArrayList();
 
     @FXML

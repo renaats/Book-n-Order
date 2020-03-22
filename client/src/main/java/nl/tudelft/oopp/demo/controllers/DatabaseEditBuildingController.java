@@ -32,7 +32,7 @@ public class DatabaseEditBuildingController implements Initializable {
     @FXML
     private TextField buildingDeleteByIdTextField;
 
-    final ObservableList updateChoiceBoxList = FXCollections.observableArrayList();
+    final ObservableList<String> updateChoiceBoxList = FXCollections.observableArrayList();
     final ObservableList<Building> buildingResult = FXCollections.observableArrayList();
 
     @FXML

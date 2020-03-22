@@ -19,7 +19,7 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 public class BikeReservationController implements Initializable {
 
-    final ObservableList listLocations = FXCollections.observableArrayList();
+    final ObservableList<String> listLocations = FXCollections.observableArrayList();
 
     final ObservableList<String> listTime = FXCollections.observableArrayList();
 
@@ -50,8 +50,8 @@ public class BikeReservationController implements Initializable {
     }
 
     private void loadData() {
-        listTime.removeAll(listTime);
-        listMinutes.removeAll(listMinutes);
+        listTime.clear();
+        listMinutes.clear();
         for (int i = 0;i <= 45; i = i + 15) {
             if (i == 0) {
                 listMinutes.add("00");
