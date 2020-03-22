@@ -82,7 +82,6 @@ public class BikeDatabaseAddController implements Initializable {
         }
     }
 
-
     public void databaseAddBike() {
         //TODO
     }
