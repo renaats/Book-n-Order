@@ -33,8 +33,7 @@ public class JsonMapper {
 
         try {
             // Convert JSON string to Object
-            Building building = mapper.readValue(buildingJson, Building.class);
-            return building;
+            return mapper.readValue(buildingJson, Building.class);
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle(null);
@@ -57,8 +56,7 @@ public class JsonMapper {
 
         ObjectMapper mapper = new ObjectMapper();
 
-        List<Building> buildings = mapper.readValue(buildingsJson, new TypeReference<List<Building>>(){});
-        return buildings;
+        return mapper.readValue(buildingsJson, new TypeReference<>(){});
     }
 
     /**
@@ -72,8 +70,7 @@ public class JsonMapper {
 
         try {
             // Convert JSON string to Object
-            Room room = mapper.readValue(roomJson, Room.class);
-            return room;
+            return mapper.readValue(roomJson, Room.class);
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle(null);
@@ -98,8 +95,7 @@ public class JsonMapper {
 
         try {
             // Convert JSON string to Object
-            List<Room> rooms = mapper.readValue(roomsJson, new TypeReference<List<Room>>(){});
-            return rooms;
+            return mapper.readValue(roomsJson, new TypeReference<>(){});
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle(null);
@@ -124,8 +120,7 @@ public class JsonMapper {
 
         try {
             // Convert JSON string to Object
-            AppUser appUser = mapper.readValue(appUserJson, AppUser.class);
-            return appUser;
+            return mapper.readValue(appUserJson, AppUser.class);
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle(null);
@@ -150,8 +145,7 @@ public class JsonMapper {
 
         try {
             // Convert JSON string to Object
-            UserInformation userInformation = mapper.readValue(userInformationJson, UserInformation.class);
-            return userInformation;
+            return mapper.readValue(userInformationJson, UserInformation.class);
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle(null);
@@ -176,8 +170,7 @@ public class JsonMapper {
 
         try {
             // Convert JSON string to Object
-            Restaurant restaurant = mapper.readValue(restaurantJson, Restaurant.class);
-            return restaurant;
+            return mapper.readValue(restaurantJson, Restaurant.class);
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle(null);
@@ -202,8 +195,7 @@ public class JsonMapper {
 
         try {
             // Convert JSON string to Object
-            List<Restaurant> restaurantsList = mapper.readValue(restaurantsJson, new TypeReference<List<Restaurant>>(){});
-            return restaurantsList;
+            return mapper.readValue(restaurantsJson, new TypeReference<>(){});
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle(null);
@@ -229,8 +221,7 @@ public class JsonMapper {
 
         try {
             // Convert JSON string to Object
-            RestaurantHours restaurantHours = mapper.readValue(restaurantHoursJson, RestaurantHours.class);
-            return restaurantHours;
+            return mapper.readValue(restaurantHoursJson, RestaurantHours.class);
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Error");
@@ -253,8 +244,7 @@ public class JsonMapper {
 
         try {
             // Convert JSON string to Object
-            BuildingHours buildingHours = mapper.readValue(buildingHourJson, BuildingHours.class);
-            return buildingHours;
+            return mapper.readValue(buildingHourJson, BuildingHours.class);
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Error");
