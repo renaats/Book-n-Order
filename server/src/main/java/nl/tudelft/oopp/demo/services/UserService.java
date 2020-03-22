@@ -182,6 +182,7 @@ public class UserService {
             if (user != null && userRepository.existsById(user)) {
                 AppUser appUser = userRepository.findByEmail(user);
                 if (sixDigitCode == appUser.getConfirmationNumber()) {
+                    appUser.setConfirmationNumber(-1);
                     userRepository.save(appUser);
                     return 200;
                 }
@@ -297,6 +298,26 @@ public class UserService {
                         || appUser.getRoles().contains(roleRepository.findByName("ROLE_BUILDING_ADMIN"))
                         || appUser.getRoles().contains(roleRepository.findByName("ROLE_BIKE_ADMIN"))
                         || appUser.getRoles().contains(roleRepository.findByName("ROLE_RESTAURANT"));
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Retrieves a boolean value representing whether the user account is activated.
+     * @param request = the Http request that calls this method.
+     */
+    public boolean isActivated(HttpServletRequest request) {
+        String token = request.getHeader(HEADER_STRING);
+        if (token != null) {
+            // parse the token.
+            String user = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
+                    .build()
+                    .verify(token.replace(TOKEN_PREFIX, ""))
+                    .getSubject();
+            if (user != null && userRepository.existsById(user)) {
+                AppUser appUser = userRepository.findByEmail(user);
+                return appUser.getConfirmationNumber() < 0;
             }
         }
         return false;

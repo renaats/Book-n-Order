@@ -151,4 +151,15 @@ public class UserController {
     public boolean isAdmin(HttpServletRequest request) {
         return userService.isAdmin(request);
     }
+
+
+    /**
+     * Retrieves a boolean value representing whether the user account is activated.
+     * @param request = the Http request that calls this method.
+     */
+    //@Secured("ROLE_USER")
+    @GetMapping(path = "/activated")
+    public boolean isActivated(HttpServletRequest request) {
+        return userService.isActivated(request);
+    }
 }

@@ -128,6 +128,23 @@ public class ServerCommunication {
             e.printStackTrace();
             return false;
         }
+        System.out.println(response.body());
+        return response.body().contains("true");
+    }
+
+    /**
+     * Retrieves a boolean value from the server, false = not activated, true = activated.
+     * @return the body of the response from the server.
+     */
+    public static boolean getAccountActivation() {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/user/activated")).build();
+        HttpResponse<String> response;
+        try {
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
         return response.body().contains("true");
     }
 
@@ -158,7 +175,6 @@ public class ServerCommunication {
     public static String validateUser(int sixDigitCode) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/user/validate?sixDigitCode=" + sixDigitCode)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnErrorMessage(request);
-
     }
 
     /**
@@ -187,9 +203,8 @@ public class ServerCommunication {
         for (Map.Entry<String, List<String>> entry : map.entrySet()) {
             if (entry.getKey() != null) {
                 if (entry.getKey().equals("Authorization")) {
-                    if (AuthenticationKey.getBearerKey() == null) {
-                        //Yes it's gross, it works, it grabs the key
-                        AuthenticationKey.setBearerKey((Arrays.asList(entry.getValue().get(0).split(" ")).get(1)));
+                    AuthenticationKey.setBearerKey((Arrays.asList(entry.getValue().get(0).split(" ")).get(1)));
+                    if (!getAccountActivation()) {
                         ApplicationDisplay.changeScene("/ConfirmationSixDigits.fxml");
                     } else {
                         ApplicationDisplay.changeScene("/mainMenu.fxml");
