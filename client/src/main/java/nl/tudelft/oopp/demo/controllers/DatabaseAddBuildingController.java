@@ -52,10 +52,47 @@ public class DatabaseAddBuildingController {
      * Adds building to the database
      */
     public void databaseAddBuilding() {
-        String name = nameTextField.getText();
-        String street = streetTextField.getText();
-        int houseNumber = Integer.parseInt(houseNumberTextField.getText());
-
+        String name = null;
+        String street = null;
+        // -1 is a placeholder since you cannot intialize an empty integer.
+        int houseNumber = -1;
+        try {
+            name = nameTextField.getText();
+            street = streetTextField.getText();
+            if (name.equals("") || street.equals("")) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle(null);
+                alert.setHeaderText(null);
+                alert.setContentText("Missing attributes.");
+                alert.initStyle(StageStyle.UNDECORATED);
+                DialogPane dialogPane = alert.getDialogPane();
+                dialogPane.getStylesheets().add(getClass().getResource("/alertWarning.css").toExternalForm());
+                alert.showAndWait();
+                return;
+            }
+            try {
+                houseNumber = Integer.parseInt(houseNumberTextField.getText());
+            } catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle(null);
+                alert.setHeaderText(null);
+                alert.setContentText("Not an integer.");
+                alert.initStyle(StageStyle.UNDECORATED);
+                DialogPane dialogPane = alert.getDialogPane();
+                dialogPane.getStylesheets().add(getClass().getResource("/alertError.css").toExternalForm());
+                alert.showAndWait();
+                return;
+            }
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle(null);
+            alert.setHeaderText(null);
+            alert.setContentText("Could not parse attributes.");
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/alertError.css").toExternalForm());
+            alert.showAndWait();
+        }
         String response = ServerCommunication.addBuilding(name, street, houseNumber);
         if (response.equals("Successfully added!")) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

@@ -110,8 +110,16 @@ public class DatabaseEditBuildingController implements Initializable {
     public void deleteBuildingButtonClickedByTable() {
         try {
             Building building = table.getSelectionModel().getSelectedItem();
-            ServerCommunication.deleteBuilding(building.getId());
+            String response = ServerCommunication.deleteBuilding(building.getId());
             buildingResult.removeIf(b -> b.getId().equals(building.getId()));
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle(null);
+            alert.setHeaderText(null);
+            alert.setContentText(response);
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/alertInformation.css").toExternalForm());
+            alert.showAndWait();
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle(null);
@@ -147,18 +155,18 @@ public class DatabaseEditBuildingController implements Initializable {
      * Handles clicking the list button.
      */
     public void listBuildingsButtonClicked() {
-        } catch (Exception e) {
-            buildingResult.addAll(buildings);
-            table.setItems(buildingResult);
-            buildingResult.clear();
-            List<Building> buildings = new ArrayList<>(Objects.requireNonNull(JsonMapper.buildingListMapper(ServerCommunication.getBuildings())));
+        buildingResult.clear();
+        List<Building> buildings = null;
         try {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("No buildings found.");
-            alert.showAndWait();
+            buildings = new ArrayList<>(Objects.requireNonNull(JsonMapper.buildingListMapper(ServerCommunication.getBuildings())));
+        } catch (Exception e) {
+            // Fakes the table having any entries, so the table shows up properly instead of "No contents".
+            buildings = new ArrayList<>();
+            Building b = null;
+            buildings.add(b);
         }
+        buildingResult.addAll(buildings);
+        table.setItems(buildingResult);
     }
 
     /**
@@ -170,9 +178,12 @@ public class DatabaseEditBuildingController implements Initializable {
             String attribute = updateChoiceBox.getValue().replaceAll(" ", "");
             String changeValue = buildingChangeToField.getText();
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Building update");
+            alert.setTitle(null);
             alert.setHeaderText(null);
             alert.setContentText(ServerCommunication.updateBuilding(id, attribute, changeValue));
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/alertInformation.css").toExternalForm());
             alert.showAndWait();
             buildingResult.clear();
             listBuildingsButtonClicked();
@@ -192,7 +203,7 @@ public class DatabaseEditBuildingController implements Initializable {
      * Takes care of the options for the updateChoiceBox in the GUI
      */
     public void loadDataUpdateChoiceBox() {
-        updateChoiceBoxList.removeAll();
+        updateChoiceBoxList.clear();
         String a = "Name";
         String b = "Street";
         String c = "House Number";

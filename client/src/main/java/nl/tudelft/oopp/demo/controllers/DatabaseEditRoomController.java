@@ -11,13 +11,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import javafx.stage.StageStyle;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.Room;
@@ -85,10 +82,13 @@ public class DatabaseEditRoomController implements Initializable {
             roomResult.add(room);
             table.setItems(roomResult);
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle(null);
             alert.setHeaderText(null);
             alert.setContentText("Missing argument.");
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/alertWarning.css").toExternalForm());
             alert.showAndWait();
         }
     }
@@ -101,6 +101,16 @@ public class DatabaseEditRoomController implements Initializable {
         roomResult.clear();
         roomResult.addAll(rooms);
         table.setItems(roomResult);
+        if (roomResult.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle(null);
+            alert.setHeaderText(null);
+            alert.setContentText("No buildings found.");
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/alertWarning.css").toExternalForm());
+            alert.showAndWait();
+        }
     }
 
     /**
@@ -112,17 +122,24 @@ public class DatabaseEditRoomController implements Initializable {
             String attribute = updateChoiceBox.getValue().replaceAll(" ", "").toLowerCase();
             String changeValue = roomChangeToField.getText();
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Building remover");
+            alert.setTitle(null);
             alert.setHeaderText(null);
             alert.setContentText(ServerCommunication.updateRoom(id, attribute, changeValue));
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/alertWarning.css").toExternalForm());
             alert.showAndWait();
+
             roomResult.clear();
             roomBuildingsButtonClicked();
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle(null);
             alert.setHeaderText(null);
             alert.setContentText("Missing argument.");
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/alertWarning.css").toExternalForm());
             alert.showAndWait();
         }
     }
@@ -191,10 +208,14 @@ public class DatabaseEditRoomController implements Initializable {
         int id = Integer.parseInt(roomDeleteByIdTextField.getText());
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Room remover");
+        alert.setTitle(null);
         alert.setHeaderText(null);
         alert.setContentText(ServerCommunication.deleteRoom(id));
+        alert.initStyle(StageStyle.UNDECORATED);
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(getClass().getResource("/alertInformation.css").toExternalForm());
         alert.showAndWait();
+
 
         roomResult.removeIf(room -> room.getId() == id);
     }
@@ -207,10 +228,13 @@ public class DatabaseEditRoomController implements Initializable {
             Room room = table.getSelectionModel().getSelectedItem();
             roomFindByIdTextField.setText(Integer.toString(room.getId()));
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle(null);
             alert.setHeaderText(null);
             alert.setContentText("Missing argument.");
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/alertWarning.css").toExternalForm());
             alert.showAndWait();
         }
     }
@@ -221,13 +245,23 @@ public class DatabaseEditRoomController implements Initializable {
     public void deleteRoomByTable() {
         try {
             Room room = table.getSelectionModel().getSelectedItem();
-            ServerCommunication.deleteBuilding(room.getId());
             roomResult.removeIf(r -> r.getId().equals(room.getId()));
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle(null);
+            alert.setHeaderText(null);
+            alert.setContentText(ServerCommunication.deleteRoom((room.getId())));
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/alertInformation.css").toExternalForm());
+            alert.showAndWait();
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
+            alert.setTitle(null);
             alert.setHeaderText(null);
             alert.setContentText("Missing argument.");
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/alertWarning.css").toExternalForm());
             alert.showAndWait();
         }
     }

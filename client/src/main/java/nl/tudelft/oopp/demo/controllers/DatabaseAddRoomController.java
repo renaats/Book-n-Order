@@ -109,7 +109,6 @@ public class DatabaseAddRoomController {
         boolean projector = Boolean.parseBoolean(projectorToggle.getText());
         int capacity = Integer.parseInt(capacityTextField.getText());
         int plugs = Integer.parseInt(plugsTextField.getText());
-
         String response = ServerCommunication.addRoom(name, faculty, buildingId, facultySpecific, screen, projector, capacity, plugs);
         if (response.equals("Successfully added!")) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
