@@ -141,7 +141,6 @@ public class JsonMapper {
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
-        System.out.println(foodOrderJson);
 
         try {
             // Convert JSON string to Object
