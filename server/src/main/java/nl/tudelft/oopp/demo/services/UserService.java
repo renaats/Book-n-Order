@@ -24,6 +24,7 @@ import nl.tudelft.oopp.demo.repositories.RoleRepository;
 import nl.tudelft.oopp.demo.repositories.UserRepository;
 
 import org.apache.commons.validator.routines.EmailValidator;
+import org.h2.engine.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -44,6 +45,26 @@ public class UserService {
     private RoleRepository roleRepository;
     @Autowired
     private ApplicationEventPublisher eventPublisher;
+
+    /**
+     * Finds the appUser for some Http request token.
+     * @param token = the token received in the request.
+     * @param userRepository = the userRepository where all user information is stored.
+     * @return an instance of AppUser, or null if no such AppUser exists.
+     */
+    public static AppUser getAppUser(String token, UserRepository userRepository) {
+        if (token != null) {
+            // parse the token.
+            String user = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
+                    .build()
+                    .verify(token.replace(TOKEN_PREFIX, ""))
+                    .getSubject();
+            if (user != null && userRepository.existsById(user)) {
+                return userRepository.findByEmail(user);
+            }
+        }
+        return null;
+    }
 
     /**
      * Logs out from the current account.

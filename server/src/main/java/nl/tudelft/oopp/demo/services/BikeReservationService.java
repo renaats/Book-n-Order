@@ -1,8 +1,13 @@
 package nl.tudelft.oopp.demo.services;
 
+import static nl.tudelft.oopp.demo.security.SecurityConstants.HEADER_STRING;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+
+import javax.servlet.http.HttpServletRequest;
 
 import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.Bike;
@@ -12,6 +17,7 @@ import nl.tudelft.oopp.demo.repositories.BikeRepository;
 import nl.tudelft.oopp.demo.repositories.BikeReservationRepository;
 import nl.tudelft.oopp.demo.repositories.BuildingRepository;
 import nl.tudelft.oopp.demo.repositories.UserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -170,10 +176,49 @@ public class BikeReservationService {
     /**
      * Finds a bike reservation with the specified id.
      * @param id = the bike reservation id
-     * @return a bike reservation that matches the id
+     * @return a bike reservation that matches the id.
      */
     public BikeReservation find(int id) {
         return bikeReservationRepository.findById(id).orElse(null);
     }
 
+    /**
+     * Finds all past bike reservations for the user that sends the Http request.
+     * @param request = the Http request that calls this method
+     * @return a list of past bike reservations for this user.
+     */
+    public List<BikeReservation> past(HttpServletRequest request) {
+        List<BikeReservation> bikeReservations = new ArrayList<>();
+        String token = request.getHeader(HEADER_STRING);
+        AppUser appUser = UserService.getAppUser(token, userRepository);
+        if (appUser == null) {
+            return bikeReservations;
+        }
+        for (BikeReservation bikeReservation: bikeReservationRepository.findAll()) {
+            if (bikeReservation.getAppUser() == appUser && bikeReservation.getToTime().before(new Date())) {
+                bikeReservations.add(bikeReservation);
+            }
+        }
+        return bikeReservations;
+    }
+
+    /**
+     * Finds all future bike reservations for the user that sends the Http request.
+     * @param request = the Http request that calls this method
+     * @return a list of future bike reservations for this user.
+     */
+    public List<BikeReservation> future(HttpServletRequest request) {
+        List<BikeReservation> bikeReservations = new ArrayList<>();
+        String token = request.getHeader(HEADER_STRING);
+        AppUser appUser = UserService.getAppUser(token, userRepository);
+        if (appUser == null) {
+            return bikeReservations;
+        }
+        for (BikeReservation bikeReservation: bikeReservationRepository.findAll()) {
+            if (bikeReservation.getAppUser() == appUser && bikeReservation.getToTime().after(new Date())) {
+                bikeReservations.add(bikeReservation);
+            }
+        }
+        return bikeReservations;
+    }
 }
