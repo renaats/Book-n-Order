@@ -3,6 +3,7 @@ package nl.tudelft.oopp.demo.errors;
 public class ErrorMessages {
     private static final String addedMessage = "Successfully added!";
     private static final String confirmEmailMessage = "Successfully added. Please confirm this account via the link sent to your email.";
+    private static final String recoverPasswordMessage = "You will shortly receive an email to recover your account!";
     private static final String notFoundMessage = "Not found.";
     private static final String unAuthorizedMessage = "You do not have the proper authorization.";
     private static final String preConditionFailedMessage = "Attribute does not exist!";
@@ -54,6 +55,8 @@ public class ErrorMessages {
                 return addedMessage;
             case 203:
                 return confirmEmailMessage;
+            case 205:
+                return recoverPasswordMessage;
             case 308:
                 return alreadyReservedMessage;
             case 309:

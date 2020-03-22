@@ -30,7 +30,6 @@ public class ForgotPasswordController {
         alert.setTitle("Password reset");
         alert.setHeaderText(null);
         alert.setContentText(ServerCommunication.sendRecoveryPassword(email));
-        alert.setContentText("You will shortly receive an email to recover your account!");
         alert.showAndWait();
     }
 }
