@@ -46,6 +46,12 @@ public class ChangePasswordController {
             alert.setContentText("Your passwords match, they have been changed");
             alert.showAndWait();
         } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Change password successful");
+            alert.setHeaderText(null);
+            alert.setContentText("Your passwords match, they have been changed");
+            alert.showAndWait();
+        } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle(null);
             alert.setHeaderText(null);
