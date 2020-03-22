@@ -17,6 +17,7 @@ import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.StageStyle;
+
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
@@ -102,7 +103,7 @@ public class BookRoomController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle(null);
             alert.setHeaderText(null);
-            alert.setContentText("Please the amount of plugs.");
+            alert.setContentText("Please select the amount of plugs.");
             alert.initStyle(StageStyle.UNDECORATED);
             DialogPane dialogPane = alert.getDialogPane();
             dialogPane.getStylesheets().add(getClass().getResource("/alertWarning.css").toExternalForm());

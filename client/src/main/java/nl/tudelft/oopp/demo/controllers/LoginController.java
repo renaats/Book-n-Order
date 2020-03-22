@@ -70,7 +70,7 @@ public class LoginController {
     }
 
     /**
-     * Changes to registrationScene.fxml1
+     * Changes to registrationScene.fxml
      * @param actionEvent actionEvent parameter
      * @throws IOException User input will be valid, no need to check this, thus we throw.
      */
