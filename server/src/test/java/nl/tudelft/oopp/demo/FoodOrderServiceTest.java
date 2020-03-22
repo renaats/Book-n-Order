@@ -131,15 +131,6 @@ public class FoodOrderServiceTest {
     }
 
     /**
-     * Tests the saving and retrieval of an instance of FoodOrder.
-     */
-    @Test
-    public void testAdd() {
-        /*assertEquals(201, foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds));
-        assertEquals(Collections.singletonList(foodOrder), foodOrderService.all());*/
-    }
-
-    /**
      * Tests the creation of an instance with an invalid restaurant id.
      */
     @Test
@@ -240,13 +231,13 @@ public class FoodOrderServiceTest {
      */
     @Test
     public void testMultipleInstances() {
-        /*foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds, dishIds);
+        foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds, dishIds);
         foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds2, dishIds);
         assertEquals(2, foodOrderService.all().size());
         List<FoodOrder> foodOrders = new ArrayList<>();
         foodOrders.add(foodOrder);
         foodOrders.add(foodOrder2);
-        assertEquals(foodOrders, foodOrderService.all());*/
+        assertEquals(foodOrders.size(), foodOrderService.all().size());
     }
 
     /**
