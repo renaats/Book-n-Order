@@ -35,7 +35,7 @@ public class Dish {
     private Menu menu;
 
     @JsonIgnore
-    @ManyToMany(mappedBy  "dishes", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "dishes", fetch = FetchType.EAGER)
     private Set<FoodOrder> foodOrders;
 
     /**
