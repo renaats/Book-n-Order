@@ -1,5 +1,8 @@
 package nl.tudelft.oopp.demo.entities;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 import java.util.Objects;
 
 public class Bike {
@@ -39,6 +42,12 @@ public class Bike {
 
     public boolean isAvailable() {
         return available;
+    }
+
+    public StringProperty getBuildingNameProperty() {
+        String v = getLocation().getName();;
+        StringProperty buildingNameProperty = new SimpleStringProperty(v);
+        return buildingNameProperty;
     }
 
     @Override
