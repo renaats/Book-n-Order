@@ -2,6 +2,7 @@ package nl.tudelft.oopp.demo.communication;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,9 +11,12 @@ import java.util.List;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DialogPane;
 import javafx.stage.StageStyle;
+
 import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.Building;
+import nl.tudelft.oopp.demo.entities.BuildingHours;
 import nl.tudelft.oopp.demo.entities.Restaurant;
+import nl.tudelft.oopp.demo.entities.RestaurantHours;
 import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.user.UserInformation;
 
@@ -208,6 +212,54 @@ public class JsonMapper {
             alert.initStyle(StageStyle.UNDECORATED);
             DialogPane dialogPane = alert.getDialogPane();
             dialogPane.getStylesheets().add(JsonMapper.class.getResource("/alertWarning.css").toExternalForm());
+            alert.showAndWait();
+        }
+        return null;
+    }
+
+    /**
+     * Maps all restaurant hours JSONS to an object.
+     * @param restaurantHoursJson a JSON string
+     * @return Restaurant hour object
+     */
+    public static RestaurantHours restaurantHoursMapper(String restaurantHoursJson) {
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+
+        try {
+            // Convert JSON string to Object
+            RestaurantHours restaurantHours = mapper.readValue(restaurantHoursJson, RestaurantHours.class);
+            return restaurantHours;
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText(restaurantHoursJson);
+            alert.showAndWait();
+        }
+        return null;
+    }
+
+    /**
+     * Maps all building hours JSONS to an object.
+     * @param buildingHourJson a JSON string
+     * @return building hour object
+     */
+    public static BuildingHours buildingHoursMapper(String buildingHourJson) {
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+
+        try {
+            // Convert JSON string to Object
+            BuildingHours buildingHours = mapper.readValue(buildingHourJson, BuildingHours.class);
+            return buildingHours;
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText(buildingHourJson);
             alert.showAndWait();
         }
         return null;
