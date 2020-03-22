@@ -1,9 +1,17 @@
 package nl.tudelft.oopp.demo;
 
+import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
+
+import static nl.tudelft.oopp.demo.security.SecurityConstants.EXPIRATION_TIME;
+import static nl.tudelft.oopp.demo.security.SecurityConstants.HEADER_STRING;
+import static nl.tudelft.oopp.demo.security.SecurityConstants.SECRET;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+
+import com.auth0.jwt.JWT;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,14 +26,15 @@ import nl.tudelft.oopp.demo.entities.RoomReservation;
 import nl.tudelft.oopp.demo.repositories.RoomRepository;
 import nl.tudelft.oopp.demo.repositories.UserRepository;
 import nl.tudelft.oopp.demo.services.RoomReservationService;
-
 import nl.tudelft.oopp.demo.services.RoomService;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.mock.web.MockHttpServletRequest;
 
 /**
  * Tests the RoomReservation service.
@@ -111,8 +120,8 @@ class RoomReservationServiceTest {
         roomReservation2 = new RoomReservation();
         roomReservation2.setAppUser(appUser2);
         roomReservation2.setRoom(room2);
-        roomReservation2.setFromTime(new Date(200));
-        roomReservation2.setToTime(new Date(300));
+        roomReservation2.setFromTime(new Date(300000000000000L));
+        roomReservation2.setToTime(new Date(500000000000000L));
     }
 
     /**
@@ -278,7 +287,7 @@ class RoomReservationServiceTest {
     @Test
     public void testMultipleInstances() {
         roomReservationService.add(room.getId(), appUser.getEmail(), 300, 500);
-        roomReservationService.add(room2.getId(), appUser2.getEmail(), 200, 300);
+        roomReservationService.add(room2.getId(), appUser2.getEmail(), 300000000000000L, 500000000000000L);
         assertEquals(2, roomReservationService.all().size());
         List<RoomReservation> roomReservations = new ArrayList<>();
         roomReservations.add(roomReservation);
@@ -303,5 +312,55 @@ class RoomReservationServiceTest {
     @Test
     public void testDeleteIllegal() {
         assertEquals(421, roomReservationService.delete(0));
+    }
+
+    /**
+     * Tests the retrieval of past room reservations for the user that sends the request.
+     */
+    @Test
+    public void testGetPastRoomReservations() {
+        roomReservationService.add(room.getId(), appUser.getEmail(), 300, 500);
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        String token = JWT.create()
+                .withSubject(appUser.getEmail())
+                .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                .sign(HMAC512(SECRET.getBytes()));
+        request.addHeader(HEADER_STRING, token);
+        assertEquals(Collections.singletonList(roomReservation), roomReservationService.past(request));
+    }
+
+    /**
+     * Tests the retrieval of past room reservations for a non-existent user.
+     */
+    @Test
+    public void testGetNonExistentPastRoomReservations() {
+        roomReservationService.add(room.getId(), appUser.getEmail(), 300, 500);
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        assertEquals(new ArrayList<>(), roomReservationService.past(request));
+    }
+
+    /**
+     * Tests the retrieval of future room reservations for the user that sends the request.
+     */
+    @Test
+    public void testGetFutureRoomReservations() {
+        roomReservationService.add(room2.getId(), appUser2.getEmail(), 300000000000000L, 500000000000000L);
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        String token = JWT.create()
+                .withSubject(appUser2.getEmail())
+                .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                .sign(HMAC512(SECRET.getBytes()));
+        request.addHeader(HEADER_STRING, token);
+        assertEquals(Collections.singletonList(roomReservation2), roomReservationService.future(request));
+    }
+
+    /**
+     * Tests the retrieval of future room reservations for a non-existent user.
+     */
+    @Test
+    public void testGetNonExistentFutureRoomReservations() {
+        roomReservationService.add(room2.getId(), appUser2.getEmail(), 300000000000000L, 500000000000000L);
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        assertEquals(new ArrayList<>(), roomReservationService.future(request));
     }
 }

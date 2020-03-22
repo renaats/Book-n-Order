@@ -1,5 +1,7 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import javax.servlet.http.HttpServletRequest;
+
 import nl.tudelft.oopp.demo.entities.RoomReservation;
 import nl.tudelft.oopp.demo.services.RoomReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,4 +84,25 @@ public class RoomReservationController {
         return roomReservationService.all();
     }
 
+    /**
+     * Finds all past room reservations for the user that sends the Http request.
+     * @param request = the Http request that calls this method
+     * @return a list of past room reservations for this user.
+     */
+    @Secured("ROLE_USER")
+    @GetMapping(path = "/past")
+    public Iterable<RoomReservation> getPastReservations(HttpServletRequest request) {
+        return roomReservationService.past(request);
+    }
+
+    /**
+     * Finds all future room reservations for the user that sends the Http request.
+     * @param request = the Http request that calls this method
+     * @return a list of future room reservations for this user.
+     */
+    @Secured("ROLE_USER")
+    @GetMapping(path = "/future")
+    public Iterable<RoomReservation> getFutureReservations(HttpServletRequest request) {
+        return roomReservationService.future(request);
+    }
 }
