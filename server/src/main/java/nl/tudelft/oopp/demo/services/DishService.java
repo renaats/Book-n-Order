@@ -6,6 +6,7 @@ import java.util.Optional;
 import nl.tudelft.oopp.demo.entities.Dish;
 import nl.tudelft.oopp.demo.entities.Menu;
 import nl.tudelft.oopp.demo.repositories.DishRepository;
+import nl.tudelft.oopp.demo.repositories.FoodOrderRepository;
 import nl.tudelft.oopp.demo.repositories.MenuRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,8 @@ public class DishService {
     private DishRepository dishRepository;
     @Autowired
     private MenuRepository menuRepository;
+    @Autowired
+    private FoodOrderRepository foodOrderRepository;
 
     /**
      * Adds a dish

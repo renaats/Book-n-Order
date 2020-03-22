@@ -8,12 +8,13 @@ import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -56,23 +57,20 @@ public class FoodOrder {
     @JoinColumn
     private Menu menu;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "foodOrder")
-    Set<Dish> dishes = new HashSet<>();
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Dish> dishes;
 
     /** Creates a new instance of FoodOrder.
      * @param restaurant the restaurant at which the food order is placed.
      * @param appUser user who placed the food order.
      * @param deliveryLocation location of building where food needs to be delivered to/will be picked up from.
      * @param deliveryTime time at which food needs to be delivered.
-     * @param dishes set of dishes ordered.
      */
-    public FoodOrder(Restaurant restaurant, AppUser appUser, Building deliveryLocation, Date deliveryTime, Set<Dish> dishes) {
+    public FoodOrder(Restaurant restaurant, AppUser appUser, Building deliveryLocation, Date deliveryTime) {
         this.restaurant = restaurant;
         this.appUser = appUser;
         this.deliveryLocation = deliveryLocation;
         this.deliveryTime = deliveryTime;
-        this.dishes = dishes;
     }
 
     public FoodOrder() {
@@ -101,6 +99,10 @@ public class FoodOrder {
 
     public void setDishes(Set<Dish> dishes) {
         this.dishes = dishes;
+    }
+
+    public void addDish(Dish dish) {
+        dishes.add(dish);
     }
 
     public Integer getId() {

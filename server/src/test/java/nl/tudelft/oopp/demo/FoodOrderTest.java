@@ -90,81 +90,12 @@ public class FoodOrderTest {
         dishes.add(dish2);
 
         foodOrder = new FoodOrder(restaurantRepository.findAll().get(0), userRepository.findAll().get(0), buildingRepository.findAll().get(1),
-                new Date(10000000000L), dishes);
+                new Date(10000000000L));
         foodOrderRepository.saveAndFlush(foodOrder);
         foodOrder = foodOrderRepository.findAll().get(0);
     }
 
-    /**
-     * Tests the constructor of the FoodOrder class
-     */
-    @Test
-    public void testConstructor() {
-        //assertNotNull(foodOrder);
-    }
 
-    /**
-     * Tests the saving and retrieval of an instance of FoodOrder.
-     */
-    @Test
-    public void saveAndRetrieveFoodOrder() {
-        /*foodOrder2 = foodOrderRepository.findAll().get(0);
-        assertEquals(foodOrder, foodOrder2);*/
-    }
-
-    @Test
-    public void testGetAppUser() {
-        /*foodOrder2 = foodOrderRepository.findAll().get(0);
-        assertEquals(foodOrder.getAppUser(), foodOrder2.getAppUser());*/
-    }
-
-    /**
-     * Tests the getter for the restaurant field.
-     */
-    @Test
-    public void testGetRestaurant() {
-        /*foodOrder2 = foodOrderRepository.findAll().get(0);
-        assertEquals(foodOrder.getRestaurant(), foodOrder2.getRestaurant());*/
-    }
-
-    /**
-     * Tests the getter for the deliveryLocation field.
-     */
-    @Test
-    public void testGetDeliveryLocation() {
-        /*foodOrder2 = foodOrderRepository.findAll().get(0);
-        assertEquals(foodOrder.getDeliveryLocation(), foodOrder2.getDeliveryLocation());*/
-    }
-
-    /**
-     * Tests the getter for the deliveryTime field.
-     */
-    @Test
-    public void testGetDeliveryTime() {
-      /*  foodOrder2 = foodOrderRepository.findAll().get(0);
-        assertEquals(foodOrder.getDeliveryTime(), foodOrder2.getDeliveryTime());*/
-    }
-
-    /**
-     * Tests the equals method for 2 equal food orders.
-     */
-    @Test
-    public void testEqualFoodOrder() {
-        /*foodOrder2 = new FoodOrder(restaurant, appUser, deliveryLocation, new Date(11000000000L), dishes);
-        assertEquals(foodOrder, foodOrder2);
-        assertNotSame(foodOrder, foodOrder2);*/
-    }
-
-    /**
-     * Tests the setting of the foodOrders for an appUser.
-     */
-    @Test
-    public void testSetBikeReservations() {
-       /* Set<FoodOrder> foodOrders = new HashSet<>();
-        foodOrders.add(foodOrder);
-        appUser.setFoodOrder(foodOrders);
-        assertEquals(foodOrders, appUser.getFoodOrders());*/
-    }
 
     /**
      * Cleans up the repositories after executing every test.

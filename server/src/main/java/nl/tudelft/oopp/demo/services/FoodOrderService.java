@@ -1,15 +1,14 @@
 package nl.tudelft.oopp.demo.services;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
 import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.Building;
-import nl.tudelft.oopp.demo.entities.Dish;
 import nl.tudelft.oopp.demo.entities.FoodOrder;
-import nl.tudelft.oopp.demo.entities.Menu;
 import nl.tudelft.oopp.demo.entities.Restaurant;
 import nl.tudelft.oopp.demo.repositories.BuildingRepository;
 import nl.tudelft.oopp.demo.repositories.DishRepository;
@@ -53,7 +52,7 @@ public class FoodOrderService {
      * @param deliverTimeMs = the deliver time of the food order.
      * @return String containing the result of your request.
      */
-    public int add(int restaurantId, String userEmail, int deliverLocation, long deliverTimeMs, Set<Dish> dishes) {
+    public int add(int restaurantId, String userEmail, int deliverLocation, long deliverTimeMs, Set<Integer> dishIds) {
         Optional<Restaurant> optionalRestaurant = restaurantRepository.findById(restaurantId);
         if (optionalRestaurant.isEmpty()) {
             return 428;
@@ -77,6 +76,7 @@ public class FoodOrderService {
         foodOrder.setAppUser(appUser);
         foodOrder.setDeliveryLocation(deliveryLocation);
         foodOrder.setDeliveryTime(new Date(deliverTimeMs));
+        foodOrder.setDishes(new HashSet<>());
         foodOrderRepository.save(foodOrder);
         return 201;
     }

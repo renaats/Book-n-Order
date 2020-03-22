@@ -1,5 +1,8 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import java.util.Set;
+
+import nl.tudelft.oopp.demo.entities.Dish;
 import nl.tudelft.oopp.demo.entities.FoodOrder;
 import nl.tudelft.oopp.demo.services.FoodOrderService;
 
@@ -37,12 +40,9 @@ public class FoodOrderController {
     @Secured("ROLE_USER")
     @PostMapping(path = "/add") // Map ONLY POST Requests
     @ResponseBody
-    public int addNewFoodOrder(
-            @RequestParam String userEmail,
-            @RequestParam int restaurantId,
-            @RequestParam int deliverLocation,
-            @RequestParam long deliverTimeMs) {
-        return foodOrderService.add(restaurantId, userEmail, deliverLocation, deliverTimeMs);
+    public int addNewFoodOrder(@RequestParam String userEmail, @RequestParam int restaurantId, @RequestParam int deliverLocation,
+                               @RequestParam long deliverTimeMs, @RequestParam Set<Integer> dishIds) {
+        return foodOrderService.add(restaurantId, userEmail, deliverLocation, deliverTimeMs, dishIds);
     }
 
     /**

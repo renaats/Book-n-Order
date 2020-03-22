@@ -77,6 +77,7 @@ public class FoodOrderServiceTest {
     Set<Dish> dishes;
     FoodOrder foodOrder;
     FoodOrder foodOrder2;
+    Set<Integer> dishIds;
 
     /**
      * Sets up the entities and saves them via a service before executing every test.
@@ -117,8 +118,8 @@ public class FoodOrderServiceTest {
         dishes.add(dish1);
         dishes.add(dish2);
 
-        foodOrder = new FoodOrder(restaurant, appUser, deliverLocation, deliverTime, dishes);
-        foodOrder2 = new FoodOrder(restaurant, appUser, deliverLocation, deliverTime2, dishes);
+        foodOrder = new FoodOrder(restaurant, appUser, deliverLocation, deliverTime);
+        foodOrder2 = new FoodOrder(restaurant, appUser, deliverLocation, deliverTime2);
     }
 
     /**
@@ -143,7 +144,7 @@ public class FoodOrderServiceTest {
      */
     @Test
     public void testCreateIllegalRestaurant() {
-        assertEquals(428, foodOrderService.add(0, appUser.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds));
+        assertEquals(428, foodOrderService.add(0, appUser.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds, dishIds));
     }
 
     /**
@@ -151,7 +152,7 @@ public class FoodOrderServiceTest {
      */
     @Test
     public void testCreateIllegalUser() {
-        assertEquals(404, foodOrderService.add(restaurant.getId(), "a", deliverLocation.getId(), deliverTimeMilliseconds));
+        assertEquals(404, foodOrderService.add(restaurant.getId(), "a", deliverLocation.getId(), deliverTimeMilliseconds, dishIds));
     }
 
     /**
@@ -159,7 +160,7 @@ public class FoodOrderServiceTest {
      */
     @Test
     public void testCreateIllegalLocation() {
-        assertEquals(422, foodOrderService.add(restaurant.getId(), appUser.getEmail(), 0, deliverTimeMilliseconds));
+        assertEquals(422, foodOrderService.add(restaurant.getId(), appUser.getEmail(), 0, deliverTimeMilliseconds, dishIds));
     }
 
     /**
@@ -175,7 +176,7 @@ public class FoodOrderServiceTest {
      */
     @Test
     public void testFindExisting() {
-        foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds);
+        foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds, dishIds);
         int id = foodOrderService.all().get(0).getId();
         assertNotNull(foodOrderService.find(id));
     }
@@ -193,7 +194,7 @@ public class FoodOrderServiceTest {
      */
     @Test
     public void testUpdateNonExistingAttribute() {
-        foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds);
+        foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds, dishIds);
         int id = foodOrderService.all().get(0).getId();
         assertEquals(420, foodOrderService.update(id, "a", "a"));
     }
@@ -203,7 +204,7 @@ public class FoodOrderServiceTest {
      */
     @Test
     public void testChangeDeliveryLocation() {
-        foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds);
+        foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds, dishIds);
         int id = foodOrderService.all().get(0).getId();
         assertNotEquals(building, foodOrderService.find(id).getDeliveryLocation());
         foodOrderService.update(id, "deliverylocation", building.getId().toString());
@@ -215,7 +216,7 @@ public class FoodOrderServiceTest {
      */
     @Test
     public void testChangeDeliveryTime() {
-        foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds);
+        foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds, dishIds);
         int id = foodOrderService.all().get(0).getId();
         assertNotEquals(deliverTimeMilliseconds2, foodOrderService.find(id).getDeliveryTime().getTime());
         foodOrderService.update(id, "deliverytime", ((Long) deliverTimeMilliseconds2).toString());
@@ -227,7 +228,7 @@ public class FoodOrderServiceTest {
      */
     @Test
     public void testChangeUser() {
-        foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds);
+        foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds, dishIds);
         int id = foodOrderService.all().get(0).getId();
         assertNotEquals(appUser2, foodOrderService.find(id).getAppUser());
         foodOrderService.update(id, "useremail", appUser2.getEmail());
@@ -253,7 +254,7 @@ public class FoodOrderServiceTest {
      */
     @Test
     public void testDelete() {
-        foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds);
+        foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds, dishIds);
         int id = foodOrderService.all().get(0).getId();
         assertEquals(200, foodOrderService.delete(id));
         assertEquals(0, foodOrderService.all().size());
