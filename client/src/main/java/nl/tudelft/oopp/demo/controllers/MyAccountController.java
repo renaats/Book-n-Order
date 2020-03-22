@@ -33,7 +33,7 @@ public class MyAccountController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        UserInformation userInformation = JsonMapper.userInformationMaper(ServerCommunication.getOwnUserInformation());
+        UserInformation userInformation = JsonMapper.userInformationMapper(ServerCommunication.getOwnUserInformation());
         fullNameLabel.setText(userInformation.getName() + " " + userInformation.getSurname());
         emailLabel.setText(userInformation.getEmail());
         facultyLabel.setText(userInformation.getFaculty());

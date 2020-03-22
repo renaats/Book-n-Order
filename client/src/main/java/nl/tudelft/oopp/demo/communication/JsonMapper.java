@@ -130,11 +130,11 @@ public class JsonMapper {
     }
 
     /**
-     * Maps a JSON string to an AppUser object
+     * Maps a JSON string to an UserInformation object
      * @param userInformationJson JSON representation of a String
      * @return UserInformation Object
      */
-    public static UserInformation userInformationMaper(String userInformationJson) {
+    public static UserInformation userInformationMapper(String userInformationJson) {
 
         ObjectMapper mapper = new ObjectMapper();
 
