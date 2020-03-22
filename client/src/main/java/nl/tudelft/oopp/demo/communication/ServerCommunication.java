@@ -184,7 +184,6 @@ public class ServerCommunication {
     public static String validateUser(int sixDigitCode) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/user/validate?sixDigitCode=" + sixDigitCode)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnErrorMessage(request);
-
     }
 
     /**
@@ -193,22 +192,21 @@ public class ServerCommunication {
      * @param password User's password
      * @return the body of a get request to the server.
      */
-    public static String loginUser(String email, String password) {
-        try {
-            URL url = new URL("http://localhost:8080/login");
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("POST");
-            connection.setRequestProperty("Content-Type", "application/json; utf-8");
-            connection.setRequestProperty("Accept", "application/json");
-            connection.setDoOutput(true);
+    public static String loginUser(String email, String password) throws IOException {
+        URL url = new URL("http://localhost:8080/login");
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("POST");
+        connection.setRequestProperty("Content-Type", "application/json; utf-8");
+        connection.setRequestProperty("Accept", "application/json");
+        connection.setDoOutput(true);
 
-            String jsonInputString = "{\"email\": \"" + email + "\", \"password\":\"" + password + "\"}";
-            try (OutputStream os = connection.getOutputStream()) {
-                byte[] input = jsonInputString.getBytes(StandardCharsets.UTF_8);
-                os.write(input, 0, input.length);
-            }
+        String jsonInputString = "{\"email\": \"" + email + "\", \"password\":\"" + password + "\"}";
+        try (OutputStream os = connection.getOutputStream()) {
+            byte[] input = jsonInputString.getBytes(StandardCharsets.UTF_8);
+            os.write(input, 0, input.length);
+        }
 
-            Map<String, List<String>> map = connection.getHeaderFields();
+        Map<String, List<String>> map = connection.getHeaderFields();
 
         for (Map.Entry<String, List<String>> entry : map.entrySet()) {
             if (entry.getKey() != null) {
@@ -229,11 +227,8 @@ public class ServerCommunication {
                     return ErrorMessages.getErrorMessage(200);
                 }
             }
-            return ErrorMessages.getErrorMessage(311);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return ErrorMessages.getErrorMessage(311);
         }
+        return ErrorMessages.getErrorMessage(311);
     }
 
     /**
