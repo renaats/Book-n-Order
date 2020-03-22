@@ -7,7 +7,6 @@ public class Dish {
     private int id;
     private String name;
     private Menu menu;
-
     private Set<Allergy> allergies;
 
     /**
