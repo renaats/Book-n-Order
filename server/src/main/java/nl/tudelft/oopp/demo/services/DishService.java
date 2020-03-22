@@ -82,7 +82,7 @@ public class DishService {
     }
 
     /**
-     * Adds an allergy to a dish. If the role does not exist, it is created.
+     * Adds an allergy to a dish. If the allergy does not exist, it is created.
      * @param id = the id of the dish
      * @param allergyName = the name of the allergy
      */
