@@ -110,12 +110,6 @@ public class ServerCommunication {
             return "Please enter an encoding that is supported by the URLEncode class.";
         }
         HttpResponse<String> response;
-        try {
-            request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/user/add?email=" + URLEncoder.encode(email,"UTF-8")  + "&name=" + URLEncoder.encode(name,"UTF-8") + "&surname=" + URLEncoder.encode(surname,"UTF-8") + "&faculty=" + faculty + "&password=" + URLEncoder.encode(password,"UTF-8"))).POST(HttpRequest.BodyPublishers.noBody()).build();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            return "Please enter an encoding that is supported by the URLEncode class.";
-        }
         return communicateAndReturnErrorMessage(request);
     }
 
@@ -210,12 +204,6 @@ public class ServerCommunication {
             return "Please enter an encoding that is supported by the URLEncode class.";
         }
         HttpResponse<String> response;
-        try {
-            request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building/update?id=" + id + "&attribute=" + attribute + "&value=" + URLEncoder.encode(changeValue, "UTF-8"))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            return "Please enter an encoding that is supported by the URLEncode class.";
-        }
         return communicateAndReturnErrorMessage(request);
     }
 
@@ -255,12 +243,6 @@ public class ServerCommunication {
             return "Please enter an encoding that is supported by the URLEncode class.";
         }
         HttpResponse<String> response;
-        try {
-            request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room/update?id=" + id + "&attribute=" + attribute + "&value=" + URLEncoder.encode(changeValue, "UTF-8"))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            return "Please enter an encoding that is supported by the URLEncode class.";
-        }
         return communicateAndReturnErrorMessage(request);
     }
 

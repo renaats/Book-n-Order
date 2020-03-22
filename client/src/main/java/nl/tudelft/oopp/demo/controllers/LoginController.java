@@ -4,7 +4,9 @@ import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextField;
+import javafx.stage.StageStyle;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
@@ -29,20 +31,46 @@ public class LoginController {
      */
     public void loginButton() throws IOException {
         String username = usernameField.getText();
-        String password = passwordField.getText();
-        String message = ServerCommunication.loginUser(username, password);
+        if(username.equals("")) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle(null);
+            alert.setHeaderText(null);
+            alert.setContentText("Email is required.");
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/alertWarning.css").toExternalForm());
+            alert.showAndWait();
+            return;
+        }
 
+        String password = passwordField.getText();
+        if(password.equals("")) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle(null);
+            alert.setHeaderText(null);
+            alert.setContentText("Password is required.");
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/alertWarning.css").toExternalForm());
+            alert.showAndWait();
+            return;
+        }
+
+        String message = ServerCommunication.loginUser(username, password);
         if (message.equals("Login and/or password is incorrect.")) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Authenticator");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle(null);
             alert.setHeaderText(null);
             alert.setContentText(message);
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/alertError.css").toExternalForm());
             alert.showAndWait();
         }
     }
 
     /**
-     * Changes to registrationScene.fxml
+     * Changes to registrationScene.fxml1
      * @param actionEvent actionEvent parameter
      * @throws IOException User input will be valid, no need to check this, thus we throw.
      */
