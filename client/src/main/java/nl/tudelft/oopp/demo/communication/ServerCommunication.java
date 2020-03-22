@@ -747,8 +747,8 @@ public class ServerCommunication {
     }
 
     /**
-     * Updates a given attribute of a room.
-     * @param id = the id of the room.
+     * Updates a given attribute of a bike.
+     * @param id = the id of the bike.
      * @param attribute = The attribute whose value is to be changed.
      * @param changeValue = New value.
      * @return the body of the response from the server.
