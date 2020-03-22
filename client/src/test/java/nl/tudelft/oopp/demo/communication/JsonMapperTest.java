@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -50,7 +51,7 @@ class JsonMapperTest {
     }
 
     @Test
-    void buildingListMapper() {
+    void buildingListMapper() throws IOException {
         stubFor(get(urlEqualTo("/building/all"))
                 .willReturn(aResponse()
                         .withStatus(200)

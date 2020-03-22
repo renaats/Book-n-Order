@@ -3,8 +3,10 @@ package nl.tudelft.oopp.demo.controllers;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.PasswordField;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.StageStyle;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 public class ChangePasswordController {
@@ -30,10 +32,13 @@ public class ChangePasswordController {
         if (true) {
             ApplicationDisplay.changeScene("/myAccountScene.fxml");
         } else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Authenticator");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle(null);
             alert.setHeaderText(null);
-            alert.setContentText("the 2 new passwords are not the same, please re-enter them");
+            alert.setContentText("Passwords do not match.");
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/alertError.css").toExternalForm());
             alert.showAndWait();
         }
     }

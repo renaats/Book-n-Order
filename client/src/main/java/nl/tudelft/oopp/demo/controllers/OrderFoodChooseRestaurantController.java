@@ -15,7 +15,7 @@ import javafx.scene.input.MouseEvent;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 
-public class OrderFoodChoseRestaurantController implements Initializable {
+public class OrderFoodChooseRestaurantController implements Initializable {
     @FXML
     public TextField nameOfTheRestaurant;
     public Button submitButton;
@@ -72,7 +72,7 @@ public class OrderFoodChoseRestaurantController implements Initializable {
     /**
      * Should cause the menu of the selected restaurant to show at the menuTable
      */
-    public void restaurantChoosen() {
+    public void restaurantChosen() {
         //TODO
     }
 }
