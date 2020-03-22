@@ -7,12 +7,18 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import nl.tudelft.oopp.demo.entities.Bike;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
+/**
+ * controls all user inputs in the BikeDatabaseEdit.fxml scene
+ */
 public class BikeDatabaseEditController implements Initializable {
 
     final ObservableList updateChoiceBoxList = FXCollections.observableArrayList();
