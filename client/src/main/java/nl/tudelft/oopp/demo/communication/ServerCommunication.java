@@ -90,20 +90,7 @@ public class ServerCommunication {
      */
     public static String addBuildingHours(int buildingId, int day, int startTimeS, int endTimeS) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building_hours/add?buildingId=" + buildingId + "&day=" + day + "&startTimeS=" + startTimeS + "&endTimeS=" + endTimeS)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        HttpResponse<String> response;
-        try {
-            response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "Communication with server failed";
-        }
-        if (response.statusCode() == 403) {
-            return ErrorMessages.getErrorMessage(401);
-        }
-        if (response.statusCode() != 200) {
-            System.out.println("Status: " + response.statusCode());
-        }
-        return response.body();
+        return communicateAndReturnBodyOfResponse(request);
     }
 
     /**
@@ -116,20 +103,7 @@ public class ServerCommunication {
      */
     public static String addRestaurantHours(int restaurantId, int day, int startTimeS, int endTimeS) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant_hours/add?restaurantId=" + restaurantId + "&day=" + day + "&startTimeS=" + startTimeS + "&endTimeS=" + endTimeS)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        HttpResponse<String> response;
-        try {
-            response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "Communication with server failed";
-        }
-        if (response.statusCode() == 403) {
-            return ErrorMessages.getErrorMessage(401);
-        }
-        if (response.statusCode() != 200) {
-            System.out.println("Status: " + response.statusCode());
-        }
-        return response.body();
+        return communicateAndReturnBodyOfResponse(request);
     }
 
     /**
