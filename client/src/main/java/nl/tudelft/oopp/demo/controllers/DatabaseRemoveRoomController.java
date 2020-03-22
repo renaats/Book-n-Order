@@ -15,23 +15,10 @@ import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 
-public class DatabaseRemoveRoomController implements Initializable {
+public class DatabaseRemoveRoomController {
 
     public Button confirmDeleteByIdButton;
     public ImageView goToRoomMenuButton;
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        loadData();
-    }
-
-    /**
-     * Needs to add the list of the rooms need proper input parsing
-     */
-    private void loadData() {
-        //TODO
-    }
-
 
     /**
      * Will send the user to the main database menu when clicked.

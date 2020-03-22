@@ -1,7 +1,10 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import javax.servlet.http.HttpServletRequest;
+
 import nl.tudelft.oopp.demo.entities.BikeReservation;
 import nl.tudelft.oopp.demo.services.BikeReservationService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Repository;
@@ -78,10 +81,32 @@ public class BikeReservationController {
      * Lists all bike reservations.
      * @return Iterable of all bike reservations.
      */
-    @Secured("ROLE_USER")
+    @Secured("ROLE_ADMIN")
     @GetMapping(path = "/all")
     @ResponseBody
     public Iterable<BikeReservation> getAllBikeReservations() {
         return bikeReservationService.all();
+    }
+
+    /**
+     * Finds all past bike reservations for the user that sends the Http request.
+     * @param request = the Http request that calls this method
+     * @return a list of past bike reservations for this user.
+     */
+    @Secured("ROLE_USER")
+    @GetMapping(path = "/past")
+    public Iterable<BikeReservation> getPastReservations(HttpServletRequest request) {
+        return bikeReservationService.past(request);
+    }
+
+    /**
+     * Finds all future bike reservations for the user that sends the Http request.
+     * @param request = the Http request that calls this method
+     * @return a list of future bike reservations for this user.
+     */
+    @Secured("ROLE_USER")
+    @GetMapping(path = "/future")
+    public Iterable<BikeReservation> getFutureReservations(HttpServletRequest request) {
+        return bikeReservationService.future(request);
     }
 }

@@ -1,9 +1,17 @@
 package nl.tudelft.oopp.demo;
 
+import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
+
+import static nl.tudelft.oopp.demo.security.SecurityConstants.EXPIRATION_TIME;
+import static nl.tudelft.oopp.demo.security.SecurityConstants.HEADER_STRING;
+import static nl.tudelft.oopp.demo.security.SecurityConstants.SECRET;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+
+import com.auth0.jwt.JWT;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,12 +26,14 @@ import nl.tudelft.oopp.demo.repositories.BikeRepository;
 import nl.tudelft.oopp.demo.repositories.BuildingRepository;
 import nl.tudelft.oopp.demo.repositories.UserRepository;
 import nl.tudelft.oopp.demo.services.BikeReservationService;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.mock.web.MockHttpServletRequest;
 
 /**
  * Tests the BikeReservation service.
@@ -61,6 +71,10 @@ public class BikeReservationServiceTest {
     Date toTime;
     long fromTimeMilliseconds;
     long toTimeMilliseconds;
+    Date fromTime2;
+    Date toTime2;
+    long fromTimeMilliseconds2;
+    long toTimeMilliseconds2;
     BikeReservation bikeReservation;
     BikeReservation bikeReservation2;
 
@@ -98,9 +112,15 @@ public class BikeReservationServiceTest {
         toTime = new Date(11000000000L);
         toTimeMilliseconds = toTime.getTime();
 
+        fromTime2 = new Date(1000000000000000L);
+        fromTimeMilliseconds2 = fromTime2.getTime();
+
+        toTime2 = new Date(1100000000000000L);
+        toTimeMilliseconds2 = toTime2.getTime();
+
         bikeReservation = new BikeReservation(bike, appUser, fromBuilding, toBuilding, fromTime, toTime);
 
-        bikeReservation2 = new BikeReservation(bike2, appUser2, fromBuilding, toBuilding2, fromTime, toTime);
+        bikeReservation2 = new BikeReservation(bike2, appUser2, fromBuilding, toBuilding2, fromTime2, toTime2);
     }
 
     /**
@@ -281,7 +301,7 @@ public class BikeReservationServiceTest {
         bikeReservationService.add(
                 bike.getId(), appUser.getEmail(), fromBuilding.getId(), toBuilding.getId(), fromTimeMilliseconds, toTimeMilliseconds);
         bikeReservationService.add(
-                bike2.getId(), appUser2.getEmail(), fromBuilding.getId(), toBuilding2.getId(), fromTimeMilliseconds, toTimeMilliseconds);
+                bike2.getId(), appUser2.getEmail(), fromBuilding.getId(), toBuilding2.getId(), fromTimeMilliseconds2, toTimeMilliseconds2);
         assertEquals(2, bikeReservationService.all().size());
         ArrayList<BikeReservation> bikeReservations = new ArrayList<>();
         bikeReservations.add(bikeReservation);
@@ -307,5 +327,59 @@ public class BikeReservationServiceTest {
     @Test
     public void testDeleteIllegal() {
         assertEquals(421, bikeReservationService.delete(0));
+    }
+
+    /**
+     * Tests the retrieval of past bike reservations for the user that sends the request.
+     */
+    @Test
+    public void testGetPastBikeReservations() {
+        bikeReservationService.add(
+                bike.getId(), appUser.getEmail(), fromBuilding.getId(), toBuilding.getId(), fromTimeMilliseconds, toTimeMilliseconds);
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        String token = JWT.create()
+                .withSubject(appUser.getEmail())
+                .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                .sign(HMAC512(SECRET.getBytes()));
+        request.addHeader(HEADER_STRING, token);
+        assertEquals(Collections.singletonList(bikeReservation), bikeReservationService.past(request));
+    }
+
+    /**
+     * Tests the retrieval of past bike reservations for a non-existent user.
+     */
+    @Test
+    public void testGetNonExistentPastBikeReservations() {
+        bikeReservationService.add(
+                bike.getId(), appUser.getEmail(), fromBuilding.getId(), toBuilding.getId(), fromTimeMilliseconds, toTimeMilliseconds);
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        assertEquals(new ArrayList<>(), bikeReservationService.past(request));
+    }
+
+    /**
+     * Tests the retrieval of future bike reservations for the user that sends the request.
+     */
+    @Test
+    public void testGetFutureBikeReservations() {
+        bikeReservationService.add(
+                bike2.getId(), appUser2.getEmail(), fromBuilding.getId(), toBuilding2.getId(), fromTimeMilliseconds2, toTimeMilliseconds2);
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        String token = JWT.create()
+                .withSubject(appUser2.getEmail())
+                .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                .sign(HMAC512(SECRET.getBytes()));
+        request.addHeader(HEADER_STRING, token);
+        assertEquals(Collections.singletonList(bikeReservation2), bikeReservationService.future(request));
+    }
+
+    /**
+     * Tests the retrieval of future bike reservations for a non-existent user.
+     */
+    @Test
+    public void testGetNonExistentFutureBikeReservations() {
+        bikeReservationService.add(
+                bike2.getId(), appUser2.getEmail(), fromBuilding.getId(), toBuilding2.getId(), fromTimeMilliseconds2, toTimeMilliseconds2);
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        assertEquals(new ArrayList<>(), bikeReservationService.future(request));
     }
 }

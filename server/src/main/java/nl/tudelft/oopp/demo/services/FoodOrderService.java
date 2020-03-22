@@ -1,10 +1,15 @@
 package nl.tudelft.oopp.demo.services;
 
+import static nl.tudelft.oopp.demo.security.SecurityConstants.HEADER_STRING;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
 
 import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.Building;
@@ -167,5 +172,45 @@ public class FoodOrderService {
      */
     public FoodOrder find(int id) {
         return foodOrderRepository.findById(id).orElse(null);
+    }
+
+    /**
+     * Finds all past food orders for the user that sends the Http request.
+     * @param request = the Http request that calls this method
+     * @return a list of past food orders for this user.
+     */
+    public List<FoodOrder> past(HttpServletRequest request) {
+        List<FoodOrder> foodOrders = new ArrayList<>();
+        String token = request.getHeader(HEADER_STRING);
+        AppUser appUser = UserService.getAppUser(token, userRepository);
+        if (appUser == null) {
+            return foodOrders;
+        }
+        for (FoodOrder foodOrder: foodOrderRepository.findAll()) {
+            if (foodOrder.getAppUser() == appUser && foodOrder.getDeliveryTime().before(new Date())) {
+                foodOrders.add(foodOrder);
+            }
+        }
+        return foodOrders;
+    }
+
+    /**
+     * Finds all future food orders for the user that sends the Http request.
+     * @param request = the Http request that calls this method
+     * @return a list of future food orders for this user.
+     */
+    public List<FoodOrder> future(HttpServletRequest request) {
+        List<FoodOrder> foodOrders = new ArrayList<>();
+        String token = request.getHeader(HEADER_STRING);
+        AppUser appUser = UserService.getAppUser(token, userRepository);
+        if (appUser == null) {
+            return foodOrders;
+        }
+        for (FoodOrder foodOrder: foodOrderRepository.findAll()) {
+            if (foodOrder.getAppUser() == appUser && foodOrder.getDeliveryTime().after(new Date())) {
+                foodOrders.add(foodOrder);
+            }
+        }
+        return foodOrders;
     }
 }

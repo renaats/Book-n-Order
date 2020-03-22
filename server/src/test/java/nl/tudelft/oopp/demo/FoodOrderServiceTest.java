@@ -1,9 +1,17 @@
 package nl.tudelft.oopp.demo;
 
+import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
+
+import static nl.tudelft.oopp.demo.security.SecurityConstants.EXPIRATION_TIME;
+import static nl.tudelft.oopp.demo.security.SecurityConstants.HEADER_STRING;
+import static nl.tudelft.oopp.demo.security.SecurityConstants.SECRET;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+
+import com.auth0.jwt.JWT;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,12 +32,14 @@ import nl.tudelft.oopp.demo.repositories.MenuRepository;
 import nl.tudelft.oopp.demo.repositories.RestaurantRepository;
 import nl.tudelft.oopp.demo.repositories.UserRepository;
 import nl.tudelft.oopp.demo.services.FoodOrderService;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.mock.web.MockHttpServletRequest;
 
 /**
  * Tests the FoodOrder service.
@@ -104,7 +114,7 @@ public class FoodOrderServiceTest {
         deliverTime = new Date(11000000000L);
         deliverTimeMilliseconds = deliverTime.getTime();
 
-        deliverTime2 = new Date(10000000000L);
+        deliverTime2 = new Date(100000000000000L);
         deliverTimeMilliseconds2 = deliverTime2.getTime();
 
         menu = new Menu("Lunch Menu", restaurant);
@@ -257,5 +267,55 @@ public class FoodOrderServiceTest {
     @Test
     public void testDeleteIllegal() {
         assertEquals(421, foodOrderService.delete(0));
+    }
+
+    /**
+     * Tests the retrieval of past food orders for the user that sends the request.
+     */
+    @Test
+    public void testGetPastFoodOrders() {
+        foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds);
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        String token = JWT.create()
+                .withSubject(appUser.getEmail())
+                .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                .sign(HMAC512(SECRET.getBytes()));
+        request.addHeader(HEADER_STRING, token);
+        assertEquals(Collections.singletonList(foodOrder), foodOrderService.past(request));
+    }
+
+    /**
+     * Tests the retrieval of past food orders for a non-existent user.
+     */
+    @Test
+    public void testGetNonExistentPastRoomReservations() {
+        foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds);
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        assertEquals(new ArrayList<>(), foodOrderService.past(request));
+    }
+
+    /**
+     * Tests the retrieval of future food orders for the user that sends the request.
+     */
+    @Test
+    public void testGetFutureRoomReservations() {
+        foodOrderService.add(restaurant.getId(), appUser2.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds2);
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        String token = JWT.create()
+                .withSubject(appUser2.getEmail())
+                .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                .sign(HMAC512(SECRET.getBytes()));
+        request.addHeader(HEADER_STRING, token);
+        assertEquals(Collections.singletonList(foodOrder2), foodOrderService.future(request));
+    }
+
+    /**
+     * Tests the retrieval of future food orders for a non-existent user.
+     */
+    @Test
+    public void testGetNonExistentFutureRoomReservations() {
+        foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds2);
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        assertEquals(new ArrayList<>(), foodOrderService.future(request));
     }
 }
