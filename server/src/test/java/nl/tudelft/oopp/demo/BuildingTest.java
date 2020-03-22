@@ -59,7 +59,7 @@ public class BuildingTest {
     }
 
     /**
-     * Tests the saving and retrieval of an instance of Bike.
+     * Tests the saving and retrieval of an instance of Building.
      */
     @Test
     public void saveAndRetrieveBuilding() {
