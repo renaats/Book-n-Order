@@ -6,3 +6,5 @@
 
 # Possible solutions
 *Please specify a solution for the assignee to try*
+
+**Weight: [weight number], [reason]**
