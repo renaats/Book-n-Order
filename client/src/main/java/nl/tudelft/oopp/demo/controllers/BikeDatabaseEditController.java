@@ -68,7 +68,7 @@ public class BikeDatabaseEditController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        colLocation.setCellValueFactory(new PropertyValueFactory<>("location"));
+        colLocation.setCellValueFactory(new PropertyValueFactory<>("getBuildingName"));
         colAvailable.setCellValueFactory(new PropertyValueFactory<>("available"));
         loadDataIntoChoiceBox();
         loadBikesIntoTable();
@@ -96,9 +96,8 @@ public class BikeDatabaseEditController implements Initializable {
 
         /**
          * Shows the bike with the chosen id in the table.
-         * @param Button the pressing of the find button
          */
-    public void loadBikesIntoTableId(ActionEvent Button) {
+    public void loadBikesIntoTableId() {
         List<Bike> bikes = new ArrayList<>(Objects.requireNonNull(JsonMapper.bikeListMapper(ServerCommunication.getBikes())));
         bikeSearchResult.clear();
         for (int i = 0; i < bikes.size(); i++) {
@@ -109,7 +108,7 @@ public class BikeDatabaseEditController implements Initializable {
         table.setItems(bikeSearchResult);
     }
 
-    public void loadBikesIntoTableLocation(ActionEvent actionEvent) {
+    public void loadBikesIntoTableLocation() {
         List<Building> locations = new ArrayList<>(Objects.requireNonNull(JsonMapper.buildingListMapper(ServerCommunication.getBuildings())));
         List<Bike> bikes = new ArrayList<>(Objects.requireNonNull(JsonMapper.bikeListMapper(ServerCommunication.getBikes())));
         locationsSearchResults.clear();
@@ -191,6 +190,36 @@ public class BikeDatabaseEditController implements Initializable {
         alert.setTitle("Bike updater");
         alert.setHeaderText(null);
         alert.setContentText(ServerCommunication.updateBike(id,attribute,value));
+        alert.showAndWait();
+        loadBikesIntoTable();
+    }
+
+    /**
+     * Deletes the selected  bike from the table and the database
+     */
+    public void deleteBikeUsingTable() {
+        Bike bike = (Bike) table.getSelectionModel().getSelectedItem();
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Bike remover");
+        alert.setHeaderText(null);
+        alert.setContentText(ServerCommunication.deleteBike(bike.getId()));
+        alert.showAndWait();
+        loadBikesIntoTable();
+    }
+
+    /**
+     * allows you to select the bike you wish to update in the table
+     */
+    public void updateUsingTable() {
+        Bike bike = (Bike) table.getSelectionModel().getSelectedItem();
+        bikeFindByIdTextField.setText(""+bike.getId());
+        loadBikesIntoTableId();
+        String attribute = updateChoiceBox.getValue();
+        String value = BikeChangeToField.getText();
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Bike updater");
+        alert.setHeaderText(null);
+        alert.setContentText(ServerCommunication.updateBike(bike.getId(),attribute,value));
         alert.showAndWait();
         loadBikesIntoTable();
     }
