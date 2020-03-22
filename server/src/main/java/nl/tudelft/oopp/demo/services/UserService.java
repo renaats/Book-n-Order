@@ -1,9 +1,18 @@
 package nl.tudelft.oopp.demo.services;
 
+import static nl.tudelft.oopp.demo.security.SecurityConstants.HEADER_STRING;
+import static nl.tudelft.oopp.demo.security.SecurityConstants.SECRET;
+import static nl.tudelft.oopp.demo.security.SecurityConstants.TOKEN_PREFIX;
+
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.util.HashSet;
+import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.Role;
 import nl.tudelft.oopp.demo.events.OnRegistrationSuccessEvent;
@@ -17,14 +26,6 @@ import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import javax.servlet.http.HttpServletRequest;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.util.HashSet;
-import java.util.List;
-
-import static nl.tudelft.oopp.demo.security.SecurityConstants.*;
 
 /**
  * Supports CRUD operations for the AppUser entity.
@@ -301,17 +302,23 @@ public class UserService {
         return false;
     }
 
+    /**
+     * Sends an email with the new password to the user.
+     * @param email User's email
+     * @return  error code corresponding to the actions taken
+     */
     public int recoverPassword(String email) {
-        if(userRepository.findByEmail(email) != null) {
+        if (userRepository.findByEmail(email) != null) {
             RandomStringGenerator pwdGenerator = new RandomStringGenerator.Builder().withinRange(48, 90)
                     .build();
-                String password = pwdGenerator.generate(10);
+            String password = pwdGenerator.generate(10);
             String recipient = email;
             String subject = "Password Recovery";
             SimpleMailMessage email2 = new SimpleMailMessage();
             email2.setTo(recipient);
             email2.setSubject(subject);
-            email2.setText("This email provides you with the new password.\nTU Delft advices you to change it immediately after logging in to secure yourself from unwanted presence.\n"
+            email2.setText("This email provides you with the new password.\nTU Delft advices you to change it immediately "
+                    + "after logging in to secure yourself from unwanted presence.\n"
                     + "New password:    " + password);
             mailSender.send(email2);
             AppUser appUser = userRepository.findByEmail(email);

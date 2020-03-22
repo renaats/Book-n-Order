@@ -377,4 +377,14 @@ class UserServiceTest {
         MockHttpServletRequest request = new MockHttpServletRequest();
         assertFalse(userService.isAdmin(request));
     }
+
+    /**
+     * Test the recoverPassword method.
+     */
+    @Test
+    public void testRecoverPassword() {
+        userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty());
+        assertEquals(205, userService.recoverPassword(appUser.getEmail()));
+        assertEquals(419, userService.recoverPassword("NotARealEmail@tudelft.nl"));
+    }
 }

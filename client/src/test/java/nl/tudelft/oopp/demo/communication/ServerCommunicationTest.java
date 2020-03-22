@@ -42,7 +42,7 @@ public class ServerCommunicationTest {
         stubFor(get(urlEqualTo("/user")).willReturn(aResponse().withStatus(403).withBody("")));
         stubFor(post(urlEqualTo("/user/add?email=a&name=a&surname=a&faculty=a&password=a")).willReturn(aResponse().withStatus(403).withBody("")));
         stubFor(post(urlEqualTo("/login")).willReturn(aResponse().withStatus(403).withBody("")));
-        stubFor(get(urlEqualTo("/user/validate?sixDigitCode=123456")).willReturn(aResponse().withStatus(403).withBody("")));
+        stubFor(post(urlEqualTo("/user/validate?sixDigitCode=123456")).willReturn(aResponse().withStatus(403).withBody("")));
         stubFor(delete(urlEqualTo("/building/delete/1")).willReturn(aResponse().withStatus(403).withBody("")));
         stubFor(post(urlEqualTo("/building/update?id=1&attribute=a&value=a")).willReturn(aResponse().withStatus(403).withBody("")));
         stubFor(delete(urlEqualTo("/room/delete/1")).willReturn(aResponse().withStatus(403).withBody("")));
@@ -50,6 +50,7 @@ public class ServerCommunicationTest {
         stubFor(post(urlEqualTo("/room/add?name=a&faculty=a&facultySpecific=true&screen=true&projector=true&buildingId=1&capacity=1&plugs=1"))
                 .willReturn(aResponse().withStatus(403).withBody("")));
         stubFor(post(urlEqualTo("/building/add?name=a&street=a&houseNumber=1")).willReturn(aResponse().withStatus(403).withBody("")));
+        assertEquals(ErrorMessages.getErrorMessage(401), ServerCommunication.validateUser(123456));
         assertEquals(ErrorMessages.getErrorMessage(401), ServerCommunication.getUser());
         assertEquals(ErrorMessages.getErrorMessage(401), ServerCommunication.addUser("a", "a", "a", "a", "a"));
         assertEquals(ErrorMessages.getErrorMessage(311), ServerCommunication.loginUser("a", "a"));
@@ -69,7 +70,8 @@ public class ServerCommunicationTest {
         stubFor(get(urlEqualTo("/user")).willReturn(aResponse().withStatus(200).withBody("Message1")));
         stubFor(post(urlEqualTo("/user/add?email=a&name=a&surname=a&faculty=a&password=a")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(post(urlEqualTo("/login")).willReturn(aResponse().withStatus(200).withBody("").withHeader("Authorization", "a b c")));
-        stubFor(get(urlEqualTo("/user/validate?sixDigitCode=123456")).willReturn(aResponse().withStatus(200).withBody("Message1")));
+        stubFor(post(urlEqualTo("/user/validate?sixDigitCode=123456")).willReturn(aResponse().withStatus(200).withBody("200")));
+        stubFor(post(urlEqualTo("/user/recoverPassword?email=student@tudelft.nl")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(get(urlEqualTo("/building/all")).willReturn(aResponse().withStatus(200).withBody("Message2")));
         stubFor(get(urlEqualTo("/room/all")).willReturn(aResponse().withStatus(200).withBody("Message3")));
         stubFor(delete(urlEqualTo("/building/delete/1")).willReturn(aResponse().withStatus(200).withBody("200")));
@@ -81,6 +83,8 @@ public class ServerCommunicationTest {
         stubFor(post(urlEqualTo("/room/add?name=a&faculty=a&facultySpecific=true&screen=true&projector=true&buildingId=1&capacity=1&plugs=1"))
                 .willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(post(urlEqualTo("/building/add?name=a&street=a&houseNumber=1")).willReturn(aResponse().withStatus(200).withBody("200")));
+        assertEquals(ErrorMessages.getErrorMessage(200), ServerCommunication.validateUser(123456));
+        assertEquals(ErrorMessages.getErrorMessage(200), ServerCommunication.sendRecoveryPassword("student@tudelft.nl"));
         assertEquals("Message1", ServerCommunication.getUser());
         assertEquals(ErrorMessages.getErrorMessage(200), ServerCommunication.addUser("a", "a", "a", "a", "a"));
         assertEquals("Message2", ServerCommunication.getBuildings());

@@ -46,7 +46,6 @@ public class UserController {
 
     /**
      * Sends a new password to the email if it has already been registered.
-     * @param request = the Http request that calls this method
      */
     @PostMapping(path = "/recoverPassword")
     public int recoverPassword(@RequestParam String email) {
