@@ -20,7 +20,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-
 class JsonMapperTest {
     public WireMockServer wireMockServer;
 
@@ -32,7 +31,6 @@ class JsonMapperTest {
         wireMockServer = new WireMockServer();
         wireMockServer.start();
         configureFor("localhost", 8080);
-
     }
 
     /**

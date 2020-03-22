@@ -190,7 +190,6 @@ public class JsonMapper {
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
-        System.out.println(restaurantHoursJson);
 
         try {
             // Convert JSON string to Object
@@ -207,9 +206,9 @@ public class JsonMapper {
     }
 
     /**
-     * Maps all restaurant hours JSONS to an object.
+     * Maps all building hours JSONS to an object.
      * @param buildingHourJson a JSON string
-     * @return Restaurant hour object
+     * @return building hour object
      */
     public static BuildingHours buildingHoursMapper(String buildingHourJson) {
 

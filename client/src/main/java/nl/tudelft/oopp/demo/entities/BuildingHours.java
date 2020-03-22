@@ -13,10 +13,10 @@ public class BuildingHours {
 
     /**
      * Constructor for building hours
-     * @param day int representation of the day
-     * @param building building object
-     * @param startTime in seconds
-     * @param endTime in seconds
+     * @param day = the day of the week in number representation (1 to 7)
+     * @param building the building
+     * @param startTime = the starting time
+     * @param endTime = the ending time
      */
     public BuildingHours(int day, Building building, LocalTime startTime, LocalTime endTime) {
         this.day = day;
