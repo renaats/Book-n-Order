@@ -46,7 +46,6 @@ public class DishesJpaSpecificationsTest {
         dish2.setName("Doner Kebab");
         dish2.setMenu(menu);
         dishRepository.save(dish2);
-
     }
 
     @Test
