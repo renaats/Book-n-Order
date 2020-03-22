@@ -18,6 +18,9 @@ import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
+/**
+ * Manages all user input on the BikeDatabaseAdd.fxml view
+ */
 public class BikeDatabaseAddController implements Initializable {
 
     public ChoiceBox locationsCheckBox;
