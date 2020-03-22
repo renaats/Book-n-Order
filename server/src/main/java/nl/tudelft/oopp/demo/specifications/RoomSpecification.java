@@ -7,6 +7,9 @@ import javax.persistence.criteria.Root;
 import nl.tudelft.oopp.demo.entities.Room;
 import org.springframework.data.jpa.domain.Specification;
 
+/**
+ * Used for creating predicates based on criteria to be used for Room searching.
+ */
 public class RoomSpecification implements Specification<Room> {
 
     private SearchCriteria criteria;
