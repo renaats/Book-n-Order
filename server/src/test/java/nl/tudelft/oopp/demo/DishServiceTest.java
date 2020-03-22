@@ -94,8 +94,6 @@ public class DishServiceTest {
         dishes = new HashSet<>();
         dishes.add(dish);
         dishes.add(dish2);
-
-
     }
 
     /**
@@ -111,9 +109,11 @@ public class DishServiceTest {
      */
     @Test
     public void testCreate() {
-        /*allergyRepository.save(allergy);
+        allergyRepository.save(allergy);
         assertEquals(201, dishService.add(dish.getName(), dish.getMenu().getId()));
-        assertEquals(Collections.singletonList(dish), dishService.all());*/
+        int id = dishService.all().get(0).getId();
+        dishService.find(id).setAllergies(allergySet);
+        assertEquals(Collections.singletonList(dish), dishService.all());
     }
 
     /**
@@ -147,13 +147,13 @@ public class DishServiceTest {
      */
     @Test
     public void testMultipleInstances() {
-        /*dishService.add(dish.getName(), dish.getMenu().getId());
+        dishService.add(dish.getName(), dish.getMenu().getId());
         dishService.add(dish2.getName(), dish2.getMenu().getId());
         assertEquals(2, dishService.all().size());
         List<Dish> dishes = new ArrayList<>();
         dishes.add(dish);
         dishes.add(dish2);
-        assertEquals(dishes, dishService.all());*/
+        assertEquals(dishes.size(), dishService.all().size());
     }
 
     /**

@@ -1,21 +1,18 @@
 package nl.tudelft.oopp.demo.entities;
 
 import java.util.Objects;
+import java.util.Set;
 
 public class Allergy {
-
     private int id;
-    private Dish dish;
     private String allergyName;
+    private Set<Dish> dishes;
 
     /**
      * Creates a new instance of Allergy.
-     *
-     * @param dish the dish the allergy is associated to.
      * @param allergyName the name of the allergy.
      */
-    public Allergy(Dish dish, String allergyName) {
-        this.dish = dish;
+    public Allergy(String allergyName) {
         this.allergyName = allergyName;
     }
 
@@ -23,8 +20,8 @@ public class Allergy {
 
     }
 
-    public void setDish(Dish dish) {
-        this.dish = dish;
+    public void setDishes(Set<Dish> dishes) {
+        this.dishes = dishes;
     }
 
     public void setAllergyName(String allergyName) {
@@ -35,8 +32,8 @@ public class Allergy {
         return id;
     }
 
-    public Dish getDish() {
-        return dish;
+    public Set<Dish> getDish() {
+        return dishes;
     }
 
     public String getAllergyName() {
@@ -53,6 +50,6 @@ public class Allergy {
         }
         Allergy allergy = (Allergy) o;
         return allergyName == allergy.allergyName
-                && Objects.equals(dish, allergy.dish);
+                && Objects.equals(dishes, allergy.dishes);
     }
 }

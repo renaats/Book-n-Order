@@ -1,11 +1,14 @@
 package nl.tudelft.oopp.demo.entities;
 
+import java.util.Set;
+
 public class Dish {
 
     private int id;
     private String name;
-
     private Menu menu;
+
+    private Set<Allergy> allergies;
 
     /**
      * Creates a new instance of Dish.
@@ -33,11 +36,19 @@ public class Dish {
         this.name = name;
     }
 
+    public void setAllergies(Set<Allergy> allergies) {
+        this.allergies = allergies;
+    }
+
     public int getId() {
         return id;
     }
 
     public String getName() {
         return name;
+    }
+
+    public Set<Allergy> getAllergies() {
+        return allergies;
     }
 }
