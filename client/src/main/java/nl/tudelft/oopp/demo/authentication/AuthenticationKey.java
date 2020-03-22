@@ -1,7 +1,7 @@
 package nl.tudelft.oopp.demo.authentication;
 
 /**
- * manages the AuthenticationKey for server communication
+ * Manages the AuthenticationKey for server communication
  */
 public class AuthenticationKey {
     private static String bearerKey;
