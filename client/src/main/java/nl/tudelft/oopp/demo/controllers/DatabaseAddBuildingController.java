@@ -1,11 +1,12 @@
 package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
-import javafx.event.ActionEvent;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
+import javafx.stage.StageStyle;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
@@ -54,11 +55,27 @@ public class DatabaseAddBuildingController {
         String name = nameTextField.getText();
         String street = streetTextField.getText();
         int houseNumber = Integer.parseInt(houseNumberTextField.getText());
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Building adder");
-        alert.setHeaderText(null);
-        alert.setContentText(ServerCommunication.addBuilding(name, street, houseNumber));
-        alert.showAndWait();
+
+        String response = ServerCommunication.addBuilding(name, street, houseNumber);
+        if (response.equals("Successfully added!")) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle(null);
+            alert.setHeaderText(null);
+            alert.setContentText(response);
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/alertInformation.css").toExternalForm());
+            alert.showAndWait();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle(null);
+            alert.setHeaderText(null);
+            alert.setContentText(response);
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/alertError.css").toExternalForm());
+            alert.showAndWait();
+        }
     }
 
     /**

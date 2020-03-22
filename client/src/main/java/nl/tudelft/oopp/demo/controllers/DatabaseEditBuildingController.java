@@ -6,13 +6,13 @@ import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
+import javafx.stage.StageStyle;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
@@ -46,16 +46,22 @@ public class DatabaseEditBuildingController implements Initializable {
     public void building_id_ButtonClicked() {
         try {
             int id = Integer.parseInt(buildingFindByIdTextField.getText());
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Building Finder");
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle(null);
             alert.setHeaderText(null);
             alert.setContentText(ServerCommunication.findBuilding(id));
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/alertInformation.css").toExternalForm());
             alert.showAndWait();
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle(null);
             alert.setHeaderText(null);
             alert.setContentText("Missing argument.");
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/alertWarning.css").toExternalForm());
             alert.showAndWait();
         }
     }
@@ -66,16 +72,22 @@ public class DatabaseEditBuildingController implements Initializable {
     public void deleteBuildingButtonClicked() {
         try {
             int id = Integer.parseInt(buildingDeleteByIdTextField.getText());
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Building remover");
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle(null);
             alert.setHeaderText(null);
             alert.setContentText(ServerCommunication.deleteBuilding(id));
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/alertWarning.css").toExternalForm());
             alert.showAndWait();
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle(null);
             alert.setHeaderText(null);
             alert.setContentText("Missing argument.");
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/alertWarning.css").toExternalForm());
             alert.showAndWait();
         }
     }
@@ -85,9 +97,12 @@ public class DatabaseEditBuildingController implements Initializable {
      */
     public void listBuildingsButtonClicked() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("All buildings:");
+        alert.setTitle(null);
         alert.setHeaderText(null);
         alert.setContentText(ServerCommunication.getBuildings());
+        alert.initStyle(StageStyle.UNDECORATED);
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(getClass().getResource("/alertInformation.css").toExternalForm());
         alert.showAndWait();
     }
 
@@ -99,16 +114,23 @@ public class DatabaseEditBuildingController implements Initializable {
             int id = Integer.parseInt(buildingFindByIdUpdateField.getText());
             String attribute = updateChoiceBox.getValue().replaceAll(" ", "").toLowerCase();
             String changeValue = buildingChangeToField.getText();
+
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Building remover");
+            alert.setTitle(null);
             alert.setHeaderText(null);
             alert.setContentText(ServerCommunication.updateBuilding(id, attribute, changeValue));
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/alertInformation.css").toExternalForm());
             alert.showAndWait();
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle(null);
             alert.setHeaderText(null);
             alert.setContentText("Missing argument.");
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/alertWarning.css").toExternalForm());
             alert.showAndWait();
         }
     }
