@@ -29,12 +29,12 @@ public class BookRoomController implements Initializable {
     final ObservableList<String> listOfTimeSlots = FXCollections.observableArrayList();
     final ObservableList<String> listOfBuildings = FXCollections.observableArrayList();
 
-    public class Search {
-        private boolean screen;
-        private boolean beamer;
-        private int capacity;
-        private String building;
-        private int nuOfPlugs;
+    public static class Search {
+        private final boolean screen;
+        private final boolean beamer;
+        private final int capacity;
+        private final String building;
+        private final int nuOfPlugs;
 
         /**
          * constructor for the search object
