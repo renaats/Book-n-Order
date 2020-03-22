@@ -120,7 +120,7 @@ public class BikeFeedbackService {
      */
     public int delete(int id) {
         if (!bikeFeedbackRepository.existsById(id)) {
-            return 416;
+            return 432;
         }
         bikeFeedbackRepository.deleteById(id);
         return 200;
