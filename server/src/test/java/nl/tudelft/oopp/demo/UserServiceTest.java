@@ -197,9 +197,10 @@ class UserServiceTest {
     public void testChangePassword() {
         userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty());
         String email = userService.all().get(0).getEmail();
-        assertNotEquals("abc", userService.all().get(0).getPassword());
+        String password = userService.all().get(0).getPassword();
+        assertEquals(password, userService.all().get(0).getPassword());
         userService.update(email, "password", "abc");
-        assertEquals("abc", userService.all().get(0).getPassword());
+        assertNotEquals(password, userService.all().get(0).getPassword());
     }
 
     /**
