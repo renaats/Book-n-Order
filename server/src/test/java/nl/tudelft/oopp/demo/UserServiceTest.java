@@ -236,7 +236,6 @@ class UserServiceTest {
     @Test
     public void testUnsuccessfulValidation() {
         userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty());
-        int number = userService.find(appUser.getEmail()).getConfirmationNumber();
         MockHttpServletRequest request = new MockHttpServletRequest();
         String token = JWT.create()
                 .withSubject(appUser.getEmail())
@@ -250,6 +249,7 @@ class UserServiceTest {
                 .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .sign(HMAC512(SECRET.getBytes()));
         request2.addHeader(HEADER_STRING, token);
+        int number = userService.find(appUser.getEmail()).getConfirmationNumber();
         assertEquals(419, userService.validate(request2, number));
     }
 
