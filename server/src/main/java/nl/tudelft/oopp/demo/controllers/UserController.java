@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.UnsupportedEncodingException;
 
-import java.io.UnsupportedEncodingException;
 
 /**
  * Creates server side endpoints and routes requests to the UserService.
@@ -103,7 +102,8 @@ public class UserController {
     @Secured("ROLE_ADMIN")
     @PostMapping(path = "/update")
     @ResponseBody
-    public int updateAttribute(@RequestParam String email, @RequestParam String attribute, @RequestParam String value) throws UnsupportedEncodingException {
+    public int updateAttribute(@RequestParam String email, @RequestParam String attribute, @RequestParam String value)
+            throws UnsupportedEncodingException {
         return userService.update(email, attribute, value);
     }
 
