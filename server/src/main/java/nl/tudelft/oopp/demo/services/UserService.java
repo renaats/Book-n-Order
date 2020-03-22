@@ -45,6 +45,7 @@ public class UserService {
     private RoleRepository roleRepository;
     @Autowired
     private ApplicationEventPublisher eventPublisher;
+    
 
     /**
      * Finds the appUser for some Http request token.
@@ -300,5 +301,12 @@ public class UserService {
             }
         }
         return false;
+    }
+
+    public int recoverPassword(String email) {
+        if(userRepository.findByEmail(email) != null) {
+
+        }
+        return 419;
     }
 }
