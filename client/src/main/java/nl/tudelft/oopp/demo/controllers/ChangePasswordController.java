@@ -38,12 +38,14 @@ public class ChangePasswordController {
      * @throws IOException should never throw an exception
      */
     public void changePassword() throws IOException {
-        String password = password.getText();
+        String password = oldPassword.getText();
         String password1 = newPassword1.getText();
         String password2 = newPassword2.getText();
-        //String email = AppUser.getEmail();
-        if (password1.equals(password2)) {
-            String response = ServerCommunication.ChangePassword("",password1);
+        AppUser user = JsonMapper.appUserMapper(ServerCommunication.getUser());
+        String serverPassword = user.getPassword();
+        String email = user.getEmail();
+        if (password1.equals(password2) && serverPassword.equals(password)) {
+            String response = ServerCommunication.ChangePassword(email,password1);
             System.out.println(response);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Change password successful");
