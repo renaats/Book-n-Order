@@ -27,7 +27,7 @@ public class ForgotPasswordController {
     public void sendEmail() {
         String email = emailField.getText();
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Password reset");
+        alert.setTitle(null);
         alert.setHeaderText(null);
         alert.setContentText(ServerCommunication.sendRecoveryPassword(email));
         alert.showAndWait();

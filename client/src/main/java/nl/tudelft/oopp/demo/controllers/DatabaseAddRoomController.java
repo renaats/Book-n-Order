@@ -5,10 +5,11 @@ import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 
-import javafx.scene.input.MouseEvent;
+import javafx.stage.StageStyle;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
@@ -108,12 +109,26 @@ public class DatabaseAddRoomController {
         boolean projector = Boolean.parseBoolean(projectorToggle.getText());
         int capacity = Integer.parseInt(capacityTextField.getText());
         int plugs = Integer.parseInt(plugsTextField.getText());
-
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Room adder");
-        alert.setHeaderText(null);
-        alert.setContentText(ServerCommunication.addRoom(name, faculty, buildingId, facultySpecific, screen, projector, capacity, plugs));
-        alert.showAndWait();
+        String response = ServerCommunication.addRoom(name, faculty, buildingId, facultySpecific, screen, projector, capacity, plugs);
+        if (response.equals("Successfully added!")) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle(null);
+            alert.setHeaderText(null);
+            alert.setContentText(response);
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/alertInformation.css").toExternalForm());
+            alert.showAndWait();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle(null);
+            alert.setHeaderText(null);
+            alert.setContentText(response);
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/alertError.css").toExternalForm());
+            alert.showAndWait();
+        }
     }
 
     /**
