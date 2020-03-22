@@ -101,6 +101,15 @@ public class AppUserTest {
     }
 
     /**
+     * Tests the setter and getter for the confirmationNumber field.
+     */
+    public void testGetterAndSetterConfirmationNumber() {
+        appUser2 = userRepository.findAll().get(0);
+        appUser2.setConfirmationNumber(123456);
+        assertEquals(123456, appUser2.getConfirmationNumber());
+    }
+
+    /**
      * Tests the the change of the email by using a setter.
      */
     @Test
