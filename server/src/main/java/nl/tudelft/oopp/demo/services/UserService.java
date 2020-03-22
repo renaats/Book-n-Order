@@ -6,15 +6,22 @@ import static nl.tudelft.oopp.demo.security.SecurityConstants.TOKEN_PREFIX;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.io.UnsupportedEncodingException;
+
 import java.net.URLDecoder;
 import java.util.HashSet;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+
 import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.Role;
 import nl.tudelft.oopp.demo.repositories.RoleRepository;
 import nl.tudelft.oopp.demo.repositories.UserRepository;
+
 import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -38,7 +45,7 @@ public class UserService {
      * Logs out from the current account.
      * @param request = the Http request that calls this method
      */
-    public void logout(HttpServletRequest request) {
+    public int logout(HttpServletRequest request) {
         String token = request.getHeader(HEADER_STRING);
         if (token != null) {
             // parse the token.
@@ -50,8 +57,32 @@ public class UserService {
                 AppUser appUser = userRepository.findByEmail(user);
                 appUser.setLoggedIn(false);
                 userRepository.save(appUser);
+                return 201;
             }
         }
+        return 419;
+    }
+
+    /**
+     * Returns information about the user account.
+     * @param request = the Http request that calls this method
+     * @return account information about the account that requests it.
+     */
+    public String userInfo(HttpServletRequest request) {
+        String token = request.getHeader(HEADER_STRING);
+        if (token != null) {
+            // parse the token.
+            String user = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
+                    .build()
+                    .verify(token.replace(TOKEN_PREFIX, ""))
+                    .getSubject();
+            if (user != null && userRepository.existsById(user)) {
+                AppUser appUser = userRepository.findByEmail(user);
+                Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+                return gson.toJson(appUser);
+            }
+        }
+        return null;
     }
 
     /**
@@ -189,5 +220,28 @@ public class UserService {
         appUser.addRole(role);
         userRepository.save(appUser);
         return 201;
+    }
+
+    /**
+     * Retrieves a boolean value representing whether the user is allowed to access the admin panel.
+     * @param request = the Http request that calls this method.
+     */
+    public boolean isAdmin(HttpServletRequest request) {
+        String token = request.getHeader(HEADER_STRING);
+        if (token != null) {
+            // parse the token.
+            String user = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
+                    .build()
+                    .verify(token.replace(TOKEN_PREFIX, ""))
+                    .getSubject();
+            if (user != null && userRepository.existsById(user)) {
+                AppUser appUser = userRepository.findByEmail(user);
+                return appUser.getRoles().contains(roleRepository.findByName("ROLE_ADMIN"))
+                        || appUser.getRoles().contains(roleRepository.findByName("ROLE_BUILDING_ADMIN"))
+                        || appUser.getRoles().contains(roleRepository.findByName("ROLE_BIKE_ADMIN"))
+                        || appUser.getRoles().contains(roleRepository.findByName("ROLE_RESTAURANT"));
+            }
+        }
+        return false;
     }
 }

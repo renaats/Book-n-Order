@@ -27,8 +27,6 @@ public class ChangePasswordController {
      * @throws IOException should never throw an exception
      */
     public void changePassword() throws IOException {
-        //String password1 = (String) newPassword1.getCharacters();
-        //String password2 = (String) newPassword2.getCharacters();
         if (true) {
             ApplicationDisplay.changeScene("/myAccountScene.fxml");
         } else {

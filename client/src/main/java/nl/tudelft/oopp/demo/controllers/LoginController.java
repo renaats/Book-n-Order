@@ -49,4 +49,12 @@ public class LoginController {
     public void registrationScene(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/registrationScreen.fxml");
     }
+
+    /**
+     * Changes scene to forgot password scene
+     * @throws IOException should never throw, since the input is always the same
+     */
+    public void forgotPassword() throws IOException {
+        ApplicationDisplay.changeScene("/ForgotPasswordScene.fxml");
+    }
 }
