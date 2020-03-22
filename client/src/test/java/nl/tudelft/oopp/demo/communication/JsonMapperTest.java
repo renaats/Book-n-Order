@@ -45,7 +45,7 @@ class JsonMapperTest {
         stubFor(get(urlEqualTo("/building/find/1")).willReturn(aResponse().withStatus(200)
                 .withBody("{\"id\":1,\"name\":\"testffes\",\"street\":\"1\",\"houseNumber\":1}")));
         assertEquals(JsonMapper
-                .buildingMapper("{\"id\":1,\"name\":\"testffes\",\"street\":\"1\",\"houseNumber\":1}"),
+                        .buildingMapper("{\"id\":1,\"name\":\"testffes\",\"street\":\"1\",\"houseNumber\":1}"),
                 JsonMapper.buildingMapper(ServerCommunication.findBuilding(1)));
     }
 
@@ -61,9 +61,9 @@ class JsonMapperTest {
         assertEquals(
                 JsonMapper
                         .buildingListMapper("[{\"id\":1,\"name\":\"testffes\",\"street\":\"1\",\"houseNumber\":1},"
-                + "{\"id\":2,\"name\":\"1\",\"street\":\"1\",\"houseNumber\":1},"
-                + "{\"id\":3,\"name\":\"1\",\"street\":\"1\",\"houseNumber\":1},"
-                + "{\"id\":4,\"name\":\"1\",\"street\":\"1\",\"houseNumber\":1}]"),
+                                + "{\"id\":2,\"name\":\"1\",\"street\":\"1\",\"houseNumber\":1},"
+                                + "{\"id\":3,\"name\":\"1\",\"street\":\"1\",\"houseNumber\":1},"
+                                + "{\"id\":4,\"name\":\"1\",\"street\":\"1\",\"houseNumber\":1}]"),
                 JsonMapper.buildingListMapper(ServerCommunication.getBuildings()));
     }
 
@@ -78,7 +78,7 @@ class JsonMapperTest {
                 JsonMapper
                         .roomMapper(
                                 "{\"id\":4,\"name\":\"432\",\"building\":{\"id\":1,\"name\":\"11\",\"street\":\"1\",\"houseNumber\":1},\"faculty\":"
-                                + "\"42342\",\"facultySpecific\":true,\"projector\":false,\"screen\":false,\"nrPeople\":4234,\"plugs\":42342}"),
+                                        + "\"42342\",\"facultySpecific\":true,\"projector\":false,\"screen\":false,\"nrPeople\":4234,\"plugs\":42342}"),
                 JsonMapper.roomMapper((ServerCommunication.findRoom(4))));
     }
 
@@ -104,4 +104,29 @@ class JsonMapperTest {
                                 + ",\"faculty\":\"1\",\"facultySpecific\":true,\"projector\":false,\"screen\":true,\"nrPeople\":1,\"plugs\":1}]\n")));
         assertEquals(room, JsonMapper.roomListMapper(ServerCommunication.getRooms()));
     }
+
+//    @Test
+//    void foodMapper() {
+//        stubFor(get(urlEqualTo("/food/find/7"))
+//                .willReturn(aResponse()
+//                        .withStatus(200)
+//                        .withBody("{\"id\":7,\"restaurant\":{\"restaurant\":{\"id\":4,\"building\":"
+//                                + "{\"id\":1,\"name\":\"test\",\"street\":\"1\",\"houseNumber\":1},"
+//                                + "\"name\":\"TestRestaurant\",\"menu\":null},\"appUser\":{\"email\":"
+//                                + "\"a.delia@student.tudelft.nl\",\"password\":\"abc\",\"name\":\"Alto\","
+//                                + "\"surname\":\"Delia\",\"faculty\":\"EWI\"loggedIn\"true\",\"roles\":{"
+//                                + "\"id\":\"2\",\"name\":\"ROLE_ADMIN\"}},\"deliveryLocation\":{\"id\"1\"name\":"
+//                                + "\"street\",\"street\":\"str\",\"houseNumber\":\"24\"},\"deliveryTime\":\"2020-03-25T12:00:00.000+0000}]")));
+//        assertEquals(
+//                JsonMapper
+//                        .foodOrderMapper(
+//                                "{\"id\":7,\"restaurant\":{\"restaurant\":{\"id\":4,\"building\":"
+//                                        + "{\"id\":1,\"name\":\"test\",\"street\":\"1\",\"houseNumber\":1},"
+//                                        + "\"name\":\"TestRestaurant\",\"menu\":null},\"appUser\":{\"email\":"
+//                                        + "\"a.delia@student.tudelft.nl\",\"password\":\"abc\",\"name\":\"Alto\","
+//                                        + "\"surname\":\"Delia\",\"faculty\":\"EWI\"loggedIn\"true\",\"roles\":{"
+//                                        + "\"id\":\"2\",\"name\":\"ROLE_ADMIN\"}},\"deliveryLocation\":{\"id\"1\"name\":"
+//                                        + "\"street\",\"street\":\"str\",\"houseNumber\":\"24\"},\"deliveryTime\":\"2020-03-25T12:00:00.000+0000}]"),
+//                JsonMapper.roomMapper((ServerCommunication.findFoodOrder(7))));
+//    }
 }
