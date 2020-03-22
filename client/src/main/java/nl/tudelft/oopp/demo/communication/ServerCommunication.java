@@ -158,7 +158,6 @@ public class ServerCommunication {
     public static String validateUser(int sixDigitCode) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/user/validate?sixDigitCode=" + sixDigitCode)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnErrorMessage(request);
-
     }
 
     /**

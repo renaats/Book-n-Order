@@ -11,6 +11,9 @@ import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.user.UserInformation;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
+/**
+ * Adds the functionality to ConfirmationSixDigits.fxml file
+ */
 public class ConfirmationSixDigitsController {
 
     @FXML
@@ -22,7 +25,6 @@ public class ConfirmationSixDigitsController {
      * @throws IOException Deals with improper input
      */
     public void confirmValidity(ActionEvent actionEvent) throws IOException {
-
         try {
             int code = Integer.parseInt(sixDigitCode.getText());
             String response =  ServerCommunication.validateUser(code);
