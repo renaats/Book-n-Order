@@ -256,7 +256,9 @@ public class ServerCommunication {
         HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + UserInformation.getBearerKey()).uri(URI.create("http://localhost:8080/user/update?email="+ URLEncoder.encode(email, "UTF-8") + "&attribute=password" + "&value="+URLEncoder.encode(password, "UTF-8"))).POST(HttpRequest.BodyPublishers.noBody()).build();
         return communicateAndReturnBodyOfResponse(request);
     }
+
     /**
+     * @param email    User's email
      * Communicates addRoom to the database
      *
      * @param name            room name
