@@ -166,7 +166,7 @@ public class UserService {
     }
 
     /**
-     *  Checks whether the input of the user is equal to the one sent in the email.
+     * Checks whether the input of the user is equal to the one sent in the email.
      * @param request The request, which validates the six digit code
      * @param sixDigitCode User's six digit input
      * @return  An error code corresponding outcome of the request

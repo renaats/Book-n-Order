@@ -128,7 +128,6 @@ public class ServerCommunication {
             e.printStackTrace();
             return false;
         }
-        System.out.println(response.body());
         return response.body().contains("true");
     }
 
@@ -209,12 +208,6 @@ public class ServerCommunication {
                     } else {
                         ApplicationDisplay.changeScene("/mainMenu.fxml");
                     }
-                    // If you want to remove the confirmation functionality comment lines starting from yes its gross until
-                    // the previous line and uncomment the next four lines.
-                    //  if (AuthenticationKey.getBearerKey() == null) {
-                    //      AuthenticationKey.setBearerKey((Arrays.asList(entry.getValue().get(0).split(" ")).get(1)));
-                    //      ApplicationDisplay.changeScene("/mainMenu.fxml");
-                    //  }
                     return ErrorMessages.getErrorMessage(200);
                 }
             }
