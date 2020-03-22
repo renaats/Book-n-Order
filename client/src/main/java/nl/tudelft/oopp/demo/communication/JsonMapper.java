@@ -53,13 +53,8 @@ public class JsonMapper {
 
         ObjectMapper mapper = new ObjectMapper();
 
-//        try {
-            // Convert JSON string to Object
-            List<Building> buildings = mapper.readValue(buildingsJson, new TypeReference<List<Building>>(){});
-            return buildings;
-//        } catch (Exception e) {
-//            return new ArrayList<>();
-//        }
+        List<Building> buildings = mapper.readValue(buildingsJson, new TypeReference<List<Building>>(){});
+        return buildings;
     }
 
     /**

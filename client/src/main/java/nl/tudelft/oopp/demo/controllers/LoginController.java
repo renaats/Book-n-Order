@@ -31,7 +31,7 @@ public class LoginController {
      */
     public void loginButton() throws IOException {
         String username = usernameField.getText();
-        if(username.equals("")) {
+        if (username.equals("")) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle(null);
             alert.setHeaderText(null);
@@ -44,7 +44,7 @@ public class LoginController {
         }
 
         String password = passwordField.getText();
-        if(password.equals("")) {
+        if (password.equals("")) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle(null);
             alert.setHeaderText(null);

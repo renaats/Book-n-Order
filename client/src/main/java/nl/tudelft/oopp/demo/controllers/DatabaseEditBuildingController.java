@@ -13,13 +13,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import nl.tudelft.oopp.demo.communication.JsonMapper;
 import javafx.stage.StageStyle;
+
+import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
@@ -110,11 +111,11 @@ public class DatabaseEditBuildingController implements Initializable {
     public void deleteBuildingButtonClickedByTable() {
         try {
             Building building = table.getSelectionModel().getSelectedItem();
-            String response = ServerCommunication.deleteBuilding(building.getId());
             buildingResult.removeIf(b -> b.getId().equals(building.getId()));
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle(null);
             alert.setHeaderText(null);
+            String response = ServerCommunication.deleteBuilding(building.getId());
             alert.setContentText(response);
             alert.initStyle(StageStyle.UNDECORATED);
             DialogPane dialogPane = alert.getDialogPane();
