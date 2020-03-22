@@ -9,6 +9,7 @@ import java.util.List;
 
 import javafx.scene.control.Alert;
 import nl.tudelft.oopp.demo.entities.*;
+import nl.tudelft.oopp.demo.user.UserInformation;
 
 /**
  * Maps Json server responses into objects in the Entities package
