@@ -6,6 +6,9 @@ import java.util.stream.Collectors;
 import nl.tudelft.oopp.demo.entities.Dish;
 import org.springframework.data.jpa.domain.Specification;
 
+/**
+ * Used for creating a compound specification based on multiple parameters.
+ */
 public class DishSpecificationsBuilder {
 
     private final List<SearchCriteria> params;
