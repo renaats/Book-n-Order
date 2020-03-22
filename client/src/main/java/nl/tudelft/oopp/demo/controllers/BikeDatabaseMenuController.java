@@ -4,6 +4,9 @@ import java.io.IOException;
 
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
+/**
+ * Manages all user input on the BikeDatabaseMenu.fxml view
+ */
 public class BikeDatabaseMenuController {
 
     /**
