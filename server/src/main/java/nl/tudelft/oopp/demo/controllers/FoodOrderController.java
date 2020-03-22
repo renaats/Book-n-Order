@@ -60,6 +60,18 @@ public class FoodOrderController {
     }
 
     /**
+     * Adds a dish to a food order.
+     * @param id = the id of the food order
+     * @param name = the name of the dish
+     */
+    //@Secured("ROLE_ADMIN") SHOULD BE UNCOMMENTED WHEN IN PRODUCTION!
+    @PostMapping(path = "/addDish")
+    @ResponseBody
+    public void addDish(@RequestParam int id, @RequestParam String name) {
+        foodOrderService.addDish(id, name);
+    }
+
+    /**
      * Deletes a food order.
      * @param id = the id of the food order.
      * @return String containing the result of your request.

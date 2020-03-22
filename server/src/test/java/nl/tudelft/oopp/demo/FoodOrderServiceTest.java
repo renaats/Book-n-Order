@@ -240,8 +240,8 @@ public class FoodOrderServiceTest {
      */
     @Test
     public void testMultipleInstances() {
-        /*foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds);
-        foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds2);
+        /*foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds, dishIds);
+        foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds2, dishIds);
         assertEquals(2, foodOrderService.all().size());
         List<FoodOrder> foodOrders = new ArrayList<>();
         foodOrders.add(foodOrder);

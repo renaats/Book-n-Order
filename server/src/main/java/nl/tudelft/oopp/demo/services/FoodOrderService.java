@@ -8,6 +8,7 @@ import java.util.Set;
 
 import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.Building;
+import nl.tudelft.oopp.demo.entities.Dish;
 import nl.tudelft.oopp.demo.entities.FoodOrder;
 import nl.tudelft.oopp.demo.entities.Restaurant;
 import nl.tudelft.oopp.demo.repositories.BuildingRepository;
@@ -119,6 +120,23 @@ public class FoodOrderService {
         }
         foodOrderRepository.save(foodOrder);
         return 200;
+    }
+
+    /**
+     * Adds a dish to food order
+     * @param id = the id of the food order
+     * @param dishName = the name of the dish
+     */
+    public int addDish(int id, String dishName) {
+        if (!foodOrderRepository.existsById(id)) {
+            return 416;
+        }
+        FoodOrder foodOrder = foodOrderRepository.getOne(id);
+        Dish dish;
+        dish = dishRepository.findByName(dishName);
+        foodOrder.addDish(dish);
+        foodOrderRepository.save(foodOrder);
+        return 201;
     }
 
     /**
