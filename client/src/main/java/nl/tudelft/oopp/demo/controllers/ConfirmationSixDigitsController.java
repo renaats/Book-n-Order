@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import nl.tudelft.oopp.demo.authentication.AuthenticationKey;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.user.UserInformation;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
@@ -49,7 +50,7 @@ public class ConfirmationSixDigitsController {
      * @throws IOException Deals with improper input
      */
     public void goToLoginScreen(MouseEvent mouseEvent) throws IOException {
-        UserInformation.setBearerKey(null);
+        AuthenticationKey.setBearerKey(null);
         ApplicationDisplay.changeScene("/login-screen.fxml");
     }
 }

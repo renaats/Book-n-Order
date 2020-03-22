@@ -213,6 +213,44 @@ class UserServiceTest {
         userService.update(email, "faculty", "3M");
         assertEquals("3M", userService.all().get(0).getFaculty());
     }
+    /**
+     * Tests the successful validation of the user.
+     */
+     @Test
+     public void testSuccessfulValidation() {
+         userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty());
+         int number = userService.find(appUser.getEmail()).getConfirmationNumber();
+         MockHttpServletRequest request = new MockHttpServletRequest();
+         String token = JWT.create()
+                 .withSubject(appUser.getEmail())
+                 .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                 .sign(HMAC512(SECRET.getBytes()));
+         request.addHeader(HEADER_STRING, token);
+         assertEquals(200, userService.validate(request, number));
+     }
+
+    /**
+     * Tests the failure of validation with wrong email or wrong sixDigitCode.
+     */
+    @Test
+     public void testUnsuccessfulValidation() {
+         userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty());
+         int number = userService.find(appUser.getEmail()).getConfirmationNumber();
+         MockHttpServletRequest request = new MockHttpServletRequest();
+         String token = JWT.create()
+                 .withSubject(appUser.getEmail())
+                 .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                 .sign(HMAC512(SECRET.getBytes()));
+         request.addHeader(HEADER_STRING, token);
+         assertEquals(431, userService.validate(request, 12345));
+         MockHttpServletRequest request2 = new MockHttpServletRequest();
+         token = JWT.create()
+                 .withSubject("NotAnEmailOfARealUser@tudelft.nl")
+                 .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                 .sign(HMAC512(SECRET.getBytes()));
+         request2.addHeader(HEADER_STRING, token);
+         assertEquals(419, userService.validate(request2, number));
+     }
 
     /**
      * Tests the deletion of an instance.

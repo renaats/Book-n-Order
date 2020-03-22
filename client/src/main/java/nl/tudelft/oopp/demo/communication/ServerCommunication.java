@@ -142,26 +142,12 @@ public class ServerCommunication {
     public static String addUser(String email, String name, String surname, String faculty, String password) {
         HttpRequest request;
         try {
-            request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/user/add?email=" + URLEncoder.encode(email,"UTF-8")  + "&name=" + URLEncoder.encode(name,"UTF-8") + "&surname=" + URLEncoder.encode(surname,"UTF-8") + "&faculty=" + faculty + "&password=" + URLEncoder.encode(password,"UTF-8"))).POST(HttpRequest.BodyPublishers.noBody()).build();
+            request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/user/add?email=" + URLEncoder.encode(email,"UTF-8")  + "&name=" + URLEncoder.encode(name,"UTF-8") + "&surname=" + URLEncoder.encode(surname,"UTF-8") + "&faculty=" + URLEncoder.encode(faculty, "UTF-8") + "&password=" + URLEncoder.encode(password,"UTF-8"))).POST(HttpRequest.BodyPublishers.noBody()).build();
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
             return "Please enter an encoding that is supported by the URLEncode class.";
         }
-        HttpResponse<String> response;
-        try {
-            response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "Communication with server failed";
-        }
-        if (response.statusCode() == 403) {
-            return ErrorMessages.getErrorMessage(401);
-        }
-        if (response.statusCode() != 200) {
-            System.out.println(response.body());
-            System.out.println("Status: " + response.statusCode());
-        }
-        return ErrorMessages.getErrorMessage(Integer.parseInt(response.body()));
+        return communicateAndReturnErrorMessage(request);
     }
 
     /**
@@ -170,7 +156,7 @@ public class ServerCommunication {
      * @return  The error message corresponding to the response of the server
      */
     public static String validateUser(int sixDigitCode) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/user/validate?sixDigitCode=" + sixDigitCode)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/user/validate?sixDigitCode=" + sixDigitCode)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnErrorMessage(request);
 
     }
@@ -201,16 +187,17 @@ public class ServerCommunication {
         for (Map.Entry<String, List<String>> entry : map.entrySet()) {
             if (entry.getKey() != null) {
                 if (entry.getKey().equals("Authorization")) {
-                    if (UserInformation.getBearerKey() == null) {
+                    if (AuthenticationKey.getBearerKey() == null) {
                         //Yes it's gross, it works, it grabs the key
-                        UserInformation.setBearerKey((Arrays.asList(entry.getValue().get(0).split(" ")).get(1)));
+                        AuthenticationKey.setBearerKey((Arrays.asList(entry.getValue().get(0).split(" ")).get(1)));
                         ApplicationDisplay.changeScene("/ConfirmationSixDigits.fxml");
                     } else {
                         ApplicationDisplay.changeScene("/mainMenu.fxml");
                     }
-                    // If you want to remove the confirmation functionality comment lines 166-172 and uncomment the lines 174-177
-                    //  if (UserInformation.getBearerKey() == null) {
-                    //      UserInformation.setBearerKey((Arrays.asList(entry.getValue().get(0).split(" ")).get(1)));
+                    // If you want to remove the confirmation functionality comment lines starting from yes its gross until
+                    // the previous line and uncomment the next four lines.
+                    //  if (AuthenticationKey.getBearerKey() == null) {
+                    //      AuthenticationKey.setBearerKey((Arrays.asList(entry.getValue().get(0).split(" ")).get(1)));
                     //      ApplicationDisplay.changeScene("/mainMenu.fxml");
                     //  }
                     return ErrorMessages.getErrorMessage(200);

@@ -1,11 +1,5 @@
 package nl.tudelft.oopp.demo;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.util.HashSet;
 
 import nl.tudelft.oopp.demo.entities.AppUser;
@@ -15,6 +9,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Tests the AppUser entity.
@@ -98,6 +94,26 @@ public class AppUserTest {
     public void testFacultyGetter() {
         appUser2 = userRepository.findAll().get(0);
         assertEquals("EWI", appUser2.getFaculty());
+    }
+
+    /**
+     * Tests the getter for the confirmationNumber field.
+     */
+    @Test
+    public void testConfirmationNumberGetter() {
+        appUser2 = userRepository.findAll().get(0);
+        assertEquals(0, appUser2.getConfirmationNumber());
+    }
+
+    /**
+     * Tests the change of the confirmationNumber by using a setter.
+     */
+    @Test
+    public void testChangeConfirmationNumber() {
+        appUser2 = userRepository.findAll().get(0);
+        assertEquals(0, appUser2.getConfirmationNumber());
+        appUser2.setConfirmationNumber(123456);
+        assertEquals(123456, appUser2.getConfirmationNumber());
     }
 
     /**
