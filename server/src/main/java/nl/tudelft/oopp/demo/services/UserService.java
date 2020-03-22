@@ -11,7 +11,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
+import java.net.URLEncoder;
 import java.util.HashSet;
 import java.util.List;
 
@@ -193,7 +193,7 @@ public class UserService {
      * @param value = the new value of the attribute
      * @return String to see if your request passed
      */
-    public int update(String email, String attribute, String value) {
+    public int update(String email, String attribute, String value) throws UnsupportedEncodingException {
         if (userRepository.findById(email).isEmpty()) {
             return 419;
         }
@@ -201,7 +201,7 @@ public class UserService {
 
         switch (attribute) {
             case "password":
-                appUser.setPassword(bcryptPasswordEncoder.encode(value));
+                appUser.setPassword(bcryptPasswordEncoder.encode(URLDecoder.decode(value, "UTF-8")));
                 break;
             case "name":
                 appUser.setName(value);
