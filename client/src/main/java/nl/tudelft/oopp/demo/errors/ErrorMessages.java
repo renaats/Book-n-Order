@@ -27,6 +27,7 @@ public class ErrorMessages {
     private static final String somethingWentWrongMessage = "Something went wrong.";
     private static final String menuNotFoundMessage = "Menu not found.";
     private static final String dishNotFoundMessage = "Dish not found.";
+    private static final String roomFeedbackMessage = "Room Feedback not found";
     private static int code;
 
     /**
@@ -94,6 +95,8 @@ public class ErrorMessages {
                 return menuNotFoundMessage;
             case 430:
                 return dishNotFoundMessage;
+            case 431:
+                return roomFeedbackMessage;
             case 502:
                 return unsupportedEncodingMessage;
             default:
