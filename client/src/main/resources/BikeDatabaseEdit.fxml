@@ -64,7 +64,7 @@
             <TableColumn fx:id="colAvailable" prefWidth="174.0" text="Available" />
         </columns>
     </TableView>
-    <Button fx:id="editByTable" layoutX="632.0" layoutY="594.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" style="-fx-background-color: #00a6d6;" text="Edit selected" textFill="WHITE">
+    <Button fx:id="editByTable" layoutX="632.0" layoutY="594.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#updateUsingTable" style="-fx-background-color: #00a6d6;" text="Edit selected" textFill="WHITE">
         <cursor>
             <Cursor fx:constant="HAND" />
         </cursor>
@@ -84,7 +84,7 @@
         <cursor>
             <Cursor fx:constant="HAND" />
         </cursor></Button>
-    <Button fx:id="confirmDeleteByIdButtonByTable" layoutX="632.0" layoutY="642.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" style="-fx-background-color: #00a6d6;" text="Delete Selected" textFill="WHITE">
+    <Button fx:id="confirmDeleteByIdButtonByTable" layoutX="632.0" layoutY="642.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#deleteBikeUsingTable" style="-fx-background-color: #00a6d6;" text="Delete Selected" textFill="WHITE">
         <cursor>
             <Cursor fx:constant="HAND" />
         </cursor>
