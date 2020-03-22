@@ -10,7 +10,9 @@ import nl.tudelft.oopp.demo.repositories.RoomFeedbackRepository;
 import nl.tudelft.oopp.demo.repositories.RoomReservationRepository;
 import nl.tudelft.oopp.demo.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class RoomFeedbackService {
     @Autowired
     private RoomFeedbackRepository roomFeedbackRepository;

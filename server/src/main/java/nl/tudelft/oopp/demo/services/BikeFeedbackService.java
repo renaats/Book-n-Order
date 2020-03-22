@@ -10,7 +10,9 @@ import nl.tudelft.oopp.demo.repositories.BikeFeedbackRepository;
 import nl.tudelft.oopp.demo.repositories.BikeReservationRepository;
 import nl.tudelft.oopp.demo.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class BikeFeedbackService {
     @Autowired
     private BikeFeedbackRepository bikeFeedbackRepository;
