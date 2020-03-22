@@ -141,6 +141,7 @@ public class JsonMapper {
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
+        System.out.println(foodOrderJson);
 
         try {
             // Convert JSON string to Object
@@ -165,7 +166,7 @@ public class JsonMapper {
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
-        
+
         try {
             // Convert JSON string to Object
             List<FoodOrder> foodOrders = mapper.readValue(foodOrdersJson, new TypeReference<List<FoodOrder>>(){});
