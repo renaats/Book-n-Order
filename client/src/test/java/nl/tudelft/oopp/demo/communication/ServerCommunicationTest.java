@@ -46,9 +46,9 @@ public class ServerCommunicationTest {
         stubFor(post(urlEqualTo("/building/update?id=1&attribute=a&value=a")).willReturn(aResponse().withStatus(403).withBody("")));
         stubFor(delete(urlEqualTo("/room/delete/1")).willReturn(aResponse().withStatus(403).withBody("")));
         stubFor(post(urlEqualTo("/room/update?id=1&attribute=a&value=a")).willReturn(aResponse().withStatus(403).withBody("")));
-        stubFor(post(urlEqualTo("/room_reservation/delete/1")).willReturn(aResponse().withStatus(403).withBody("")));
+        stubFor(delete(urlEqualTo("/room_reservation/delete/1")).willReturn(aResponse().withStatus(403).withBody("")));
         stubFor(post(urlEqualTo("/room_reservation/update?id=1&attribute=a&value=a")).willReturn(aResponse().withStatus(403).withBody("")));
-        stubFor(post(urlEqualTo("/food_order/delete/1")).willReturn(aResponse().withStatus(403).withBody("")));
+        stubFor(delete(urlEqualTo("/food_order/delete/1")).willReturn(aResponse().withStatus(403).withBody("")));
         stubFor(post(urlEqualTo("/food_order/update?id=1&attribute=a&value=a")).willReturn(aResponse().withStatus(403).withBody("")));
         stubFor(post(urlEqualTo("/room/add?name=a&faculty=a&facultySpecific=true&screen=true&projector=true&buildingId=1&nrPeople=1&plugs=1"))
                 .willReturn(aResponse().withStatus(403).withBody("")));
@@ -88,13 +88,13 @@ public class ServerCommunicationTest {
         stubFor(get(urlEqualTo("/room/find/1")).willReturn(aResponse().withStatus(200).withBody("Message5")));
         stubFor(delete(urlEqualTo("/room/delete/1")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(post(urlEqualTo("/room/update?id=1&attribute=a&value=a")).willReturn(aResponse().withStatus(200).withBody("200")));
-        stubFor(post(urlEqualTo("/room_reservation/all")).willReturn(aResponse().withStatus(200).withBody("Message6")));
-        stubFor(post(urlEqualTo("/food_order/all")).willReturn(aResponse().withStatus(200).withBody("Message7")));
-        stubFor(post(urlEqualTo("/room_reservation/find/1")).willReturn(aResponse().withStatus(200).withBody("Message8")));
-        stubFor(post(urlEqualTo("/food_order/find/1")).willReturn(aResponse().withStatus(200).withBody("Message9")));
-        stubFor(post(urlEqualTo("/room_reservation/delete/5")).willReturn(aResponse().withStatus(200).withBody("200")));
+        stubFor(get(urlEqualTo("/room_reservation/all")).willReturn(aResponse().withStatus(200).withBody("Message6")));
+        stubFor(get(urlEqualTo("/food_order/all")).willReturn(aResponse().withStatus(200).withBody("Message7")));
+        stubFor(get(urlEqualTo("/room_reservation/find/1")).willReturn(aResponse().withStatus(200).withBody("Message8")));
+        stubFor(get(urlEqualTo("/food_order/find/1")).willReturn(aResponse().withStatus(200).withBody("Message9")));
+        stubFor(delete(urlEqualTo("/room_reservation/delete/5")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(post(urlEqualTo("/room_reservation/update?id=1&attribute=a&value=a")).willReturn(aResponse().withStatus(200).withBody("200")));
-        stubFor(post(urlEqualTo("/food_order/delete/1")).willReturn(aResponse().withStatus(200).withBody("200")));
+        stubFor(delete(urlEqualTo("/food_order/delete/1")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(post(urlEqualTo("/food_order/update?id=1&attribute=a&value=a")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(post(urlEqualTo("/room/add?name=a&faculty=a&facultySpecific=true&screen=true&projector=true&buildingId=1&nrPeople=1&plugs=1"))
                 .willReturn(aResponse().withStatus(200).withBody("200")));
@@ -135,7 +135,7 @@ public class ServerCommunicationTest {
         stubFor(get(urlEqualTo("/room/all")).willReturn(aResponse().withStatus(200).withBody("[]")));
         stubFor(get(urlEqualTo("/building/find/1")).willReturn(aResponse().withStatus(200).withBody("")));
         stubFor(get(urlEqualTo("/room/find/1")).willReturn(aResponse().withStatus(200).withBody("")));
-        stubFor(get(urlEqualTo("room_reservation/all")).willReturn(aResponse().withStatus(200).withBody("[]")));
+        stubFor(get(urlEqualTo("/room_reservation/all")).willReturn(aResponse().withStatus(200).withBody("")));
         stubFor(get(urlEqualTo("/food_order/all")).willReturn(aResponse().withStatus(200).withBody("[]")));
         stubFor(get(urlEqualTo("/room_reservation/find/1")).willReturn(aResponse().withStatus(200).withBody("")));
         stubFor(get(urlEqualTo("/food_order/find/1")).willReturn(aResponse().withStatus(200).withBody("")));
