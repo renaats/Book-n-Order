@@ -97,55 +97,25 @@ public class ServerCommunication {
     }
 
     /**
-     * Retrieves the String representation of a user's own information from the server.
-     * @return the body of the response from the server.
-     */
-    public static String getOwnUserInformation() {
-        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/user/info")).build();
-        HttpResponse<String> response;
-        try {
-            response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "Communication with server failed";
-        }
-        if (response.statusCode() == 403) {
-            return ErrorMessages.getErrorMessage(401);
-        }
-        if (response.statusCode() != 200) {
-            System.out.println("Status: " + response.statusCode());
-        }
-        return response.body();
-    }
-
-    /**
-     * Retrieves a boolean value from the server, false = no admin access, true = admin access.
-     * @return the body of the response from the server.
-     */
-    public static boolean getAdminButtonPermission() {
-        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/user/admin")).build();
-        HttpResponse<String> response;
-        try {
-            response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-        return response.body().contains("true");
-    }
-
-    /**
-     * Registers a user.
-     * @param email User's email
-     * @param name User's name
-     * @param surname User's surname
+     * Retrieves a user from the server.
+     *
+     * @param email    User's email
+     * @param name     User's name
+     * @param surname  User's surname
      * @param password User's password
      * @return the body of a get request to the server.
      */
     public static String addUser(String email, String name, String surname, String faculty, String password) {
         HttpRequest request;
         try {
-            request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/user/add?email=" + URLEncoder.encode(email,"UTF-8")  + "&name=" + URLEncoder.encode(name,"UTF-8") + "&surname=" + URLEncoder.encode(surname,"UTF-8") + "&faculty=" + URLEncoder.encode(faculty, "UTF-8") + "&password=" + URLEncoder.encode(password,"UTF-8"))).POST(HttpRequest.BodyPublishers.noBody()).build();
+            request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/user/add?email=" + URLEncoder.encode(email, "UTF-8") + "&name=" + URLEncoder.encode(name, "UTF-8") + "&surname=" + URLEncoder.encode(surname, "UTF-8") + "&faculty=" + faculty + "&password=" + URLEncoder.encode(password, "UTF-8"))).POST(HttpRequest.BodyPublishers.noBody()).build();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return "Please enter an encoding that is supported by the URLEncode class.";
+        }
+        HttpResponse<String> response;
+        try {
+            request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/user/add?email=" + URLEncoder.encode(email, "UTF-8") + "&name=" + URLEncoder.encode(name, "UTF-8") + "&surname=" + URLEncoder.encode(surname, "UTF-8") + "&faculty=" + faculty + "&password=" + URLEncoder.encode(password, "UTF-8"))).POST(HttpRequest.BodyPublishers.noBody()).build();
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
             return "Please enter an encoding that is supported by the URLEncode class.";
