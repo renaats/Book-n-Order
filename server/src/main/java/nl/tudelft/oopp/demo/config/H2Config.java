@@ -42,5 +42,4 @@ public class H2Config {
 
         return dataSource;
     }
-
 }

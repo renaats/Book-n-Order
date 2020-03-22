@@ -72,25 +72,7 @@ public class UserController {
             @RequestParam String name,
             @RequestParam String surname,
             @RequestParam String faculty) {
-        AppUser appUser = new AppUser();
-        appUser.setEmail(email);
-        appUser.setPassword(password);
-        appUser.setName(name);
-        appUser.setSurname(surname);
-        appUser.setFaculty(faculty);
-        AppUser registeredUser = appUser;
-        int result = userService.add(registeredUser.getEmail(),registeredUser.getPassword(),registeredUser.getName(),
-                registeredUser.getSurname(),registeredUser.getFaculty());
-        if (result != 201) {
-            return result;
-        }
-        try {
-            eventPublisher.publishEvent(new OnRegistrationSuccessEvent(registeredUser));
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Event did not go as expected.");
-        }
-        return 203;
+        return userService.add(email,password,name,surname,faculty);
     }
 
     @PostMapping(path = "/validate")

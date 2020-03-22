@@ -18,7 +18,7 @@ public class ConfirmationSixDigitsController {
     /**
      * Checks the authenticity of user's email.
      * @param actionEvent A confirm button click
-     * @throws IOException Deals with improper ipnut
+     * @throws IOException Deals with improper input
      */
     public void confirmValidity(ActionEvent actionEvent) throws IOException {
 
@@ -30,7 +30,7 @@ public class ConfirmationSixDigitsController {
             alert.setHeaderText(null);
             alert.setContentText(response);
             alert.showAndWait();
-            if (response == "Successfully executed.") {
+            if (response.equals("Successfully executed.")) {
                 ApplicationDisplay.changeScene("/mainMenu.fxml");
             }
         } catch (Exception e) {
@@ -43,6 +43,11 @@ public class ConfirmationSixDigitsController {
         }
     }
 
+    /**
+     * Goes to login menu if the user clicks on the back arrow.
+     * @param mouseEvent The click on the back arrow
+     * @throws IOException Deals with improper input
+     */
     public void goToLoginScreen(MouseEvent mouseEvent) throws IOException {
         UserInformation.setBearerKey(null);
         ApplicationDisplay.changeScene("/login-screen.fxml");

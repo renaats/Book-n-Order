@@ -42,6 +42,7 @@ public class ServerCommunicationTest {
         stubFor(get(urlEqualTo("/user")).willReturn(aResponse().withStatus(403).withBody("")));
         stubFor(post(urlEqualTo("/user/add?email=a&name=a&surname=a&faculty=a&password=a")).willReturn(aResponse().withStatus(403).withBody("")));
         stubFor(post(urlEqualTo("/login")).willReturn(aResponse().withStatus(403).withBody("")));
+        stubFor(get(urlEqualTo("/user/validate?sixDigitCode=123456")).willReturn(aResponse().withStatus(403).withBody("")));
         stubFor(delete(urlEqualTo("/building/delete/1")).willReturn(aResponse().withStatus(403).withBody("")));
         stubFor(post(urlEqualTo("/building/update?id=1&attribute=a&value=a")).willReturn(aResponse().withStatus(403).withBody("")));
         stubFor(delete(urlEqualTo("/room/delete/1")).willReturn(aResponse().withStatus(403).withBody("")));
@@ -68,6 +69,7 @@ public class ServerCommunicationTest {
         stubFor(get(urlEqualTo("/user")).willReturn(aResponse().withStatus(200).withBody("Message1")));
         stubFor(post(urlEqualTo("/user/add?email=a&name=a&surname=a&faculty=a&password=a")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(post(urlEqualTo("/login")).willReturn(aResponse().withStatus(200).withBody("").withHeader("Authorization", "a b c")));
+        stubFor(get(urlEqualTo("/user/validate?sixDigitCode=123456")).willReturn(aResponse().withStatus(200).withBody("Message1")));
         stubFor(get(urlEqualTo("/building/all")).willReturn(aResponse().withStatus(200).withBody("Message2")));
         stubFor(get(urlEqualTo("/room/all")).willReturn(aResponse().withStatus(200).withBody("Message3")));
         stubFor(delete(urlEqualTo("/building/delete/1")).willReturn(aResponse().withStatus(200).withBody("200")));

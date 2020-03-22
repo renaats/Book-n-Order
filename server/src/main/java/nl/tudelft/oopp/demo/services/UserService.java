@@ -19,11 +19,13 @@ import javax.servlet.http.HttpServletRequest;
 
 import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.Role;
+import nl.tudelft.oopp.demo.events.OnRegistrationSuccessEvent;
 import nl.tudelft.oopp.demo.repositories.RoleRepository;
 import nl.tudelft.oopp.demo.repositories.UserRepository;
 
 import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -40,6 +42,8 @@ public class UserService {
     private BCryptPasswordEncoder bcryptPasswordEncoder;
     @Autowired
     private RoleRepository roleRepository;
+    @Autowired
+    private ApplicationEventPublisher eventPublisher;
 
     /**
      * Logs out from the current account.
@@ -131,7 +135,13 @@ public class UserService {
             appUser.addRole(roleRepository.findByName("ROLE_STAFF"));
         }
         userRepository.save(appUser);
-        return 201;
+        try {
+            eventPublisher.publishEvent(new OnRegistrationSuccessEvent(appUser));
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Event did not go as expected.");
+        }
+        return 203;
     }
 
     /**

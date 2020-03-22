@@ -100,7 +100,7 @@ class UserServiceTest {
     @Test
     public void testCreate() {
         roleRepository.save(role);
-        assertEquals(201, userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty()));
+        assertEquals(203, userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty()));
         userService.find(appUser.getEmail()).setRoles(roleSet);
         assertEquals(Collections.singletonList(appUser), userService.all());
     }
@@ -126,7 +126,7 @@ class UserServiceTest {
      */
     @Test
     public void testCreateDuplicateAccount() {
-        assertEquals(201, userService.add(appUser.getEmail(), "1111", "name","surname","faculty"));
+        assertEquals(203, userService.add(appUser.getEmail(), "1111", "name","surname","faculty"));
         assertEquals(310, userService.add(appUser.getEmail(), "1111", "name","surname","faculty"));
     }
 

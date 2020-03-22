@@ -4,6 +4,7 @@ import java.util.Random;
 import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.repositories.UserRepository;
 import nl.tudelft.oopp.demo.services.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.mail.MailSender;

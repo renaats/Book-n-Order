@@ -21,6 +21,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
         "nl.tudelft.oopp.demo.security",
         "nl.tudelft.oopp.demo.events"
 })
+
 public class DatabaseApplication {
 
     @Bean
