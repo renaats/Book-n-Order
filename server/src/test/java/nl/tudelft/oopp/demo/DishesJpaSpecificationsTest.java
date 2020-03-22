@@ -36,7 +36,6 @@ public class DishesJpaSpecificationsTest {
      */
     @BeforeEach
     public void init() {
-
         dish1 = new Dish();
         dish1.setName("Tosti");
         dish1.setMenu(menu);
