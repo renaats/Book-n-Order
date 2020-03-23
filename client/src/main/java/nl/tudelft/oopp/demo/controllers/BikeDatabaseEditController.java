@@ -88,5 +88,4 @@ public class BikeDatabaseEditController implements Initializable {
     public void goToEditBike() throws IOException {
         ApplicationDisplay.changeScene("/BikeDatabaseEdit.fxml");
     }
-
 }
