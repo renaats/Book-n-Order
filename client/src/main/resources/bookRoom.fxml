@@ -1,40 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="600.0" maxWidth="800.0" minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.BookRoomController">
-    <ImageView fitHeight="45.0" fitWidth="112.0" layoutX="18.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="548.0" AnchorPane.leftAnchor="17.400003051757807" AnchorPane.rightAnchor="683.3999969482422" AnchorPane.topAnchor="7.0">
-        <Image url="@images/tudelftlogo.png" />
+<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.BookRoomController">
+    <ImageView fitWidth="1280.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+        <Image url="@images/69a1a9a32df2e8d5aec7961d23a4b0e4.jpg" />
     </ImageView>
-    <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="55.0" layoutY="51.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="525.0" AnchorPane.leftAnchor="55.0" AnchorPane.rightAnchor="625.0" AnchorPane.topAnchor="51.0">
+    <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="63.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+        <image>
+            <Image url="@images/TuDelftLogoFinal.png" />
+        </image>
+    </ImageView>
+    <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="258.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="576.0" AnchorPane.leftAnchor="258.0" AnchorPane.rightAnchor="902.0" AnchorPane.topAnchor="120.0">
         <Image url="@images/booknorderlogo.png" />
     </ImageView>
-    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00a6d6" height="28.0" layoutY="86.0" stroke="#00a6d6" strokeType="INSIDE" style="-fx-arc-height: 0; -fx-arc-width: 0;" width="800.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0" />
-    <Button layoutX="51.0" layoutY="85.0" maxHeight="25.0" maxWidth="49.0" minHeight="25.0" minWidth="49.0" mnemonicParsing="false" onAction="#mainMenu" prefHeight="25.0" prefWidth="49.0" style="-fx-background-color: #00a6d6;" text="Home" AnchorPane.leftAnchor="46.0" AnchorPane.topAnchor="85.0" />
-    <MenuBar layoutX="108.0" layoutY="85.0" maxHeight="28.0" maxWidth="192.0" minHeight="28.0" minWidth="192.0" prefHeight="28.0" prefWidth="192.0" style="-fx-background-color: #00a6d6;" AnchorPane.leftAnchor="94.0" AnchorPane.rightAnchor="514.0" AnchorPane.topAnchor="85.0">
-        <Menu mnemonicParsing="false" text="New booking">
-            <MenuItem mnemonicParsing="false" onAction="#bookRoom" text="Book a room" />
-            <MenuItem mnemonicParsing="false" onAction="#rentBike" text="Rent a bike" />
-            <MenuItem mnemonicParsing="false" onAction="#orderFood" text="Order food" />
-        </Menu>
-          <Menu mnemonicParsing="false" text="My account">
-              <MenuItem mnemonicParsing="false" onAction="#myAccountScene" text="My profile" />
-              <MenuItem mnemonicParsing="false" onAction="#myCurrentBookings" text="My current bookings" />
-              <MenuItem mnemonicParsing="false" onAction="#myPreviousBookings" text="My previous bookings" />
-          </Menu>
-      </MenuBar>
-    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00a6d6" height="79.0" layoutX="-1.0" layoutY="521.0" stroke="#00a6d6" strokeType="INSIDE" style="-fx-arc-height: 0; -fx-arc-width: 0;" width="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
     <Text fill="WHITE" layoutX="20.0" layoutY="555.576171875" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback is welcome" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0">
         <font>
             <Font size="18.0" />
@@ -45,34 +28,46 @@
             <Font name="Calibri" size="11.0" />
         </font>
     </Text>
-   <Text layoutX="326.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book a room" AnchorPane.leftAnchor="326.0" AnchorPane.topAnchor="146.0">
+   <TextField fx:id="nOfPlugs" layoutX="193.0" layoutY="325.0" promptText="Number of plugs" />
+    <Button fx:id="submitButton" layoutX="167.0" layoutY="437.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#applyFilters" style="-fx-background-color: #00a6d6;" text="Search for rooms" textFill="WHITE" />
+   <ChoiceBox fx:id="building" layoutX="192.0" layoutY="388.0" prefWidth="150.0" />
+   <Text layoutX="193.0" layoutY="383.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Building:">
+      <font>
+         <Font name="Arial" size="18.0" />
+      </font>
+   </Text>
+   <TextField fx:id="capacity" layoutX="193.0" layoutY="282.0" promptText="Capacity" />
+    <ImageView fx:id="homeIcon" fitHeight="41.0" fitWidth="44.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#mainMenu" pickOnBounds="true" preserveRatio="true">
+        <Image url="@images/HomeIconTransparent.png" />
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+    </ImageView>
+   <CheckBox fx:id="beamer" layoutX="193.0" layoutY="250.0" mnemonicParsing="false" text="Beamer" />
+   <CheckBox fx:id="screen" layoutX="286.0" layoutY="250.0" mnemonicParsing="false" text="Screen" />
+   <TableView layoutX="532.0" layoutY="163.0" prefHeight="374.0" prefWidth="437.0">
+     <columns>
+       <TableColumn prefWidth="75.0" text="C1" />
+       <TableColumn prefWidth="75.0" text="C2" />
+     </columns>
+   </TableView>
+   <ImageView fitHeight="41.0" fitWidth="69.0" layoutX="14.0" layoutY="67.0" onMouseClicked="#goToMainMenuReservations" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@images/BackArrow.png" />
+      </image>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </ImageView>
+   <Button layoutX="651.0" layoutY="557.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#goToRoomConfirmation" style="-fx-background-color: #00a6d6;" text="Reserve Selected Room" textFill="WHITE" />
+   <Text layoutX="149.0" layoutY="221.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Room characteristics">
       <font>
          <Font size="26.0" />
       </font>
    </Text>
-         <Button fx:id="bookRoomButton" layoutX="285.0" layoutY="462.0" maxHeight="25.0" maxWidth="230.0" minHeight="25.0" minWidth="230.0" mnemonicParsing="false" onAction="#roomConfirmation" prefHeight="25.0" prefWidth="230.0" style="-fx-background-color: #00a6d6;" text="Book Room" textFill="WHITE" AnchorPane.leftAnchor="285.0" AnchorPane.topAnchor="462.0" />
-         <ChoiceBox fx:id="roomDropDown" focusTraversable="false" layoutX="378.0" layoutY="222.0" maxHeight="26.0" maxWidth="174.0" minHeight="26.0" minWidth="174.0" prefHeight="26.0" prefWidth="174.0" AnchorPane.leftAnchor="378.0" AnchorPane.topAnchor="225.0" />
-         <DatePicker fx:id="calendar" layoutX="343.0" layoutY="272.0" maxHeight="26.0" maxWidth="174.0" minHeight="26.0" minWidth="174.0" prefHeight="26.0" prefWidth="174.0" AnchorPane.leftAnchor="378.0" AnchorPane.topAnchor="275.0" />
-         <Text layoutX="175.0" layoutY="342.0" strokeType="OUTSIDE" strokeWidth="0.0" text="From:" AnchorPane.leftAnchor="223.0" AnchorPane.topAnchor="325.0">
-      <font>
-         <Font size="16.0" />
-      </font>
-   </Text>
-         <ChoiceBox fx:id="from" layoutX="340.0" layoutY="322.0" maxHeight="26.0" maxWidth="174.0" minHeight="26.0" minWidth="174.0" prefHeight="26.0" prefWidth="174.0" AnchorPane.leftAnchor="378.0" AnchorPane.topAnchor="325.0" />
-         <Text layoutX="176.0" layoutY="407.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Until:" AnchorPane.leftAnchor="223.0" AnchorPane.topAnchor="375.0">
-      <font>
-         <Font size="16.0" />
-      </font>
-   </Text>
-         <ChoiceBox fx:id="until" layoutX="343.0" layoutY="374.0" maxHeight="26.0" maxWidth="174.0" minHeight="26.0" minWidth="174.0" prefHeight="26.0" prefWidth="174.0" AnchorPane.leftAnchor="378.0" AnchorPane.topAnchor="375.0" />
-   <Text layoutX="223.0" layoutY="244.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Building:" AnchorPane.leftAnchor="223.0" AnchorPane.topAnchor="225.0">
-      <font>
-         <Font size="16.0" />
-      </font>
-   </Text>
-   <Text layoutX="179.0" layoutY="294.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date:" AnchorPane.leftAnchor="223.0" AnchorPane.topAnchor="275.0">
-      <font>
-         <Font size="16.0" />
-      </font>
-   </Text>
+    <Text layoutX="576.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book a Room" AnchorPane.leftAnchor="576.0" AnchorPane.topAnchor="121.943359375">
+        <font>
+            <Font size="26.0" />
+        </font>
+    </Text>
 </AnchorPane>

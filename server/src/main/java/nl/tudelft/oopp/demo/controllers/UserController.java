@@ -1,7 +1,6 @@
 package nl.tudelft.oopp.demo.controllers;
 
 import javax.servlet.http.HttpServletRequest;
-
 import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,20 +14,36 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Creates server side endpoints and routes requests to the UserService.
+ * Maps all requests that start with "/user".
+ * Manages access control on a per-method basis.
+ */
 @Repository
 @RestController // This means that this class is a Controller
 @RequestMapping(path = "/user") // This means URL's start with /user (after Application path)
 public class UserController {
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     /**
      * Logs out from the current account.
      * @param request = the Http request that calls this method
      */
     @PostMapping(path = "/logout")
-    public void logout(HttpServletRequest request) {
-        userService.logout(request);
+    public int logout(HttpServletRequest request) {
+        return userService.logout(request);
+    }
+
+    /**
+     * Returns information about the user account.
+     * @param request = the Http request that calls this method
+     * @return account information about the account that requests it.
+     */
+    @Secured("ROLE_USER")
+    @GetMapping(path = "/info")
+    public String userInfo(HttpServletRequest request) {
+        return userService.userInfo(request);
     }
 
     /**
@@ -38,7 +53,7 @@ public class UserController {
      * @param name = the name of the user
      * @param surname = the surname of the user
      * @param faculty = the faculty of the user
-     * @return String to see if your request passed
+     * @return Error code
      */
     @PostMapping(path = "/add") // Map ONLY POST Requests
     @ResponseBody
@@ -52,11 +67,11 @@ public class UserController {
     }
 
     /**
-     * Updates a specified attribute for some user.
-     * @param email = the email of the user
-     * @param attribute = the attribute that is changed
-     * @param value = the new value of the attribute
-     * @return String to see if your request passed
+     * Updates a specified attribute for given user.
+     * @param email = the email address of the user.
+     * @param attribute = the attribute whose value is to be changed.
+     * @param value = the new value of the attribute.
+     * @return Error code
      */
     @Secured("ROLE_ADMIN")
     @PostMapping(path = "/update")
@@ -68,7 +83,7 @@ public class UserController {
     /**
      * Deletes an account.
      * @param email = the email of the account
-     * @return String to see if your request passed
+     * @return Error code
      */
     @Secured("ROLE_ADMIN")
     @DeleteMapping(path = "/delete")
@@ -78,8 +93,9 @@ public class UserController {
     }
 
     /**
-     * Lists all accounts.
-     * @return all accounts
+     * Lists all accounts in the database.
+     * Should be removed for the finished version!
+     * @return Iterable of all accounts.
      */
     @Secured("ROLE_ADMIN")
     @GetMapping(path = "/all")
@@ -89,8 +105,8 @@ public class UserController {
     }
 
     /**
-     * Finds an account by its email.
-     * @return an account that has the specified email or null if no such account exists
+     * Retrieves an account given its email.
+     * @return User with the specified email, or null if no such account exists.
      */
     @Secured("ROLE_ADMIN")
     @GetMapping(path = "/find")
@@ -110,5 +126,15 @@ public class UserController {
     @ResponseBody
     public void addRole(@RequestParam String email, @RequestParam String roleName) {
         userService.addRole(email, roleName);
+    }
+
+    /**
+     * Retrieves a boolean value representing whether the user is allowed to access the admin panel.
+     * @param request = the Http request that calls this method.
+     */
+    @Secured("ROLE_USER")
+    @GetMapping(path = "/admin")
+    public boolean isAdmin(HttpServletRequest request) {
+        return userService.isAdmin(request);
     }
 }

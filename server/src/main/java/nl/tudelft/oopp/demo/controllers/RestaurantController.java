@@ -14,6 +14,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Creates server side endpoints and routes requests to the RestaurantService.
+ * Maps all requests that start with "/restaurant".
+ * Manages access control on a per-method basis.
+ */
 @Repository
 @RestController
 @RequestMapping(path = "/restaurant")
@@ -25,12 +30,12 @@ public class RestaurantController {
      * Adds a restaurant.
      * @param buildingId = the building, where the restaurant is located
      * @param name = the name of the restaurant
-     * @return String to see if your request passed
+     * @return Error code
      */
     @Secured({"ROLE_ADMIN", "ROLE_RESTAURANT"})
     @PostMapping(path = "/add") // Map ONLY POST Requests
     @ResponseBody
-    public String addNewRestaurant(
+    public int addNewRestaurant(
             @RequestParam int buildingId,
             @RequestParam String name
     ) {
@@ -42,12 +47,12 @@ public class RestaurantController {
      * @param id = the id of the restaurant
      * @param attribute = the attribute that is changed
      * @param value = the new value of the attribute
-     * @return String to see if your request passed
+     * @return Error code
      */
     @Secured({"ROLE_ADMIN", "ROLE_RESTAURANT"})
     @PostMapping(path = "/update")
     @ResponseBody
-    public String updateAttribute(@RequestParam int id, @RequestParam String attribute, @RequestParam String value) {
+    public int updateAttribute(@RequestParam int id, @RequestParam String attribute, @RequestParam String value) {
         return restaurantService.update(id, attribute, value);
     }
 
@@ -55,12 +60,12 @@ public class RestaurantController {
     /**
      * Deletes a restaurant.
      * @param id = the id of the restaurant
-     * @return String to see if your request passed
+     * @return Error code
      */
     @Secured({"ROLE_ADMIN", "ROLE_RESTAURANT"})
     @DeleteMapping(path = "/delete/{restaurantID}")
     @ResponseBody
-    public String deleteRestaurant(@PathVariable(value = "restaurantID") int id) {
+    public int deleteRestaurant(@PathVariable(value = "restaurantID") int id) {
         return restaurantService.delete(id);
     }
 

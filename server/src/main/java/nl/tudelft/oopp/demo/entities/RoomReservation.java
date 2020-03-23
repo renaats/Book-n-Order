@@ -2,7 +2,6 @@ package nl.tudelft.oopp.demo.entities;
 
 import java.util.Date;
 import java.util.Objects;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,12 +14,18 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-@Entity // This tells Hibernate to make a table out of this class
+/**
+ * Represents a room reservation. Holds all necessary information about the room reservation that is then stored in the database.
+ * Is uniquely identified by its id.
+ * Contains Room as a foreign key.
+ * Contains AppUser as a foreign key.
+ */
+@Entity
 public class RoomReservation {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-
+    
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn
@@ -37,6 +42,22 @@ public class RoomReservation {
     @Temporal(TemporalType.TIMESTAMP)
     private Date toTime;
 
+    /** Creates a new instance of FoodOrder.
+     * @param room the reserved room.
+     * @param appUser user who booked the room.
+     * @param fromTime time at which the room reservation starts.
+     * @param toTime time at which the room reservation ends.
+     */
+    public RoomReservation(Room room, AppUser appUser, Date fromTime, Date toTime) {
+        this.room = room;
+        this.appUser = appUser;
+        this.fromTime = fromTime;
+        this.toTime = toTime;
+    }
+
+    public RoomReservation() {
+
+    }
 
     public void setRoom(Room room) {
         this.room = room;
@@ -53,7 +74,6 @@ public class RoomReservation {
     public void setToTime(Date toTime) {
         this.toTime = toTime;
     }
-
 
     public Integer getId() {
         return id;

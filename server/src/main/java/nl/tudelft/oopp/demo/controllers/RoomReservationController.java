@@ -1,5 +1,7 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import javax.servlet.http.HttpServletRequest;
+
 import nl.tudelft.oopp.demo.entities.RoomReservation;
 import nl.tudelft.oopp.demo.services.RoomReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,21 +15,25 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-
+/**
+ * Creates server side endpoints and routes requests to the RoomReservationService.
+ * Maps all requests that start with "/room_reservation".
+ * Manages access control on a per-method basis.
+ */
 @Repository
 @RestController
 @RequestMapping(path = "/room_reservation")
 public class RoomReservationController {
     @Autowired
-    RoomReservationService roomReservationService;
+    private RoomReservationService roomReservationService;
 
     /**
      * Adds a room reservation.
-     * @param roomId = the id of the room associated to the reservation
-     * @param userEmail = the email of the user associated to the reservation
-     * @param fromTimeMs = the starting time of the reservation
-     * @param toTimeMs = the ending time of the reservation
-     * @return String to see if your request passed
+     * @param roomId = the id of the room associated to the reservation.
+     * @param userEmail = the email of the user associated to the reservation.
+     * @param fromTimeMs = the starting time of the reservation.
+     * @param toTimeMs = the ending time of the reservation.
+     * @return Error code
      */
     @Secured("ROLE_USER")
     @PostMapping(path = "/add") // Map ONLY POST Requests
@@ -42,10 +48,10 @@ public class RoomReservationController {
 
     /**
      * Updates a specified attribute for some room reservation.
-     * @param id = the id of the room reservation
-     * @param attribute = the attribute that is changed
-     * @param value = the new value of the attribute
-     * @return String to see if your request passed
+     * @param id = the id of the room reservation.
+     * @param attribute = the attribute whose value is changed.
+     * @param value = the new value of the attribute.
+     * @return Error code
      */
     @Secured({"ROLE_ADMIN", "ROLE_BUILDING_ADMIN"})
     @PostMapping(path = "/update")
@@ -57,8 +63,8 @@ public class RoomReservationController {
 
     /**
      * Deletes a room reservation.
-     * @param id = the id of the room reservation
-     * @return String to see if your request passed
+     * @param id = the id of the room reservation.
+     * @return Error code
      */
     @Secured({"ROLE_ADMIN", "ROLE_BUILDING_ADMIN"})
     @DeleteMapping(path = "/delete")
@@ -69,7 +75,7 @@ public class RoomReservationController {
 
     /**
      * Lists all room reservations.
-     * @return all room reservations
+     * @return Iterable of all room reservations.
      */
     @Secured("ROLE_USER")
     @GetMapping(path = "/all")
@@ -78,4 +84,25 @@ public class RoomReservationController {
         return roomReservationService.all();
     }
 
+    /**
+     * Finds all past room reservations for the user that sends the Http request.
+     * @param request = the Http request that calls this method
+     * @return a list of past room reservations for this user.
+     */
+    @Secured("ROLE_USER")
+    @GetMapping(path = "/past")
+    public Iterable<RoomReservation> getPastReservations(HttpServletRequest request) {
+        return roomReservationService.past(request);
+    }
+
+    /**
+     * Finds all future room reservations for the user that sends the Http request.
+     * @param request = the Http request that calls this method
+     * @return a list of future room reservations for this user.
+     */
+    @Secured("ROLE_USER")
+    @GetMapping(path = "/future")
+    public Iterable<RoomReservation> getFutureReservations(HttpServletRequest request) {
+        return roomReservationService.future(request);
+    }
 }

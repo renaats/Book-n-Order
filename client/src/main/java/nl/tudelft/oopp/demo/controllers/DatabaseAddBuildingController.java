@@ -2,10 +2,11 @@ package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextField;
+import javafx.stage.StageStyle;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
@@ -22,58 +23,103 @@ public class DatabaseAddBuildingController {
     private TextField houseNumberTextField;
 
     /**
-     * Switches scene to DatabaseAddBuildings.fxml
-     * @throws IOException Input will be valid
+     * return to the database main menu when the home icon is clicked
+     * @throws IOException this should not throw an exception, since the input is always the same
      */
-    public void databaseAddBuildings() throws IOException {
+
+    public void mainMenu() throws IOException {
+        ApplicationDisplay.changeScene("/DatabaseMainMenu.fxml");
+    }
+
+    /**
+     * sends the user to the add building view
+     * @throws IOException this should not throw an exception, since the input is always the same
+     */
+
+    public void goToAddBuildings() throws IOException {
         ApplicationDisplay.changeScene("/DatabaseAddBuildings.fxml");
     }
 
     /**
-     * Switches scene to DatabaseAddRooms.fxml
-     * @throws IOException Input will be valid
+     * sends the user to the edit building view
+     * @throws IOException this should not throw an exception, since the input is always the same
      */
-    public void databaseAddRooms() throws IOException {
-        ApplicationDisplay.changeScene("/DatabaseAddRooms.fxml");
-    }
-
-    /**
-     * Changes to DatabaseMenu.fxml.
-     * @throws IOException again, all input will be valid. No need to check this, thus we throw.
-     */
-    public void databaseBuildingMenu() throws IOException {
-        ApplicationDisplay.changeScene("/DatabaseMenu.fxml");
-    }
-
-    /**
-     * Changes to DatabaseRoomMenu.fxml.
-     * @throws IOException again, all input will be valid. No need to check this, thus we throw.
-     */
-    public void databaseRoomMenu() throws IOException {
-        ApplicationDisplay.changeScene("/DatabaseRoomMenu.fxml");
+    public void goToEditBuildings() throws IOException {
+        ApplicationDisplay.changeScene("/DatabaseEditBuildings.fxml");
     }
 
     /**
      * Adds building to the database
-     * @param actionEvent actionEvent parameter.
      */
-    public void databaseAddBuilding(ActionEvent actionEvent) {
-        String name = nameTextField.getText();
-        String street = streetTextField.getText();
-        int houseNumber = Integer.parseInt(houseNumberTextField.getText());
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Building adder");
-        alert.setHeaderText(null);
-        alert.setContentText(ServerCommunication.addBuilding(name, street, houseNumber));
-        alert.showAndWait();
+    public void databaseAddBuilding() {
+        String name = null;
+        String street = null;
+        // -1 is a placeholder since you cannot initialize an empty integer.
+        int houseNumber = -1;
+        try {
+            name = nameTextField.getText();
+            street = streetTextField.getText();
+            if (name.equals("") || street.equals("")) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle(null);
+                alert.setHeaderText(null);
+                alert.setContentText("Missing attributes.");
+                alert.initStyle(StageStyle.UNDECORATED);
+                DialogPane dialogPane = alert.getDialogPane();
+                dialogPane.getStylesheets().add(getClass().getResource("/alertWarning.css").toExternalForm());
+                alert.showAndWait();
+                return;
+            }
+            try {
+                houseNumber = Integer.parseInt(houseNumberTextField.getText());
+            } catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle(null);
+                alert.setHeaderText(null);
+                alert.setContentText("Not an integer.");
+                alert.initStyle(StageStyle.UNDECORATED);
+                DialogPane dialogPane = alert.getDialogPane();
+                dialogPane.getStylesheets().add(getClass().getResource("/alertError.css").toExternalForm());
+                alert.showAndWait();
+                return;
+            }
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle(null);
+            alert.setHeaderText(null);
+            alert.setContentText("Could not parse attributes.");
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/alertError.css").toExternalForm());
+            alert.showAndWait();
+        }
+        String response = ServerCommunication.addBuilding(name, street, houseNumber);
+        if (response.equals("Successfully added!")) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle(null);
+            alert.setHeaderText(null);
+            alert.setContentText(response);
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/alertInformation.css").toExternalForm());
+            alert.showAndWait();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle(null);
+            alert.setHeaderText(null);
+            alert.setContentText(response);
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/alertError.css").toExternalForm());
+            alert.showAndWait();
+        }
     }
-    /**
-     * returns to the main menu
-     * @param actionEvent the event is clicking the menu item
-     * @throws IOException again, all input will be valid. No need to check this, thus we throw.
-     */
 
-    public void mainMenu(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/mainMenu.fxml");
+    /**
+     * Goes back to the database building menu when the icon is clicked
+     * @throws IOException this should not throw an exception, since the input is always the same
+     */
+    public void goToBuildingMenu() throws IOException {
+        ApplicationDisplay.changeScene("/DatabaseBuildingMenu.fxml");
     }
 }

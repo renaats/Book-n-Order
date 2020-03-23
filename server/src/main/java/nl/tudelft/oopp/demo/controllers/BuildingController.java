@@ -17,8 +17,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-
-
+/**
+ * Creates server side endpoints and routes requests to the BuildingService.
+ * Maps all requests that start with "/building".
+ * Manages access control on a per-method basis.
+ */
 @Repository
 @RestController
 @RequestMapping(path = "/building")
@@ -27,9 +30,9 @@ public class BuildingController {
     private BuildingService buildingService;
 
     /**
-     * Adds a building.
-     * @param name = the name of the building
-     * @return String to see if your request passed
+     * Adds a building to the database.
+     * @param name = the name of the new building.
+     * @return Error code
      */
     @Secured({"ROLE_ADMIN", "ROLE_BUILDING_ADMIN"})
     @PostMapping(path = "/add")
@@ -39,9 +42,9 @@ public class BuildingController {
     }
 
     /**
-     * Deletes a building.
-     * @param id = the id of the building
-     * @return String to see if your request passed
+     * Deletes a building from the database.
+     * @param id = the id of the existing building to be deleted.
+     * @return Error code
      */
     @Secured({"ROLE_ADMIN", "ROLE_BUILDING_ADMIN"})
     @DeleteMapping(path = "/delete/{buildingID}")
@@ -51,11 +54,11 @@ public class BuildingController {
     }
 
     /**
-     * Updates a database attribute.
-     * @param id = the building id
-     * @param attribute = the attribute that is changed
-     * @param value = the new value of the attribute
-     * @return message if it passes
+     * Updates an attribute of a building in the database.
+     * @param id = the id of the building whose value is to be updated.
+     * @param attribute = the attribute whose value is updated.
+     * @param value = the new value.
+     * @return Error code
      */
     @Secured({"ROLE_ADMIN", "ROLE_BUILDING_ADMIN"})
     @PostMapping(path = "/update")
@@ -65,8 +68,8 @@ public class BuildingController {
     }
 
     /**
-     * Lists all buildings.
-     * @return all buildings
+     * Lists all buildings in the database.
+     * @return Iterable of all buildings in the database.
      */
     @Secured("ROLE_USER")
     @GetMapping(path = "/all")
@@ -76,9 +79,9 @@ public class BuildingController {
     }
 
     /**
-     * Finds a building with the specified id.
-     * @param id = the id of the building
-     * @return a building that matches the id
+     * Retrieves the building with the specified id.
+     * @param id = the id of the building.
+     * @return Building that matches the id.
      */
     @Secured("ROLE_USER")
     @GetMapping(path = "/find/{buildingID}")
@@ -89,8 +92,8 @@ public class BuildingController {
 
     /**
      * Return all rooms that are in the building with the specified id.
-     * @param id = the id of the building
-     * @return all rooms that are in the building that matches the id
+     * @param id = the id of the building.
+     * @return Set of all rooms in the retrieved building.
      */
     @Secured("ROLE_USER")
     @GetMapping(path = "/rooms/{buildingId}")

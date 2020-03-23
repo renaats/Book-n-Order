@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.DatabaseRemoveRoomController">
+    <ImageView fitHeight="720.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+        <image>
+            <Image url="@images/DatabaseRoomBackground.jpg" />
+        </image></ImageView>
+    <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="63.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+        <image>
+            <Image url="@images/TuDelftLogoFinal.png" />
+        </image>
+    </ImageView>
+    <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="258.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="576.0" AnchorPane.leftAnchor="258.0" AnchorPane.rightAnchor="902.0" AnchorPane.topAnchor="120.0">
+        <Image url="@images/booknorderlogo.png" />
+    </ImageView>
+    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00a6d6" height="28.0" layoutY="86.0" stroke="#00a6d6" strokeType="INSIDE" style="-fx-arc-height: 0; -fx-arc-width: 0;" width="1280.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0" />
+    <ImageView fitHeight="41.0" fitWidth="44.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#mainMenu" pickOnBounds="true" preserveRatio="true">
+        <Image url="@images/HomeIconTransparent.png" />
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+    </ImageView>
+    <MenuBar layoutX="79.0" layoutY="87.0" maxWidth="1280.0" minWidth="1280.0" prefHeight="26.0" prefWidth="1280.0" style="-fx-background-color: #00a6d6;" AnchorPane.leftAnchor="79.0" AnchorPane.rightAnchor="-79.0">
+
+        <Menu mnemonicParsing="false" text="Building edit">
+            <items>
+                <MenuItem mnemonicParsing="false" onAction="#databaseAddRooms" text="Add" />
+                <MenuItem mnemonicParsing="false" onAction="#databaseEditRooms" text="Edit" />
+                <MenuItem mnemonicParsing="false" onAction="#databaseRemoveRooms" text="Remove" />
+            </items>
+        </Menu>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+    </MenuBar>
+    <TextField fx:id="roomDeleteByIdTextField" layoutX="50.0" layoutY="207.0" promptText="ID" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="260.0" />
+    <Text layoutX="59.0" layoutY="189.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Delete a room by id:" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="235.0">
+        <font>
+            <Font size="17.0" />
+        </font>
+    </Text>
+    <Button fx:id="confirmDeleteByIdButton" layoutX="231.0" layoutY="260.0" mnemonicParsing="false" onAction="#deleteRoomButtonClicked" style="-fx-background-color: #00a6d6;" text="Delete" textFill="WHITE" AnchorPane.leftAnchor="231.0" AnchorPane.topAnchor="260.0" />
+    <ImageView fx:id="goToRoomMenuButton" fitHeight="26.0" fitWidth="41.0" layoutX="50.0" layoutY="86.0" onMouseClicked="#goToRoomMenu" pickOnBounds="true" preserveRatio="true">
+        <Image url="@images/DatabasemenuRoomIcon.png" />
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+    </ImageView>
+   <Button layoutX="619.0" layoutY="593.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" style="-fx-background-color: #00a6d6;" text="Delete selected">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
+    <Text fill="WHITE" layoutX="26.0" layoutY="387.0" strokeType="OUTSIDE" strokeWidth="0.0" text="© 2020 TU Delft. All rights reserved." AnchorPane.bottomAnchor="20.0">
+        <font>
+            <Font name="Calibri" size="10.0" />
+        </font>
+    </Text>
+    <Text fill="WHITE" layoutX="26.0" layoutY="371.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback is welcome" AnchorPane.bottomAnchor="35.0" /><TableView layoutX="451.0" layoutY="199.0" prefHeight="420.0" prefWidth="562.0">
+    <columns>
+        <TableColumn prefWidth="75.0" text="C1" />
+        <TableColumn prefWidth="75.0" text="C2" />
+    </columns>
+</TableView>
+    <Button layoutX="632.0" layoutY="635.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" style="-fx-background-color: #00a6d6;" text="Delete selected" textFill="WHITE">
+        <cursor>
+            <Cursor fx:constant="HAND" />
+        </cursor>
+    </Button>
+    <Text layoutX="451.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rooms:" AnchorPane.leftAnchor="451.0">
+        <font>
+            <Font size="26.0" />
+        </font>
+    </Text>
+</AnchorPane>

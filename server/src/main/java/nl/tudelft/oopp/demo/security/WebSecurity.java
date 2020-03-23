@@ -18,13 +18,17 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+/**
+ * Manages access control for the entire application.
+ * Permits everyone to access the sign-up page, while restricting other requests to only authorized users.
+ */
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class WebSecurity extends WebSecurityConfigurerAdapter {
-    private UserDetailsServiceImpl userDetailsService;
-    private BCryptPasswordEncoder bcryptPasswordEncoder;
-    private UserRepository userRepository;
+    private final UserDetailsServiceImpl userDetailsService;
+    private final BCryptPasswordEncoder bcryptPasswordEncoder;
+    private final UserRepository userRepository;
 
 
     /**

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.DatabaseEditRoomController">
+   <ImageView fitHeight="720.0" fitWidth="1306.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@images/DatabaseRoomBackground.jpg" />
+      </image></ImageView>
+   <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="63.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@images/TuDelftLogoFinal.png" />
+      </image>
+   </ImageView>
+   <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="258.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="576.0" AnchorPane.leftAnchor="258.0" AnchorPane.rightAnchor="902.0" AnchorPane.topAnchor="120.0">
+      <Image url="@images/booknorderlogo.png" />
+   </ImageView>
+   <ImageView fx:id="goToRoomMenuButton" fitHeight="26.0" fitWidth="41.0" layoutX="21.0" layoutY="119.0" onMouseClicked="#goToRoomMenu" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@images/DatabasemenuRoomIcon.png" />
+      </image>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </ImageView>
+   <TextField fx:id="roomFindByIdTextField" layoutX="66.0" layoutY="193.0" promptText="ID" AnchorPane.leftAnchor="66.0" AnchorPane.topAnchor="193.0" />
+   <Text layoutX="65.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Find a room by:" AnchorPane.leftAnchor="65.0" AnchorPane.topAnchor="168.6552734375">
+      <font>
+         <Font size="17.0" />
+      </font>
+   </Text>
+   <Button fx:id="confirmFindByIdButton" layoutX="313.0" layoutY="193.0" mnemonicParsing="false" onAction="#roomFindById" prefHeight="26.0" prefWidth="62.0" style="-fx-background-color: #00a6d6;" text="Find" textFill="WHITE" AnchorPane.leftAnchor="313.0" AnchorPane.topAnchor="193.0" />
+   <ChoiceBox fx:id="updateChoiceBox" layoutX="113.0" layoutY="411.0" prefHeight="26.0" prefWidth="149.0" style="-fx-background-color: #00a6d6;" AnchorPane.leftAnchor="113.0" />
+   <Text layoutX="32.0" layoutY="431.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Attribute:" AnchorPane.leftAnchor="32.0" AnchorPane.topAnchor="412.6552734375">
+      <font>
+         <Font size="17.0" />
+      </font>
+   </Text>
+   <Text layoutX="26.0" layoutY="515.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Change to:" AnchorPane.leftAnchor="26.0" AnchorPane.topAnchor="496.6552734375">
+      <font>
+         <Font size="17.0" />
+      </font>
+   </Text>
+   <TextField fx:id="roomChangeToField" layoutX="113.0" layoutY="495.0" AnchorPane.leftAnchor="113.0" AnchorPane.topAnchor="495.0" />
+   <Button fx:id="confirmChangeButton" layoutX="310.0" layoutY="495.0" mnemonicParsing="false" onAction="#updateRoomButtonClicked" prefHeight="26.0" prefWidth="62.0" style="-fx-background-color: #00a6d6;" text="Change" textFill="WHITE" AnchorPane.leftAnchor="313.0" AnchorPane.topAnchor="495.0" />
+   <Button fx:id="roomFindAllButton" layoutX="312.0" layoutY="224.0" mnemonicParsing="false" onAction="#roomBuildingsButtonClicked" prefHeight="26.0" prefWidth="62.0" style="-fx-background-color: #00a6d6;" text="List all" textFill="WHITE" AnchorPane.leftAnchor="313.0" AnchorPane.topAnchor="224.0" />
+   <ImageView fitHeight="41.0" fitWidth="44.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#mainMenu" pickOnBounds="true" preserveRatio="true">
+      <Image url="@images/HomeIconTransparent.png" />
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </ImageView>
+   <TextField layoutX="66.0" layoutY="224.0" promptText="Name" />
+   <TextField layoutX="66.0" layoutY="257.0" promptText="Building" />
+   <TableView fx:id="table" layoutX="451.0" layoutY="149.0" prefHeight="420.0" prefWidth="805.0">
+      <columns>
+         <TableColumn fx:id="colId" prefWidth="45.0" text="ID" />
+         <TableColumn fx:id="colName" prefWidth="94.0" text="Name" />
+         <TableColumn fx:id="colBuilding" prefWidth="94.0" text="Building" />
+         <TableColumn fx:id="colFaculty" prefWidth="94.0" text="Faculty" />
+         <TableColumn fx:id="colFacultySpecific" prefWidth="100.0" text="Faculty Specific" />
+         <TableColumn fx:id="colProjector" prefWidth="94.0" text="Projector" />
+         <TableColumn fx:id="colScreen" prefWidth="94.0" text="Screen" />
+         <TableColumn fx:id="colCapacity" prefWidth="94.0" text="Capacity" />
+         <TableColumn fx:id="colPlugs" prefWidth="94.0" text="Plugs" />
+      </columns>
+   </TableView>
+   <Button fx:id="editRoomByTableButton" layoutX="732.0" layoutY="584.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#editRoomByTable" style="-fx-background-color: #00a6d6;" text="Edit selected" textFill="WHITE">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
+
+   <Text layoutX="451.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rooms:" AnchorPane.leftAnchor="451.0">
+      <font>
+         <Font size="26.0" />
+      </font>
+   </Text>
+   <TextField fx:id="roomDeleteByIdTextField" layoutX="66.0" layoutY="334.0" promptText="ID" AnchorPane.leftAnchor="66.0" AnchorPane.topAnchor="334.0" />
+   <Text layoutX="64.0" layoutY="327.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Delete a room by id:" AnchorPane.leftAnchor="64.0" AnchorPane.topAnchor="308.6552734375">
+      <font>
+         <Font size="17.0" />
+      </font>
+   </Text>
+   <Button fx:id="confirmDeleteByIdButton" layoutX="312.0" layoutY="333.0" mnemonicParsing="false" onAction="#deleteRoomButtonClicked" prefHeight="26.0" prefWidth="62.0" style="-fx-background-color: #00a6d6;" text="Delete" textFill="WHITE" AnchorPane.leftAnchor="313.0" AnchorPane.topAnchor="333.0" />
+   <Button fx:id="deleteRoomByTableButton" layoutX="732.0" layoutY="623.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#deleteRoomByTable" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: #00a6d6;" text="Delete Selected" textFill="WHITE" />
+
+   <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="62.0" layoutY="118.0" onMouseClicked="#databaseAddRooms" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@images/ko7djzvdIPehWkkQYeDHv7ZYArEETK3uclcEy1WmrEHakj5qfn1nysOSyuNxsI2FsTJGcKNFdQ-9TIGRXV3le_sG-lyGg6Lu2OpiVNdwOZw_Fw16XYOh.png" />
+      </image>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor></ImageView>
+   <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="111.0" layoutY="119.0" onMouseClicked="#databaseEditRooms" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@images/EditIcon.png" />
+      </image>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </ImageView>
+   <Text fill="WHITE" layoutX="20.0" layoutY="555.576171875" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback is welcome" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0">
+      <font>
+         <Font size="18.0" />
+      </font>
+   </Text>
+   <Text fill="WHITE" layoutX="20.0" layoutY="578.75" strokeType="OUTSIDE" strokeWidth="0.0" text="© 2020 TU Delft. All rights reserved." AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0">
+      <font>
+         <Font name="Calibri" size="11.0" />
+      </font>
+   </Text>
+   <Text layoutX="64.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add" />
+   <Text layoutX="114.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit" />
+</AnchorPane>
