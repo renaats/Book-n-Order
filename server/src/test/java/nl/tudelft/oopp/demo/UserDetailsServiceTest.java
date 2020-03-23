@@ -79,9 +79,7 @@ class UserDetailsServiceTest {
      */
     @Test
     public void testLoadUserByUsernameException() {
-        assertThrows(UsernameNotFoundException.class, () -> {
-            userDetailsService.loadUserByUsername("not.a.student@student.tudelft.nl");
-        });
+        assertThrows(UsernameNotFoundException.class, () -> userDetailsService.loadUserByUsername("not.a.student@student.tudelft.nl"));
     }
 
     /**

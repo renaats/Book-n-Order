@@ -27,9 +27,8 @@ public class LoginController {
 
     /**
      * Takes care of authenticating a user.
-     * @throws IOException input will be valid, hence we throw.
      */
-    public void loginButton() throws IOException {
+    public void loginButton() {
         String username = usernameField.getText();
         if (username.equals("")) {
             Alert alert = new Alert(Alert.AlertType.WARNING);

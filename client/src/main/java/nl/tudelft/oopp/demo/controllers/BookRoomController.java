@@ -29,12 +29,12 @@ public class BookRoomController implements Initializable {
     final ObservableList<String> listOfTimeSlots = FXCollections.observableArrayList();
     final ObservableList<String> listOfBuildings = FXCollections.observableArrayList();
 
-    public class Search {
-        private boolean screen;
-        private boolean beamer;
-        private int capacity;
-        private String building;
-        private int nuOfPlugs;
+    public static class Search {
+        private final boolean screen;
+        private final boolean beamer;
+        private final int capacity;
+        private final String building;
+        private final int nuOfPlugs;
 
         /**
          * constructor for the search object
@@ -124,20 +124,19 @@ public class BookRoomController implements Initializable {
         int intPlugs;
         String stringPlugs = (String) nuOfPlugs.getCharacters();
         intPlugs = Integer.parseInt(stringPlugs);
-        Search search = new Search(isScreen, isBeamer, intCapacity, building.getValue(), intPlugs);
-        return search;
+        return new Search(isScreen, isBeamer, intCapacity, building.getValue(), intPlugs);
     }
 
     /**
      * return to the reservations menu when the back arrow button is clicked.
-     * @throws IOException the input will allways be the same, so it should never throw an IO exception
+     * @throws IOException the input will always be the same, so it should never throw an IO exception
      */
     public void goToMainMenuReservations() throws IOException {
         ApplicationDisplay.changeScene("/mainMenuReservations.fxml");
     }
     /**
      * return to the reservations menu when the back arrow button is clicked.
-     * @throws IOException the input will allways be the same, so it should never throw an IO exception
+     * @throws IOException the input will always be the same, so it should never throw an IO exception
      */
 
     public void goToRoomConfirmation() throws IOException {
