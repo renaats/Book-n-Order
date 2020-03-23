@@ -45,7 +45,7 @@ public class ChangePasswordController {
         String password2 = newPassword2.getText();
         String email = userInformation.getEmail();
         if (password1.equals(password2)) {
-            String response = ServerCommunication.changeUserPassword    (email,password1);
+            String response = ServerCommunication.changeUserPassword(email,password1);
             System.out.println(response);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Change password successful");
