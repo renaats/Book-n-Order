@@ -21,6 +21,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+
 /**
  * Tests the ServerCommunication class by using a mock server to simulate client to server communication.
  */
@@ -271,8 +273,12 @@ public class ServerCommunicationTest {
      * Tests the response when the loginUser request is successful.
      */
     @Test
-    public void testSuccessfulLoginUser() throws IOException {
-        assertEquals(ErrorMessages.getErrorMessage(311), ServerCommunication.loginUser("a", "b"));
+    public void testSuccessfulLoginUser() {
+        try {
+            assertEquals(ErrorMessages.getErrorMessage(311), ServerCommunication.loginUser("a", "b"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

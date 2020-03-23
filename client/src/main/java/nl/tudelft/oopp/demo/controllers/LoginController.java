@@ -55,7 +55,12 @@ public class LoginController {
             return;
         }
 
-        String message = ServerCommunication.loginUser(username, password);
+        String message = null;
+        try {
+            message = ServerCommunication.loginUser(username, password);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         if (message.equals("Login and/or password is incorrect.")) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle(null);
