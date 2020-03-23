@@ -23,7 +23,7 @@
       </ImageView>
       <Button fx:id="confirm" layoutX="550.0" layoutY="407.0" maxHeight="32.0" maxWidth="200.0" minHeight="25.0" minWidth="145.0" mnemonicParsing="false" onAction="#confirmValidity" prefHeight="32.0" prefWidth="168.0" style="-fx-background-color: #00a6d6;" text="Confirm" textFill="WHITE">
          <font>
-            <Font size="15.0" />
+            <Font name="System Bold" size="15.0" />
          </font></Button>
       <Text fill="WHITE" layoutX="20.0" layoutY="555.576171875" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback is welcome" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0">
          <font>

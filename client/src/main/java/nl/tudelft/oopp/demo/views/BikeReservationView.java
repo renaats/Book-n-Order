@@ -11,7 +11,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
- * boots up the bike reservations.fxml file
+ * Boots up the bike reservations.fxml file
  */
 public class    BikeReservationView extends Application {
 

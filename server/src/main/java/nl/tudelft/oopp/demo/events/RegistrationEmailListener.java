@@ -27,7 +27,7 @@ public class RegistrationEmailListener implements ApplicationListener<OnRegistra
 
     private void confirmRegistration(OnRegistrationSuccessEvent event) {
         Random random = new Random();
-        int sixDigitNumber = random.nextInt(99999);
+        int sixDigitNumber = random.nextInt(999999);
         String stringNumber = String.format("%06d", sixDigitNumber);
         AppUser user = userRepository.findByEmail(event.getUser().getEmail());
         user.setConfirmationNumber(Integer.parseInt(stringNumber));

@@ -18,6 +18,10 @@ import nl.tudelft.oopp.demo.authentication.AuthenticationKey;
 import nl.tudelft.oopp.demo.errors.ErrorMessages;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
+/**
+ * Controls all client to server communication
+ * Sends the appropriate HTTP request depending on the method
+ */
 public class ServerCommunication {
     private static final HttpClient client = HttpClient.newBuilder().build();
 
@@ -130,6 +134,22 @@ public class ServerCommunication {
     }
 
     /**
+     * Retrieves a boolean value from the server, false = not activated, true = activated.
+     * @return the body of the response from the server.
+     */
+    public static boolean getAccountActivation() {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/user/activated")).build();
+        HttpResponse<String> response;
+        try {
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return response.body().contains("true");
+    }
+
+    /**
      * Registers a user.
      * @param email User's email
      * @param name User's name
@@ -160,38 +180,33 @@ public class ServerCommunication {
      * @return the body of a get request to the server.
      */
     public static String loginUser(String email, String password) throws IOException {
-        URL url = new URL("http://localhost:8080/login");
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod("POST");
-        connection.setRequestProperty("Content-Type", "application/json; utf-8");
-        connection.setRequestProperty("Accept", "application/json");
-        connection.setDoOutput(true);
+        try {
+            URL url = new URL("http://localhost:8080/login");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Content-Type", "application/json; utf-8");
+            connection.setRequestProperty("Accept", "application/json");
+            connection.setDoOutput(true);
 
-        String jsonInputString = "{\"email\": \"" + email + "\", \"password\":\"" + password + "\"}";
-        try (OutputStream os = connection.getOutputStream()) {
-            byte[] input = jsonInputString.getBytes(StandardCharsets.UTF_8);
-            os.write(input, 0, input.length);
-        }
+            String jsonInputString = "{\"email\": \"" + email + "\", \"password\":\"" + password + "\"}";
+            try (OutputStream os = connection.getOutputStream()) {
+                byte[] input = jsonInputString.getBytes(StandardCharsets.UTF_8);
+                os.write(input, 0, input.length);
+            }
 
         Map<String, List<String>> map = connection.getHeaderFields();
 
-        for (Map.Entry<String, List<String>> entry : map.entrySet()) {
-            if (entry.getKey() != null) {
-                if (entry.getKey().equals("Authorization")) {
-                    if (AuthenticationKey.getBearerKey() == null) {
-                        //Yes it's gross, it works, it grabs the key
+            for (Map.Entry<String, List<String>> entry : map.entrySet()) {
+                if (entry.getKey() != null) {
+                    if (entry.getKey().equals("Authorization")) {
                         AuthenticationKey.setBearerKey((Arrays.asList(entry.getValue().get(0).split(" ")).get(1)));
-                        ApplicationDisplay.changeScene("/ConfirmationSixDigits.fxml");
-                    } else {
-                        ApplicationDisplay.changeScene("/mainMenu.fxml");
+                        if (!getAccountActivation()) {
+                            ApplicationDisplay.changeScene("/ConfirmationSixDigits.fxml");
+                        } else {
+                            ApplicationDisplay.changeScene("/mainMenu.fxml");
+                        }
+                        return ErrorMessages.getErrorMessage(200);
                     }
-                    // If you want to remove the confirmation functionality comment lines starting from yes its gross until
-                    // the previous line and uncomment the next four lines.
-                    //  if (AuthenticationKey.getBearerKey() == null) {
-                    //      AuthenticationKey.setBearerKey((Arrays.asList(entry.getValue().get(0).split(" ")).get(1)));
-                    //      ApplicationDisplay.changeScene("/mainMenu.fxml");
-                    //  }
-                    return ErrorMessages.getErrorMessage(200);
                 }
             }
         }

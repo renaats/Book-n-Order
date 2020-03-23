@@ -83,6 +83,12 @@ public class UserController {
         return userService.add(email,password,name,surname,faculty);
     }
 
+    /**
+     * Checks whether the input of the user is equal to the one sent in the email.
+     * @param request The request, which validates the six digit code
+     * @param sixDigitCode User's six digit input
+     * @return  An error code corresponding outcome of the request
+     */
     @PostMapping(path = "/validate")
     @ResponseBody
     public int validateUser(HttpServletRequest request,  @RequestParam int sixDigitCode) {
@@ -158,5 +164,15 @@ public class UserController {
     @GetMapping(path = "/admin")
     public boolean isAdmin(HttpServletRequest request) {
         return userService.isAdmin(request);
+    }
+
+
+    /**
+     * Retrieves a boolean value representing whether the user account is activated.
+     * @param request = the Http request that calls this method.
+     */
+    @GetMapping(path = "/activated")
+    public boolean isActivated(HttpServletRequest request) {
+        return userService.isActivated(request);
     }
 }

@@ -9,7 +9,7 @@ import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
- * Adds the functionality to ForgotPasswordScene.fxml file
+ * Manages the user input from the ForgotPassword View
  */
 public class ForgotPasswordController {
 

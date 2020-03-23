@@ -4,6 +4,9 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+/**
+ * Creates and manages an object for the current user of the application
+ */
 public class AppUser {
     private String email;
     private String password;

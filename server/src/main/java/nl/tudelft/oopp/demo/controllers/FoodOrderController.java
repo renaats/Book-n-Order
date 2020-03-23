@@ -1,7 +1,10 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import java.util.Set;
+
 import javax.servlet.http.HttpServletRequest;
 
+import nl.tudelft.oopp.demo.entities.Dish;
 import nl.tudelft.oopp.demo.entities.FoodOrder;
 import nl.tudelft.oopp.demo.services.FoodOrderService;
 
@@ -39,12 +42,9 @@ public class FoodOrderController {
     @Secured("ROLE_USER")
     @PostMapping(path = "/add") // Map ONLY POST Requests
     @ResponseBody
-    public int addNewFoodOrder(
-            @RequestParam String userEmail,
-            @RequestParam int restaurantId,
-            @RequestParam int deliverLocation,
-            @RequestParam long deliverTimeMs) {
-        return foodOrderService.add(restaurantId, userEmail, deliverLocation, deliverTimeMs);
+    public int addNewFoodOrder(@RequestParam String userEmail, @RequestParam int restaurantId, @RequestParam int deliverLocation,
+                               @RequestParam long deliverTimeMs, @RequestParam Set<Integer> dishIds) {
+        return foodOrderService.add(restaurantId, userEmail, deliverLocation, deliverTimeMs, dishIds);
     }
 
     /**
@@ -59,6 +59,18 @@ public class FoodOrderController {
     @ResponseBody
     public int updateAttribute(@RequestParam int id, @RequestParam String attribute, @RequestParam String value) {
         return foodOrderService.update(id, attribute, value);
+    }
+
+    /**
+     * Adds a dish to a food order.
+     * @param id = the id of the food order
+     * @param name = the name of the dish
+     */
+    //@Secured("ROLE_ADMIN") SHOULD BE UNCOMMENTED WHEN IN PRODUCTION!
+    @PostMapping(path = "/addDish")
+    @ResponseBody
+    public void addDish(@RequestParam int id, @RequestParam String name) {
+        foodOrderService.addDish(id, name);
     }
 
     /**

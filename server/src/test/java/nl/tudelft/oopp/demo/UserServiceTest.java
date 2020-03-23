@@ -388,4 +388,32 @@ class UserServiceTest {
         assertEquals(205, userService.recoverPassword(appUser.getEmail()));
         assertEquals(419, userService.recoverPassword("NotARealEmail@tudelft.nl"));
     }
+     
+    /**   
+     * Tests the activation request for some user with and without an activated account.
+     */
+    @Test
+    public void testActivation() {
+        userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty());
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        String token = JWT.create()
+                .withSubject(appUser.getEmail())
+                .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                .sign(HMAC512(SECRET.getBytes()));
+        request.addHeader(HEADER_STRING, token);
+        int number = userService.find(appUser.getEmail()).getConfirmationNumber();
+        assertFalse(userService.isActivated(request));
+        userService.validate(request, number);
+        assertTrue(userService.isActivated(request));
+    }
+
+    /**
+     * Tests the activation request for a non-existent user.
+     */
+    @Test
+    public void testNonExistentActivation() {
+        userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty());
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        assertFalse(userService.isActivated(request));
+    }
 }

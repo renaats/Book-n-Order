@@ -26,6 +26,10 @@ import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
+/**
+ * Loads the correct content into the FXML objects that need to display server information and
+ * controls all the user inputs made through the GUI in the "DatabaseEditRooms.fxml" file
+ */
 public class DatabaseEditRoomController implements Initializable {
 
     final ObservableList<String> updateChoiceBoxList = FXCollections.observableArrayList();

@@ -163,7 +163,7 @@ public class UserService {
     }
 
     /**
-     *  Checks whether the input of the user is equal to the one sent in the email.
+     * Checks whether the input of the user is equal to the one sent in the email.
      * @param request The request, which validates the six digit code
      * @param sixDigitCode User's six digit input
      * @return  An error code corresponding outcome of the request
@@ -179,6 +179,7 @@ public class UserService {
             if (user != null && userRepository.existsById(user)) {
                 AppUser appUser = userRepository.findByEmail(user);
                 if (sixDigitCode == appUser.getConfirmationNumber()) {
+                    appUser.setConfirmationNumber(-1);
                     userRepository.save(appUser);
                     return 200;
                 }
@@ -324,5 +325,24 @@ public class UserService {
             return 205;
         }
         return 419;
+        
+    /**
+     * Retrieves a boolean value representing whether the user account is activated.
+     * @param request = the Http request that calls this method.
+     */
+    public boolean isActivated(HttpServletRequest request) {
+        String token = request.getHeader(HEADER_STRING);
+        if (token != null) {
+            // parse the token.
+            String user = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
+                    .build()
+                    .verify(token.replace(TOKEN_PREFIX, ""))
+                    .getSubject();
+            if (user != null && userRepository.existsById(user)) {
+                AppUser appUser = userRepository.findByEmail(user);
+                return appUser.getConfirmationNumber() < 0;
+            }
+        }
+        return false;
     }
 }

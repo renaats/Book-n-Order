@@ -3,6 +3,9 @@ package nl.tudelft.oopp.demo.entities;
 import java.time.LocalTime;
 import java.util.Objects;
 
+/**
+ * Manages the Restaurant object that is retrieved from the server
+ */
 public class RestaurantHours {
     private int id;
     private int day;
