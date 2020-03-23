@@ -53,7 +53,7 @@
          <Cursor fx:constant="HAND" />
       </cursor>
     </ImageView>
-   <Button layoutX="619.0" layoutY="593.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" style="-fx-background-color: #00a6d6;" text="Delte selected">
+   <Button layoutX="619.0" layoutY="593.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" style="-fx-background-color: #00a6d6;" text="Delete selected">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor>

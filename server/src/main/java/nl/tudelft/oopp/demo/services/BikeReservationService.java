@@ -67,14 +67,14 @@ public class BikeReservationService {
         bikeReservation.setAppUser(appUser);
 
         Optional<Building> optionalFromBuilding = buildingRepository.findById(fromBuilding);
-        if (!optionalFromBuilding.isPresent()) {
+        if (optionalFromBuilding.isEmpty()) {
             return 422;
         }
         Building fromBuildingLoc = optionalFromBuilding.get();
         bikeReservation.setFromBuilding(fromBuildingLoc);
 
         Optional<Building> optionalToBuilding = buildingRepository.findById(toBuilding);
-        if (!optionalToBuilding.isPresent()) {
+        if (optionalToBuilding.isEmpty()) {
             return 422;
         }
         Building toBuildingLoc = optionalToBuilding.get();

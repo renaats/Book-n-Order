@@ -43,7 +43,7 @@ public class DishController {
      * @return Error code
      */
     @Secured({"RESTAURANT_OWNER", "ROLE_ADMIN"})
-    @DeleteMapping(path = "/delete/{menuID}")
+    @DeleteMapping(path = "/delete/{dishID}")
     @ResponseBody
     public int deleteDish(@PathVariable(value = "dishID") int id) {
         return dishService.delete(id);

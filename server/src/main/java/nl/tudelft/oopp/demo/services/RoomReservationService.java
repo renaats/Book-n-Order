@@ -128,7 +128,7 @@ public class RoomReservationService {
 
     /**
      * Finds a room reservation with the specified id.
-     * @param id = thre id of the room reservation
+     * @param id = the id of the room reservation
      * @return a room reservation with the specified id  or null if no such reservation exists
      */
     public RoomReservation find(int id) {
