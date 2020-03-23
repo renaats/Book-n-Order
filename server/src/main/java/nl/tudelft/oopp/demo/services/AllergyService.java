@@ -30,21 +30,6 @@ public class AllergyService {
     }
 
     /**
-     * Updates an allergy name.
-     * @param allergyName = the new allergy name
-     * @return message if it passes
-     */
-    public int update(String allergyName) {
-        if (!allergyRepository.existsByAllergyName(allergyName)) {
-            return 416;
-        }
-        Allergy allergy = allergyRepository.findByAllergyName(allergyName);
-        allergy.setAllergyName(allergyName);
-        allergyRepository.save(allergy);
-        return 201;
-    }
-
-    /**
      * Deletes an allergy.
      * @param allergyName = the name of the allergy
      * @return String to see if your request passed

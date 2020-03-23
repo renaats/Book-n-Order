@@ -169,6 +169,7 @@ public class DishServiceTest {
         dishService.add("Tosti", menu1.getId());
         dish = dishService.all().get(0);
         dishService.addAllergy(dish.getId(), "Nuts");
+        dishService.addAllergy(dish.getId(), "Lactose");
         Iterator<Allergy> allergies = dishService.find(dish.getId()).getAllergies().iterator();
         String allergy1 = allergies.next().getAllergyName();
         String allergy2 = allergies.next().getAllergyName();

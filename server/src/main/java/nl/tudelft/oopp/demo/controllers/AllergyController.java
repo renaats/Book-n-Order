@@ -39,18 +39,6 @@ public class AllergyController {
     }
 
     /**
-     * Updates a the name of an allergy.
-     * @param allergyName = new name
-     * @return Error code
-     */
-    @Secured({"ROLE_ADMIN", "ROLE_RESTAURANT"})
-    @PostMapping(path = "/update_name")
-    @ResponseBody
-    public int updateName(@RequestParam String allergyName) {
-        return allergyService.update(allergyName);
-    }
-
-    /**
      * Deletes an allergy.
      * @param name = the name of the allergy
      * @return Error code

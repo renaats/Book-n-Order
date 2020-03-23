@@ -85,26 +85,6 @@ public class AllergyServiceTest {
     }
 
     /**
-     * Tests the update operation on a non-existent object.
-     */
-    @Test
-    public void testUpdateNonExistingInstance() {
-        assertEquals(416, allergyService.update("Milk"));
-    }
-
-    /**
-     * Tests the change of the name by using the service.
-     */
-    @Test
-    public void testChangeName() {
-        allergyService.add(allergy1.getAllergyName());
-        String name = allergyService.all().get(0).getAllergyName();
-        assertNotEquals("Nuts", allergyService.findByAllergyName(name).getAllergyName());
-        allergyService.update("Nuts");
-        assertEquals("Nuts", allergyService.findByAllergyName(name).getAllergyName());
-    }
-
-    /**
      * Tests the retrieval of multiple instances.
      */
     @Test
