@@ -10,7 +10,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
- * manages the display of the views of the app
+ * Manages the display of the views of the app
  */
 public class ApplicationDisplay extends Application {
 
