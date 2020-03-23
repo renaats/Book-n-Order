@@ -684,7 +684,6 @@ public class ServerCommunication {
 
     /**
      * Should log the user out
-     *
      * @return confirmation message
      */
     public static String logoutUser() {
