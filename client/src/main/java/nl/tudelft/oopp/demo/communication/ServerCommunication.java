@@ -568,15 +568,14 @@ public class ServerCommunication {
         return communicateAndReturnBodyOfResponse(request);
     }
     /**
-     * Updates a given attribute of a room.
-     * @param id = the id of the room.
-     * @param attribute = The attribute whose value is to be changed.
-     * @param changeValue = New value.
+     * Changes the password of a given user
+     * @param email = The email of the user that is changing password.
+     * @param changeValue = New value of the password.
      * @return the body of the response from the server.
      */
-    public static String changeUserPassword(int id, String attribute, String changeValue) {
+    public static String changeUserPassword(String email, String changeValue) {
         HttpRequest request;
-        request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/user/update?id=" + id + "&attribute=" + attribute + "&value=" + URLEncoder.encode(changeValue, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/user/changePassword?email=" + email + "&value=" + URLEncoder.encode(changeValue, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnErrorMessage(request);
     }
 
