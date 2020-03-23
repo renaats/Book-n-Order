@@ -81,6 +81,7 @@ public class BikeFeedbackTest {
         bikeReservation = bikeReservationRepository.findAll().get(0);
 
         feedback = new BikeFeedback(appUser, appUser, bikeReservation, new Date(10000000000L), "good");
+        bikeFeedbackRepository.save(feedback);
     }
 
     @Test
