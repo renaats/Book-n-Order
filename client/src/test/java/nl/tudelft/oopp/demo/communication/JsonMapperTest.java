@@ -105,28 +105,28 @@ class JsonMapperTest {
         assertEquals(room, JsonMapper.roomListMapper(ServerCommunication.getRooms()));
     }
 
-//    @Test
-//    void foodMapper() {
-//        stubFor(get(urlEqualTo("/food/find/7"))
-//                .willReturn(aResponse()
-//                        .withStatus(200)
-//                        .withBody("{\"id\":7,\"restaurant\":{\"restaurant\":{\"id\":4,\"building\":"
-//                                + "{\"id\":1,\"name\":\"test\",\"street\":\"1\",\"houseNumber\":1},"
-//                                + "\"name\":\"TestRestaurant\",\"menu\":null},\"appUser\":{\"email\":"
-//                                + "\"a.delia@student.tudelft.nl\",\"password\":\"abc\",\"name\":\"Alto\","
-//                                + "\"surname\":\"Delia\",\"faculty\":\"EWI\"loggedIn\"true\",\"roles\":{"
-//                                + "\"id\":\"2\",\"name\":\"ROLE_ADMIN\"}},\"deliveryLocation\":{\"id\"1\"name\":"
-//                                + "\"street\",\"street\":\"str\",\"houseNumber\":\"24\"},\"deliveryTime\":\"2020-03-25T12:00:00.000+0000}]")));
-//        assertEquals(
-//                JsonMapper
-//                        .foodOrderMapper(
-//                                "{\"id\":7,\"restaurant\":{\"restaurant\":{\"id\":4,\"building\":"
-//                                        + "{\"id\":1,\"name\":\"test\",\"street\":\"1\",\"houseNumber\":1},"
-//                                        + "\"name\":\"TestRestaurant\",\"menu\":null},\"appUser\":{\"email\":"
-//                                        + "\"a.delia@student.tudelft.nl\",\"password\":\"abc\",\"name\":\"Alto\","
-//                                        + "\"surname\":\"Delia\",\"faculty\":\"EWI\"loggedIn\"true\",\"roles\":{"
-//                                        + "\"id\":\"2\",\"name\":\"ROLE_ADMIN\"}},\"deliveryLocation\":{\"id\"1\"name\":"
-//                                        + "\"street\",\"street\":\"str\",\"houseNumber\":\"24\"},\"deliveryTime\":\"2020-03-25T12:00:00.000+0000}]"),
-//                JsonMapper.roomMapper((ServerCommunication.findFoodOrder(7))));
-//    }
+    @Test
+    void foodMapper() {
+        stubFor(get(urlEqualTo("/food_order/find/7"))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withBody("{\"id\":7,\"restaurant\":{\"restaurant\":{\"id\":4,\"building\":"
+                                + "{\"id\":1,\"name\":\"test\",\"street\":\"1\",\"houseNumber\":1},"
+                                + "\"name\":\"TestRestaurant\",\"menu\":null},\"appUser\":{\"email\":"
+                                + "\"a.delia@student.tudelft.nl\",\"password\":\"abc\",\"name\":\"Alto\","
+                                + "\"surname\":\"Delia\",\"faculty\":\"EWI\"loggedIn\"true\",\"roles\":{"
+                                + "\"id\":\"2\",\"name\":\"ROLE_ADMIN\"}},\"deliveryLocation\":{\"id\"1\"name\":"
+                                + "\"street\",\"street\":\"str\",\"houseNumber\":\"24\"},\"deliveryTime\":\"2020-03-25T12:00:00.000+0000}]")));
+        assertEquals(
+                JsonMapper
+                        .foodOrderMapper(
+                                "{\"id\":7,\"restaurant\":{\"restaurant\":{\"id\":4,\"building\":"
+                                        + "{\"id\":1,\"name\":\"test\",\"street\":\"1\",\"houseNumber\":1},"
+                                        + "\"name\":\"TestRestaurant\",\"menu\":null},\"appUser\":{\"email\":"
+                                        + "\"a.delia@student.tudelft.nl\",\"password\":\"abc\",\"name\":\"Alto\","
+                                        + "\"surname\":\"Delia\",\"faculty\":\"EWI\"loggedIn\"true\",\"roles\":{"
+                                        + "\"id\":\"2\",\"name\":\"ROLE_ADMIN\"}},\"deliveryLocation\":{\"id\"1\"name\":"
+                                        + "\"street\",\"street\":\"str\",\"houseNumber\":\"24\"},\"deliveryTime\":\"2020-03-25T12:00:00.000+0000}]"),
+                JsonMapper.roomMapper((ServerCommunication.findFoodOrder(7))));
+    }
 }
