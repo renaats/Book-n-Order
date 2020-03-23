@@ -9,6 +9,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * Manages the display of the views of the app
+ */
 public class ApplicationDisplay extends Application {
 
     private static Stage primaryStage;

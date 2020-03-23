@@ -1,5 +1,8 @@
 package nl.tudelft.oopp.demo.errors;
 
+/**
+ * Creates the appropriate error messages when a problem occurs.
+ */
 public class ErrorMessages {
     private static final String addedMessage = "Successfully added!";
     private static final String confirmEmailMessage = "Successfully added. Please confirm this account via the link sent to your email.";

@@ -3,6 +3,9 @@ package nl.tudelft.oopp.demo.entities;
 import java.util.Date;
 import java.util.Objects;
 
+/**
+ * Manages the RoomReservation object that is retrieved from the server
+ */
 public class RoomReservation {
 
     private Integer id;

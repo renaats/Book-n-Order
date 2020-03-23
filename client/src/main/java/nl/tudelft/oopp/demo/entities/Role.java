@@ -2,6 +2,9 @@ package nl.tudelft.oopp.demo.entities;
 
 import java.util.Set;
 
+/**
+ * Manages the user Role object that is retrieved from the server
+ */
 public class Role {
 
     private int id;

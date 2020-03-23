@@ -8,6 +8,10 @@ import javafx.scene.control.Label;
 import javafx.scene.text.Text;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
+/**
+ * Loads the correct content into the FXML objects that need to display server information and
+ * controls all the user inputs made through the GUI in the "bikeConfirmations.fxml" file
+ */
 public class BikeReservationConfirmationController implements Initializable {
     public Text youReservationsHas;
     public Text clickAny;
