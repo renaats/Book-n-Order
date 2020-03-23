@@ -33,7 +33,7 @@ public class RoomFeedbackController {
      * @param roomReservationId = the id of the room reservation being reviewed.
      * @param time = time when the feedback was sent.
      * @param feedback = the feedback text.
-     * @return String containing the result of your request.
+     * @return int containing the result of your request.
      */
     @Secured("ROLE_USER")
     @PostMapping(path = "/add") // Map ONLY POST Requests
@@ -52,7 +52,7 @@ public class RoomFeedbackController {
      * @param id = the id of the room feedback.
      * @param attribute = the attribute whose value is changed.
      * @param value = the new value of the attribute.
-     * @return String containing the result of your request.
+     * @return int containing the result of your request.
      */
     @Secured({"ROLE_ADMIN", "ROLE_ROOM"})
     @PostMapping(path = "/update")
@@ -64,7 +64,7 @@ public class RoomFeedbackController {
     /**
      * Deletes a room feedback.
      * @param id = the id of the room feedback.
-     * @return String containing the result of your request.
+     * @return int containing the result of your request.
      */
     @Secured({"ROLE_ADMIN", "ROLE_ROOM"})
     @DeleteMapping(path = "/delete")
