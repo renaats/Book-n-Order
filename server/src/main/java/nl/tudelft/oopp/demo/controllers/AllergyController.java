@@ -40,27 +40,26 @@ public class AllergyController {
 
     /**
      * Updates a the name of an allergy.
-     * @param id = the allergy id
      * @param allergyName = new name
      * @return Error code
      */
     @Secured({"ROLE_ADMIN", "ROLE_RESTAURANT"})
     @PostMapping(path = "/update_name")
     @ResponseBody
-    public int updateName(@RequestParam int id, @RequestParam String allergyName) {
-        return allergyService.update(id, allergyName);
+    public int updateName(@RequestParam String allergyName) {
+        return allergyService.update(allergyName);
     }
 
     /**
      * Deletes an allergy.
-     * @param id = the id of the allergy
+     * @param name = the name of the allergy
      * @return Error code
      */
     @Secured({"ROLE_ADMIN", "ROLE_RESTAURANT"})
-    @DeleteMapping(path = "/delete/{allergyID}")
+    @DeleteMapping(path = "/delete/{allergyName}")
     @ResponseBody
-    public int deleteAllergy(@PathVariable(value = "allergyID") int id) {
-        return allergyService.delete(id);
+    public int deleteAllergy(@PathVariable(value = "allergyName") String name) {
+        return allergyService.delete(name);
     }
 
     /**
@@ -76,13 +75,13 @@ public class AllergyController {
 
     /**
      * Finds an allergy with the specified id.
-     * @param id = the allergy id
+     * @param name = the allergy name
      * @return an allergy that matches the id
      */
     @Secured({"ROLE_USER", "ROLE_RESTAURANT"})
-    @GetMapping(path = "/find/{id}")
+    @GetMapping(path = "/find/{name}")
     @ResponseBody
-    public Allergy findAllergy(@PathVariable (value = "id") int id) {
-        return allergyService.find(id);
+    public Allergy findAllergy(@PathVariable (value = "name") String name) {
+        return allergyService.findByAllergyName(name);
     }
 }

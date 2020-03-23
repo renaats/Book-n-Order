@@ -11,5 +11,7 @@ import org.springframework.stereotype.Repository;
 public interface AllergyRepository extends JpaRepository<Allergy, Integer> {
     Allergy findByAllergyName(String allergyName);
 
+    Allergy deleteByAllergyName(String allergyName);
+
     boolean existsByAllergyName(String allergyName);
 }

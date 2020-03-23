@@ -31,15 +31,14 @@ public class AllergyService {
 
     /**
      * Updates an allergy name.
-     * @param id = the allergy id
      * @param allergyName = the new allergy name
      * @return message if it passes
      */
-    public int update(int id, String allergyName) {
-        if (!allergyRepository.existsById(id)) {
+    public int update(String allergyName) {
+        if (!allergyRepository.existsByAllergyName(allergyName)) {
             return 416;
         }
-        Allergy allergy = allergyRepository.getOne(id);
+        Allergy allergy = allergyRepository.findByAllergyName(allergyName);
         allergy.setAllergyName(allergyName);
         allergyRepository.save(allergy);
         return 201;
@@ -47,14 +46,14 @@ public class AllergyService {
 
     /**
      * Deletes an allergy.
-     * @param id = the id of the allergy
+     * @param allergyName = the name of the allergy
      * @return String to see if your request passed
      */
-    public int delete(int id) {
-        if (!allergyRepository.existsById(id)) {
+    public int delete(String allergyName) {
+        if (!allergyRepository.existsByAllergyName(allergyName)) {
             return 416;
         }
-        allergyRepository.deleteById(id);
+        allergyRepository.deleteByAllergyName(allergyName);
         return 200;
     }
 
@@ -68,10 +67,10 @@ public class AllergyService {
 
     /**
      * Finds an allergy with the specified id.
-     * @param id = the id of the allergy
+     * @param allergyName = the name of the allergy
      * @return the allergy that matches the provided id
      */
-    public Allergy find(int id) {
-        return allergyRepository.findById(id).orElse(null);
+    public Allergy findByAllergyName(String allergyName) {
+        return allergyRepository.findByAllergyName(allergyName);
     }
 }

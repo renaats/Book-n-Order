@@ -71,7 +71,7 @@ public class AllergyServiceTest {
      */
     @Test
     public void testFindNonExisting() {
-        assertNull(allergyService.find(0));
+        assertNull(allergyService.findByAllergyName("Peanuts"));
     }
 
     /**
@@ -80,8 +80,8 @@ public class AllergyServiceTest {
     @Test
     public void testFindExisting() {
         allergyService.add(allergy1.getAllergyName());
-        int id = allergyService.all().get(0).getId();
-        assertNotNull(allergyService.find(id));
+        String name = allergyService.all().get(0).getAllergyName();
+        assertNotNull(allergyService.findByAllergyName(name));
     }
 
     /**
@@ -89,7 +89,7 @@ public class AllergyServiceTest {
      */
     @Test
     public void testUpdateNonExistingInstance() {
-        assertEquals(416, allergyService.update(0, "a"));
+        assertEquals(416, allergyService.update("Milk"));
     }
 
     /**
@@ -98,10 +98,10 @@ public class AllergyServiceTest {
     @Test
     public void testChangeName() {
         allergyService.add(allergy1.getAllergyName());
-        int id = allergyService.all().get(0).getId();
-        assertNotEquals("Nuts", allergyService.find(id).getAllergyName());
-        allergyService.update(id, "Nuts");
-        assertEquals("Nuts", allergyService.find(id).getAllergyName());
+        String name = allergyService.all().get(0).getAllergyName();
+        assertNotEquals("Nuts", allergyService.findByAllergyName(name).getAllergyName());
+        allergyService.update("Nuts");
+        assertEquals("Nuts", allergyService.findByAllergyName(name).getAllergyName());
     }
 
     /**
@@ -124,8 +124,8 @@ public class AllergyServiceTest {
     @Test
     public void testDelete() {
         allergyService.add(allergy2.getAllergyName());
-        int id = allergyService.all().get(0).getId();
-        assertEquals(200, allergyService.delete(id));
+        String name = allergyService.all().get(0).getAllergyName();
+        assertEquals(200, allergyService.delete(name));
         assertEquals(0, allergyService.all().size());
     }
 
@@ -134,6 +134,6 @@ public class AllergyServiceTest {
      */
     @Test
     public void testDeleteIllegal() {
-        assertEquals(416, allergyService.delete(0));
+        assertEquals(416, allergyService.delete("Vegan"));
     }
 }

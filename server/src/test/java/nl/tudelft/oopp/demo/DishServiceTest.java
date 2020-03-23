@@ -1,12 +1,14 @@
 package nl.tudelft.oopp.demo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -15,6 +17,7 @@ import nl.tudelft.oopp.demo.entities.Dish;
 import nl.tudelft.oopp.demo.entities.Menu;
 import nl.tudelft.oopp.demo.entities.Restaurant;
 import nl.tudelft.oopp.demo.repositories.AllergyRepository;
+import nl.tudelft.oopp.demo.repositories.DishRepository;
 import nl.tudelft.oopp.demo.repositories.MenuRepository;
 import nl.tudelft.oopp.demo.services.DishService;
 import nl.tudelft.oopp.demo.services.MenuService;
@@ -57,6 +60,9 @@ public class DishServiceTest {
     @Autowired
     AllergyRepository allergyRepository;
 
+    @Autowired
+    DishRepository dishRepository;
+
     Menu menu1;
     Menu menu2;
     Dish dish;
@@ -86,9 +92,11 @@ public class DishServiceTest {
 
         dish = new Dish("Chicken", menu1);
         dish.setAllergies(allergySet);
+        //dishRepository.save(dish);
 
         dish2 = new Dish("Spicy Chicken", menu2);
         dish2.setAllergies(allergySet);
+        //dishRepository.save(dish2);
 
         dishes = new HashSet<>();
         dishes.add(dish);
@@ -146,11 +154,11 @@ public class DishServiceTest {
      */
     @Test
     public void testChangeName() {
-      /*  dishService.add("Tosti", menu1.getId());
+        dishService.add("Tosti", menu1.getId());
         int id = dishService.all().get(0).getId();
         assertNotEquals("Hamburger", dishService.find(id).getName());
         dishService.update(id, "name", "Hamburger");
-        assertEquals("Hamburger", dishService.find(id).getName());*/
+        assertEquals("Hamburger", dishService.find(id).getName());
     }
 
     /**
@@ -158,7 +166,8 @@ public class DishServiceTest {
      */
     @Test
     public void testAddAllergy() {
-       /* dishService.add("Tosti", menu1.getId());
+        dishService.add("Tosti", menu1.getId());
+        dish = dishService.all().get(0);
         dishService.addAllergy(dish.getId(), "Nuts");
         Iterator<Allergy> allergies = dishService.find(dish.getId()).getAllergies().iterator();
         String allergy1 = allergies.next().getAllergyName();
@@ -170,7 +179,7 @@ public class DishServiceTest {
             allergy1 = swap;
         }
         assertEquals(allergy1, "Lactose");
-        assertEquals(allergy2,"Nuts");*/
+        assertEquals(allergy2,"Nuts");
     }
 
     /**
