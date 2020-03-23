@@ -171,8 +171,7 @@ public class BuildingHourServiceTest {
         buildingHourService.add(building.getId(), buildingHours.getDay(), 1000, 3000);
         buildingHourService.add(building2.getId(), buildingHours2.getDay(), 2000, 4000);
 
-        List<BuildingHours> buildingHourList = new ArrayList<>();
-        buildingHourService.all().forEach(buildingHourList::add);
+        List<BuildingHours> buildingHourList = new ArrayList<>(buildingHourService.all());
         assertEquals(2, buildingHourList.size());
 
     }
@@ -205,8 +204,7 @@ public class BuildingHourServiceTest {
         buildingHourService.add(building.getId(), buildingHours.getDay(), 1000, 3000);
         buildingHourService.add(building2.getId(), buildingHours2.getDay(), 1000, 3000);
 
-        List<BuildingHours> buildingHourList = new ArrayList<>();
-        buildingHourService.all().forEach(buildingHourList::add);
+        List<BuildingHours> buildingHourList = new ArrayList<>(buildingHourService.all());
         buildingHours = buildingHourList.get(0);
         buildingHours2 = buildingHourList.get(1);
 
@@ -226,15 +224,14 @@ public class BuildingHourServiceTest {
         buildingHourService.add(building.getId(), buildingHours.getDay(), 1000, 3000);
         buildingHourService.add(building2.getId(), buildingHours2.getDay(), 1000, 3000);
 
-        List<BuildingHours> buildingHourList = new ArrayList<>();
-        buildingHourService.all().forEach(buildingHourList::add);
+        List<BuildingHours> buildingHourList = new ArrayList<>(buildingHourService.all());
         buildingHours = buildingHourList.get(0);
         buildingHours2 = buildingHourList.get(1);
 
         assertNotEquals(buildingHourService.find(buildingHours.getBuilding().getId(), buildingHours.getDay()),
                 buildingHourService.find(buildingHours2.getBuilding().getId(), buildingHours2.getDay()));
 
-        buildingHourService.update(buildingHours2.getId(), "buildingid", ((Integer) buildingHours.getBuilding().getId()).toString());
+        buildingHourService.update(buildingHours2.getId(), "buildingid", buildingHours.getBuilding().getId().toString());
 
         assertEquals(building, buildingHourService.find(buildingHours.getBuilding().getId(), buildingHours.getDay()).getBuilding());
     }
@@ -247,8 +244,7 @@ public class BuildingHourServiceTest {
         buildingHourService.add(building.getId(), buildingHours.getDay(), 1000, 3000);
         buildingHourService.add(building2.getId(), buildingHours2.getDay(), 2000, 3000);
 
-        List<BuildingHours> buildingHourList = new ArrayList<>();
-        buildingHourService.all().forEach(buildingHourList::add);
+        List<BuildingHours> buildingHourList = new ArrayList<>(buildingHourService.all());
         buildingHours = buildingHourList.get(0);
         buildingHours2 = buildingHourList.get(1);
 
@@ -269,8 +265,7 @@ public class BuildingHourServiceTest {
         buildingHourService.add(building.getId(), buildingHours.getDay(), 1000, 3000);
         buildingHourService.add(building2.getId(), buildingHours2.getDay(), 1000, 4000);
 
-        List<BuildingHours> buildingHourList = new ArrayList<>();
-        buildingHourService.all().forEach(buildingHourList::add);
+        List<BuildingHours> buildingHourList = new ArrayList<>(buildingHourService.all());
         buildingHours = buildingHourList.get(0);
         buildingHours2 = buildingHourList.get(1);
 
@@ -290,15 +285,14 @@ public class BuildingHourServiceTest {
         buildingHourService.add(building.getId(), buildingHours.getDay(), 1000, 3000);
         buildingHourService.add(building2.getId(), buildingHours2.getDay(), 1000, 3000);
 
-        List<BuildingHours> buildingHourList = new ArrayList<>();
-        buildingHourService.all().forEach(buildingHourList::add);
+        List<BuildingHours> buildingHourList = new ArrayList<>(buildingHourService.all());
         buildingHours = buildingHourList.get(0);
         buildingHours2 = buildingHourList.get(1);
 
         assertNotEquals(buildingHourService.find(buildingHours.getBuilding().getId(), buildingHours.getDay()),
                 buildingHourService.find(buildingHours2.getBuilding().getId(), buildingHours2.getDay()));
 
-        buildingHourService.update(buildingHours2.getId(), "buildingid", ((Integer) buildingHours.getBuilding().getId()).toString());
+        buildingHourService.update(buildingHours2.getId(), "buildingid", buildingHours.getBuilding().getId().toString());
 
         assertEquals(427, buildingHourService.update(buildingHours2.getId(), "day", ((Integer) buildingHours.getDay()).toString()));
     }
@@ -311,15 +305,13 @@ public class BuildingHourServiceTest {
         buildingHourService.add(building.getId(), buildingHours.getDay(), 1000, 3000);
         buildingHourService.add(building2.getId(), buildingHours2.getDay(), 2000, 4000);
 
-        List<BuildingHours> buildingHourList = new ArrayList<>();
-        buildingHourService.all().forEach(buildingHourList::add);
+        List<BuildingHours> buildingHourList = new ArrayList<>(buildingHourService.all());
         buildingHours = buildingHourList.get(0);
         buildingHours2 = buildingHourList.get(1);
 
         buildingHourService.delete(buildingHourList.get(0).getBuilding().getId(), buildingHourList.get(0).getDay());
 
-        buildingHourList = new ArrayList<>();
-        buildingHourService.all().forEach(buildingHourList::add);
+        buildingHourList = new ArrayList<>(buildingHourService.all());
         assertEquals(1, buildingHourList.size());
     }
 
@@ -331,15 +323,12 @@ public class BuildingHourServiceTest {
         buildingHourService.add(building.getId(), buildingHours.getDay(), 1000, 3000);
         buildingHourService.add(building2.getId(), buildingHours2.getDay(), 2000, 4000);
 
-        List<BuildingHours> buildingHourList = new ArrayList<>();
-        buildingHourService.all().forEach(buildingHourList::add);
+        List<BuildingHours> buildingHourList = new ArrayList<>(buildingHourService.all());
         buildingHours = buildingHourList.get(0);
         buildingHours2 = buildingHourList.get(1);
 
         buildingHourService.delete(buildingHourList.get(0).getBuilding().getId(), buildingHourList.get(0).getDay());
 
-        buildingHourList = new ArrayList<>();
-        buildingHourService.all().forEach(buildingHourList::add);
         assertNull(buildingHourService.find(buildingHours.getBuilding().getId(), buildingHours.getDay()));
         assertNotNull(buildingHourService.find(buildingHours2.getBuilding().getId(), buildingHours2.getDay()));
     }
@@ -353,8 +342,7 @@ public class BuildingHourServiceTest {
         buildingHourService.add(building.getId(), buildingHours.getDay(), 1000, 3000);
         buildingHourService.add(building2.getId(), buildingHours2.getDay(), 2000, 4000);
 
-        List<BuildingHours> buildingHourList = new ArrayList<>();
-        buildingHourService.all().forEach(buildingHourList::add);
+        List<BuildingHours> buildingHourList = new ArrayList<>(buildingHourService.all());
         buildingHours = buildingHourList.get(0);
         buildingHours2 = buildingHourList.get(1);
 

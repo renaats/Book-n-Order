@@ -6,11 +6,7 @@ import java.net.URL;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-
-
-
 
 public class TemplateController {
 
@@ -18,7 +14,7 @@ public class TemplateController {
     private BorderPane mainBorderPane;
 
     @FXML
-    private void changecenterView(){
+    private void changeCenterView(){
 
     }
 

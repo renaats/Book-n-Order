@@ -189,8 +189,7 @@ public class RestaurantHourServiceTest {
         restaurantHourService.add(restaurant.getId(), restaurantHours.getDay(), 1000, 3000);
         restaurantHourService.add(restaurant2.getId(), restaurantHours2.getDay(), 2000, 4000);
 
-        List<RestaurantHours> restaurantHourList = new ArrayList<>();
-        restaurantHourService.all().forEach(restaurantHourList::add);
+        List<RestaurantHours> restaurantHourList = new ArrayList<>(restaurantHourService.all());
         assertEquals(2, restaurantHourList.size());
 
     }
@@ -223,8 +222,7 @@ public class RestaurantHourServiceTest {
         restaurantHourService.add(restaurant.getId(), restaurantHours.getDay(), 1000, 3000);
         restaurantHourService.add(restaurant2.getId(), restaurantHours2.getDay(), 1000, 3000);
 
-        List<RestaurantHours> restaurantHourList = new ArrayList<>();
-        restaurantHourService.all().forEach(restaurantHourList::add);
+        List<RestaurantHours> restaurantHourList = new ArrayList<>(restaurantHourService.all());
         restaurantHours = restaurantHourList.get(0);
         restaurantHours2 = restaurantHourList.get(1);
 
@@ -245,8 +243,7 @@ public class RestaurantHourServiceTest {
         restaurantHourService.add(restaurant.getId(), restaurantHours.getDay(), 1000, 3000);
         restaurantHourService.add(restaurant2.getId(), restaurantHours2.getDay(), 1000, 3000);
 
-        List<RestaurantHours> restaurantHourList = new ArrayList<>();
-        restaurantHourService.all().forEach(restaurantHourList::add);
+        List<RestaurantHours> restaurantHourList = new ArrayList<>(restaurantHourService.all());
         restaurantHours = restaurantHourList.get(0);
         restaurantHours2 = restaurantHourList.get(1);
 
@@ -266,8 +263,7 @@ public class RestaurantHourServiceTest {
         restaurantHourService.add(restaurant.getId(), restaurantHours.getDay(), 1000, 3000);
         restaurantHourService.add(restaurant2.getId(), restaurantHours2.getDay(), 2000, 3000);
 
-        List<RestaurantHours> restaurantHourList = new ArrayList<>();
-        restaurantHourService.all().forEach(restaurantHourList::add);
+        List<RestaurantHours> restaurantHourList = new ArrayList<>(restaurantHourService.all());
         restaurantHours = restaurantHourList.get(0);
         restaurantHours2 = restaurantHourList.get(1);
 
@@ -288,8 +284,7 @@ public class RestaurantHourServiceTest {
         restaurantHourService.add(restaurant.getId(), restaurantHours.getDay(), 1000, 3000);
         restaurantHourService.add(restaurant2.getId(), restaurantHours2.getDay(), 1000, 4000);
 
-        List<RestaurantHours> restaurantHourList = new ArrayList<>();
-        restaurantHourService.all().forEach(restaurantHourList::add);
+        List<RestaurantHours> restaurantHourList = new ArrayList<>(restaurantHourService.all());
         restaurantHours = restaurantHourList.get(0);
         restaurantHours2 = restaurantHourList.get(1);
 
@@ -310,8 +305,7 @@ public class RestaurantHourServiceTest {
         restaurantHourService.add(restaurant.getId(), restaurantHours.getDay(), 1000, 3000);
         restaurantHourService.add(restaurant2.getId(), restaurantHours2.getDay(), 1000, 3000);
 
-        List<RestaurantHours> restaurantHourList = new ArrayList<>();
-        restaurantHourService.all().forEach(restaurantHourList::add);
+        List<RestaurantHours> restaurantHourList = new ArrayList<>(restaurantHourService.all());
         restaurantHours = restaurantHourList.get(0);
         restaurantHours2 = restaurantHourList.get(1);
 
@@ -331,15 +325,13 @@ public class RestaurantHourServiceTest {
         restaurantHourService.add(restaurant.getId(), restaurantHours.getDay(), 1000, 3000);
         restaurantHourService.add(restaurant2.getId(), restaurantHours2.getDay(), 2000, 4000);
 
-        List<RestaurantHours> restaurantHourList = new ArrayList<>();
-        restaurantHourService.all().forEach(restaurantHourList::add);
+        List<RestaurantHours> restaurantHourList = new ArrayList<>(restaurantHourService.all());
         restaurantHours = restaurantHourList.get(0);
         restaurantHours2 = restaurantHourList.get(1);
 
         assertEquals(200, restaurantHourService.delete(restaurantHourList.get(0).getRestaurant().getId(), restaurantHourList.get(0).getDay()));
 
-        restaurantHourList = new ArrayList<>();
-        restaurantHourService.all().forEach(restaurantHourList::add);
+        restaurantHourList = new ArrayList<>(restaurantHourService.all());
         assertEquals(1, restaurantHourList.size());
     }
 
@@ -351,15 +343,12 @@ public class RestaurantHourServiceTest {
         restaurantHourService.add(restaurant.getId(), restaurantHours.getDay(), 1000, 3000);
         restaurantHourService.add(restaurant2.getId(), restaurantHours2.getDay(), 2000, 4000);
 
-        List<RestaurantHours> restaurantHourList = new ArrayList<>();
-        restaurantHourService.all().forEach(restaurantHourList::add);
+        List<RestaurantHours> restaurantHourList = new ArrayList<>(restaurantHourService.all());
         restaurantHours = restaurantHourList.get(0);
         restaurantHours2 = restaurantHourList.get(1);
 
         restaurantHourService.delete(restaurantHourList.get(0).getRestaurant().getId(), restaurantHourList.get(0).getDay());
 
-        restaurantHourList = new ArrayList<>();
-        restaurantHourService.all().forEach(restaurantHourList::add);
         assertNull(restaurantHourService.find(restaurantHours.getRestaurant().getId(), restaurantHours.getDay()));
         assertNotNull(restaurantHourService.find(restaurantHours2.getRestaurant().getId(), restaurantHours2.getDay()));
     }
@@ -373,8 +362,7 @@ public class RestaurantHourServiceTest {
         restaurantHourService.add(restaurant.getId(), restaurantHours.getDay(), 1000, 3000);
         restaurantHourService.add(restaurant2.getId(), restaurantHours2.getDay(), 2000, 4000);
 
-        List<RestaurantHours> restaurantHourList = new ArrayList<>();
-        restaurantHourService.all().forEach(restaurantHourList::add);
+        List<RestaurantHours> restaurantHourList = new ArrayList<>(restaurantHourService.all());
         restaurantHours = restaurantHourList.get(0);
         restaurantHours2 = restaurantHourList.get(1);
 

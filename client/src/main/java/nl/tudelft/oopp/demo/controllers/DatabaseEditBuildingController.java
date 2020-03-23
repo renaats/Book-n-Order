@@ -32,7 +32,7 @@ public class DatabaseEditBuildingController implements Initializable {
     @FXML
     private TextField buildingDeleteByIdTextField;
 
-    final ObservableList updateChoiceBoxList = FXCollections.observableArrayList();
+    final ObservableList<String> updateChoiceBoxList = FXCollections.observableArrayList();
     final ObservableList<Building> buildingResult = FXCollections.observableArrayList();
 
     @FXML
@@ -157,14 +157,13 @@ public class DatabaseEditBuildingController implements Initializable {
      */
     public void listBuildingsButtonClicked() {
         buildingResult.clear();
-        List<Building> buildings = null;
+        List<Building> buildings;
         try {
             buildings = new ArrayList<>(Objects.requireNonNull(JsonMapper.buildingListMapper(ServerCommunication.getBuildings())));
         } catch (Exception e) {
             // Fakes the table having any entries, so the table shows up properly instead of "No contents".
             buildings = new ArrayList<>();
-            Building b = null;
-            buildings.add(b);
+            buildings.add(null);
         }
         buildingResult.addAll(buildings);
         table.setItems(buildingResult);

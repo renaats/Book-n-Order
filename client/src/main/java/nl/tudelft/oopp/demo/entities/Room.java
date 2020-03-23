@@ -105,9 +105,8 @@ public class Room {
      * @return String property, a property recognized by the tables.
      */
     public StringProperty getBuildingNameProperty() {
-        String v = getBuilding().getName();;
-        StringProperty buildingNameProperty = new SimpleStringProperty(v);
-        return buildingNameProperty;
+        String name = getBuilding().getName();
+        return new SimpleStringProperty(name);
     }
 
     public String getFaculty() {
