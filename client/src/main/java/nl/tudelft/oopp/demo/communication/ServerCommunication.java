@@ -179,7 +179,7 @@ public class ServerCommunication {
      * @param password User's password
      * @return the body of a get request to the server.
      */
-    public static String loginUser(String email, String password) throws IOException {
+    public static String loginUser(String email, String password) {
         try {
             URL url = new URL("http://localhost:8080/login");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -194,7 +194,7 @@ public class ServerCommunication {
                 os.write(input, 0, input.length);
             }
 
-        Map<String, List<String>> map = connection.getHeaderFields();
+            Map<String, List<String>> map = connection.getHeaderFields();
 
             for (Map.Entry<String, List<String>> entry : map.entrySet()) {
                 if (entry.getKey() != null) {
@@ -209,6 +209,8 @@ public class ServerCommunication {
                     }
                 }
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return ErrorMessages.getErrorMessage(311);
     }

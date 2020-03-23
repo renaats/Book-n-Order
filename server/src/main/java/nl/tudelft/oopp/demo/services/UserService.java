@@ -325,7 +325,8 @@ public class UserService {
             return 205;
         }
         return 419;
-        
+    }
+
     /**
      * Retrieves a boolean value representing whether the user account is activated.
      * @param request = the Http request that calls this method.
