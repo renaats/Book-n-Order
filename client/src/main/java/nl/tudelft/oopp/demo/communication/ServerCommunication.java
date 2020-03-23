@@ -176,35 +176,40 @@ public class ServerCommunication {
      * @return the body of a get request to the server.
      */
     public static String loginUser(String email, String password) throws IOException {
-        URL url = new URL("http://localhost:8080/login");
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod("POST");
-        connection.setRequestProperty("Content-Type", "application/json; utf-8");
-        connection.setRequestProperty("Accept", "application/json");
-        connection.setDoOutput(true);
+        try {
+            URL url = new URL("http://localhost:8080/login");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Content-Type", "application/json; utf-8");
+            connection.setRequestProperty("Accept", "application/json");
+            connection.setDoOutput(true);
 
-        String jsonInputString = "{\"email\": \"" + email + "\", \"password\":\"" + password + "\"}";
-        try (OutputStream os = connection.getOutputStream()) {
-            byte[] input = jsonInputString.getBytes(StandardCharsets.UTF_8);
-            os.write(input, 0, input.length);
-        }
+            String jsonInputString = "{\"email\": \"" + email + "\", \"password\":\"" + password + "\"}";
+            try (OutputStream os = connection.getOutputStream()) {
+                byte[] input = jsonInputString.getBytes(StandardCharsets.UTF_8);
+                os.write(input, 0, input.length);
+            }
 
-        Map<String, List<String>> map = connection.getHeaderFields();
+            Map<String, List<String>> map = connection.getHeaderFields();
 
-        for (Map.Entry<String, List<String>> entry : map.entrySet()) {
-            if (entry.getKey() != null) {
-                if (entry.getKey().equals("Authorization")) {
-                    AuthenticationKey.setBearerKey((Arrays.asList(entry.getValue().get(0).split(" ")).get(1)));
-                    if (!getAccountActivation()) {
-                        ApplicationDisplay.changeScene("/ConfirmationSixDigits.fxml");
-                    } else {
-                        ApplicationDisplay.changeScene("/mainMenu.fxml");
+            for (Map.Entry<String, List<String>> entry : map.entrySet()) {
+                if (entry.getKey() != null) {
+                    if (entry.getKey().equals("Authorization")) {
+                        AuthenticationKey.setBearerKey((Arrays.asList(entry.getValue().get(0).split(" ")).get(1)));
+                        if (!getAccountActivation()) {
+                            ApplicationDisplay.changeScene("/ConfirmationSixDigits.fxml");
+                        } else {
+                            ApplicationDisplay.changeScene("/mainMenu.fxml");
+                        }
+                        return ErrorMessages.getErrorMessage(200);
                     }
-                    return ErrorMessages.getErrorMessage(200);
                 }
             }
+            return ErrorMessages.getErrorMessage(311);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ErrorMessages.getErrorMessage(311);
         }
-        return ErrorMessages.getErrorMessage(311);
     }
 
     /**
