@@ -10,11 +10,11 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.io.UnsupportedEncodingException;
-
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashSet;
 import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import nl.tudelft.oopp.demo.entities.AppUser;
@@ -116,13 +116,8 @@ public class UserService {
      * @return String to see if your request passed
      */
     public int add(String email, String password, String name, String surname, String faculty) {
-        try {
-            if (!EmailValidator.getInstance().isValid(URLDecoder.decode(email, "UTF-8"))) {
-                return 423;
-            }
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            return 502;
+        if (!EmailValidator.getInstance().isValid(URLDecoder.decode(email, StandardCharsets.UTF_8))) {
+            return 423;
         }
         if (!email.contains("@student.tudelft.nl") && !email.contains("@tudelft.nl")) {
             return 424;
