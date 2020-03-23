@@ -8,10 +8,10 @@ import org.springframework.stereotype.Repository;
  * Supports the persistence of Allergy entities by storing them in the database.
  */
 @Repository
-public interface AllergyRepository extends JpaRepository<Allergy, Integer> {
+public interface AllergyRepository extends JpaRepository<Allergy, String> {
     Allergy findByAllergyName(String allergyName);
 
-    Allergy deleteByAllergyName(String allergyName);
+    void deleteByAllergyName(String allergyName);
 
     boolean existsByAllergyName(String allergyName);
 }

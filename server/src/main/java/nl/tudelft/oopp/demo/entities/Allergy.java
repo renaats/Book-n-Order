@@ -20,7 +20,6 @@ import javax.persistence.ManyToMany;
 @Entity
 public class Allergy {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private String allergyName;
 
     @JsonIgnore
