@@ -110,7 +110,7 @@ class JsonMapperTest {
         stubFor(get(urlEqualTo("/food_order/find/7"))
                 .willReturn(aResponse()
                         .withStatus(200)
-                        .withBody("{\"id\":7,\"restaurant\":{\"restaurant\":{\"id\":4,\"building\":"
+                        .withBody("{\"id\":7,\"restaurant\":{\"id\":4,\"building\":"
                                 + "{\"id\":1,\"name\":\"test\",\"street\":\"1\",\"houseNumber\":1},"
                                 + "\"name\":\"TestRestaurant\",\"menu\":null},\"appUser\":{\"email\":"
                                 + "\"a.delia@student.tudelft.nl\",\"password\":\"abc\",\"name\":\"Alto\","
@@ -120,7 +120,7 @@ class JsonMapperTest {
         assertEquals(
                 JsonMapper
                         .foodOrderMapper(
-                                "{\"id\":7,\"restaurant\":{\"restaurant\":{\"id\":4,\"building\":"
+                                "{\"id\":7,\"restaurant\":{\"id\":4,\"building\":"
                                         + "{\"id\":1,\"name\":\"test\",\"street\":\"1\",\"houseNumber\":1},"
                                         + "\"name\":\"TestRestaurant\",\"menu\":null},\"appUser\":{\"email\":"
                                         + "\"a.delia@student.tudelft.nl\",\"password\":\"abc\",\"name\":\"Alto\","
