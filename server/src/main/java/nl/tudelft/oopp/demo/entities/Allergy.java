@@ -21,8 +21,6 @@ import javax.persistence.ManyToMany;
 public class Allergy {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
-
     private String allergyName;
 
     @JsonIgnore
@@ -46,10 +44,6 @@ public class Allergy {
 
     public void setDish(Set<Dish> dishes) {
         this.dishes = dishes;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public String getAllergyName() {

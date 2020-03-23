@@ -1,6 +1,5 @@
 package nl.tudelft.oopp.demo.repositories;
 
-import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.Dish;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -10,5 +9,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface DishRepository extends JpaRepository<Dish, Integer> {
     Dish findByName(String allergyName);
 
-    Dish existsByName(String allergyName);
+    boolean existsByName(String allergyName);
 }

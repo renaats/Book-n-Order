@@ -1,9 +1,5 @@
 package nl.tudelft.oopp.demo;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -26,6 +22,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 /**
  * Tests the Dish service.
@@ -67,7 +66,6 @@ public class DishServiceTest {
 
     Allergy allergy;
     Set<Allergy> allergySet;
-
 
     /**
      * Sets up the entities and saves them via a service before executing every test.
@@ -140,6 +138,18 @@ public class DishServiceTest {
         dishService.add(dish.getName(), dish.getMenu().getId());
         int id = dishService.all().get(0).getId();
         assertNotNull(dishService.find(id));
+    }
+
+    /**
+     * Tests the change of the name of the dish.
+     */
+    @Test
+    public void testChangeName() {
+        dishService.add("Tosti", menu1.getId());
+        int id = dishService.all().get(0).getId();
+        assertNotEquals("Hamburger", dishService.find(id).getName());
+        dishService.update(id, "name", "Hamburger");
+        assertEquals("Hamburger", dishService.find(id).getName());
     }
 
     /**

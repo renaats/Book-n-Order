@@ -95,9 +95,8 @@ Table food_orders {
 }
 
 Table allergies {
-  id int PK
+  allergy String PK
   dish id
-  allergy String
 }
 
 Ref: "User"."id" < "food_orders"."User"

@@ -31,7 +31,7 @@ public class AllergyController {
      * @param allergyName = the allergy
      * @return Error code
      */
-    @Secured({"ROLE_ADMIN"})
+    @Secured({"ROLE_ADMIN", "ROLE_RESTAURANT"})
     @PostMapping(path = "/add") // Map ONLY POST Requests
     @ResponseBody
     public int addAllergy(@RequestParam String allergyName) {
@@ -44,7 +44,7 @@ public class AllergyController {
      * @param allergyName = new name
      * @return Error code
      */
-    @Secured("ROLE_ADMIN")
+    @Secured({"ROLE_ADMIN", "ROLE_RESTAURANT"})
     @PostMapping(path = "/update_name")
     @ResponseBody
     public int updateName(@RequestParam int id, @RequestParam String allergyName) {
@@ -56,7 +56,7 @@ public class AllergyController {
      * @param id = the id of the allergy
      * @return Error code
      */
-    @Secured({"ROLE_ADMIN"})
+    @Secured({"ROLE_ADMIN", "ROLE_RESTAURANT"})
     @DeleteMapping(path = "/delete/{allergyID}")
     @ResponseBody
     public int deleteAllergy(@PathVariable(value = "allergyID") int id) {
@@ -67,7 +67,7 @@ public class AllergyController {
      * Lists all allergies.
      * @return all allergies
      */
-    @Secured("ROLE_USER")
+    @Secured({"ROLE_USER", "ROLE_RESTAURANT"})
     @GetMapping(path = "/all")
     @ResponseBody
     public Iterable<Allergy> getAllAllergies() {
@@ -76,10 +76,10 @@ public class AllergyController {
 
     /**
      * Finds an allergy with the specified id.
-     * @param id = the bike id
-     * @return a bike that matches the id
+     * @param id = the allergy id
+     * @return an allergy that matches the id
      */
-    @Secured("ROLE_USER")
+    @Secured({"ROLE_USER", "ROLE_RESTAURANT"})
     @GetMapping(path = "/find/{id}")
     @ResponseBody
     public Allergy findAllergy(@PathVariable (value = "id") int id) {

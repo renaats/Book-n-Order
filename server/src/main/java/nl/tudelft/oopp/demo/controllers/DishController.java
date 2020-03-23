@@ -42,7 +42,7 @@ public class DishController {
      * @param id = the id of the dish
      * @param allergyName = the name of the allergy
      */
-    //@Secured("ROLE_ADMIN") SHOULD BE UNCOMMENTED WHEN IN PRODUCTION!
+    @Secured({"ROLE_ADMIN", "ROLE_RESTAURANT"})
     @PostMapping(path = "/addAllergy")
     @ResponseBody
     public void addAllergy(@RequestParam int id, @RequestParam String allergyName) {
