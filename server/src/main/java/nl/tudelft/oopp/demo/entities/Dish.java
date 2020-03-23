@@ -1,12 +1,17 @@
 package nl.tudelft.oopp.demo.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.OnDelete;
@@ -28,6 +33,10 @@ public class Dish {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn
     private Menu menu;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "dishes", fetch = FetchType.EAGER)
+    private Set<FoodOrder> foodOrders;
 
     /**
      * Creates a new instance of Dish.
@@ -51,6 +60,10 @@ public class Dish {
         this.name = name;
     }
 
+    public void setFoodOrders(Set<FoodOrder> foodOrders) {
+        this.foodOrders = foodOrders;
+    }
+
     public int getId() {
         return id;
     }
@@ -59,6 +72,10 @@ public class Dish {
         return name;
     }
 
+    public Set<FoodOrder> getFoodOrders() {
+        return foodOrders;
+    }
+    
     public Menu getMenu() {
         return menu;
     }
@@ -72,7 +89,8 @@ public class Dish {
             return false;
         }
         Dish dish = (Dish) o;
-        return Objects.equals(name, dish.name)
-                && Objects.equals(menu, dish.menu);
+        return name.equals(name)
+                && Objects.equals(menu, dish.menu)
+                && Objects.equals(foodOrders, dish.foodOrders);
     }
 }
