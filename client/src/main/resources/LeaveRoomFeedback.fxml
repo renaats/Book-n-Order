@@ -1,17 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="mainBorderPane" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" onMouseClicked="#mainMenu" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.TemplateController">
-    <left>
-        <VBox maxWidth="1.7976931348623157E308" spacing="5">
-            <Button onAction="#bookRoom" text="btn 1" userData="mainMenu.fxml" />
-            <Button onAction="#bookRoom" text="btn 2" userData="resources/orderFood.fxml" />
-            <Button onAction="#bookRoom" text="btn 3" userData="jetbrains://idea/navigate/reference?project=repository-template&amp;path=myCurrentBookings.fxml" />
-        </VBox>
-    </left>
-   <center>
-        <fx:include maxHeight="720.0" maxWidth="1000.0" minHeight="720.0" minWidth="1000.0" prefHeight="1280.0" prefWidth="1000.0" source="mainMenuReservations.fxml" />
-   </center>
-</BorderPane>
+<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.DatabaseEditRoomController">
+   <children>
+      <ImageView fitHeight="720.0" fitWidth="1306.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/DatabaseRoomBackground.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="63.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/TuDelftLogoFinal.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="258.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="576.0" AnchorPane.leftAnchor="258.0" AnchorPane.rightAnchor="902.0" AnchorPane.topAnchor="120.0">
+         <image>
+            <Image url="@images/booknorderlogo.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="41.0" fitWidth="44.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#mainMenu" pickOnBounds="true" preserveRatio="true">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <image>
+            <Image url="@images/HomeIconTransparent.png" />
+         </image>
+      </ImageView>
+      <Text fill="WHITE" layoutX="20.0" layoutY="555.576171875" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback is welcome" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="20.0" layoutY="578.75" strokeType="OUTSIDE" strokeWidth="0.0" text="© 2020 TU Delft. All rights reserved." AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0">
+         <font>
+            <Font name="Calibri" size="11.0" />
+         </font>
+      </Text>
+      <VBox alignment="CENTER" layoutX="164.0" layoutY="239.0" prefHeight="252.0" prefWidth="880.0" spacing="10.0" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="200.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Let us know how we can improve this room !" textAlignment="CENTER" wrappingWidth="571.0835571289062">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Text>
+            <TextField alignment="TOP_LEFT" prefHeight="180.0" prefWidth="860.0" promptText="Type Feedback here...">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </TextField>
+            <Button fx:id="submitBikeFeedbackButton" maxHeight="40.0" maxWidth="505.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="505.0" style="-fx-background-color: #00a6d6;" text="Submit Feedback" textFill="WHITE" />
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </VBox>
+   </children>
+</AnchorPane>
