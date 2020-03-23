@@ -2,8 +2,13 @@ package nl.tudelft.oopp.demo.controllers;
 
 import javax.servlet.http.HttpServletRequest;
 import nl.tudelft.oopp.demo.entities.AppUser;
+import nl.tudelft.oopp.demo.events.OnRegistrationSuccessEvent;
 import nl.tudelft.oopp.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.WebRequest;
 
 /**
  * Creates server side endpoints and routes requests to the UserService.
@@ -26,6 +32,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private ApplicationEventPublisher eventPublisher;
+
     /**
      * Logs out from the current account.
      * @param request = the Http request that calls this method
@@ -37,8 +46,10 @@ public class UserController {
 
     /**
      * Returns information about the user account.
+     * @param request = the Http request that calls this method
      * @return account information about the account that requests it.
      */
+    @Secured("ROLE_USER")
     @GetMapping(path = "/info")
     public String userInfo(HttpServletRequest request) {
         return userService.userInfo(request);
@@ -61,7 +72,19 @@ public class UserController {
             @RequestParam String name,
             @RequestParam String surname,
             @RequestParam String faculty) {
-        return userService.add(email, password, name, surname, faculty);
+        return userService.add(email,password,name,surname,faculty);
+    }
+
+    /**
+     * Checks whether the input of the user is equal to the one sent in the email.
+     * @param request The request, which validates the six digit code
+     * @param sixDigitCode User's six digit input
+     * @return  An error code corresponding outcome of the request
+     */
+    @PostMapping(path = "/validate")
+    @ResponseBody
+    public int validateUser(HttpServletRequest request,  @RequestParam int sixDigitCode) {
+        return userService.validate(request, sixDigitCode);
     }
 
     /**
@@ -113,7 +136,6 @@ public class UserController {
         return userService.find(email);
     }
 
-
     /**
      * Adds a role to an account. If the role does not exist, it is created.
      * @param email = the email of the account
@@ -124,5 +146,25 @@ public class UserController {
     @ResponseBody
     public void addRole(@RequestParam String email, @RequestParam String roleName) {
         userService.addRole(email, roleName);
+    }
+
+    /**
+     * Retrieves a boolean value representing whether the user is allowed to access the admin panel.
+     * @param request = the Http request that calls this method.
+     */
+    @Secured("ROLE_USER")
+    @GetMapping(path = "/admin")
+    public boolean isAdmin(HttpServletRequest request) {
+        return userService.isAdmin(request);
+    }
+
+
+    /**
+     * Retrieves a boolean value representing whether the user account is activated.
+     * @param request = the Http request that calls this method.
+     */
+    @GetMapping(path = "/activated")
+    public boolean isActivated(HttpServletRequest request) {
+        return userService.isActivated(request);
     }
 }

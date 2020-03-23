@@ -9,6 +9,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * Manages the display of the views of the app
+ */
 public class ApplicationDisplay extends Application {
 
     private static Stage primaryStage;
@@ -34,8 +37,7 @@ public class ApplicationDisplay extends Application {
      * @throws IOException = All input will be valid, no need to check, this we throw.
      */
     public static void changeScene(String fxml) throws IOException {
-        Parent pane = FXMLLoader.load(
-                ApplicationDisplay.class.getResource(fxml));
+        Parent pane = FXMLLoader.load(ApplicationDisplay.class.getResource(fxml));
         primaryStage.getScene().setRoot(pane);
     }
 

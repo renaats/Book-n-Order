@@ -80,6 +80,16 @@ Table menu {
   item_allergies String
 }
 
+Table dish {
+  dish id PK
+  menu id
+  item String
+  item_ingredients String
+  allergies id
+  price int
+  quantity int
+}
+
 Table food_orders {
   id int PK
   User User
@@ -87,6 +97,8 @@ Table food_orders {
   delivery_time int
   delivery_date date
   delivery_location building_number
+  menu menu
+  dish id
 }
 
 Table room_feedback {
@@ -128,6 +140,10 @@ Ref: "restaurant"."id" < "menu"."restaurant"
 
 Ref: "restaurant"."id" < "restaurant_hours"."restaurant"
 
+Ref: "restaurant"."menu" < "menu"."menu"
+
+Ref: "menu"."menu" < "food_orders"."menu"
+
 Ref: "bikes"."id" < "bike_reservations"."id"
 
 Ref: "bikes"."location" < "building"."building_number"
@@ -163,3 +179,5 @@ Ref: "bike_feedback"."client" < "User"."id"
 Ref: "bike_feedback"."recipient" < "User"."id"
 
 Ref: "bike_feedback"."bike_reservations" < "bike_reservations"."id"
+
+Ref: "dish"."dish" < "food_orders"."dish"

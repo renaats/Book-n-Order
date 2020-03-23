@@ -1,14 +1,19 @@
 package nl.tudelft.oopp.demo.errors;
 
+/**
+ * Creates the appropriate error messages when a problem occurs.
+ */
 public class ErrorMessages {
     private static final String addedMessage = "Successfully added!";
+    private static final String confirmEmailMessage = "Successfully added. Please confirm this account via the link sent to your email.";
     private static final String notFoundMessage = "Not found.";
     private static final String unAuthorizedMessage = "You do not have the proper authorization.";
     private static final String preConditionFailedMessage = "Attribute does not exist!";
     private static final String IdNotFoundMessage = "No results on ID.";
     private static final String hasRoomsMessage = "Building has rooms.";
     private static final String executedMessage = "Successfully executed.";
-    private static final String alreadyReservedMessage = "Already reserved at this timeslot.";
+    private static final String codesDoNotMatchMessage = "The six digit code does not match with the one sent in the email. Try again.";
+    private static final String alreadyReservedMessage = "Already reserved at this time slot.";
     private static final String roomNotFoundMessage = "Room not found.";
     private static final String userNotFoundMessage = "User not found.";
     private static final String attributeNotFoundMessage = "Attribute not found.";
@@ -52,6 +57,8 @@ public class ErrorMessages {
                 return executedMessage;
             case 201:
                 return addedMessage;
+            case 203:
+                return confirmEmailMessage;
             case 308:
                 return alreadyReservedMessage;
             case 309:
@@ -97,9 +104,11 @@ public class ErrorMessages {
             case 430:
                 return dishNotFoundMessage;
             case 431:
-                return roomFeedbackMessage;
+                return codesDoNotMatchMessage;
             case 432:
                 return bikeFeedbackMessage;
+            case 433:    
+                return roomFeedbackMessage;
             case 502:
                 return unsupportedEncodingMessage;
             default:

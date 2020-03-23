@@ -1,6 +1,7 @@
 package nl.tudelft.oopp.demo.controllers;
 
 import nl.tudelft.oopp.demo.services.DishService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Repository;
@@ -43,7 +44,7 @@ public class DishController {
      * @return Error code
      */
     @Secured({"RESTAURANT_OWNER", "ROLE_ADMIN"})
-    @DeleteMapping(path = "/delete/{menuID}")
+    @DeleteMapping(path = "/delete/{dishID}")
     @ResponseBody
     public int deleteDish(@PathVariable(value = "dishID") int id) {
         return dishService.delete(id);

@@ -17,6 +17,7 @@ dependencies {
 	implementation 'com.google.code.gson:gson:2.8.6'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
 	// Local test database (in-memory)
@@ -32,8 +33,8 @@ dependencies {
 	compile 'commons-validator:commons-validator:1.6'
 	compile("org.springframework.boot:spring-boot-starter-web")
 	compile("org.springframework.boot:spring-boot-starter-security")
+	compile("org.springframework.boot:spring-boot-starter-mail")
 	compile 'com.auth0:java-jwt:3.4.0'
-
 
 	// Use MySQL Connector-J
 	compile 'mysql:mysql-connector-java'

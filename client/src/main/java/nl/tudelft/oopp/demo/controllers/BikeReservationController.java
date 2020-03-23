@@ -14,12 +14,12 @@ import javafx.scene.input.MouseEvent;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
- * This class controls the functionality of the different buttons in bike reservations and creates the entries in the choice boxes
+ * Loads the correct content into the FXML objects that need to display server information and
+ * controls all the user inputs made through the GUI in the "bikeReservations.fxml" file
  */
-
 public class BikeReservationController implements Initializable {
 
-    final ObservableList listLocations = FXCollections.observableArrayList();
+    final ObservableList<String> listLocations = FXCollections.observableArrayList();
 
     final ObservableList<String> listTime = FXCollections.observableArrayList();
 
@@ -50,8 +50,8 @@ public class BikeReservationController implements Initializable {
     }
 
     private void loadData() {
-        listTime.removeAll(listTime);
-        listMinutes.removeAll(listMinutes);
+        listTime.clear();
+        listMinutes.clear();
         for (int i = 0;i <= 45; i = i + 15) {
             if (i == 0) {
                 listMinutes.add("00");
@@ -74,7 +74,7 @@ public class BikeReservationController implements Initializable {
 
     /**
      * return to the reservations menu when the back arrow button is clicked.
-     * @throws IOException the input will allways be the same, so it should never throw an IO exception
+     * @throws IOException the input will always be the same, so it should never throw an IO exception
      */
     public void goToMainMenuReservations() throws IOException {
         ApplicationDisplay.changeScene("/mainMenuReservations.fxml");

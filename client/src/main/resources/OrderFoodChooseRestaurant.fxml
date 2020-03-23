@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.OrderFoodChoseRestaurantController">
+<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.OrderFoodChooseRestaurantController">
 
     <ImageView fitHeight="720.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
         <Image url="@images/Living-Campus-1-1280x600-c-center.jpg" />
@@ -57,7 +57,7 @@
       </columns>
    </TableView>
    <Text layoutX="397.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please select the restaurant you want to order from and the select the desired menu items" />
-   <Button fx:id="chooseTheRestaurantButton" layoutX="169.0" layoutY="630.0" maxHeight="25.0" maxWidth="230.0" minHeight="25.0" minWidth="230.0" mnemonicParsing="false" onAction="#restaurantChoosen" style="-fx-background-color: #00a6d6;" text="Choose the selected restaurant" textFill="WHITE" />
+   <Button fx:id="chooseTheRestaurantButton" layoutX="169.0" layoutY="630.0" maxHeight="25.0" maxWidth="230.0" minHeight="25.0" minWidth="230.0" mnemonicParsing="false" onAction="#restaurantChosen" style="-fx-background-color: #00a6d6;" text="Choose the selected restaurant" textFill="WHITE" />
     <Text layoutX="576.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Order food" AnchorPane.leftAnchor="576.0" AnchorPane.topAnchor="125.0">
         <font>
             <Font size="26.0" />

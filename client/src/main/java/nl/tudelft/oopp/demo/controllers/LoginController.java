@@ -4,10 +4,16 @@ import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextField;
+import javafx.stage.StageStyle;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
+/**
+ * Loads the correct content into the FXML objects that need to display server information and
+ * controls all the user inputs made through the GUI in the "login-screen.fxml" file
+ */
 public class LoginController {
 
     @FXML
@@ -25,18 +31,48 @@ public class LoginController {
 
     /**
      * Takes care of authenticating a user.
-     * @throws IOException input will be valid, hence we throw.
      */
-    public void loginButton() throws IOException {
+    public void loginButton() {
         String username = usernameField.getText();
-        String password = passwordField.getText();
-        String message = ServerCommunication.loginUser(username, password);
+        if (username.equals("")) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle(null);
+            alert.setHeaderText(null);
+            alert.setContentText("Email is required.");
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/alertWarning.css").toExternalForm());
+            alert.showAndWait();
+            return;
+        }
 
+        String password = passwordField.getText();
+        if (password.equals("")) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle(null);
+            alert.setHeaderText(null);
+            alert.setContentText("Password is required.");
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/alertWarning.css").toExternalForm());
+            alert.showAndWait();
+            return;
+        }
+
+        String message = null;
+        try {
+            message = ServerCommunication.loginUser(username, password);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         if (message.equals("Login and/or password is incorrect.")) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Authenticator");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle(null);
             alert.setHeaderText(null);
             alert.setContentText(message);
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/alertError.css").toExternalForm());
             alert.showAndWait();
         }
     }
@@ -48,5 +84,13 @@ public class LoginController {
      */
     public void registrationScene(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/registrationScreen.fxml");
+    }
+
+    /**
+     * Changes scene to forgot password scene
+     * @throws IOException should never throw, since the input is always the same
+     */
+    public void forgotPassword() throws IOException {
+        ApplicationDisplay.changeScene("/ForgotPasswordScene.fxml");
     }
 }

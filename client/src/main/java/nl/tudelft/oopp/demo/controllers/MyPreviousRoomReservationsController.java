@@ -7,7 +7,10 @@ import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
-
+/**
+ * Loads the correct content into the FXML objects that need to display server information and
+ * controls all the user inputs made through the GUI in the "myPreviousTenRoomBookings.fxml" file
+ */
 public class MyPreviousRoomReservationsController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
