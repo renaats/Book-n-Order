@@ -555,6 +555,7 @@ public class ServerCommunication {
         HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/user/info")).build();
         return communicateAndReturnBodyOfResponse(request);
     }
+
     /**
      * Changes the password of a given user
      * @param email = The email of the user that is changing password.
