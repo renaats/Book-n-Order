@@ -49,7 +49,7 @@
     </Text>
     <TextField fx:id="buildingChangeToField" layoutX="256.0" layoutY="497.0" AnchorPane.leftAnchor="256.0" AnchorPane.topAnchor="497.0" />
     <Button fx:id="confirmChangeButton" layoutX="302.0" layoutY="546.0" mnemonicParsing="false" style="-fx-background-color: #00a6d6;" text="Change" textFill="WHITE" AnchorPane.leftAnchor="302.0" AnchorPane.topAnchor="546.0" />
-    <Button fx:id="buildingFindAllButton" layoutX="542.0" layoutY="250.0" mnemonicParsing="false" onAction="#F" prefHeight="26.0" prefWidth="62.0" style="-fx-background-color: #00a6d6;" text="Find all" textFill="WHITE" />
+    <Button fx:id="buildingFindAllButton" layoutX="542.0" layoutY="250.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="62.0" style="-fx-background-color: #00a6d6;" text="Find all" textFill="WHITE" />
     <ImageView fitHeight="41.0" fitWidth="44.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#mainMenu" pickOnBounds="true" preserveRatio="true">
         <Image url="@images/HomeIconTransparent.png" />
         <cursor>
