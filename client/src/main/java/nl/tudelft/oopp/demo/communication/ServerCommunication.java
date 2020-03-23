@@ -16,7 +16,6 @@ import java.util.Map;
 
 import nl.tudelft.oopp.demo.authentication.AuthenticationKey;
 import nl.tudelft.oopp.demo.errors.ErrorMessages;
-import nl.tudelft.oopp.demo.user.UserInformation;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 public class ServerCommunication {

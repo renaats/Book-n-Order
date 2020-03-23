@@ -23,7 +23,6 @@ import nl.tudelft.oopp.demo.repositories.RoleRepository;
 import nl.tudelft.oopp.demo.repositories.UserRepository;
 
 import org.apache.commons.validator.routines.EmailValidator;
-import org.h2.engine.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
