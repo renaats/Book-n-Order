@@ -24,7 +24,7 @@
             <Cursor fx:constant="HAND" />
         </cursor>
     </ImageView>
-    <ImageView fx:id="goToBuildingMenuButton" fitHeight="26.0" fitWidth="41.0" layoutX="22.0" layoutY="119.0" onMouseClicked="#goToBikeMenu" pickOnBounds="true" preserveRatio="true">
+    <ImageView fx:id="goToBikeMenuButton" fitHeight="26.0" fitWidth="26.0" layoutX="22.0" layoutY="119.0" onMouseClicked="#goToBikeMenu" pickOnBounds="true" preserveRatio="true">
         <image>
             <Image url="@images/bikeIconFinalWithCircle.png" />
         </image>

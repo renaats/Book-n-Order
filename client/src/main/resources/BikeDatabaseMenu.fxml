@@ -34,7 +34,7 @@
         <cursor>
             <Cursor fx:constant="HAND" />
         </cursor></Button>
-    <Text layoutX="588.0" layoutY="178.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bikes:" AnchorPane.leftAnchor="588.0">
+    <Text layoutX="550.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bikes" AnchorPane.leftAnchor="550.0">
         <font>
             <Font size="26.0" />
         </font>
