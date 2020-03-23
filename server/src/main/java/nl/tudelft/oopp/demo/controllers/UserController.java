@@ -8,9 +8,10 @@ import nl.tudelft.oopp.demo.events.OnRegistrationSuccessEvent;
 import nl.tudelft.oopp.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.mail.MailSender;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
+//These import where broken
+//import org.springframework.mail.MailSender;
+//import org.springframework.mail.SimpleMailMessage;
+//import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -94,18 +95,17 @@ public class UserController {
     }
 
     /**
-     * Updates a specified attribute for given user.
+     * Updates a the password attribute for given user.
      * @param email = the email address of the user.
-     * @param attribute = the attribute whose value is to be changed.
      * @param value = the new value of the attribute.
      * @return Error code
      */
 
     @PostMapping(path = "/changePassword")
     @ResponseBody
-    public int changePassword(@RequestParam String email, @RequestParam String attribute, @RequestParam String value)
+    public int changePassword(@RequestParam String email, @RequestParam String value)
             throws UnsupportedEncodingException {
-        return userService.update(email, attribute, value);
+        return userService.update(email, "password", value);
     }
 
     /**
