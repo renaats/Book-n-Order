@@ -123,7 +123,7 @@ public class RoomFeedbackService {
      */
     public int delete(int id) {
         if (!roomFeedbackRepository.existsById(id)) {
-            return 431;
+            return 433;
         }
         roomFeedbackRepository.deleteById(id);
         return 200;

@@ -122,7 +122,7 @@ public class RoomFeedbackServiceTest {
         room.setFacultySpecific(false);
         room.setScreen(true);
         room.setProjector(true);
-        room.setNrPeople(200);
+        room.setCapacity(200);
         room.setPlugs(200);
         roomRepository.save(room);
 
@@ -133,7 +133,7 @@ public class RoomFeedbackServiceTest {
         room2.setFacultySpecific(false);
         room2.setScreen(true);
         room2.setProjector(true);
-        room2.setNrPeople(200);
+        room2.setCapacity(200);
         room2.setPlugs(200);
         roomRepository.save(room2);
 
@@ -337,6 +337,6 @@ public class RoomFeedbackServiceTest {
      */
     @Test
     public void testDeleteIllegal() {
-        assertEquals(431, roomFeedbackService.delete(0));
+        assertEquals(433, roomFeedbackService.delete(0));
     }
 }
