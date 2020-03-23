@@ -3,36 +3,53 @@ package nl.tudelft.oopp.demo.controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.StageStyle;
+
+import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
-import nl.tudelft.oopp.demo.entities.AppUser;
-import nl.tudelft.oopp.demo.entities.Role;
+import nl.tudelft.oopp.demo.user.UserInformation;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 public class MyAccountController implements Initializable {
 
     @FXML
-    private Label name;
+    private Label fullNameLabel;
     @FXML
-    private Label email;
+    private Label emailLabel;
+    @FXML
+    private Label facultyLabel;
+    @FXML
+    private AnchorPane anchorPane;
+    @FXML
+    private Button adminControl;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        loadData();
-    }
+        UserInformation userInformation = JsonMapper.userInformationMapper(ServerCommunication.getOwnUserInformation());
+        fullNameLabel.setText(userInformation.getName() + " " + userInformation.getSurname());
+        emailLabel.setText(userInformation.getEmail());
+        facultyLabel.setText(userInformation.getFaculty());
 
-    /**
-     * Should load the user information
-     */
-    private void loadData() {
-        //TODO
-        //name.setText(ServerCommunication.getUser());
-        //email.setText(ServerCommunication.getUser());
+
+        boolean showAdminButton = false;
+        try {
+            showAdminButton = ServerCommunication.getAdminButtonPermission();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (!showAdminButton) {
+            anchorPane.getChildren().remove(adminControl);
+        }
     }
 
     /**
@@ -76,9 +93,12 @@ public class MyAccountController implements Initializable {
     public void logoutUser() throws IOException {
         ServerCommunication.logoutUser();
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Authenticator");
+        alert.setTitle(null);
         alert.setHeaderText(null);
         alert.setContentText("Logged out!");
+        alert.initStyle(StageStyle.UNDECORATED);
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(getClass().getResource("/alertInformation.css").toExternalForm());
         alert.showAndWait();
         ApplicationDisplay.changeScene("/login-screen.fxml");
     }

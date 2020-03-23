@@ -12,15 +12,17 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+
+import nl.tudelft.oopp.demo.entities.Restaurant;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 
-public class OrderFoodChoseRestaurantController implements Initializable {
+public class OrderFoodChooseRestaurantController implements Initializable {
     @FXML
     public TextField nameOfTheRestaurant;
     public Button submitButton;
-    public TableView restaurantsTable;
-    public TableColumn menuTable;
+    public TableView<Restaurant> restaurantsTable;
+    public TableColumn<Restaurant, String> menuTable;
     public Button chooseTheRestaurantButton;
 
     @Override
@@ -72,7 +74,7 @@ public class OrderFoodChoseRestaurantController implements Initializable {
     /**
      * Should cause the menu of the selected restaurant to show at the menuTable
      */
-    public void restaurantChoosen() {
+    public void restaurantChosen() {
         //TODO
     }
 }

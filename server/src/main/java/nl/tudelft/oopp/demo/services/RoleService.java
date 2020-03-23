@@ -23,6 +23,9 @@ public class RoleService {
      * @return String to see if your request passed
      */
     public int add(String name) {
+        if (roleRepository.existsByName(name)) {
+            return 309;
+        }
         Role role = new Role();
         role.setName(name);
         roleRepository.save(role);

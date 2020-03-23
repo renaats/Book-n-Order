@@ -13,10 +13,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.StageStyle;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.Building;
@@ -73,10 +75,13 @@ public class DatabaseBuildingController implements Initializable {
             buildingResult.add(building);
             table.setItems(buildingResult);
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle(null);
             alert.setHeaderText(null);
             alert.setContentText("Missing argument.");
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/alertWarning.css").toExternalForm());
             alert.showAndWait();
         }
     }
@@ -91,10 +96,13 @@ public class DatabaseBuildingController implements Initializable {
             buildingResult.addAll(buildings);
             table.setItems(buildingResult);
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle(null);
             alert.setHeaderText(null);
             alert.setContentText("No buildings found.");
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/alertWarning.css").toExternalForm());
             alert.showAndWait();
         }
     }

@@ -1,8 +1,13 @@
 package nl.tudelft.oopp.demo.services;
 
+import static nl.tudelft.oopp.demo.security.SecurityConstants.HEADER_STRING;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+
+import javax.servlet.http.HttpServletRequest;
 
 import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.Room;
@@ -10,6 +15,7 @@ import nl.tudelft.oopp.demo.entities.RoomReservation;
 import nl.tudelft.oopp.demo.repositories.RoomRepository;
 import nl.tudelft.oopp.demo.repositories.RoomReservationRepository;
 import nl.tudelft.oopp.demo.repositories.UserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -122,7 +128,7 @@ public class RoomReservationService {
 
     /**
      * Finds a room reservation with the specified id.
-     * @param id = thre id of the room reservation
+     * @param id = the id of the room reservation
      * @return a room reservation with the specified id  or null if no such reservation exists
      */
     public RoomReservation find(int id) {
@@ -135,5 +141,45 @@ public class RoomReservationService {
      */
     public List<RoomReservation> all() {
         return roomReservationRepository.findAll();
+    }
+
+    /**
+     * Finds all past room reservations for the user that sends the Http request.
+     * @param request = the Http request that calls this method
+     * @return a list of past room reservations for this user.
+     */
+    public List<RoomReservation> past(HttpServletRequest request) {
+        List<RoomReservation> roomReservations = new ArrayList<>();
+        String token = request.getHeader(HEADER_STRING);
+        AppUser appUser = UserService.getAppUser(token, userRepository);
+        if (appUser == null) {
+            return roomReservations;
+        }
+        for (RoomReservation roomReservation: roomReservationRepository.findAll()) {
+            if (roomReservation.getAppUser() == appUser && roomReservation.getToTime().before(new Date())) {
+                roomReservations.add(roomReservation);
+            }
+        }
+        return roomReservations;
+    }
+
+    /**
+     * Finds all future room reservations for the user that sends the Http request.
+     * @param request = the Http request that calls this method
+     * @return a list of future room reservations for this user.
+     */
+    public List<RoomReservation> future(HttpServletRequest request) {
+        List<RoomReservation> roomReservations = new ArrayList<>();
+        String token = request.getHeader(HEADER_STRING);
+        AppUser appUser = UserService.getAppUser(token, userRepository);
+        if (appUser == null) {
+            return roomReservations;
+        }
+        for (RoomReservation roomReservation: roomReservationRepository.findAll()) {
+            if (roomReservation.getAppUser() == appUser && roomReservation.getToTime().after(new Date())) {
+                roomReservations.add(roomReservation);
+            }
+        }
+        return roomReservations;
     }
 }

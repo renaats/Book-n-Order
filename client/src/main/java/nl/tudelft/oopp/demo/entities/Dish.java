@@ -11,6 +11,7 @@ public class Dish {
     private String name;
     private Menu menu;
     private Set<Allergy> allergies;
+    private Set<FoodOrder> foodOrders;
 
     /**
      * Creates a new instance of Dish.
@@ -41,6 +42,10 @@ public class Dish {
     public void setAllergies(Set<Allergy> allergies) {
         this.allergies = allergies;
     }
+    
+    public void setFoodOrders(Set<FoodOrder> foodOrders) {
+        this.foodOrders = foodOrders;
+    }
 
     public int getId() {
         return id;
@@ -52,5 +57,9 @@ public class Dish {
 
     public Set<Allergy> getAllergies() {
         return allergies;
+    }
+
+    public Set<FoodOrder> getFoodOrders() {
+        return foodOrders;
     }
 }

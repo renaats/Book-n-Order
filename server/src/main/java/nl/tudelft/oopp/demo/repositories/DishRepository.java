@@ -10,4 +10,6 @@ public interface DishRepository extends JpaRepository<Dish, Integer> {
     Dish findByName(String allergyName);
 
     boolean existsByName(String allergyName);
+
+    Dish findByName(String name);
 }

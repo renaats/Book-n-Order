@@ -1,5 +1,7 @@
 package nl.tudelft.oopp.demo.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Objects;
 import java.util.Set;
 
@@ -35,6 +37,10 @@ public class Dish {
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Allergy> allergies;
 
+    @JsonIgnore
+    @ManyToMany(mappedBy = "dishes", fetch = FetchType.EAGER)
+    private Set<FoodOrder> foodOrders;
+
     /**
      * Creates a new instance of Dish.
      * @param name = name of the dish.
@@ -63,6 +69,9 @@ public class Dish {
 
     public void addAllergy(Allergy allergy) {
         allergies.add(allergy);
+
+    public void setFoodOrders(Set<FoodOrder> foodOrders) {
+        this.foodOrders = foodOrders;
     }
 
     public int getId() {
@@ -75,6 +84,10 @@ public class Dish {
 
     public Set<Allergy> getAllergies() {
         return allergies;
+    }
+    
+    public Set<FoodOrder> getFoodOrders() {
+        return foodOrders;
     }
     
     public Menu getMenu() {
@@ -92,6 +105,7 @@ public class Dish {
         Dish dish = (Dish) o;
         return Objects.equals(name, dish.name)
                 && Objects.equals(menu, dish.menu)
-                && Objects.equals(allergies, dish.allergies);
+                && Objects.equals(allergies, dish.allergies)
+                && Objects.equals(foodOrders, dish.foodOrders);
     }
 }

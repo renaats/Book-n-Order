@@ -9,10 +9,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import nl.tudelft.oopp.demo.entities.BuildingHours;
+import nl.tudelft.oopp.demo.entities.RestaurantHours;
 import nl.tudelft.oopp.demo.entities.Room;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -29,7 +32,6 @@ class JsonMapperTest {
         wireMockServer = new WireMockServer();
         wireMockServer.start();
         configureFor("localhost", 8080);
-
     }
 
     /**
@@ -50,7 +52,7 @@ class JsonMapperTest {
     }
 
     @Test
-    void buildingListMapper() {
+    void buildingListMapper() throws IOException {
         stubFor(get(urlEqualTo("/building/all"))
                 .willReturn(aResponse()
                         .withStatus(200)
@@ -73,12 +75,12 @@ class JsonMapperTest {
                 .willReturn(aResponse()
                         .withStatus(200)
                         .withBody("{\"id\":4,\"name\":\"432\",\"building\":{\"id\":1,\"name\":\"11\",\"street\":\"1\",\"houseNumber\":1},\"faculty\":"
-                                + "\"42342\",\"facultySpecific\":true,\"projector\":false,\"screen\":false,\"nrPeople\":4234,\"plugs\":42342}")));
+                                + "\"42342\",\"facultySpecific\":true,\"projector\":false,\"screen\":false,\"capacity\":4234,\"plugs\":42342}")));
         assertEquals(
                 JsonMapper
                         .roomMapper(
                                 "{\"id\":4,\"name\":\"432\",\"building\":{\"id\":1,\"name\":\"11\",\"street\":\"1\",\"houseNumber\":1},\"faculty\":"
-                                + "\"42342\",\"facultySpecific\":true,\"projector\":false,\"screen\":false,\"nrPeople\":4234,\"plugs\":42342}"),
+                                + "\"42342\",\"facultySpecific\":true,\"projector\":false,\"screen\":false,\"capacity\":4234,\"plugs\":42342}"),
                 JsonMapper.roomMapper((ServerCommunication.findRoom(4))));
     }
 
@@ -89,19 +91,52 @@ class JsonMapperTest {
                         .requireNonNull(JsonMapper
                                 .roomListMapper("[{\"id\":4,\"name\":\"432\","
                                         + "\"building\":{\"id\":1,\"name\":\"11\",\"street\":\"1\",\"houseNumber\":1},\"faculty\":\"42342\","
-                                        + "\"facultySpecific\":true,\"projector\":false,\"screen\":false,\"nrPeople\":4234,\"plugs\":42342},"
+                                        + "\"facultySpecific\":true,\"projector\":false,\"screen\":false,\"capacity\":4234,\"plugs\":42342},"
                                         + "{\"id\":5,\"name\":\"1\",\"building\":{\"id\":1,\"name\":\"11\",\"street\":\"1\",\"houseNumber\":1},"
                                         + "\"faculty\":\"1\",\"facultySpecific\":true,\"projector\":false,\"screen\":true,"
-                                        + "\"nrPeople\":1,\"plugs\":1}]\n")));
+                                        + "\"capacity\":1,\"plugs\":1}]\n")));
         stubFor(get(urlEqualTo("/room/all"))
                 .willReturn(aResponse()
                         .withStatus(200)
                         .withBody("[{\"id\":4,\"name\":\"432\",\"building\":{\"id\":1,\"name\":\"11\",\"street\":\"1\",\"houseNumber\":1}"
-                                + ",\"faculty\":\"42342\",\"facultySpecific\":true,\"projector\":false,\"screen\":false,\"nrPeople\":4234"
+                                + ",\"faculty\":\"42342\",\"facultySpecific\":true,\"projector\":false,\"screen\":false,\"capacity\":4234"
                                 + ","
                                 + "\"plugs\":42342},{\"id\":5,\"name\":\"1\",\"building\":{\"id\":1,\"name\":\"11\",\"street\":\"1\",\"houseNumber\":"
                                 + "1}"
-                                + ",\"faculty\":\"1\",\"facultySpecific\":true,\"projector\":false,\"screen\":true,\"nrPeople\":1,\"plugs\":1}]\n")));
+                                + ",\"faculty\":\"1\",\"facultySpecific\":true,\"projector\":false,\"screen\":true,\"capacity\":1,\"plugs\":1}]\n")));
         assertEquals(room, JsonMapper.roomListMapper(ServerCommunication.getRooms()));
+    }
+
+    @Test
+    void buildingHoursMapperTest() {
+        stubFor(get(urlEqualTo("/building_hours/find/1/1"))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withBody("{\"id\":3,\"day\":1,\"building\":{\"id\":1,\"name\":\"test\","
+                                + "\"street\":\"1\",\"houseNumber\":1},\"startTime\":\"00:16:40\",\"endTime\":\"00:33:20\"}")));
+        String json = "{\"id\":3,\"day\":1,\"building\":{\"id\":1,\"name\":\"test\""
+                + ",\"street\":\"1\",\"houseNumber\":1},\"startTime\":\"00:16:40\",\"endTime\":\"00:33:20\"}";
+
+        BuildingHours buildingHours = JsonMapper.buildingHoursMapper(json);
+
+        assertEquals(buildingHours, JsonMapper.buildingHoursMapper(ServerCommunication.findBuildingHours(1, 1)));
+    }
+
+    @Test
+    void restaurantHoursMapperTest() {
+        stubFor(get(urlEqualTo("/restaurant_hours/find/1/1"))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withBody("{\"id\":5,\"day\":1,\"restaurant\":{\"id\":4,\"building\":"
+                                + "{\"id\":1,\"name\":\"test\",\"street\":\"1\",\"houseNumber\":1},"
+                                + "\"name\":\"TestRestaurant\",\"menu\":null},\"startTime\":\"00:16:40\",\"endTime\":\"00:33:20\"}")));
+
+        String json = "{\"id\":5,\"day\":1,\"restaurant\":{\"id\":4,\"building\":{\"id\":1,\"name\":"
+                + "\"test\",\"street\":\"1\",\"houseNumber\":1},\"name\":\"TestRestaurant\","
+                + "\"menu\":null},\"startTime\":\"00:16:40\",\"endTime\":\"00:33:20\"}";
+
+        RestaurantHours restaurantHours = JsonMapper.restaurantHoursMapper(json);
+
+        assertEquals(restaurantHours, JsonMapper.restaurantHoursMapper(ServerCommunication.findRestaurantHours(1, 1)));
     }
 }

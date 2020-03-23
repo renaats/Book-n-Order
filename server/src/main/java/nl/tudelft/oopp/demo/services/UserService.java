@@ -10,11 +10,11 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.io.UnsupportedEncodingException;
-
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashSet;
 import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import nl.tudelft.oopp.demo.entities.AppUser;
@@ -40,6 +40,26 @@ public class UserService {
     private BCryptPasswordEncoder bcryptPasswordEncoder;
     @Autowired
     private RoleRepository roleRepository;
+
+    /**
+     * Finds the appUser for some Http request token.
+     * @param token = the token received in the request.
+     * @param userRepository = the userRepository where all user information is stored.
+     * @return an instance of AppUser, or null if no such AppUser exists.
+     */
+    public static AppUser getAppUser(String token, UserRepository userRepository) {
+        if (token != null) {
+            // parse the token.
+            String user = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
+                    .build()
+                    .verify(token.replace(TOKEN_PREFIX, ""))
+                    .getSubject();
+            if (user != null && userRepository.existsById(user)) {
+                return userRepository.findByEmail(user);
+            }
+        }
+        return null;
+    }
 
     /**
      * Logs out from the current account.
@@ -95,13 +115,8 @@ public class UserService {
      * @return String to see if your request passed
      */
     public int add(String email, String password, String name, String surname, String faculty) {
-        try {
-            if (!EmailValidator.getInstance().isValid(URLDecoder.decode(email, "UTF-8"))) {
-                return 423;
-            }
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            return 502;
+        if (!EmailValidator.getInstance().isValid(URLDecoder.decode(email, StandardCharsets.UTF_8))) {
+            return 423;
         }
         if (!email.contains("@student.tudelft.nl") && !email.contains("@tudelft.nl")) {
             return 424;
@@ -149,7 +164,7 @@ public class UserService {
 
         switch (attribute) {
             case "password":
-                appUser.setPassword(value);
+                appUser.setPassword(bcryptPasswordEncoder.encode(value));
                 break;
             case "name":
                 appUser.setName(value);
