@@ -130,6 +130,22 @@ public class ServerCommunication {
     }
 
     /**
+     * Retrieves a boolean value from the server, false = not activated, true = activated.
+     * @return the body of the response from the server.
+     */
+    public static boolean getAccountActivation() {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/user/activated")).build();
+        HttpResponse<String> response;
+        try {
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return response.body().contains("true");
+    }
+
+    /**
      * Registers a user.
      * @param email User's email
      * @param name User's name
@@ -144,12 +160,22 @@ public class ServerCommunication {
     }
 
     /**
+     * Validates the six digit code of the user.
+     * @param sixDigitCode The six digit code that the user inputs
+     * @return  The error message corresponding to the response of the server
+     */
+    public static String validateUser(int sixDigitCode) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/user/validate?sixDigitCode=" + sixDigitCode)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnErrorMessage(request);
+    }
+
+    /**
      * Authorizes the user.
      * @param email User's email
      * @param password User's password
      * @return the body of a get request to the server.
      */
-    public static String loginUser(String email, String password) {
+    public static String loginUser(String email, String password) throws IOException {
         try {
             URL url = new URL("http://localhost:8080/login");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -169,9 +195,12 @@ public class ServerCommunication {
             for (Map.Entry<String, List<String>> entry : map.entrySet()) {
                 if (entry.getKey() != null) {
                     if (entry.getKey().equals("Authorization")) {
-                        // Yes it's gross, it works, it grabs the key
                         AuthenticationKey.setBearerKey((Arrays.asList(entry.getValue().get(0).split(" ")).get(1)));
-                        ApplicationDisplay.changeScene("/mainMenu.fxml");
+                        if (!getAccountActivation()) {
+                            ApplicationDisplay.changeScene("/ConfirmationSixDigits.fxml");
+                        } else {
+                            ApplicationDisplay.changeScene("/mainMenu.fxml");
+                        }
                         return ErrorMessages.getErrorMessage(200);
                     }
                 }
