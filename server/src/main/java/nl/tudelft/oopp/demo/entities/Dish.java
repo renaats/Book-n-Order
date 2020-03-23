@@ -69,6 +69,7 @@ public class Dish {
 
     public void addAllergy(Allergy allergy) {
         allergies.add(allergy);
+    }
 
     public void setFoodOrders(Set<FoodOrder> foodOrders) {
         this.foodOrders = foodOrders;
