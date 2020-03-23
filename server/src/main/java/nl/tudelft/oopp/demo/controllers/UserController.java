@@ -98,6 +98,21 @@ public class UserController {
      * @param value = the new value of the attribute
      * @return an error code corresponding to the outcome of the request
      */
+
+    @PostMapping(path = "/changePassword")
+    @ResponseBody
+    public int changePassword(@RequestParam String email, @RequestParam String attribute, @RequestParam String value)
+            throws UnsupportedEncodingException {
+        return userService.update(email, attribute, value);
+    }
+
+    /**
+     * Updates a specified attribute for given user.
+     * @param email = the email address of the user.
+     * @param attribute = the attribute whose value is to be changed.
+     * @param value = the new value of the attribute.
+     * @return Error code
+     */
     @Secured("ROLE_ADMIN")
     @PostMapping(path = "/update")
     @ResponseBody
