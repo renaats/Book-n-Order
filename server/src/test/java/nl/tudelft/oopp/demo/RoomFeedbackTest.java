@@ -26,7 +26,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-
 /**
  * Tests the RoomFeedbackTest entity.
  */
@@ -83,7 +82,7 @@ public class RoomFeedbackTest {
     }
 
     @Test
-    public void saveAndRetrieveBikeReservation() {
+    public void saveAndRetrieveRoomFeedback() {
         feedback2 = roomFeedbackRepository.findAll().get(0);
         assertEquals(feedback, feedback2);
     }
@@ -101,7 +100,7 @@ public class RoomFeedbackTest {
     }
 
     @Test
-    public void testGetRoomReservation() {
+    public void testGetRoomFeedback() {
         feedback2 = roomFeedbackRepository.findAll().get(0);
         assertEquals(feedback.getRoomReservation(), feedback2.getRoomReservation());
     }
@@ -119,9 +118,8 @@ public class RoomFeedbackTest {
     }
 
     @Test
-    public void testEqualBikeReservations() {
+    public void testEqualRoomFeedback() {
         feedback2 = new RoomFeedback(appUser, appUser, roomReservation, new Date(10000000000L), "good");
-        assertEquals(feedback, feedback);
         assertNotSame(feedback, feedback2);
     }
 }

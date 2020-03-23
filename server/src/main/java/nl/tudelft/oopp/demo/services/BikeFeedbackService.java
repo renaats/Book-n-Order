@@ -3,12 +3,14 @@ package nl.tudelft.oopp.demo.services;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+
 import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.BikeFeedback;
 import nl.tudelft.oopp.demo.entities.BikeReservation;
 import nl.tudelft.oopp.demo.repositories.BikeFeedbackRepository;
 import nl.tudelft.oopp.demo.repositories.BikeReservationRepository;
 import nl.tudelft.oopp.demo.repositories.UserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +27,7 @@ public class BikeFeedbackService {
 
     /**
      * Adds a bike feedback.
-     * @return String to see if your request passed
+     * @return int to see if your request passed
      */
     public int add(String clientEmail, String recipientEmail, int reservationId, long time, String feedback) {
 
@@ -65,7 +67,7 @@ public class BikeFeedbackService {
      * @param id = the id of the bike reservation.
      * @param attribute = the attribute whose value is changed.
      * @param value = the new value of the attribute.
-     * @return String containing the result of your request.
+     * @return int containing the result of your request.
      */
     public int update(int id, String attribute, String value) {
         if (bikeFeedbackRepository.findById(id).isEmpty()) {
@@ -117,7 +119,7 @@ public class BikeFeedbackService {
     /**
      * Deletes a bike feedback.
      * @param id = the id of the bike feedback
-     * @return String to see if your request passed
+     * @return int to see if your request passed
      */
     public int delete(int id) {
         if (!bikeFeedbackRepository.existsById(id)) {

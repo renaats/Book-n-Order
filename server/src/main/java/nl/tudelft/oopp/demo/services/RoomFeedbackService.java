@@ -27,7 +27,7 @@ public class RoomFeedbackService {
 
     /**
      * Adds a room feedback.
-     * @return String to see if your request passed
+     * @return int to see if your request passed
      */
     public int add(String clientEmail, String recipientEmail, int reservationId, long time, String feedback) {
 
@@ -67,7 +67,7 @@ public class RoomFeedbackService {
      * @param id = the id of the bike reservation.
      * @param attribute = the attribute whose value is changed.
      * @param value = the new value of the attribute.
-     * @return String containing the result of your request.
+     * @return int containing the result of your request.
      */
     public int update(int id, String attribute, String value) {
         if (roomFeedbackRepository.findById(id).isEmpty()) {
@@ -119,7 +119,7 @@ public class RoomFeedbackService {
     /**
      * Deletes a room feedback.
      * @param id = the id of the room feedback
-     * @return String to see if your request passed
+     * @return int to see if your request passed
      */
     public int delete(int id) {
         if (!roomFeedbackRepository.existsById(id)) {

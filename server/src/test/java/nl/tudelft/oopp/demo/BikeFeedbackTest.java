@@ -90,7 +90,7 @@ public class BikeFeedbackTest {
     }
 
     @Test
-    public void saveAndRetrieveBikeReservation() {
+    public void saveAndRetrieveBikeFeedback() {
         feedback2 = bikeFeedbackRepository.findAll().get(0);
         assertEquals(feedback, feedback2);
     }
@@ -108,7 +108,7 @@ public class BikeFeedbackTest {
     }
 
     @Test
-    public void testGetRoomReservation() {
+    public void testGetBikeFeedback() {
         feedback2 = bikeFeedbackRepository.findAll().get(0);
         assertEquals(feedback.getBikeReservation(), feedback2.getBikeReservation());
     }
@@ -126,9 +126,8 @@ public class BikeFeedbackTest {
     }
 
     @Test
-    public void testEqualBikeReservations() {
+    public void testEqualBikeFeedback() {
         feedback2 = new BikeFeedback(appUser, appUser, bikeReservation, new Date(10000000000L), "good");
-        assertEquals(feedback, feedback);
         assertNotSame(feedback, feedback2);
     }
 }
