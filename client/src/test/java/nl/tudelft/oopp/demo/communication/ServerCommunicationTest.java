@@ -78,7 +78,6 @@ public class ServerCommunicationTest {
 
     /**
      * Tests the response when the getUser request is not authorized.
-     * @throws IOException - should not be a problem
      */
     @Test
     public void testUnauthorizedGetUser() {

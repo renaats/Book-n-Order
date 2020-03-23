@@ -31,7 +31,7 @@ public class OrderFoodController implements Initializable {
 
     /**
      * loads the content of the label depending on the restaurant
-     * and loads the times into the Comboboxes
+     * and loads the times into the ComboBoxes
      */
     public void loadData() {
         setLabel();
