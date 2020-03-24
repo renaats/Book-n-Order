@@ -31,6 +31,10 @@ public class BikeDatabaseEditController implements Initializable {
     final ObservableList<Building> locationsSearchResults = FXCollections.observableArrayList();
 
     @FXML
+    private ChoiceBox locationChangeChoiceBox;
+    @FXML
+    private CheckBox availableCheckbox;
+    @FXML
     private TextField BikeChangeToField;
     @FXML
     private TextField bikeDeleteByIdTextField;
@@ -120,7 +124,7 @@ public class BikeDatabaseEditController implements Initializable {
         table.setItems(bikeSearchResult);
     }
 
-    public void loadBikesIntoTableLocation() {
+    public void loadBikesIntoTableLocation() throws IOException {
         List<Building> locations = new ArrayList<>(Objects.requireNonNull(JsonMapper.buildingListMapper(ServerCommunication.getBuildings())));
         List<Bike> bikes = new ArrayList<>(Objects.requireNonNull(JsonMapper.bikeListMapper(ServerCommunication.getBikes())));
         locationsSearchResults.clear();
@@ -145,7 +149,7 @@ public class BikeDatabaseEditController implements Initializable {
         String a = "location";
         String b = "available";
         updateChoiceBoxList.addAll(a, b);
-        updateChoiceBox.getItems().addAll(updateChoiceBoxList);
+        //  updateChoiceBox.getItems().addAll(updateChoiceBoxList);
     }
 
 
@@ -195,13 +199,23 @@ public class BikeDatabaseEditController implements Initializable {
     }
 
     public void updateBikeAttribute() {
-        String attribute = updateChoiceBox.getValue();
         int id = bikeSearchResult.get(0).getId();
-        String value = BikeChangeToField.getText();
+        String ava;
+        if (availableCheckbox.isSelected()) {
+            ava = "true";
+        } else {
+            ava = "false";
+        }
+        if (locationChangeChoiceBox.getValue()!=null) {
+            System.out.println(locationChangeChoiceBox.getValue());
+            int buildingId;
+            String dirty = (String) locationChangeChoiceBox.getValue();
+            String clean= dirty.substring(dirty.length()-3,dirty.length()-1);
+            ServerCommunication.updateBike(id,"location",(String) locationChangeChoiceBox.getValue());
+        }
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Bike updater");
         alert.setHeaderText(null);
-        alert.setContentText(ServerCommunication.updateBike(id,attribute,value));
+        alert.setContentText(ServerCommunication.updateBike(id,"available",ava));
         alert.showAndWait();
         loadBikesIntoTable();
     }
@@ -222,17 +236,16 @@ public class BikeDatabaseEditController implements Initializable {
     /**
      * allows you to select the bike you wish to update in the table
      */
-    public void updateUsingTable() {
+    public void updateUsingTable() throws IOException {
         Bike bike = (Bike) table.getSelectionModel().getSelectedItem();
         bikeFindByIdTextField.setText(""+bike.getId());
         loadBikesIntoTableId();
-        String attribute = updateChoiceBox.getValue();
-        String value = BikeChangeToField.getText();
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Bike updater");
-        alert.setHeaderText(null);
-        alert.setContentText(ServerCommunication.updateBike(bike.getId(),attribute,value));
-        alert.showAndWait();
-        loadBikesIntoTable();
+        availableCheckbox.setSelected(bike.isAvailable());
+        List<Building> locations = new ArrayList<>(Objects.requireNonNull(JsonMapper.buildingListMapper(ServerCommunication.getBuildings())));
+        locationChangeChoiceBox.getItems().clear();
+        for (int i = 0; i<locations.size(); i++){
+            locationChangeChoiceBox.getItems().add(locations.get(i).getName()+" ("+locations.get(i).getId()+")");
+        }
+
     }
 }
