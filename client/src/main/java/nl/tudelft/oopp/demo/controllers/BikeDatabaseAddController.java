@@ -27,6 +27,9 @@ public class BikeDatabaseAddController implements Initializable {
     private boolean available;
     private List<Building> buildings = JsonMapper.buildingListMapper(ServerCommunication.getBuildings());
 
+    public BikeDatabaseAddController() throws IOException {
+    }
+
     /**
      * loads all the buildings of the database into the choice box as options for bike locations
      */
