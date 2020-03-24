@@ -31,7 +31,7 @@ public class BikeDatabaseAddController implements Initializable {
     /**
      * loads all the buildings of the database into the choice box as options for bike locations
      */
-    private void loadData() {
+    private void loadData() throws IOException {
         List<Building> buildings = JsonMapper.buildingListMapper(ServerCommunication.getBuildings());
         for (int i = 0; i < buildings.size(); i++) {
             locationsCheckBox.getItems().add(buildings.get(i).getName());
@@ -91,6 +91,10 @@ public class BikeDatabaseAddController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        loadData();
+        try {
+            loadData();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
