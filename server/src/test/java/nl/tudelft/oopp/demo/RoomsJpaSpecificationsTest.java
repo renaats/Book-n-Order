@@ -49,7 +49,7 @@ public class RoomsJpaSpecificationsTest {
         roomAlpha.setFaculty("EWI");
         roomAlpha.setFacultySpecific(true);
         roomAlpha.setName("Auditorium");
-        roomAlpha.setNrPeople(500);
+        roomAlpha.setCapacity(500);
         roomAlpha.setPlugs(0);
         roomAlpha.setProjector(true);
         roomAlpha.setScreen(true);
@@ -59,7 +59,7 @@ public class RoomsJpaSpecificationsTest {
         roomBeta.setFaculty("EWI");
         roomBeta.setFacultySpecific(true);
         roomBeta.setName("CZ A");
-        roomBeta.setNrPeople(250);
+        roomBeta.setCapacity(250);
         roomBeta.setPlugs(125);
         roomBeta.setProjector(true);
         roomBeta.setScreen(false);
@@ -88,7 +88,7 @@ public class RoomsJpaSpecificationsTest {
 
     @Test
     public void facultyAndSeats() {
-        RoomSpecification spec1 = new RoomSpecification(new SearchCriteria("nrPeople", ">", 250));
+        RoomSpecification spec1 = new RoomSpecification(new SearchCriteria("capacity", ">", 250));
         RoomSpecification spec2 = new RoomSpecification(new SearchCriteria("faculty", ":", "EWI"));
 
         List<Room> results = roomRepository.findAll(spec1.and(spec2));
@@ -100,7 +100,7 @@ public class RoomsJpaSpecificationsTest {
     @Test
     public void searchTest() {
         RoomSpecification spec1 = new RoomSpecification(new SearchCriteria("name", ":","Auditorium"));
-        RoomSpecification spec2 = new RoomSpecification(new SearchCriteria("nrPeople", ">","10"));
+        RoomSpecification spec2 = new RoomSpecification(new SearchCriteria("capacity", ">","10"));
 
         List<Room> results = roomRepository.findAll(spec1.and(spec2));
 

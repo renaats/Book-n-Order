@@ -39,7 +39,7 @@ public class Room {
     private Boolean facultySpecific;
     private Boolean projector;
     private Boolean screen;
-    private int nrPeople;
+    private int capacity;
     private int plugs;
 
     /**
@@ -198,5 +198,4 @@ public class Room {
                 && Objects.equals(faculty, room.faculty)
                 && Objects.equals(roomReservations, room.roomReservations);
     }
-
 }
