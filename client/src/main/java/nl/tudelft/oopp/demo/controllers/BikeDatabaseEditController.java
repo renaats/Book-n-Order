@@ -38,6 +38,8 @@ public class BikeDatabaseEditController implements Initializable {
     final ObservableList<Building> locationsSearchResults = FXCollections.observableArrayList();
 
     @FXML
+    private ChoiceBox locationChangeChoiceBoxSearch;
+    @FXML
     private ChoiceBox locationChangeChoiceBox;
     @FXML
     private CheckBox availableCheckbox;
@@ -93,7 +95,11 @@ public class BikeDatabaseEditController implements Initializable {
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colLocation.setCellValueFactory(new PropertyValueFactory<>("getBuildingName"));
         colAvailable.setCellValueFactory(new PropertyValueFactory<>("available"));
-        loadDataIntoChoiceBox();
+        try {
+            loadDataIntoChoiceBox();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         loadBikesIntoTable();
     }
 
@@ -105,10 +111,11 @@ public class BikeDatabaseEditController implements Initializable {
         bikeSearchResult.clear();
         bikeSearchResult.addAll(bikes);
         table.setItems(bikeSearchResult);
+
     }
 
     /**
-     * Laods the bikes into the table filtering by if they are available or not
+     * Loads the bikes into the table filtering by if they are available or not
      */
     public void loadBikesIntoTableAvailable() {
         List<Bike> bikes = new ArrayList<>(Objects.requireNonNull(JsonMapper.bikeListMapper(ServerCommunication.getBikes())));
@@ -142,7 +149,7 @@ public class BikeDatabaseEditController implements Initializable {
         List<Building> locations = new ArrayList<>(Objects.requireNonNull(JsonMapper.buildingListMapper(ServerCommunication.getBuildings())));
         locationsSearchResults.clear();
         for (int i = 0; i < locations.size(); i++) {
-            if (locations.get(i).getName().equals(locationSearch.getText())) {
+            if (locations.get(i).getName().equals((String) locationChangeChoiceBoxSearch.getValue())) {
                 locationsSearchResults.add(locations.get(i));
             }
         }
@@ -159,12 +166,14 @@ public class BikeDatabaseEditController implements Initializable {
     /**
      * Takes care of the options for the updateChoiceBox in the GUI
      */
-    public void loadDataIntoChoiceBox() {
-        updateChoiceBoxList.clear();
-        String a = "location";
-        String b = "available";
-        updateChoiceBoxList.addAll(a, b);
-        //  updateChoiceBox.getItems().addAll(updateChoiceBoxList);
+    public void loadDataIntoChoiceBox() throws IOException {
+        List<Building> locations = new ArrayList<>(Objects.requireNonNull(JsonMapper.buildingListMapper(ServerCommunication.getBuildings())));
+        locationsSearchResults.clear();
+        locationsSearchResults.addAll(locations);
+        for (int i = 0; i < locationsSearchResults.size(); i++) {
+            locationChangeChoiceBoxSearch.getItems().add(locations.get(i).getName());
+        }
+        locationsSearchResults.clear();
     }
 
 
