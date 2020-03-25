@@ -10,6 +10,7 @@ import nl.tudelft.oopp.demo.entities.Menu;
 import nl.tudelft.oopp.demo.repositories.DishRepository;
 import nl.tudelft.oopp.demo.repositories.MenuRepository;
 import nl.tudelft.oopp.demo.specifications.DishSpecificationsBuilder;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -76,6 +77,11 @@ public class DishService {
         return dishRepository.findById(id).orElse(null);
     }
 
+    /**
+     * Queries the dish repository based on input
+     * @param search String consisting of query parameters
+     * @return list of dishes that match the query
+     */
     public List<Dish> search(String search) {
         DishSpecificationsBuilder builder = new DishSpecificationsBuilder();
         Pattern pattern = Pattern.compile("(\\w+?)(:|<|>)(\\w+?),");

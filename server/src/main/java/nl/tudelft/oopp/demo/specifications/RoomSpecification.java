@@ -4,7 +4,12 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+
+import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Room;
+import nl.tudelft.oopp.demo.repositories.BuildingRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 
 /**
@@ -38,5 +43,4 @@ public class RoomSpecification implements Specification<Room> {
         }
         return null;
     }
-
 }

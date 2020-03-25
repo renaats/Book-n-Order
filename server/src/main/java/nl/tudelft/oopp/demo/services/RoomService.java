@@ -12,6 +12,7 @@ import nl.tudelft.oopp.demo.entities.RoomReservation;
 import nl.tudelft.oopp.demo.repositories.BuildingRepository;
 import nl.tudelft.oopp.demo.repositories.RoomRepository;
 import nl.tudelft.oopp.demo.specifications.RoomSpecificationsBuilder;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -162,7 +163,12 @@ public class RoomService {
         }
         return roomRepository.findById(id).get().getRoomReservations();
     }
-    
+
+    /**
+     * Queries the room repository based on input
+     * @param search String consisting of query parameters
+     * @return list of rooms that match the query
+     */
     public List<Room> search(String search) {
         RoomSpecificationsBuilder builder = new RoomSpecificationsBuilder();
         Pattern pattern = Pattern.compile("(\\w+?)(:|<|>)(\\w+?),");

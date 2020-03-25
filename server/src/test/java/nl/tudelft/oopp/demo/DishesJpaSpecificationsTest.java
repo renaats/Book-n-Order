@@ -20,6 +20,7 @@ import java.util.Set;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.in;
 import static org.hamcrest.Matchers.not;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @Transactional
@@ -40,26 +41,39 @@ public class DishesJpaSpecificationsTest {
      */
     @BeforeEach
     public void init() {
-        dish1 = new Dish();
-        dish1.setName("Tosti");
-        dish1.setMenu(menu);
+        menu = new Menu();
+        menuRepository.save(menu);
+
+        dish1 = new Dish("Tosti", menu);
         dishRepository.save(dish1);
 
-        dish2 = new Dish();
-        dish2.setName("Doner Kebab");
-        dish2.setMenu(menu);
+        dish2 = new Dish("Doner Kebab", menu);
         dishRepository.save(dish2);
     }
 
     @Test
     public void nameSearchTest() {
         DishSpecification spec = new DishSpecification(new SearchCriteria("name", ":", "Tosti"));
-
         List<Dish> results = dishRepository.findAll(spec);
         assertThat(dish1, in(results));
-        System.out.println(results.get(0).getName());
-        assertThat(dish2, not(in(results)));
+        assertEquals(dish1, results.get(0));
+    }
 
+    @Test
+    public void compoundSearch() {
+        DishSpecification spec = new DishSpecification(new SearchCriteria("name", ":", "Tosti"));
+        DishSpecification spec2 = new DishSpecification(new SearchCriteria("name", ":","Doner Kebab"));
+        List<Dish> results = dishRepository.findAll(spec.or(spec2));
+        assertThat(dish1, in(results));
+        assertThat(dish2, in(results));
+    }
+
+    @Test
+    public void nonexistentDishSearch() {
+        DishSpecification spec = new DishSpecification(new SearchCriteria("name", ":", "Vla"));
+        List<Dish> results = dishRepository.findAll(spec);
+        assertThat(dish1, not(in(results)));
+        assertEquals(0, results.size());
     }
 }
 
