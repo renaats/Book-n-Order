@@ -44,14 +44,14 @@
         </cursor>
     </ImageView>
     <TextField fx:id="locationSearch" layoutX="50.0" layoutY="238.0" promptText="Location" />
-    <TableView fx:id="table" layoutX="451.0" layoutY="157.0" prefHeight="420.0" prefWidth="562.0">
+    <TableView fx:id="table" layoutX="451.0" layoutY="157.0" prefHeight="564.0" prefWidth="562.0">
         <columns>
-            <TableColumn fx:id="colId" prefWidth="168.33331298828125" text="ID" />
-            <TableColumn fx:id="colLocation" prefWidth="219.00003051757812" text="Location" />
+            <TableColumn fx:id="colId" prefWidth="161.66665649414062" text="ID" />
+            <TableColumn fx:id="colLocation" prefWidth="226.33331298828125" text="Location" />
             <TableColumn fx:id="colAvailable" prefWidth="174.0" text="Available" />
         </columns>
     </TableView>
-    <Button fx:id="editByTable" layoutX="632.0" layoutY="594.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#updateUsingTable" style="-fx-background-color: #00a6d6;" text="Edit selected" textFill="WHITE">
+    <Button fx:id="editByTable" layoutX="632.0" layoutY="736.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#updateUsingTable" style="-fx-background-color: #00a6d6;" text="Edit selected" textFill="WHITE">
         <cursor>
             <Cursor fx:constant="HAND" />
         </cursor>
@@ -71,7 +71,7 @@
         <cursor>
             <Cursor fx:constant="HAND" />
         </cursor></Button>
-    <Button fx:id="confirmDeleteByIdButtonByTable" layoutX="632.0" layoutY="642.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#deleteBikeUsingTable" style="-fx-background-color: #00a6d6;" text="Delete Selected" textFill="WHITE">
+    <Button fx:id="confirmDeleteByIdButtonByTable" layoutX="632.0" layoutY="776.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#deleteBikeUsingTable" style="-fx-background-color: #00a6d6;" text="Delete Selected" textFill="WHITE">
         <cursor>
             <Cursor fx:constant="HAND" />
         </cursor>
