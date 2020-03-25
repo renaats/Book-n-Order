@@ -11,7 +11,13 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.DialogPane;
 import javafx.stage.StageStyle;
 
-import nl.tudelft.oopp.demo.entities.*;
+import nl.tudelft.oopp.demo.entities.AppUser;
+import nl.tudelft.oopp.demo.entities.Bike;
+import nl.tudelft.oopp.demo.entities.Building;
+import nl.tudelft.oopp.demo.entities.BuildingHours;
+import nl.tudelft.oopp.demo.entities.Restaurant;
+import nl.tudelft.oopp.demo.entities.RestaurantHours;
+import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.user.UserInformation;
 
 /**
