@@ -38,7 +38,6 @@ public class BikeDatabaseAddController implements Initializable {
     private ToggleButton availableToggle;
     @FXML
     private TextField number;
-
     private boolean available;
     private List<Building> buildings;
 
