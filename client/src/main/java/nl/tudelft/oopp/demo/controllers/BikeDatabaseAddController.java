@@ -10,8 +10,12 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.Building;
@@ -92,11 +96,11 @@ public class BikeDatabaseAddController implements Initializable {
     public void databaseAddBike() {
         int buildingId = -1;
         for (int i = 0; i < buildings.size(); i++) {
-            if (buildings.get(i).getName().equals(locationsCheckBox.getValue())){
+            if (buildings.get(i).getName().equals(locationsCheckBox.getValue())) {
                 buildingId = buildings.get(i).getId();
             }
         }
-        for (int i = 0; i<Integer.parseInt(number.getText()); i++){
+        for (int i = 0; i < Integer.parseInt(number.getText()); i++) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Bike adder");
             alert.setHeaderText(null);
