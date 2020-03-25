@@ -25,7 +25,7 @@
             <Cursor fx:constant="HAND" />
         </cursor>
     </ImageView>
-    <ImageView fx:id="goToBuildingMenuButton" fitHeight="26.0" fitWidth="41.0" layoutX="22.0" layoutY="119.0" onMouseClicked="#goToRestaurantsMenu" pickOnBounds="true" preserveRatio="true">
+    <ImageView fitHeight="26.0" fitWidth="41.0" layoutX="22.0" layoutY="119.0" onMouseClicked="#goToRestaurantsMenu" pickOnBounds="true" preserveRatio="true">
         <image>
             <Image url="@images/45332.png" />
         </image>
@@ -33,20 +33,19 @@
             <Cursor fx:constant="HAND" />
         </cursor>
     </ImageView>
-    <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="62.0" layoutY="119.0" onMouseClicked="#goToAddRestaurants" pickOnBounds="true" preserveRatio="true">
-        <image>
-            <Image url="@images/ko7djzvdIPehWkkQYeDHv7ZYArEETK3uclcEy1WmrEHakj5qfn1nysOSyuNxsI2FsTJGcKNFdQ-9TIGRXV3le_sG-lyGg6Lu2OpiVNdwOZw_Fw16XYOh.png" />
-        </image>
+    <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="62.0" layoutY="119.0" onMouseClicked="#goToAddRestaurants"
+               pickOnBounds="true" preserveRatio="true">
         <cursor>
-            <Cursor fx:constant="HAND" />
-        </cursor></ImageView>
-    <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="111.0" layoutY="119.0" onMouseClicked="#goToEditRestaurants" pickOnBounds="true" preserveRatio="true">
-        <image>
-            <Image url="@images/EditIcon.png" />
-        </image>
-        <cursor>
-            <Cursor fx:constant="HAND" />
+            <Cursor fx:constant="HAND"/>
         </cursor>
+        <Image url="@images/ko7djzvdIPehWkkQYeDHv7ZYArEETK3uclcEy1WmrEHakj5qfn1nysOSyuNxsI2FsTJGcKNFdQ-9TIGRXV3le_sG-lyGg6Lu2OpiVNdwOZw_Fw16XYOh.png"/>
+    </ImageView>
+    <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="111.0" layoutY="119.0" onMouseClicked="#goToEditRestaurants"
+               pickOnBounds="true" preserveRatio="true">
+        <cursor>
+            <Cursor fx:constant="HAND"/>
+        </cursor>
+        <Image url="@images/EditIcon.png"/>
     </ImageView>
     <Text fill="WHITE" layoutX="20.0" layoutY="555.576171875" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback is welcome" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0">
         <font>
@@ -60,7 +59,9 @@
     </Text>
     <Text layoutX="64.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add" />
     <Text layoutX="114.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit" />
-    <Text layoutX="548.0" layoutY="152.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Food Places" AnchorPane.leftAnchor="548.0">
+   <ChoiceBox fx:id="locationsCheckBox" layoutX="608.0" layoutY="326.0" prefWidth="150.0" />
+   <TextField fx:id="nameTextField" layoutX="609.0" layoutY="286.0" />
+    <Text layoutX="512.0" layoutY="305.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" AnchorPane.leftAnchor="512.0" AnchorPane.topAnchor="286.0">
         <font>
             <Font size="26.0" />
         </font>
