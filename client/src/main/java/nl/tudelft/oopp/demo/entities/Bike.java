@@ -1,13 +1,5 @@
 package nl.tudelft.oopp.demo.entities;
 
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-
-import java.util.Objects;
-
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-
 import java.util.Objects;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -55,6 +47,10 @@ public class Bike {
         return available;
     }
 
+    /**
+     * Gets the building name of the bike location
+     * @return the string with the name of the building that is the location
+     */
     public StringProperty getBuildingNameProperty() {
         String v = getLocation().getName();;
         StringProperty buildingNameProperty = new SimpleStringProperty(v);
