@@ -13,18 +13,9 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 import com.auth0.jwt.JWT;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
-import nl.tudelft.oopp.demo.entities.AppUser;
-import nl.tudelft.oopp.demo.entities.Building;
-import nl.tudelft.oopp.demo.entities.Dish;
-import nl.tudelft.oopp.demo.entities.FoodOrder;
-import nl.tudelft.oopp.demo.entities.Menu;
-import nl.tudelft.oopp.demo.entities.Restaurant;
+import nl.tudelft.oopp.demo.entities.*;
 import nl.tudelft.oopp.demo.repositories.BuildingRepository;
 import nl.tudelft.oopp.demo.repositories.DishRepository;
 import nl.tudelft.oopp.demo.repositories.MenuRepository;
@@ -273,7 +264,7 @@ public class FoodOrderServiceTest {
      */
     @Test
     public void testGetPastFoodOrders() {
-     /*   foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds, dishIds);
+        /*foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds, dishIds);
         MockHttpServletRequest request = new MockHttpServletRequest();
         String token = JWT.create()
                 .withSubject(appUser.getEmail())
@@ -291,6 +282,28 @@ public class FoodOrderServiceTest {
         foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds, dishIds);
         MockHttpServletRequest request = new MockHttpServletRequest();
         assertEquals(new ArrayList<>(), foodOrderService.past(request));
+    }
+
+    /**
+     * Tests the addition of a dish to a food order.
+     */
+    @Test
+    public void testAddDish() {
+        /*foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds, dishIds);
+        foodOrder = foodOrderService.all().get(0);
+        foodOrderService.addDish(foodOrder.getId(), "Tosti");
+        foodOrderService.addDish(foodOrder.getId(), "Hamburger");
+        Iterator<Dish> dishes = foodOrderService.find(foodOrder.getId()).getDishes().iterator();
+        String dish1 = dishes.next().getName();
+        String dish2 = dishes.next().getName();
+        String swap;
+        if (dish2.equals("Hamburger")) {
+            swap = dish2;
+            dish2 = dish1;
+            dish1 = swap;
+        }
+        assertEquals(dish1, "Hamburger");
+        assertEquals(dish2,"Tosti");*/
     }
 
     /**

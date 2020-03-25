@@ -17,7 +17,6 @@ import nl.tudelft.oopp.demo.entities.Dish;
 import nl.tudelft.oopp.demo.entities.Menu;
 import nl.tudelft.oopp.demo.entities.Restaurant;
 import nl.tudelft.oopp.demo.repositories.AllergyRepository;
-import nl.tudelft.oopp.demo.repositories.DishRepository;
 import nl.tudelft.oopp.demo.repositories.MenuRepository;
 import nl.tudelft.oopp.demo.services.DishService;
 import nl.tudelft.oopp.demo.services.MenuService;
@@ -60,9 +59,6 @@ public class DishServiceTest {
     @Autowired
     AllergyRepository allergyRepository;
 
-    @Autowired
-    DishRepository dishRepository;
-
     Menu menu1;
     Menu menu2;
     Dish dish;
@@ -92,11 +88,9 @@ public class DishServiceTest {
 
         dish = new Dish("Chicken", menu1);
         dish.setAllergies(allergySet);
-        //dishRepository.save(dish);
 
         dish2 = new Dish("Spicy Chicken", menu2);
         dish2.setAllergies(allergySet);
-        //dishRepository.save(dish2);
 
         dishes = new HashSet<>();
         dishes.add(dish);

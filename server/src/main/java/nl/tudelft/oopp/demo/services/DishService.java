@@ -61,7 +61,6 @@ public class DishService {
             return 416;
         }
         Dish dish = dishRepository.findById(id).get();
-
         switch (attribute) {
             case "name":
                 dish.setName(value);
