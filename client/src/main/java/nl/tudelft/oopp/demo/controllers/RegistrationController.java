@@ -10,10 +10,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextField;
+import javafx.stage.StageStyle;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
+/**
+ * Loads the correct content into the FXML objects that need to display server information and
+ * controls all the user inputs made through the GUI in the "registrationScene.fxml" file
+ */
 public class RegistrationController implements Initializable {
 
     private final ObservableList<String> facultyList = FXCollections.observableArrayList();
@@ -44,24 +50,31 @@ public class RegistrationController implements Initializable {
             String faculty = facultyChoiceBox.getValue().replaceAll(" ", "");
             if (password.equals(password2)) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Registration");
+                alert.setTitle(null);
                 alert.setHeaderText(null);
                 alert.setContentText(ServerCommunication.addUser(email, name, surname, faculty, password));
+                alert.initStyle(StageStyle.UNDECORATED);
+                DialogPane dialogPane = alert.getDialogPane();
+                dialogPane.getStylesheets().add(getClass().getResource("/alertInformation.css").toExternalForm());
                 alert.showAndWait();
             } else {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Registration");
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle(null);
                 alert.setHeaderText(null);
-                alert.setContentText("The passwords you inputted are not the same, "
-                        + "please check that you are inputting the same password twice and retry.");
+                alert.setContentText("Passwords do not match.");
+                alert.initStyle(StageStyle.UNDECORATED);
+                DialogPane dialogPane = alert.getDialogPane();
+                dialogPane.getStylesheets().add(getClass().getResource("/alertWarning.css").toExternalForm());
                 alert.showAndWait();
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle(null);
             alert.setHeaderText(null);
-            alert.setContentText("Missing argument.");
+            alert.setContentText("Missing fields.");
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/alertWarning.css").toExternalForm());
             alert.showAndWait();
         }
     }
@@ -87,7 +100,7 @@ public class RegistrationController implements Initializable {
         facultyList.clear();
         String a = "Architecture and the build Environment";
         String b = "Civil Engineering and Geosciences";
-        String c = "Eletrical Engineering, Mathematics & Computer Science";
+        String c = "Electrical Engineering, Mathematics & Computer Science";
         String d = "Industrial Design Engineering";
         String e = "Aerospace Engineering";
         String f = "Technology, Policy and Management";

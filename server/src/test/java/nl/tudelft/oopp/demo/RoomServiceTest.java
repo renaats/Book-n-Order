@@ -79,7 +79,7 @@ public class RoomServiceTest {
         room.setFacultySpecific(false);
         room.setScreen(true);
         room.setProjector(true);
-        room.setNrPeople(200);
+        room.setCapacity(200);
         room.setPlugs(200);
 
         room2 = new Room();
@@ -89,7 +89,7 @@ public class RoomServiceTest {
         room2.setFacultySpecific(false);
         room2.setScreen(true);
         room2.setProjector(true);
-        room2.setNrPeople(200);
+        room2.setCapacity(200);
         room2.setPlugs(200);
     }
 
@@ -233,9 +233,9 @@ public class RoomServiceTest {
     public void testChangeCapacity() {
         roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200);
         int id = roomService.all().get(0).getId();
-        assertNotEquals(400, roomService.all().get(0).getNrPeople());
+        assertNotEquals(400, roomService.all().get(0).getCapacity());
         roomService.update(id, "amountofpeople", "400");
-        assertEquals(400, roomService.all().get(0).getNrPeople());
+        assertEquals(400, roomService.all().get(0).getCapacity());
     }
 
     /**

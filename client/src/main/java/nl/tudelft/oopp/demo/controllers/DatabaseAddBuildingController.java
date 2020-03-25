@@ -1,16 +1,18 @@
 package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
-import javafx.event.ActionEvent;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
+import javafx.stage.StageStyle;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
- * Takes care of the functionality of the DataBaseAddBuilding.fxml file
+ * Loads the correct content into the FXML objects that need to display server information and
+ * controls all the user inputs made through the GUI in the "DatabaseAddBuildings.fxml" file
  */
 public class DatabaseAddBuildingController {
 
@@ -51,14 +53,67 @@ public class DatabaseAddBuildingController {
      * Adds building to the database
      */
     public void databaseAddBuilding() {
-        String name = nameTextField.getText();
-        String street = streetTextField.getText();
-        int houseNumber = Integer.parseInt(houseNumberTextField.getText());
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Building adder");
-        alert.setHeaderText(null);
-        alert.setContentText(ServerCommunication.addBuilding(name, street, houseNumber));
-        alert.showAndWait();
+        String name = null;
+        String street = null;
+        // -1 is a placeholder since you cannot initialize an empty integer.
+        int houseNumber = -1;
+        try {
+            name = nameTextField.getText();
+            street = streetTextField.getText();
+            if (name.equals("") || street.equals("")) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle(null);
+                alert.setHeaderText(null);
+                alert.setContentText("Missing attributes.");
+                alert.initStyle(StageStyle.UNDECORATED);
+                DialogPane dialogPane = alert.getDialogPane();
+                dialogPane.getStylesheets().add(getClass().getResource("/alertWarning.css").toExternalForm());
+                alert.showAndWait();
+                return;
+            }
+            try {
+                houseNumber = Integer.parseInt(houseNumberTextField.getText());
+            } catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle(null);
+                alert.setHeaderText(null);
+                alert.setContentText("Not an integer.");
+                alert.initStyle(StageStyle.UNDECORATED);
+                DialogPane dialogPane = alert.getDialogPane();
+                dialogPane.getStylesheets().add(getClass().getResource("/alertError.css").toExternalForm());
+                alert.showAndWait();
+                return;
+            }
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle(null);
+            alert.setHeaderText(null);
+            alert.setContentText("Could not parse attributes.");
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/alertError.css").toExternalForm());
+            alert.showAndWait();
+        }
+        String response = ServerCommunication.addBuilding(name, street, houseNumber);
+        if (response.equals("Successfully added!")) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle(null);
+            alert.setHeaderText(null);
+            alert.setContentText(response);
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/alertInformation.css").toExternalForm());
+            alert.showAndWait();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle(null);
+            alert.setHeaderText(null);
+            alert.setContentText(response);
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/alertError.css").toExternalForm());
+            alert.showAndWait();
+        }
     }
 
     /**

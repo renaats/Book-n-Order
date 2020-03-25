@@ -45,7 +45,6 @@ public class MenuTest {
     Dish dish;
     Dish dish2;
     Set<Dish> dishes;
-    Set<Dish> dishes1;
 
     /**
      * Sets up the entities and saves them in the repository before executing every test.

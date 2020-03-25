@@ -45,7 +45,7 @@ public class RoomController {
      * @param facultySpecific = boolean representing room restrictions.
      * @param screen = boolean representing the availability of a screen.
      * @param projector = boolean representing the availability of a projector.
-     * @param nrPeople = the number of people this room fits.
+     * @param capacity = the number of people this room fits.
      * @param plugs = the number of plugs in this room.
      * @return Error code
      */
@@ -59,9 +59,9 @@ public class RoomController {
             @RequestParam boolean screen,
             @RequestParam boolean projector,
             @RequestParam int buildingId,
-            @RequestParam int nrPeople,
+            @RequestParam int capacity,
             @RequestParam int plugs) {
-        return roomService.add(name, faculty, facultySpecific, screen, projector, buildingId, nrPeople, plugs);
+        return roomService.add(name, faculty, facultySpecific, screen, projector, buildingId, capacity, plugs);
     }
 
     /**

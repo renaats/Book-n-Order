@@ -10,20 +10,22 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.io.UnsupportedEncodingException;
-
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashSet;
 import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.Role;
+import nl.tudelft.oopp.demo.events.OnRegistrationSuccessEvent;
 import nl.tudelft.oopp.demo.repositories.RoleRepository;
 import nl.tudelft.oopp.demo.repositories.UserRepository;
 
 import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -40,6 +42,28 @@ public class UserService {
     private BCryptPasswordEncoder bcryptPasswordEncoder;
     @Autowired
     private RoleRepository roleRepository;
+    @Autowired
+    private ApplicationEventPublisher eventPublisher;
+
+    /**
+     * Finds the appUser for some Http request token.
+     * @param token = the token received in the request.
+     * @param userRepository = the userRepository where all user information is stored.
+     * @return an instance of AppUser, or null if no such AppUser exists.
+     */
+    public static AppUser getAppUser(String token, UserRepository userRepository) {
+        if (token != null) {
+            // parse the token.
+            String user = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
+                    .build()
+                    .verify(token.replace(TOKEN_PREFIX, ""))
+                    .getSubject();
+            if (user != null && userRepository.existsById(user)) {
+                return userRepository.findByEmail(user);
+            }
+        }
+        return null;
+    }
 
     /**
      * Logs out from the current account.
@@ -95,13 +119,8 @@ public class UserService {
      * @return String to see if your request passed
      */
     public int add(String email, String password, String name, String surname, String faculty) {
-        try {
-            if (!EmailValidator.getInstance().isValid(URLDecoder.decode(email, "UTF-8"))) {
-                return 423;
-            }
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            return 502;
+        if (!EmailValidator.getInstance().isValid(URLDecoder.decode(email, StandardCharsets.UTF_8))) {
+            return 423;
         }
         if (!email.contains("@student.tudelft.nl") && !email.contains("@tudelft.nl")) {
             return 424;
@@ -131,7 +150,40 @@ public class UserService {
             appUser.addRole(roleRepository.findByName("ROLE_STAFF"));
         }
         userRepository.save(appUser);
-        return 201;
+        try {
+            eventPublisher.publishEvent(new OnRegistrationSuccessEvent(appUser));
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Event did not go as expected.");
+        }
+        return 203;
+    }
+
+    /**
+     * Checks whether the input of the user is equal to the one sent in the email.
+     * @param request The request, which validates the six digit code
+     * @param sixDigitCode User's six digit input
+     * @return  An error code corresponding outcome of the request
+     */
+    public int validate(HttpServletRequest request, int sixDigitCode) {
+        String token = request.getHeader(HEADER_STRING);
+        if (token != null) {
+            // parse the token.
+            String user = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
+                    .build()
+                    .verify(token.replace(TOKEN_PREFIX, ""))
+                    .getSubject();
+            if (user != null && userRepository.existsById(user)) {
+                AppUser appUser = userRepository.findByEmail(user);
+                if (sixDigitCode == appUser.getConfirmationNumber()) {
+                    appUser.setConfirmationNumber(-1);
+                    userRepository.save(appUser);
+                    return 200;
+                }
+                return 431;
+            }
+        }
+        return 419;
     }
 
     /**
@@ -149,7 +201,7 @@ public class UserService {
 
         switch (attribute) {
             case "password":
-                appUser.setPassword(value);
+                appUser.setPassword(bcryptPasswordEncoder.encode(value));
                 break;
             case "name":
                 appUser.setName(value);
@@ -240,6 +292,26 @@ public class UserService {
                         || appUser.getRoles().contains(roleRepository.findByName("ROLE_BUILDING_ADMIN"))
                         || appUser.getRoles().contains(roleRepository.findByName("ROLE_BIKE_ADMIN"))
                         || appUser.getRoles().contains(roleRepository.findByName("ROLE_RESTAURANT"));
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Retrieves a boolean value representing whether the user account is activated.
+     * @param request = the Http request that calls this method.
+     */
+    public boolean isActivated(HttpServletRequest request) {
+        String token = request.getHeader(HEADER_STRING);
+        if (token != null) {
+            // parse the token.
+            String user = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
+                    .build()
+                    .verify(token.replace(TOKEN_PREFIX, ""))
+                    .getSubject();
+            if (user != null && userRepository.existsById(user)) {
+                AppUser appUser = userRepository.findByEmail(user);
+                return appUser.getConfirmationNumber() < 0;
             }
         }
         return false;

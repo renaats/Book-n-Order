@@ -36,7 +36,7 @@ public class RoomService {
      * @param screen = boolean representing the availability of a screen
      * @param projector = boolean representing the availability of a projector
      * @param buildingId = the id of the building of the room
-     * @param nrPeople = the number of people this room fits
+     * @param capacity = the number of people this room fits
      * @param plugs = the number of plugs in this room
      * @return Error code
      */
@@ -46,7 +46,7 @@ public class RoomService {
                    boolean screen,
                    boolean projector,
                    int buildingId,
-                   int nrPeople,
+                   int capacity,
                    int plugs) {
         Optional<Building> optionalBuilding = buildingRepository.findById(buildingId);
         if (optionalBuilding.isEmpty()) {
@@ -64,7 +64,7 @@ public class RoomService {
         room.setFacultySpecific(facultySpecific);
         room.setScreen(screen);
         room.setProjector(projector);
-        room.setNrPeople(nrPeople);
+        room.setCapacity(capacity);
         room.setPlugs(plugs);
         roomRepository.save(room);
         return 201;
@@ -109,7 +109,7 @@ public class RoomService {
                 room.setBuilding(building);
                 break;
             case "amountofpeople":
-                room.setNrPeople(Integer.parseInt(value));
+                room.setCapacity(Integer.parseInt(value));
                 break;
             case "plugs":
                 room.setPlugs(Integer.parseInt(value));

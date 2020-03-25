@@ -1,10 +1,14 @@
 package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
-import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
+import javafx.scene.control.DialogPane;
+
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
+/**
+ * Manages the user input from the ForgotPassword View
+ */
 public class ForgotPasswordController {
     /**
      * Goes back to the login screen
@@ -19,9 +23,11 @@ public class ForgotPasswordController {
      */
     public void sendEmail() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Password reset");
+        alert.setTitle(null);
         alert.setHeaderText(null);
         alert.setContentText("You will shortly receive an email to recover your account!");
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(getClass().getResource("/alertInformation.css").toExternalForm());
         alert.showAndWait();
     }
 }

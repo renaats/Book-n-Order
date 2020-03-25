@@ -100,7 +100,7 @@ class UserServiceTest {
     @Test
     public void testCreate() {
         roleRepository.save(role);
-        assertEquals(201, userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty()));
+        assertEquals(203, userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty()));
         userService.find(appUser.getEmail()).setRoles(roleSet);
         assertEquals(Collections.singletonList(appUser), userService.all());
     }
@@ -110,7 +110,7 @@ class UserServiceTest {
      */
     @Test
     public void testCreateInvalidEmail() {
-        assertEquals(423, userService.add("notavalidemail", "1111", "name","surname","faculty"));
+        assertEquals(423, userService.add("notValidEmail", "1111", "name","surname","faculty"));
     }
 
     /**
@@ -126,7 +126,7 @@ class UserServiceTest {
      */
     @Test
     public void testCreateDuplicateAccount() {
-        assertEquals(201, userService.add(appUser.getEmail(), "1111", "name","surname","faculty"));
+        assertEquals(203, userService.add(appUser.getEmail(), "1111", "name","surname","faculty"));
         assertEquals(310, userService.add(appUser.getEmail(), "1111", "name","surname","faculty"));
     }
 
@@ -197,9 +197,10 @@ class UserServiceTest {
     public void testChangePassword() {
         userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty());
         String email = userService.all().get(0).getEmail();
-        assertNotEquals("abc", userService.all().get(0).getPassword());
+        String password = userService.all().get(0).getPassword();
+        assertEquals(password, userService.all().get(0).getPassword());
         userService.update(email, "password", "abc");
-        assertEquals("abc", userService.all().get(0).getPassword());
+        assertNotEquals(password, userService.all().get(0).getPassword());
     }
 
     /**
@@ -212,6 +213,45 @@ class UserServiceTest {
         assertNotEquals("3M", userService.all().get(0).getFaculty());
         userService.update(email, "faculty", "3M");
         assertEquals("3M", userService.all().get(0).getFaculty());
+    }
+
+    /**
+     * Tests the successful validation of the user.
+     */
+    @Test
+    public void testSuccessfulValidation() {
+        userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty());
+        int number = userService.find(appUser.getEmail()).getConfirmationNumber();
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        String token = JWT.create()
+                .withSubject(appUser.getEmail())
+                .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                .sign(HMAC512(SECRET.getBytes()));
+        request.addHeader(HEADER_STRING, token);
+        assertEquals(200, userService.validate(request, number));
+    }
+
+    /**
+     * Tests the failure of validation with wrong email or wrong sixDigitCode.
+     */
+    @Test
+    public void testUnsuccessfulValidation() {
+        userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty());
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        String token = JWT.create()
+                .withSubject(appUser.getEmail())
+                .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                .sign(HMAC512(SECRET.getBytes()));
+        request.addHeader(HEADER_STRING, token);
+        assertEquals(431, userService.validate(request, 12345));
+        MockHttpServletRequest request2 = new MockHttpServletRequest();
+        token = JWT.create()
+                .withSubject("NotAnEmailOfARealUser@tudelft.nl")
+                .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                .sign(HMAC512(SECRET.getBytes()));
+        request2.addHeader(HEADER_STRING, token);
+        int number = userService.find(appUser.getEmail()).getConfirmationNumber();
+        assertEquals(419, userService.validate(request2, number));
     }
 
     /**
@@ -337,5 +377,33 @@ class UserServiceTest {
         userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty());
         MockHttpServletRequest request = new MockHttpServletRequest();
         assertFalse(userService.isAdmin(request));
+    }
+
+    /**
+     * Tests the activation request for some user with and without an activated account.
+     */
+    @Test
+    public void testActivation() {
+        userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty());
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        String token = JWT.create()
+                .withSubject(appUser.getEmail())
+                .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                .sign(HMAC512(SECRET.getBytes()));
+        request.addHeader(HEADER_STRING, token);
+        int number = userService.find(appUser.getEmail()).getConfirmationNumber();
+        assertFalse(userService.isActivated(request));
+        userService.validate(request, number);
+        assertTrue(userService.isActivated(request));
+    }
+
+    /**
+     * Tests the activation request for a non-existent user.
+     */
+    @Test
+    public void testNonExistentActivation() {
+        userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty());
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        assertFalse(userService.isActivated(request));
     }
 }

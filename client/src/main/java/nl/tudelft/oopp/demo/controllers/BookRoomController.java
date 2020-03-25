@@ -8,17 +8,21 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.StageStyle;
 
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
- * This class controls the functionality of the different buttons in bike reservations and creates the entries in the choice boxes
+ * Loads the correct content into the FXML objects that need to display server information and
+ * controls all the user inputs made through the GUI in the "bookRoom.fxml" file
  */
 public class BookRoomController implements Initializable {
 
@@ -26,12 +30,12 @@ public class BookRoomController implements Initializable {
     final ObservableList<String> listOfTimeSlots = FXCollections.observableArrayList();
     final ObservableList<String> listOfBuildings = FXCollections.observableArrayList();
 
-    public class Search {
-        private boolean screen;
-        private boolean beamer;
-        private int capacity;
-        private String building;
-        private int nuOfPlugs;
+    public static class Search {
+        private final boolean screen;
+        private final boolean beamer;
+        private final int capacity;
+        private final String building;
+        private final int nuOfPlugs;
 
         /**
          * constructor for the search object
@@ -75,26 +79,35 @@ public class BookRoomController implements Initializable {
      */
     public Search applyFilters() {
         if (building.getValue() == null) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Authenticator");
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle(null);
             alert.setHeaderText(null);
-            alert.setContentText("Please select a building");
+            alert.setContentText("Please select a building.");
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/alertWarning.css").toExternalForm());
             alert.showAndWait();
             return null;
         }
         if (capacity.getCharacters() == null) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Authenticator");
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle(null);
             alert.setHeaderText(null);
-            alert.setContentText("Please select a capacity");
+            alert.setContentText("Please select a maximum capacity.");
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/alertWarning.css").toExternalForm());
             alert.showAndWait();
             return null;
         }
         if (nuOfPlugs.getCharacters() == null) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Authenticator");
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle(null);
             alert.setHeaderText(null);
-            alert.setContentText("Please select a number of plugs");
+            alert.setContentText("Please select the amount of plugs.");
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/alertWarning.css").toExternalForm());
             alert.showAndWait();
             return null;
         }
@@ -112,20 +125,19 @@ public class BookRoomController implements Initializable {
         int intPlugs;
         String stringPlugs = (String) nuOfPlugs.getCharacters();
         intPlugs = Integer.parseInt(stringPlugs);
-        Search search = new Search(isScreen, isBeamer, intCapacity, building.getValue(), intPlugs);
-        return search;
+        return new Search(isScreen, isBeamer, intCapacity, building.getValue(), intPlugs);
     }
 
     /**
      * return to the reservations menu when the back arrow button is clicked.
-     * @throws IOException the input will allways be the same, so it should never throw an IO exception
+     * @throws IOException the input will always be the same, so it should never throw an IO exception
      */
     public void goToMainMenuReservations() throws IOException {
         ApplicationDisplay.changeScene("/mainMenuReservations.fxml");
     }
     /**
      * return to the reservations menu when the back arrow button is clicked.
-     * @throws IOException the input will allways be the same, so it should never throw an IO exception
+     * @throws IOException the input will always be the same, so it should never throw an IO exception
      */
 
     public void goToRoomConfirmation() throws IOException {

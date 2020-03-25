@@ -3,6 +3,9 @@ package nl.tudelft.oopp.demo.entities;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Manages the Menu object that is retrieved from the server
+ */
 public class Menu {
 
     private int id;
