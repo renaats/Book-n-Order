@@ -15,13 +15,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.http.Fault;
 
+import java.io.IOException;
+
 import nl.tudelft.oopp.demo.errors.ErrorMessages;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.io.IOException;
 
 /**
  * Tests the ServerCommunication class by using a mock server to simulate client to server communication.
