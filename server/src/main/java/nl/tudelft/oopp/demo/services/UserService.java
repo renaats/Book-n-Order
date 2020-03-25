@@ -72,20 +72,13 @@ public class UserService {
      */
     public int logout(HttpServletRequest request) {
         String token = request.getHeader(HEADER_STRING);
-        if (token != null) {
-            // parse the token.
-            String user = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
-                    .build()
-                    .verify(token.replace(TOKEN_PREFIX, ""))
-                    .getSubject();
-            if (user != null && userRepository.existsById(user)) {
-                AppUser appUser = userRepository.findByEmail(user);
-                appUser.setLoggedIn(false);
-                userRepository.save(appUser);
-                return 201;
-            }
+        AppUser appUser = getAppUser(token, userRepository);
+        if (appUser == null) {
+            return 419;
         }
-        return 419;
+        appUser.setLoggedIn(false);
+        userRepository.save(appUser);
+        return 201;
     }
 
     /**
@@ -95,19 +88,12 @@ public class UserService {
      */
     public String userInfo(HttpServletRequest request) {
         String token = request.getHeader(HEADER_STRING);
-        if (token != null) {
-            // parse the token.
-            String user = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
-                    .build()
-                    .verify(token.replace(TOKEN_PREFIX, ""))
-                    .getSubject();
-            if (user != null && userRepository.existsById(user)) {
-                AppUser appUser = userRepository.findByEmail(user);
-                Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-                return gson.toJson(appUser);
-            }
+        AppUser appUser = getAppUser(token, userRepository);
+        if (appUser == null) {
+            return null;
         }
-        return null;
+        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+        return gson.toJson(appUser);
     }
 
     /**
@@ -168,23 +154,16 @@ public class UserService {
      */
     public int validate(HttpServletRequest request, int sixDigitCode) {
         String token = request.getHeader(HEADER_STRING);
-        if (token != null) {
-            // parse the token.
-            String user = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
-                    .build()
-                    .verify(token.replace(TOKEN_PREFIX, ""))
-                    .getSubject();
-            if (user != null && userRepository.existsById(user)) {
-                AppUser appUser = userRepository.findByEmail(user);
-                if (sixDigitCode == appUser.getConfirmationNumber()) {
-                    appUser.setConfirmationNumber(-1);
-                    userRepository.save(appUser);
-                    return 200;
-                }
-                return 431;
-            }
+        AppUser appUser = getAppUser(token, userRepository);
+        if (appUser == null) {
+            return 419;
         }
-        return 419;
+        if (sixDigitCode == appUser.getConfirmationNumber()) {
+            appUser.setConfirmationNumber(-1);
+            userRepository.save(appUser);
+            return 200;
+        }
+        return 431;
     }
 
     /**
@@ -283,21 +262,14 @@ public class UserService {
      */
     public boolean isAdmin(HttpServletRequest request) {
         String token = request.getHeader(HEADER_STRING);
-        if (token != null) {
-            // parse the token.
-            String user = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
-                    .build()
-                    .verify(token.replace(TOKEN_PREFIX, ""))
-                    .getSubject();
-            if (user != null && userRepository.existsById(user)) {
-                AppUser appUser = userRepository.findByEmail(user);
-                return appUser.getRoles().contains(roleRepository.findByName("ROLE_ADMIN"))
-                        || appUser.getRoles().contains(roleRepository.findByName("ROLE_BUILDING_ADMIN"))
-                        || appUser.getRoles().contains(roleRepository.findByName("ROLE_BIKE_ADMIN"))
-                        || appUser.getRoles().contains(roleRepository.findByName("ROLE_RESTAURANT"));
-            }
+        AppUser appUser = getAppUser(token, userRepository);
+        if (appUser == null) {
+            return false;
         }
-        return false;
+        return appUser.getRoles().contains(roleRepository.findByName("ROLE_ADMIN"))
+                || appUser.getRoles().contains(roleRepository.findByName("ROLE_BUILDING_ADMIN"))
+                || appUser.getRoles().contains(roleRepository.findByName("ROLE_BIKE_ADMIN"))
+                || appUser.getRoles().contains(roleRepository.findByName("ROLE_RESTAURANT"));
     }
 
     /**
@@ -307,16 +279,12 @@ public class UserService {
      */
     public boolean isActivated(HttpServletRequest request) {
         String token = request.getHeader(HEADER_STRING);
-        if (token != null) {
-            // parse the token.
-            String user = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
-                    .build()
-                    .verify(token.replace(TOKEN_PREFIX, ""))
-                    .getSubject();
-            if (user != null && userRepository.existsById(user)) {
-                AppUser appUser = userRepository.findByEmail(user);
-                return appUser.getConfirmationNumber() < 0;
-            }
+        AppUser appUser = getAppUser(token, userRepository);
+        if (appUser == null) {
+            return false;
+        }
+        return appUser.getConfirmationNumber() < 0;
+    }
         }
         return false;
     }
