@@ -24,10 +24,14 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 public class BikeDatabaseAddController implements Initializable {
 
-    public ChoiceBox locationsCheckBox;
-    public Button addButton;
-    public ToggleButton availableToggle;
-    public TextField number;
+    @FXML
+    private ChoiceBox locationsCheckBox;
+    @FXML
+    private Button addButton;
+    @FXML
+    private ToggleButton availableToggle;
+    @FXML
+    private TextField number;
     private boolean available;
     private List<Building> buildings = JsonMapper.buildingListMapper(ServerCommunication.getBuildings());
 
