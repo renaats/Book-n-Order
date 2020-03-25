@@ -181,17 +181,33 @@ public class BikeDatabaseEditController implements Initializable {
             ava = "false";
         }
         if (locationChangeChoiceBox.getValue()!=null) {
-            System.out.println(locationChangeChoiceBox.getValue());
-            int buildingId;
-            String dirty = (String) locationChangeChoiceBox.getValue();
-            String clean= dirty.substring(dirty.length()-3,dirty.length()-1);
-            ServerCommunication.updateBike(id,"location",(String) locationChangeChoiceBox.getValue());
+            int buildingId = nameGetId((String) locationChangeChoiceBox.getValue());
+            System.out.println("building ID = ." + buildingId+".");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText(null);
+            alert.setContentText(ServerCommunication.updateBike(id,"location", ""+buildingId));
+            alert.showAndWait();
+            loadBikesIntoTable();
         }
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText(null);
         alert.setContentText(ServerCommunication.updateBike(id,"available",ava));
         alert.showAndWait();
         loadBikesIntoTable();
+    }
+
+    /**
+     * gets the ID out od the string of form "name (ID)"
+     * @param value the name of the given form
+     * @return the ID present in the initial string
+     */
+    private int nameGetId(String value) {
+        value = value.replaceAll("\\D+", "");
+        value= value.trim();
+        if (value.equals("")){
+            return -1;
+        }
+        return Integer.parseInt(value);
     }
 
     /**
