@@ -691,8 +691,31 @@ public class ServerCommunication {
     }
 
     /**
-     * Finds all future and current bike reservations for the user that sends the request
-     * @return response.body of the server
+     * Adds a restaurant to the database.
+     * @param buildingId the ID of the building where the restaurant is located restaurant.
+     * @param name the name of the restaurant.
+     * @return the body of the response from the server.
+     */
+    public static String addRestaurant(int buildingId, String name) {
+        HttpRequest request;
+        request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant/add?name=" + URLEncoder.encode(name, StandardCharsets.UTF_8) + "&=buildingId" + buildingId)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnErrorMessage(request);
+    }
+
+    /**
+     * Removes a Restaurant from the database.
+     * @param id = the id of the Restaurant.
+     * @return the body of the response from the server.
+     */
+    public static String deleteRestaurant(int id) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant/delete?id=" + id)).DELETE().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnErrorMessage(request);
+    }
+
+    /**
+     * Requests a new password for the user.
+     * @param email User's email
+     * @return the body of the response from the server
      */
     public static String getAllFutureBikeReservations() {
         HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/bike_reservation/future")).build();
