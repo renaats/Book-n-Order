@@ -68,6 +68,7 @@ public class UserService {
     /**
      * Logs out from the current account.
      * @param request = the Http request that calls this method
+     * @return an error code corresponding to the outcome of the request
      */
     public int logout(HttpServletRequest request) {
         String token = request.getHeader(HEADER_STRING);
@@ -116,7 +117,7 @@ public class UserService {
      * @param name = the name of the user
      * @param surname = the surname of the user
      * @param faculty = the faculty of the user
-     * @return String to see if your request passed
+     * @return an error code corresponding to the outcome of the request
      */
     public int add(String email, String password, String name, String surname, String faculty) {
         if (!EmailValidator.getInstance().isValid(URLDecoder.decode(email, StandardCharsets.UTF_8))) {
@@ -163,7 +164,7 @@ public class UserService {
      * Checks whether the input of the user is equal to the one sent in the email.
      * @param request The request, which validates the six digit code
      * @param sixDigitCode User's six digit input
-     * @return  An error code corresponding outcome of the request
+     * @return an error code corresponding to the outcome of the request
      */
     public int validate(HttpServletRequest request, int sixDigitCode) {
         String token = request.getHeader(HEADER_STRING);
@@ -191,7 +192,7 @@ public class UserService {
      * @param email = the email of the user
      * @param attribute = the attribute that is changed
      * @param value = the new value of the attribute
-     * @return String to see if your request passed
+     * @return an error code corresponding to the outcome of the request
      */
     public int update(String email, String attribute, String value) {
         if (userRepository.findById(email).isEmpty()) {
@@ -222,7 +223,7 @@ public class UserService {
     /**
      * Deletes an account.
      * @param email = the email of the account
-     * @return String to see if your request passed
+     * @return an error code corresponding to the outcome of the request
      */
     public int delete(String email) {
         if (!userRepository.existsById(email)) {
@@ -256,6 +257,7 @@ public class UserService {
      * Adds a role to an account. If the role does not exist, it is created.
      * @param email = the email of the account
      * @param roleName = the name of the role
+     * @return an error code corresponding to the outcome of the request
      */
     public int addRole(String email, String roleName) {
         if (!userRepository.existsById(email)) {
@@ -277,6 +279,7 @@ public class UserService {
     /**
      * Retrieves a boolean value representing whether the user is allowed to access the admin panel.
      * @param request = the Http request that calls this method.
+     * @return a boolean value representing the admin status of the user
      */
     public boolean isAdmin(HttpServletRequest request) {
         String token = request.getHeader(HEADER_STRING);
@@ -300,6 +303,7 @@ public class UserService {
     /**
      * Retrieves a boolean value representing whether the user account is activated.
      * @param request = the Http request that calls this method.
+     * @return a boolean value representing the status of the account's activation
      */
     public boolean isActivated(HttpServletRequest request) {
         String token = request.getHeader(HEADER_STRING);

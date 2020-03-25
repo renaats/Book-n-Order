@@ -38,6 +38,7 @@ public class UserController {
     /**
      * Logs out from the current account.
      * @param request = the Http request that calls this method
+     * @return an error code corresponding to the outcome of the request
      */
     @PostMapping(path = "/logout")
     public int logout(HttpServletRequest request) {
@@ -62,7 +63,7 @@ public class UserController {
      * @param name = the name of the user
      * @param surname = the surname of the user
      * @param faculty = the faculty of the user
-     * @return Error code
+     * @return an error code corresponding to the outcome of the request
      */
     @PostMapping(path = "/add") // Map ONLY POST Requests
     @ResponseBody
@@ -79,7 +80,7 @@ public class UserController {
      * Checks whether the input of the user is equal to the one sent in the email.
      * @param request The request, which validates the six digit code
      * @param sixDigitCode User's six digit input
-     * @return  An error code corresponding outcome of the request
+     * @return an error code corresponding to the outcome of the request
      */
     @PostMapping(path = "/validate")
     @ResponseBody
@@ -88,11 +89,11 @@ public class UserController {
     }
 
     /**
-     * Updates a specified attribute for given user.
-     * @param email = the email address of the user.
-     * @param attribute = the attribute whose value is to be changed.
-     * @param value = the new value of the attribute.
-     * @return Error code
+     * Updates a specified attribute for some user.
+     * @param email = the email of the user
+     * @param attribute = the attribute that is changed
+     * @param value = the new value of the attribute
+     * @return an error code corresponding to the outcome of the request
      */
     @Secured("ROLE_ADMIN")
     @PostMapping(path = "/update")
@@ -104,7 +105,7 @@ public class UserController {
     /**
      * Deletes an account.
      * @param email = the email of the account
-     * @return Error code
+     * @return an error code corresponding to the outcome of the request
      */
     @Secured("ROLE_ADMIN")
     @DeleteMapping(path = "/delete")
@@ -140,6 +141,7 @@ public class UserController {
      * Adds a role to an account. If the role does not exist, it is created.
      * @param email = the email of the account
      * @param roleName = the name of the role
+     * @return an error code corresponding to the outcome of the request
      */
     //@Secured("ROLE_ADMIN") SHOULD BE UNCOMMENTED WHEN IN PRODUCTION!
     @PostMapping(path = "/addRole")
@@ -151,6 +153,7 @@ public class UserController {
     /**
      * Retrieves a boolean value representing whether the user is allowed to access the admin panel.
      * @param request = the Http request that calls this method.
+     * @return a boolean value representing the admin status of the user
      */
     @Secured("ROLE_USER")
     @GetMapping(path = "/admin")
@@ -158,10 +161,10 @@ public class UserController {
         return userService.isAdmin(request);
     }
 
-
     /**
      * Retrieves a boolean value representing whether the user account is activated.
      * @param request = the Http request that calls this method.
+     * @return a boolean value representing the status of the account's activation
      */
     @GetMapping(path = "/activated")
     public boolean isActivated(HttpServletRequest request) {
