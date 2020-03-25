@@ -285,7 +285,20 @@ public class UserService {
         }
         return appUser.getConfirmationNumber() < 0;
     }
+
+    /**
+     * Changes a user's own password.
+     * @param request = the Http request that calls this method.
+     * @param password = the new password.
+     * @return an error code corresponding to the outcome of the request
+     */
+    public int changePassword(HttpServletRequest request, String password) {
+        String token = request.getHeader(HEADER_STRING);
+        AppUser appUser = getAppUser(token, userRepository);
+        if (appUser == null) {
+            return 419;
         }
-        return false;
+        appUser.setPassword(bcryptPasswordEncoder.encode(password));
+        return 201;
     }
 }

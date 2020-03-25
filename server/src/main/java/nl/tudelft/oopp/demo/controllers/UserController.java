@@ -161,4 +161,15 @@ public class UserController {
     public boolean isActivated(HttpServletRequest request) {
         return userService.isActivated(request);
     }
+
+    /**
+     * Changes a user's own password.
+     * @param request = the Http request that calls this method.
+     * @param password = the new password.
+     * @return an error code corresponding to the outcome of the request
+     */
+    @PostMapping(path = "/changePassword")
+    public int changePassword(HttpServletRequest request, @RequestParam String password) {
+        return userService.changePassword(request, password);
+    }
 }
