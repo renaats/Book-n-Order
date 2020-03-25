@@ -45,10 +45,12 @@ public class BikeDatabaseMenuController implements Initializable {
      * Loads all bike of the database into the table
      */
     private void loadBikesIntoTable() {
-        List<Bike> bikes = new ArrayList<>(Objects.requireNonNull(JsonMapper.bikeListMapper(ServerCommunication.getBikes())));
-        bikeSearchResult.clear();
-        bikeSearchResult.addAll(bikes);
-        table.setItems(bikeSearchResult);
+        if (JsonMapper.bikeListMapper(ServerCommunication.getBikes()) != null) {
+            List<Bike> bikes = new ArrayList<>(Objects.requireNonNull(JsonMapper.bikeListMapper(ServerCommunication.getBikes())));
+            bikeSearchResult.clear();
+            bikeSearchResult.addAll(bikes);
+            table.setItems(bikeSearchResult);
+        }
     }
 
     /**
