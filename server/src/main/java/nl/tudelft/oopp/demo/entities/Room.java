@@ -36,9 +36,9 @@ public class Room {
     private Building building;
 
     private String faculty;
-    private boolean facultySpecific;
-    private boolean projector;
-    private boolean screen;
+    private Boolean facultySpecific;
+    private Boolean projector;
+    private Boolean screen;
     private int nrPeople;
     private int plugs;
 

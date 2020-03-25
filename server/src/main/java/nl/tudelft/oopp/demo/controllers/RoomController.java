@@ -134,15 +134,7 @@ public class RoomController {
      */
     @RequestMapping(method = RequestMethod.GET, value = "/rooms")
     @ResponseBody
-    public static List<Room> search(@RequestParam(value = "search") String search, RoomRepository repository) {
-        RoomSpecificationsBuilder builder = new RoomSpecificationsBuilder();
-        Pattern pattern = Pattern.compile("(\\w+?)(:|<|>)(\\w+?),");
-        Matcher matcher = pattern.matcher(search + ",");
-        while (matcher.find()) {
-            builder.with(matcher.group(1), matcher.group(2), matcher.group(3));
-        }
-
-        Specification<Room> spec = builder.build();
-        return repository.findAll(spec);
+    public List<Room> search(@RequestParam(value = "search") String search) {
+        return roomService.search(search);
     }
 }

@@ -99,12 +99,26 @@ public class RoomsJpaSpecificationsTest {
 
     @Test
     public void searchTest() {
-        List<Room> results = RoomController.search("name:Auditorium,nrPeople>10", roomRepository);
+        RoomSpecification spec1 = new RoomSpecification(new SearchCriteria("name", ":","Auditorium"));
+        RoomSpecification spec2 = new RoomSpecification(new SearchCriteria("nrPeople", ">","10"));
+
+        List<Room> results = roomRepository.findAll(spec1.and(spec2));
 
         assertThat(roomAlpha, in(results));
         assertThat(roomBeta, not(in(results)));
 
     }
 
+    @Test
+    public void booleanTest() {
+        RoomSpecification spec1 = new RoomSpecification(new SearchCriteria("name", ":","Auditorium"));
+        RoomSpecification spec2 = new RoomSpecification(new SearchCriteria("screen", ":","true"));
+
+        List<Room> results = roomRepository.findAll(spec1.and(spec2));
+
+        assertThat(roomAlpha, in(results));
+        assertThat(roomBeta, not(in(results)));
+
+    }
 }
 

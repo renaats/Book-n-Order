@@ -2,12 +2,16 @@ package nl.tudelft.oopp.demo.services;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import nl.tudelft.oopp.demo.entities.Dish;
 import nl.tudelft.oopp.demo.entities.Menu;
 import nl.tudelft.oopp.demo.repositories.DishRepository;
 import nl.tudelft.oopp.demo.repositories.MenuRepository;
+import nl.tudelft.oopp.demo.specifications.DishSpecificationsBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 /**
@@ -70,5 +74,17 @@ public class DishService {
      */
     public Dish find(int id) {
         return dishRepository.findById(id).orElse(null);
+    }
+
+    public List<Dish> search(String search) {
+        DishSpecificationsBuilder builder = new DishSpecificationsBuilder();
+        Pattern pattern = Pattern.compile("(\\w+?)(:|<|>)(\\w+?),");
+        Matcher matcher = pattern.matcher(search + ",");
+        while (matcher.find()) {
+            builder.with(matcher.group(1), matcher.group(2), matcher.group(3));
+        }
+
+        Specification<Dish> spec = builder.build();
+        return dishRepository.findAll(spec);
     }
 }

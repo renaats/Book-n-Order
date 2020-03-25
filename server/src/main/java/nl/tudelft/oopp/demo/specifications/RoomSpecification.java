@@ -28,6 +28,10 @@ public class RoomSpecification implements Specification<Room> {
         } else if (criteria.getOperation().equalsIgnoreCase(":")) {
             if (root.get(criteria.getKey()).getJavaType() == String.class) {
                 return builder.like(root.<String>get(criteria.getKey()), "%" + criteria.getValue() + "%");
+            } else if (root.get(criteria.getKey()).getJavaType() == Boolean.class) {
+                Boolean value = "true".equalsIgnoreCase((String) criteria.getValue()) ? Boolean.TRUE :
+                        "false".equalsIgnoreCase((String) criteria.getValue()) ? Boolean.FALSE : null;
+                return builder.equal(root.<Boolean>get(criteria.getKey()), value);
             } else {
                 return builder.equal(root.get(criteria.getKey()), criteria.getValue());
             }
