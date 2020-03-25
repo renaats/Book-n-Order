@@ -157,6 +157,7 @@ public class UserController {
      * @param request = the Http request that calls this method.
      * @return a boolean value representing the status of the account's activation
      */
+    @Secured("ROLE_USER")
     @GetMapping(path = "/activated")
     public boolean isActivated(HttpServletRequest request) {
         return userService.isActivated(request);
@@ -168,6 +169,7 @@ public class UserController {
      * @param password = the new password.
      * @return an error code corresponding to the outcome of the request
      */
+    @Secured("ROLE_USER")
     @PostMapping(path = "/changePassword")
     public int changePassword(HttpServletRequest request, @RequestParam String password) {
         return userService.changePassword(request, password);

@@ -299,6 +299,8 @@ public class UserService {
             return 419;
         }
         appUser.setPassword(bcryptPasswordEncoder.encode(password));
+        appUser.setLoggedIn(false);
+        userRepository.save(appUser);
         return 201;
     }
 }
