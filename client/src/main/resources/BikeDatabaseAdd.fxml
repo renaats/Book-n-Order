@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@BikeDatabaseAdd.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.BikeDatabaseAddController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@DatabaseAddRooms.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.BikeDatabaseAddController">
     <ImageView fitWidth="1280.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
         <image>
             <Image url="@images/mainMenuBackground.jpg" />
