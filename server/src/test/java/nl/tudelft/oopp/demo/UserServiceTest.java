@@ -416,4 +416,31 @@ class UserServiceTest {
         MockHttpServletRequest request = new MockHttpServletRequest();
         assertFalse(userService.isActivated(request));
     }
+
+    /**
+     * Tests the changePassword request for some user.
+     */
+    @Test
+    public void testChangeOwnPassword() {
+        userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty());
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        String token = JWT.create()
+                .withSubject(appUser.getEmail())
+                .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                .sign(HMAC512(SECRET.getBytes()));
+        request.addHeader(HEADER_STRING, token);
+        String password = userService.all().get(0).getPassword();
+        assertEquals(201, userService.changePassword(request, password));
+        assertNotEquals(password, userService.all().get(0).getPassword());
+    }
+
+    /**
+     * Tests the changePassword request for a non-existent user.
+     */
+    @Test
+    public void testNonExistentPassword() {
+        userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty());
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        assertEquals(419, userService.changePassword(request, "123"));
+    }
 }

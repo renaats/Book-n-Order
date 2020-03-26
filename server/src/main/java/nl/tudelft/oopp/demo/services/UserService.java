@@ -71,23 +71,17 @@ public class UserService {
     /**
      * Logs out from the current account.
      * @param request = the Http request that calls this method
+     * @return an error code corresponding to the outcome of the request
      */
     public int logout(HttpServletRequest request) {
         String token = request.getHeader(HEADER_STRING);
-        if (token != null) {
-            // parse the token.
-            String user = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
-                    .build()
-                    .verify(token.replace(TOKEN_PREFIX, ""))
-                    .getSubject();
-            if (user != null && userRepository.existsById(user)) {
-                AppUser appUser = userRepository.findByEmail(user);
-                appUser.setLoggedIn(false);
-                userRepository.save(appUser);
-                return 201;
-            }
+        AppUser appUser = getAppUser(token, userRepository);
+        if (appUser == null) {
+            return 419;
         }
-        return 419;
+        appUser.setLoggedIn(false);
+        userRepository.save(appUser);
+        return 201;
     }
 
     /**
@@ -97,19 +91,12 @@ public class UserService {
      */
     public String userInfo(HttpServletRequest request) {
         String token = request.getHeader(HEADER_STRING);
-        if (token != null) {
-            // parse the token.
-            String user = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
-                    .build()
-                    .verify(token.replace(TOKEN_PREFIX, ""))
-                    .getSubject();
-            if (user != null && userRepository.existsById(user)) {
-                AppUser appUser = userRepository.findByEmail(user);
-                Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-                return gson.toJson(appUser);
-            }
+        AppUser appUser = getAppUser(token, userRepository);
+        if (appUser == null) {
+            return null;
         }
-        return null;
+        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+        return gson.toJson(appUser);
     }
 
     /**
@@ -119,7 +106,7 @@ public class UserService {
      * @param name = the name of the user
      * @param surname = the surname of the user
      * @param faculty = the faculty of the user
-     * @return String to see if your request passed
+     * @return an error code corresponding to the outcome of the request
      */
     public int add(String email, String password, String name, String surname, String faculty) {
         if (!EmailValidator.getInstance().isValid(URLDecoder.decode(email, StandardCharsets.UTF_8))) {
@@ -166,27 +153,20 @@ public class UserService {
      * Checks whether the input of the user is equal to the one sent in the email.
      * @param request The request, which validates the six digit code
      * @param sixDigitCode User's six digit input
-     * @return  An error code corresponding outcome of the request
+     * @return an error code corresponding to the outcome of the request
      */
     public int validate(HttpServletRequest request, int sixDigitCode) {
         String token = request.getHeader(HEADER_STRING);
-        if (token != null) {
-            // parse the token.
-            String user = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
-                    .build()
-                    .verify(token.replace(TOKEN_PREFIX, ""))
-                    .getSubject();
-            if (user != null && userRepository.existsById(user)) {
-                AppUser appUser = userRepository.findByEmail(user);
-                if (sixDigitCode == appUser.getConfirmationNumber()) {
-                    appUser.setConfirmationNumber(-1);
-                    userRepository.save(appUser);
-                    return 200;
-                }
-                return 431;
-            }
+        AppUser appUser = getAppUser(token, userRepository);
+        if (appUser == null) {
+            return 419;
         }
-        return 419;
+        if (sixDigitCode == appUser.getConfirmationNumber()) {
+            appUser.setConfirmationNumber(-1);
+            userRepository.save(appUser);
+            return 200;
+        }
+        return 431;
     }
 
     /**
@@ -194,7 +174,7 @@ public class UserService {
      * @param email = the email of the user
      * @param attribute = the attribute that is changed
      * @param value = the new value of the attribute
-     * @return String to see if your request passed
+     * @return an error code corresponding to the outcome of the request
      */
     public int update(String email, String attribute, String value) {
         if (userRepository.findById(email).isEmpty()) {
@@ -225,7 +205,7 @@ public class UserService {
     /**
      * Deletes an account.
      * @param email = the email of the account
-     * @return String to see if your request passed
+     * @return an error code corresponding to the outcome of the request
      */
     public int delete(String email) {
         if (!userRepository.existsById(email)) {
@@ -259,6 +239,7 @@ public class UserService {
      * Adds a role to an account. If the role does not exist, it is created.
      * @param email = the email of the account
      * @param roleName = the name of the role
+     * @return an error code corresponding to the outcome of the request
      */
     public int addRole(String email, String roleName) {
         if (!userRepository.existsById(email)) {
@@ -280,24 +261,18 @@ public class UserService {
     /**
      * Retrieves a boolean value representing whether the user is allowed to access the admin panel.
      * @param request = the Http request that calls this method.
+     * @return a boolean value representing the admin status of the user
      */
     public boolean isAdmin(HttpServletRequest request) {
         String token = request.getHeader(HEADER_STRING);
-        if (token != null) {
-            // parse the token.
-            String user = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
-                    .build()
-                    .verify(token.replace(TOKEN_PREFIX, ""))
-                    .getSubject();
-            if (user != null && userRepository.existsById(user)) {
-                AppUser appUser = userRepository.findByEmail(user);
-                return appUser.getRoles().contains(roleRepository.findByName("ROLE_ADMIN"))
-                        || appUser.getRoles().contains(roleRepository.findByName("ROLE_BUILDING_ADMIN"))
-                        || appUser.getRoles().contains(roleRepository.findByName("ROLE_BIKE_ADMIN"))
-                        || appUser.getRoles().contains(roleRepository.findByName("ROLE_RESTAURANT"));
-            }
+        AppUser appUser = getAppUser(token, userRepository);
+        if (appUser == null) {
+            return false;
         }
-        return false;
+        return appUser.getRoles().contains(roleRepository.findByName("ROLE_ADMIN"))
+                || appUser.getRoles().contains(roleRepository.findByName("ROLE_BUILDING_ADMIN"))
+                || appUser.getRoles().contains(roleRepository.findByName("ROLE_BIKE_ADMIN"))
+                || appUser.getRoles().contains(roleRepository.findByName("ROLE_RESTAURANT"));
     }
 
     /**
@@ -330,20 +305,32 @@ public class UserService {
     /**
      * Retrieves a boolean value representing whether the user account is activated.
      * @param request = the Http request that calls this method.
+     * @return a boolean value representing the status of the account's activation
      */
     public boolean isActivated(HttpServletRequest request) {
         String token = request.getHeader(HEADER_STRING);
-        if (token != null) {
-            // parse the token.
-            String user = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
-                    .build()
-                    .verify(token.replace(TOKEN_PREFIX, ""))
-                    .getSubject();
-            if (user != null && userRepository.existsById(user)) {
-                AppUser appUser = userRepository.findByEmail(user);
-                return appUser.getConfirmationNumber() < 0;
-            }
+        AppUser appUser = getAppUser(token, userRepository);
+        if (appUser == null) {
+            return false;
         }
-        return false;
+        return appUser.getConfirmationNumber() < 0;
+    }
+
+    /**
+     * Changes a user's own password.
+     * @param request = the Http request that calls this method.
+     * @param password = the new password.
+     * @return an error code corresponding to the outcome of the request
+     */
+    public int changePassword(HttpServletRequest request, String password) {
+        String token = request.getHeader(HEADER_STRING);
+        AppUser appUser = getAppUser(token, userRepository);
+        if (appUser == null) {
+            return 419;
+        }
+        appUser.setPassword(bcryptPasswordEncoder.encode(password));
+        appUser.setLoggedIn(false);
+        userRepository.save(appUser);
+        return 201;
     }
 }
