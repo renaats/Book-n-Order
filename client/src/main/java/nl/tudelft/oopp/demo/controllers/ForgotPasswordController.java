@@ -1,11 +1,11 @@
 package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
+import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
@@ -29,10 +29,6 @@ public class ForgotPasswordController {
      */
     public void sendEmail() {
         String email = emailField.getText();
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(null);
-        alert.setHeaderText(null);
-        alert.setContentText(ServerCommunication.sendRecoveryPassword(email));
-        alert.showAndWait();
+        CustomAlert.informationAlert(ServerCommunication.sendRecoveryPassword(email));
     }
 }

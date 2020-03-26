@@ -1,6 +1,7 @@
 package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
+
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**

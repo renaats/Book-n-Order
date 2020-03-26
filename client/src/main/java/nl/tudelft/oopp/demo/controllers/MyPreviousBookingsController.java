@@ -3,6 +3,7 @@ package nl.tudelft.oopp.demo.controllers;
 import java.io.IOException;
 
 import javafx.event.ActionEvent;
+
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 public class MyPreviousBookingsController {

@@ -7,16 +7,14 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.StageStyle;
 
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
+import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.user.UserInformation;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
@@ -96,14 +94,7 @@ public class MyAccountController implements Initializable {
      */
     public void logoutUser() throws IOException {
         ServerCommunication.logoutUser();
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(null);
-        alert.setHeaderText(null);
-        alert.setContentText("Logged out!");
-        alert.initStyle(StageStyle.UNDECORATED);
-        DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.getStylesheets().add(getClass().getResource("/alertInformation.css").toExternalForm());
-        alert.showAndWait();
+        CustomAlert.informationAlert("Logged out!");
         ApplicationDisplay.changeScene("/login-screen.fxml");
     }
 
