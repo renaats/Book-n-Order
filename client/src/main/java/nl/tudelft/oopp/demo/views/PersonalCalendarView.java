@@ -71,6 +71,10 @@ public class PersonalCalendarView extends CalendarView {
         //loadBikeRentals();
     }
 
+    public PersonalCalendarView() {
+
+    }
+
 
     public void loadRoomReservations () {
         List<RoomReservation> roomReservationList =

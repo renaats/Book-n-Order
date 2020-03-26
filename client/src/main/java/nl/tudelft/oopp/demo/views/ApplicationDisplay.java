@@ -3,6 +3,7 @@ package nl.tudelft.oopp.demo.views;
 import java.io.IOException;
 import java.net.URL;
 
+import com.calendarfx.view.CalendarView;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -37,6 +38,10 @@ public class ApplicationDisplay extends Application {
         Parent pane = FXMLLoader.load(
                 ApplicationDisplay.class.getResource(fxml));
         primaryStage.getScene().setRoot(pane);
+    }
+
+    public static void showCalendarScene(PersonalCalendarView cal){
+        primaryStage.getScene().setRoot(cal);
     }
 
     public static void main(String[] args) {

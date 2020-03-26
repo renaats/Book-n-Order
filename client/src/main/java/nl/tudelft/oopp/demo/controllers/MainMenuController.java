@@ -4,6 +4,7 @@ import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.scene.input.MouseEvent;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
+import nl.tudelft.oopp.demo.views.PersonalCalendarView;
 
 
 public class MainMenuController {
@@ -13,7 +14,7 @@ public class MainMenuController {
      * @throws IOException when it fails
      */
     public void calendarIcon() throws IOException {
-        ApplicationDisplay.changeScene("/calendar.fxml");
+        ApplicationDisplay.showCalendarScene(new PersonalCalendarView());
     }
 
     /**
