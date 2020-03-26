@@ -3,9 +3,11 @@ package nl.tudelft.oopp.demo.controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.text.Text;
+
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
