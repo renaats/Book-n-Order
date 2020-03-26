@@ -1,7 +1,9 @@
 package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
+
 import java.net.URL;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -66,6 +68,15 @@ public class BikeDatabaseMenuController implements Initializable {
             bikeSearchResult.clear();
             bikeSearchResult.addAll(bikes);
             table.setItems(bikeSearchResult);
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle(null);
+            alert.setHeaderText(null);
+            alert.setContentText("There are currently no bikes in the database");
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/alertWarning.css").toExternalForm());
+            alert.showAndWait();
         }
     }
 
