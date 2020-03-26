@@ -9,19 +9,18 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.stage.StageStyle;
 
+import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
- * This class controls the functionality of the different buttons in bike reservations and creates the entries in the choice boxes
+ * Loads the correct content into the FXML objects that need to display server information and
+ * controls all the user inputs made through the GUI in the "bookRoom.fxml" file
  */
 public class BookRoomController implements Initializable {
 
@@ -78,36 +77,15 @@ public class BookRoomController implements Initializable {
      */
     public Search applyFilters() {
         if (building.getValue() == null) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle(null);
-            alert.setHeaderText(null);
-            alert.setContentText("Please select a building.");
-            alert.initStyle(StageStyle.UNDECORATED);
-            DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(getClass().getResource("/alertWarning.css").toExternalForm());
-            alert.showAndWait();
+            CustomAlert.warningAlert("Please select a building.");
             return null;
         }
         if (capacity.getCharacters() == null) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle(null);
-            alert.setHeaderText(null);
-            alert.setContentText("Please select a maximum capacity.");
-            alert.initStyle(StageStyle.UNDECORATED);
-            DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(getClass().getResource("/alertWarning.css").toExternalForm());
-            alert.showAndWait();
+            CustomAlert.warningAlert("Please select a capacity.");
             return null;
         }
         if (nuOfPlugs.getCharacters() == null) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle(null);
-            alert.setHeaderText(null);
-            alert.setContentText("Please select the amount of plugs.");
-            alert.initStyle(StageStyle.UNDECORATED);
-            DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(getClass().getResource("/alertWarning.css").toExternalForm());
-            alert.showAndWait();
+            CustomAlert.warningAlert("Please select the amount of plugs.");
             return null;
         }
         boolean isScreen = false;

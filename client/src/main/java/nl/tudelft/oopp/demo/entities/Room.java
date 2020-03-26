@@ -8,6 +8,9 @@ import java.util.Set;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+/**
+ * Manages the Room object that is retrieved from the server
+ */
 public class Room {
 
     private Integer id;

@@ -3,19 +3,23 @@ package nl.tudelft.oopp.demo.controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextField;
-import javafx.stage.StageStyle;
+
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
+import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
+/**
+ * Loads the correct content into the FXML objects that need to display server information and
+ * controls all the user inputs made through the GUI in the "registrationScene.fxml" file
+ */
 public class RegistrationController implements Initializable {
 
     private final ObservableList<String> facultyList = FXCollections.observableArrayList();
@@ -45,33 +49,12 @@ public class RegistrationController implements Initializable {
             String surname = surnameField.getText();
             String faculty = facultyChoiceBox.getValue().replaceAll(" ", "");
             if (password.equals(password2)) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle(null);
-                alert.setHeaderText(null);
-                alert.setContentText(ServerCommunication.addUser(email, name, surname, faculty, password));
-                alert.initStyle(StageStyle.UNDECORATED);
-                DialogPane dialogPane = alert.getDialogPane();
-                dialogPane.getStylesheets().add(getClass().getResource("/alertInformation.css").toExternalForm());
-                alert.showAndWait();
+                CustomAlert.informationAlert(ServerCommunication.addUser(email, name, surname, faculty, password));
             } else {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle(null);
-                alert.setHeaderText(null);
-                alert.setContentText("Passwords do not match.");
-                alert.initStyle(StageStyle.UNDECORATED);
-                DialogPane dialogPane = alert.getDialogPane();
-                dialogPane.getStylesheets().add(getClass().getResource("/alertWarning.css").toExternalForm());
-                alert.showAndWait();
+                CustomAlert.errorAlert("Passwords do not match.");
             }
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle(null);
-            alert.setHeaderText(null);
-            alert.setContentText("Missing fields.");
-            alert.initStyle(StageStyle.UNDECORATED);
-            DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(getClass().getResource("/alertWarning.css").toExternalForm());
-            alert.showAndWait();
+            CustomAlert.warningAlert("Missing fields.");
         }
     }
 

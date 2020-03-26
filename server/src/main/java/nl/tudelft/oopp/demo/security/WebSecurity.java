@@ -1,5 +1,6 @@
 package nl.tudelft.oopp.demo.security;
 
+import static nl.tudelft.oopp.demo.security.SecurityConstants.PASSWORD_RECOVER_URL;
 import static nl.tudelft.oopp.demo.security.SecurityConstants.SIGN_UP_URL;
 
 import nl.tudelft.oopp.demo.repositories.UserRepository;
@@ -47,6 +48,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().authorizeRequests()
                 .antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
+                .antMatchers(HttpMethod.POST, PASSWORD_RECOVER_URL).permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(new JwtAuthenticationFilter(authenticationManager(), userRepository))

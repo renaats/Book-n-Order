@@ -12,8 +12,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
+/**
+ * Loads the correct content into the FXML objects that need to display server information and
+ * controls all the user inputs made through the GUI in the "OrderFoodPickDate.fxml" file
+ */
 public class OrderFoodController implements Initializable {
 
     final ObservableList<String> listTime = FXCollections.observableArrayList();

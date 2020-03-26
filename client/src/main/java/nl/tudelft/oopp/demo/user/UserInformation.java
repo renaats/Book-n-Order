@@ -6,6 +6,9 @@ import java.util.Set;
 
 import nl.tudelft.oopp.demo.entities.RoomReservation;
 
+/**
+ * Gets and sets the bearerKey for a user.
+ */
 public class UserInformation {
     private String email;
     private String name;

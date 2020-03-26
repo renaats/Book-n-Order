@@ -15,6 +15,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.http.Fault;
 
+import java.io.IOException;
+
 import nl.tudelft.oopp.demo.errors.ErrorMessages;
 
 import org.junit.jupiter.api.AfterEach;
