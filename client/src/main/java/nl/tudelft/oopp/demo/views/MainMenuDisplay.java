@@ -9,6 +9,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * Manages the display of the main menu
+ */
 public class MainMenuDisplay extends Application {
 
     @Override

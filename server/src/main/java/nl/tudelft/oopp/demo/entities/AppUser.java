@@ -32,6 +32,7 @@ public class AppUser {
     @Expose
     private String faculty;
     private boolean loggedIn = false;
+    private int confirmationNumber;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
@@ -111,6 +112,10 @@ public class AppUser {
         this.loggedIn = loggedIn;
     }
 
+    public void setConfirmationNumber(int confirmationNumber) {
+        this.confirmationNumber = confirmationNumber;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -149,6 +154,10 @@ public class AppUser {
 
     public boolean isLoggedIn() {
         return loggedIn;
+    }
+
+    public int getConfirmationNumber() {
+        return confirmationNumber;
     }
 
     @Override

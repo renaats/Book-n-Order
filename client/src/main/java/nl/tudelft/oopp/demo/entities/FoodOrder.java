@@ -5,6 +5,9 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+/**
+ * Manages the FoodOrder object that is retrieved from the server
+ */
 public class FoodOrder {
     private Integer id;
     private Restaurant restaurant;

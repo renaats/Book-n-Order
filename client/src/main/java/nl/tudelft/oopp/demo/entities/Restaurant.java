@@ -2,6 +2,9 @@ package nl.tudelft.oopp.demo.entities;
 
 import java.util.Objects;
 
+/**
+ * Manages the Restaurant object that is retrieved from the server
+ */
 public class Restaurant {
     private int id;
 

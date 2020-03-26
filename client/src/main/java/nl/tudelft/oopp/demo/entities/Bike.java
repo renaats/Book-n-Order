@@ -2,6 +2,9 @@ package nl.tudelft.oopp.demo.entities;
 
 import java.util.Objects;
 
+/**
+ * Manages the Bike object that is retrieved from the server
+ */
 public class Bike {
 
     private int id;

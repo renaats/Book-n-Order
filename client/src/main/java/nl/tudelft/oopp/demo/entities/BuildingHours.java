@@ -3,6 +3,9 @@ package nl.tudelft.oopp.demo.entities;
 import java.time.LocalTime;
 import java.util.Objects;
 
+/**
+ * Manages the Building hours object that is retrieved from the server
+ */
 public class BuildingHours {
     private int id;
     private int day;

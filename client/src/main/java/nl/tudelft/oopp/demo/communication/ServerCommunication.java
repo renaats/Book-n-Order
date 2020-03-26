@@ -18,6 +18,10 @@ import nl.tudelft.oopp.demo.authentication.AuthenticationKey;
 import nl.tudelft.oopp.demo.errors.ErrorMessages;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
+/**
+ * Controls all client to server communication
+ * Sends the appropriate HTTP request depending on the method
+ */
 public class ServerCommunication {
     private static final HttpClient client = HttpClient.newBuilder().build();
 
@@ -130,6 +134,22 @@ public class ServerCommunication {
     }
 
     /**
+     * Retrieves a boolean value from the server, false = not activated, true = activated.
+     * @return the body of the response from the server.
+     */
+    public static boolean getAccountActivation() {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/user/activated")).build();
+        HttpResponse<String> response;
+        try {
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return response.body().contains("true");
+    }
+
+    /**
      * Registers a user.
      * @param email User's email
      * @param name User's name
@@ -140,6 +160,16 @@ public class ServerCommunication {
     public static String addUser(String email, String name, String surname, String faculty, String password) {
         HttpRequest request;
         request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/user/add?email=" + URLEncoder.encode(email, StandardCharsets.UTF_8)  + "&name=" + URLEncoder.encode(name, StandardCharsets.UTF_8) + "&surname=" + URLEncoder.encode(surname, StandardCharsets.UTF_8) + "&faculty=" + URLEncoder.encode(faculty, StandardCharsets.UTF_8) + "&password=" + URLEncoder.encode(password, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).build();
+        return communicateAndReturnErrorMessage(request);
+    }
+
+    /**
+     * Validates the six digit code of the user.
+     * @param sixDigitCode The six digit code that the user inputs
+     * @return  The error message corresponding to the response of the server
+     */
+    public static String validateUser(int sixDigitCode) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/user/validate?sixDigitCode=" + sixDigitCode)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnErrorMessage(request);
     }
 
@@ -169,18 +199,20 @@ public class ServerCommunication {
             for (Map.Entry<String, List<String>> entry : map.entrySet()) {
                 if (entry.getKey() != null) {
                     if (entry.getKey().equals("Authorization")) {
-                        // Yes it's gross, it works, it grabs the key
                         AuthenticationKey.setBearerKey((Arrays.asList(entry.getValue().get(0).split(" ")).get(1)));
-                        ApplicationDisplay.changeScene("/mainMenu.fxml");
+                        if (!getAccountActivation()) {
+                            ApplicationDisplay.changeScene("/ConfirmationSixDigits.fxml");
+                        } else {
+                            ApplicationDisplay.changeScene("/mainMenu.fxml");
+                        }
                         return ErrorMessages.getErrorMessage(200);
                     }
                 }
             }
-            return ErrorMessages.getErrorMessage(311);
         } catch (IOException e) {
             e.printStackTrace();
-            return ErrorMessages.getErrorMessage(311);
         }
+        return ErrorMessages.getErrorMessage(311);
     }
 
     /**
@@ -441,6 +473,16 @@ public class ServerCommunication {
      */
     public static String deleteRoomReservation(int id) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room_reservation/delete?id=" + id)).DELETE().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnErrorMessage(request);
+    }
+
+    /**
+     * Requests a new password for the user.
+     * @param email User's email
+     * @return the body of the response from the server
+     */
+    public static String sendRecoveryPassword(String email) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/user/recoverPassword?email="  + email)).POST(HttpRequest.BodyPublishers.noBody()).build();
         return communicateAndReturnErrorMessage(request);
     }
 }
