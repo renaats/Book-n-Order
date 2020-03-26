@@ -24,6 +24,7 @@ import javafx.stage.StageStyle;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.Room;
+import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
@@ -92,14 +93,7 @@ public class DatabaseEditRoomController implements Initializable {
             roomResult.add(room);
             table.setItems(roomResult);
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle(null);
-            alert.setHeaderText(null);
-            alert.setContentText("Missing argument.");
-            alert.initStyle(StageStyle.UNDECORATED);
-            DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(getClass().getResource("/alertWarning.css").toExternalForm());
-            alert.showAndWait();
+            CustomAlert.warningAlert("Missing argument.");
         }
     }
 
@@ -112,14 +106,7 @@ public class DatabaseEditRoomController implements Initializable {
         roomResult.addAll(rooms);
         table.setItems(roomResult);
         if (roomResult.isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle(null);
-            alert.setHeaderText(null);
-            alert.setContentText("No buildings found.");
-            alert.initStyle(StageStyle.UNDECORATED);
-            DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(getClass().getResource("/alertWarning.css").toExternalForm());
-            alert.showAndWait();
+            CustomAlert.warningAlert("No rooms found.");
         }
     }
 
@@ -131,26 +118,11 @@ public class DatabaseEditRoomController implements Initializable {
             int id = Integer.parseInt(roomFindByIdTextField.getText());
             String attribute = updateChoiceBox.getValue().replaceAll(" ", "").toLowerCase();
             String changeValue = roomChangeToField.getText();
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle(null);
-            alert.setHeaderText(null);
-            alert.setContentText(ServerCommunication.updateRoom(id, attribute, changeValue));
-            alert.initStyle(StageStyle.UNDECORATED);
-            DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(getClass().getResource("/alertWarning.css").toExternalForm());
-            alert.showAndWait();
-
+            CustomAlert.informationAlert(ServerCommunication.updateRoom(id, attribute, changeValue));
             roomResult.clear();
             roomBuildingsButtonClicked();
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle(null);
-            alert.setHeaderText(null);
-            alert.setContentText("Missing argument.");
-            alert.initStyle(StageStyle.UNDECORATED);
-            DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(getClass().getResource("/alertWarning.css").toExternalForm());
-            alert.showAndWait();
+            CustomAlert.warningAlert("Missing argument.");
         }
     }
 
@@ -216,17 +188,7 @@ public class DatabaseEditRoomController implements Initializable {
      */
     public void deleteRoomButtonClicked() {
         int id = Integer.parseInt(roomDeleteByIdTextField.getText());
-
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(null);
-        alert.setHeaderText(null);
-        alert.setContentText(ServerCommunication.deleteRoom(id));
-        alert.initStyle(StageStyle.UNDECORATED);
-        DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.getStylesheets().add(getClass().getResource("/alertInformation.css").toExternalForm());
-        alert.showAndWait();
-
-
+        CustomAlert.informationAlert(ServerCommunication.deleteRoom(id));
         roomResult.removeIf(room -> room.getId() == id);
     }
 
@@ -238,14 +200,7 @@ public class DatabaseEditRoomController implements Initializable {
             Room room = table.getSelectionModel().getSelectedItem();
             roomFindByIdTextField.setText(Integer.toString(room.getId()));
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle(null);
-            alert.setHeaderText(null);
-            alert.setContentText("Missing argument.");
-            alert.initStyle(StageStyle.UNDECORATED);
-            DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(getClass().getResource("/alertWarning.css").toExternalForm());
-            alert.showAndWait();
+            CustomAlert.warningAlert("Missing argument.");
         }
     }
 
@@ -256,23 +211,10 @@ public class DatabaseEditRoomController implements Initializable {
         try {
             Room room = table.getSelectionModel().getSelectedItem();
             roomResult.removeIf(r -> r.getId().equals(room.getId()));
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle(null);
-            alert.setHeaderText(null);
-            alert.setContentText(ServerCommunication.deleteRoom((room.getId())));
-            alert.initStyle(StageStyle.UNDECORATED);
-            DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(getClass().getResource("/alertInformation.css").toExternalForm());
-            alert.showAndWait();
+            CustomAlert.informationAlert(ServerCommunication.deleteRoom(room.getId()));
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle(null);
-            alert.setHeaderText(null);
-            alert.setContentText("Missing argument.");
-            alert.initStyle(StageStyle.UNDECORATED);
-            DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(getClass().getResource("/alertWarning.css").toExternalForm());
-            alert.showAndWait();
+            CustomAlert.warningAlert("Missing argument.");
         }
     }
 }

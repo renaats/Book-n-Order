@@ -14,6 +14,7 @@ import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextField;
 import javafx.stage.StageStyle;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
+import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
@@ -49,33 +50,12 @@ public class RegistrationController implements Initializable {
             String surname = surnameField.getText();
             String faculty = facultyChoiceBox.getValue().replaceAll(" ", "");
             if (password.equals(password2)) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle(null);
-                alert.setHeaderText(null);
-                alert.setContentText(ServerCommunication.addUser(email, name, surname, faculty, password));
-                alert.initStyle(StageStyle.UNDECORATED);
-                DialogPane dialogPane = alert.getDialogPane();
-                dialogPane.getStylesheets().add(getClass().getResource("/alertInformation.css").toExternalForm());
-                alert.showAndWait();
+                CustomAlert.informationAlert(ServerCommunication.addUser(email, name, surname, faculty, password));
             } else {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle(null);
-                alert.setHeaderText(null);
-                alert.setContentText("Passwords do not match.");
-                alert.initStyle(StageStyle.UNDECORATED);
-                DialogPane dialogPane = alert.getDialogPane();
-                dialogPane.getStylesheets().add(getClass().getResource("/alertWarning.css").toExternalForm());
-                alert.showAndWait();
+                CustomAlert.errorAlert("Passwords do not match!");
             }
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle(null);
-            alert.setHeaderText(null);
-            alert.setContentText("Missing fields.");
-            alert.initStyle(StageStyle.UNDECORATED);
-            DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(getClass().getResource("/alertWarning.css").toExternalForm());
-            alert.showAndWait();
+            CustomAlert.warningAlert("Missing fields.");
         }
     }
 

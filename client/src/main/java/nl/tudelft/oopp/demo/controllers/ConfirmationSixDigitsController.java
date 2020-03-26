@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import nl.tudelft.oopp.demo.authentication.AuthenticationKey;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
+import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.user.UserInformation;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
@@ -28,21 +29,13 @@ public class ConfirmationSixDigitsController {
         try {
             int code = Integer.parseInt(sixDigitCode.getText());
             String response =  ServerCommunication.validateUser(code);
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Registration");
-            alert.setHeaderText(null);
-            alert.setContentText(response);
-            alert.showAndWait();
             if (response.equals("Successfully executed.")) {
                 ApplicationDisplay.changeScene("/mainMenu.fxml");
+            } else {
+                CustomAlert.warningAlert(response);
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Missing argument.");
-            alert.showAndWait();
+            CustomAlert.warningAlert("Please provide a six digit code.");
         }
     }
 

@@ -17,6 +17,7 @@ import javafx.stage.StageStyle;
 
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
+import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.user.UserInformation;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
@@ -96,14 +97,7 @@ public class MyAccountController implements Initializable {
      */
     public void logoutUser() throws IOException {
         ServerCommunication.logoutUser();
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(null);
-        alert.setHeaderText(null);
-        alert.setContentText("Logged out!");
-        alert.initStyle(StageStyle.UNDECORATED);
-        DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.getStylesheets().add(getClass().getResource("/alertInformation.css").toExternalForm());
-        alert.showAndWait();
+        CustomAlert.informationAlert("Logged out!");
         ApplicationDisplay.changeScene("/login-screen.fxml");
     }
 
