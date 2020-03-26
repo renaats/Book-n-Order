@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -399,5 +400,16 @@ public class BuildingHourServiceTest {
         assertEquals(buildingHours, buildingHourService.find(building.getId(), 939600000));
         buildingHourService.add(building.getId(), 939600000, 1000, 3000);
         assertEquals(buildingHoursSpecial, buildingHourService.find(building.getId(), 939600000));
+    }
+
+    /**
+     * Tests the adding of BuildingHours for the current day.
+     */
+    @Test
+    public void testToday() {
+        Date date = new Date();
+        assertNull(buildingHourService.find(building.getId(), date.getTime()));
+        buildingHourService.add(building.getId(), date.getTime(), 1000, 3000);
+        assertNotNull(buildingHourService.find(building.getId(), date.getTime()));
     }
 }
