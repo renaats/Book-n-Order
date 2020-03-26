@@ -21,14 +21,14 @@ import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.user.UserInformation;
 
 /**
- * Maps Json server responses into objects in the Entities package
+ * Maps Json server responses into objects in the Entities package.
  */
 public class JsonMapper {
 
     /**
-     * Current mapper for buildings
-     * @param buildingJson JSON string representation of a building
-     * @return Building object
+     * Current mapper for buildings.
+     * @param buildingJson JSON string representation of a building.
+     * @return Building object.
      */
     public static Building buildingMapper(String buildingJson) {
 
@@ -53,7 +53,7 @@ public class JsonMapper {
     /**
      * Maps all building JSONS to a list.
      * @param buildingsJson a JSON string representing a list.
-     * @return A list filled with object Buildings
+     * @return A list filled with object Buildings.
      */
     public static List<Building> buildingListMapper(String buildingsJson) throws IOException {
 
@@ -90,7 +90,7 @@ public class JsonMapper {
     /**
      * Maps all room JSONS to a list.
      * @param roomsJson a JSON string representing a list.
-     * @return A list filled with object Buildings
+     * @return A list filled with object Buildings.
      */
     public static List<Room> roomListMapper(String roomsJson) {
 
@@ -113,9 +113,9 @@ public class JsonMapper {
     }
 
     /**
-     * Maps a JSON string to an AppUser object
-     * @param appUserJson JSON representation of a String
-     * @return AppUser Object
+     * Maps a JSON string to an AppUser object.
+     * @param appUserJson JSON representation of a String.
+     * @return AppUser Object.
      */
     public static AppUser appUserMapper(String appUserJson) {
 
@@ -138,9 +138,9 @@ public class JsonMapper {
     }
 
     /**
-     * Maps a JSON string to an UserInformation object
-     * @param userInformationJson JSON representation of a String
-     * @return UserInformation Object
+     * Maps a JSON string to an UserInformation object.
+     * @param userInformationJson JSON representation of a String.
+     * @return UserInformation Object.
      */
     public static UserInformation userInformationMapper(String userInformationJson) {
 
@@ -163,9 +163,9 @@ public class JsonMapper {
     }
 
     /**
-     * Maps a JSON string to an Restaurant object
-     * @param restaurantJson JSON representation of a String
-     * @return Restaurant Object
+     * Maps a JSON string to an Restaurant object.
+     * @param restaurantJson JSON representation of a String.
+     * @return Restaurant Object.
      */
     public static Restaurant restaurantMapper(String restaurantJson) {
 
@@ -190,7 +190,7 @@ public class JsonMapper {
     /**
      * Maps all restaurant JSONS to a list.
      * @param restaurantsJson a JSON string representing a list.
-     * @return A list filled with object Restaurant
+     * @return A list filled with object Restaurant.
      */
     public static List<Restaurant> restaurantListMapper(String restaurantsJson) {
 
@@ -214,8 +214,8 @@ public class JsonMapper {
 
     /**
      * Maps all restaurant hours JSONS to an object.
-     * @param restaurantHoursJson a JSON string
-     * @return Restaurant hour object
+     * @param restaurantHoursJson a JSON string.
+     * @return Restaurant hour object.
      */
     public static RestaurantHours restaurantHoursMapper(String restaurantHoursJson) {
 
@@ -237,8 +237,8 @@ public class JsonMapper {
 
     /**
      * Maps all building hours JSONS to an object.
-     * @param buildingHourJson a JSON string
-     * @return building hour object
+     * @param buildingHourJson a JSON string.
+     * @return building hour object.
      */
     public static BuildingHours buildingHoursMapper(String buildingHourJson) {
 
@@ -261,7 +261,7 @@ public class JsonMapper {
     /**
      * Maps all bikes JSONS to a list of bike objects.
      * @param bikesJson a JSON string representing a list.
-     * @return A list filled with object Bikes
+     * @return A list filled with object Bikes.
      */
     public static List<Bike> bikeListMapper(String bikesJson) {
 
