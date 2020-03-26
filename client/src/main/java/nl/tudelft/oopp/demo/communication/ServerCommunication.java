@@ -518,4 +518,14 @@ public class ServerCommunication {
         HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/bike/all")).build();
         return communicateAndReturnBodyOfResponse(request);
     }
+
+    /**
+     * Requests a new password for the user.
+     * @param email User's email
+     * @return the body of the response from the server
+     */
+    public static String sendRecoveryPassword(String email) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/user/recoverPassword?email="  + email)).POST(HttpRequest.BodyPublishers.noBody()).build();
+        return communicateAndReturnErrorMessage(request);
+    }
 }
