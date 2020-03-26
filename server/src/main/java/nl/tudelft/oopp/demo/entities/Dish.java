@@ -71,10 +71,6 @@ public class Dish {
         allergies.add(allergy);
     }
 
-    public void setFoodOrders(Set<FoodOrder> foodOrders) {
-        this.foodOrders = foodOrders;
-    }
-
     public int getId() {
         return id;
     }
@@ -86,11 +82,7 @@ public class Dish {
     public Set<Allergy> getAllergies() {
         return allergies;
     }
-    
-    public Set<FoodOrder> getFoodOrders() {
-        return foodOrders;
-    }
-    
+
     public Menu getMenu() {
         return menu;
     }

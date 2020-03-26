@@ -11,10 +11,12 @@ import java.util.Set;
 import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.FoodOrder;
+import nl.tudelft.oopp.demo.entities.Menu;
 import nl.tudelft.oopp.demo.entities.Restaurant;
 
 import nl.tudelft.oopp.demo.repositories.BuildingRepository;
 import nl.tudelft.oopp.demo.repositories.FoodOrderRepository;
+import nl.tudelft.oopp.demo.repositories.MenuRepository;
 import nl.tudelft.oopp.demo.repositories.RestaurantRepository;
 import nl.tudelft.oopp.demo.repositories.UserRepository;
 
@@ -40,6 +42,8 @@ public class FoodOrderTest {
     private UserRepository userRepository;
     @Autowired
     private BuildingRepository buildingRepository;
+    @Autowired
+    private MenuRepository menuRepository;
 
     FoodOrder foodOrder;
     FoodOrder foodOrder2;
@@ -47,6 +51,7 @@ public class FoodOrderTest {
     Building building;
     Building deliveryLocation;
     AppUser appUser;
+    Menu menu;
 
     /**
      * Sets up the entities and saves them in the repository before executing every test.
@@ -66,8 +71,12 @@ public class FoodOrderTest {
         appUser.setRoomReservations(new HashSet<>());
         userRepository.saveAndFlush(appUser);
 
+        menu = new Menu("Lunch", restaurant);
+        menuRepository.saveAndFlush(menu);
+
         foodOrder = new FoodOrder(restaurantRepository.findAll().get(0), userRepository.findAll().get(0),
                 buildingRepository.findAll().get(1), new Date(11000000000L));
+        foodOrder.setMenu(menu);
         foodOrderRepository.saveAndFlush(foodOrder);
         foodOrder = foodOrderRepository.findAll().get(0);
     }
@@ -126,11 +135,21 @@ public class FoodOrderTest {
     }
 
     /**
+     * Tests the getter for the menu field.
+     */
+    @Test
+    public void testGetMenu() {
+        foodOrder2 = foodOrderRepository.findAll().get(0);
+        assertEquals(foodOrder.getMenu(), foodOrder2.getMenu());
+    }
+
+    /**
      * Tests the equals method for 2 equal food orders.
      */
     @Test
     public void testEqualFoodOrder() {
         foodOrder2 = new FoodOrder(restaurant, appUser, deliveryLocation, new Date(11000000000L));
+        foodOrder2.setMenu(menu);
         assertEquals(foodOrder, foodOrder2);
         assertNotSame(foodOrder, foodOrder2);
     }
@@ -155,5 +174,6 @@ public class FoodOrderTest {
         restaurantRepository.deleteAll();
         userRepository.deleteAll();
         buildingRepository.deleteAll();
+        menuRepository.deleteAll();
     }
 }

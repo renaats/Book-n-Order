@@ -10,6 +10,7 @@ import java.util.Set;
 import nl.tudelft.oopp.demo.entities.Dish;
 import nl.tudelft.oopp.demo.entities.Menu;
 import nl.tudelft.oopp.demo.entities.Restaurant;
+
 import nl.tudelft.oopp.demo.repositories.DishRepository;
 import nl.tudelft.oopp.demo.repositories.MenuRepository;
 
@@ -46,9 +47,8 @@ public class DishTest {
     @BeforeEach
     public void setup() {
         menu1 = new Menu("KFC menu", restaurant1);
-        menu2 = new Menu("BK menu", restaurant2);
         menuRepository.saveAndFlush(menu1);
-
+        menu2 = new Menu("BK menu", restaurant2);
         menuRepository.saveAndFlush(menu2);
 
         dish = new Dish("Chicken", menu1);
@@ -67,7 +67,6 @@ public class DishTest {
 
         menu1.setDishes(dishes);
         menuRepository.saveAndFlush(menu1);
-
         menuRepository.saveAndFlush(menu2);
     }
 
