@@ -40,8 +40,13 @@ public class ApplicationDisplay extends Application {
         primaryStage.getScene().setRoot(pane);
     }
 
-    public static void showCalendarScene(PersonalCalendarView cal){
-        primaryStage.getScene().setRoot(cal);
+    public static void showCalendarScene(PersonalCalendarView cal) {
+        Stage stage = new Stage();
+        Scene calScene = new Scene(ca);
+        stage.setScene(new Scene(cal));
+        scene
+        stage.show();
+
     }
 
     public static void main(String[] args) {

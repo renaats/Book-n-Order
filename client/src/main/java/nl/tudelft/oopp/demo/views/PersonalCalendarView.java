@@ -5,6 +5,7 @@ import com.calendarfx.model.CalendarSource;
 import com.calendarfx.model.Entry;
 import com.calendarfx.view.CalendarView;
 
+import java.beans.EventHandler;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -25,58 +26,16 @@ public class PersonalCalendarView extends CalendarView {
 
     private AppUser currentUser;
 
-    Calendar bookedRooms = new Calendar("Room Bookings");
+    Calendar bookedRooms = new Calendar("My room bookings");
     Calendar orderedFood = new Calendar("Food Orders");
     Calendar rentedBikes = new Calendar("Bike Rent");
-    CalendarView personalCalendar = new CalendarView();
-    CalendarSource myCalendarSource = new CalendarSource("Calendars");
-
-    public PersonalCalendarView(AppUser currentUser) {
-        currentUser = this.currentUser;
-
-        bookedRooms.setStyle(Calendar.Style.STYLE2);                   //sets color of calendar to blue
-        orderedFood.setStyle(Calendar.Style.STYLE1);                   //sets color of calendar to green
-        rentedBikes.setStyle(Calendar.Style.STYLE3);                   //sets color of calendar to red
-
-        myCalendarSource.getCalendars().removeAll();
-        myCalendarSource.getCalendars().addAll(bookedRooms, orderedFood, rentedBikes);
-
-        personalCalendar.getCalendarSources().addAll(myCalendarSource);
-        personalCalendar.setRequestedTime(LocalTime.now());  //sets time to current time
-
-        Thread updateTimeThread = new Thread("Calendar: Update Time Thread") {
-            @Override
-            public void run() {
-                while (true) {
-                    Platform.runLater(() -> {
-                        personalCalendar.setToday(LocalDate.now());
-                        personalCalendar.setTime(LocalTime.now());
-                    });
-
-                    try {
-                        // update every 10 seconds
-                        sleep(10000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        };
-        updateTimeThread.setPriority(Thread.MIN_PRIORITY);
-        updateTimeThread.setDaemon(true);
-        updateTimeThread.start();
-
-        loadRoomReservations();
-        //loadFoodOrders();
-        //loadBikeRentals();
-    }
 
     public PersonalCalendarView() {
 
+        displayCalendars();
     }
 
-
-    public void loadRoomReservations () {
+    public void loadRoomReservations() {
         List<RoomReservation> roomReservationList =
                 new ArrayList<>(Objects.requireNonNull(JsonMapper.roomReservationsListMapper(ServerCommunication.getRoomReservations())));
         for (RoomReservation reservation : roomReservationList) {
@@ -97,6 +56,18 @@ public class PersonalCalendarView extends CalendarView {
     //method to load room reservations
 
     //method to load bike rentals
+
+    public void displayCalendars() {
+        bookedRooms.setStyle(Calendar.Style.STYLE2);
+        orderedFood.setStyle(Calendar.Style.STYLE3);
+        rentedBikes.setStyle(Calendar.Style.STYLE4);
+
+        CalendarSource myCalendarSource = new CalendarSource("My Calendars");
+        myCalendarSource.getCalendars().addAll(bookedRooms, orderedFood, rentedBikes);
+        this.getCalendarSources().add(myCalendarSource);
+
+        CalendarView view = new CalendarView();
+    }
 
     public Date convertToDate(LocalTime time, LocalDate date) {
         LocalDateTime dateTime = LocalDateTime.of(date, time);
