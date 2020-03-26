@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import nl.tudelft.oopp.demo.entities.Bike;
 import nl.tudelft.oopp.demo.entities.BuildingHours;
 import nl.tudelft.oopp.demo.entities.RestaurantHours;
 import nl.tudelft.oopp.demo.entities.Room;
@@ -142,6 +143,21 @@ class JsonMapperTest {
         RestaurantHours restaurantHours = JsonMapper.restaurantHoursMapper(json);
 
         assertEquals(restaurantHours, JsonMapper.restaurantHoursMapper(ServerCommunication.findRestaurantHours(1, 1)));
+    }
+
+    @Test
+    void bikeListMapper() {
+        List<Bike> bikes =
+                new ArrayList<>(Objects
+                        .requireNonNull(JsonMapper
+                                .bikeListMapper("[{\"id\":1,\"location\":{\"id\":1,\"name\":\"11\",\"street\":\"1\",\"houseNumber\":1},\"available\":true},"
+                                        + "{\"id\":2,\"location\":{\"id\":1,\"name\":\"11\",\"street\":\"1\",\"houseNumber\":1},\"available\":false}]\n")));
+        stubFor(get(urlEqualTo("/bike/all"))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withBody("[{\"id\":1,\"location\":{\"id\":1,\"name\":\"11\",\"street\":\"1\",\"houseNumber\":1},\"available\":true},"
+                                + "{\"id\":2,\"location\":{\"id\":1,\"name\":\"11\",\"street\":\"1\",\"houseNumber\":1},\"available\":false}]\n")));
+        assertEquals(bikes, JsonMapper.bikeListMapper(ServerCommunication.getBikes()));
     }
 
     @Test
