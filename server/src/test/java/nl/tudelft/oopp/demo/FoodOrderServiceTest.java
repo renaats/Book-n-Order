@@ -1,20 +1,11 @@
 package nl.tudelft.oopp.demo;
 
-import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
-
-import static nl.tudelft.oopp.demo.security.SecurityConstants.EXPIRATION_TIME;
-import static nl.tudelft.oopp.demo.security.SecurityConstants.HEADER_STRING;
-import static nl.tudelft.oopp.demo.security.SecurityConstants.SECRET;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-import com.auth0.jwt.JWT;
-
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -36,6 +27,7 @@ import nl.tudelft.oopp.demo.services.FoodOrderService;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -300,7 +292,11 @@ public class FoodOrderServiceTest {
      */
     @Test
     public void testAddDish() {
-       /* foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds, dishIds);
+        Dish dishA = new Dish("Tosti", menu);
+        dishRepository.save(dishA);
+        Dish dishB = new Dish("Hamburger", menu);
+        dishRepository.save(dishB);
+        foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds, dishIds);
         foodOrder = foodOrderService.all().get(0);
         foodOrderService.addDish(foodOrder.getId(),"Tosti");
         foodOrderService.addDish(foodOrder.getId(),"Hamburger");
@@ -314,7 +310,7 @@ public class FoodOrderServiceTest {
             dish1 = swap;
         }
         assertEquals(dish1, "Hamburger");
-        assertEquals(dish2,"Tosti");*/
+        assertEquals(dish2,"Tosti");
     }
 
     /**
