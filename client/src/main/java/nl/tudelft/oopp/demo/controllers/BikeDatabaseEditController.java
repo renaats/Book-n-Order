@@ -6,19 +6,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+
+import javafx.stage.StageStyle;
 
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
@@ -26,9 +24,11 @@ import nl.tudelft.oopp.demo.entities.Bike;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
+/**
+ * Manages the user input from the database edit bike view
+ */
 public class BikeDatabaseEditController implements Initializable {
 
-    final ObservableList updateChoiceBoxList = FXCollections.observableArrayList();
     final ObservableList<Bike> bikeSearchResult = FXCollections.observableArrayList();
     final ObservableList<Building> locationsSearchResults = FXCollections.observableArrayList();
 
@@ -46,8 +46,6 @@ public class BikeDatabaseEditController implements Initializable {
     private Button confirmDeleteByIdButton;
     @FXML
     private CheckBox available;
-    @FXML
-    private TextField locationSearch;
     @FXML
     private TableView table;
     @FXML
@@ -82,11 +80,10 @@ public class BikeDatabaseEditController implements Initializable {
         bikeSearchResult.clear();
         bikeSearchResult.addAll(bikes);
         table.setItems(bikeSearchResult);
-
     }
 
     /**
-     * Loads the bikes into the table filtering by if they are available or not
+     * Loads the bike that have the same value of "available" than the checkBox
      */
     public void loadBikesIntoTableAvailable() {
         List<Bike> bikes = new ArrayList<>(Objects.requireNonNull(JsonMapper.bikeListMapper(ServerCommunication.getBikes())));
@@ -147,7 +144,6 @@ public class BikeDatabaseEditController implements Initializable {
         locationsSearchResults.clear();
     }
 
-
     /**
      * Changes view to main menu
      * @throws IOException should never throw an exception as the input is always the same
@@ -186,9 +182,12 @@ public class BikeDatabaseEditController implements Initializable {
     public void deleteBikeById() {
         int id = Integer.parseInt(bikeDeleteByIdTextField.getText());
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Bike remover");
+        alert.setTitle(null);
         alert.setHeaderText(null);
         alert.setContentText(ServerCommunication.deleteBike(id));
+        alert.initStyle(StageStyle.UNDECORATED);
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(getClass().getResource("/alertWarning.css").toExternalForm());
         alert.showAndWait();
         loadBikesIntoTable();
     }
@@ -208,15 +207,15 @@ public class BikeDatabaseEditController implements Initializable {
             int buildingId = nameGetId((String) locationChangeChoiceBox.getValue());
             System.out.println("building ID = ." + buildingId + ".");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle(null);
             alert.setHeaderText(null);
             alert.setContentText(ServerCommunication.updateBike(id,"location", "" + buildingId));
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/alertWarning.css").toExternalForm());
             alert.showAndWait();
-            loadBikesIntoTable();
         }
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setHeaderText(null);
-        alert.setContentText(ServerCommunication.updateBike(id,"available",ava));
-        alert.showAndWait();
+        ServerCommunication.updateBike(id,"available",ava);
         loadBikesIntoTable();
     }
 
@@ -240,9 +239,12 @@ public class BikeDatabaseEditController implements Initializable {
     public void deleteBikeUsingTable() {
         Bike bike = (Bike) table.getSelectionModel().getSelectedItem();
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Bike remover");
+        alert.setTitle(null);
         alert.setHeaderText(null);
         alert.setContentText(ServerCommunication.deleteBike(bike.getId()));
+        alert.initStyle(StageStyle.UNDECORATED);
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(getClass().getResource("/alertWarning.css").toExternalForm());
         alert.showAndWait();
         loadBikesIntoTable();
     }
@@ -260,6 +262,5 @@ public class BikeDatabaseEditController implements Initializable {
         for (int i = 0; i < locations.size(); i++) {
             locationChangeChoiceBox.getItems().add(locations.get(i).getName() + " (" + locations.get(i).getId() + ")");
         }
-
     }
 }
