@@ -379,7 +379,7 @@ public class ServerCommunicationTest {
     }
 
     /**
-     * Tests the response when the getRooms request is successful.
+     * Tests the response when the getBikes request is successful.
      */
     @Test
     public void testSuccessfulGetBikes() {
