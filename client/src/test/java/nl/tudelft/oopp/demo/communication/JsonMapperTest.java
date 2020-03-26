@@ -148,6 +148,21 @@ class JsonMapperTest {
     }
 
     @Test
+    void bikeListMapper() {
+        List<Bike> bikes =
+                new ArrayList<>(Objects
+                        .requireNonNull(JsonMapper
+                                .bikeListMapper("[{\"id\":1,\"location\":{\"id\":1,\"name\":\"11\",\"street\":\"1\",\"houseNumber\":1},\"available\":true},"
+                                        + "{\"id\":2,\"location\":{\"id\":1,\"name\":\"11\",\"street\":\"1\",\"houseNumber\":1},\"available\":false}]\n")));
+        stubFor(get(urlEqualTo("/bike/all"))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withBody("[{\"id\":1,\"location\":{\"id\":1,\"name\":\"11\",\"street\":\"1\",\"houseNumber\":1},\"available\":true},"
+                                + "{\"id\":2,\"location\":{\"id\":1,\"name\":\"11\",\"street\":\"1\",\"houseNumber\":1},\"available\":false}]\n")));
+        assertEquals(bikes, JsonMapper.bikeListMapper(ServerCommunication.getBikes()));
+    }
+
+    @Test
     void roomReservationMapperTest() {
         stubFor(get(urlEqualTo("/room_reservation/find/3"))
                 .willReturn(aResponse()
