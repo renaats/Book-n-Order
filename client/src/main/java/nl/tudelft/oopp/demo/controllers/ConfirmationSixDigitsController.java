@@ -25,7 +25,6 @@ public class ConfirmationSixDigitsController {
      * @throws IOException Deals with improper input
      */
     public void confirmValidity(ActionEvent actionEvent) throws IOException {
-
         try {
             int code = Integer.parseInt(sixDigitCode.getText());
             String response =  ServerCommunication.validateUser(code);

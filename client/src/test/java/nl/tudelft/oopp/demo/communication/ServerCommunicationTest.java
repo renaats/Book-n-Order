@@ -274,11 +274,7 @@ public class ServerCommunicationTest {
      */
     @Test
     public void testSuccessfulLoginUser() {
-        try {
-            assertEquals(ErrorMessages.getErrorMessage(311), ServerCommunication.loginUser("a", "b"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        assertEquals(ErrorMessages.getErrorMessage(311), ServerCommunication.loginUser("a", "b"));
     }
 
     /**

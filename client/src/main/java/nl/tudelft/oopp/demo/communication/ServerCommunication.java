@@ -179,7 +179,7 @@ public class ServerCommunication {
      * @param password User's password
      * @return the body of a get request to the server.
      */
-    public static String loginUser(String email, String password) throws IOException {
+    public static String loginUser(String email, String password) {
         try {
             URL url = new URL("http://localhost:8080/login");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -209,11 +209,10 @@ public class ServerCommunication {
                     }
                 }
             }
-            return ErrorMessages.getErrorMessage(311);
         } catch (IOException e) {
             e.printStackTrace();
-            return ErrorMessages.getErrorMessage(311);
         }
+        return ErrorMessages.getErrorMessage(311);
     }
 
     /**
@@ -474,6 +473,16 @@ public class ServerCommunication {
      */
     public static String deleteRoomReservation(int id) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room_reservation/delete?id=" + id)).DELETE().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnErrorMessage(request);
+    }
+
+    /**
+     * Requests a new password for the user.
+     * @param email User's email
+     * @return the body of the response from the server
+     */
+    public static String sendRecoveryPassword(String email) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/user/recoverPassword?email="  + email)).POST(HttpRequest.BodyPublishers.noBody()).build();
         return communicateAndReturnErrorMessage(request);
     }
 }
