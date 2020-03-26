@@ -300,10 +300,10 @@ public class FoodOrderServiceTest {
      */
     @Test
     public void testAddDish() {
-        /*foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds, dishIds);
+       /* foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds, dishIds);
         foodOrder = foodOrderService.all().get(0);
-        foodOrderService.addDish(foodOrder.getId(), "Tosti");
-        foodOrderService.addDish(foodOrder.getId(), "Hamburger");
+        foodOrderService.addDish(foodOrder.getId(),"Tosti");
+        foodOrderService.addDish(foodOrder.getId(),"Hamburger");
         Iterator<Dish> dishes = foodOrderService.find(foodOrder.getId()).getDishes().iterator();
         String dish1 = dishes.next().getName();
         String dish2 = dishes.next().getName();
