@@ -80,8 +80,10 @@ public class BuildingHourServiceTest {
 
         buildingHours = new BuildingHours(1, building, LocalTime.ofSecondOfDay(1000), LocalTime.ofSecondOfDay(3000));
         buildingHours2 = new BuildingHours(2, building2, LocalTime.ofSecondOfDay(3000), LocalTime.ofSecondOfDay(4000));
-        buildingHoursSpecial = new BuildingHours(939600000, building, LocalTime.ofSecondOfDay(1000), LocalTime.ofSecondOfDay(3000));
-        buildingHoursSpecial2 = new BuildingHours(1037000000, building2, LocalTime.ofSecondOfDay(3000), LocalTime.ofSecondOfDay(4000));
+        buildingHoursSpecial =
+                new BuildingHours(BuildingHourService.parse(939600000), building, LocalTime.ofSecondOfDay(1000), LocalTime.ofSecondOfDay(3000));
+        buildingHoursSpecial2 =
+                new BuildingHours(BuildingHourService.parse(1037000000), building2, LocalTime.ofSecondOfDay(3000), LocalTime.ofSecondOfDay(4000));
     }
 
     /**

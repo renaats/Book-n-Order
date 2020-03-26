@@ -8,11 +8,15 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Restaurant;
 import nl.tudelft.oopp.demo.entities.RestaurantHours;
+import nl.tudelft.oopp.demo.services.BuildingHourService;
 import nl.tudelft.oopp.demo.services.BuildingService;
 import nl.tudelft.oopp.demo.services.RestaurantHourService;
 import nl.tudelft.oopp.demo.services.RestaurantService;
@@ -97,8 +101,10 @@ public class RestaurantHourServiceTest {
 
         restaurantHours = new RestaurantHours(1, restaurant, LocalTime.ofSecondOfDay(1000), LocalTime.ofSecondOfDay(3000));
         restaurantHours2 = new RestaurantHours(2, restaurant2, LocalTime.ofSecondOfDay(3000), LocalTime.ofSecondOfDay(4000));
-        restaurantHoursSpecial = new RestaurantHours(939600000, restaurant, LocalTime.ofSecondOfDay(1000), LocalTime.ofSecondOfDay(3000));
-        restaurantHoursSpecial2 = new RestaurantHours(1037000000, restaurant2, LocalTime.ofSecondOfDay(3000), LocalTime.ofSecondOfDay(4000));
+        restaurantHoursSpecial =
+                new RestaurantHours(BuildingHourService.parse(939600000), restaurant, LocalTime.ofSecondOfDay(1000), LocalTime.ofSecondOfDay(3000));
+        restaurantHoursSpecial2 =
+                new RestaurantHours(BuildingHourService.parse(1037000000), restaurant2, LocalTime.ofSecondOfDay(3000), LocalTime.ofSecondOfDay(4000));
     }
 
     /**
