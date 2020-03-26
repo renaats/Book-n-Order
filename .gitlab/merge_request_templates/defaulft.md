@@ -1,36 +1,7 @@
-
-Save New Duplicate & Edit Just Text Twitter
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
 # Merge Request
 **Issue:** 
 
 # Checklist
-We should have an merge request template which also contains the following checklist:
-
 * Did you read through your own code before submitting: false
 * Do you have 100% method coverage with testing if applicable: false
 * Do you have a minimum of 85% line coverage with testing: false
