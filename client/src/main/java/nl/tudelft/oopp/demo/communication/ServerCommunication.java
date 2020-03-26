@@ -88,9 +88,12 @@ public class ServerCommunication {
     }
 
     /**
-     * Removes a building from the database.
-     * @param id = id of the building to be removed.
-     * @return the body of the response from the server.
+     * Adds building hours to the server
+     * @param buildingId Building id
+     * @param day Day represented by int
+     * @param startTimeS Start time in seconds
+     * @param endTimeS End time in seconds
+     * @return response.body of the server
      */
     public static String deleteBuilding(int id) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building/delete/" + id)).DELETE().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
@@ -555,6 +558,19 @@ public class ServerCommunication {
      * @param toTimeMs end time of the reservation in milliseconds
      * @return Body response
      */
+    public static String getRoomReservations() {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/room_reservation/all")).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Communicates addRoomReservation to the database
+     * @param roomId Id of the room
+     * @param userEmail user email
+     * @param fromTimeMs start time of the reservation in milliseconds
+     * @param toTimeMs end time of the reservation in milliseconds
+     * @return Body response
+     */
     public static String addRoomReservation(int roomId, String userEmail, long fromTimeMs, long toTimeMs) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room_reservation/add?roomId=" + roomId + "&userEmail=" + userEmail + "&fromTimeMs=" + fromTimeMs + "&toTimeMs=" + toTimeMs)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnErrorMessage(request);
@@ -595,9 +611,9 @@ public class ServerCommunication {
 
     /**
      * Updates a given attribute of a bike.
-     * @param id = the id of the bike.
-     * @param attribute = The attribute whose value is to be changed.
-     * @param changeValue = New value.
+     * @param id Id of the bike.
+     * @param attribute Attribute whose value is to be changed.
+     * @param changeValue New value.
      * @return the body of the response from the server.
      */
     public static String updateBike(int id, String attribute, String changeValue) {
@@ -681,7 +697,7 @@ public class ServerCommunication {
 
     /**
      * Removes a bike from the database.
-     * @param id = The id of the bike.
+     * @param id Id of the bike.
      * @return the body of the response from the server.
      */
     public static String deleteBike(int id) {
