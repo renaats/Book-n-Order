@@ -681,7 +681,7 @@ public class ServerCommunication {
 
     /**
      * Removes a bike from the database.
-     * @param id = the id of the bike.
+     * @param id = The id of the bike.
      * @return the body of the response from the server.
      */
     public static String deleteBike(int id) {
