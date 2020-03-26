@@ -25,8 +25,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import javafx.stage.StageStyle;
 
-import javafx.stage.StageStyle;
-
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.Bike;
