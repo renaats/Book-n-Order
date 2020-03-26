@@ -83,7 +83,7 @@ public class BuildingHourServiceTest {
         buildingHoursSpecial =
                 new BuildingHours(BuildingHourService.parse(939600000), building, LocalTime.ofSecondOfDay(1000), LocalTime.ofSecondOfDay(3000));
         buildingHoursSpecial2 =
-                new BuildingHours(BuildingHourService.parse(1037000000), building2, LocalTime.ofSecondOfDay(3000), LocalTime.ofSecondOfDay(4000));
+                new BuildingHours(BuildingHourService.parse(1026000000), building2, LocalTime.ofSecondOfDay(3000), LocalTime.ofSecondOfDay(4000));
     }
 
     /**
@@ -233,7 +233,7 @@ public class BuildingHourServiceTest {
         buildingHours2 = buildingHourList.get(1);
 
         assertNotEquals(buildingHourService.find(buildingHours.getBuilding().getId(), 939600000),
-                buildingHourService.find(buildingHours2.getBuilding().getId(), 1037000000));
+                buildingHourService.find(buildingHours2.getBuilding().getId(), 1026000000));
 
         buildingHourService.update(buildingHours2.getId(), "buildingid", buildingHours.getBuilding().getId().toString());
 
@@ -253,7 +253,7 @@ public class BuildingHourServiceTest {
         buildingHours2 = buildingHourList.get(1);
 
         assertNotEquals(buildingHourService.find(buildingHours.getBuilding().getId(), 939600000),
-                buildingHourService.find(buildingHours2.getBuilding().getId(), 1037000000));
+                buildingHourService.find(buildingHours2.getBuilding().getId(), 1026000000));
 
         buildingHourService.update(buildingHours2.getId(), "starttimes", ((Integer) buildingHours.getStartTime().toSecondOfDay()).toString());
 
@@ -274,7 +274,7 @@ public class BuildingHourServiceTest {
         buildingHours2 = buildingHourList.get(1);
 
         assertNotEquals(buildingHourService.find(buildingHours.getBuilding().getId(), 939600000),
-                buildingHourService.find(buildingHours2.getBuilding().getId(), 1037000000));
+                buildingHourService.find(buildingHours2.getBuilding().getId(), 1026000000));
 
         buildingHourService.update(buildingHours2.getId(), "endtimes", ((Integer) buildingHours.getEndTime().toSecondOfDay()).toString());
 
@@ -294,7 +294,7 @@ public class BuildingHourServiceTest {
         buildingHours2 = buildingHourList.get(1);
 
         assertNotEquals(buildingHourService.find(buildingHours.getBuilding().getId(), 939600000),
-                buildingHourService.find(buildingHours2.getBuilding().getId(), 1037000000));
+                buildingHourService.find(buildingHours2.getBuilding().getId(), 1026000000));
 
         buildingHourService.update(buildingHours2.getId(), "buildingid", buildingHours.getBuilding().getId().toString());
 
@@ -334,7 +334,7 @@ public class BuildingHourServiceTest {
         buildingHourService.delete(buildingHourList.get(0).getBuilding().getId(), buildingHourList.get(0).getDay());
 
         assertNull(buildingHourService.find(buildingHours.getBuilding().getId(), 939600000));
-        assertNotNull(buildingHourService.find(buildingHours2.getBuilding().getId(), 1037000000));
+        assertNotNull(buildingHourService.find(buildingHours2.getBuilding().getId(), 1026000000));
     }
 
 
@@ -376,7 +376,7 @@ public class BuildingHourServiceTest {
 
         assertNull(buildingHourService.find(buildingHours2.getBuilding().getId(), 939600000));
         buildingHourService.update(buildingHours2.getId(), "day", ((Long) 939600000L).toString());
-        assertEquals(939600000, buildingHourService.find(buildingHours2.getBuilding().getId(), 939600000).getDay());
+        assertEquals(BuildingHourService.parse(939600000), buildingHourService.find(buildingHours2.getBuilding().getId(), 939600000).getDay());
     }
 
     /**
