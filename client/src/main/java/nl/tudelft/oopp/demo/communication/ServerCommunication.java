@@ -766,6 +766,42 @@ public class ServerCommunication {
     }
 
     /**
+     * Communicates addRoomReservation to the database
+     * @param roomId id of the room
+     * @param userEmail user email
+     * @param fromTimeMs start time of the reservation in milliseconds
+     * @param toTimeMs end time of the reservation in milliseconds
+     * @return body response
+     */
+    public static String addRoomReservation(int roomId, String userEmail, long fromTimeMs, long toTimeMs) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room_reservation/add?roomId=" + roomId + "&userEmail=" + userEmail + "&fromTimeMs=" + fromTimeMs + "&toTimeMs=" + toTimeMs)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnErrorMessage(request);
+    }
+
+    /**
+     * Updates a given attribute of a room reservation.
+     * @param id = The id of the room reservation.
+     * @param attribute = The attribute whose value is to be changed.
+     * @param changeValue = New value.
+     * @return the body of the response from the server.
+     */
+    public static String updateRoomReservation(int id, String attribute, String changeValue) {
+        HttpRequest request;
+        request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room_reservation/update?id=" + id + "&attribute=" + attribute + "&value=" + URLEncoder.encode(changeValue, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnErrorMessage(request);
+    }
+
+    /**
+     * Removes a room reservation from the database.
+     * @param id = The id of the room reservation.
+     * @return the body of the response from the server.
+     */
+    public static String deleteRoomReservation(int id) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room_reservation/delete?id=" + id)).DELETE().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnErrorMessage(request);
+    }
+
+    /**
      * Updates a given attribute of a bike.
      * @param id = the id of the bike.
      * @param attribute = The attribute whose value is to be changed.
@@ -797,7 +833,7 @@ public class ServerCommunication {
 
     /**
      * Removes a bike from the database.
-     * @param id = the id of the bike.
+     * @param id = The id of the bike.
      * @return the body of the response from the server.
      */
     public static String deleteBike(int id) {
