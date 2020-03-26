@@ -85,26 +85,26 @@ public class ServerCommunication {
     /**
      * Adds building hours to the server
      * @param buildingId building id
-     * @param day day represented by int
+     * @param date the date in milliseconds or the day of the week for regular hours represented by long
      * @param startTimeS start time in seconds
      * @param endTimeS end time in seconds
      * @return response.body of the server
      */
-    public static String addBuildingHours(int buildingId, int day, int startTimeS, int endTimeS) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building_hours/add?buildingId=" + buildingId + "&day=" + day + "&startTimeS=" + startTimeS + "&endTimeS=" + endTimeS)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+    public static String addBuildingHours(int buildingId, long date, int startTimeS, int endTimeS) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building_hours/add?buildingId=" + buildingId + "&date=" + date + "&startTimeS=" + startTimeS + "&endTimeS=" + endTimeS)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnBodyOfResponse(request);
     }
 
     /**
      * Adds restaurant hours to the server
      * @param restaurantId restaurant id
-     * @param day day represented by int
+     * @param date the date in milliseconds or the day of the week for regular hours represented by long
      * @param startTimeS start time in seconds
      * @param endTimeS end time in seconds
      * @return response.body of the server
      */
-    public static String addRestaurantHours(int restaurantId, int day, int startTimeS, int endTimeS) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant_hours/add?restaurantId=" + restaurantId + "&day=" + day + "&startTimeS=" + startTimeS + "&endTimeS=" + endTimeS)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+    public static String addRestaurantHours(int restaurantId, long date, int startTimeS, int endTimeS) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant_hours/add?restaurantId=" + restaurantId + "&date=" + date + "&startTimeS=" + startTimeS + "&endTimeS=" + endTimeS)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnBodyOfResponse(request);
     }
 
@@ -274,22 +274,22 @@ public class ServerCommunication {
     /**
      * Retrieve specific building hours for specific day in the database by id.
      * @param buildingId = building id, which is parsed from a text field.
-     * @param day = int representation for the day of the week
+     * @param date = the date in milliseconds represented by long
      * @return the body of the response.
      */
-    public static String findBuildingHours(int buildingId, int day) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building_hours/find/" + buildingId + "/" + day)).GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+    public static String findBuildingHours(int buildingId, long date) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building_hours/find/" + buildingId + "/" + date)).GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnBodyOfResponse(request);
     }
 
     /**
      * Retrieve specific restaurant opening hours for specific day in the database by id.
      * @param restaurantId = restaurant id, which is parsed from a text field.
-     * @param day = int representation for the day of the week
+     * @param date = the date in milliseconds represented by long
      * @return the body of the response.
      */
-    public static String findRestaurantHours(int restaurantId, int day) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant_hours/find/" + restaurantId + "/" + day)).GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+    public static String findRestaurantHours(int restaurantId, long date) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant_hours/find/" + restaurantId + "/" + date)).GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnBodyOfResponse(request);
     }
 
@@ -314,8 +314,7 @@ public class ServerCommunication {
      * @return The body of the response from the server.
      * */
     public static String updateBuildingHours(int id, String attribute, String changeValue) {
-        HttpRequest request;
-        request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building_hours/update?id=" + id + "&attribute=" + attribute + "&value=" + URLEncoder.encode(changeValue, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building_hours/update?id=" + id + "&attribute=" + attribute + "&value=" + URLEncoder.encode(changeValue, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnErrorMessage(request);
     }
 
@@ -327,8 +326,7 @@ public class ServerCommunication {
      * @return The body of the response from the server.
      */
     public static String updateRestaurantHours(int id, String attribute, String changeValue) {
-        HttpRequest request;
-        request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant_hours/update?id=" + id + "&attribute=" + attribute + "&value=" + URLEncoder.encode(changeValue, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant_hours/update?id=" + id + "&attribute=" + attribute + "&value=" + URLEncoder.encode(changeValue, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         HttpResponse<String> response;
         return communicateAndReturnErrorMessage(request);
     }
@@ -356,22 +354,22 @@ public class ServerCommunication {
     /**
      * Removes building hours from the database.
      * @param id = the id of the building.
-     * @param day = the day of the week represented in an int.
+     * @param date = the date in milliseconds or the day of the week for regular hours represented by long.
      * @return the body of the response from the server.
      */
-    public static String deleteBuildingHours(int id, int day) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building_hours/delete?id=" + id + "&day=" + day)).DELETE().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+    public static String deleteBuildingHours(int id, long date) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building_hours/delete?id=" + id + "&date=" + date)).DELETE().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnErrorMessage(request);
     }
 
     /**
      * Removes restaurant hours from the database.
      * @param id = the id of the restaurant.
-     * @param day = the day of the week represented in an int.
+     * @param date the date in milliseconds or the day of the week for regular hours represented by long.
      * @return the body of the response from the server.
      */
-    public static String deleteRestaurantHours(int id, int day) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant_hours/delete?id=" + id + "&day=" + day)).DELETE().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+    public static String deleteRestaurantHours(int id, long date) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant_hours/delete?id=" + id + "&date=" + date)).DELETE().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnErrorMessage(request);
     }
 
