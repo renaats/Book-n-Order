@@ -4,6 +4,7 @@ import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import nl.tudelft.oopp.demo.entities.Restaurant;
 import nl.tudelft.oopp.demo.entities.RestaurantHours;
@@ -138,6 +139,7 @@ public class RestaurantHourService {
             return restaurantHourRepository.findByRestaurant_IdAndDay(restaurantId, dateInMilliseconds);
         }
         Calendar calendar = Calendar.getInstance();
+        calendar.setTimeZone(TimeZone.getTimeZone("Europe/Amsterdam"));
         calendar.setTime(new Date(dateInMilliseconds));
         long day = calendar.get(Calendar.DAY_OF_WEEK);
         if (restaurantHourRepository.existsByRestaurant_IdAndDay(restaurantId, day)) {

@@ -6,6 +6,7 @@ import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.BuildingHours;
@@ -154,6 +155,7 @@ public class BuildingHourService {
             return buildingHourRepository.findByBuilding_IdAndDay(buildingId, dateInMilliseconds);
         }
         Calendar calendar = Calendar.getInstance();
+        calendar.setTimeZone(TimeZone.getTimeZone("Europe/Amsterdam"));
         calendar.setTime(new Date(dateInMilliseconds));
         long day = calendar.get(Calendar.DAY_OF_WEEK);
         if (buildingHourRepository.existsByBuilding_IdAndDay(buildingId, day)) {
