@@ -38,6 +38,7 @@ public class BikeDatabaseAddController implements Initializable {
     private ToggleButton availableToggle;
     @FXML
     private TextField number;
+
     private boolean available;
     private List<Building> buildings;
 
@@ -48,6 +49,19 @@ public class BikeDatabaseAddController implements Initializable {
     public BikeDatabaseAddController() throws IOException {
         //This method is required because this throws and exception:
         // private List<Building> buildings = JsonMapper.buildingListMapper(ServerCommunication.getBuildings());
+        try {
+            buildings = JsonMapper.buildingListMapper(ServerCommunication.getBuildings());
+
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle(null);
+            alert.setHeaderText(null);
+            alert.setContentText("There are currently no buildings in the database, please add some");
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/alertWarning.css").toExternalForm());
+            alert.showAndWait();
+        }
     }
 
     public BikeDatabaseAddController() throws IOException {
