@@ -56,7 +56,7 @@ public class BikeDatabaseAddController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle(null);
             alert.setHeaderText(null);
-            alert.setContentText("There are currently no buildings in the database, please add some");
+            alert.setContentText("There are currently no buildings in the database");
             alert.initStyle(StageStyle.UNDECORATED);
             DialogPane dialogPane = alert.getDialogPane();
             dialogPane.getStylesheets().add(getClass().getResource("/alertWarning.css").toExternalForm());
