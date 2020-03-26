@@ -36,7 +36,7 @@ public class ChangePasswordController {
         if (newPassword1.getText().equals(newPassword2.getText())) {
             ApplicationDisplay.changeScene("/myAccountScene.fxml");
         } else {
-            CustomAlert.errorAlert("Passwords do not match!");
+            CustomAlert.errorAlert("Passwords do not match.");
         }
     }
 }

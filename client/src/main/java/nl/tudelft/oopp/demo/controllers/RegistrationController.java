@@ -51,7 +51,7 @@ public class RegistrationController implements Initializable {
             if (password.equals(password2)) {
                 CustomAlert.informationAlert(ServerCommunication.addUser(email, name, surname, faculty, password));
             } else {
-                CustomAlert.errorAlert("Passwords do not match!");
+                CustomAlert.errorAlert("Passwords do not match.");
             }
         } catch (Exception e) {
             CustomAlert.warningAlert("Missing fields.");
