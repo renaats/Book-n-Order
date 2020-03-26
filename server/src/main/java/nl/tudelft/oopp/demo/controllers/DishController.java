@@ -26,10 +26,10 @@ public class DishController {
     DishService dishService;
 
     /**
-     * Adds a dish
-     * @param name dish name
-     * @param menuId menu id
-     * @return Error code
+     * Adds a dish.
+     * @param name dish name.
+     * @param menuId menu id.
+     * @return Error code.
      */
     @Secured({"RESTAURANT_OWNER", "ROLE_ADMIN"})
     @PostMapping(path = "/add")
@@ -40,8 +40,8 @@ public class DishController {
 
     /**
      * Adds an allergy to a dish. If the allergy does not exist, it is created.
-     * @param id = the id of the dish
-     * @param allergyName = the name of the allergy
+     * @param id = the id of the dish.
+     * @param allergyName = the name of the allergy.
      */
     @Secured({"ROLE_ADMIN", "ROLE_RESTAURANT"})
     @PostMapping(path = "/addAllergy")
@@ -51,9 +51,9 @@ public class DishController {
     }
 
     /**
-     * Deletes a dish
-     * @param id dish id
-     * @return Error code
+     * Deletes a dish.
+     * @param id dish id.
+     * @return Error code.
      */
     @Secured({"RESTAURANT_OWNER", "ROLE_ADMIN"})
     @DeleteMapping(path = "/delete/{dishID}")

@@ -71,7 +71,7 @@ public class DishTest {
     }
 
     /**
-     * Tests the constructor of the Dish class
+     * Tests the constructor of the Dish class.
      */
     @Test
     public void testConstructor() {

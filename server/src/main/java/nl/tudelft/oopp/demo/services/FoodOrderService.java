@@ -129,9 +129,9 @@ public class FoodOrderService {
     }
 
     /**
-     * Adds a dish to food order
-     * @param id = the id of the food order
-     * @param dishName = the name of the dish
+     * Adds a dish to food order.
+     * @param id = the id of the food order.
+     * @param dishName = the name of the dish.
      */
     public int addDish(int id, String dishName) {
         if (!foodOrderRepository.existsById(id)) {
@@ -168,8 +168,8 @@ public class FoodOrderService {
 
     /**
      * Finds a food order with the specified id.
-     * @param id = the food order id
-     * @return a food order that matches the id
+     * @param id = the food order id.
+     * @return a food order that matches the id.
      */
     public FoodOrder find(int id) {
         return foodOrderRepository.findById(id).orElse(null);
@@ -177,7 +177,7 @@ public class FoodOrderService {
 
     /**
      * Finds all past food orders for the user that sends the Http request.
-     * @param request = the Http request that calls this method
+     * @param request = the Http request that calls this method.
      * @return a list of past food orders for this user.
      */
     public List<FoodOrder> past(HttpServletRequest request) {
@@ -197,7 +197,7 @@ public class FoodOrderService {
 
     /**
      * Finds all future food orders for the user that sends the Http request.
-     * @param request = the Http request that calls this method
+     * @param request = the Http request that calls this method.
      * @return a list of future food orders for this user.
      */
     public List<FoodOrder> future(HttpServletRequest request) {

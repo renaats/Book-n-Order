@@ -4,7 +4,7 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
- * Manages the Allergy object that is retrieved from the server
+ * Manages the Allergy object that is retrieved from the server.
  */
 public class Allergy {
     private int id;

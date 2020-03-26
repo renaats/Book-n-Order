@@ -29,10 +29,10 @@ public class DishService {
     private AllergyRepository allergyRepository;
 
     /**
-     * Adds a dish
-     * @param name dish name
-     * @param menuId menu id
-     * @return Error code
+     * Adds a dish.
+     * @param name dish name.
+     * @param menuId menu id.
+     * @return Error code.
      */
     public int add(String name, int menuId) {
         Optional<Menu> optionalMenu = menuRepository.findById(menuId);
@@ -51,10 +51,10 @@ public class DishService {
 
     /**
      * Updates a specified attribute for some dish.
-     * @param id = the id of the dish
-     * @param attribute = the attribute that is changed
-     * @param value = the new value of the attribute
-     * @return String to see if your request passed
+     * @param id = the id of the dish.
+     * @param attribute = the attribute that is changed.
+     * @param value = the new value of the attribute.
+     * @return String to see if your request passed.
      */
     public int update(int id, String attribute, String value) {
         if (dishRepository.findById(id).isEmpty()) {
@@ -83,8 +83,8 @@ public class DishService {
 
     /**
      * Adds an allergy to a dish. If the allergy does not exist, it is created.
-     * @param id = the id of the dish
-     * @param allergyName = the name of the allergy
+     * @param id = the id of the dish.
+     * @param allergyName = the name of the allergy.
      */
     public int addAllergy(int id, String allergyName) {
         if (!dishRepository.existsById(id)) {
@@ -104,9 +104,9 @@ public class DishService {
     }
 
     /**
-     * Deletes a dish
-     * @param id dish id
-     * @return Error code
+     * Deletes a dish.
+     * @param id dish id.
+     * @return Error code.
      */
     public int delete(int id) {
         if (!dishRepository.existsById(id)) {
@@ -117,17 +117,17 @@ public class DishService {
     }
 
     /**
-     * Lists all dishes
-     * @return all menus
+     * Lists all dishes.
+     * @return all menus.
      */
     public List<Dish> all() {
         return dishRepository.findAll();
     }
 
     /**
-     * Finds a dish with a certain id
-     * @param id menu id
-     * @return menu
+     * Finds a dish with a certain id.
+     * @param id menu id.
+     * @return menu.
      */
     public Dish find(int id) {
         return dishRepository.findById(id).orElse(null);

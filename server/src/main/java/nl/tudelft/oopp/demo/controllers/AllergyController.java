@@ -28,8 +28,8 @@ public class AllergyController {
 
     /**
      * Adds an allergy.
-     * @param allergyName = the allergy
-     * @return Error code
+     * @param allergyName = the allergy.
+     * @return Error code.
      */
     @Secured({"ROLE_ADMIN", "ROLE_RESTAURANT"})
     @PostMapping(path = "/add") // Map ONLY POST Requests
@@ -40,8 +40,8 @@ public class AllergyController {
 
     /**
      * Deletes an allergy.
-     * @param name = the name of the allergy
-     * @return Error code
+     * @param name = the name of the allergy.
+     * @return Error code.
      */
     @Secured({"ROLE_ADMIN", "ROLE_RESTAURANT"})
     @DeleteMapping(path = "/delete/{allergyName}")
@@ -52,7 +52,7 @@ public class AllergyController {
 
     /**
      * Lists all allergies.
-     * @return all allergies
+     * @return all allergies.
      */
     @Secured({"ROLE_USER", "ROLE_RESTAURANT"})
     @GetMapping(path = "/all")
@@ -63,8 +63,8 @@ public class AllergyController {
 
     /**
      * Finds an allergy with the specified id.
-     * @param name = the allergy name
-     * @return an allergy that matches the id
+     * @param name = the allergy name.
+     * @return an allergy that matches the id.
      */
     @Secured({"ROLE_USER", "ROLE_RESTAURANT"})
     @GetMapping(path = "/find/{name}")

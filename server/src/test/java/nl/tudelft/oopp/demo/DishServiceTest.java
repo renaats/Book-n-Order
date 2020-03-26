@@ -156,6 +156,19 @@ public class DishServiceTest {
     }
 
     /**
+     * Tests the change of the menu of the dish.
+     */
+    @Test
+    public void testChangeMenu() {
+        dishService.add("Tosti", menu1.getId());
+        int id = dishService.all().get(0).getId();
+        assertNotEquals(menu2, dishService.find(id).getMenu());
+        String menu2Id = Integer.toString(menu2.getId());
+        dishService.update(id, "menu", menu2Id);
+        assertEquals(menu2, dishService.find(id).getMenu());
+    }
+
+    /**
      * Tests the addition of an allergy to a dish.
      */
     @Test
