@@ -42,11 +42,10 @@ public class ApplicationDisplay extends Application {
 
     public static void showCalendarScene(PersonalCalendarView cal) {
         Stage stage = new Stage();
-        Scene calScene = new Scene(ca);
         stage.setScene(new Scene(cal));
-        scene
+        stage.setWidth(1000);
+        stage.setHeight(800);
         stage.show();
-
     }
 
     public static void main(String[] args) {
