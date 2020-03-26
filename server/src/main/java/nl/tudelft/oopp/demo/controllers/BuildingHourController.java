@@ -30,7 +30,7 @@ public class BuildingHourController {
     /**
      * Adds building hours to the database.
      * @param buildingId = the id of the building.
-     * @param day = the day of the week in number representation (1 to 7)
+     * @param date = the date in milliseconds or the day of the week for regular hours
      * @param startTimeS = the starting time in seconds
      * @param endTimeS = the ending time in seconds
      * @return Error code
@@ -38,8 +38,8 @@ public class BuildingHourController {
     @Secured({"ROLE_ADMIN", "ROLE_BUILDING_ADMIN"})
     @PostMapping(path = "/add")
     @ResponseBody
-    public int addBuildingHours(@RequestParam int buildingId, @RequestParam int day, @RequestParam int startTimeS, @RequestParam int endTimeS) {
-        return buildingHourService.add(buildingId, day, startTimeS, endTimeS);
+    public int addBuildingHours(@RequestParam int buildingId, @RequestParam long date, @RequestParam int startTimeS, @RequestParam int endTimeS) {
+        return buildingHourService.add(buildingId, date, startTimeS, endTimeS);
     }
 
     /**
@@ -59,14 +59,14 @@ public class BuildingHourController {
     /**
      * Deletes building hours.
      * @param buildingId = the id of the building
-     * @param day = the day of the week
+     * @param date = the date in milliseconds or the day of the week for regular hours
      * @return Error code
      */
     @Secured({"ROLE_ADMIN", "ROLE_BUILDING_ADMIN"})
     @DeleteMapping(path = "/delete")
     @ResponseBody
-    public int deleteBuildingHours(@RequestParam int buildingId, @RequestParam int day) {
-        return buildingHourService.delete(buildingId, day);
+    public int deleteBuildingHours(@RequestParam int buildingId, @RequestParam long date) {
+        return buildingHourService.delete(buildingId, date);
     }
 
     /**
@@ -83,13 +83,13 @@ public class BuildingHourController {
     /**
      * Finds the hours for a building with the specified id.
      * @param buildingId = the id of the building
-     * @param day = the day of the week
+     * @param dateInMilliseconds = the date in milliseconds
      * @return building hours that match the id
      */
     @Secured("ROLE_USER")
     @GetMapping(path = "/find/{buildingID}/{day}")
     @ResponseBody
-    public BuildingHours findBuildingHours(@PathVariable(value = "buildingID") int buildingId, @PathVariable(value = "day") int day) {
-        return buildingHourService.find(buildingId, day);
+    public BuildingHours findBuildingHours(@PathVariable(value = "buildingID") int buildingId, @PathVariable(value = "day") long dateInMilliseconds) {
+        return buildingHourService.find(buildingId, dateInMilliseconds);
     }
 }

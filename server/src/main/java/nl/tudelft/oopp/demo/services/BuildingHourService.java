@@ -1,6 +1,10 @@
 package nl.tudelft.oopp.demo.services;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalTime;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import nl.tudelft.oopp.demo.entities.Building;
@@ -22,28 +26,46 @@ public class BuildingHourService {
     BuildingService buildingService;
 
     /**
+     * Parses the dateInMilliseconds to be the beginning of a day.
+     * @param dateInMilliseconds = the date that is parsed.
+     * @return the parsed date
+     */
+    public static long parse(long dateInMilliseconds) {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            return formatter.parse(formatter.format(new Date(dateInMilliseconds))).getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    /**
      * Adds building hours to the database.
      * @param buildingId = the id of the building.
-     * @param day = the day of the week in number representation (1 to 7)
+     * @param date = the date in milliseconds or the day of the week for regular hours
      * @param startTimeS = the starting time in milliseconds
      * @param endTimeS = the ending time in milliseconds
      * @return String containing the result of your request.
      */
-    public int add(int buildingId, int day, int startTimeS, int endTimeS) {
+    public int add(int buildingId, long date, int startTimeS, int endTimeS) {
         Building building = buildingService.find(buildingId);
+        if (date >= 7) {
+            date = parse(date);
+        }
         if (building == null) {
             return 422;
         }
-        if (day < 1 || day > 7) {
+        if (date < 1) {
             return 425;
         }
         if (endTimeS < startTimeS) {
             return 426;
         }
-        if (buildingHourRepository.existsByBuilding_IdAndDay(buildingId, day)) {
+        if (buildingHourRepository.existsByBuilding_IdAndDay(buildingId, date)) {
             return 427;
         }
-        BuildingHours buildingHours = new BuildingHours(day, building, LocalTime.ofSecondOfDay(startTimeS), LocalTime.ofSecondOfDay(endTimeS));
+        BuildingHours buildingHours = new BuildingHours(date, building, LocalTime.ofSecondOfDay(startTimeS), LocalTime.ofSecondOfDay(endTimeS));
         buildingHourRepository.save(buildingHours);
         return 201;
     }
@@ -62,10 +84,14 @@ public class BuildingHourService {
         BuildingHours buildingHours = buildingHourRepository.getOne(id);
         switch (attribute.toLowerCase()) {
             case "day":
-                if (buildingHourRepository.existsByBuilding_IdAndDay(buildingHours.getBuilding().getId(), Integer.parseInt(value))) {
+                long dateInMilliseconds = Long.parseLong(value);
+                if (dateInMilliseconds > 7) {
+                    dateInMilliseconds = parse(dateInMilliseconds);
+                }
+                if (buildingHourRepository.existsByBuilding_IdAndDay(buildingHours.getBuilding().getId(), dateInMilliseconds)) {
                     return 427;
                 }
-                buildingHours.setDay(Integer.parseInt(value));
+                buildingHours.setDay(dateInMilliseconds);
                 break;
             case "buildingid":
                 int buildingId = Integer.parseInt(value);
@@ -94,14 +120,17 @@ public class BuildingHourService {
     /**
      * Deletes building hours.
      * @param buildingId = the id of the building
-     * @param day = the day of the week
+     * @param dateInMilliseconds = the date in milliseconds
      * @return String to see if your request passed
      */
-    public int delete(int buildingId, int day) {
-        if (!buildingHourRepository.existsByBuilding_IdAndDay(buildingId, day)) {
+    public int delete(int buildingId, long dateInMilliseconds) {
+        if (dateInMilliseconds > 7) {
+            dateInMilliseconds = parse(dateInMilliseconds);
+        }
+        if (!buildingHourRepository.existsByBuilding_IdAndDay(buildingId, dateInMilliseconds)) {
             return 404;
         }
-        buildingHourRepository.deleteByBuilding_IdAndDay(buildingId, day);
+        buildingHourRepository.deleteByBuilding_IdAndDay(buildingId, dateInMilliseconds);
         return 200;
     }
 
@@ -116,13 +145,20 @@ public class BuildingHourService {
     /**
      * Finds the hours for a building with the specified id.
      * @param buildingId = the id of the building
-     * @param day = the day of the week
+     * @param dateInMilliseconds = the date in milliseconds
      * @return building hours that match the id
      */
-    public BuildingHours find(int buildingId, int day) {
-        if (!buildingHourRepository.existsByBuilding_IdAndDay(buildingId, day)) {
-            return null;
+    public BuildingHours find(int buildingId, long dateInMilliseconds) {
+        dateInMilliseconds = parse(dateInMilliseconds);
+        if (buildingHourRepository.existsByBuilding_IdAndDay(buildingId, dateInMilliseconds)) {
+            return buildingHourRepository.findByBuilding_IdAndDay(buildingId, dateInMilliseconds);
         }
-        return buildingHourRepository.findByBuilding_IdAndDay(buildingId, day);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date(dateInMilliseconds));
+        long day = calendar.get(Calendar.DAY_OF_WEEK);
+        if (buildingHourRepository.existsByBuilding_IdAndDay(buildingId, day)) {
+            return buildingHourRepository.findByBuilding_IdAndDay(buildingId, day);
+        }
+        return null;
     }
 }
