@@ -38,6 +38,7 @@ public class BikeDatabaseAddController implements Initializable {
     private ToggleButton availableToggle;
     @FXML
     private TextField number;
+
     private boolean available;
     private List<Building> buildings;
 
@@ -55,7 +56,7 @@ public class BikeDatabaseAddController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle(null);
             alert.setHeaderText(null);
-            alert.setContentText("There are currently no buildings in the database");
+            alert.setContentText("There are currently no buildings in the database, please add some");
             alert.initStyle(StageStyle.UNDECORATED);
             DialogPane dialogPane = alert.getDialogPane();
             dialogPane.getStylesheets().add(getClass().getResource("/alertWarning.css").toExternalForm());
