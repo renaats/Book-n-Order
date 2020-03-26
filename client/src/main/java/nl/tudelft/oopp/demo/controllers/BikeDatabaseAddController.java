@@ -12,8 +12,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
-import javafx.scene.control.*;
-
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DialogPane;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 import javafx.stage.StageStyle;
 
 import nl.tudelft.oopp.demo.communication.JsonMapper;
@@ -38,7 +42,8 @@ public class BikeDatabaseAddController implements Initializable {
     private List<Building> buildings = JsonMapper.buildingListMapper(ServerCommunication.getBuildings());
 
     public BikeDatabaseAddController() throws IOException {
-        //This method is required because this throws and exception: private List<Building> buildings = JsonMapper.buildingListMapper(ServerCommunication.getBuildings());
+        //This method is required because this throws and exception:
+        // private List<Building> buildings = JsonMapper.buildingListMapper(ServerCommunication.getBuildings());
     }
 
     /**
@@ -113,7 +118,7 @@ public class BikeDatabaseAddController implements Initializable {
                 success = true;
             }
         }
-        if (success){
+        if (success) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle(null);
             alert.setHeaderText(null);
