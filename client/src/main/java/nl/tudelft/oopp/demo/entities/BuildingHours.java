@@ -8,7 +8,7 @@ import java.util.Objects;
  */
 public class BuildingHours {
     private int id;
-    private int day;
+    private long day;
 
     private Building building;
     private LocalTime startTime;
@@ -21,7 +21,7 @@ public class BuildingHours {
      * @param startTime = the starting time
      * @param endTime = the ending time
      */
-    public BuildingHours(int day, Building building, LocalTime startTime, LocalTime endTime) {
+    public BuildingHours(long day, Building building, LocalTime startTime, LocalTime endTime) {
         this.day = day;
         this.building = building;
         this.startTime = startTime;
@@ -32,7 +32,7 @@ public class BuildingHours {
 
     }
 
-    public void setDay(int day) {
+    public void setDay(long day) {
         this.day = day;
     }
 
@@ -52,7 +52,7 @@ public class BuildingHours {
         return id;
     }
 
-    public int getDay() {
+    public long getDay() {
         return day;
     }
 
