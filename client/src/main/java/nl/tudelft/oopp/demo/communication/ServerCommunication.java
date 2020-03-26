@@ -84,12 +84,12 @@ public class ServerCommunication {
     }
 
     /**
-     * Adds building hours to the server.
-     * @param buildingId building id.
-     * @param date the date in milliseconds or the day of the week for regular hours represented by long.
-     * @param startTimeS start time in seconds.
-     * @param endTimeS end time in seconds.
-     * @return response.body of the server.
+     * Adds building hours to the server
+     * @param buildingId Building id
+     * @param day Day represented by int
+     * @param startTimeS Start time in seconds
+     * @param endTimeS End time in seconds
+     * @return response.body of the server
      */
     public static String addBuildingHours(int buildingId, long date, int startTimeS, int endTimeS) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building_hours/add?buildingId=" + buildingId + "&date=" + date + "&startTimeS=" + startTimeS + "&endTimeS=" + endTimeS)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
@@ -97,12 +97,12 @@ public class ServerCommunication {
     }
 
     /**
-     * Adds restaurant hours to the server.
-     * @param restaurantId restaurant id.
-     * @param date the date in milliseconds or the day of the week for regular hours represented by long.
-     * @param startTimeS start time in seconds.
-     * @param endTimeS end time in seconds.
-     * @return response.body of the server.
+     * Adds restaurant hours to the server
+     * @param restaurantId Restaurant id
+     * @param day Day represented by int
+     * @param startTimeS Start time in seconds
+     * @param endTimeS End time in seconds
+     * @return response.body of the server
      */
     public static String addRestaurantHours(int restaurantId, long date, int startTimeS, int endTimeS) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant_hours/add?restaurantId=" + restaurantId + "&date=" + date + "&startTimeS=" + startTimeS + "&endTimeS=" + endTimeS)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
@@ -254,7 +254,7 @@ public class ServerCommunication {
 
     /**
      * Removes a building from the database.
-     * @param id = id of the building to be removed.
+     * @param id Id of the building to be removed.
      * @return the body of the response from the server.
      */
     public static String deleteBuilding(int id) {
@@ -264,7 +264,7 @@ public class ServerCommunication {
 
     /**
      * Retrieves a building in the database by id.
-     * @param buildingID = building id, which is parsed from a text field.
+     * @param buildingID Building id, which is parsed from a text field.
      * @return the body of the response.
      */
     public static String findBuilding(int buildingID) {
@@ -274,8 +274,8 @@ public class ServerCommunication {
 
     /**
      * Retrieve specific building hours for specific day in the database by id.
-     * @param buildingId = building id, which is parsed from a text field.
-     * @param date = the date in milliseconds represented by long.
+     * @param buildingId Building id, which is parsed from a text field.
+     * @param day Int representation for the day of the week
      * @return the body of the response.
      */
     public static String findBuildingHours(int buildingId, long date) {
@@ -285,8 +285,8 @@ public class ServerCommunication {
 
     /**
      * Retrieve specific restaurant opening hours for specific day in the database by id.
-     * @param restaurantId = restaurant id, which is parsed from a text field.
-     * @param date = the date in milliseconds represented by long.
+     * @param restaurantId Restaurant id, which is parsed from a text field.
+     * @param day Int representation for the day of the week
      * @return the body of the response.
      */
     public static String findRestaurantHours(int restaurantId, long date) {
@@ -296,9 +296,9 @@ public class ServerCommunication {
 
     /**
      * Updates a given attribute of building.
-     * @param id = id of the building to be updated.
-     * @param attribute = The attribute whose value is to be updated.
-     * @param changeValue = New value.
+     * @param id Id of the building to be updated.
+     * @param attribute Attribute whose value is to be updated.
+     * @param changeValue New value.
      * @return The body of the response from the server.
      */
     public static String updateBuilding(int id, String attribute, String changeValue) {
@@ -309,9 +309,9 @@ public class ServerCommunication {
 
     /**
      * Updates a given attribute of building hours.
-     * @param id = id of the building hour to be updated.
-     * @param attribute = The attribute whose value is to be updated.
-     * @param changeValue = New value.
+     * @param id Id of the building hour to be updated.
+     * @param attribute Attribute whose value is to be updated.
+     * @param changeValue New value.
      * @return The body of the response from the server.
      * */
     public static String updateBuildingHours(int id, String attribute, String changeValue) {
@@ -321,9 +321,9 @@ public class ServerCommunication {
 
     /**
      * Updates a given attribute of restaurant hours.
-     * @param id = id of the restaurant hour to be updated.
-     * @param attribute = The attribute whose value is to be updated.
-     * @param changeValue = New value.
+     * @param id Id of the restaurant hour to be updated.
+     * @param attribute Attribute whose value is to be updated.
+     * @param changeValue New value.
      * @return The body of the response from the server.
      */
     public static String updateRestaurantHours(int id, String attribute, String changeValue) {
@@ -334,7 +334,7 @@ public class ServerCommunication {
 
     /**
      * Retrieves a room by given id.
-     * @param roomId = the id of the room.
+     * @param roomId Id of the room.
      * @return The body of the response from the server.
      */
     public static String findRoom(int roomId) {
@@ -344,7 +344,7 @@ public class ServerCommunication {
 
     /**
      * Removes a room from the database.
-     * @param id = the id of the room.
+     * @param id Id of the room.
      * @return the body of the response from the server.
      */
     public static String deleteRoom(int id) {
@@ -354,8 +354,8 @@ public class ServerCommunication {
 
     /**
      * Removes building hours from the database.
-     * @param id = the id of the building.
-     * @param date = the date in milliseconds or the day of the week for regular hours represented by long.
+     * @param id Id of the building.
+     * @param day Day of the week represented in an int.
      * @return the body of the response from the server.
      */
     public static String deleteBuildingHours(int id, long date) {
@@ -365,8 +365,8 @@ public class ServerCommunication {
 
     /**
      * Removes restaurant hours from the database.
-     * @param id = the id of the restaurant.
-     * @param date the date in milliseconds or the day of the week for regular hours represented by long.
+     * @param id Id of the restaurant.
+     * @param day Day of the week represented in an int.
      * @return the body of the response from the server.
      */
     public static String deleteRestaurantHours(int id, long date) {
@@ -376,9 +376,9 @@ public class ServerCommunication {
 
     /**
      * Updates a given attribute of a room.
-     * @param id = the id of the room.
-     * @param attribute = The attribute whose value is to be changed.
-     * @param changeValue = New value.
+     * @param id Id of the room.
+     * @param attribute Attribute whose value is to be changed.
+     * @param changeValue New value.
      * @return the body of the response from the server.
      */
     public static String updateRoom(int id, String attribute, String changeValue) {
@@ -388,16 +388,16 @@ public class ServerCommunication {
     }
 
     /**
-     * Communicates addRoom to the database.
-     * @param name room name.
-     * @param faculty faculty name.
-     * @param buildingId building ID.
-     * @param facultySpecific is it specific for a faculty.
-     * @param screen does the room have a screen.
-     * @param projector does the room have a projector.
-     * @param capacity capacity of the room in people.
-     * @param plugs amount of available plugs.
-     * @return body response.
+     * Communicates addRoom to the database
+     * @param name Room name
+     * @param faculty Faculty name
+     * @param buildingId Building ID
+     * @param facultySpecific Is it specific for a faculty
+     * @param screen Does the room have a screen
+     * @param projector Does the room have a projector
+     * @param capacity Capacity of the room in people
+     * @param plugs Amount of available plugs
+     * @return body response
      */
     public static String addRoom(String name, String faculty,
                                   int buildingId, boolean facultySpecific,
@@ -409,11 +409,11 @@ public class ServerCommunication {
     }
 
     /**
-     * Communicates the buildings to add to the database.
-     * @param name building name.
-     * @param street street name.
-     * @param houseNumber house number.
-     * @return response body.
+     * Communicates the buildings to add to the database
+     * @param name Building name
+     * @param street Street name
+     * @param houseNumber House number
+     * @return response body
      */
     public static String addBuilding(String name, String street,int houseNumber) {
         HttpRequest request;
@@ -450,12 +450,12 @@ public class ServerCommunication {
     }
 
     /**
-     * Communicates addRoomReservation to the database.
-     * @param roomId id of the room.
-     * @param userEmail user email.
-     * @param fromTimeMs start time of the reservation in milliseconds.
-     * @param toTimeMs end time of the reservation in milliseconds.
-     * @return body response.
+     * Communicates addRoomReservation to the database
+     * @param roomId Id of the room
+     * @param userEmail user email
+     * @param fromTimeMs start time of the reservation in milliseconds
+     * @param toTimeMs end time of the reservation in milliseconds
+     * @return Body response
      */
     public static String addRoomReservation(int roomId, String userEmail, long fromTimeMs, long toTimeMs) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room_reservation/add?roomId=" + roomId + "&userEmail=" + userEmail + "&fromTimeMs=" + fromTimeMs + "&toTimeMs=" + toTimeMs)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
@@ -464,9 +464,9 @@ public class ServerCommunication {
 
     /**
      * Updates a given attribute of a room reservation.
-     * @param id = The id of the room reservation.
-     * @param attribute = The attribute whose value is to be changed.
-     * @param changeValue = New value.
+     * @param id The id of the room reservation.
+     * @param attribute The attribute whose value is to be changed.
+     * @param changeValue New value.
      * @return the body of the response from the server.
      */
     public static String updateRoomReservation(int id, String attribute, String changeValue) {
@@ -477,7 +477,7 @@ public class ServerCommunication {
 
     /**
      * Removes a room reservation from the database.
-     * @param id = The id of the room reservation.
+     * @param id The id of the room reservation.
      * @return the body of the response from the server.
      */
     public static String deleteRoomReservation(int id) {
@@ -497,9 +497,9 @@ public class ServerCommunication {
 
     /**
      * Updates a given attribute of a bike.
-     * @param id = the id of the bike.
-     * @param attribute = The attribute whose value is to be changed.
-     * @param changeValue = New value.
+     * @param id Id of the bike.
+     * @param attribute Attribute whose value is to be changed.
+     * @param changeValue New value.
      * @return the body of the response from the server.
      */
     public static String updateBike(int id, String attribute, String changeValue) {
@@ -583,7 +583,7 @@ public class ServerCommunication {
 
     /**
      * Removes a bike from the database.
-     * @param id = The id of the bike.
+     * @param id Id of the bike.
      * @return the body of the response from the server.
      */
     public static String deleteBike(int id) {
