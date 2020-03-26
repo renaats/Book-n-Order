@@ -214,7 +214,7 @@ public class JsonMapper {
     public static RestaurantHours restaurantHoursMapper(String restaurantHoursJson) {
 
         ObjectMapper mapper = new ObjectMapper();
-        //mapper.registerModule(new JavaTimeModule());
+        mapper.registerModule(new JavaTimeModule());
 
         try {
             // Convert JSON string to Object
