@@ -41,15 +41,20 @@ public class ServerCommunicationTest {
         stubFor(post(urlEqualTo("/user/add?email=a&name=a&surname=a&faculty=a&password=a")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(post(urlEqualTo("/login")).willReturn(aResponse().withStatus(200).withBody("").withHeader("Authorization", "a b c")));
         stubFor(get(urlEqualTo("/building/all")).willReturn(aResponse().withStatus(200).withBody("Message2")));
+        stubFor(get(urlEqualTo("/bike/all")).willReturn(aResponse().withStatus(200).withBody("bikes")));
         stubFor(get(urlEqualTo("/room/all")).willReturn(aResponse().withStatus(200).withBody("Message3")));
         stubFor(delete(urlEqualTo("/building/delete/1")).willReturn(aResponse().withStatus(200).withBody("200")));
+        stubFor(delete(urlEqualTo("/bike/delete/1")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(get(urlEqualTo("/building/find/1")).willReturn(aResponse().withStatus(200).withBody("Message4")));
         stubFor(post(urlEqualTo("/building/update?id=1&attribute=a&value=a")).willReturn(aResponse().withStatus(200).withBody("200")));
+        stubFor(post(urlEqualTo("/bike/update?id=1&attribute=available&value=false")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(get(urlEqualTo("/room/find/1")).willReturn(aResponse().withStatus(200).withBody("Message5")));
         stubFor(delete(urlEqualTo("/room/delete/1")).willReturn(aResponse().withStatus(200).withBody("200")));
+        stubFor(delete(urlEqualTo("/bike/delete/1")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(post(urlEqualTo("/room/update?id=1&attribute=a&value=a")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(post(urlEqualTo("/room/add?name=a&faculty=a&facultySpecific=true&screen=true&projector=true&buildingId=1&capacity=1&plugs=1"))
                 .willReturn(aResponse().withStatus(200).withBody("200")));
+        stubFor(post(urlEqualTo("/bike/add?buildingId=1&available=true")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(post(urlEqualTo("/building/add?name=a&street=a&houseNumber=1")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(post(urlEqualTo("/room_reservation/add?roomId=1&userEmail=a&fromTimeMs=1&toTimeMs=2"))
                 .willReturn(aResponse().withStatus(200).withBody("200")));
@@ -347,6 +352,38 @@ public class ServerCommunicationTest {
     @Test
     public void testSuccessfulAddBuilding() {
         assertEquals(ErrorMessages.getErrorMessage(200), ServerCommunication.addBuilding("a", "a", 1));
+    }
+
+    /**
+     * Tests the response when the addBike request is successful.
+     */
+    @Test
+    public void testSuccessfulAddBike() {
+        assertEquals(ErrorMessages.getErrorMessage(200), ServerCommunication.addBike(1, true));
+    }
+
+    /**
+     * Tests the response when the updateBike request is successful.
+     */
+    @Test
+    public void testSuccessfulUpdateBike() {
+        assertEquals(ErrorMessages.getErrorMessage(200), ServerCommunication.updateBike(1,"available", "false"));
+    }
+
+    /**
+     * Tests the response when the deleteBike request is successful.
+     */
+    @Test
+    public void testSuccessfulDeleteBike() {
+        assertEquals(ErrorMessages.getErrorMessage(200), ServerCommunication.deleteBike(1));
+    }
+
+    /**
+     * Tests the response when the getRooms request is successful.
+     */
+    @Test
+    public void testSuccessfulGetBikes() {
+        assertEquals("bikes", ServerCommunication.getBikes());
     }
 
     /**
