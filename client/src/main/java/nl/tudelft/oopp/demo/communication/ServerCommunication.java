@@ -464,7 +464,7 @@ public class ServerCommunication {
 
     /**
      * Updates a given attribute of a room reservation.
-     * @param id = the id of the room reservation.
+     * @param id = The id of the room reservation.
      * @param attribute = The attribute whose value is to be changed.
      * @param changeValue = New value.
      * @return the body of the response from the server.
@@ -477,7 +477,7 @@ public class ServerCommunication {
 
     /**
      * Removes a room reservation from the database.
-     * @param id = the id of the room reservation.
+     * @param id = The id of the room reservation.
      * @return the body of the response from the server.
      */
     public static String deleteRoomReservation(int id) {
@@ -583,7 +583,7 @@ public class ServerCommunication {
 
     /**
      * Removes a bike from the database.
-     * @param id = the id of the bike.
+     * @param id = The id of the bike.
      * @return the body of the response from the server.
      */
     public static String deleteBike(int id) {
