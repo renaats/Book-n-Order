@@ -26,30 +26,36 @@ public class PersonalCalendarView extends CalendarView {
 
     private AppUser currentUser;
 
-    Calendar bookedRooms = new Calendar("My room bookings");
+    Calendar bookedRooms = new Calendar("Room Bookings");
     Calendar orderedFood = new Calendar("Food Orders");
     Calendar rentedBikes = new Calendar("Bike Rent");
 
+    /**
+     * Constuctor for the Personal Calendar View
+     */
     public PersonalCalendarView() {
 
         displayCalendars();
     }
 
+    /**
+     * Methods that loads room reservations of personal user
+     */
     public void loadRoomReservations() {
         List<RoomReservation> roomReservationList =
                 new ArrayList<>(Objects.requireNonNull(JsonMapper.roomReservationsListMapper(ServerCommunication.getRoomReservations())));
         for (RoomReservation reservation : roomReservationList) {
-            if (reservation.getAppUser().equals(this.currentUser)) {
-                Entry<RoomReservation> bookedEntry = new Entry<>("Booking of " + reservation.getRoom().getName());
+            //if (reservation.getAppUser().equals(this.currentUser)) {
+            Entry<RoomReservation> bookedEntry = new Entry<>("Booking of " + reservation.getRoom().getName());
 
-                LocalTime startTime = convertToLocalTime(reservation.getFromTime());
-                LocalTime endTime = convertToLocalTime(reservation.getToTime());
-                LocalDate date = convertToLocalDate(reservation.getFromTime());
+            LocalTime startTime = convertToLocalTime(reservation.getFromTime());
+            LocalTime endTime = convertToLocalTime(reservation.getToTime());
+            LocalDate date = convertToLocalDate(reservation.getFromTime());
 
-                bookedEntry.setInterval(startTime, endTime);
-                bookedEntry.setInterval(date);
-                bookedRooms.addEntry(bookedEntry);
-            }
+            bookedEntry.setInterval(startTime, endTime);
+            bookedEntry.setInterval(date);
+            bookedRooms.addEntry(bookedEntry);
+            //}
         }
     }
 
@@ -57,6 +63,9 @@ public class PersonalCalendarView extends CalendarView {
 
     //method to load bike rentals
 
+    /**
+     * Method that displays the different calendars.
+     */
     public void displayCalendars() {
         bookedRooms.setStyle(Calendar.Style.STYLE2);
         orderedFood.setStyle(Calendar.Style.STYLE3);

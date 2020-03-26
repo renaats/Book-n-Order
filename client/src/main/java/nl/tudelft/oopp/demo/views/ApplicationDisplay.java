@@ -1,9 +1,10 @@
 package nl.tudelft.oopp.demo.views;
 
+import com.calendarfx.view.CalendarView;
+
 import java.io.IOException;
 import java.net.URL;
 
-import com.calendarfx.view.CalendarView;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -40,7 +41,12 @@ public class ApplicationDisplay extends Application {
         primaryStage.getScene().setRoot(pane);
     }
 
-    public static void showCalendarScene(PersonalCalendarView cal) {
+    /**
+     * Opens a new window to show the personal calendar.
+     * @param cal = personal calendar of the user
+     * @throws IOException = All input will be valid, no need to check, this we throw.
+     */
+    public static void showCalendarScene(PersonalCalendarView cal) throws IOException {
         Stage stage = new Stage();
         stage.setScene(new Scene(cal));
         stage.setWidth(1000);
