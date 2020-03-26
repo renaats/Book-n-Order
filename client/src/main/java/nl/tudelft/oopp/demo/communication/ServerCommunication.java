@@ -411,6 +411,16 @@ public class ServerCommunication {
     }
 
     /**
+     * Queries the rooms on specific attributes.
+     * @param query the query parameters
+     * @return A JSON list of rooms matching the query
+     */
+    public static String filterRooms(String query) {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/room/filter?query=" + URLEncoder.encode(query, StandardCharsets.UTF_8))).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
      * Communicates the buildings to add to the database
      * @param name building name
      * @param street street name
@@ -475,5 +485,15 @@ public class ServerCommunication {
     public static String deleteRoomReservation(int id) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room_reservation/delete?id=" + id)).DELETE().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnErrorMessage(request);
+    }
+
+    /**
+     * Queries the dishes on specific attributes.
+     * @param query the query parameters
+     * @return A JSON list of rooms matching the query
+     */
+    public static String filterDishes(String query) {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/dish/filter?query=" + URLEncoder.encode(query, StandardCharsets.UTF_8))).build();
+        return communicateAndReturnBodyOfResponse(request);
     }
 }

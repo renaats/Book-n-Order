@@ -13,14 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 /**
@@ -66,9 +59,10 @@ public class DishController {
      *               where [operation] is ':', '<', or '>'.
      * @return List of Dish objects that match the search criteria.
      */
-    @RequestMapping(method = RequestMethod.GET, value = "/dishes")
+    @Secured({"ROLE_ADMIN", "RESTAURANT_OWNER"})
+    @GetMapping(path = "/filter")
     @ResponseBody
-    public List<Dish> search(@RequestParam(value = "search") String search) {
-        return dishService.search(search);
+    public List<Dish> search(@RequestParam(value = "query") String query) {
+        return dishService.search(query);
     }
 }
