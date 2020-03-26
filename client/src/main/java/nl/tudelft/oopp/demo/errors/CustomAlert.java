@@ -6,6 +6,10 @@ import javafx.stage.StageStyle;
 
 public class CustomAlert {
 
+    /**
+     * Shows an information alert
+     * @param alertMessage the context of the alert.
+     */
     public static void informationAlert(String alertMessage) {
         javafx.scene.control.Alert alert = new javafx.scene.control.Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(null);
@@ -17,6 +21,10 @@ public class CustomAlert {
         alert.showAndWait();
     }
 
+    /**
+     * Shows a warning alert
+     * @param alertMessage the context of the alert.
+     */
     public static void warningAlert(String alertMessage) {
         javafx.scene.control.Alert alert = new javafx.scene.control.Alert(Alert.AlertType.WARNING);
         alert.setTitle(null);
@@ -28,6 +36,10 @@ public class CustomAlert {
         alert.showAndWait();
     }
 
+    /**
+     * Shows an error alert
+     * @param alertMessage the context of the alert.
+     */
     public static void errorAlert(String alertMessage) {
         javafx.scene.control.Alert alert = new javafx.scene.control.Alert(Alert.AlertType.ERROR);
         alert.setTitle(null);
