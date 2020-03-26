@@ -6,22 +6,24 @@ import java.net.URL;
 
 import java.util.List;
 import java.util.Objects;
+
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleButton;
+import javafx.scene.control.*;
+
+import javafx.stage.StageStyle;
+
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
-
+/**
+ * Manages the user input from the database add bike view
+ */
 public class BikeDatabaseAddController implements Initializable {
 
     @FXML
@@ -36,6 +38,7 @@ public class BikeDatabaseAddController implements Initializable {
     private List<Building> buildings = JsonMapper.buildingListMapper(ServerCommunication.getBuildings());
 
     public BikeDatabaseAddController() throws IOException {
+        //This method is required because this throws and exception: private List<Building> buildings = JsonMapper.buildingListMapper(ServerCommunication.getBuildings());
     }
 
     /**
@@ -104,11 +107,29 @@ public class BikeDatabaseAddController implements Initializable {
                 buildingId = buildings.get(i).getId();
             }
         }
-        for (int i = 0; i < Integer.parseInt(number.getText()); i++) {
+        boolean success = false;
+        for (int i = 1; i < Integer.parseInt(number.getText()); i++) {
+            if (ServerCommunication.addBike(buildingId,available).equals("Successfully added!")) {
+                success = true;
+            }
+        }
+        if (success){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Bike adder");
+            alert.setTitle(null);
+            alert.setHeaderText(null);
+            alert.setContentText(number.getText() + " Bike/s have been " + ServerCommunication.addBike(buildingId,available));
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/alertWarning.css").toExternalForm());
+            alert.showAndWait();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle(null);
             alert.setHeaderText(null);
             alert.setContentText(ServerCommunication.addBike(buildingId,available));
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/alertWarning.css").toExternalForm());
             alert.showAndWait();
         }
     }
