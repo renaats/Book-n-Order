@@ -637,6 +637,16 @@ public class ServerCommunication {
     }
 
     /**
+     * Requests a new password for the user.
+     * @param email User's email
+     * @return the body of the response from the server
+     */
+    public static String sendRecoveryPassword(String email) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/user/recoverPassword?email="  + email)).POST(HttpRequest.BodyPublishers.noBody()).build();
+        return communicateAndReturnErrorMessage(request);
+    }
+
+    /**
      * Updates a given attribute of a bike.
      * @param id = the id of the bike.
      * @param attribute = The attribute whose value is to be changed.
