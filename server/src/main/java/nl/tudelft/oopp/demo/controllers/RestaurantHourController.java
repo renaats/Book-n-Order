@@ -29,10 +29,10 @@ public class RestaurantHourController {
     /**
      * Adds restaurant hours to the database.
      * @param restaurantId = the id of the restaurant.
-     * @param date = the date in milliseconds or the day of the week for regular hours
-     * @param startTimeS = the starting time in seconds
-     * @param endTimeS = the ending time in seconds
-     * @return Error code
+     * @param date = the date in milliseconds or the day of the week for regular hours.
+     * @param startTimeS = the starting time in seconds.
+     * @param endTimeS = the ending time in seconds.
+     * @return Error code.
      */
     @Secured({"ROLE_ADMIN", "ROLE_RESTAURANT"})
     @PostMapping(path = "/add")
@@ -43,10 +43,10 @@ public class RestaurantHourController {
 
     /**
      * Updates a database attribute.
-     * @param id = the restaurant hour id
-     * @param attribute = the attribute that is changed
-     * @param value = the new value of the attribute
-     * @return Error code
+     * @param id = the restaurant hour id.
+     * @param attribute = the attribute that is changed.
+     * @param value = the new value of the attribute.
+     * @return Error code.
      */
     @Secured({"ROLE_ADMIN", "ROLE_RESTAURANT"})
     @PostMapping(path = "/update")
@@ -57,9 +57,9 @@ public class RestaurantHourController {
 
     /**
      * Deletes restaurant hours.
-     * @param restaurantId = the id of the restaurant
-     * @param date = the date in milliseconds or the day of the week for regular hours
-     * @return Error code
+     * @param restaurantId = the id of the restaurant.
+     * @param date = the date in milliseconds or the day of the week for regular hours.
+     * @return Error code.
      */
     @Secured({"ROLE_ADMIN", "ROLE_RESTAURANT"})
     @DeleteMapping(path = "/delete")
@@ -70,7 +70,7 @@ public class RestaurantHourController {
 
     /**
      * Lists all restaurant hours in the database.
-     * @return all restaurant hours in the database
+     * @return all restaurant hours in the database.
      */
     @Secured({"ROLE_ADMIN", "ROLE_RESTAURANT"})
     @GetMapping(path = "/all")
@@ -81,9 +81,9 @@ public class RestaurantHourController {
 
     /**
      * Finds the hours for a restaurant with the specified id.
-     * @param restaurantId = the id of the restaurant
-     * @param dateInMilliseconds = the date in milliseconds
-     * @return restaurant hours that match the id
+     * @param restaurantId = the id of the restaurant.
+     * @param dateInMilliseconds = the date in milliseconds.
+     * @return restaurant hours that match the id.
      */
     @Secured("ROLE_USER")
     @GetMapping(path = "/find/{restaurantID}/{day}")

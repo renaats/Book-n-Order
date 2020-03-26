@@ -44,9 +44,9 @@ public class BuildingHourService {
     /**
      * Adds building hours to the database.
      * @param buildingId = the id of the building.
-     * @param date = the date in milliseconds or the day of the week for regular hours
-     * @param startTimeS = the starting time in milliseconds
-     * @param endTimeS = the ending time in milliseconds
+     * @param date = the date in milliseconds or the day of the week for regular hours.
+     * @param startTimeS = the starting time in milliseconds.
+     * @param endTimeS = the ending time in milliseconds.
      * @return String containing the result of your request.
      */
     public int add(int buildingId, long date, int startTimeS, int endTimeS) {
@@ -73,10 +73,10 @@ public class BuildingHourService {
 
     /**
      * Updates a database attribute.
-     * @param id = the building hour id
-     * @param attribute = the attribute that is changed
-     * @param value = the new value of the attribute
-     * @return message if it passes
+     * @param id = the building hour id.
+     * @param attribute = the attribute that is changed.
+     * @param value = the new value of the attribute.
+     * @return message if it passes.
      */
     public int update(int id, String attribute, String value) {
         if (!buildingHourRepository.existsById(id)) {
@@ -120,9 +120,9 @@ public class BuildingHourService {
 
     /**
      * Deletes building hours.
-     * @param buildingId = the id of the building
-     * @param dateInMilliseconds = the date in milliseconds
-     * @return String to see if your request passed
+     * @param buildingId = the id of the building.
+     * @param dateInMilliseconds = the date in milliseconds.
+     * @return String to see if your request passed.
      */
     public int delete(int buildingId, long dateInMilliseconds) {
         if (dateInMilliseconds > 7) {
@@ -137,7 +137,7 @@ public class BuildingHourService {
 
     /**
      * Lists all building hours.
-     * @return all building hours
+     * @return all building hours.
      */
     public List<BuildingHours> all() {
         return buildingHourRepository.findAll();
@@ -145,9 +145,9 @@ public class BuildingHourService {
 
     /**
      * Finds the hours for a building with the specified id.
-     * @param buildingId = the id of the building
-     * @param dateInMilliseconds = the date in milliseconds
-     * @return building hours that match the id
+     * @param buildingId = the id of the building.
+     * @param dateInMilliseconds = the date in milliseconds.
+     * @return building hours that match the id.
      */
     public BuildingHours find(int buildingId, long dateInMilliseconds) {
         dateInMilliseconds = parse(dateInMilliseconds);

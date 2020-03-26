@@ -27,9 +27,9 @@ public class RestaurantHourService {
     /**
      * Adds restaurant hours to the database.
      * @param restaurantId = the id of the restaurant.
-     * @param date = the date in milliseconds or the day of the week for regular hours
-     * @param startTimeS = the starting time in milliseconds
-     * @param endTimeS = the ending time in milliseconds
+     * @param date = the date in milliseconds or the day of the week for regular hours.
+     * @param startTimeS = the starting time in milliseconds.
+     * @param endTimeS = the ending time in milliseconds.
      * @return String containing the result of your request.
      */
     public int add(int restaurantId, long date, int startTimeS, int endTimeS) {
@@ -57,10 +57,10 @@ public class RestaurantHourService {
 
     /**
      * Updates a database attribute.
-     * @param id = the restaurant hour id
-     * @param attribute = the attribute that is changed
-     * @param value = the new value of the attribute
-     * @return message if it passes
+     * @param id = the restaurant hour id.
+     * @param attribute = the attribute that is changed.
+     * @param value = the new value of the attribute.
+     * @return message if it passes.
      */
     public int update(int id, String attribute, String value) {
         if (!restaurantHourRepository.existsById(id)) {
@@ -104,9 +104,9 @@ public class RestaurantHourService {
 
     /**
      * Deletes restaurant hours.
-     * @param restaurantId = the id of the restaurant
-     * @param dateInMilliseconds = the date in milliseconds
-     * @return String to see if your request passed
+     * @param restaurantId = the id of the restaurant.
+     * @param dateInMilliseconds = the date in milliseconds.
+     * @return String to see if your request passed.
      */
     public int delete(int restaurantId, long dateInMilliseconds) {
         if (dateInMilliseconds > 7) {
@@ -121,7 +121,7 @@ public class RestaurantHourService {
 
     /**
      * Lists all restaurant hours.
-     * @return all restaurant hours
+     * @return all restaurant hours.
      */
     public List<RestaurantHours> all() {
         return restaurantHourRepository.findAll();
@@ -129,9 +129,9 @@ public class RestaurantHourService {
 
     /**
      * Finds the hours for a restaurant with the specified id.
-     * @param restaurantId = the id of the restaurant
-     * @param dateInMilliseconds = the date in milliseconds
-     * @return restaurant hours that match the id
+     * @param restaurantId = the id of the restaurant.
+     * @param dateInMilliseconds = the date in milliseconds.
+     * @return restaurant hours that match the id.
      */
     public RestaurantHours find(int restaurantId, long dateInMilliseconds) {
         dateInMilliseconds = BuildingHourService.parse(dateInMilliseconds);

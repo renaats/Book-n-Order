@@ -30,9 +30,9 @@ public class BuildingHourController {
     /**
      * Adds building hours to the database.
      * @param buildingId = the id of the building.
-     * @param date = the date in milliseconds or the day of the week for regular hours
-     * @param startTimeS = the starting time in seconds
-     * @param endTimeS = the ending time in seconds
+     * @param date = the date in milliseconds or the day of the week for regular hours.
+     * @param startTimeS = the starting time in seconds.
+     * @param endTimeS = the ending time in seconds.
      * @return Error code
      */
     @Secured({"ROLE_ADMIN", "ROLE_BUILDING_ADMIN"})
@@ -44,9 +44,9 @@ public class BuildingHourController {
 
     /**
      * Updates a database attribute.
-     * @param id = the building hour id
-     * @param attribute = the attribute that is changed
-     * @param value = the new value of the attribute
+     * @param id = the building hour id.
+     * @param attribute = the attribute that is changed.
+     * @param value = the new value of the attribute.
      * @return Error code
      */
     @Secured({"ROLE_ADMIN", "ROLE_BUILDING_ADMIN"})
@@ -58,9 +58,9 @@ public class BuildingHourController {
 
     /**
      * Deletes building hours.
-     * @param buildingId = the id of the building
-     * @param date = the date in milliseconds or the day of the week for regular hours
-     * @return Error code
+     * @param buildingId = the id of the building.
+     * @param date = the date in milliseconds or the day of the week for regular hours.
+     * @return Error code.
      */
     @Secured({"ROLE_ADMIN", "ROLE_BUILDING_ADMIN"})
     @DeleteMapping(path = "/delete")
@@ -71,7 +71,7 @@ public class BuildingHourController {
 
     /**
      * Lists all building hours in the database.
-     * @return all building hours in the database
+     * @return all building hours in the database.
      */
     @Secured({"ROLE_ADMIN", "ROLE_BUILDING_ADMIN"})
     @GetMapping(path = "/all")
@@ -82,9 +82,9 @@ public class BuildingHourController {
 
     /**
      * Finds the hours for a building with the specified id.
-     * @param buildingId = the id of the building
-     * @param dateInMilliseconds = the date in milliseconds
-     * @return building hours that match the id
+     * @param buildingId = the id of the building.
+     * @param dateInMilliseconds = the date in milliseconds.
+     * @return building hours that match the id.
      */
     @Secured("ROLE_USER")
     @GetMapping(path = "/find/{buildingID}/{day}")
