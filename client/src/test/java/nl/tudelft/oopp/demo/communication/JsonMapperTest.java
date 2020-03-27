@@ -14,7 +14,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import nl.tudelft.oopp.demo.entities.*;
+import nl.tudelft.oopp.demo.entities.Bike;
+import nl.tudelft.oopp.demo.entities.BuildingHours;
+import nl.tudelft.oopp.demo.entities.RestaurantHours;
+import nl.tudelft.oopp.demo.entities.Room;
+import nl.tudelft.oopp.demo.entities.RoomReservation;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -81,7 +86,8 @@ class JsonMapperTest {
                 JsonMapper
                         .roomMapper(
                                 "{\"id\":4,\"name\":\"432\",\"building\":{\"id\":1,\"name\":\"11\",\"street\":\"1\",\"houseNumber\":1},\"faculty\":"
-                                        + "\"42342\",\"facultySpecific\":true,\"projector\":false,\"screen\":false,\"capacity\":4234,\"plugs\":42342}"),
+                                        + "\"42342\",\"facultySpecific\":true,\"projector\":false,\"screen\":false,"
+                                        + "\"capacity\":4234,\"plugs\":42342}"),
                 JsonMapper.roomMapper((ServerCommunication.findRoom(4))));
     }
 
