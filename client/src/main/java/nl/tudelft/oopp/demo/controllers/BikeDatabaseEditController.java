@@ -60,30 +60,6 @@ public class BikeDatabaseEditController implements Initializable {
     @FXML
     private TableColumn<Bike, Integer> colId;
     @FXML
-    private Button confirmDeleteByIdButton;
-    @FXML
-    private CheckBox available;
-    @FXML
-    private ChoiceBox locationChangeChoiceBoxSearch;
-    @FXML
-    private ChoiceBox locationChangeChoiceBox;
-    @FXML
-    private CheckBox availableCheckbox;
-    @FXML
-    private TextField bikeChangeToField;
-    @FXML
-    private TextField bikeDeleteByIdTextField;
-    @FXML
-    private Button confirmDeleteByIdButton;
-    @FXML
-    private CheckBox available;
-    @FXML
-    private TableView table;
-    @FXML
-    private TextField bikeFindByIdTextField;
-    @FXML
-    private TableColumn<Bike, Integer> colId;
-    @FXML
     private TableColumn<Bike, String> colLocation;
     @FXML
     private TableColumn<Bike, Boolean> colAvailable;
