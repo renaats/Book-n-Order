@@ -13,6 +13,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import nl.tudelft.oopp.demo.authentication.AuthenticationKey;
 import nl.tudelft.oopp.demo.errors.ErrorMessages;
@@ -306,19 +307,6 @@ public class ServerCommunication {
     // -----------------------------------------
 
     /**
-     * Adds restaurant hours to the database
-     * @param restaurantId restaurant id
-     * @param day day represented by int
-     * @param startTimeS start time in seconds
-     * @param endTimeS end time in seconds
-     * @return response.body of the server
-     */
-    public static String addRestaurantHours(int restaurantId, int day, int startTimeS, int endTimeS) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant_hours/add?restaurantId=" + restaurantId + "&day=" + day + "&startTimeS=" + startTimeS + "&endTimeS=" + endTimeS)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        return communicateAndReturnBodyOfResponse(request);
-    }
-
-    /**
      * Adds a dish to the database
      * @param name dish name
      * @param menuId menu id
@@ -335,7 +323,94 @@ public class ServerCommunication {
      * @return response.body of the server
      */
     public static String deleteDish(int dishId) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/delete/" + dishId)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/dish/delete/" + dishId)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Adds a food order to the database
+     * @param email user email
+     * @param restaurantId restaurant id
+     * @param deliverLocation the location to deliver to
+     * @param deliverTimeMs the deliver time in milliseconds.
+     * @param dishIds the ids of the dishes the person orders in a set
+     * @return reponse.body of the server
+     */
+    public static String addFoodOrder(String email, int restaurantId, int deliverLocation, long deliverTimeMs, Set<Integer> dishIds) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/food_order/add?userEmail=" + URLEncoder.encode(email, StandardCharsets.UTF_8) + "&restaurantId=" + restaurantId + "&deliverLocation=" + deliverLocation + "&deliverTimeMs=" + deliverTimeMs + "&dishIds=" + dishIds)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Updates a specific attribute of a food order
+     * @param id food order id
+     * @param attribute the attribute you want to change
+     * @param value the value of the change
+     * @return response.body of the server
+     */
+    public static String UpdateFoodOrder(int id, String attribute, String value) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/food_order/update?id=" + id + "&attribute=" + URLEncoder.encode(attribute, StandardCharsets.UTF_8) + "&value=" + URLEncoder.encode(value, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Updates a specific attribute of a food order
+     * @param id food order id
+     * @param name the name of the dish you want to add
+     * @return response.body of the server
+     */
+    public static String addDishToFoodOrder(int id, String name) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/food_order/addDish?id=" + id + "&name=" + URLEncoder.encode(name, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Deletes a food order from the database
+     * @param id the id of the food order
+     * @return response.body of the server
+     */
+    public static String deleteFoodOrder(int id) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/food_order/delete/" + id)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * gets all food orders from the database
+     * @return response.body of the server
+     */
+    public static String getAllFoodOrders() {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/food_order/all")_.POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Finds all past food orders for the user that sends the request
+     * @return response.body of the server
+     */
+    public static String getAllPreviousFoodOrders() {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/food_order/past")).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Finds all future and actual food orders for the user that sends the request
+     * @return response.body of the server
+     */
+    public static String getAllFutureFoodOrders() {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/food_order/future")).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Adds restaurant hours to the database
+     * @param restaurantId restaurant id
+     * @param day day represented by int
+     * @param startTimeS start time in seconds
+     * @param endTimeS end time in seconds
+     * @return response.body of the server
+     */
+    public static String addRestaurantHours(int restaurantId, int day, int startTimeS, int endTimeS) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant_hours/add?restaurantId=" + restaurantId + "&day=" + day + "&startTimeS=" + startTimeS + "&endTimeS=" + endTimeS)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnBodyOfResponse(request);
     }
 

@@ -11,13 +11,7 @@ import nl.tudelft.oopp.demo.services.FoodOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Creates server side endpoints and routes requests to the FoodOrderService.
@@ -36,7 +30,7 @@ public class FoodOrderController {
      * @param restaurantId = the id of the restaurant where the food order is placed.
      * @param userEmail = the email of the user associated to the food order.
      * @param deliverLocation = the delivery location of the food order.
-     * @param deliverTimeMs = the delivery time of the food order.
+     * @param deliverTimeMs = the delivery time of the food order in milliseconds.
      * @return String containing the result of your request.
      */
     @Secured("ROLE_USER")
@@ -81,7 +75,7 @@ public class FoodOrderController {
     @Secured({"ROLE_ADMIN"})
     @DeleteMapping(path = "/delete")
     @ResponseBody
-    public int deleteFoodOrder(@RequestParam int id) {
+    public int deleteFoodOrder(@PathVariable(value = "id") int id) {
         return foodOrderService.delete(id);
     }
 
