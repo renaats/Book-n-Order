@@ -68,7 +68,8 @@ public class ServerCommunicationTest {
         stubFor(post(urlEqualTo("/dish/add?name=test&menuId=1")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(delete(urlEqualTo("/dish/delete/1")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(delete(urlEqualTo("/food_order/delete/1")).willReturn(aResponse().withStatus(200).withBody("200")));
-        stubFor(post(urlEqualTo("/food_order/add?userEmail=test%40gmail.com&restaurantId=1&deliverLocation=1&deliverTimeMs=1")).willReturn(aResponse().withStatus(200).withBody("200")));
+        stubFor(post(urlEqualTo("/food_order/add?userEmail=test%40gmail.com&restaurantId=1&deliverLocation=1&deliverTimeMs=1"))
+                .willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(get(urlEqualTo("/food_order/all")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(get(urlEqualTo("/food_order/past")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(get(urlEqualTo("/food_order/future")).willReturn(aResponse().withStatus(200).withBody("200")));
@@ -102,11 +103,17 @@ public class ServerCommunicationTest {
         assertEquals("200", ServerCommunication.addFoodOrder("test@gmail.com", 1, 1, 1));
     }
 
+    /**
+     * Tests update a food order in the database.
+     */
     @Test
     public void testSuccessfulUpdatingFoodOrder() {
         assertEquals("200", ServerCommunication.updateFoodOrder(1, "a", "a"));
     }
 
+    /**
+     * Tests adding a dish to a food order.
+     */
     @Test
     public void testSuccessfulAddDishToFoodOrder() {
         assertEquals("200", ServerCommunication.addDishToFoodOrder(1, "test"));
