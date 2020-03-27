@@ -20,8 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-
-
 /**
  * Creates server side endpoints and routes requests to the UserService.
  * Maps all requests that start with "/user".
