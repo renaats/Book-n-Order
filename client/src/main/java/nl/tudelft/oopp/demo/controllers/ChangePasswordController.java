@@ -43,7 +43,7 @@ public class ChangePasswordController {
         String password2 = newPassword2.getText();
         String email = userInformation.getEmail();
         if (password1.equals(password2)) {
-            String response = ServerCommunication.changeUserPassword(email,password1);
+            String response = ServerCommunication.changeUserPassword(password1);
             CustomAlert.informationAlert(response);
             ServerCommunication.logoutUser();
             ApplicationDisplay.changeScene("/login-screen.fxml");
