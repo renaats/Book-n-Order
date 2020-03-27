@@ -86,7 +86,7 @@ public class ServerCommunication {
     /**
      * Adds building hours to the server
      * @param buildingId Building id
-     * @param day Day represented by int
+     * @param date Day represented by int
      * @param startTimeS Start time in seconds
      * @param endTimeS End time in seconds
      * @return response.body of the server
@@ -99,7 +99,7 @@ public class ServerCommunication {
     /**
      * Adds restaurant hours to the server
      * @param restaurantId Restaurant id
-     * @param day Day represented by int
+     * @param date Day represented by int
      * @param startTimeS Start time in seconds
      * @param endTimeS End time in seconds
      * @return response.body of the server
@@ -275,7 +275,7 @@ public class ServerCommunication {
     /**
      * Retrieve specific building hours for specific day in the database by id.
      * @param buildingId Building id, which is parsed from a text field.
-     * @param day Int representation for the day of the week
+     * @param date Int representation for the day of the week
      * @return the body of the response.
      */
     public static String findBuildingHours(int buildingId, long date) {
@@ -286,7 +286,7 @@ public class ServerCommunication {
     /**
      * Retrieve specific restaurant opening hours for specific day in the database by id.
      * @param restaurantId Restaurant id, which is parsed from a text field.
-     * @param day Int representation for the day of the week
+     * @param date Int representation for the day of the week
      * @return the body of the response.
      */
     public static String findRestaurantHours(int restaurantId, long date) {
@@ -355,7 +355,7 @@ public class ServerCommunication {
     /**
      * Removes building hours from the database.
      * @param id Id of the building.
-     * @param day Day of the week represented in an int.
+     * @param date Day of the week represented in an int.
      * @return the body of the response from the server.
      */
     public static String deleteBuildingHours(int id, long date) {
@@ -366,7 +366,7 @@ public class ServerCommunication {
     /**
      * Removes restaurant hours from the database.
      * @param id Id of the restaurant.
-     * @param day Day of the week represented in an int.
+     * @param date Day of the week represented in an int.
      * @return the body of the response from the server.
      */
     public static String deleteRestaurantHours(int id, long date) {
@@ -551,106 +551,4 @@ public class ServerCommunication {
         return communicateAndReturnBodyOfResponse(request);
     }
 
-    /**
-     * Updates a given attribute of a bike.
-     * @param id = the id of the bike.
-     * @param attribute = The attribute whose value is to be changed.
-     * @param changeValue = New value.
-     * @return the body of the response from the server.
-     */
-    public static String updateBike(int id, String attribute, String changeValue) {
-        HttpRequest request;
-        try {
-            request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/bike/update?id=" + id + "&attribute=" + attribute + "&value=" + URLEncoder.encode(changeValue, "UTF-8"))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            return "Please enter an encoding that is supported by the URLEncode class.";
-        }
-        HttpResponse<String> response;
-        return communicateAndReturnErrorMessage(request);
-    }
-
-    /**
-     * Communicates addBike to the database
-     * @return body response
-     */
-    public static String addBike(int buildingId, boolean available) {
-        HttpRequest request;
-        request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/bike/add?buildingId=" + buildingId + "&available=" + available)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        HttpResponse<String> response;
-        return communicateAndReturnErrorMessage(request);
-    }
-
-    /**
-     * Removes a bike from the database.
-     * @param id Id of the bike.
-     * @return the body of the response from the server.
-     */
-    public static String deleteBike(int id) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/bike/delete/" + id)).DELETE().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        return communicateAndReturnErrorMessage(request);
-    }
-
-    /**
-     * Asks the server for all bikes in the database
-     * @return a Json string with all the bikes in the database
-     */
-    public static String getBikes() {
-        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/bike/all")).build();
-        return communicateAndReturnBodyOfResponse(request);
-    }
-
-    /**
-     * Requests a new password for the user.
-     * @param email User's email
-     * @return the body of the response from the server
-     */
-    public static String sendRecoveryPassword(String email) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/user/recoverPassword?email="  + email)).POST(HttpRequest.BodyPublishers.noBody()).build();
-        return communicateAndReturnErrorMessage(request);
-    }
-
-    /**
-     * Updates a given attribute of a bike.
-     * @param id = the id of the bike.
-     * @param attribute = The attribute whose value is to be changed.
-     * @param changeValue = New value.
-     * @return the body of the response from the server.
-     */
-    public static String updateBike(int id, String attribute, String changeValue) {
-        HttpRequest request;
-        request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/bike/update?id=" + id + "&attribute=" + attribute + "&value=" + URLEncoder.encode(changeValue, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        return communicateAndReturnErrorMessage(request);
-    }
-
-    /**
-     * Communicates with the database in order to add a bike
-     * @param buildingId The Id of the building where the bike is
-     * @param available a boolean that marks if the bike is available or not
-     * @return the body of the response from the server.
-     */
-    public static String addBike(int buildingId, boolean available) {
-        HttpRequest request;
-        request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/bike/add?buildingId=" + buildingId + "&available=" + available)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        return communicateAndReturnErrorMessage(request);
-    }
-
-    /**
-     * Removes a bike from the database.
-     * @param id = the id of the bike.
-     * @return the body of the response from the server.
-     */
-    public static String deleteBike(int id) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/bike/delete/" + id)).DELETE().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        return communicateAndReturnErrorMessage(request);
-    }
-
-    /**
-     * Asks the server for all bikes in the database
-     * @return a Json string with all the bikes in the database
-     */
-    public static String getBikes() {
-        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/bike/all")).build();
-        return communicateAndReturnBodyOfResponse(request);
-    }
 }
