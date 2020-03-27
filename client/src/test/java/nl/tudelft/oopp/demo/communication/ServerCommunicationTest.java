@@ -47,6 +47,7 @@ public class ServerCommunicationTest {
         stubFor(get(urlEqualTo("/building/find/1")).willReturn(aResponse().withStatus(200).withBody("Message4")));
         stubFor(post(urlEqualTo("/building/update?id=1&attribute=a&value=a")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(get(urlEqualTo("/room/find/1")).willReturn(aResponse().withStatus(200).withBody("Message5")));
+        stubFor(post(urlEqualTo("/user/changePassword?password=Password")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(delete(urlEqualTo("/room/delete/1")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(post(urlEqualTo("/room/update?id=1&attribute=a&value=a")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(post(urlEqualTo("/room/add?name=a&faculty=a&facultySpecific=true&screen=true&projector=true&buildingId=1&capacity=1&plugs=1"))
@@ -276,6 +277,14 @@ public class ServerCommunicationTest {
     @Test
     public void testSuccessfulLoginUser() {
         assertEquals(ErrorMessages.getErrorMessage(311), ServerCommunication.loginUser("a", "b"));
+    }
+
+    /**
+     * Tests the response when the loginUser request is successful.
+     */
+    @Test
+    public void testSuccessfulChangePassword() {
+        assertEquals(ErrorMessages.getErrorMessage(200), ServerCommunication.changeUserPassword("Password"));
     }
 
     /**
