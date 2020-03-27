@@ -33,19 +33,17 @@
             <Cursor fx:constant="HAND" />
         </cursor>
     </ImageView>
-    <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="62.0" layoutY="119.0" onMouseClicked="#goToAddRestaurants"
-               pickOnBounds="true" preserveRatio="true">
+    <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="62.0" layoutY="119.0" onMouseClicked="#goToAddRestaurants" pickOnBounds="true" preserveRatio="true">
         <cursor>
-            <Cursor fx:constant="HAND"/>
+            <Cursor fx:constant="HAND" />
         </cursor>
-        <Image url="@images/ko7djzvdIPehWkkQYeDHv7ZYArEETK3uclcEy1WmrEHakj5qfn1nysOSyuNxsI2FsTJGcKNFdQ-9TIGRXV3le_sG-lyGg6Lu2OpiVNdwOZw_Fw16XYOh.png"/>
+        <Image url="@images/ko7djzvdIPehWkkQYeDHv7ZYArEETK3uclcEy1WmrEHakj5qfn1nysOSyuNxsI2FsTJGcKNFdQ-9TIGRXV3le_sG-lyGg6Lu2OpiVNdwOZw_Fw16XYOh.png" />
     </ImageView>
-    <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="111.0" layoutY="119.0" onMouseClicked="#goToEditRestaurants"
-               pickOnBounds="true" preserveRatio="true">
+    <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="111.0" layoutY="119.0" onMouseClicked="#goToEditRestaurants" pickOnBounds="true" preserveRatio="true">
         <cursor>
-            <Cursor fx:constant="HAND"/>
+            <Cursor fx:constant="HAND" />
         </cursor>
-        <Image url="@images/EditIcon.png"/>
+        <Image url="@images/EditIcon.png" />
     </ImageView>
     <Text fill="WHITE" layoutX="20.0" layoutY="555.576171875" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback is welcome" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0">
         <font>
