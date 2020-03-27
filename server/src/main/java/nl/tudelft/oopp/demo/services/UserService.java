@@ -139,6 +139,59 @@ public class UserService {
             }
             appUser.addRole(roleRepository.findByName("ROLE_STAFF"));
         }
+
+        // NEED TO BE DELETED BEFORE PRODUCTION! ONLY USED FOR END-TO-END TESTING!
+        if (appUser.getEmail().equals("staff@tudelft.nl")) {
+            appUser.setConfirmationNumber(-1);
+            userRepository.save(appUser);
+            return 203;
+        }
+        if (appUser.getEmail().equals("admin@tudelft.nl")) {
+            if (!roleRepository.existsByName("ROLE_ADMIN")) {
+                Role role = new Role();
+                role.setName("ROLE_ADMIN");
+                roleRepository.save(role);
+            }
+            appUser.setConfirmationNumber(-1);
+            appUser.addRole(roleRepository.findByName("ROLE_ADMIN"));
+            userRepository.save(appUser);
+            return 203;
+        }
+        if (appUser.getEmail().equals("building_admin@tudelft.nl")) {
+            if (!roleRepository.existsByName("ROLE_BUILDING_ADMIN")) {
+                Role role = new Role();
+                role.setName("ROLE_BUILDING_ADMIN");
+                roleRepository.save(role);
+            }
+            appUser.setConfirmationNumber(-1);
+            appUser.addRole(roleRepository.findByName("ROLE_BUILDING_ADMIN"));
+            userRepository.save(appUser);
+            return 203;
+        }
+        if (appUser.getEmail().equals("bike_admin@tudelft.nl")) {
+            if (!roleRepository.existsByName("ROLE_BIKE_ADMIN")) {
+                Role role = new Role();
+                role.setName("ROLE_BIKE_ADMIN");
+                roleRepository.save(role);
+            }
+            appUser.setConfirmationNumber(-1);
+            appUser.addRole(roleRepository.findByName("ROLE_BIKE_ADMIN"));
+            userRepository.save(appUser);
+            return 203;
+        }
+        if (appUser.getEmail().equals("restaurant@tudelft.nl")) {
+            if (!roleRepository.existsByName("ROLE_RESTAURANT")) {
+                Role role = new Role();
+                role.setName("ROLE_RESTAURANT");
+                roleRepository.save(role);
+            }
+            appUser.setConfirmationNumber(-1);
+            appUser.addRole(roleRepository.findByName("ROLE_RESTAURANT"));
+            userRepository.save(appUser);
+            return 203;
+        }
+        // NEED TO BE DELETED BEFORE PRODUCTION! ONLY USED FOR END-TO-END TESTING!
+
         userRepository.save(appUser);
         try {
             eventPublisher.publishEvent(new OnRegistrationSuccessEvent(appUser));
