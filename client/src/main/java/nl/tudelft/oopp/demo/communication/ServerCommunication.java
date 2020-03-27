@@ -318,6 +318,29 @@ public class ServerCommunication {
     }
 
     /**
+     * Add an allergy to a dish
+     * @param name allergy name
+     * @param id dish id
+     * @return response.body of the server
+     */
+    public static String addAllergyToDish(String name, int id) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/dish/addAllergy?id=" + id + "&allergyName=" + URLEncoder.encode(name, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Updates a dish on the server
+     * @param id = the id of the food order.
+     * @param attribute = the attribute whose value is changed.
+     * @param value = the new value of the attribute.
+     * @return response.body of the server
+     */
+    public static String updateDish(int id, String attribute, String value) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/dish/update?id=" + id + "&attribute=" + URLEncoder.encode(attribute, StandardCharsets.UTF_8) + "&value=" + URLEncoder.encode(value, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
      * Deletes a dish from the database
      * @param dishId the id of the dish
      * @return response.body of the server

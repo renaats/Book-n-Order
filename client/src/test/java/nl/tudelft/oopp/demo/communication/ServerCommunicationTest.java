@@ -77,6 +77,8 @@ public class ServerCommunicationTest {
         stubFor(delete(urlEqualTo("/menu/delete/1")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(post(urlEqualTo("/food_order/update?id=1&attribute=a&value=a")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(post(urlEqualTo("/food_order/addDish?id=1&name=test")).willReturn(aResponse().withStatus(200).withBody("200")));
+        stubFor(post(urlEqualTo("/dish/update?id=1&attribute=a&value=a")).willReturn(aResponse().withStatus(200).withBody("200")));
+        stubFor(post(urlEqualTo("/dish/addAllergy?id=1&allergyName=test")).willReturn(aResponse().withStatus(200).withBody("200")));
     }
 
     /**
@@ -85,6 +87,22 @@ public class ServerCommunicationTest {
     @Test
     public void testSuccessfulAddDishes() {
         assertEquals("200", ServerCommunication.addDish("test", 1));
+    }
+
+    /**
+     * Tests update a dish in the database.
+     */
+    @Test
+    public void testSuccessfulUpdatingDish() {
+        assertEquals("200", ServerCommunication.updateDish(1, "a", "a"));
+    }
+
+    /**
+     * Tests adding an allergy to a dishes to the server.
+     */
+    @Test
+    public void testSuccessfulAddAllergyToDish() {
+        assertEquals("200", ServerCommunication.addAllergyToDish("test", 1));
     }
 
     /**
