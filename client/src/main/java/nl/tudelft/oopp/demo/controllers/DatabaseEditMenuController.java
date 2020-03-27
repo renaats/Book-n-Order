@@ -1,12 +1,5 @@
 package nl.tudelft.oopp.demo.controllers;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.ResourceBundle;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -17,9 +10,16 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.Menu;
+import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.ResourceBundle;
 
 /**
  * Manages the user inputs for the Edit menu scene
@@ -29,15 +29,15 @@ public class DatabaseEditMenuController implements Initializable {
     final ObservableList<Menu> menuResult = FXCollections.observableArrayList();
 
     @FXML
-    private TableView<Menu> table;
+    private TableView table;
     @FXML
-    private TableColumn<Menu,String> colId;
+    private TableColumn colId;
     @FXML
-    private TableColumn<Menu,String> colName;
+    private TableColumn colName;
     @FXML
-    private TableColumn<Menu,String> colRestaurant;
+    private TableColumn colRestaurant;
     @FXML
-    private TableColumn<Menu,String> colDish;
+    private TableColumn colDish;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
