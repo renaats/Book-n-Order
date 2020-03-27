@@ -135,7 +135,7 @@ public class ServerCommunication {
     /**
      * Adds building hours to the server
      * @param buildingId building id
-     * @param day day represented by int
+     * @param date day represented by int
      * @param startTimeS start time in seconds
      * @param endTimeS end time in seconds
      * @return response.body of the server
