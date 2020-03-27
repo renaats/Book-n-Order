@@ -70,6 +70,7 @@ public class ServerCommunicationTest {
         stubFor(post(urlEqualTo("/food_order/addDish?id=1&name=test")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(post(urlEqualTo("/dish/update?id=1&attribute=a&value=a")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(post(urlEqualTo("/dish/addAllergy?id=1&allergyName=test")).willReturn(aResponse().withStatus(200).withBody("200")));
+        stubFor(get(urlEqualTo("/room_reservation/find/10")).willReturn(aResponse().withStatus(200).withBody("Message10")));
     }
 
     /**
@@ -325,6 +326,14 @@ public class ServerCommunicationTest {
     public void testUnauthorizedLogoutUser() {
         stubFor(post(urlEqualTo("/user/logout")).willReturn(aResponse().withStatus(403).withBody("200")));
         assertEquals(ErrorMessages.getErrorMessage(401), ServerCommunication.logoutUser());
+    }
+
+    /**
+     * Tests the response when the findRoomReservation request is successful.
+     */
+    @Test
+    public void testSuccessfulFindRoomReservation() {
+        assertEquals("Message10", ServerCommunication.findRoomReservation(10));
     }
 
     /**
