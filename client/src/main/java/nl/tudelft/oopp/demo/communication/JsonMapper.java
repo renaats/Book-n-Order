@@ -237,6 +237,29 @@ public class JsonMapper {
 
     /**
      * Maps all building hours JSONS to an object.
+     * @param buildingHourJson a JSON string
+     * @return building hour object
+     */
+    public static BuildingHours buildingHoursMapper(String buildingHourJson) {
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+
+        try {
+            // Convert JSON string to Object
+            return mapper.readValue(buildingHourJson, BuildingHours.class);
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText(buildingHourJson);
+            alert.showAndWait();
+        }
+        return null;
+    }
+
+    /**
+     * Maps all building hours JSONS to an object.
      * @param bikesJson a JSON string.
      * @return building hour object.
      */
