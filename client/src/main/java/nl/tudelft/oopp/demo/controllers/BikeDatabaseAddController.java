@@ -131,7 +131,7 @@ public class BikeDatabaseAddController implements Initializable {
                     success = true;
                 } else {
                     success = false;
-                    CustomAlert.warningAlert("Something an error occurred while adding the bikes");
+                    CustomAlert.warningAlert("An error occurred while adding the bikes");
                     break;
                 }
             }
