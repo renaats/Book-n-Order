@@ -30,8 +30,8 @@ public class DishService {
 
     /**
      * Adds a dish.
-     * @param name dish name.
-     * @param menuId menu id.
+     * @param name = dish name.
+     * @param menuId = menu id.
      * @return Error code.
      */
     public int add(String name, int menuId) {
@@ -105,7 +105,7 @@ public class DishService {
 
     /**
      * Deletes a dish.
-     * @param id dish id.
+     * @param id = the id of the dish.
      * @return Error code.
      */
     public int delete(int id) {

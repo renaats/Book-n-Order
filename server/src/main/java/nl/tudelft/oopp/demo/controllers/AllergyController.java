@@ -2,6 +2,7 @@ package nl.tudelft.oopp.demo.controllers;
 
 import nl.tudelft.oopp.demo.entities.Allergy;
 import nl.tudelft.oopp.demo.services.AllergyService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Repository;
@@ -28,7 +29,7 @@ public class AllergyController {
 
     /**
      * Adds an allergy.
-     * @param allergyName = the allergy.
+     * @param allergyName = the name of the allergy.
      * @return Error code.
      */
     @Secured({"ROLE_ADMIN", "ROLE_RESTAURANT"})
@@ -63,7 +64,7 @@ public class AllergyController {
 
     /**
      * Finds an allergy with the specified id.
-     * @param name = the allergy name.
+     * @param name = the name of the allergy.
      * @return an allergy that matches the id.
      */
     @Secured({"ROLE_USER", "ROLE_RESTAURANT"})
