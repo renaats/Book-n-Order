@@ -14,8 +14,10 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import com.auth0.jwt.JWT;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -34,6 +36,7 @@ import nl.tudelft.oopp.demo.services.FoodOrderService;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -273,46 +276,72 @@ public class FoodOrderServiceTest {
      */
     @Test
     public void testGetPastFoodOrders() {
-     /*   foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds, dishIds);
+        foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds, dishIds);
         MockHttpServletRequest request = new MockHttpServletRequest();
         String token = JWT.create()
                 .withSubject(appUser.getEmail())
                 .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .sign(HMAC512(SECRET.getBytes()));
         request.addHeader(HEADER_STRING, token);
-        assertEquals(Collections.singletonList(foodOrder), foodOrderService.past(request));*/
+        assertEquals(Collections.singletonList(foodOrder), foodOrderService.past(request));
     }
 
     /**
      * Tests the retrieval of past food orders for a non-existent user.
      */
     @Test
-    public void testGetNonExistentPastRoomReservations() {
+    public void testGetNonExistentPastFoodOrders() {
         foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds, dishIds);
         MockHttpServletRequest request = new MockHttpServletRequest();
         assertEquals(new ArrayList<>(), foodOrderService.past(request));
     }
 
     /**
+     * Tests the addition of a dish to a food order.
+     */
+    @Test
+    public void testAddDish() {
+        Dish dishA = new Dish("Tosti", menu);
+        dishRepository.save(dishA);
+        Dish dishB = new Dish("Hamburger", menu);
+        dishRepository.save(dishB);
+        foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds, dishIds);
+        foodOrder = foodOrderService.all().get(0);
+        foodOrderService.addDish(foodOrder.getId(),"Tosti");
+        foodOrderService.addDish(foodOrder.getId(),"Hamburger");
+        Iterator<Dish> dishes = foodOrderService.find(foodOrder.getId()).getDishes().iterator();
+        String dish1 = dishes.next().getName();
+        String dish2 = dishes.next().getName();
+        String swap;
+        if (dish2.equals("Hamburger")) {
+            swap = dish2;
+            dish2 = dish1;
+            dish1 = swap;
+        }
+        assertEquals(dish1, "Hamburger");
+        assertEquals(dish2,"Tosti");
+    }
+
+    /**
      * Tests the retrieval of future food orders for the user that sends the request.
      */
     @Test
-    public void testGetFutureRoomReservations() {
-        /*foodOrderService.add(restaurant.getId(), appUser2.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds2, dishIds);
+    public void testGetFutureFoodOrders() {
+        foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds2, dishIds);
         MockHttpServletRequest request = new MockHttpServletRequest();
         String token = JWT.create()
-                .withSubject(appUser2.getEmail())
+                .withSubject(appUser.getEmail())
                 .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .sign(HMAC512(SECRET.getBytes()));
         request.addHeader(HEADER_STRING, token);
-        assertEquals(Collections.singletonList(foodOrder2), foodOrderService.future(request));*/
+        assertEquals(Collections.singletonList(foodOrder2), foodOrderService.future(request));
     }
 
     /**
      * Tests the retrieval of future food orders for a non-existent user.
      */
     @Test
-    public void testGetNonExistentFutureRoomReservations() {
+    public void testGetNonExistentFutureFoodOrders() {
         foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds2, dishIds);
         MockHttpServletRequest request = new MockHttpServletRequest();
         assertEquals(new ArrayList<>(), foodOrderService.future(request));

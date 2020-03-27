@@ -26,12 +26,12 @@ public class DishController {
     DishService dishService;
 
     /**
-     * Adds a dish
-     * @param name dish name
-     * @param menuId menu id
-     * @return Error code
+     * Adds a dish.
+     * @param name dish name.
+     * @param menuId menu id.
+     * @return Error code.
      */
-    @Secured({"RESTAURANT_OWNER", "ROLE_ADMIN"})
+    @Secured({"ROLE_RESTAURANT", "ROLE_ADMIN"})
     @PostMapping(path = "/add")
     @ResponseBody
     public int addNewDish(@RequestParam String name, @RequestParam int menuId) {
@@ -39,11 +39,23 @@ public class DishController {
     }
 
     /**
-     * Deletes a dish
-     * @param id dish id
-     * @return Error code
+     * Adds an allergy to a dish. If the allergy does not exist, it is created.
+     * @param id = the id of the dish.
+     * @param allergyName = the name of the allergy.
      */
-    @Secured({"RESTAURANT_OWNER", "ROLE_ADMIN"})
+    @Secured({"ROLE_ADMIN", "ROLE_RESTAURANT"})
+    @PostMapping(path = "/addAllergy")
+    @ResponseBody
+    public void addAllergy(@RequestParam int id, @RequestParam String allergyName) {
+        dishService.addAllergy(id, allergyName);
+    }
+
+    /**
+     * Deletes a dish.
+     * @param id dish id.
+     * @return Error code.
+     */
+    @Secured({"ROLE_RESTAURANT", "ROLE_ADMIN"})
     @DeleteMapping(path = "/delete/{dishID}")
     @ResponseBody
     public int deleteDish(@PathVariable(value = "dishID") int id) {

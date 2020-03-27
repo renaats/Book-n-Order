@@ -3,13 +3,14 @@ package nl.tudelft.oopp.demo.entities;
 import java.util.Set;
 
 /**
- * Manages the Dish object that is retrieved from the server
+ * Manages the Dish object that is retrieved from the server.
  */
 public class Dish {
 
     private int id;
     private String name;
     private Menu menu;
+    private Set<Allergy> allergies;
     private Set<FoodOrder> foodOrders;
 
     /**
@@ -38,6 +39,10 @@ public class Dish {
         this.name = name;
     }
 
+    public void setAllergies(Set<Allergy> allergies) {
+        this.allergies = allergies;
+    }
+    
     public void setFoodOrders(Set<FoodOrder> foodOrders) {
         this.foodOrders = foodOrders;
     }
@@ -50,8 +55,11 @@ public class Dish {
         return name;
     }
 
+    public Set<Allergy> getAllergies() {
+        return allergies;
+    }
+
     public Set<FoodOrder> getFoodOrders() {
         return foodOrders;
     }
-
 }

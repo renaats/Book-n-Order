@@ -61,10 +61,10 @@ public class FoodOrderController {
 
     /**
      * Adds a dish to a food order.
-     * @param id = the id of the food order
-     * @param name = the name of the dish
+     * @param id = the id of the food order.
+     * @param name = the name of the dish.
      */
-    //@Secured("ROLE_ADMIN") SHOULD BE UNCOMMENTED WHEN IN PRODUCTION!
+    @Secured({"ROLE_ADMIN"})
     @PostMapping(path = "/addDish")
     @ResponseBody
     public void addDish(@RequestParam int id, @RequestParam String name) {
@@ -96,7 +96,7 @@ public class FoodOrderController {
 
     /**
      * Finds all past food orders for the user that sends the Http request.
-     * @param request = the Http request that calls this method
+     * @param request = the Http request that calls this method.
      * @return a list of past food orders for this user.
      */
     @Secured("ROLE_USER")
@@ -107,7 +107,7 @@ public class FoodOrderController {
 
     /**
      * Finds all future food orders for the user that sends the Http request.
-     * @param request = the Http request that calls this method
+     * @param request = the Http request that calls this method.
      * @return a list of future food orders for this user.
      */
     @Secured("ROLE_USER")

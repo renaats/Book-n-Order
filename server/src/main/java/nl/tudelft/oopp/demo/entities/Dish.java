@@ -34,6 +34,9 @@ public class Dish {
     @JoinColumn
     private Menu menu;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Allergy> allergies;
+
     @JsonIgnore
     @ManyToMany(mappedBy = "dishes", fetch = FetchType.EAGER)
     private Set<FoodOrder> foodOrders;
@@ -60,8 +63,12 @@ public class Dish {
         this.name = name;
     }
 
-    public void setFoodOrders(Set<FoodOrder> foodOrders) {
-        this.foodOrders = foodOrders;
+    public void setAllergies(Set<Allergy> allergies) {
+        this.allergies = allergies;
+    }
+
+    public void addAllergy(Allergy allergy) {
+        allergies.add(allergy);
     }
 
     public int getId() {
@@ -72,10 +79,10 @@ public class Dish {
         return name;
     }
 
-    public Set<FoodOrder> getFoodOrders() {
-        return foodOrders;
+    public Set<Allergy> getAllergies() {
+        return allergies;
     }
-    
+
     public Menu getMenu() {
         return menu;
     }
@@ -89,8 +96,9 @@ public class Dish {
             return false;
         }
         Dish dish = (Dish) o;
-        return name.equals(name)
+        return Objects.equals(name, dish.name)
                 && Objects.equals(menu, dish.menu)
+                && Objects.equals(allergies, dish.allergies)
                 && Objects.equals(foodOrders, dish.foodOrders);
     }
 }
