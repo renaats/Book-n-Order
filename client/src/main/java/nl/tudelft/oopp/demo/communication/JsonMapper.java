@@ -11,13 +11,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.DialogPane;
 import javafx.stage.StageStyle;
 
-import nl.tudelft.oopp.demo.entities.AppUser;
-import nl.tudelft.oopp.demo.entities.Building;
-import nl.tudelft.oopp.demo.entities.BuildingHours;
-import nl.tudelft.oopp.demo.entities.Restaurant;
-import nl.tudelft.oopp.demo.entities.RestaurantHours;
-import nl.tudelft.oopp.demo.entities.Room;
-import nl.tudelft.oopp.demo.entities.RoomReservation;
+import nl.tudelft.oopp.demo.entities.*;
 import nl.tudelft.oopp.demo.user.UserInformation;
 
 /**
@@ -304,4 +298,49 @@ public class JsonMapper {
         return null;
     }
 
+    /**
+     * Maps JSON to RoomReservation entity.
+     * @param foodOrderJson representation of a room.
+     * @return RoomReservation entity.
+     */
+    public static FoodOrder foodOrderMapper(String foodOrderJson) {
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+
+        try {
+            // Convert JSON string to Object
+            return mapper.readValue(foodOrderJson, FoodOrder.class);
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText(foodOrderJson);
+            alert.showAndWait();
+        }
+        return null;
+    }
+
+    /**
+     * Maps all Food Orders JSONS to a list.
+     * @param foodOrdersJson a JSON string representing a list.
+     * @return A list filled with object Room Reservation
+     */
+    public static List<FoodOrder> foodOrdersListMapper(String foodOrdersJson) {
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+
+        try {
+            // Convert JSON string to Object
+            return mapper.readValue(foodOrdersJson, new TypeReference<List<FoodOrder>>(){});
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText(foodOrdersJson);
+            alert.showAndWait();
+        }
+        return null;
+    }
 }
