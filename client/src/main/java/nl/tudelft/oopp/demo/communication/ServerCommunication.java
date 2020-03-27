@@ -619,25 +619,16 @@ public class ServerCommunication {
      */
     public static String updateBike(int id, String attribute, String changeValue) {
         HttpRequest request;
-        try {
-            request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/bike/update?id=" + id + "&attribute=" + attribute + "&value=" + URLEncoder.encode(changeValue, "UTF-8"))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            return "Please enter an encoding that is supported by the URLEncode class.";
-        }
+        request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/bike/update?id=" + id + "&attribute=" + attribute + "&value=" + URLEncoder.encode(changeValue, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         HttpResponse<String> response;
-        try {
-            request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/bike/update?id=" + id + "&attribute=" + attribute + "&value=" + URLEncoder.encode(changeValue, "UTF-8"))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            return "Please enter an encoding that is supported by the URLEncode class.";
-        }
         return communicateAndReturnErrorMessage(request);
     }
 
     /**
-     * Communicates addBike to the database
-     * @return body response
+     * Communicates with the database in order to add a bike
+     * @param buildingId The Id of the building where the bike is
+     * @param available a boolean that marks if the bike is available or not
+     * @return
      */
     public static String addBike(int buildingId, boolean available) {
         HttpRequest request;
