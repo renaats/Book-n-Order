@@ -213,6 +213,16 @@ public class ServerCommunication {
     }
 
     /**
+     * Retrieves a room reservation by given id.
+     * @param roomReservationId = the id of the room.
+     * @return The body of the response from the server.
+     */
+    public static String findRoomReservation(int roomReservationId) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room_reservation/find/" + roomReservationId)).GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
      * Updates a given attribute of a room.
      * @param id = the id of the room.
      * @param attribute = The attribute whose value is to be changed.
