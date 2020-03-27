@@ -4,11 +4,10 @@ import java.io.IOException;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
-import javafx.scene.input.MouseEvent;
-import javafx.stage.StageStyle;
+
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
-import nl.tudelft.oopp.demo.entities.AppUser;
+import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.user.UserInformation;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
@@ -45,21 +44,11 @@ public class ChangePasswordController {
         String email = userInformation.getEmail();
         if (password1.equals(password2)) {
             String response = ServerCommunication.changeUserPassword(email,password1);
-            System.out.println(response);
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Change password successful");
-            alert.setHeaderText(null);
-            alert.setContentText("Your passwords match, they have been changed");
-            alert.showAndWait();
+            CustomAlert.informationAlert(response);
+            ServerCommunication.logoutUser();
+            ApplicationDisplay.changeScene("/login-screen.fxml");
         } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle(null);
-            alert.setHeaderText(null);
-            alert.setContentText("Passwords do not match.");
-            alert.initStyle(StageStyle.UNDECORATED);
-            DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(getClass().getResource("/alertError.css").toExternalForm());
-            alert.showAndWait();
+            CustomAlert.errorAlert("Passwords do not match");
         }
     }
 }
