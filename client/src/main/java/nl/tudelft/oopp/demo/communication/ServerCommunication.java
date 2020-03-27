@@ -119,11 +119,10 @@ public class ServerCommunication {
 
     /**
      * Changes the password of a given user
-     * @param email = The email of the user that is changing password.
      * @param changeValue = New value of the password.
      * @return the body of the response from the server.
      */
-    public static String changeUserPassword(String email, String changeValue) {
+    public static String changeUserPassword(String changeValue) {
         HttpRequest request;
         request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/user/changePassword?password=" + URLEncoder.encode(changeValue, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnErrorMessage(request);
