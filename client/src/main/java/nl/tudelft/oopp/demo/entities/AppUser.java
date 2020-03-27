@@ -13,6 +13,8 @@ public class AppUser {
     private String name;
     private String surname;
     private String faculty;
+    private boolean loggedIn;
+    private int confirmationNumber;
 
     private Set<Role> roles;
 
@@ -58,6 +60,14 @@ public class AppUser {
         this.faculty = faculty;
     }
 
+    public void setLoggedIn(boolean loggedIn) {
+        this.loggedIn = loggedIn;
+    }
+
+    public void setConfirmationNumber(int confirmationNumber) {
+        this.confirmationNumber = confirmationNumber;
+    }
+
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
@@ -87,6 +97,14 @@ public class AppUser {
         return faculty;
     }
 
+    public boolean isLoggedIn() {
+        return loggedIn;
+    }
+
+    public int getConfirmationNumber() {
+        return confirmationNumber;
+    }
+
     public Set<Role> getRoles() {
         return roles;
     }
@@ -109,7 +127,6 @@ public class AppUser {
                 && Objects.equals(name, appUser.name)
                 && Objects.equals(surname, appUser.surname)
                 && Objects.equals(faculty, appUser.faculty)
-                && Objects.equals(roles, appUser.roles)
                 && Objects.equals(roomReservations, appUser.roomReservations);
     }
 }

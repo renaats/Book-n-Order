@@ -17,6 +17,7 @@ import java.util.Objects;
 import nl.tudelft.oopp.demo.entities.BuildingHours;
 import nl.tudelft.oopp.demo.entities.RestaurantHours;
 import nl.tudelft.oopp.demo.entities.Room;
+import nl.tudelft.oopp.demo.entities.RoomReservation;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -141,5 +142,85 @@ class JsonMapperTest {
         RestaurantHours restaurantHours = JsonMapper.restaurantHoursMapper(json);
 
         assertEquals(restaurantHours, JsonMapper.restaurantHoursMapper(ServerCommunication.findRestaurantHours(1, 1)));
+    }
+
+    @Test
+    void roomReservationMapperTest() {
+        stubFor(get(urlEqualTo("/room_reservation/find/3"))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withBody("{\"id\":3,\"room\":{\"id\":2,\"name\":\"a\",\"building\":{\"id\":1,\"name\""
+                                + ":\"alto\",\"street\":\"rruga\",\"houseNumber\":24},\""
+                                + "faculty\":\"b\",\"facultySpecific\":true,\"projector\":"
+                                + "true,\"screen\":true,\"capacity\":10,\"plugs\":10},\"appUser"
+                                + "\":{\"email\":\""
+                                + "r.jursevskis@student.tudelft.nl\",\"password\":\"abc\",\"name\":\"Renats\""
+                                + ",\"surname\":\"Jursevskis\",\"faculty\":\"EWI\",\"loggedIn\":true,"
+                                + "\"confirmationNumber\":183937,\"roles\":[{\"id\":2,\"name\":\"ROLE_ADMIN\"},{\""
+                                + "id\":1,\"name\":\"ROLE_USER\"}]},\"fromTime\":\"2020-03-19T11:30:00.000+0000\","
+                                + "\"toTime\":\"2020-03-19T12:00:00.000+0000\"}")));
+
+        String json = "{\"id\":3,\"room\":{\"id\":2,\"name\":\"a\",\"building\":{\"id\":1,\"name\":\"alto\",\"street\":"
+                + "\"rruga\",\"houseNumber\":24},\""
+                + "faculty\":\"b\",\"facultySpecific\":true,\"projector\":true,\"screen\":true,\"capacity\":10,\"plugs\":10},"
+                + "\"appUser\":{\"email\":\""
+                + "r.jursevskis@student.tudelft.nl\",\"password\":\"abc\",\"name\":\"Renats\""
+                + ",\"surname\":\"Jursevskis\",\"faculty\":\"EWI\",\"loggedIn\":true,\"confirmationNumber\":183937,\"roles\""
+                + ":[{\"id\":2,\"name\":\"ROLE_ADMIN\"},{\""
+                + "id\":1,\"name\":\"ROLE_USER\"}]},\"fromTime\":\"2020-03-19T11:30:00.000+0000\",\"toTime\":\"2020-03-19T12:00:00.000+0000\"}";
+
+        RoomReservation roomReservation = JsonMapper.roomReservationMapper(json);
+        assertEquals(roomReservation, JsonMapper.roomReservationMapper(ServerCommunication.findRoomReservation(3)));
+    }
+
+    @Test
+    void roomReservationListMapperTest() {
+        stubFor(get(urlEqualTo("/room_reservation/all"))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withBody("[{\"id\":3,\"room\":{\"id\":2,\"name\":\"a\",\"building\":{"
+                                + "\"id\":1,\"name\":\"alto\",\"street\":\"rruga\",\"houseNumber\":24},"
+                                + "\"faculty\":\"b\",\"facultySpecific\":true,\"projector\":true,\"screen"
+                                + "\":true,\"capacity\":10,\"plugs\":10},\"appUser\":{\"email\""
+                                + ":\"r.jursevskis@student.tudelft.nl\",\"password\":"
+                                + "\"$2a$10$gJ1P7tWDAlgq4VBlCBjK.uKgZPw0tKxG/NMSiGDfNtxKcEDJEIRVC\","
+                                + "\"name\":\"Renats"
+                                + "\",\"surname\":\"Jursevskis\",\"faculty\":\"EWI\","
+                                + "\"loggedIn\":true,\"confirmationNumber\":934789,\"roles\":[{\"id\":2,\"name\":\"ROLE_ADMIN\""
+                                + "},{\"id\":1,\"name\":\"ROLE_USER\"}]},\"fromTime\":\"2020-03-19T11:30:00.000+0000\","
+                                + "\"toTime\":\"2020-03-19T12:00:00.000+0000\"},{\"id\":4,\"room\""
+                                + ":{\"id\":2,\"name\":\"a\",\"building\":{\"id\":1,\"name\":\"alto\",\"street\":\"rruga\","
+                                + "\"houseNumber\":24},\"faculty\":\"b\",\"facultySpecific\":true,"
+                                + "\"projector\":true,\"screen\":true,\"capacity\":10,\"plugs\":10},\"appUser\":{\"email\":"
+                                + "\"r.jursevskis@student.tudelft.nl\",\"password\":"
+                                + "\"$2a$10$gJ1P7tWDAlgq4VBlCBjK.uKgZPw0tKxG/NMSiGDfNtxKcEDJEIRVC\",\"name\":\"Renats\","
+                                + "\"surname\":\"Jursevskis\",\"faculty\":\"EWI\",\"loggedIn\":true,"
+                                + "\"confirmationNumber\":934789,\"roles\":[{\"id\":2,\"name\":\"ROLE_ADMIN\"},{\"id\":1,"
+                                + "\"name\":\"ROLE_USER\"}]},\"fromTime\":\"1970-01-01T00:00:00.100+0000"
+                                + "\",\"toTime\":\"1970-01-01T00:00:00.200+0000\"}]")));
+
+        String json = "[{\"id\":3,\"room\":{\"id\":2,\"name\":\"a\",\"building\":{\"id\":1,\"name\":"
+                + "\"alto\",\"street\":\"rruga\",\"houseNumber\":24},"
+                + "\"faculty\":\"b\",\"facultySpecific\":true,\"projector\":true,\"screen\":true,\"capacity"
+                + "\":10,\"plugs\":10},\"appUser\":{\"email\""
+                + ":\"r.jursevskis@student.tudelft.nl\",\"password\":\"$2a$10$gJ1P7tWDAlgq4VBlCBjK.uKgZPw0tKxG/NMSiGDfNtxKcEDJEIRVC\","
+                + "\"name\":\"Renats"
+                + "\",\"surname\":\"Jursevskis\",\"faculty\":\"EWI\",\"loggedIn\":true,\"confirmationNumber\":934789,\"roles\""
+                + ":[{\"id\":2,\"name\":\"ROLE_ADMIN\""
+                + "},{\"id\":1,\"name\":\"ROLE_USER\"}]},\"fromTime\":\"2020-03-19T11:30:00.000+0000\",\"toTime\":"
+                + "\"2020-03-19T12:00:00.000+0000\"},{\"id\":4,\"room\""
+                + ":{\"id\":2,\"name\":\"a\",\"building\":{\"id\":1,\"name\":\"alto\",\"street\":\"rruga\",\"houseNumber\":24},\"faculty\":\"b\",\""
+                + "facultySpecific\":true,"
+                + "\"projector\":true,\"screen\":true,\"capacity\":10,\"plugs\":10},\"appUser\":{\"email\":"
+                + "\"r.jursevskis@student.tudelft.nl\",\"password\":"
+                + "\"$2a$10$gJ1P7tWDAlgq4VBlCBjK.uKgZPw0tKxG/NMSiGDfNtxKcEDJEIRVC\",\"name\":\"Renats\",\"surname\":\"Jursevskis\",\"faculty\":"
+                + "\"EWI\",\"loggedIn\":true,"
+                + "\"confirmationNumber\":934789,\"roles\":[{\"id\":2,\"name\":\"ROLE_ADMIN\"},{\"id\":1,\"name\":\"ROLE_USER\"}]},\"fromTime\":"
+                + "\"1970-01-01T00:00:00.100+0000"
+                + "\",\"toTime\":\"1970-01-01T00:00:00.200+0000\"}]";
+
+        List<RoomReservation> roomReservations = JsonMapper.roomReservationsListMapper(json);
+
+        assertEquals(roomReservations, JsonMapper.roomReservationsListMapper(ServerCommunication.getRoomReservations()));
     }
 }
