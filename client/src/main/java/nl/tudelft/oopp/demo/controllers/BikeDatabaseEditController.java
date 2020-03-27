@@ -32,7 +32,7 @@ import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
- * Manages the user input from the database edit bike view
+ * Manages the user input from the database edit bike view.
  */
 public class BikeDatabaseEditController implements Initializable {
 
@@ -104,7 +104,7 @@ public class BikeDatabaseEditController implements Initializable {
     }
 
     /**
-     * loads the current bikes into the table
+     * loads the current bikes into the table.
      */
     public void loadBikesIntoTable() {
         List<Bike> bikes = new ArrayList<>(Objects.requireNonNull(JsonMapper.bikeListMapper(ServerCommunication.getBikes())));
@@ -114,7 +114,7 @@ public class BikeDatabaseEditController implements Initializable {
     }
 
     /**
-     * Loads the bike that have the same value of "available" than the checkBox
+     * Loads the bike that have the same value of "available" than the checkBox.
      */
     public void loadBikesIntoTableAvailable() {
         List<Bike> bikes = new ArrayList<>(Objects.requireNonNull(JsonMapper.bikeListMapper(ServerCommunication.getBikes())));
@@ -141,8 +141,8 @@ public class BikeDatabaseEditController implements Initializable {
     }
 
     /**
-     * Loads database bikes into table filtering by location
-     * @throws IOException throws when there is nothing in the location filter
+     * Loads database bikes into table filtering by location.
+     * @throws IOException throws when there is nothing in the location filter.
      */
     public void loadBikesIntoTableLocation() throws IOException {
         List<Building> locations = new ArrayList<>(Objects.requireNonNull(JsonMapper.buildingListMapper(ServerCommunication.getBuildings())));
@@ -163,7 +163,7 @@ public class BikeDatabaseEditController implements Initializable {
     }
 
     /**
-     * Takes care of the options for the updateChoiceBox in the GUI
+     * Takes care of the options for the updateChoiceBox in the GUI.
      */
     public void loadDataIntoChoiceBox() throws IOException {
         List<Building> locations = new ArrayList<>(Objects.requireNonNull(JsonMapper.buildingListMapper(ServerCommunication.getBuildings())));
@@ -176,39 +176,39 @@ public class BikeDatabaseEditController implements Initializable {
     }
 
     /**
-     * Changes view to main menu
-     * @throws IOException should never throw an exception as the input is always the same
+     * Changes view to main menu.
+     * @throws IOException should never throw an exception as the input is always the same.
      */
     public void mainMenu() throws IOException {
         ApplicationDisplay.changeScene("/DatabaseMainMenu.fxml");
     }
 
     /**
-     * Changes view to main Bike database menu
-     * @throws IOException should never throw an exception as the input is always the same
+     * Changes view to main Bike database menu.
+     * @throws IOException should never throw an exception as the input is always the same.
      */
     public void goToBikeMenu() throws IOException {
         ApplicationDisplay.changeScene("/BikeDatabaseMenu.fxml");
     }
 
     /**
-     * Changes view to BikeDatabaseAdd
-     * @throws IOException should never throw an exception as the input is always the same
+     * Changes view to BikeDatabaseAdd.
+     * @throws IOException should never throw an exception as the input is always the same.
      */
     public void goToAddBike() throws IOException {
         ApplicationDisplay.changeScene("/BikeDatabaseAdd.fxml");
     }
 
     /**
-     * Changes view to main BikeDatabaseEdit
-     * @throws IOException should never throw an exception as the input is always the same
+     * Changes view to main BikeDatabaseEdit.
+     * @throws IOException should never throw an exception as the input is always the same.
      */
     public void goToEditBike() throws IOException {
         ApplicationDisplay.changeScene("/BikeDatabaseEdit.fxml");
     }
 
     /**
-     * deletes a bike based on the ID of the text box
+     * deletes a bike based on the ID of the text box.
      */
     public void deleteBikeById() {
         int id = Integer.parseInt(bikeDeleteByIdTextField.getText());
@@ -224,7 +224,7 @@ public class BikeDatabaseEditController implements Initializable {
     }
 
     /**
-     * Changes the attribute of the bike at the top of the table
+     * Changes the attribute of the bike at the top of the table.
      */
     public void updateBikeAttribute() {
         int id = bikeSearchResult.get(0).getId();
@@ -251,9 +251,9 @@ public class BikeDatabaseEditController implements Initializable {
     }
 
     /**
-     * gets the ID out od the string of form "name (ID)"
-     * @param value the name of the given form
-     * @return the ID present in the initial string
+     * gets the ID out od the string of form "name (ID)".
+     * @param value the name of the given form.
+     * @return the ID present in the initial string.
      */
     private int nameGetId(String value) {
         value = value.replaceAll("\\D+", "");
@@ -265,7 +265,7 @@ public class BikeDatabaseEditController implements Initializable {
     }
 
     /**
-     * Deletes the selected  bike from the table and the database
+     * Deletes the selected  bike from the table and the database.
      */
     public void deleteBikeUsingTable() {
         Bike bike = (Bike) table.getSelectionModel().getSelectedItem();
@@ -281,7 +281,7 @@ public class BikeDatabaseEditController implements Initializable {
     }
 
     /**
-     * allows you to select the bike you wish to update in the table
+     * allows you to select the bike you wish to update in the table.
      */
     public void updateUsingTable() throws IOException {
         Bike bike = (Bike) table.getSelectionModel().getSelectedItem();
