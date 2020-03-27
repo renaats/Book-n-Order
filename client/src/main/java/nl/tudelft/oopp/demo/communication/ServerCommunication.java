@@ -782,21 +782,6 @@ public class ServerCommunication {
         return communicateAndReturnBodyOfResponse(request);
     }
 
-
-    /**
-     * Adds a restaurant to the server
-     * @param name Name of the restaurant.
-     * @param buildingId building where the restaurant is located.
-     * @param restaurantHoursId Id of the opening and closing hours.
-     * @param menuId Id of the menu form the restaurant.
-     * @return the body of the response from the server.
-     */
-    public static String addRestaurant(String name, int buildingId, int restaurantHoursId, int menuId) {
-        HttpRequest request;
-        request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room/add?name=" + URLEncoder.encode(name, StandardCharsets.UTF_8) + "&faculty=" + URLEncoder.encode(faculty, StandardCharsets.UTF_8) + "&facultySpecific=" + facultySpecific + "&screen=" + screen + "&projector=" + projector + "&buildingId=" + buildingId + "&capacity=" + capacity + "&plugs=" + plugs)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        return communicateAndReturnErrorMessage(request);
-    }
-
     /**
      * Requests all the menus from the database
      * @return a JSON string on menus.
