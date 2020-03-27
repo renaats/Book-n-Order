@@ -42,6 +42,10 @@ public class Restaurant {
     @JoinColumn
     private Menu menu;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "restaurant")
+    Set<RestaurantHours> restaurantHours = new HashSet<>();
+
     /**
      * Creates a new instance of Restaurant.
      * @param building = building in which restaurant is located.
@@ -52,13 +56,23 @@ public class Restaurant {
         this.name = name;
     }
 
+    /**
+     * Creates a new instance of Restaurant, with menu and restaurant hours.
+     * @param building Building in which restaurant is located.
+     * @param name Name of the restaurant.
+     * @param restaurantHours Hours of the restaurant.
+     * @param menu Menu of the restaurant.
+     */
+    public Restaurant(Building building, String name, Set<RestaurantHours> restaurantHours, Menu menu) {
+        this.building = building;
+        this.menu = menu;
+        this.name = name;
+        this.restaurantHours = restaurantHours;
+    }
+
     public Restaurant() {
 
     }
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "restaurant")
-    Set<RestaurantHours> restaurantHours = new HashSet<>();
 
     public void setBuilding(Building building) {
         this.building = building;
@@ -70,6 +84,10 @@ public class Restaurant {
 
     public void setMenu(Menu menu) {
         this.menu = menu;
+    }
+
+    public void setRestaurantHours(Set<RestaurantHours> restaurantHours) {
+        this.restaurantHours = restaurantHours;
     }
 
     public int getId() {
@@ -86,6 +104,10 @@ public class Restaurant {
 
     public Menu getMenu() {
         return menu;
+    }
+
+    public Set<RestaurantHours> getRestaurantHours() {
+        return restaurantHours;
     }
 
     @Override
