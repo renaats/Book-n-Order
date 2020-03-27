@@ -7,11 +7,8 @@ import java.util.Objects;
  */
 public class Restaurant {
     private int id;
-
     private Building building;
-
     private String name;
-
     private Menu menu;
 
     /**
