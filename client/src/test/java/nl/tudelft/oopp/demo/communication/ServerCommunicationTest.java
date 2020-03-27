@@ -71,7 +71,53 @@ public class ServerCommunicationTest {
         stubFor(post(urlEqualTo("/dish/update?id=1&attribute=a&value=a")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(post(urlEqualTo("/dish/addAllergy?id=1&allergyName=test")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(get(urlEqualTo("/room_reservation/find/10")).willReturn(aResponse().withStatus(200).withBody("Message10")));
+        stubFor(get(urlEqualTo("/room_reservation/past")).willReturn(aResponse().withStatus(200).withBody("200")));
+        stubFor(get(urlEqualTo("/room_reservation/future")).willReturn(aResponse().withStatus(200).withBody("200")));
+        stubFor(get(urlEqualTo("/bike_reservation/all")).willReturn(aResponse().withStatus(200).withBody("200")));
+        stubFor(get(urlEqualTo("/bike_reservation/future")).willReturn(aResponse().withStatus(200).withBody("200")));
+        stubFor(get(urlEqualTo("/bike_reservation/past")).willReturn(aResponse().withStatus(200).withBody("200")));
     }
+
+    /**
+     * Tests getting all future room reservations from the server.
+     */
+    @Test
+    public void testSuccessfulGetAllFutureRoomReservations() {
+        assertEquals("200", ServerCommunication.getAllFutureRoomReservations());
+    }
+
+    /**
+     * Tests getting all previous room reservations from the server.
+     */
+    @Test
+    public void testSuccessfulGetAllPastRoomReservations() {
+        assertEquals("200", ServerCommunication.getAllPreviousRoomReservations());
+    }
+
+    /**
+     * Tests getting all bike reservations from the server.
+     */
+    @Test
+    public void testSuccessfulGetAllBikeReservations() {
+        assertEquals("200", ServerCommunication.getAllBikeReservations());
+    }
+
+    /**
+     * Tests getting all future bike reservations from the server.
+     */
+    @Test
+    public void testSuccessfulGetAllFutureBikeReservations() {
+        assertEquals("200", ServerCommunication.getAllFutureBikeReservations());
+    }
+
+    /**
+     * Tests getting all previous bike reservations from the server.
+     */
+    @Test
+    public void testSuccessfulGetAllPastBbikeReservations() {
+        assertEquals("200", ServerCommunication.getAllPreviousBikeReservations());
+    }
+
 
     /**
      * Tests adding dishes to the server.
