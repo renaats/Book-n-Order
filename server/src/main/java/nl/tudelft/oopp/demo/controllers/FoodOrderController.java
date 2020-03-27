@@ -66,7 +66,7 @@ public class FoodOrderController {
      * @param id = the id of the food order.
      * @param name = the name of the dish.
      */
-    //@Secured("ROLE_ADMIN") SHOULD BE UNCOMMENTED WHEN IN PRODUCTION!
+    @Secured({"ROLE_ADMIN"})
     @PostMapping(path = "/addDish")
     @ResponseBody
     public void addDish(@RequestParam int id, @RequestParam String name) {

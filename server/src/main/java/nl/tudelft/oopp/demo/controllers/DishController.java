@@ -31,7 +31,7 @@ public class DishController {
      * @param menuId menu id.
      * @return Error code.
      */
-    @Secured({"RESTAURANT_OWNER", "ROLE_ADMIN"})
+    @Secured({"ROLE_RESTAURANT", "ROLE_ADMIN"})
     @PostMapping(path = "/add")
     @ResponseBody
     public int addNewDish(@RequestParam String name, @RequestParam int menuId) {
@@ -55,7 +55,7 @@ public class DishController {
      * @param id dish id.
      * @return Error code.
      */
-    @Secured({"RESTAURANT_OWNER", "ROLE_ADMIN"})
+    @Secured({"ROLE_RESTAURANT", "ROLE_ADMIN"})
     @DeleteMapping(path = "/delete/{dishID}")
     @ResponseBody
     public int deleteDish(@PathVariable(value = "dishID") int id) {
