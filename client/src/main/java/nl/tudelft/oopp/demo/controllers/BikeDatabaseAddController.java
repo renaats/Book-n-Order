@@ -25,7 +25,7 @@ import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
- * Manages the user input from the database add bike view
+ * Manages the user input from the database add bike view.
  */
 public class BikeDatabaseAddController implements Initializable {
 
@@ -42,8 +42,8 @@ public class BikeDatabaseAddController implements Initializable {
     private List<Building> buildings;
 
     /**
-     * Will load a list of buildings into the buildings list
-     * @throws IOException will throw when there are no buildings
+     * Will load a list of buildings into the buildings list.
+     * @throws IOException will throw when there are no buildings.
      */
     public BikeDatabaseAddController() throws IOException {
         //This method is required because this throws and exception:
@@ -67,7 +67,7 @@ public class BikeDatabaseAddController implements Initializable {
     }
 
     /**
-     * loads all the buildings of the database into the choice box as options for bike locations
+     * loads all the buildings of the database into the choice box as options for bike locations.
      */
     private void loadData() {
         for (int i = 0; i < buildings.size(); i++) {
@@ -76,32 +76,32 @@ public class BikeDatabaseAddController implements Initializable {
     }
 
     /**
-     * Changes view to main menu
-     * @throws IOException should never throw an exception as the input is always the same
+     * Changes view to main menu.
+     * @throws IOException should never throw an exception as the input is always the same.
      */
     public void mainMenu() throws IOException {
         ApplicationDisplay.changeScene("/DatabaseMainMenu.fxml");
     }
 
     /**
-     * Changes view to main Bike database menu
-     * @throws IOException should never throw an exception as the input is always the same
+     * Changes view to main Bike database menu.
+     * @throws IOException should never throw an exception as the input is always the same.
      */
     public void goToBikeMenu() throws IOException {
         ApplicationDisplay.changeScene("/BikeDatabaseMenu.fxml");
     }
 
     /**
-     * Changes view to BikeDatabaseAdd
-     * @throws IOException should never throw an exception as the input is always the same
+     * Changes view to BikeDatabaseAdd.
+     * @throws IOException should never throw an exception as the input is always the same.
      */
     public void goToAddBike() throws IOException {
         ApplicationDisplay.changeScene("/BikeDatabaseAdd.fxml");
     }
 
     /**
-     * Changes view to main BikeDatabaseEdit
-     * @throws IOException should never throw an exception as the input is always the same
+     * Changes view to main BikeDatabaseEdit.
+     * @throws IOException should never throw an exception as the input is always the same.
      */
     public void goToEditBike() throws IOException {
         ApplicationDisplay.changeScene("/BikeDatabaseEdit.fxml");
@@ -109,7 +109,7 @@ public class BikeDatabaseAddController implements Initializable {
 
     /**
      * Makes sure the button toggles from false to true every time.
-     * @param e Just an ActionEvent param
+     * @param e Just an ActionEvent param.
      */
     @FXML
     private void toggleClickAvailable(ActionEvent e) {
@@ -123,7 +123,7 @@ public class BikeDatabaseAddController implements Initializable {
     }
 
     /**
-     * Adds the building to the database
+     * Adds the building to the database.
      */
     public void databaseAddBike() {
         int buildingId = -1;
