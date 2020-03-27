@@ -9,13 +9,6 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
  * controls all the user inputs made through the GUI in the "myCurrentBookings.fxml" file
  */
 public class MyCurrentBookingsController {
-    /**
-     * Changes current scene to myAccountScene.fxml.
-     * @throws IOException input will be valid.
-     */
-    public void myAccountScene() throws IOException {
-        ApplicationDisplay.changeScene("/myAccountScene.fxml");
-    }
 
     /**
      * Changes current scene to myCurrentBookings.fxml.
@@ -58,7 +51,7 @@ public class MyCurrentBookingsController {
     }
 
     /**
-     * Changes current scene to templateScene.fxml.
+     * Changes current scene to mainMenu.fxml.
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
     public void mainMenu() throws IOException {

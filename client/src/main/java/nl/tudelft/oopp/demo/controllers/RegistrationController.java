@@ -59,7 +59,7 @@ public class RegistrationController implements Initializable {
     }
 
     /**
-     * Changes to templateScene.fxml.
+     * Changes to mainMenuReservations.fxml.
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
     public void mainMenu() throws IOException {

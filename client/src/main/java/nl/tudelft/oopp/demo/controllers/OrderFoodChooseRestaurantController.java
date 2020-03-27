@@ -20,25 +20,13 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
  * Loads the correct content into the FXML objects that need to display server information and
  * controls all the user inputs made through the GUI in the "OrderFoodChooseRestaurant.fxml" file
  */
-public class OrderFoodChooseRestaurantController implements Initializable {
+public class OrderFoodChooseRestaurantController {
     @FXML
     public TextField nameOfTheRestaurant;
     public Button submitButton;
     public TableView<Restaurant> restaurantsTable;
     public TableColumn<Restaurant, String> menuTable;
     public Button chooseTheRestaurantButton;
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        loadData();
-    }
-
-    /**
-     * will load the restaurants
-     */
-    public  void loadData(){
-        //TODO
-    }
 
     /**
      * Goes back to the main reservations menu when the back arrow button is clicked
@@ -65,19 +53,5 @@ public class OrderFoodChooseRestaurantController implements Initializable {
 
     public void mainMenu(MouseEvent mouseEvent) throws IOException {
         ApplicationDisplay.changeScene("/mainMenu.fxml");
-    }
-
-    /**
-     * Should apply the filters of the nameOfTheRestaurant text field to the restaurantsTable
-     */
-    public void applyFilters() {
-        //TODO
-    }
-
-    /**
-     * Should cause the menu of the selected restaurant to show at the menuTable
-     */
-    public void restaurantChosen() {
-        //TODO
     }
 }

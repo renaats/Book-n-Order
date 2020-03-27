@@ -68,7 +68,7 @@
    <Button fx:id="bookRoomButton" layoutX="188.0" layoutY="496.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#bookRoom" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: #00a6d6;" text="Book a room" textFill="WHITE" AnchorPane.leftAnchor="188.0" AnchorPane.topAnchor="496.0" />
    <Button fx:id="orderFoodButton" cache="true" layoutX="540.0" layoutY="341.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#orderFood" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: #00a6d6;" text="Order food" textFill="WHITE" AnchorPane.leftAnchor="540.0" AnchorPane.topAnchor="341.0" />
    <Button fx:id="rentBikeButton" layoutX="911.0" layoutY="496.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#rentBike" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: #00a6d6;" text="Rent a bike" textFill="WHITE" AnchorPane.rightAnchor="169.0" AnchorPane.topAnchor="496.0" />
-   <ImageView fitHeight="51.0" fitWidth="32.0" layoutX="18.0" layoutY="85.0" onMouseClicked="#calendarIcon" pickOnBounds="true" preserveRatio="true">
+   <ImageView fitHeight="51.0" fitWidth="32.0" layoutX="18.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@images/CalendarIcon.png" />
       </image>

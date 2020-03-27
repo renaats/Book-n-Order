@@ -150,14 +150,6 @@ public class DatabaseEditRoomController implements Initializable {
     }
 
     /**
-     * Changes to myAccountScene.fxml.
-     * @throws IOException input will not be wrong, hence we throw.
-     */
-    public void myAccountScene() throws IOException {
-        ApplicationDisplay.changeScene("/myAccountScene.fxml");
-    }
-
-    /**
      * returns to the main menu
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */

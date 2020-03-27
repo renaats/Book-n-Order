@@ -1,13 +1,8 @@
 package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -22,11 +17,7 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
  * Loads the correct content into the FXML objects that need to display server information and
  * controls all the user inputs made through the GUI in the "bookRoom.fxml" file
  */
-public class BookRoomController implements Initializable {
-
-    final ObservableList<String> listOfRooms = FXCollections.observableArrayList();
-    final ObservableList<String> listOfTimeSlots = FXCollections.observableArrayList();
-    final ObservableList<String> listOfBuildings = FXCollections.observableArrayList();
+public class BookRoomController {
 
     public static class Search {
         private final boolean screen;
@@ -65,11 +56,6 @@ public class BookRoomController implements Initializable {
     private TextField capacity;
     private TextField nuOfPlugs;
     private TextArea rooms;
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        loadRoomData();
-    }
 
     /**
      * applies the selected filters
@@ -120,13 +106,6 @@ public class BookRoomController implements Initializable {
     public void goToRoomConfirmation() throws IOException {
         ApplicationDisplay.changeScene("/RoomConfirmation.fxml");
     }
-    /**
-     * Adds the items to the choice boxes
-     */
-
-    public void loadRoomData() {
-        //rooms.setText("rooms=" + "ServerCommunication.getRooms()");
-    }
 
     /**
      * Changes to myCurrentBookings.fxml.
@@ -142,14 +121,6 @@ public class BookRoomController implements Initializable {
      */
     public void myPreviousBookings() throws IOException {
         ApplicationDisplay.changeScene("/myPreviousBookings.fxml");
-    }
-
-    /**
-     * Changes to myAccountScene.fxml.
-     * @throws IOException when it fails
-     */
-    public void myAccountScene() throws IOException {
-        ApplicationDisplay.changeScene("/myAccountScene.fxml");
     }
 
     /**

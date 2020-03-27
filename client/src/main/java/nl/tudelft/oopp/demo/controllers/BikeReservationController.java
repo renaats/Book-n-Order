@@ -6,12 +6,9 @@ import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
@@ -20,11 +17,7 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
  * controls all the user inputs made through the GUI in the "bikeReservations.fxml" file
  */
 public class BikeReservationController implements Initializable {
-
-    final ObservableList<String> listLocations = FXCollections.observableArrayList();
-
     final ObservableList<String> listTime = FXCollections.observableArrayList();
-
     final ObservableList<String> listMinutes = FXCollections.observableArrayList();
 
     @FXML
@@ -35,14 +28,13 @@ public class BikeReservationController implements Initializable {
     private ComboBox<String> dropOffTimeH;
     @FXML
     private ComboBox<String> dropOffTimeMin;
-    @FXML
-    private TextField screen;
 
-    public void mainMenu(MouseEvent mouseEvent) throws IOException {
+
+    public void mainMenu() throws IOException {
         ApplicationDisplay.changeScene("/mainMenu.fxml");
     }
 
-    public void bikeConfirmation(ActionEvent actionEvent) throws IOException {
+    public void bikeConfirmation() throws IOException {
         ApplicationDisplay.changeScene("/bikeConfirmation.fxml");
     }
 
