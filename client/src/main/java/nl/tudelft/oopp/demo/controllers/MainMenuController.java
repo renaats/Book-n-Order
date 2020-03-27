@@ -1,6 +1,10 @@
 package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
+
+import nl.tudelft.oopp.demo.communication.JsonMapper;
+import nl.tudelft.oopp.demo.communication.ServerCommunication;
+import nl.tudelft.oopp.demo.user.UserInformation;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 import nl.tudelft.oopp.demo.views.PersonalCalendarView;
 
@@ -15,7 +19,8 @@ public class MainMenuController {
      * @throws IOException when it fails
      */
     public void calendarIcon() throws IOException {
-        ApplicationDisplay.showCalendarScene(new PersonalCalendarView());
+        UserInformation user = JsonMapper.userInformationMapper(ServerCommunication.getOwnUserInformation());
+        ApplicationDisplay.showCalendarScene(new PersonalCalendarView(user.getEmail()));
     }
 
     /**

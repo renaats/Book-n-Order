@@ -5,26 +5,20 @@ import com.calendarfx.model.CalendarSource;
 import com.calendarfx.model.Entry;
 import com.calendarfx.view.CalendarView;
 
-import java.beans.EventHandler;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
-import javafx.application.Platform;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
-import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.RoomReservation;
 
 public class PersonalCalendarView extends CalendarView {
 
-    private AppUser currentUser;
+    private String currentUser;
 
     Calendar bookedRooms = new Calendar("Room Bookings");
     Calendar orderedFood = new Calendar("Food Orders");
@@ -33,9 +27,10 @@ public class PersonalCalendarView extends CalendarView {
     /**
      * Constuctor for the Personal Calendar View
      */
-    public PersonalCalendarView() {
-
+    public PersonalCalendarView(String currentUser) {
+        this.currentUser = currentUser;
         displayCalendars();
+        loadRoomReservations();
     }
 
     /**
@@ -45,17 +40,17 @@ public class PersonalCalendarView extends CalendarView {
         List<RoomReservation> roomReservationList =
                 new ArrayList<>(Objects.requireNonNull(JsonMapper.roomReservationsListMapper(ServerCommunication.getRoomReservations())));
         for (RoomReservation reservation : roomReservationList) {
-            //if (reservation.getAppUser().equals(this.currentUser)) {
+            if (reservation.getAppUser().getEmail().equals(this.currentUser)) {
             Entry<RoomReservation> bookedEntry = new Entry<>("Booking of " + reservation.getRoom().getName());
 
             LocalTime startTime = convertToLocalTime(reservation.getFromTime());
             LocalTime endTime = convertToLocalTime(reservation.getToTime());
             LocalDate date = convertToLocalDate(reservation.getFromTime());
 
-            bookedEntry.setInterval(startTime, endTime);
             bookedEntry.setInterval(date);
+            bookedEntry.setInterval(startTime, endTime);
             bookedRooms.addEntry(bookedEntry);
-            //}
+            }
         }
     }
 
@@ -70,6 +65,10 @@ public class PersonalCalendarView extends CalendarView {
         bookedRooms.setStyle(Calendar.Style.STYLE2);
         orderedFood.setStyle(Calendar.Style.STYLE3);
         rentedBikes.setStyle(Calendar.Style.STYLE4);
+
+        bookedRooms.setReadOnly(true);
+        orderedFood.setReadOnly(true);
+        rentedBikes.setReadOnly(true);
 
         CalendarSource myCalendarSource = new CalendarSource("My Calendars");
         myCalendarSource.getCalendars().addAll(bookedRooms, orderedFood, rentedBikes);
