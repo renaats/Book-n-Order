@@ -157,10 +157,10 @@ public class ServerCommunication {
     /**
      * Retrieve specific building hours for specific day in the database by id.
      * @param buildingId = building id, which is parsed from a text field.
-     * @param day = int representation for the day of the week
+     * @param day = the date in milliseconds or the day of the week for regular hours represented by long
      * @return the body of the response.
      */
-    public static String findBuildingHours(int buildingId, int day) {
+    public static String findBuildingHours(int buildingId, long day) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building_hours/find/" + buildingId + "/" + day)).GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnBodyOfResponse(request);
     }
@@ -181,11 +181,11 @@ public class ServerCommunication {
     /**
      * Removes building hours from the database.
      * @param id = the id of the building.
-     * @param day = the day of the week represented in an int.
+     * @param date = the date in milliseconds or the day of the week for regular hours represented by long
      * @return the body of the response from the server.
      */
-    public static String deleteBuildingHours(int id, int day) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building_hours/delete?id=" + id + "&day=" + day)).DELETE().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+    public static String deleteBuildingHours(int id, long date) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building_hours/delete?id=" + id + "&date=" + date)).DELETE().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnErrorMessage(request);
     }
 
@@ -478,10 +478,10 @@ public class ServerCommunication {
     /**
      * Retrieve specific restaurant opening hours for specific day in the database by id.
      * @param restaurantId = restaurant id, which is parsed from a text field.
-     * @param day = int representation for the day of the week
+     * @param day = the date in milliseconds or the day of the week for regular hours represented by long
      * @return the body of the response.
      */
-    public static String findRestaurantHours(int restaurantId, int day) {
+    public static String findRestaurantHours(int restaurantId, long day) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant_hours/find/" + restaurantId + "/" + day)).GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnBodyOfResponse(request);
     }
