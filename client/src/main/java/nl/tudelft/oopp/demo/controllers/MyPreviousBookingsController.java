@@ -5,10 +5,6 @@ import java.io.IOException;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 public class MyPreviousBookingsController {
-    /**
-     * Changes current scene to myAccountScene.fxml.
-     * @throws IOException will not be wrong.
-     */
 
     /**
      * Changes current scene to myCurrentBookings.fxml.
