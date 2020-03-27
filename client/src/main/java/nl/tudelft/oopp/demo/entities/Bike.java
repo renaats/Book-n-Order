@@ -52,7 +52,7 @@ public class Bike {
      * @return the string with the name of the building that is the location
      */
     public StringProperty getBuildingNameProperty() {
-        String v = getLocation().getName();;
+        String v = getLocation().getName();
         StringProperty buildingNameProperty = new SimpleStringProperty(v);
         return buildingNameProperty;
     }
