@@ -80,7 +80,7 @@ public class BikeDatabaseEditController implements Initializable {
     }
 
     /**
-     * Loads the bike that have the same value of "available" than the checkBox.
+     * Loads the bikes that have the same value of "available" as the checkBox.
      */
     public void loadBikesIntoTableAvailable() {
         List<Bike> bikes = new ArrayList<>(Objects.requireNonNull(JsonMapper.bikeListMapper(ServerCommunication.getBikes())));
@@ -175,7 +175,7 @@ public class BikeDatabaseEditController implements Initializable {
     }
 
     /**
-     * deletes a bike based on the ID of the text box.
+     * Deletes a bike based on the ID of the text box.
      */
     public void deleteBikeById() {
         int id = Integer.parseInt(bikeDeleteByIdTextField.getText());
@@ -203,7 +203,7 @@ public class BikeDatabaseEditController implements Initializable {
     }
 
     /**
-     * Gets the ID out od the string of form "name (ID)".
+     * Gets the ID out of the string of form "name (ID)".
      * @param value the name of the given form.
      * @return the ID present in the initial string.
      */

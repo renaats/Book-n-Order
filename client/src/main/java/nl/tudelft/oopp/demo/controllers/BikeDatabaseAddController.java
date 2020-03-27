@@ -103,7 +103,7 @@ public class BikeDatabaseAddController implements Initializable {
     }
 
     /**
-     * Adds the building to the database.
+     * Adds the bike to the database.
      */
     public void databaseAddBike() {
         int buildingId = -1;
@@ -113,16 +113,29 @@ public class BikeDatabaseAddController implements Initializable {
             }
         }
         boolean success = false;
-        if (Integer.parseInt(number.getText()) > 0) {
-            for (int i = 1; i < Integer.parseInt(number.getText()); i++) {
-                if (ServerCommunication.addBike(buildingId,available).equals("Successfully added!")) {
+        int numberOfBikes = 0;
+        try {
+            numberOfBikes = Integer.parseInt(number.getText());
+        } catch (NumberFormatException e) {
+            CustomAlert.warningAlert("Please use and integer for the number of bikes");
+            return;
+        }
+        if (numberOfBikes > 0) {
+            String response = "";
+            for (int i = 0; i < Integer.parseInt(number.getText()); i++) {
+                response = ServerCommunication.addBike(buildingId,available);
+                if (response.equals("Successfully added!")) {
                     success = true;
+                } else {
+                    success = false;
+                    CustomAlert.warningAlert("Something an error occurred while adding the bikes");
+                    break;
                 }
             }
             if (success) {
-                CustomAlert.informationAlert(number.getText() + " Bike/s have been " + ServerCommunication.addBike(buildingId,available));
+                CustomAlert.informationAlert(number.getText() + " Bike/s have been successfully");
             } else {
-                CustomAlert.warningAlert(ServerCommunication.addBike(buildingId,available));
+                CustomAlert.warningAlert(response);
             }
         } else {
             CustomAlert.warningAlert("Please select a number bigger than 0");
