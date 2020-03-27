@@ -343,4 +343,50 @@ public class JsonMapper {
         }
         return null;
     }
+
+    /**
+     * Maps JSON to RoomReservation entity.
+     * @param bikeReservationJson representation of a room.
+     * @return RoomReservation entity.
+     */
+    public static BikeReservation bikeReservationMapper(String bikeReservationJson) {
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+
+        try {
+            // Convert JSON string to Object
+            return mapper.readValue(bikeReservationJson, BikeReservation.class);
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText(bikeReservationJson);
+            alert.showAndWait();
+        }
+        return null;
+    }
+
+    /**
+     * Maps all Room Reservation JSONS to a list.
+     * @param bikeReservationsJson a JSON string representing a list.
+     * @return A list filled with object Room Reservation
+     */
+    public static List<BikeReservation> bikeReservationsListMapper(String bikeReservationsJson) {
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+
+        try {
+            // Convert JSON string to Object
+            return mapper.readValue(bikeReservationsJson, new TypeReference<List<BikeReservation>>(){});
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText(bikeReservationsJson);
+            alert.showAndWait();
+        }
+        return null;
+    }
 }
