@@ -22,7 +22,7 @@ public class DatabaseMainMenuController {
         ApplicationDisplay.changeScene("/mainMenu.fxml");
     }
 
-    public void goToBikeDatabse() throws IOException {
+    public void goToBikeDatabase() throws IOException {
         ApplicationDisplay.changeScene("/BikeDatabaseMenu.fxml");
     }
 }
