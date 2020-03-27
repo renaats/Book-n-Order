@@ -1,7 +1,5 @@
 package nl.tudelft.oopp.demo.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
@@ -71,6 +69,7 @@ public class FoodOrder {
         this.appUser = appUser;
         this.deliveryLocation = deliveryLocation;
         this.deliveryTime = deliveryTime;
+        dishes = new HashSet<>();
     }
 
     public FoodOrder() {

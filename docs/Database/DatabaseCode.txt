@@ -96,6 +96,11 @@ Table food_orders {
   dish id
 }
 
+Table allergies {
+  allergy String PK
+  dish id
+}
+
 Ref: "User"."id" < "food_orders"."User"
 
 Ref: "User"."id" < "bike_reservations"."User"
@@ -125,5 +130,9 @@ Ref: "building"."building_number" < "food_orders"."delivery_location"
 Ref: "bike_reservations"."from_building" < "building"."building_number"
 
 Ref: "bike_reservations"."to_building" < "building"."building_number"
+
+Ref: "dish"."id" < "allergies"."menu"
+
+Ref: "allergies"."id" < "dish"."allergies"
 
 Ref: "dish"."dish" < "food_orders"."dish"

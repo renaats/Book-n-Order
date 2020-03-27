@@ -56,13 +56,8 @@ public class BikeServiceTest {
         building2 = new Building("EWI2", "Mekelweg2", 42);
         buildingRepository.save(building2);
 
-        bike = new Bike();
-        bike.setAvailable(true);
-        bike.setLocation(building);
-
-        bike2 = new Bike();
-        bike2.setAvailable(false);
-        bike2.setLocation(building2);
+        bike = new Bike(building, true);
+        bike2 = new Bike(building2, false);
     }
 
     /**

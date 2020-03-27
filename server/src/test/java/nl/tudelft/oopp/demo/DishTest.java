@@ -8,9 +8,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 import nl.tudelft.oopp.demo.entities.Dish;
-import nl.tudelft.oopp.demo.entities.FoodOrder;
 import nl.tudelft.oopp.demo.entities.Menu;
 import nl.tudelft.oopp.demo.entities.Restaurant;
+
 import nl.tudelft.oopp.demo.repositories.DishRepository;
 import nl.tudelft.oopp.demo.repositories.MenuRepository;
 
@@ -32,11 +32,11 @@ public class DishTest {
 
     Menu menu1;
     Menu menu2;
-    Menu menu3;
     Restaurant restaurant1;
     Restaurant restaurant2;
     Dish dish;
     Dish dish2;
+    Dish dish3;
     Set<Dish> dishes;
     Set<Dish> dishes1;
     Set<Dish> dishes2;
@@ -47,12 +47,12 @@ public class DishTest {
     @BeforeEach
     public void setup() {
         menu1 = new Menu("KFC menu", restaurant1);
-        menu2 = new Menu("BK menu", restaurant2);
         menuRepository.saveAndFlush(menu1);
-
+        menu2 = new Menu("BK menu", restaurant2);
         menuRepository.saveAndFlush(menu2);
 
         dish = new Dish("Chicken", menu1);
+        dish.setAllergies(new HashSet<>());
         dishRepository.saveAndFlush(dish);
 
         dish2 = new Dish("Spicy Chicken", menu2);
@@ -67,16 +67,16 @@ public class DishTest {
 
         menu1.setDishes(dishes);
         menuRepository.saveAndFlush(menu1);
-
         menuRepository.saveAndFlush(menu2);
     }
 
     /**
-     * Tests the constructor of the Dish class
+     * Tests the constructor of the Dish class.
      */
     @Test
     public void testConstructor() {
-        assertNotNull(dish);
+        dish3 = new Dish();
+        assertNotNull(dish3);
     }
 
     /**
