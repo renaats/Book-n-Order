@@ -20,6 +20,7 @@ import nl.tudelft.oopp.demo.entities.RestaurantHours;
 import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.entities.RoomReservation;
 
+import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.user.UserInformation;
 
 /**
@@ -198,11 +199,7 @@ public class JsonMapper {
             // Convert JSON string to Object
             return mapper.readValue(buildingHourJson, BuildingHours.class);
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText(buildingHourJson);
-            alert.showAndWait();
+            CustomAlert.warningAlert("Error");
         }
         return null;
     }
@@ -221,11 +218,7 @@ public class JsonMapper {
             List<Bike> bikes = mapper.readValue(bikesJson, new TypeReference<List<Bike>>(){});
             return bikes;
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText(bikesJson);
-            alert.showAndWait();
+            CustomAlert.warningAlert("Error");
         }
         return null;
     }
@@ -244,11 +237,7 @@ public class JsonMapper {
             // Convert JSON string to Object
             return mapper.readValue(roomReservationJson, RoomReservation.class);
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText(roomReservationJson);
-            alert.showAndWait();
+            CustomAlert.warningAlert("Error");
         }
         return null;
     }
@@ -267,11 +256,7 @@ public class JsonMapper {
             // Convert JSON string to Object
             return mapper.readValue(roomReservationsJson, new TypeReference<List<RoomReservation>>(){});
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText(roomReservationsJson);
-            alert.showAndWait();
+            CustomAlert.warningAlert("Error");
         }
         return null;
     }
