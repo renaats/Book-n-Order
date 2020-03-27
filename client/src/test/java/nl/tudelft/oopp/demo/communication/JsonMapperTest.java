@@ -9,15 +9,22 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import nl.tudelft.oopp.demo.entities.BuildingHours;
+import nl.tudelft.oopp.demo.entities.RestaurantHours;
 import nl.tudelft.oopp.demo.entities.Room;
+import nl.tudelft.oopp.demo.entities.RoomReservation;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Tests the JsonMapper class
+ */
 class JsonMapperTest {
     public WireMockServer wireMockServer;
 
@@ -29,7 +36,6 @@ class JsonMapperTest {
         wireMockServer = new WireMockServer();
         wireMockServer.start();
         configureFor("localhost", 8080);
-
     }
 
     /**
@@ -50,7 +56,7 @@ class JsonMapperTest {
     }
 
     @Test
-    void buildingListMapper() {
+    void buildingListMapper() throws IOException {
         stubFor(get(urlEqualTo("/building/all"))
                 .willReturn(aResponse()
                         .withStatus(200)
@@ -73,12 +79,12 @@ class JsonMapperTest {
                 .willReturn(aResponse()
                         .withStatus(200)
                         .withBody("{\"id\":4,\"name\":\"432\",\"building\":{\"id\":1,\"name\":\"11\",\"street\":\"1\",\"houseNumber\":1},\"faculty\":"
-                                + "\"42342\",\"facultySpecific\":true,\"projector\":false,\"screen\":false,\"nrPeople\":4234,\"plugs\":42342}")));
+                                + "\"42342\",\"facultySpecific\":true,\"projector\":false,\"screen\":false,\"capacity\":4234,\"plugs\":42342}")));
         assertEquals(
                 JsonMapper
                         .roomMapper(
                                 "{\"id\":4,\"name\":\"432\",\"building\":{\"id\":1,\"name\":\"11\",\"street\":\"1\",\"houseNumber\":1},\"faculty\":"
-                                + "\"42342\",\"facultySpecific\":true,\"projector\":false,\"screen\":false,\"nrPeople\":4234,\"plugs\":42342}"),
+                                + "\"42342\",\"facultySpecific\":true,\"projector\":false,\"screen\":false,\"capacity\":4234,\"plugs\":42342}"),
                 JsonMapper.roomMapper((ServerCommunication.findRoom(4))));
     }
 
@@ -89,19 +95,132 @@ class JsonMapperTest {
                         .requireNonNull(JsonMapper
                                 .roomListMapper("[{\"id\":4,\"name\":\"432\","
                                         + "\"building\":{\"id\":1,\"name\":\"11\",\"street\":\"1\",\"houseNumber\":1},\"faculty\":\"42342\","
-                                        + "\"facultySpecific\":true,\"projector\":false,\"screen\":false,\"nrPeople\":4234,\"plugs\":42342},"
+                                        + "\"facultySpecific\":true,\"projector\":false,\"screen\":false,\"capacity\":4234,\"plugs\":42342},"
                                         + "{\"id\":5,\"name\":\"1\",\"building\":{\"id\":1,\"name\":\"11\",\"street\":\"1\",\"houseNumber\":1},"
                                         + "\"faculty\":\"1\",\"facultySpecific\":true,\"projector\":false,\"screen\":true,"
-                                        + "\"nrPeople\":1,\"plugs\":1}]\n")));
+                                        + "\"capacity\":1,\"plugs\":1}]\n")));
         stubFor(get(urlEqualTo("/room/all"))
                 .willReturn(aResponse()
                         .withStatus(200)
                         .withBody("[{\"id\":4,\"name\":\"432\",\"building\":{\"id\":1,\"name\":\"11\",\"street\":\"1\",\"houseNumber\":1}"
-                                + ",\"faculty\":\"42342\",\"facultySpecific\":true,\"projector\":false,\"screen\":false,\"nrPeople\":4234"
+                                + ",\"faculty\":\"42342\",\"facultySpecific\":true,\"projector\":false,\"screen\":false,\"capacity\":4234"
                                 + ","
                                 + "\"plugs\":42342},{\"id\":5,\"name\":\"1\",\"building\":{\"id\":1,\"name\":\"11\",\"street\":\"1\",\"houseNumber\":"
                                 + "1}"
-                                + ",\"faculty\":\"1\",\"facultySpecific\":true,\"projector\":false,\"screen\":true,\"nrPeople\":1,\"plugs\":1}]\n")));
+                                + ",\"faculty\":\"1\",\"facultySpecific\":true,\"projector\":false,\"screen\":true,\"capacity\":1,\"plugs\":1}]\n")));
         assertEquals(room, JsonMapper.roomListMapper(ServerCommunication.getRooms()));
+    }
+
+    @Test
+    void buildingHoursMapperTest() {
+        stubFor(get(urlEqualTo("/building_hours/find/1/1"))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withBody("{\"id\":3,\"day\":1,\"building\":{\"id\":1,\"name\":\"test\","
+                                + "\"street\":\"1\",\"houseNumber\":1},\"startTime\":\"00:16:40\",\"endTime\":\"00:33:20\"}")));
+        String json = "{\"id\":3,\"day\":1,\"building\":{\"id\":1,\"name\":\"test\""
+                + ",\"street\":\"1\",\"houseNumber\":1},\"startTime\":\"00:16:40\",\"endTime\":\"00:33:20\"}";
+
+        BuildingHours buildingHours = JsonMapper.buildingHoursMapper(json);
+
+        assertEquals(buildingHours, JsonMapper.buildingHoursMapper(ServerCommunication.findBuildingHours(1, 1)));
+    }
+
+    @Test
+    void restaurantHoursMapperTest() {
+        stubFor(get(urlEqualTo("/restaurant_hours/find/1/1"))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withBody("{\"id\":5,\"day\":1,\"restaurant\":{\"id\":4,\"building\":"
+                                + "{\"id\":1,\"name\":\"test\",\"street\":\"1\",\"houseNumber\":1},"
+                                + "\"name\":\"TestRestaurant\",\"menu\":null},\"startTime\":\"00:16:40\",\"endTime\":\"00:33:20\"}")));
+
+        String json = "{\"id\":5,\"day\":1,\"restaurant\":{\"id\":4,\"building\":{\"id\":1,\"name\":"
+                + "\"test\",\"street\":\"1\",\"houseNumber\":1},\"name\":\"TestRestaurant\","
+                + "\"menu\":null},\"startTime\":\"00:16:40\",\"endTime\":\"00:33:20\"}";
+
+        RestaurantHours restaurantHours = JsonMapper.restaurantHoursMapper(json);
+
+        assertEquals(restaurantHours, JsonMapper.restaurantHoursMapper(ServerCommunication.findRestaurantHours(1, 1)));
+    }
+
+    @Test
+    void roomReservationMapperTest() {
+        stubFor(get(urlEqualTo("/room_reservation/find/3"))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withBody("{\"id\":3,\"room\":{\"id\":2,\"name\":\"a\",\"building\":{\"id\":1,\"name\""
+                                + ":\"alto\",\"street\":\"rruga\",\"houseNumber\":24},\""
+                                + "faculty\":\"b\",\"facultySpecific\":true,\"projector\":"
+                                + "true,\"screen\":true,\"capacity\":10,\"plugs\":10},\"appUser"
+                                + "\":{\"email\":\""
+                                + "r.jursevskis@student.tudelft.nl\",\"password\":\"abc\",\"name\":\"Renats\""
+                                + ",\"surname\":\"Jursevskis\",\"faculty\":\"EWI\",\"loggedIn\":true,"
+                                + "\"confirmationNumber\":183937,\"roles\":[{\"id\":2,\"name\":\"ROLE_ADMIN\"},{\""
+                                + "id\":1,\"name\":\"ROLE_USER\"}]},\"fromTime\":\"2020-03-19T11:30:00.000+0000\","
+                                + "\"toTime\":\"2020-03-19T12:00:00.000+0000\"}")));
+
+        String json = "{\"id\":3,\"room\":{\"id\":2,\"name\":\"a\",\"building\":{\"id\":1,\"name\":\"alto\",\"street\":"
+                + "\"rruga\",\"houseNumber\":24},\""
+                + "faculty\":\"b\",\"facultySpecific\":true,\"projector\":true,\"screen\":true,\"capacity\":10,\"plugs\":10},"
+                + "\"appUser\":{\"email\":\""
+                + "r.jursevskis@student.tudelft.nl\",\"password\":\"abc\",\"name\":\"Renats\""
+                + ",\"surname\":\"Jursevskis\",\"faculty\":\"EWI\",\"loggedIn\":true,\"confirmationNumber\":183937,\"roles\""
+                + ":[{\"id\":2,\"name\":\"ROLE_ADMIN\"},{\""
+                + "id\":1,\"name\":\"ROLE_USER\"}]},\"fromTime\":\"2020-03-19T11:30:00.000+0000\",\"toTime\":\"2020-03-19T12:00:00.000+0000\"}";
+
+        RoomReservation roomReservation = JsonMapper.roomReservationMapper(json);
+        assertEquals(roomReservation, JsonMapper.roomReservationMapper(ServerCommunication.findRoomReservation(3)));
+    }
+
+    @Test
+    void roomReservationListMapperTest() {
+        stubFor(get(urlEqualTo("/room_reservation/all"))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withBody("[{\"id\":3,\"room\":{\"id\":2,\"name\":\"a\",\"building\":{"
+                                + "\"id\":1,\"name\":\"alto\",\"street\":\"rruga\",\"houseNumber\":24},"
+                                + "\"faculty\":\"b\",\"facultySpecific\":true,\"projector\":true,\"screen"
+                                + "\":true,\"capacity\":10,\"plugs\":10},\"appUser\":{\"email\""
+                                + ":\"r.jursevskis@student.tudelft.nl\",\"password\":"
+                                + "\"$2a$10$gJ1P7tWDAlgq4VBlCBjK.uKgZPw0tKxG/NMSiGDfNtxKcEDJEIRVC\","
+                                + "\"name\":\"Renats"
+                                + "\",\"surname\":\"Jursevskis\",\"faculty\":\"EWI\","
+                                + "\"loggedIn\":true,\"confirmationNumber\":934789,\"roles\":[{\"id\":2,\"name\":\"ROLE_ADMIN\""
+                                + "},{\"id\":1,\"name\":\"ROLE_USER\"}]},\"fromTime\":\"2020-03-19T11:30:00.000+0000\","
+                                + "\"toTime\":\"2020-03-19T12:00:00.000+0000\"},{\"id\":4,\"room\""
+                                + ":{\"id\":2,\"name\":\"a\",\"building\":{\"id\":1,\"name\":\"alto\",\"street\":\"rruga\","
+                                + "\"houseNumber\":24},\"faculty\":\"b\",\"facultySpecific\":true,"
+                                + "\"projector\":true,\"screen\":true,\"capacity\":10,\"plugs\":10},\"appUser\":{\"email\":"
+                                + "\"r.jursevskis@student.tudelft.nl\",\"password\":"
+                                + "\"$2a$10$gJ1P7tWDAlgq4VBlCBjK.uKgZPw0tKxG/NMSiGDfNtxKcEDJEIRVC\",\"name\":\"Renats\","
+                                + "\"surname\":\"Jursevskis\",\"faculty\":\"EWI\",\"loggedIn\":true,"
+                                + "\"confirmationNumber\":934789,\"roles\":[{\"id\":2,\"name\":\"ROLE_ADMIN\"},{\"id\":1,"
+                                + "\"name\":\"ROLE_USER\"}]},\"fromTime\":\"1970-01-01T00:00:00.100+0000"
+                                + "\",\"toTime\":\"1970-01-01T00:00:00.200+0000\"}]")));
+
+        String json = "[{\"id\":3,\"room\":{\"id\":2,\"name\":\"a\",\"building\":{\"id\":1,\"name\":"
+                + "\"alto\",\"street\":\"rruga\",\"houseNumber\":24},"
+                + "\"faculty\":\"b\",\"facultySpecific\":true,\"projector\":true,\"screen\":true,\"capacity"
+                + "\":10,\"plugs\":10},\"appUser\":{\"email\""
+                + ":\"r.jursevskis@student.tudelft.nl\",\"password\":\"$2a$10$gJ1P7tWDAlgq4VBlCBjK.uKgZPw0tKxG/NMSiGDfNtxKcEDJEIRVC\","
+                + "\"name\":\"Renats"
+                + "\",\"surname\":\"Jursevskis\",\"faculty\":\"EWI\",\"loggedIn\":true,\"confirmationNumber\":934789,\"roles\""
+                + ":[{\"id\":2,\"name\":\"ROLE_ADMIN\""
+                + "},{\"id\":1,\"name\":\"ROLE_USER\"}]},\"fromTime\":\"2020-03-19T11:30:00.000+0000\",\"toTime\":"
+                + "\"2020-03-19T12:00:00.000+0000\"},{\"id\":4,\"room\""
+                + ":{\"id\":2,\"name\":\"a\",\"building\":{\"id\":1,\"name\":\"alto\",\"street\":\"rruga\",\"houseNumber\":24},\"faculty\":\"b\",\""
+                + "facultySpecific\":true,"
+                + "\"projector\":true,\"screen\":true,\"capacity\":10,\"plugs\":10},\"appUser\":{\"email\":"
+                + "\"r.jursevskis@student.tudelft.nl\",\"password\":"
+                + "\"$2a$10$gJ1P7tWDAlgq4VBlCBjK.uKgZPw0tKxG/NMSiGDfNtxKcEDJEIRVC\",\"name\":\"Renats\",\"surname\":\"Jursevskis\",\"faculty\":"
+                + "\"EWI\",\"loggedIn\":true,"
+                + "\"confirmationNumber\":934789,\"roles\":[{\"id\":2,\"name\":\"ROLE_ADMIN\"},{\"id\":1,\"name\":\"ROLE_USER\"}]},\"fromTime\":"
+                + "\"1970-01-01T00:00:00.100+0000"
+                + "\",\"toTime\":\"1970-01-01T00:00:00.200+0000\"}]";
+
+        List<RoomReservation> roomReservations = JsonMapper.roomReservationsListMapper(json);
+
+        assertEquals(roomReservations, JsonMapper.roomReservationsListMapper(ServerCommunication.getRoomReservations()));
     }
 }

@@ -26,6 +26,9 @@ public class BuildingService {
      * @return String to see if your request passed
      */
     public int add(String name, String street, int houseNumber) {
+        if (buildingRepository.existsByName(name)) {
+            return 309;
+        }
         Building building = new Building();
         building.setName(name);
         building.setStreet(street);

@@ -1,11 +1,17 @@
 package nl.tudelft.oopp.demo.entities;
 
+import java.util.Set;
+
+/**
+ * Manages the Dish object that is retrieved from the server.
+ */
 public class Dish {
 
     private int id;
     private String name;
-
     private Menu menu;
+    private Set<Allergy> allergies;
+    private Set<FoodOrder> foodOrders;
 
     /**
      * Creates a new instance of Dish.
@@ -33,11 +39,27 @@ public class Dish {
         this.name = name;
     }
 
+    public void setAllergies(Set<Allergy> allergies) {
+        this.allergies = allergies;
+    }
+    
+    public void setFoodOrders(Set<FoodOrder> foodOrders) {
+        this.foodOrders = foodOrders;
+    }
+
     public int getId() {
         return id;
     }
 
     public String getName() {
         return name;
+    }
+
+    public Set<Allergy> getAllergies() {
+        return allergies;
+    }
+
+    public Set<FoodOrder> getFoodOrders() {
+        return foodOrders;
     }
 }

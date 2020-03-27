@@ -1,13 +1,19 @@
 package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
+import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
+/**
+ * Loads the correct content into the FXML objects that need to display server information and
+ * controls all the user inputs made through the GUI in the "login-screen.fxml" file
+ */
 public class LoginController {
 
     @FXML
@@ -25,19 +31,23 @@ public class LoginController {
 
     /**
      * Takes care of authenticating a user.
-     * @throws IOException input will be valid, hence we throw.
      */
-    public void loginButton() throws IOException {
+    public void loginButton() {
         String username = usernameField.getText();
-        String password = passwordField.getText();
-        String message = ServerCommunication.loginUser(username, password);
+        if (username.equals("")) {
+            CustomAlert.errorAlert("Email is required.");
+            return;
+        }
 
+        String password = passwordField.getText();
+        if (password.equals("")) {
+            CustomAlert.warningAlert("Password is required.");
+            return;
+        }
+
+        String message = ServerCommunication.loginUser(username, password);
         if (message.equals("Login and/or password is incorrect.")) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Authenticator");
-            alert.setHeaderText(null);
-            alert.setContentText(message);
-            alert.showAndWait();
+            CustomAlert.errorAlert(message);
         }
     }
 
@@ -48,5 +58,13 @@ public class LoginController {
      */
     public void registrationScene(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/registrationScreen.fxml");
+    }
+
+    /**
+     * Changes scene to forgot password scene
+     * @throws IOException should never throw, since the input is always the same
+     */
+    public void forgotPassword() throws IOException {
+        ApplicationDisplay.changeScene("/ForgotPasswordScene.fxml");
     }
 }

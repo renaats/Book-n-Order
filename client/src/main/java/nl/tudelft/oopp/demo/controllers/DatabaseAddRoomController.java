@@ -4,16 +4,16 @@ import java.io.IOException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 
-import javafx.scene.input.MouseEvent;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
+import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
- * Takes care of the functionality  DataBaseAddRoom.fxml file
+ * Loads the correct content into the FXML objects that need to display server information and
+ * controls all the user inputs made through the GUI in the "DatabaseAddRooms.fxml" file
  */
 public class DatabaseAddRoomController {
 
@@ -108,11 +108,12 @@ public class DatabaseAddRoomController {
         boolean projector = Boolean.parseBoolean(projectorToggle.getText());
         int capacity = Integer.parseInt(capacityTextField.getText());
         int plugs = Integer.parseInt(plugsTextField.getText());
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Room adder");
-        alert.setHeaderText(null);
-        alert.setContentText(ServerCommunication.addRoom(name, faculty, buildingId, facultySpecific, screen, projector, capacity, plugs));
-        alert.showAndWait();
+        String response = ServerCommunication.addRoom(name, faculty, buildingId, facultySpecific, screen, projector, capacity, plugs);
+        if (response.equals("Successfully added!")) {
+            CustomAlert.informationAlert(response);
+        } else {
+            CustomAlert.errorAlert(response);
+        }
     }
 
     /**

@@ -9,9 +9,9 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface BuildingHourRepository extends JpaRepository<BuildingHours, Integer> {
-    BuildingHours findByBuilding_IdAndDay(int buildingId, int day);
+    BuildingHours findByBuilding_IdAndDay(int buildingId, long day);
 
-    boolean existsByBuilding_IdAndDay(int buildingId, int day);
+    boolean existsByBuilding_IdAndDay(int buildingId, long day);
 
-    void deleteByBuilding_IdAndDay(int buildingId, int day);
+    void deleteByBuilding_IdAndDay(int buildingId, long day);
 }

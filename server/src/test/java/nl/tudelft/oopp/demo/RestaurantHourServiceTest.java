@@ -10,12 +10,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Restaurant;
 import nl.tudelft.oopp.demo.entities.RestaurantHours;
+import nl.tudelft.oopp.demo.services.BuildingHourService;
 import nl.tudelft.oopp.demo.services.BuildingService;
 import nl.tudelft.oopp.demo.services.RestaurantHourService;
 import nl.tudelft.oopp.demo.services.RestaurantService;
@@ -70,6 +72,8 @@ public class RestaurantHourServiceTest {
 
     RestaurantHours restaurantHours;
     RestaurantHours restaurantHours2;
+    RestaurantHours restaurantHoursSpecial;
+    RestaurantHours restaurantHoursSpecial2;
 
     Building building;
 
@@ -98,6 +102,10 @@ public class RestaurantHourServiceTest {
 
         restaurantHours = new RestaurantHours(1, restaurant, LocalTime.ofSecondOfDay(1000), LocalTime.ofSecondOfDay(3000));
         restaurantHours2 = new RestaurantHours(2, restaurant2, LocalTime.ofSecondOfDay(3000), LocalTime.ofSecondOfDay(4000));
+        restaurantHoursSpecial =
+                new RestaurantHours(BuildingHourService.parse(939600000), restaurant, LocalTime.ofSecondOfDay(1000), LocalTime.ofSecondOfDay(3000));
+        restaurantHoursSpecial2 =
+                new RestaurantHours(BuildingHourService.parse(1026000000), restaurant2, LocalTime.ofSecondOfDay(3000), LocalTime.ofSecondOfDay(4000));
     }
 
     /**
@@ -189,8 +197,7 @@ public class RestaurantHourServiceTest {
         restaurantHourService.add(restaurant.getId(), restaurantHours.getDay(), 1000, 3000);
         restaurantHourService.add(restaurant2.getId(), restaurantHours2.getDay(), 2000, 4000);
 
-        List<RestaurantHours> restaurantHourList = new ArrayList<>();
-        restaurantHourService.all().forEach(restaurantHourList::add);
+        List<RestaurantHours> restaurantHourList = new ArrayList<>(restaurantHourService.all());
         assertEquals(2, restaurantHourList.size());
 
     }
@@ -223,18 +230,14 @@ public class RestaurantHourServiceTest {
         restaurantHourService.add(restaurant.getId(), restaurantHours.getDay(), 1000, 3000);
         restaurantHourService.add(restaurant2.getId(), restaurantHours2.getDay(), 1000, 3000);
 
-        List<RestaurantHours> restaurantHourList = new ArrayList<>();
-        restaurantHourService.all().forEach(restaurantHourList::add);
+        List<RestaurantHours> restaurantHourList = new ArrayList<>(restaurantHourService.all());
         restaurantHours = restaurantHourList.get(0);
         restaurantHours2 = restaurantHourList.get(1);
 
-        assertNotEquals(restaurantHourService.find(restaurantHours.getRestaurant().getId(), restaurantHours.getDay()),
-                restaurantHourService.find(restaurantHours2.getRestaurant().getId(), restaurantHours2.getDay()));
+        assertNull(restaurantHourService.find(restaurantHours2.getRestaurant().getId(), 939600000));
+        restaurantHourService.update(restaurantHours2.getId(), "day", ((Long) 939600000L).toString());
 
-        restaurantHourService.update(restaurantHours2.getId(), "day", ((Integer) restaurantHours.getDay()).toString());
-
-        assertEquals(restaurantHours.getDay(),
-                restaurantHourService.find(restaurantHours.getRestaurant().getId(), restaurantHours.getDay()).getDay());
+        assertEquals(BuildingHourService.parse(939600000), restaurantHourService.find(restaurantHours2.getRestaurant().getId(), 939600000).getDay());
     }
 
     /**
@@ -245,17 +248,16 @@ public class RestaurantHourServiceTest {
         restaurantHourService.add(restaurant.getId(), restaurantHours.getDay(), 1000, 3000);
         restaurantHourService.add(restaurant2.getId(), restaurantHours2.getDay(), 1000, 3000);
 
-        List<RestaurantHours> restaurantHourList = new ArrayList<>();
-        restaurantHourService.all().forEach(restaurantHourList::add);
+        List<RestaurantHours> restaurantHourList = new ArrayList<>(restaurantHourService.all());
         restaurantHours = restaurantHourList.get(0);
         restaurantHours2 = restaurantHourList.get(1);
 
-        assertNotEquals(restaurantHourService.find(restaurantHours.getRestaurant().getId(), restaurantHours.getDay()),
-                restaurantHourService.find(restaurantHours2.getRestaurant().getId(), restaurantHours2.getDay()));
+        assertNotEquals(restaurantHourService.find(restaurantHours.getRestaurant().getId(), 939600000),
+                restaurantHourService.find(restaurantHours2.getRestaurant().getId(), 1026000000));
 
         restaurantHourService.update(restaurantHours2.getId(), "restaurantid", ((Integer) restaurantHours.getRestaurant().getId()).toString());
 
-        assertEquals(restaurant, restaurantHourService.find(restaurantHours.getRestaurant().getId(), restaurantHours.getDay()).getRestaurant());
+        assertEquals(restaurant, restaurantHourService.find(restaurantHours.getRestaurant().getId(), 939600000).getRestaurant());
     }
 
     /**
@@ -266,18 +268,17 @@ public class RestaurantHourServiceTest {
         restaurantHourService.add(restaurant.getId(), restaurantHours.getDay(), 1000, 3000);
         restaurantHourService.add(restaurant2.getId(), restaurantHours2.getDay(), 2000, 3000);
 
-        List<RestaurantHours> restaurantHourList = new ArrayList<>();
-        restaurantHourService.all().forEach(restaurantHourList::add);
+        List<RestaurantHours> restaurantHourList = new ArrayList<>(restaurantHourService.all());
         restaurantHours = restaurantHourList.get(0);
         restaurantHours2 = restaurantHourList.get(1);
 
-        assertNotEquals(restaurantHourService.find(restaurantHours.getRestaurant().getId(), restaurantHours.getDay()),
-                restaurantHourService.find(restaurantHours2.getRestaurant().getId(), restaurantHours2.getDay()));
+        assertNotEquals(restaurantHourService.find(restaurantHours.getRestaurant().getId(), 939600000),
+                restaurantHourService.find(restaurantHours2.getRestaurant().getId(), 1026000000));
 
         restaurantHourService.update(restaurantHours2.getId(), "starttimes", ((Integer) restaurantHours.getStartTime().toSecondOfDay()).toString());
 
         assertEquals(restaurantHours.getStartTime(),
-                restaurantHourService.find(restaurantHours.getRestaurant().getId(), restaurantHours.getDay()).getStartTime());
+                restaurantHourService.find(restaurantHours.getRestaurant().getId(), 939600000).getStartTime());
     }
 
     /**
@@ -288,18 +289,16 @@ public class RestaurantHourServiceTest {
         restaurantHourService.add(restaurant.getId(), restaurantHours.getDay(), 1000, 3000);
         restaurantHourService.add(restaurant2.getId(), restaurantHours2.getDay(), 1000, 4000);
 
-        List<RestaurantHours> restaurantHourList = new ArrayList<>();
-        restaurantHourService.all().forEach(restaurantHourList::add);
+        List<RestaurantHours> restaurantHourList = new ArrayList<>(restaurantHourService.all());
         restaurantHours = restaurantHourList.get(0);
         restaurantHours2 = restaurantHourList.get(1);
 
-        assertNotEquals(restaurantHourService.find(restaurantHours.getRestaurant().getId(), restaurantHours.getDay()),
-                restaurantHourService.find(restaurantHours2.getRestaurant().getId(), restaurantHours2.getDay()));
+        assertNotEquals(restaurantHourService.find(restaurantHours.getRestaurant().getId(), 939600000),
+                restaurantHourService.find(restaurantHours2.getRestaurant().getId(), 1026000000));
 
         restaurantHourService.update(restaurantHours2.getId(), "endtimes", ((Integer) restaurantHours.getEndTime().toSecondOfDay()).toString());
 
-        assertEquals(restaurantHours.getEndTime(),
-                restaurantHourService.find(restaurantHours.getRestaurant().getId(), restaurantHours.getDay()).getEndTime());
+        assertEquals(restaurantHours.getEndTime(), restaurantHourService.find(restaurantHours.getRestaurant().getId(), 939600000).getEndTime());
     }
 
     /**
@@ -310,17 +309,16 @@ public class RestaurantHourServiceTest {
         restaurantHourService.add(restaurant.getId(), restaurantHours.getDay(), 1000, 3000);
         restaurantHourService.add(restaurant2.getId(), restaurantHours2.getDay(), 1000, 3000);
 
-        List<RestaurantHours> restaurantHourList = new ArrayList<>();
-        restaurantHourService.all().forEach(restaurantHourList::add);
+        List<RestaurantHours> restaurantHourList = new ArrayList<>(restaurantHourService.all());
         restaurantHours = restaurantHourList.get(0);
         restaurantHours2 = restaurantHourList.get(1);
 
-        assertNotEquals(restaurantHourService.find(restaurantHours.getRestaurant().getId(), restaurantHours.getDay()),
-                restaurantHourService.find(restaurantHours2.getRestaurant().getId(), restaurantHours2.getDay()));
+        assertNotEquals(restaurantHourService.find(restaurantHours.getRestaurant().getId(), 939600000),
+                restaurantHourService.find(restaurantHours2.getRestaurant().getId(), 1026000000));
 
         restaurantHourService.update(restaurantHours2.getId(), "restaurantid", ((Integer) restaurantHours.getRestaurant().getId()).toString());
 
-        assertEquals(427, restaurantHourService.update(restaurantHours2.getId(), "day", ((Integer) restaurantHours.getDay()).toString()));
+        assertEquals(427, restaurantHourService.update(restaurantHours2.getId(), "day", ((Long) restaurantHours.getDay()).toString()));
     }
 
     /**
@@ -331,15 +329,13 @@ public class RestaurantHourServiceTest {
         restaurantHourService.add(restaurant.getId(), restaurantHours.getDay(), 1000, 3000);
         restaurantHourService.add(restaurant2.getId(), restaurantHours2.getDay(), 2000, 4000);
 
-        List<RestaurantHours> restaurantHourList = new ArrayList<>();
-        restaurantHourService.all().forEach(restaurantHourList::add);
+        List<RestaurantHours> restaurantHourList = new ArrayList<>(restaurantHourService.all());
         restaurantHours = restaurantHourList.get(0);
         restaurantHours2 = restaurantHourList.get(1);
 
         assertEquals(200, restaurantHourService.delete(restaurantHourList.get(0).getRestaurant().getId(), restaurantHourList.get(0).getDay()));
 
-        restaurantHourList = new ArrayList<>();
-        restaurantHourService.all().forEach(restaurantHourList::add);
+        restaurantHourList = new ArrayList<>(restaurantHourService.all());
         assertEquals(1, restaurantHourList.size());
     }
 
@@ -351,17 +347,14 @@ public class RestaurantHourServiceTest {
         restaurantHourService.add(restaurant.getId(), restaurantHours.getDay(), 1000, 3000);
         restaurantHourService.add(restaurant2.getId(), restaurantHours2.getDay(), 2000, 4000);
 
-        List<RestaurantHours> restaurantHourList = new ArrayList<>();
-        restaurantHourService.all().forEach(restaurantHourList::add);
+        List<RestaurantHours> restaurantHourList = new ArrayList<>(restaurantHourService.all());
         restaurantHours = restaurantHourList.get(0);
         restaurantHours2 = restaurantHourList.get(1);
 
         restaurantHourService.delete(restaurantHourList.get(0).getRestaurant().getId(), restaurantHourList.get(0).getDay());
 
-        restaurantHourList = new ArrayList<>();
-        restaurantHourService.all().forEach(restaurantHourList::add);
-        assertNull(restaurantHourService.find(restaurantHours.getRestaurant().getId(), restaurantHours.getDay()));
-        assertNotNull(restaurantHourService.find(restaurantHours2.getRestaurant().getId(), restaurantHours2.getDay()));
+        assertNull(restaurantHourService.find(restaurantHours.getRestaurant().getId(), 939600000));
+        assertNotNull(restaurantHourService.find(restaurantHours2.getRestaurant().getId(), 1026000000));
     }
 
 
@@ -373,11 +366,69 @@ public class RestaurantHourServiceTest {
         restaurantHourService.add(restaurant.getId(), restaurantHours.getDay(), 1000, 3000);
         restaurantHourService.add(restaurant2.getId(), restaurantHours2.getDay(), 2000, 4000);
 
-        List<RestaurantHours> restaurantHourList = new ArrayList<>();
-        restaurantHourService.all().forEach(restaurantHourList::add);
+        List<RestaurantHours> restaurantHourList = new ArrayList<>(restaurantHourService.all());
         restaurantHours = restaurantHourList.get(0);
         restaurantHours2 = restaurantHourList.get(1);
 
         assertEquals(404, restaurantHourService.delete(restaurantHourList.get(0).getRestaurant().getId(), restaurantHourList.get(0).getDay() + 1));
+    }
+
+    /**
+     * Tests the saving and retrieval of a special hour instance of RestaurantHours.
+     */
+    @Test
+    public void testRetrieveSpecial() {
+        assertEquals(201, restaurantHourService.add(restaurant.getId(), 939600000, 1000, 3000));
+        assertEquals(Collections.singletonList(restaurantHoursSpecial), restaurantHourService.all());
+    }
+
+    /**
+     * Tests the change of the day to a special day by using the service.
+     */
+    @Test
+    public void testChangeDaySpecial() {
+        restaurantHourService.add(restaurant.getId(), restaurantHours.getDay(), 1000, 3000);
+        restaurantHourService.add(restaurant2.getId(), restaurantHours2.getDay(), 2000, 4000);
+
+        List<RestaurantHours> restaurantHourList = new ArrayList<>(restaurantHourService.all());
+        restaurantHours = restaurantHourList.get(0);
+        restaurantHours2 = restaurantHourList.get(1);
+
+        assertNull(restaurantHourService.find(restaurantHours2.getRestaurant().getId(), 939600000));
+        restaurantHourService.update(restaurantHours2.getId(), "day", ((Long) 939600000L).toString());
+        assertEquals(BuildingHourService.parse(939600000), restaurantHourService.find(restaurantHours2.getRestaurant().getId(), 939600000).getDay());
+    }
+
+    /**
+     * Tests the deletion of a special hour instance.
+     */
+    @Test
+    public void testDeleteSpecial() {
+        restaurantHourService.add(restaurant.getId(), 939600000, 1000, 3000);
+        restaurantHoursSpecial = restaurantHourService.all().get(0);
+        assertEquals(200, restaurantHourService.delete(restaurantHoursSpecial.getRestaurant().getId(), restaurantHoursSpecial.getDay()));
+        assertEquals(0, restaurantHourService.all().size());
+    }
+
+    /**
+     * Tests the returned object when the date has both normal and special hours.
+     */
+    @Test
+    public void testHasBothTypes() {
+        restaurantHourService.add(restaurant.getId(), restaurantHours.getDay(), 1000, 3000);
+        assertEquals(restaurantHours, restaurantHourService.find(restaurant.getId(), 939600000));
+        restaurantHourService.add(restaurant.getId(), 939600000, 1000, 3000);
+        assertEquals(restaurantHoursSpecial, restaurantHourService.find(restaurant.getId(), 939600000));
+    }
+
+    /**
+     * Tests the adding of RestaurantHours for the current day.
+     */
+    @Test
+    public void testToday() {
+        Date date = new Date();
+        assertNull(restaurantHourService.find(restaurant.getId(), date.getTime()));
+        restaurantHourService.add(restaurant.getId(), date.getTime(), 1000, 3000);
+        assertNotNull(restaurantHourService.find(restaurant.getId(), date.getTime()));
     }
 }

@@ -22,7 +22,7 @@ public class BuildingHours {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    private int day;
+    private long day;
 
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -33,12 +33,12 @@ public class BuildingHours {
 
     /**
      * Creates a new instance of BuildingHours.
-     * @param day = the day of the week in number representation (1 to 7)
-     * @param building = the building
-     * @param startTime = the starting time
-     * @param endTime = the ending time
+     * @param day = the day of the week in number representation (1 to 7).
+     * @param building = the building.
+     * @param startTime = the starting time.
+     * @param endTime = the ending time.
      */
-    public BuildingHours(int day, Building building, LocalTime startTime, LocalTime endTime) {
+    public BuildingHours(long day, Building building, LocalTime startTime, LocalTime endTime) {
         this.day = day;
         this.building = building;
         this.startTime = startTime;
@@ -49,7 +49,7 @@ public class BuildingHours {
 
     }
 
-    public void setDay(int day) {
+    public void setDay(long day) {
         this.day = day;
     }
 
@@ -69,7 +69,7 @@ public class BuildingHours {
         return id;
     }
 
-    public int getDay() {
+    public long getDay() {
         return day;
     }
 

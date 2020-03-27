@@ -29,10 +29,30 @@ public class UserController {
     /**
      * Logs out from the current account.
      * @param request = the Http request that calls this method
+     * @return an error code corresponding to the outcome of the request
      */
     @PostMapping(path = "/logout")
-    public void logout(HttpServletRequest request) {
-        userService.logout(request);
+    public int logout(HttpServletRequest request) {
+        return userService.logout(request);
+    }
+
+    /**
+     * Sends a new password to the email if it has already been registered.
+     */
+    @PostMapping(path = "/recoverPassword")
+    public int recoverPassword(@RequestParam String email) {
+        return userService.recoverPassword(email);
+    }
+
+    /**
+     * Returns information about the user account.
+     * @param request = the Http request that calls this method
+     * @return account information about the account that requests it.
+     */
+    @Secured("ROLE_USER")
+    @GetMapping(path = "/info")
+    public String userInfo(HttpServletRequest request) {
+        return userService.userInfo(request);
     }
 
     /**
@@ -42,7 +62,7 @@ public class UserController {
      * @param name = the name of the user
      * @param surname = the surname of the user
      * @param faculty = the faculty of the user
-     * @return Error code
+     * @return an error code corresponding to the outcome of the request
      */
     @PostMapping(path = "/add") // Map ONLY POST Requests
     @ResponseBody
@@ -52,15 +72,27 @@ public class UserController {
             @RequestParam String name,
             @RequestParam String surname,
             @RequestParam String faculty) {
-        return userService.add(email, password, name, surname, faculty);
+        return userService.add(email,password,name,surname,faculty);
     }
 
     /**
-     * Updates a specified attribute for given user.
-     * @param email = the email address of the user.
-     * @param attribute = the attribute whose value is to be changed.
-     * @param value = the new value of the attribute.
-     * @return Error code
+     * Checks whether the input of the user is equal to the one sent in the email.
+     * @param request The request, which validates the six digit code
+     * @param sixDigitCode User's six digit input
+     * @return an error code corresponding to the outcome of the request
+     */
+    @PostMapping(path = "/validate")
+    @ResponseBody
+    public int validateUser(HttpServletRequest request,  @RequestParam int sixDigitCode) {
+        return userService.validate(request, sixDigitCode);
+    }
+
+    /**
+     * Updates a specified attribute for some user.
+     * @param email = the email of the user
+     * @param attribute = the attribute that is changed
+     * @param value = the new value of the attribute
+     * @return an error code corresponding to the outcome of the request
      */
     @Secured("ROLE_ADMIN")
     @PostMapping(path = "/update")
@@ -72,7 +104,7 @@ public class UserController {
     /**
      * Deletes an account.
      * @param email = the email of the account
-     * @return Error code
+     * @return an error code corresponding to the outcome of the request
      */
     @Secured("ROLE_ADMIN")
     @DeleteMapping(path = "/delete")
@@ -104,16 +136,50 @@ public class UserController {
         return userService.find(email);
     }
 
-
     /**
      * Adds a role to an account. If the role does not exist, it is created.
      * @param email = the email of the account
      * @param roleName = the name of the role
+     * @return an error code corresponding to the outcome of the request
      */
     //@Secured("ROLE_ADMIN") SHOULD BE UNCOMMENTED WHEN IN PRODUCTION!
     @PostMapping(path = "/addRole")
     @ResponseBody
-    public void addRole(@RequestParam String email, @RequestParam String roleName) {
-        userService.addRole(email, roleName);
+    public int addRole(@RequestParam String email, @RequestParam String roleName) {
+        return userService.addRole(email, roleName);
+    }
+
+    /**
+     * Retrieves a boolean value representing whether the user is allowed to access the admin panel.
+     * @param request = the Http request that calls this method.
+     * @return a boolean value representing the admin status of the user
+     */
+    @Secured("ROLE_USER")
+    @GetMapping(path = "/admin")
+    public boolean isAdmin(HttpServletRequest request) {
+        return userService.isAdmin(request);
+    }
+
+    /**
+     * Retrieves a boolean value representing whether the user account is activated.
+     * @param request = the Http request that calls this method.
+     * @return a boolean value representing the status of the account's activation
+     */
+    @Secured("ROLE_USER")
+    @GetMapping(path = "/activated")
+    public boolean isActivated(HttpServletRequest request) {
+        return userService.isActivated(request);
+    }
+
+    /**
+     * Changes a user's own password.
+     * @param request = the Http request that calls this method.
+     * @param password = the new password.
+     * @return an error code corresponding to the outcome of the request
+     */
+    @Secured("ROLE_USER")
+    @PostMapping(path = "/changePassword")
+    public int changePassword(HttpServletRequest request, @RequestParam String password) {
+        return userService.changePassword(request, password);
     }
 }

@@ -1,5 +1,10 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
+
+import nl.tudelft.oopp.demo.entities.Dish;
 import nl.tudelft.oopp.demo.entities.FoodOrder;
 import nl.tudelft.oopp.demo.services.FoodOrderService;
 
@@ -37,12 +42,9 @@ public class FoodOrderController {
     @Secured("ROLE_USER")
     @PostMapping(path = "/add") // Map ONLY POST Requests
     @ResponseBody
-    public int addNewFoodOrder(
-            @RequestParam String userEmail,
-            @RequestParam int restaurantId,
-            @RequestParam int deliverLocation,
-            @RequestParam long deliverTimeMs) {
-        return foodOrderService.add(restaurantId, userEmail, deliverLocation, deliverTimeMs);
+    public int addNewFoodOrder(@RequestParam String userEmail, @RequestParam int restaurantId, @RequestParam int deliverLocation,
+                               @RequestParam long deliverTimeMs, @RequestParam Set<Integer> dishIds) {
+        return foodOrderService.add(restaurantId, userEmail, deliverLocation, deliverTimeMs, dishIds);
     }
 
     /**
@@ -57,6 +59,18 @@ public class FoodOrderController {
     @ResponseBody
     public int updateAttribute(@RequestParam int id, @RequestParam String attribute, @RequestParam String value) {
         return foodOrderService.update(id, attribute, value);
+    }
+
+    /**
+     * Adds a dish to a food order.
+     * @param id = the id of the food order.
+     * @param name = the name of the dish.
+     */
+    @Secured({"ROLE_ADMIN"})
+    @PostMapping(path = "/addDish")
+    @ResponseBody
+    public void addDish(@RequestParam int id, @RequestParam String name) {
+        foodOrderService.addDish(id, name);
     }
 
     /**
@@ -80,5 +94,27 @@ public class FoodOrderController {
     @ResponseBody
     public Iterable<FoodOrder> getAllFoodOrders() {
         return foodOrderService.all();
+    }
+
+    /**
+     * Finds all past food orders for the user that sends the Http request.
+     * @param request = the Http request that calls this method.
+     * @return a list of past food orders for this user.
+     */
+    @Secured("ROLE_USER")
+    @GetMapping(path = "/past")
+    public Iterable<FoodOrder> getPastReservations(HttpServletRequest request) {
+        return foodOrderService.past(request);
+    }
+
+    /**
+     * Finds all future food orders for the user that sends the Http request.
+     * @param request = the Http request that calls this method.
+     * @return a list of future food orders for this user.
+     */
+    @Secured("ROLE_USER")
+    @GetMapping(path = "/future")
+    public Iterable<FoodOrder> getFutureReservations(HttpServletRequest request) {
+        return foodOrderService.future(request);
     }
 }

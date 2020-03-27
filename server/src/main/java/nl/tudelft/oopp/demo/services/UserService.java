@@ -6,17 +6,26 @@ import static nl.tudelft.oopp.demo.security.SecurityConstants.TOKEN_PREFIX;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import java.io.UnsupportedEncodingException;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashSet;
 import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.Role;
+import nl.tudelft.oopp.demo.events.OnRegistrationSuccessEvent;
 import nl.tudelft.oopp.demo.repositories.RoleRepository;
 import nl.tudelft.oopp.demo.repositories.UserRepository;
+import org.apache.commons.text.RandomStringGenerator;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -33,13 +42,19 @@ public class UserService {
     private BCryptPasswordEncoder bcryptPasswordEncoder;
     @Autowired
     private RoleRepository roleRepository;
+    @Autowired
+    private ApplicationEventPublisher eventPublisher;
+    @Autowired
+    private MailSender mailSender;
+    
 
     /**
-     * Logs out from the current account.
-     * @param request = the Http request that calls this method
+     * Finds the appUser for some Http request token.
+     * @param token = the token received in the request.
+     * @param userRepository = the userRepository where all user information is stored.
+     * @return an instance of AppUser, or null if no such AppUser exists.
      */
-    public void logout(HttpServletRequest request) {
-        String token = request.getHeader(HEADER_STRING);
+    public static AppUser getAppUser(String token, UserRepository userRepository) {
         if (token != null) {
             // parse the token.
             String user = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
@@ -47,11 +62,41 @@ public class UserService {
                     .verify(token.replace(TOKEN_PREFIX, ""))
                     .getSubject();
             if (user != null && userRepository.existsById(user)) {
-                AppUser appUser = userRepository.findByEmail(user);
-                appUser.setLoggedIn(false);
-                userRepository.save(appUser);
+                return userRepository.findByEmail(user);
             }
         }
+        return null;
+    }
+
+    /**
+     * Logs out from the current account.
+     * @param request = the Http request that calls this method
+     * @return an error code corresponding to the outcome of the request
+     */
+    public int logout(HttpServletRequest request) {
+        String token = request.getHeader(HEADER_STRING);
+        AppUser appUser = getAppUser(token, userRepository);
+        if (appUser == null) {
+            return 419;
+        }
+        appUser.setLoggedIn(false);
+        userRepository.save(appUser);
+        return 201;
+    }
+
+    /**
+     * Returns information about the user account.
+     * @param request = the Http request that calls this method
+     * @return account information about the account that requests it.
+     */
+    public String userInfo(HttpServletRequest request) {
+        String token = request.getHeader(HEADER_STRING);
+        AppUser appUser = getAppUser(token, userRepository);
+        if (appUser == null) {
+            return null;
+        }
+        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+        return gson.toJson(appUser);
     }
 
     /**
@@ -61,16 +106,11 @@ public class UserService {
      * @param name = the name of the user
      * @param surname = the surname of the user
      * @param faculty = the faculty of the user
-     * @return String to see if your request passed
+     * @return an error code corresponding to the outcome of the request
      */
     public int add(String email, String password, String name, String surname, String faculty) {
-        try {
-            if (!EmailValidator.getInstance().isValid(URLDecoder.decode(email, "UTF-8"))) {
-                return 423;
-            }
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            return 502;
+        if (!EmailValidator.getInstance().isValid(URLDecoder.decode(email, StandardCharsets.UTF_8))) {
+            return 423;
         }
         if (!email.contains("@student.tudelft.nl") && !email.contains("@tudelft.nl")) {
             return 424;
@@ -100,7 +140,33 @@ public class UserService {
             appUser.addRole(roleRepository.findByName("ROLE_STAFF"));
         }
         userRepository.save(appUser);
-        return 201;
+        try {
+            eventPublisher.publishEvent(new OnRegistrationSuccessEvent(appUser));
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Event did not go as expected.");
+        }
+        return 203;
+    }
+
+    /**
+     * Checks whether the input of the user is equal to the one sent in the email.
+     * @param request The request, which validates the six digit code
+     * @param sixDigitCode User's six digit input
+     * @return an error code corresponding to the outcome of the request
+     */
+    public int validate(HttpServletRequest request, int sixDigitCode) {
+        String token = request.getHeader(HEADER_STRING);
+        AppUser appUser = getAppUser(token, userRepository);
+        if (appUser == null) {
+            return 419;
+        }
+        if (sixDigitCode == appUser.getConfirmationNumber()) {
+            appUser.setConfirmationNumber(-1);
+            userRepository.save(appUser);
+            return 200;
+        }
+        return 431;
     }
 
     /**
@@ -108,7 +174,7 @@ public class UserService {
      * @param email = the email of the user
      * @param attribute = the attribute that is changed
      * @param value = the new value of the attribute
-     * @return String to see if your request passed
+     * @return an error code corresponding to the outcome of the request
      */
     public int update(String email, String attribute, String value) {
         if (userRepository.findById(email).isEmpty()) {
@@ -118,7 +184,7 @@ public class UserService {
 
         switch (attribute) {
             case "password":
-                appUser.setPassword(value);
+                appUser.setPassword(bcryptPasswordEncoder.encode(value));
                 break;
             case "name":
                 appUser.setName(value);
@@ -139,7 +205,7 @@ public class UserService {
     /**
      * Deletes an account.
      * @param email = the email of the account
-     * @return String to see if your request passed
+     * @return an error code corresponding to the outcome of the request
      */
     public int delete(String email) {
         if (!userRepository.existsById(email)) {
@@ -173,6 +239,7 @@ public class UserService {
      * Adds a role to an account. If the role does not exist, it is created.
      * @param email = the email of the account
      * @param roleName = the name of the role
+     * @return an error code corresponding to the outcome of the request
      */
     public int addRole(String email, String roleName) {
         if (!userRepository.existsById(email)) {
@@ -187,6 +254,82 @@ public class UserService {
         }
         role = roleRepository.findByName(roleName);
         appUser.addRole(role);
+        userRepository.save(appUser);
+        return 201;
+    }
+
+    /**
+     * Retrieves a boolean value representing whether the user is allowed to access the admin panel.
+     * @param request = the Http request that calls this method.
+     * @return a boolean value representing the admin status of the user
+     */
+    public boolean isAdmin(HttpServletRequest request) {
+        String token = request.getHeader(HEADER_STRING);
+        AppUser appUser = getAppUser(token, userRepository);
+        if (appUser == null) {
+            return false;
+        }
+        return appUser.getRoles().contains(roleRepository.findByName("ROLE_ADMIN"))
+                || appUser.getRoles().contains(roleRepository.findByName("ROLE_BUILDING_ADMIN"))
+                || appUser.getRoles().contains(roleRepository.findByName("ROLE_BIKE_ADMIN"))
+                || appUser.getRoles().contains(roleRepository.findByName("ROLE_RESTAURANT"));
+    }
+
+    /**
+     * Sends an email with the new password to the user.
+     * @param email User's email
+     * @return  error code corresponding to the actions taken
+     */
+    public int recoverPassword(String email) {
+        if (userRepository.findByEmail(email) != null) {
+            RandomStringGenerator pwdGenerator = new RandomStringGenerator.Builder().withinRange(48, 90)
+                    .build();
+            String password = pwdGenerator.generate(10);
+            String recipient = email;
+            String subject = "Password Recovery";
+            SimpleMailMessage email2 = new SimpleMailMessage();
+            email2.setTo(recipient);
+            email2.setSubject(subject);
+            email2.setText("This email provides you with the new password.\nTU Delft advices you to change it immediately "
+                    + "after logging in to secure yourself from unwanted presence.\n"
+                    + "New password:    " + password);
+            mailSender.send(email2);
+            AppUser appUser = userRepository.findByEmail(email);
+            appUser.setPassword(bcryptPasswordEncoder.encode(password));
+            userRepository.save(appUser);
+            return 205;
+        }
+        return 419;
+    }
+
+    /**
+     * Retrieves a boolean value representing whether the user account is activated.
+     * @param request = the Http request that calls this method.
+     * @return a boolean value representing the status of the account's activation
+     */
+    public boolean isActivated(HttpServletRequest request) {
+        String token = request.getHeader(HEADER_STRING);
+        AppUser appUser = getAppUser(token, userRepository);
+        if (appUser == null) {
+            return false;
+        }
+        return appUser.getConfirmationNumber() < 0;
+    }
+
+    /**
+     * Changes a user's own password.
+     * @param request = the Http request that calls this method.
+     * @param password = the new password.
+     * @return an error code corresponding to the outcome of the request
+     */
+    public int changePassword(HttpServletRequest request, String password) {
+        String token = request.getHeader(HEADER_STRING);
+        AppUser appUser = getAppUser(token, userRepository);
+        if (appUser == null) {
+            return 419;
+        }
+        appUser.setPassword(bcryptPasswordEncoder.encode(password));
+        appUser.setLoggedIn(false);
         userRepository.save(appUser);
         return 201;
     }
