@@ -20,6 +20,7 @@ import nl.tudelft.oopp.demo.entities.RestaurantHours;
 import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.entities.RoomReservation;
 
+import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.user.UserInformation;
 
 /**
@@ -40,14 +41,7 @@ public class JsonMapper {
             // Convert JSON string to Object
             return mapper.readValue(buildingJson, Building.class);
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle(null);
-            alert.setHeaderText(null);
-            alert.setContentText(buildingJson);
-            alert.initStyle(StageStyle.UNDECORATED);
-            DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(JsonMapper.class.getResource("/alertWarning.css").toExternalForm());
-            alert.showAndWait();
+            CustomAlert.warningAlert(buildingJson);
         }
         return null;
     }
@@ -77,14 +71,7 @@ public class JsonMapper {
             // Convert JSON string to Object
             return mapper.readValue(roomJson, Room.class);
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle(null);
-            alert.setHeaderText(null);
-            alert.setContentText(roomJson);
-            alert.initStyle(StageStyle.UNDECORATED);
-            DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(JsonMapper.class.getResource("/alertWarning.css").toExternalForm());
-            alert.showAndWait();
+            CustomAlert.warningAlert(roomJson);
         }
         return null;
     }
@@ -102,14 +89,7 @@ public class JsonMapper {
             // Convert JSON string to Object
             return mapper.readValue(roomsJson, new TypeReference<>(){});
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle(null);
-            alert.setHeaderText(null);
-            alert.setContentText(roomsJson);
-            alert.initStyle(StageStyle.UNDECORATED);
-            DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(JsonMapper.class.getResource("/alertWarning.css").toExternalForm());
-            alert.showAndWait();
+            CustomAlert.warningAlert(roomsJson);
         }
         return null;
     }
@@ -127,14 +107,7 @@ public class JsonMapper {
             // Convert JSON string to Object
             return mapper.readValue(appUserJson, AppUser.class);
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle(null);
-            alert.setHeaderText(null);
-            alert.setContentText(appUserJson);
-            alert.initStyle(StageStyle.UNDECORATED);
-            DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(JsonMapper.class.getResource("/alertWarning.css").toExternalForm());
-            alert.showAndWait();
+            CustomAlert.warningAlert(appUserJson);
         }
         return null;
     }
@@ -152,14 +125,7 @@ public class JsonMapper {
             // Convert JSON string to Object
             return mapper.readValue(userInformationJson, UserInformation.class);
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle(null);
-            alert.setHeaderText(null);
-            alert.setContentText(userInformationJson);
-            alert.initStyle(StageStyle.UNDECORATED);
-            DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(JsonMapper.class.getResource("/alertWarning.css").toExternalForm());
-            alert.showAndWait();
+            CustomAlert.warningAlert(userInformationJson);
         }
         return null;
     }
@@ -177,14 +143,7 @@ public class JsonMapper {
             // Convert JSON string to Object
             return mapper.readValue(restaurantJson, Restaurant.class);
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle(null);
-            alert.setHeaderText(null);
-            alert.setContentText(restaurantJson);
-            alert.initStyle(StageStyle.UNDECORATED);
-            DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(JsonMapper.class.getResource("/alertWarning.css").toExternalForm());
-            alert.showAndWait();
+            CustomAlert.warningAlert(restaurantJson);
         }
         return null;
     }
@@ -202,14 +161,7 @@ public class JsonMapper {
             // Convert JSON string to Object
             return mapper.readValue(restaurantsJson, new TypeReference<>(){});
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle(null);
-            alert.setHeaderText(null);
-            alert.setContentText(restaurantsJson);
-            alert.initStyle(StageStyle.UNDECORATED);
-            DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(JsonMapper.class.getResource("/alertWarning.css").toExternalForm());
-            alert.showAndWait();
+            CustomAlert.warningAlert(restaurantsJson);
         }
         return null;
     }
@@ -228,11 +180,7 @@ public class JsonMapper {
             // Convert JSON string to Object
             return mapper.readValue(restaurantHoursJson, RestaurantHours.class);
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText(restaurantHoursJson);
-            alert.showAndWait();
+            CustomAlert.warningAlert("Error");
         }
         return null;
     }
@@ -251,11 +199,7 @@ public class JsonMapper {
             // Convert JSON string to Object
             return mapper.readValue(buildingHourJson, BuildingHours.class);
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText(buildingHourJson);
-            alert.showAndWait();
+            CustomAlert.warningAlert("Error");
         }
         return null;
     }
@@ -274,11 +218,7 @@ public class JsonMapper {
             List<Bike> bikes = mapper.readValue(bikesJson, new TypeReference<List<Bike>>(){});
             return bikes;
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText(bikesJson);
-            alert.showAndWait();
+            CustomAlert.warningAlert("Error");
         }
         return null;
     }
@@ -297,11 +237,7 @@ public class JsonMapper {
             // Convert JSON string to Object
             return mapper.readValue(roomReservationJson, RoomReservation.class);
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText(roomReservationJson);
-            alert.showAndWait();
+            CustomAlert.warningAlert("Error");
         }
         return null;
     }
@@ -320,11 +256,7 @@ public class JsonMapper {
             // Convert JSON string to Object
             return mapper.readValue(roomReservationsJson, new TypeReference<List<RoomReservation>>(){});
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText(roomReservationsJson);
-            alert.showAndWait();
+            CustomAlert.warningAlert("Error");
         }
         return null;
     }
