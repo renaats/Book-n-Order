@@ -2,9 +2,6 @@ package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
 
-import javafx.event.ActionEvent;
-import javafx.scene.input.MouseEvent;
-
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
@@ -46,58 +43,34 @@ public class MainMenuReservationsController {
     }
 
     /**
-     * Changes to myAccountScene.fxml.
-     * @throws IOException input will not be wrong, hence we throw.
-     */
-    public void myAccountScene() throws IOException {
-        ApplicationDisplay.changeScene("/myAccountScene.fxml");
-    }
-
-
-    public void template(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/Template.fxml");
-    }
-
-    /**
-     * will lead to the calendar scene
-     */
-    public void calendarIcon() {
-        //TODO
-    }
-
-    /**
      * returns to the main menu when the home icon is clicked
-     * @param mouseEvent the clicking of the home icon
      * @throws IOException this method should never throw an exception
      */
-    public void mainMenu(MouseEvent mouseEvent) throws IOException {
+    public void mainMenu() throws IOException {
         ApplicationDisplay.changeScene("/mainMenu.fxml");
     }
 
     /**
      * goes to room reservations when the room image is clicked
-     * @param mouseEvent the clicking of the room icon
      * @throws IOException this method should never throw an exception
      */
-    public void bookRoomIcon(MouseEvent mouseEvent) throws IOException {
+    public void bookRoomIcon() throws IOException {
         ApplicationDisplay.changeScene("/bookRoom.fxml");
     }
 
     /**
      * goes to food reservations when the food image is clicked
-     * @param mouseEvent the clicking of the food icon
      * @throws IOException this method should never throw an exception
      */
-    public void orderFoodIcon(MouseEvent mouseEvent) throws IOException {
+    public void orderFoodIcon() throws IOException {
         ApplicationDisplay.changeScene("/OrderFoodChooseRestaurant.fxml");
     }
 
     /**
      * goes to bike reservations when the bike image is clicked
-     * @param mouseEvent the clicking of the bike icon
      * @throws IOException this method should never throw an exception
      */
-    public void rentBikeIcon(MouseEvent mouseEvent) throws IOException {
+    public void rentBikeIcon() throws IOException {
         ApplicationDisplay.changeScene("/bikeReservations.fxml");
     }
 }
