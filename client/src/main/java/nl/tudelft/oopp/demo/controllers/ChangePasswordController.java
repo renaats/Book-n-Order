@@ -5,10 +5,8 @@ import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 
-import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.errors.CustomAlert;
-import nl.tudelft.oopp.demo.user.UserInformation;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
@@ -18,14 +16,12 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 public class ChangePasswordController {
 
     @FXML
-    private PasswordField oldPassword;
-    @FXML
     private PasswordField newPassword2;
     @FXML
     private PasswordField newPassword1;
 
     /**
-     * returns to the "myAccount" scene when the back arrow is pressed
+     * Returns to the "myAccount" scene when the back arrow is pressed
      * @throws IOException this method should never throw an exception
      */
     public void goToMyAccountScene() throws IOException {
@@ -33,22 +29,19 @@ public class ChangePasswordController {
     }
 
     /**
-     * checks if the 2 versions of the password are the same and if they are it changes scene to
+     * Checks if the 2 versions of the password are the same and if they are it changes scene to
      * the myAccount scene. if they are not It shows an alert
      * @throws IOException should never throw an exception
      */
     public void changePassword() throws IOException {
-        UserInformation userInformation = JsonMapper.userInformationMapper(ServerCommunication.getOwnUserInformation());
         String password1 = newPassword1.getText();
         String password2 = newPassword2.getText();
-        String email = userInformation.getEmail();
         if (password1.equals(password2)) {
             String response = ServerCommunication.changeUserPassword(password1);
             CustomAlert.informationAlert(response);
-            ServerCommunication.logoutUser();
             ApplicationDisplay.changeScene("/login-screen.fxml");
         } else {
-            CustomAlert.errorAlert("Passwords do not match");
+            CustomAlert.errorAlert("Passwords do not match.");
         }
     }
 }
