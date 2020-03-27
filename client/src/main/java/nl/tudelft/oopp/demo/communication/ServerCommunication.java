@@ -327,8 +327,8 @@ public class ServerCommunication {
      * @return The body of the response from the server.
      */
     public static String updateRestaurantHours(int id, String attribute, String changeValue) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant_hours/update?id=" + id + "&attribute=" + attribute + "&value=" + URLEncoder.encode(changeValue, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        HttpResponse<String> response;
+        HttpRequest request;
+        request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant_hours/update?id=" + id + "&attribute=" + attribute + "&value=" + URLEncoder.encode(changeValue, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnErrorMessage(request);
     }
 
@@ -620,7 +620,6 @@ public class ServerCommunication {
     public static String updateBike(int id, String attribute, String changeValue) {
         HttpRequest request;
         request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/bike/update?id=" + id + "&attribute=" + attribute + "&value=" + URLEncoder.encode(changeValue, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        HttpResponse<String> response;
         return communicateAndReturnErrorMessage(request);
     }
 
@@ -628,7 +627,7 @@ public class ServerCommunication {
      * Communicates with the database in order to add a bike
      * @param buildingId The Id of the building where the bike is
      * @param available a boolean that marks if the bike is available or not
-     * @return
+     * @return the body of the response from the server.
      */
     public static String addBike(int buildingId, boolean available) {
         HttpRequest request;
@@ -683,7 +682,6 @@ public class ServerCommunication {
     public static String addBike(int buildingId, boolean available) {
         HttpRequest request;
         request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/bike/add?buildingId=" + buildingId + "&available=" + available)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        HttpResponse<String> response;
         return communicateAndReturnErrorMessage(request);
     }
 
