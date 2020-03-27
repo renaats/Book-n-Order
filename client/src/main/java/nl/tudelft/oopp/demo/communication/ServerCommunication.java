@@ -588,55 +588,6 @@ public class ServerCommunication {
     }
 
     /**
-     * Updates a given attribute of a bike.
-     * @param id Id of the bike.
-     * @param attribute Attribute whose value is to be changed.
-     * @param changeValue New value.
-     * @return the body of the response from the server.
-     */
-    public static String updateBike(int id, String attribute, String changeValue) {
-        HttpRequest request;
-        try {
-            request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/bike/update?id=" + id + "&attribute=" + attribute + "&value=" + URLEncoder.encode(changeValue, "UTF-8"))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            return "Please enter an encoding that is supported by the URLEncode class.";
-        }
-        HttpResponse<String> response;
-        return communicateAndReturnErrorMessage(request);
-    }
-
-    /**
-     * Communicates addBike to the database
-     * @return body response
-     */
-    public static String addBike(int buildingId, boolean available) {
-        HttpRequest request;
-        request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/bike/add?buildingId=" + buildingId + "&available=" + available)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        HttpResponse<String> response;
-        return communicateAndReturnErrorMessage(request);
-    }
-
-    /**
-     * Removes a bike from the database.
-     * @param id Id of the bike.
-     * @return the body of the response from the server.
-     */
-    public static String deleteBike(int id) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/bike/delete/" + id)).DELETE().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        return communicateAndReturnErrorMessage(request);
-    }
-
-    /**
-     * Asks the server for all bikes in the database
-     * @return a Json string with all the bikes in the database
-     */
-    public static String getBikes() {
-        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/bike/all")).build();
-        return communicateAndReturnBodyOfResponse(request);
-    }
-
-    /**
      * Requests a new password for the user.
      * @param email User's email
      * @return the body of the response from the server
@@ -655,75 +606,16 @@ public class ServerCommunication {
      */
     public static String updateBike(int id, String attribute, String changeValue) {
         HttpRequest request;
-        try {
-            request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/bike/update?id=" + id + "&attribute=" + attribute + "&value=" + URLEncoder.encode(changeValue, "UTF-8"))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            return "Please enter an encoding that is supported by the URLEncode class.";
-        }
-        HttpResponse<String> response;
-        try {
-            request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/bike/update?id=" + id + "&attribute=" + attribute + "&value=" + URLEncoder.encode(changeValue, "UTF-8"))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            return "Please enter an encoding that is supported by the URLEncode class.";
-        }
-        return communicateAndReturnErrorMessage(request);
-    }
-
-    /**
-     * Communicates addBike to the database
-     * @return body response
-     */
-    public static String addBike(int buildingId, boolean available) {
-        HttpRequest request;
-        request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/bike/add?buildingId=" + buildingId + "&available=" +available)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        HttpResponse<String> response;
-        request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/bike/add?buildingId=" + buildingId + "&available=" +available)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        return communicateAndReturnErrorMessage(request);
-    }
-
-    /**
-     * Removes a bike from the database.
-     * @param id = the id of the bike.
-     * @return the body of the response from the server.
-     */
-    public static String deleteBike(int id) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/bike/delete/" + id)).DELETE().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        return communicateAndReturnErrorMessage(request);
-    }
-
-    /**
-     * Asks the server for all bikes in the database
-     * @return a Json string with all the bikes in the database
-     */
-    public static String getBikes() {
-        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/bike/all")).build();
-        return communicateAndReturnBodyOfResponse(request);
-    }
-
-    /**
-     * Updates a given attribute of a bike.
-     * @param id = the id of the bike.
-     * @param attribute = The attribute whose value is to be changed.
-     * @param changeValue = New value.
-     * @return the body of the response from the server.
-     */
-    public static String updateBike(int id, String attribute, String changeValue) {
-        HttpRequest request;
-        try {
-            request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/bike/update?id=" + id + "&attribute=" + attribute + "&value=" + URLEncoder.encode(changeValue, "UTF-8"))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            return "Please enter an encoding that is supported by the URLEncode class.";
-        }
+        request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/bike/update?id=" + id + "&attribute=" + attribute + "&value=" + URLEncoder.encode(changeValue, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         HttpResponse<String> response;
         return communicateAndReturnErrorMessage(request);
     }
 
     /**
-     * Communicates addBike to the database
-     * @return body response
+     * Communicates with the database in order to add a bike
+     * @param buildingId The Id of the building where the bike is
+     * @param available a boolean that marks if the bike is available or not
+     * @return
      */
     public static String addBike(int buildingId, boolean available) {
         HttpRequest request;

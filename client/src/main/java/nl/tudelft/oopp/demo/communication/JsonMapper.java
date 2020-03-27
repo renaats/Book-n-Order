@@ -308,8 +308,7 @@ public class JsonMapper {
 
         try {
             // Convert JSON string to Object
-            List<Bike> bikes = mapper.readValue(bikesJson, new TypeReference<List<Bike>>(){});
-            return bikes;
+            return mapper.readValue(bikesJson, new TypeReference<List<Bike>>(){});
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Error");
