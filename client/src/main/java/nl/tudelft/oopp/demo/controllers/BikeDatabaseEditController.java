@@ -196,9 +196,9 @@ public class BikeDatabaseEditController implements Initializable {
         }
         if (locationChangeChoiceBox.getValue() != null) {
             int buildingId = nameGetId(locationChangeChoiceBox.getValue());
-            CustomAlert.informationAlert(ServerCommunication.updateBike(id,"location", "" + buildingId));
+            CustomAlert.informationAlert(ServerCommunication.updateBike(id, "location", "" + buildingId));
         }
-        ServerCommunication.updateBike(id,"available",ava);
+        ServerCommunication.updateBike(id, "available", ava);
         loadBikesIntoTable();
     }
 
@@ -217,7 +217,7 @@ public class BikeDatabaseEditController implements Initializable {
     }
 
     /**
-     * Deletes the selected  bike from the table and the database.
+     * Deletes the selected bike from the table and the database.
      */
     public void deleteBikeUsingTable() {
         Bike bike = table.getSelectionModel().getSelectedItem();
