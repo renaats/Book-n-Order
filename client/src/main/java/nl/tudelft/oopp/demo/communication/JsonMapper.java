@@ -325,4 +325,26 @@ public class JsonMapper {
         }
         return null;
     }
+
+    /**
+     * Maps all bikes JSONS to a list of bike objects.
+     * @param bikesJson a JSON string representing a list.
+     * @return A list filled with object Bikes.
+     */
+    public static List<Bike> bikeListMapper(String bikesJson) {
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        try {
+            // Convert JSON string to Object
+            return mapper.readValue(bikesJson, new TypeReference<List<Bike>>(){});
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText(bikesJson);
+            alert.showAndWait();
+        }
+        return null;
+    }
 }
