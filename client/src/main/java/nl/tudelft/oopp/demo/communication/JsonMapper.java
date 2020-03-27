@@ -11,12 +11,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.DialogPane;
 import javafx.stage.StageStyle;
 
-import nl.tudelft.oopp.demo.entities.AppUser;
-import nl.tudelft.oopp.demo.entities.Building;
-import nl.tudelft.oopp.demo.entities.BuildingHours;
-import nl.tudelft.oopp.demo.entities.Restaurant;
-import nl.tudelft.oopp.demo.entities.RestaurantHours;
-import nl.tudelft.oopp.demo.entities.Room;
+import nl.tudelft.oopp.demo.entities.*;
+import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.user.UserInformation;
 
 /**
@@ -82,6 +78,23 @@ public class JsonMapper {
             DialogPane dialogPane = alert.getDialogPane();
             dialogPane.getStylesheets().add(JsonMapper.class.getResource("/alertWarning.css").toExternalForm());
             alert.showAndWait();
+        }
+        return null;
+    }
+    /**
+     * Maps all room JSONS to a list.
+     * @param menuJson a JSON string representing a list.
+     * @return A list filled with object Buildings
+     */
+    public static List<Menu> menuListMapper(String menuJson) {
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        try {
+            // Convert JSON string to Object
+            return mapper.readValue(menuJson, new TypeReference<>(){});
+        } catch (Exception e) {
+            CustomAlert.warningAlert(menuJson);
         }
         return null;
     }
