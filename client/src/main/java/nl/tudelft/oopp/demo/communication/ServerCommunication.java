@@ -323,7 +323,7 @@ public class ServerCommunication {
      * @return response.body of the server
      */
     public static String deleteDish(int dishId) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/dish/delete/" + dishId)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/dish/delete/" + dishId)).DELETE().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnBodyOfResponse(request);
     }
 
@@ -370,7 +370,7 @@ public class ServerCommunication {
      * @return response.body of the server
      */
     public static String deleteFoodOrder(int id) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/food_order/delete/" + id)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/food_order/delete/" + id)).DELETE().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnBodyOfResponse(request);
     }
 
@@ -379,7 +379,7 @@ public class ServerCommunication {
      * @return response.body of the server
      */
     public static String getAllFoodOrders() {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/food_order/all")_.POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/food_order/all")).build();
         return communicateAndReturnBodyOfResponse(request);
     }
 
@@ -388,7 +388,7 @@ public class ServerCommunication {
      * @return response.body of the server
      */
     public static String getAllPreviousFoodOrders() {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/food_order/past")).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/food_order/past")).build();
         return communicateAndReturnBodyOfResponse(request);
     }
 
@@ -397,7 +397,28 @@ public class ServerCommunication {
      * @return response.body of the server
      */
     public static String getAllFutureFoodOrders() {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/food_order/future")).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/food_order/future")).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Adds a menu to the database
+     * @param name the name of the menu
+     * @param restaurantId the id of the restaurant for which the menu is applicable
+     * @return response.body of the server
+     */
+    public static String addMenu(String name, int restaurantId) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/menu/add?name=" + URLEncoder.encode(name, StandardCharsets.UTF_8) + "&restaurantId=" + restaurantId)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Deletes a menu from the database
+     * @param id the id of the menu
+     * @return response.body of the server
+     */
+    public static String deleteMenu(int id) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/menu/delete/" + id)).DELETE().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnBodyOfResponse(request);
     }
 
