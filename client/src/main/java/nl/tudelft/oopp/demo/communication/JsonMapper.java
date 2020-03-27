@@ -11,13 +11,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.DialogPane;
 import javafx.stage.StageStyle;
 
-import nl.tudelft.oopp.demo.entities.AppUser;
-import nl.tudelft.oopp.demo.entities.Bike;
-import nl.tudelft.oopp.demo.entities.Building;
-import nl.tudelft.oopp.demo.entities.BuildingHours;
-import nl.tudelft.oopp.demo.entities.Restaurant;
-import nl.tudelft.oopp.demo.entities.RestaurantHours;
-import nl.tudelft.oopp.demo.entities.Room;
+import nl.tudelft.oopp.demo.entities.*;
 import nl.tudelft.oopp.demo.user.UserInformation;
 
 /**
@@ -276,6 +270,52 @@ public class JsonMapper {
             alert.setTitle("Error");
             alert.setHeaderText(null);
             alert.setContentText(bikesJson);
+            alert.showAndWait();
+        }
+        return null;
+    }
+
+    /**
+     * Maps JSON to RoomReservation entity.
+     * @param roomReservationJson representation of a room.
+     * @return RoomReservation entity.
+     */
+    public static RoomReservation roomReservationMapper(String roomReservationJson) {
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+
+        try {
+            // Convert JSON string to Object
+            return mapper.readValue(roomReservationJson, RoomReservation.class);
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText(roomReservationJson);
+            alert.showAndWait();
+        }
+        return null;
+    }
+
+    /**
+     * Maps all Room Reservation JSONS to a list.
+     * @param roomReservationsJson a JSON string representing a list.
+     * @return A list filled with object Room Reservation
+     */
+    public static List<RoomReservation> roomReservationsListMapper(String roomReservationsJson) {
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+
+        try {
+            // Convert JSON string to Object
+            return mapper.readValue(roomReservationsJson, new TypeReference<List<RoomReservation>>(){});
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText(roomReservationsJson);
             alert.showAndWait();
         }
         return null;
