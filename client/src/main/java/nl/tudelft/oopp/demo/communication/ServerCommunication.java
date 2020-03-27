@@ -333,11 +333,10 @@ public class ServerCommunication {
      * @param restaurantId restaurant id
      * @param deliverLocation the location to deliver to
      * @param deliverTimeMs the deliver time in milliseconds.
-     * @param dishIds the ids of the dishes the person orders in a set
-     * @return reponse.body of the server
+     * @return response.body of the server
      */
-    public static String addFoodOrder(String email, int restaurantId, int deliverLocation, long deliverTimeMs, Set<Integer> dishIds) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/food_order/add?userEmail=" + URLEncoder.encode(email, StandardCharsets.UTF_8) + "&restaurantId=" + restaurantId + "&deliverLocation=" + deliverLocation + "&deliverTimeMs=" + deliverTimeMs + "&dishIds=" + dishIds)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+    public static String addFoodOrder(String email, int restaurantId, int deliverLocation, long deliverTimeMs) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/food_order/add?userEmail=" + URLEncoder.encode(email, StandardCharsets.UTF_8) + "&restaurantId=" + restaurantId + "&deliverLocation=" + deliverLocation + "&deliverTimeMs=" + deliverTimeMs)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnBodyOfResponse(request);
     }
 
@@ -348,7 +347,7 @@ public class ServerCommunication {
      * @param value the value of the change
      * @return response.body of the server
      */
-    public static String UpdateFoodOrder(int id, String attribute, String value) {
+    public static String updateFoodOrder(int id, String attribute, String value) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/food_order/update?id=" + id + "&attribute=" + URLEncoder.encode(attribute, StandardCharsets.UTF_8) + "&value=" + URLEncoder.encode(value, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnBodyOfResponse(request);
     }

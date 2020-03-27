@@ -37,8 +37,8 @@ public class FoodOrderController {
     @PostMapping(path = "/add") // Map ONLY POST Requests
     @ResponseBody
     public int addNewFoodOrder(@RequestParam String userEmail, @RequestParam int restaurantId, @RequestParam int deliverLocation,
-                               @RequestParam long deliverTimeMs, @RequestParam Set<Integer> dishIds) {
-        return foodOrderService.add(restaurantId, userEmail, deliverLocation, deliverTimeMs, dishIds);
+                               @RequestParam long deliverTimeMs) {
+        return foodOrderService.add(restaurantId, userEmail, deliverLocation, deliverTimeMs);
     }
 
     /**

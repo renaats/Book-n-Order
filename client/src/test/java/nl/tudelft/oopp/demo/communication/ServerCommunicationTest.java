@@ -16,9 +16,16 @@ import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.http.Fault;
 
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
+import nl.tudelft.oopp.demo.entities.Dish;
 import nl.tudelft.oopp.demo.errors.ErrorMessages;
 
+import org.eclipse.jetty.server.Server;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -58,6 +65,99 @@ public class ServerCommunicationTest {
         stubFor(delete(urlEqualTo("/room_reservation/delete?id=1")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(get(urlEqualTo("/user/info")).willReturn(aResponse().withStatus(200).withBody("Information")));
         stubFor(post(urlEqualTo("/login")).willReturn(aResponse().withStatus(200).withBody("token")));
+        stubFor(post(urlEqualTo("/dish/add?name=test&menuId=1")).willReturn(aResponse().withStatus(200).withBody("200")));
+        stubFor(delete(urlEqualTo("/dish/delete/1")).willReturn(aResponse().withStatus(200).withBody("200")));
+        stubFor(delete(urlEqualTo("/food_order/delete/1")).willReturn(aResponse().withStatus(200).withBody("200")));
+        stubFor(post(urlEqualTo("/food_order/add?userEmail=test%40gmail.com&restaurantId=1&deliverLocation=1&deliverTimeMs=1")).willReturn(aResponse().withStatus(200).withBody("200")));
+        stubFor(get(urlEqualTo("/food_order/all")).willReturn(aResponse().withStatus(200).withBody("200")));
+        stubFor(get(urlEqualTo("/food_order/past")).willReturn(aResponse().withStatus(200).withBody("200")));
+        stubFor(get(urlEqualTo("/food_order/future")).willReturn(aResponse().withStatus(200).withBody("200")));
+        stubFor(post(urlEqualTo("/menu/add?name=test&restaurantId=1")).willReturn(aResponse().withStatus(200).withBody("200")));
+        stubFor(delete(urlEqualTo("/menu/delete/1")).willReturn(aResponse().withStatus(200).withBody("200")));
+        stubFor(post(urlEqualTo("/food_order/update?id=1&attribute=a&value=a")).willReturn(aResponse().withStatus(200).withBody("200")));
+        stubFor(post(urlEqualTo("/food_order/addDish?id=1&name=test")).willReturn(aResponse().withStatus(200).withBody("200")));
+    }
+
+    /**
+     * Tests adding dishes to the server.
+     */
+    @Test
+    public void testSuccessfulAddDishes() {
+        assertEquals("200", ServerCommunication.addDish("test", 1));
+    }
+
+    /**
+     * Tests deleting dishes from the server.
+     */
+    @Test
+    public void testSuccessfulDeleteDishes() {
+        assertEquals("200", ServerCommunication.deleteDish(1));
+    }
+
+    /**
+     * Tests adding food orders to the server.
+     */
+    @Test
+    public void testSuccessfulAddingFoodOrder() {
+        assertEquals("200", ServerCommunication.addFoodOrder("test@gmail.com", 1, 1, 1));
+    }
+
+    @Test
+    public void testSuccessfulUpdatingFoodOrder() {
+        assertEquals("200", ServerCommunication.updateFoodOrder(1, "a", "a"));
+    }
+
+    @Test
+    public void testSuccessfulAddDishToFoodOrder() {
+        assertEquals("200", ServerCommunication.addDishToFoodOrder(1, "test"));
+    }
+
+    /**
+     * Tests deleting food orders from the server.
+     */
+    @Test
+    public void testSuccessfulDeletingFoodOrder() {
+        assertEquals("200", ServerCommunication.deleteFoodOrder(1));
+    }
+
+    /**
+     * Tests getting all food orders from the server.
+     */
+    @Test
+    public void testSuccessfulGetAllFoodOrders() {
+        assertEquals("200", ServerCommunication.getAllFoodOrders());
+    }
+
+    /**
+     * Tests getting all future food orders from the server.
+     */
+    @Test
+    public void testSuccessfulGetAllFutureFoodOrders() {
+        assertEquals("200", ServerCommunication.getAllFutureFoodOrders());
+    }
+
+    /**
+     * Tests getting all previous food orders from the server.
+     */
+    @Test
+    public void testSuccessfulGetAllPreviousFoodOrders() {
+        assertEquals("200", ServerCommunication.getAllPreviousFoodOrders());
+    }
+
+    /**
+     * Tests adding menu to the server.
+     */
+    @Test
+    public void testSuccessfulAddMenu() {
+        assertEquals("200", ServerCommunication.addMenu("test", 1));
+    }
+
+    /**
+     * Tests deleting a menu from the server.
+     */
+    @Test
+    public void testSuccessfulDeleteMenu() {
+        assertEquals("200", ServerCommunication.deleteMenu(1));
     }
 
     /**
