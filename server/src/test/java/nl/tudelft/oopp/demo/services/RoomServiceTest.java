@@ -18,6 +18,7 @@ import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.services.BuildingService;
 import nl.tudelft.oopp.demo.services.RoomService;
 
+import nl.tudelft.oopp.demo.specifications.ServiceHelper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -49,11 +50,22 @@ public class RoomServiceTest {
         }
     }
 
+    @TestConfiguration
+    static class ServiceHelperTestConfiguration {
+        @Bean
+        public ServiceHelper serviceHelper() {
+            return new ServiceHelper();
+        }
+    }
+
     @Autowired
     RoomService roomService;
 
     @Autowired
     BuildingService buildingService;
+
+    @Autowired
+    ServiceHelper serviceHelper;
 
 
     Building building;
