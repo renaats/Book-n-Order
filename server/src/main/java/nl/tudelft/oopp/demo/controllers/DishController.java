@@ -51,6 +51,20 @@ public class DishController {
     }
 
     /**
+     * Updates a specified attribute for a dish.
+     * @param id = the id of the food order.
+     * @param attribute = the attribute whose value is changed.
+     * @param value = the new value of the attribute.
+     * @return String containing the result of your request.
+     */
+    @Secured({"ROLE_ADMIN", "ROLE_RESTAURANT"})
+    @PostMapping(path = "/update")
+    @ResponseBody
+    public int updateAttribute(@RequestParam int id, @RequestParam String attribute, @RequestParam String value) {
+        return dishService.update(id, attribute, value);
+    }
+
+    /**
      * Deletes a dish.
      * @param id dish id.
      * @return Error code.
