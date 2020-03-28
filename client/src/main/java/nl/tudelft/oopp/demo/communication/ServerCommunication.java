@@ -691,7 +691,7 @@ public class ServerCommunication {
     }
 
     /**
-     * Finds all future and actual bike reservations for the user that sends the request
+     * Finds all future and current bike reservations for the user that sends the request
      * @return response.body of the server
      */
     public static String getAllFutureBikeReservations() {
