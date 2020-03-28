@@ -366,9 +366,36 @@ public class ServerCommunication {
         return communicateAndReturnErrorMessage(request);
     }
 
+    /**
+     * Retrieves the String representation of a user from the server.
+     * @return the body of the response from the server.
+     */
+    public static String getUser() {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/user")).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
     // -----------------------------------------
     // Room related Server Communication Methods
     // -----------------------------------------
+
+    /**
+     * Retrieves all previous room reservations from the server
+     * @return the response.body for the server
+     */
+    public static String getAllPreviousRoomReservations() {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/room_reservation/past")).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Retrieves all future and current room reservations from the server
+     * @return the response.body for the server
+     */
+    public static String getAllFutureRoomReservations() {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/room_reservation/future")).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
 
     /**
      * Communicates addRoomReservation to the database
@@ -545,6 +572,175 @@ public class ServerCommunication {
      */
     public static String getBikes() {
         HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/bike/all")).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * gets all bike reservations from the database
+     * @return response.body of the server
+     */
+    public static String getAllBikeReservations() {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/bike_reservation/all")).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Finds all future and current bike reservations for the user that sends the request
+     * @return response.body of the server
+     */
+    public static String getAllFutureBikeReservations() {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/bike_reservation/future")).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Finds all past bike reservations for the user that sends the request
+     * @return response.body of the server
+     */
+    public static String getAllPreviousBikeReservations() {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/bike_reservation/past")).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    // ---------------------------------------------
+    // Bike related Server Communication methods
+    // ---------------------------------------------
+
+    /**
+     * Updates a specific attribute of a food order
+     * @param id food order id
+     * @param name the name of the dish you want to add
+     * @return response.body of the server
+     */
+    public static String addDishToFoodOrder(int id, String name) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/food_order/addDish?id=" + id + "&name=" + URLEncoder.encode(name, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Deletes a food order from the database
+     * @param id the id of the food order
+     * @return response.body of the server
+     */
+    public static String deleteFoodOrder(int id) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/food_order/delete/" + id)).DELETE().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * gets all food orders from the database
+     * @return response.body of the server
+     */
+    public static String getAllFoodOrders() {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/food_order/all")).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Finds all past food orders for the user that sends the request
+     * @return response.body of the server
+     */
+    public static String getAllPreviousFoodOrders() {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/food_order/past")).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Finds all future and actual food orders for the user that sends the request
+     * @return response.body of the server
+     */
+    public static String getAllFutureFoodOrders() {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/food_order/future")).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Adds a menu to the database
+     * @param name the name of the menu
+     * @param restaurantId the id of the restaurant for which the menu is applicable
+     * @return response.body of the server
+     */
+    public static String addMenu(String name, int restaurantId) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/menu/add?name=" + URLEncoder.encode(name, StandardCharsets.UTF_8) + "&restaurantId=" + restaurantId)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Deletes a menu from the database
+     * @param id the id of the menu
+     * @return response.body of the server
+     */
+    public static String deleteMenu(int id) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/menu/delete/" + id)).DELETE().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Updates a specific attribute of a food order
+     * @param id food order id
+     * @param attribute the attribute you want to change
+     * @param value the value of the change
+     * @return response.body of the server
+     */
+    public static String updateFoodOrder(int id, String attribute, String value) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/food_order/update?id=" + id + "&attribute=" + URLEncoder.encode(attribute, StandardCharsets.UTF_8) + "&value=" + URLEncoder.encode(value, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Adds a food order to the database
+     * @param email user email
+     * @param restaurantId restaurant id
+     * @param deliverLocation the location to deliver to
+     * @param deliverTimeMs the deliver time in milliseconds.
+     * @return response.body of the server
+     */
+    public static String addFoodOrder(String email, int restaurantId, int deliverLocation, long deliverTimeMs) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/food_order/add?userEmail=" + URLEncoder.encode(email, StandardCharsets.UTF_8) + "&restaurantId=" + restaurantId + "&deliverLocation=" + deliverLocation + "&deliverTimeMs=" + deliverTimeMs)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Deletes a dish from the database
+     * @param dishId the id of the dish
+     * @return response.body of the server
+     */
+    public static String deleteDish(int dishId) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/dish/delete/" + dishId)).DELETE().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Updates a dish on the server
+     * @param id = the id of the food order.
+     * @param attribute = the attribute whose value is changed.
+     * @param value = the new value of the attribute.
+     * @return response.body of the server
+     */
+    public static String updateDish(int id, String attribute, String value) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/dish/update?id=" + id + "&attribute=" + URLEncoder.encode(attribute, StandardCharsets.UTF_8) + "&value=" + URLEncoder.encode(value, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Add an allergy to a dish
+     * @param name allergy name
+     * @param id dish id
+     * @return response.body of the server
+     */
+    public static String addAllergyToDish(String name, int id) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/dish/addAllergy?id=" + id + "&allergyName=" + URLEncoder.encode(name, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Adds a dish to the database
+     * @param name dish name
+     * @param menuId menu id
+     * @return response.body of the server
+     */
+    public static String addDish(String name, int menuId) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/dish/add?name=" + URLEncoder.encode(name, StandardCharsets.UTF_8) + "&menuId=" + menuId)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnBodyOfResponse(request);
     }
 }
