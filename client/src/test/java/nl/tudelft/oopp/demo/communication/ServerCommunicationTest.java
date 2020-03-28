@@ -79,6 +79,9 @@ public class ServerCommunicationTest {
         stubFor(get(urlEqualTo("/bike_reservation/all")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(get(urlEqualTo("/bike_reservation/future")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(get(urlEqualTo("/bike_reservation/past")).willReturn(aResponse().withStatus(200).withBody("200")));
+        stubFor(post(urlEqualTo("/restaurant/update?id=1&attribute=a&value=a")).willReturn(aResponse().withStatus(200).withBody("200")));
+        stubFor(post(urlEqualTo("/restaurant/add?buildingId=1&name=name")).willReturn(aResponse().withStatus(200).withBody("200")));
+        stubFor(get(urlEqualTo("/restaurant/all")).willReturn(aResponse().withStatus(200).withBody("Restaurants")));
     }
 
     /**
@@ -340,6 +343,22 @@ public class ServerCommunicationTest {
     @Test
     public void testSuccessfulUpdateRestaurant() {
         assertEquals(ErrorMessages.getErrorMessage(200), ServerCommunication.updateRestaurant(1, "a", "a"));
+    }
+
+    /**
+     * Tests the response when the addRestaurant request is successful.
+     */
+    @Test
+    public void testSuccessfulAddRestaurant() {
+        assertEquals(ErrorMessages.getErrorMessage(200), ServerCommunication.addRestaurant(1,"name"));
+    }
+
+    /**
+     * Tests the response when the updateRestaurant request is successful.
+     */
+    @Test
+    public void testSuccessfulUpdateRestaurant() {
+        assertEquals(ErrorMessages.getErrorMessage(200), ServerCommunication.updateRestaurant( 1, "a", "a"));
     }
 
     /**
