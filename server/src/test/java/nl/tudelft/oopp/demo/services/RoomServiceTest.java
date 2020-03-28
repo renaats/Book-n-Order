@@ -387,6 +387,18 @@ public class RoomServiceTest {
     }
 
     /**
+     * Tests the searching of a room in a specific building.
+     */
+    @Test
+    public void testSearchByBuildingId() {
+        roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200);
+        roomService.add("Boole", "EWI2", false, true, true, building2.getId(), 200, 200);
+        List<Room> rooms = roomService.search("building:" + building.getId());
+        assertTrue(rooms.contains(room));
+        assertFalse(rooms.contains(room2));
+    }
+
+    /**
      * Tests the searching of a rooms by the capacity.
      */
     @Test
@@ -443,17 +455,5 @@ public class RoomServiceTest {
         roomService.add("Boole", "EWI2", false, true, true, building2.getId(), 200, 200);
         List<Room> rooms = roomService.search("plugs<150");
         assertEquals(rooms.size(), 0);
-    }
-
-    /**
-     * Tests the searching of a room in a specific building.
-     */
-    @Test
-    public void testSearchByBuildingId() {
-        roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200);
-        roomService.add("Boole", "EWI2", false, true, true, building2.getId(), 200, 200);
-        List<Room> rooms = roomService.search("building:" + building.getId());
-        assertTrue(rooms.contains(room));
-        assertFalse(rooms.contains(room2));
     }
 }

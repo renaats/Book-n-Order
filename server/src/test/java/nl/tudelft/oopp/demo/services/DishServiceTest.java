@@ -189,9 +189,11 @@ public class DishServiceTest {
         dishService.add(dish.getName(), dish.getMenu().getId());
         dishService.add(dish2.getName(), dish2.getMenu().getId());
         Assertions.assertEquals(2, dishService.all().size());
+        int id1 = dishService.all().get(0).getId();
+        int id2 = dishService.all().get(1).getId();
         List<Dish> dishes = new ArrayList<>();
-        dishes.add(dish);
-        dishes.add(dish2);
+        dishes.add(dishService.find(id1));
+        dishes.add(dishService.find(id2));
         Assertions.assertEquals(dishes, dishService.all());
     }
 
@@ -215,8 +217,8 @@ public class DishServiceTest {
         dishService.add(dish.getName(), dish.getMenu().getId());
         dishService.add(dish2.getName(), dish2.getMenu().getId());
         List<Dish> dishes = dishService.search("name:Chicken");
-        Assertions.assertEquals(dishes.get(0), dish);
-        Assertions.assertTrue(dishes.contains(dish2));
+        Assertions.assertEquals(dishes.get(0).getName(), dish.getName());
+        Assertions.assertEquals(dishes.get(1).getName(), dish2.getName());
     }
 
     /**
@@ -227,8 +229,8 @@ public class DishServiceTest {
         dishService.add(dish.getName(), dish.getMenu().getId());
         dishService.add(dish2.getName(), dish2.getMenu().getId());
         List<Dish> dishes = dishService.search("name:Spicy");
-        Assertions.assertEquals(dishes.get(0), dish2);
-        Assertions.assertFalse(dishes.contains(dish));
+        assertEquals(1, dishes.size());
+        Assertions.assertEquals(dishes.get(0).getName(), dish2.getName());
     }
 
     /**

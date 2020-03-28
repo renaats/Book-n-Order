@@ -131,9 +131,10 @@ public class RoomController {
      *               where [operation] is ':', '<', or '>'.
      * @return List of Room objects that match the search criteria.
      */
-    @RequestMapping(method = RequestMethod.GET, value = "/rooms")
+    @Secured("ROLE_ADMIN")
+    @GetMapping(path = "/filter")
     @ResponseBody
-    public List<Room> search(@RequestParam(value = "search") String search) {
-        return roomService.search(search);
+    public List<Room> search(@RequestParam String query) {
+        return roomService.search(query);
     }
 }
