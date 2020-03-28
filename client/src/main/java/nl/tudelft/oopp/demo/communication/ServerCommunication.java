@@ -266,6 +266,24 @@ public class ServerCommunication {
     }
 
     /**
+     * Retrieves all future and current room reservations from the server
+     * @return the response.body for the server
+     */
+    public static String getAllFutureRoomReservations() {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/room_reservation/future")).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Retrieves all previous room reservations from the server
+     * @return the response.body for the server
+     */
+    public static String getAllPreviousRoomReservations() {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/room_reservation/past")).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
      * Communicates addRoomReservation to the database
      * @param roomId id of the room
      * @param userEmail user email
@@ -462,7 +480,7 @@ public class ServerCommunication {
      * @return response.body of the server
      */
     public static String addRestaurantHours(int restaurantId, long date, int startTimeS, int endTimeS) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant_hours/add?restaurantId=" + restaurantId + "&day=" + date + "&startTimeS=" + startTimeS + "&endTimeS=" + endTimeS)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant_hours/add?restaurantId=" + restaurantId + "&date=" + date + "&startTimeS=" + startTimeS + "&endTimeS=" + endTimeS)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnBodyOfResponse(request);
     }
 
@@ -647,6 +665,37 @@ public class ServerCommunication {
      */
     public static String getUser() {
         HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/user")).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    // -----------------------------------------
+    // Bike related Server Communication Methods
+    // -----------------------------------------
+
+    /**
+     * gets all bike reservations from the database
+     * @return response.body of the server
+     */
+    public static String getAllBikeReservations() {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/bike_reservation/all")).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Finds all past bike reservations for the user that sends the request
+     * @return response.body of the server
+     */
+    public static String getAllPreviousBikeReservations() {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/bike_reservation/past")).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Finds all future and current bike reservations for the user that sends the request
+     * @return response.body of the server
+     */
+    public static String getAllFutureBikeReservations() {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/bike_reservation/future")).build();
         return communicateAndReturnBodyOfResponse(request);
     }
 }
