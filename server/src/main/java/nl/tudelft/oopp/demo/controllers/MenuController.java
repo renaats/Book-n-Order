@@ -40,8 +40,8 @@ public class MenuController {
     }
 
     /**
-     * Lists all rooms.
-     * @return Iterable of all rooms.
+     * Lists all menus.
+     * @return Iterable of all menus.
      */
     @Secured({"RESTAURANT_OWNER", "ROLE_ADMIN"})
     @GetMapping(path = "/all")
