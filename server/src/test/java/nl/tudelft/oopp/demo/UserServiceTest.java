@@ -153,7 +153,7 @@ class UserServiceTest {
      * Tests the update operation on a non-existent object.
      */
     @Test
-    public void testUpdateNonExistingInstance() throws UnsupportedEncodingException {
+    public void testUpdateNonExistingInstance() {
         assertEquals(419, userService.update("not a valid email", "nonexistent attribute", "random value"));
     }
 
@@ -161,7 +161,7 @@ class UserServiceTest {
      * Tests the update operation on a non-existent attribute.
      */
     @Test
-    public void testUpdateNonExistingAttribute() throws UnsupportedEncodingException {
+    public void testUpdateNonExistingAttribute() {
         userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty());
         String email = userService.all().get(0).getEmail();
         assertEquals(412,  userService.update(email, "non_existent_attribute", "value"));
@@ -171,7 +171,7 @@ class UserServiceTest {
      * Tests the change of the name by using the service.
      */
     @Test
-    public void testChangeName() throws UnsupportedEncodingException {
+    public void testChangeName() {
         userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty());
         String email = userService.all().get(0).getEmail();
         assertNotEquals("Renats", userService.all().get(0).getName());
@@ -183,7 +183,7 @@ class UserServiceTest {
      * Tests the change of the surname by using the service.
      */
     @Test
-    public void testChangeSurname() throws UnsupportedEncodingException {
+    public void testChangeSurname() {
         userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty());
         String email = userService.all().get(0).getEmail();
         assertNotEquals("Jursevskis", userService.all().get(0).getSurname());
@@ -195,7 +195,7 @@ class UserServiceTest {
      * Tests the change of the password by using the service.
      */
     @Test
-    public void testChangePassword() throws UnsupportedEncodingException {
+    public void testChangePassword() {
         userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty());
         String email = userService.all().get(0).getEmail();
         String password = userService.all().get(0).getPassword();
@@ -208,7 +208,7 @@ class UserServiceTest {
      * Tests the change of the faculty by using the service.
      */
     @Test
-    public void testChangeFaculty() throws UnsupportedEncodingException {
+    public void testChangeFaculty() {
         userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty());
         String email = userService.all().get(0).getEmail();
         assertNotEquals("3M", userService.all().get(0).getFaculty());
