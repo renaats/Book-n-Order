@@ -1,16 +1,5 @@
 package nl.tudelft.oopp.demo.services;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
 
 import nl.tudelft.oopp.demo.entities.Allergy;
 import nl.tudelft.oopp.demo.entities.Dish;
@@ -18,16 +7,18 @@ import nl.tudelft.oopp.demo.entities.Menu;
 import nl.tudelft.oopp.demo.entities.Restaurant;
 import nl.tudelft.oopp.demo.repositories.AllergyRepository;
 import nl.tudelft.oopp.demo.repositories.MenuRepository;
-import nl.tudelft.oopp.demo.services.DishService;
-import nl.tudelft.oopp.demo.services.MenuService;
-
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
+
+import java.util.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 /**
  * Tests the Dish service.
@@ -102,7 +93,7 @@ public class DishServiceTest {
      */
     @Test
     public void testConstructor() {
-        assertNotNull(dishService);
+        Assertions.assertNotNull(dishService);
     }
 
     /**
@@ -122,7 +113,7 @@ public class DishServiceTest {
      */
     @Test
     public void testCreateIllegalMenu() {
-        assertEquals(429, dishService.add(dish.getName(), 0));
+        Assertions.assertEquals(429, dishService.add(dish.getName(), 0));
     }
 
     /**
@@ -130,7 +121,7 @@ public class DishServiceTest {
      */
     @Test
     public void testFindNonExisting() {
-        assertNull(dishService.find(0));
+        Assertions.assertNull(dishService.find(0));
     }
 
     /**
@@ -140,7 +131,7 @@ public class DishServiceTest {
     public void testFindExisting() {
         dishService.add(dish.getName(), dish.getMenu().getId());
         int id = dishService.all().get(0).getId();
-        assertNotNull(dishService.find(id));
+        Assertions.assertNotNull(dishService.find(id));
     }
 
     /**
@@ -197,11 +188,11 @@ public class DishServiceTest {
     public void testMultipleInstances() {
         dishService.add(dish.getName(), dish.getMenu().getId());
         dishService.add(dish2.getName(), dish2.getMenu().getId());
-        assertEquals(2, dishService.all().size());
+        Assertions.assertEquals(2, dishService.all().size());
         List<Dish> dishes = new ArrayList<>();
         dishes.add(dish);
         dishes.add(dish2);
-        assertEquals(dishes.size(), dishService.all().size());
+        Assertions.assertEquals(dishes, dishService.all());
     }
 
     /**
@@ -212,15 +203,43 @@ public class DishServiceTest {
         dishService.add(dish.getName(), dish.getMenu().getId());
         dishService.add(dish2.getName(), dish2.getMenu().getId());
         int id = dishService.all().get(0).getId();
-        assertEquals(200, dishService.delete(id));
-        assertEquals(1, dishService.all().size());
+        Assertions.assertEquals(200, dishService.delete(id));
+        Assertions.assertEquals(1, dishService.all().size());
     }
 
     /**
-     * Tests the deletion of a non-existing instance.
+     * Tests the searching of a specific dish by name.
      */
     @Test
-    public void testDeleteIllegal() {
-        assertEquals(430, dishService.delete(0));
+    public void testSearchByName() {
+        dishService.add(dish.getName(), dish.getMenu().getId());
+        dishService.add(dish2.getName(), dish2.getMenu().getId());
+        List<Dish> dishes = dishService.search("name:Chicken");
+        Assertions.assertEquals(dishes.get(0), dish);
+        Assertions.assertTrue(dishes.contains(dish2));
+    }
+
+    /**
+     * Tests the searching of a specific dish by part of the name.
+     */
+    @Test
+    public void testSearchByPartOfName() {
+        dishService.add(dish.getName(), dish.getMenu().getId());
+        dishService.add(dish2.getName(), dish2.getMenu().getId());
+        List<Dish> dishes = dishService.search("name:Spicy");
+        Assertions.assertEquals(dishes.get(0), dish2);
+        Assertions.assertFalse(dishes.contains(dish));
+    }
+
+    /**
+     * Tests the searching of a specific dish by part of the name.
+     */
+    @Test
+    public void testSearchNonexistentDish() {
+        dishService.add(dish.getName(), dish.getMenu().getId());
+        dishService.add(dish2.getName(), dish2.getMenu().getId());
+        List<Dish> dishes = dishService.search("name:soup");
+        Assertions.assertFalse(dishes.contains(dish));
+        Assertions.assertFalse(dishes.contains(dish2));
     }
 }
