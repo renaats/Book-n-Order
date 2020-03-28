@@ -136,6 +136,18 @@ public class BuildingServiceTest {
     }
 
     /**
+     * Tests duplicate building names.
+     */
+    @Test
+    public void testChangeNameToAlreadyExistingOne() {
+        buildingService.add(building.getName(), building.getStreet(), building.getHouseNumber());
+        buildingService.add(building2.getName(), building2.getStreet(), building2.getHouseNumber());
+        int id = buildingService.all().get(0).getId();
+        assertEquals("EWI", buildingService.find(id).getName());
+        assertEquals(309, buildingService.update(id, "name", "EWI2"));
+    }
+
+    /**
      * Tests the change of the street by using the service.
      */
     @Test
