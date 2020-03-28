@@ -3,7 +3,9 @@ package nl.tudelft.oopp.demo.specifications;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
 import nl.tudelft.oopp.demo.entities.Dish;
+
 import org.springframework.data.jpa.domain.Specification;
 
 /**

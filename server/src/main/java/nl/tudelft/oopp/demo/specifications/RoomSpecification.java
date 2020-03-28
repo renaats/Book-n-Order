@@ -7,8 +7,8 @@ import javax.persistence.criteria.Root;
 
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Room;
-
 import nl.tudelft.oopp.demo.services.BuildingService;
+
 import org.springframework.data.jpa.domain.Specification;
 
 /**

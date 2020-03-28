@@ -6,8 +6,8 @@ import java.util.regex.Pattern;
 
 import nl.tudelft.oopp.demo.entities.Allergy;
 import nl.tudelft.oopp.demo.repositories.AllergyRepository;
-
 import nl.tudelft.oopp.demo.specifications.AllergySpecificationsBuilder;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;

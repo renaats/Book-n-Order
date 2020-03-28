@@ -131,7 +131,7 @@ public class RoomController {
      *               where [operation] is ':', '<', or '>'.
      * @return List of Room objects that match the search criteria.
      */
-    @Secured({"ROLE_ADMIN", "ROLE_BUILDING_ADMIN"})
+    @Secured("ROLE_USER")
     @GetMapping(path = "/filter")
     @ResponseBody
     public List<Room> search(@RequestParam String query) {

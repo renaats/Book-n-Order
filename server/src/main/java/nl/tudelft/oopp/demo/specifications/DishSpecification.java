@@ -6,6 +6,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import nl.tudelft.oopp.demo.entities.Dish;
+
 import org.springframework.data.jpa.domain.Specification;
 
 /**

@@ -72,7 +72,7 @@ public class DishController {
      *               where [operation] is ':', '<', or '>'.
      * @return List of Dish objects that match the search criteria.
      */
-    @Secured({"ROLE_RESTAURANT", "ROLE_ADMIN"})
+    @Secured("ROLE_USER")
     @GetMapping(path = "/filter")
     @ResponseBody
     public List<Dish> search(@RequestParam String query) {

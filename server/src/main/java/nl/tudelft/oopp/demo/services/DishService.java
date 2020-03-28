@@ -12,8 +12,8 @@ import nl.tudelft.oopp.demo.entities.Menu;
 import nl.tudelft.oopp.demo.repositories.AllergyRepository;
 import nl.tudelft.oopp.demo.repositories.DishRepository;
 import nl.tudelft.oopp.demo.repositories.MenuRepository;
-
 import nl.tudelft.oopp.demo.specifications.DishSpecificationsBuilder;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
