@@ -114,7 +114,7 @@ public class ServerCommunicationTest {
      * Tests getting all previous bike reservations from the server.
      */
     @Test
-    public void testSuccessfulGetAllPastBbikeReservations() {
+    public void testSuccessfulGetAllPastBikeReservations() {
         assertEquals("200", ServerCommunication.getAllPreviousBikeReservations());
     }
 
@@ -203,7 +203,7 @@ public class ServerCommunicationTest {
      * Tests getting all previous food orders from the server.
      */
     @Test
-    public void testSuccessfulGetAllPreviousFoodOrders() {
+    public void testSuccessfulGetAllPastFoodOrders() {
         assertEquals("200", ServerCommunication.getAllPreviousFoodOrders());
     }
 
