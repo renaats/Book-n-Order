@@ -14,10 +14,11 @@ import javafx.stage.StageStyle;
 import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.BuildingHours;
+import nl.tudelft.oopp.demo.entities.Menu;
 import nl.tudelft.oopp.demo.entities.Restaurant;
 import nl.tudelft.oopp.demo.entities.RestaurantHours;
 import nl.tudelft.oopp.demo.entities.Room;
-import nl.tudelft.oopp.demo.entities.RoomReservation;
+import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.user.UserInformation;
 
 /**
@@ -86,6 +87,7 @@ public class JsonMapper {
         }
         return null;
     }
+
     /**
      * Maps all room JSONS to a list.
      * @param menuJson a JSON string representing a list.
@@ -117,14 +119,7 @@ public class JsonMapper {
             // Convert JSON string to Object
             return mapper.readValue(roomsJson, new TypeReference<>(){});
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle(null);
-            alert.setHeaderText(null);
-            alert.setContentText(roomsJson);
-            alert.initStyle(StageStyle.UNDECORATED);
-            DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(JsonMapper.class.getResource("/alertWarning.css").toExternalForm());
-            alert.showAndWait();
+            CustomAlert.warningAlert(roomsJson);
         }
         return null;
     }
@@ -142,14 +137,7 @@ public class JsonMapper {
             // Convert JSON string to Object
             return mapper.readValue(appUserJson, AppUser.class);
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle(null);
-            alert.setHeaderText(null);
-            alert.setContentText(appUserJson);
-            alert.initStyle(StageStyle.UNDECORATED);
-            DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(JsonMapper.class.getResource("/alertWarning.css").toExternalForm());
-            alert.showAndWait();
+            CustomAlert.warningAlert(appUserJson);
         }
         return null;
     }
@@ -217,14 +205,7 @@ public class JsonMapper {
             // Convert JSON string to Object
             return mapper.readValue(restaurantsJson, new TypeReference<>(){});
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle(null);
-            alert.setHeaderText(null);
-            alert.setContentText(restaurantsJson);
-            alert.initStyle(StageStyle.UNDECORATED);
-            DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(JsonMapper.class.getResource("/alertWarning.css").toExternalForm());
-            alert.showAndWait();
+            CustomAlert.warningAlert(restaurantsJson);
         }
         return null;
     }

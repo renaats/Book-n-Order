@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.DatabaseAddRestaurants">
+
+    <ImageView fitHeight="720.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+        <image>
+            <Image url="@images/Living-Campus-1-1280x600-c-center.jpg" />
+        </image></ImageView>
+    <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="63.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+        <image>
+            <Image url="@images/TuDelftLogoFinal.png" />
+        </image>
+    </ImageView>
+    <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="258.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="576.0" AnchorPane.leftAnchor="258.0" AnchorPane.rightAnchor="902.0" AnchorPane.topAnchor="120.0">
+        <Image url="@images/booknorderlogo.png" />
+    </ImageView>
+    <ImageView fitHeight="41.0" fitWidth="44.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#mainMenu" pickOnBounds="true" preserveRatio="true"><Image url="@images/HomeIconTransparent.png" />
+        <cursor>
+            <Cursor fx:constant="HAND" />
+        </cursor>
+    </ImageView>
+    <ImageView fx:id="goToBuildingMenuButton" fitHeight="26.0" fitWidth="41.0" layoutX="22.0" layoutY="119.0" onMouseClicked="#goToRestaurantsMenu" pickOnBounds="true" preserveRatio="true">
+        <image>
+            <Image url="@images/45332.png" />
+        </image>
+        <cursor>
+            <Cursor fx:constant="HAND" />
+        </cursor>
+    </ImageView>
+    <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="62.0" layoutY="119.0" onMouseClicked="#goToAddRestaurants" pickOnBounds="true" preserveRatio="true">
+        <image>
+            <Image url="@images/ko7djzvdIPehWkkQYeDHv7ZYArEETK3uclcEy1WmrEHakj5qfn1nysOSyuNxsI2FsTJGcKNFdQ-9TIGRXV3le_sG-lyGg6Lu2OpiVNdwOZw_Fw16XYOh.png" />
+        </image>
+        <cursor>
+            <Cursor fx:constant="HAND" />
+        </cursor></ImageView>
+    <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="111.0" layoutY="119.0" onMouseClicked="#goToEditRestaurants" pickOnBounds="true" preserveRatio="true">
+        <image>
+            <Image url="@images/EditIcon.png" />
+        </image>
+        <cursor>
+            <Cursor fx:constant="HAND" />
+        </cursor>
+    </ImageView>
+    <Text fill="WHITE" layoutX="20.0" layoutY="555.576171875" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback is welcome" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0">
+        <font>
+            <Font size="18.0" />
+        </font>
+    </Text>
+    <Text fill="WHITE" layoutX="20.0" layoutY="578.75" strokeType="OUTSIDE" strokeWidth="0.0" text="© 2020 TU Delft. All rights reserved." AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0">
+        <font>
+            <Font name="Calibri" size="11.0" />
+        </font>
+    </Text>
+    <Text layoutX="64.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add" />
+    <Text layoutX="114.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit" />
+    <Text layoutX="548.0" layoutY="152.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Food Places" AnchorPane.leftAnchor="548.0">
+        <font>
+            <Font size="26.0" />
+        </font>
+    </Text>
+    <Text layoutX="548.0" layoutY="178.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add a food places" AnchorPane.leftAnchor="548.0" AnchorPane.topAnchor="159.0">
+        <font>
+            <Font size="17.0" />
+        </font>
+    </Text>    <Text layoutX="503.0" layoutY="227.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" AnchorPane.leftAnchor="503.0" AnchorPane.topAnchor="208.0">
+    <font>
+        <Font size="17.0" />
+    </font>
+</Text>
+    <TextField fx:id="nameTextField" layoutX="616.0" layoutY="208.0" AnchorPane.leftAnchor="616.0" AnchorPane.topAnchor="208.0" />
+   <ChoiceBox fx:id="buildingsChoiceBox" layoutX="615.0" layoutY="252.0" prefWidth="150.0" />
+   <Text layoutX="503.0" layoutY="271.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location:">
+      <font>
+         <Font size="17.0" />
+      </font>
+   </Text>
+    <Button layoutX="516.0" layoutY="311.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#databaseAddRoom" style="-fx-background-color: #00a6d6;" text="Add Restaurant" textFill="WHITE">
+        <cursor>
+            <Cursor fx:constant="HAND" />
+        </cursor>
+    </Button>
+</AnchorPane>

@@ -2,6 +2,10 @@ package nl.tudelft.oopp.demo.entities;
 
 import java.util.Objects;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
+
 /**
  * Manages the Restaurant object that is retrieved from the server
  */
@@ -53,6 +57,24 @@ public class Restaurant {
 
     public String getName() {
         return name;
+    }
+
+    /**
+     * Makes the table list the building name instead of the building object
+     * @return String property, a property recognized by the tables.
+     */
+    public StringProperty getBuildingNameProperty() {
+        String name = getBuilding().getName();
+        return new SimpleStringProperty(name);
+    }
+
+    /**
+     * Makes the table list the menu name instead of the building object
+     * @return String property, a property recognized by the tables.
+     */
+    public StringProperty getMenuNameProperty() {
+        String name = getMenu().getName();
+        return new SimpleStringProperty(name);
     }
 
     @Override
