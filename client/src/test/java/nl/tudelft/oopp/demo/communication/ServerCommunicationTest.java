@@ -177,7 +177,7 @@ public class ServerCommunicationTest {
      */
     @Test
     public void testSuccessfulUpdateRestaurant() {
-        assertEquals(ErrorMessages.getErrorMessage(200), ServerCommunication.updateRestaurant( 1, "a", "a"));
+        assertEquals(ErrorMessages.getErrorMessage(200), ServerCommunication.updateRestaurant(1, "a", "a"));
     }
 
     /**
