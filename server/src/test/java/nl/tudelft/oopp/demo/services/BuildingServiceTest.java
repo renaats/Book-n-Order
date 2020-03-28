@@ -136,7 +136,7 @@ public class BuildingServiceTest {
     }
 
     /**
-     * Tests the change of the name to an already existing one by using the service.
+     * Tests duplicate building names.
      */
     @Test
     public void testChangeNameToAlreadyExistingOne() {
