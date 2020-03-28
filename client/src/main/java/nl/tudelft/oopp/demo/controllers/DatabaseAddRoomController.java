@@ -40,10 +40,9 @@ public class DatabaseAddRoomController {
 
     /**
      * Makes sure the button toggles from false to true every time.
-     * @param e Just an ActionEvent param
      */
     @FXML
-    private void toggleClickFacultySpecific(ActionEvent e) {
+    private void toggleClickFacultySpecific() {
         if (facultySpecificToggleFlag) {
             facultySpecificToggle.setText("False");
             facultySpecificToggleFlag = false;
@@ -55,10 +54,9 @@ public class DatabaseAddRoomController {
 
     /**
      * Makes sure the button toggles from false to true every time.
-     * @param e Just an ActionEvent param
      */
     @FXML
-    private void toggleClickProjector(ActionEvent e) {
+    private void toggleClickProjector() {
         if (projectorToggleFlag) {
             projectorToggle.setText("False");
             projectorToggleFlag = false;
@@ -70,10 +68,9 @@ public class DatabaseAddRoomController {
 
     /**
      * Makes sure the button toggles from false to true every time.
-     * @param e Just an ActionEvent param
      */
     @FXML
-    private void toggleClickScreen(ActionEvent e) {
+    private void toggleClickScreen() {
         if (screenToggleFlag) {
             screenToggle.setText("False");
             screenToggleFlag = false;
@@ -97,9 +94,8 @@ public class DatabaseAddRoomController {
 
     /**
      * Adds a room to the database
-     * @param actionEvent action event parameter
      */
-    public void databaseAddRoom(ActionEvent actionEvent) {
+    public void databaseAddRoom() {
         String name = nameTextField.getText();
         String faculty = facultyTextField.getText();
         int buildingId = Integer.parseInt(buildingIdTextField.getText());

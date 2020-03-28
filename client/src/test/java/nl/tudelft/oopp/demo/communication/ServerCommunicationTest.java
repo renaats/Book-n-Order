@@ -357,38 +357,6 @@ public class ServerCommunicationTest {
     }
 
     /**
-     * Tests the response when the updateRestaurant request is successful.
-     */
-    @Test
-    public void testSuccessfulUpdateRestaurant() {
-        assertEquals(ErrorMessages.getErrorMessage(200), ServerCommunication.updateRestaurant(1, "a", "a"));
-    }
-
-    /**
-     * Tests the response when the addRestaurant request is successful.
-     */
-    @Test
-    public void testSuccessfulAddRestaurant() {
-        assertEquals(ErrorMessages.getErrorMessage(200), ServerCommunication.addRestaurant(1,"name"));
-    }
-
-    /**
-     * Tests the response when the updateRestaurant request is successful.
-     */
-    @Test
-    public void testSuccessfulUpdateRestaurant() {
-        assertEquals(ErrorMessages.getErrorMessage(200), ServerCommunication.updateRestaurant( 1, "a", "a"));
-    }
-
-    /**
-     * Tests the response when the addRestaurant request is successful.
-     */
-    @Test
-    public void testSuccessfulAddRestaurant() {
-        assertEquals(ErrorMessages.getErrorMessage(200), ServerCommunication.addRestaurant(1,"name"));
-    }
-
-    /**
      * Tests the response when the addRoom request is successful.
      */
     @Test

@@ -724,125 +724,12 @@ public class ServerCommunication {
     }
 
     /**
-     * Adds a restaurant to the database.
-     * @param buildingId the ID of the building where the restaurant is located restaurant.
-     * @param name the name of the restaurant.
-     * @return the body of the response from the server.
-     */
-    public static String addRestaurant(int buildingId, String name) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant/add?buildingId=" + buildingId + "&name=" + URLEncoder.encode(name, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        return communicateAndReturnErrorMessage(request);
-    }
-
-    /**
-     * Removes a Restaurant from the database.
-     * @param id = the id of the Restaurant.
-     * @return the body of the response from the server.
-     */
-    public static String deleteRestaurant(int id) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant/delete/" + id)).DELETE().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        return communicateAndReturnErrorMessage(request);
-    }
-
-    /**
-     * Updates an attribute of the restaurant
-     * @param restaurantId the Id of the restaurant that will be updated
-     * @param attribute the attribute to be updated
-     * @param value the new value of the attribute
-     * @return
-     */
-    public static String updateRestaurant(int restaurantId, String attribute, String value) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant/update?id=" + restaurantId + "&attribute=" + URLEncoder.encode(attribute, StandardCharsets.UTF_8) + "&value=" + URLEncoder.encode(value, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        return communicateAndReturnErrorMessage(request);
-    }
-
-    /**
-     * Requests a new password for the user.
-     * @param email User's email
+     * Requests all future bike reservations from the server.
      * @return the body of the response from the server
      */
     public static String getAllFutureBikeReservations() {
         HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/bike_reservation/future")).build();
         return communicateAndReturnBodyOfResponse(request);
-    }
-
-    /**
-     * Retrieves a JSON string representation of all restaurants from the server.
-     * @return the body of the response from the server.
-     */
-    public static String getRestaurants() {
-        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/restaurant/all")).build();
-        return communicateAndReturnBodyOfResponse(request);
-    }
-
-    /**
-     * Requests all the menus from the database
-     * @return a JSON string on menus.
-     */
-    public static String getMenus() {
-        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/menu/all")).build();
-        return communicateAndReturnBodyOfResponse(request);
-    }
-
-    /**
-     * Retrieves a JSON string representation of all restaurants from the server.
-     * @return the body of the response from the server.
-     */
-    public static String getRestaurants() {
-        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/restaurant/all")).build();
-        return communicateAndReturnBodyOfResponse(request);
-    }
-
-    /**
-     * Requests all the menus from the database
-     * @return a JSON string on menus.
-     */
-    public static String getMenus() {
-        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/menu/all")).build();
-        return communicateAndReturnBodyOfResponse(request);
-    }
-
-    /**
-     * Adds a restaurant to the database.
-     * @param buildingId the ID of the building where the restaurant is located restaurant.
-     * @param name the name of the restaurant.
-     * @return the body of the response from the server.
-     */
-    public static String addRestaurant(int buildingId, String name) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant/add?buildingId=" + buildingId + "&name=" + URLEncoder.encode(name, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        return communicateAndReturnErrorMessage(request);
-    }
-
-    /**
-     * Removes a Restaurant from the database.
-     * @param id = the id of the Restaurant.
-     * @return the body of the response from the server.
-     */
-    public static String deleteRestaurant(int id) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant/delete/" + id)).DELETE().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        return communicateAndReturnErrorMessage(request);
-    }
-
-    /**
-     * Updates an attribute of the restaurant
-     * @param restaurantId the Id of the restaurant that will be updated
-     * @param attribute the attribute to be updated
-     * @param value the new value of the attribute
-     * @return
-     */
-    public static String updateRestaurant(int restaurantId, String attribute, String value) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant/update?id=" + restaurantId + "&attribute=" + URLEncoder.encode(attribute, StandardCharsets.UTF_8) + "&value=" + URLEncoder.encode(value, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        return communicateAndReturnErrorMessage(request);
-    }
-
-    /**
-     * Requests a new password for the user.
-     * @param email User's email.
-     * @return the body of the response from the server.
-     */
-    public static String sendRecoveryPassword(String email) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/user/recoverPassword?email="  + email)).POST(HttpRequest.BodyPublishers.noBody()).build();
-        return communicateAndReturnErrorMessage(request);
     }
 
     /**
