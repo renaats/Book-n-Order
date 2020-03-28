@@ -83,7 +83,7 @@ public class AllergyController {
      *               where [operation] is ':', '<', or '>'.
      * @return List of Room objects that match the search criteria.
      */
-    @Secured("ROLE_ADMIN")
+    @Secured({"ROLE_USER", "ROLE_RESTAURANT"})
     @GetMapping(path = "/filter")
     @ResponseBody
     public List<Allergy> search(@RequestParam String query) {

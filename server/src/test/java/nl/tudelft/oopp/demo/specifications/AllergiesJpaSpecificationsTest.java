@@ -19,7 +19,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 @Transactional
 @DataJpaTest
-public class AllergiesJPASpecificationsTest {
+public class AllergiesJpaSpecificationsTest {
     @Autowired
     private AllergyRepository allergyRepository;
 
