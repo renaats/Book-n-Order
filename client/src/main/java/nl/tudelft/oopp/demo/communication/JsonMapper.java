@@ -307,9 +307,9 @@ public class JsonMapper {
     }
 
     /**
-     * Maps JSON to RoomReservation entity.
-     * @param foodOrderJson representation of a room.
-     * @return RoomReservation entity.
+     * Maps JSON to FoodOrder entity.
+     * @param foodOrderJson representation of a food order.
+     * @return FoodOrder entity.
      */
     public static FoodOrder foodOrderMapper(String foodOrderJson) {
 
@@ -332,7 +332,7 @@ public class JsonMapper {
     /**
      * Maps all Food Orders JSONS to a list.
      * @param foodOrdersJson a JSON string representing a list.
-     * @return A list filled with object Room Reservation
+     * @return A list filled with object Food Order
      */
     public static List<FoodOrder> foodOrdersListMapper(String foodOrdersJson) {
 
@@ -353,9 +353,9 @@ public class JsonMapper {
     }
 
     /**
-     * Maps JSON to RoomReservation entity.
-     * @param bikeReservationJson representation of a room.
-     * @return RoomReservation entity.
+     * Maps JSON to BikeReservation entity.
+     * @param bikeReservationJson representation of a bike reservation.
+     * @return BikeReservation entity.
      */
     public static BikeReservation bikeReservationMapper(String bikeReservationJson) {
 
@@ -376,9 +376,9 @@ public class JsonMapper {
     }
 
     /**
-     * Maps all Room Reservation JSONS to a list.
+     * Maps all Bike Reservation JSONS to a list.
      * @param bikeReservationsJson a JSON string representing a list.
-     * @return A list filled with object Room Reservation
+     * @return A list filled with object Bike Reservation
      */
     public static List<BikeReservation> bikeReservationsListMapper(String bikeReservationsJson) {
 
