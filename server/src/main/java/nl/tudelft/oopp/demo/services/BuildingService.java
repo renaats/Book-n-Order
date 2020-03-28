@@ -52,6 +52,9 @@ public class BuildingService {
         Building building = buildingRepository.getOne(id);
         switch (attribute.toLowerCase()) {
             case "name":
+                if (buildingRepository.existsByName(value)) {
+                    return 309;
+                }
                 building.setName(value);
                 break;
             case "street":
