@@ -1,4 +1,4 @@
-package nl.tudelft.oopp.demo;
+package nl.tudelft.oopp.demo.specifications;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.in;
@@ -23,7 +23,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 @Transactional
 @DataJpaTest
 public class RoomsJpaSpecificationsTest {
-
     @Autowired
     private RoomRepository roomRepository;
     @Autowired
@@ -38,7 +37,6 @@ public class RoomsJpaSpecificationsTest {
      */
     @BeforeEach
     public void init() {
-
         building = new Building();
         building.setHouseNumber(1);
         building.setName("Neo-Aula");
@@ -55,6 +53,7 @@ public class RoomsJpaSpecificationsTest {
         roomAlpha.setProjector(true);
         roomAlpha.setScreen(true);
         roomRepository.save(roomAlpha);
+
         roomBeta = new Room();
         roomBeta.setBuilding(building);
         roomBeta.setFaculty("EWI");
@@ -67,59 +66,62 @@ public class RoomsJpaSpecificationsTest {
         roomRepository.save(roomBeta);
     }
 
+    /**
+     * Tests querying on a name of the room.
+     */
     @Test
     public void nameSearchTest() {
         RoomSpecification spec = new RoomSpecification(new SearchCriteria("name", ":", "Auditorium"));
-
         List<Room> results = roomRepository.findAll(spec);
-
         assertThat(roomAlpha, in(results));
         assertThat(roomBeta, not(in(results)));
     }
 
+    /**
+     * Tests querying on the number of plugs of a room.
+     */
     @Test
     public void atLeast10Plugs() {
         RoomSpecification spec = new RoomSpecification(new SearchCriteria("plugs", ">", 10));
-
         List<Room> results = roomRepository.findAll(spec);
-
         assertThat(roomAlpha, not(in(results)));
         assertThat(roomBeta, in(results));
     }
 
+    /**
+     * Tests querying on the faculty and capacity of a room.
+     */
     @Test
-    public void facultyAndSeats() {
+    public void facultyAndCapacity() {
         RoomSpecification spec1 = new RoomSpecification(new SearchCriteria("capacity", ">", 250));
         RoomSpecification spec2 = new RoomSpecification(new SearchCriteria("faculty", ":", "EWI"));
-
         List<Room> results = roomRepository.findAll(spec1.and(spec2));
-
         assertThat(roomAlpha, in(results));
         assertThat(roomBeta, in(results));
     }
 
+    /**
+     * Tests querying on the name and capacity of a room.
+     */
     @Test
     public void searchTest() {
         RoomSpecification spec1 = new RoomSpecification(new SearchCriteria("name", ":","Auditorium"));
         RoomSpecification spec2 = new RoomSpecification(new SearchCriteria("capacity", ">","10"));
-
         List<Room> results = roomRepository.findAll(spec1.and(spec2));
-
         assertThat(roomAlpha, in(results));
         assertThat(roomBeta, not(in(results)));
-
     }
 
+    /**
+     * Tests querying on the name and the boolean screen of a room.
+     */
     @Test
     public void booleanTest() {
         RoomSpecification spec1 = new RoomSpecification(new SearchCriteria("name", ":","Auditorium"));
         RoomSpecification spec2 = new RoomSpecification(new SearchCriteria("screen", ":","true"));
-
         List<Room> results = roomRepository.findAll(spec1.and(spec2));
-
         assertThat(roomAlpha, in(results));
         assertThat(roomBeta, not(in(results)));
-
     }
 }
 

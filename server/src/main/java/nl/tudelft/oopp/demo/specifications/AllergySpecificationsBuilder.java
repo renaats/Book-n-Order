@@ -1,15 +1,18 @@
 package nl.tudelft.oopp.demo.specifications;
 
-import nl.tudelft.oopp.demo.entities.Allergy;
-import nl.tudelft.oopp.demo.entities.Room;
-import org.springframework.data.jpa.domain.Specification;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class AllergySpecificationsBuilder {
+import nl.tudelft.oopp.demo.entities.Allergy;
+import nl.tudelft.oopp.demo.entities.Room;
 
+import org.springframework.data.jpa.domain.Specification;
+
+/**
+ * Used for creating a compound specification based on multiple parameters.
+ */
+public class AllergySpecificationsBuilder {
     private final List<SearchCriteria> params;
 
     public AllergySpecificationsBuilder() {
@@ -21,6 +24,10 @@ public class AllergySpecificationsBuilder {
         return this;
     }
 
+    /**
+     * Combines all parameters into a Allergy specification.
+     * @return Allergy specification
+     */
     public Specification<Allergy> build() {
         if (params.size() == 0) {
             return null;

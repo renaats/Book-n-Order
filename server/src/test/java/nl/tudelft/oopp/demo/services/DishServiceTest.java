@@ -1,5 +1,14 @@
 package nl.tudelft.oopp.demo.services;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 import nl.tudelft.oopp.demo.entities.Allergy;
 import nl.tudelft.oopp.demo.entities.Dish;
@@ -7,6 +16,7 @@ import nl.tudelft.oopp.demo.entities.Menu;
 import nl.tudelft.oopp.demo.entities.Restaurant;
 import nl.tudelft.oopp.demo.repositories.AllergyRepository;
 import nl.tudelft.oopp.demo.repositories.MenuRepository;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,11 +24,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
-
-import java.util.*;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 /**
  * Tests the Dish service.
@@ -210,7 +215,7 @@ public class DishServiceTest {
     }
 
     /**
-     * Tests the searching of a specific dish by name.
+     * Tests the searching of a dish by name.
      */
     @Test
     public void testSearchByName() {
@@ -222,7 +227,7 @@ public class DishServiceTest {
     }
 
     /**
-     * Tests the searching of a specific dish by part of the name.
+     * Tests the searching of a dish by part of the name.
      */
     @Test
     public void testSearchByPartOfName() {
@@ -234,7 +239,7 @@ public class DishServiceTest {
     }
 
     /**
-     * Tests the searching of a specific dish by part of the name.
+     * Tests the searching of a nonexistent dish.
      */
     @Test
     public void testSearchNonexistentDish() {

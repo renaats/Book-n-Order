@@ -10,7 +10,6 @@ import org.springframework.data.jpa.domain.Specification;
  * Used for creating a compound specification based on multiple parameters.
  */
 public class DishSpecificationsBuilder {
-
     private final List<SearchCriteria> params;
 
     public DishSpecificationsBuilder() {
@@ -24,7 +23,7 @@ public class DishSpecificationsBuilder {
 
     /**
      * Combines all parameters into a Dish specification.
-     * @return Dish Specification.
+     * @return Dish specification
      */
     public Specification<Dish> build() {
         if (params.size() == 0) {

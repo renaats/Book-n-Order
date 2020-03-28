@@ -1,5 +1,8 @@
 package nl.tudelft.oopp.demo.specifications;
 
+/**
+ * Holds a basic representation of a constraint.
+ */
 public class SearchCriteria {
     private String key;
     private String operation;

@@ -17,8 +17,8 @@ import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.services.BuildingService;
 import nl.tudelft.oopp.demo.services.RoomService;
-
 import nl.tudelft.oopp.demo.specifications.ServiceHelper;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -327,7 +327,7 @@ public class RoomServiceTest {
     }
 
     /**
-     * Tests the searching of a rooms by name.
+     * Tests the searching of a room by name.
      */
     @Test
     public void testSearchByName() {
@@ -339,7 +339,7 @@ public class RoomServiceTest {
     }
 
     /**
-     * Tests the searching of a rooms by faculty.
+     * Tests the searching of a room by faculty.
      */
     @Test
     public void testSearchByFaculty() {
@@ -351,7 +351,7 @@ public class RoomServiceTest {
     }
 
     /**
-     * Tests the searching of a rooms by the boolean facultySpecific.
+     * Tests the searching of a room by the boolean facultySpecific.
      */
     @Test
     public void testSearchByFacultySpecific() {
@@ -363,7 +363,7 @@ public class RoomServiceTest {
     }
 
     /**
-     * Tests the searching of a rooms by the boolean screen.
+     * Tests the searching of a room by the boolean screen.
      */
     @Test
     public void testSearchByScreen() {
@@ -375,7 +375,7 @@ public class RoomServiceTest {
     }
 
     /**
-     * Tests the searching of a rooms by the boolean projector.
+     * Tests the searching of a room by the boolean projector.
      */
     @Test
     public void testSearchByProjector() {
@@ -399,7 +399,7 @@ public class RoomServiceTest {
     }
 
     /**
-     * Tests the searching of a rooms by the capacity.
+     * Tests the searching of a room by the capacity.
      */
     @Test
     public void testSearchByCapacity() {
@@ -411,7 +411,7 @@ public class RoomServiceTest {
     }
 
     /**
-     * Tests the searching of a rooms by the number of plugs in a room.
+     * Tests the searching of a room by the number of plugs in a room.
      */
     @Test
     public void testSearchByNumberOfPlugs() {
@@ -423,7 +423,7 @@ public class RoomServiceTest {
     }
 
     /**
-     * Tests the searching of a rooms by two parameters.
+     * Tests the searching of a room by two parameters.
      */
     @Test
     public void testCompoundSearch() {
@@ -435,7 +435,7 @@ public class RoomServiceTest {
     }
 
     /**
-     * Tests the searching of a rooms by many parameters.
+     * Tests the searching of a room by many parameters.
      */
     @Test
     public void testCompoundSearchWithManyArguments() {

@@ -10,7 +10,6 @@ import org.springframework.data.jpa.domain.Specification;
  * Used for creating a compound specification based on multiple parameters.
  */
 public class RoomSpecificationsBuilder {
-
     private final List<SearchCriteria> params;
 
     public RoomSpecificationsBuilder() {
@@ -24,7 +23,7 @@ public class RoomSpecificationsBuilder {
 
     /**
      * Combines all parameters into a Room specification.
-     * @return Room Specification.
+     * @return Room specification
      */
     public Specification<Room> build() {
         if (params.size() == 0) {

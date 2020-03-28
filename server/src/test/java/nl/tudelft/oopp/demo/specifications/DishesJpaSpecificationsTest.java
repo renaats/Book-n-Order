@@ -1,4 +1,4 @@
-package nl.tudelft.oopp.demo;
+package nl.tudelft.oopp.demo.specifications;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.in;
@@ -27,7 +27,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 @Transactional
 @DataJpaTest
 public class DishesJpaSpecificationsTest {
-
     @Autowired
     private DishRepository dishRepository;
     @Autowired
@@ -52,6 +51,9 @@ public class DishesJpaSpecificationsTest {
         dishRepository.save(dish2);
     }
 
+    /**
+     * Tests querying on a name of the dish.
+     */
     @Test
     public void nameSearchTest() {
         DishSpecification spec = new DishSpecification(new SearchCriteria("name", ":", "Tosti"));
@@ -60,6 +62,9 @@ public class DishesJpaSpecificationsTest {
         assertEquals(dish1, results.get(0));
     }
 
+    /**
+     * Tests querying on two specifications.
+     */
     @Test
     public void compoundSearch() {
         DishSpecification spec = new DishSpecification(new SearchCriteria("name", ":", "Tosti"));
@@ -69,11 +74,13 @@ public class DishesJpaSpecificationsTest {
         assertThat(dish2, in(results));
     }
 
+    /**
+     * Tests querying on a nonexistent dish name.
+     */
     @Test
     public void nonexistentDishSearch() {
         DishSpecification spec = new DishSpecification(new SearchCriteria("name", ":", "Vla"));
         List<Dish> results = dishRepository.findAll(spec);
-        assertThat(dish1, not(in(results)));
         assertEquals(0, results.size());
     }
 }

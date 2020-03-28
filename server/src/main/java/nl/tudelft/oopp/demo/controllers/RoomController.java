@@ -127,7 +127,7 @@ public class RoomController {
 
     /**
      * Allows for a multi-parameter Room search in a RoomRepository.
-     * @param search The search string in the format "[param1][operation][value],[param2][operation][value],..."
+     * @param query The search string in the format "[param1][operation][value],[param2][operation][value],..."
      *               where [operation] is ':', '<', or '>'.
      * @return List of Room objects that match the search criteria.
      */

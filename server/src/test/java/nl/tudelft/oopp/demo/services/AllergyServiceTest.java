@@ -11,12 +11,14 @@ import java.util.List;
 
 import nl.tudelft.oopp.demo.entities.Allergy;
 import nl.tudelft.oopp.demo.services.AllergyService;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.jpa.domain.Specification;
 
 /**
  * Tests the AllergyService.
@@ -115,5 +117,41 @@ public class AllergyServiceTest {
     @Test
     public void testDeleteIllegal() {
         assertEquals(416, allergyService.delete("Vegan"));
+    }
+
+    /**
+     * Tests the searching of allergies by name.
+     */
+    @Test
+    public void testSearchByName() {
+        allergyService.add(allergy1.getAllergyName());
+        allergyService.add(allergy2.getAllergyName());
+        List<Allergy> allergies = allergyService.search("allergyName:Lactose");
+        assertEquals(1, allergies.size());
+        assertEquals(allergy1, allergies.get(0));
+    }
+
+    /**
+     * Test the searching of allergies by part of the name.
+     */
+    @Test
+    public void testSearchByPartOfTheName() {
+        allergy2 = new Allergy("Crustacean Shellfish");
+        allergyService.add(allergy1.getAllergyName());
+        allergyService.add(allergy2.getAllergyName());
+        List<Allergy> allergies = allergyService.search("allergyName:Shellfish");
+        assertEquals(1, allergies.size());
+        assertEquals(allergy2, allergies.get(0));
+    }
+
+    /**
+     * Tests the searching of a nonexistent allergy.
+     */
+    @Test
+    public void testSearchNonExistentAllergy() {
+        allergyService.add(allergy1.getAllergyName());
+        allergyService.add(allergy2.getAllergyName());
+        List<Allergy> allergies = allergyService.search("allergyName:Gluten");
+        assertEquals(0, allergies.size());
     }
 }
