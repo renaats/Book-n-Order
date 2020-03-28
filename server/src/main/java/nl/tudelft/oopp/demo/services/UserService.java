@@ -178,7 +178,7 @@ public class UserService {
      * @param value = the new value of the attribute
      * @return an error code corresponding to the outcome of the request
      */
-    public int update(String email, String attribute, String value) throws UnsupportedEncodingException {
+    public int update(String email, String attribute, String value) {
         if (userRepository.findById(email).isEmpty()) {
             return 419;
         }
