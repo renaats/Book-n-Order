@@ -1,5 +1,11 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import static nl.tudelft.oopp.demo.config.Constants.ADMIN;
+import static nl.tudelft.oopp.demo.config.Constants.RESTAURANT;
+import static nl.tudelft.oopp.demo.config.Constants.USER;
+
+import java.util.Set;
+
 import javax.servlet.http.HttpServletRequest;
 
 import nl.tudelft.oopp.demo.entities.FoodOrder;
@@ -37,7 +43,7 @@ public class FoodOrderController {
      * @param deliverTimeMs = the delivery time of the food order in milliseconds.
      * @return String containing the result of your request.
      */
-    @Secured("ROLE_USER")
+    @Secured(USER)
     @PostMapping(path = "/add") // Map ONLY POST Requests
     @ResponseBody
     public int addNewFoodOrder(@RequestParam String userEmail, @RequestParam int restaurantId, @RequestParam int deliverLocation,
@@ -52,7 +58,7 @@ public class FoodOrderController {
      * @param value = the new value of the attribute.
      * @return String containing the result of your request.
      */
-    @Secured({"ROLE_ADMIN"})
+    @Secured({ADMIN, RESTAURANT})
     @PostMapping(path = "/update")
     @ResponseBody
     public int updateAttribute(@RequestParam int id, @RequestParam String attribute, @RequestParam String value) {
@@ -64,7 +70,7 @@ public class FoodOrderController {
      * @param id = the id of the food order.
      * @param name = the name of the dish.
      */
-    @Secured({"ROLE_ADMIN"})
+    @Secured(USER)
     @PostMapping(path = "/addDish")
     @ResponseBody
     public void addDish(@RequestParam int id, @RequestParam String name) {
@@ -76,7 +82,7 @@ public class FoodOrderController {
      * @param id = the id of the food order.
      * @return String containing the result of your request.
      */
-    @Secured({"ROLE_ADMIN"})
+    @Secured({ADMIN, RESTAURANT})
     @DeleteMapping(path = "/delete")
     @ResponseBody
     public int deleteFoodOrder(@PathVariable(value = "id") int id) {
@@ -87,7 +93,7 @@ public class FoodOrderController {
      * Lists all food orders.
      * @return Iterable of all food orders.
      */
-    @Secured("ROLE_USER")
+    @Secured({ADMIN, RESTAURANT})
     @GetMapping(path = "/all")
     @ResponseBody
     public Iterable<FoodOrder> getAllFoodOrders() {
@@ -99,7 +105,7 @@ public class FoodOrderController {
      * @param request = the Http request that calls this method.
      * @return a list of past food orders for this user.
      */
-    @Secured("ROLE_USER")
+    @Secured(USER)
     @GetMapping(path = "/past")
     public Iterable<FoodOrder> getPastReservations(HttpServletRequest request) {
         return foodOrderService.past(request);
@@ -110,7 +116,7 @@ public class FoodOrderController {
      * @param request = the Http request that calls this method.
      * @return a list of future food orders for this user.
      */
-    @Secured("ROLE_USER")
+    @Secured(USER)
     @GetMapping(path = "/future")
     public Iterable<FoodOrder> getFutureReservations(HttpServletRequest request) {
         return foodOrderService.future(request);

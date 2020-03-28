@@ -1,5 +1,14 @@
 package nl.tudelft.oopp.demo.services;
 
+import static nl.tudelft.oopp.demo.config.Constants.ADDED;
+import static nl.tudelft.oopp.demo.config.Constants.ATTRIBUTE_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.BUILDING_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
+import static nl.tudelft.oopp.demo.config.Constants.ID_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.RESERVATION_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.RESTAURANT_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.USER_NOT_FOUND;
 import static nl.tudelft.oopp.demo.security.SecurityConstants.HEADER_STRING;
 
 import java.util.ArrayList;
@@ -62,19 +71,19 @@ public class FoodOrderService {
     public int add(int restaurantId, String userEmail, int deliverLocation, long deliverTimeMs) {
         Optional<Restaurant> optionalRestaurant = restaurantRepository.findById(restaurantId);
         if (optionalRestaurant.isEmpty()) {
-            return 428;
+            return RESTAURANT_NOT_FOUND;
         }
         Restaurant restaurant = optionalRestaurant.get();
 
         Optional<AppUser> optionalUser = userRepository.findById(userEmail);
         if (optionalUser.isEmpty()) {
-            return 404;
+            return NOT_FOUND;
         }
         AppUser appUser = optionalUser.get();
 
         Optional<Building> optionalDeliveryLocation = buildingRepository.findById(deliverLocation);
         if (optionalDeliveryLocation.isEmpty()) {
-            return 422;
+            return BUILDING_NOT_FOUND;
         }
         Building deliveryLocation = optionalDeliveryLocation.get();
 
@@ -85,7 +94,7 @@ public class FoodOrderService {
         foodOrder.setDeliveryTime(new Date(deliverTimeMs));
         foodOrder.setDishes(new HashSet<>());
         foodOrderRepository.save(foodOrder);
-        return 201;
+        return ADDED;
     }
 
     /**
@@ -97,7 +106,7 @@ public class FoodOrderService {
      */
     public int update(int id, String attribute, String value) {
         if (foodOrderRepository.findById(id).isEmpty()) {
-            return 421;
+            return RESERVATION_NOT_FOUND;
         }
         FoodOrder foodOrder = foodOrderRepository.findById(id).get();
         switch (attribute) {
@@ -105,7 +114,7 @@ public class FoodOrderService {
                 int buildingId = Integer.parseInt(value);
                 Optional<Building> optionalDeliveryLocation = buildingRepository.findById(buildingId);
                 if (optionalDeliveryLocation.isEmpty()) {
-                    return 422;
+                    return BUILDING_NOT_FOUND;
                 }
                 Building deliveryLocation = optionalDeliveryLocation.get();
                 foodOrder.setDeliveryLocation(deliveryLocation);
@@ -116,16 +125,16 @@ public class FoodOrderService {
             case "useremail":
                 Optional<AppUser> optionalUser = userRepository.findById(value);
                 if (optionalUser.isEmpty()) {
-                    return 419;
+                    return USER_NOT_FOUND;
                 }
                 AppUser appUser = optionalUser.get();
                 foodOrder.setAppUser(appUser);
                 break;
             default:
-                return 420;
+                return ATTRIBUTE_NOT_FOUND;
         }
         foodOrderRepository.save(foodOrder);
-        return 200;
+        return EXECUTED;
     }
 
     /**
@@ -135,14 +144,14 @@ public class FoodOrderService {
      */
     public int addDish(int id, String dishName) {
         if (!foodOrderRepository.existsById(id)) {
-            return 416;
+            return ID_NOT_FOUND;
         }
         FoodOrder foodOrder = foodOrderRepository.getOne(id);
         Dish dish;
         dish = dishRepository.findByName(dishName);
         foodOrder.addDish(dish);
         foodOrderRepository.save(foodOrder);
-        return 201;
+        return ADDED;
     }
 
     /**
@@ -152,10 +161,10 @@ public class FoodOrderService {
      */
     public int delete(int id) {
         if (!foodOrderRepository.existsById(id)) {
-            return 421;
+            return RESERVATION_NOT_FOUND;
         }
         foodOrderRepository.deleteById(id);
-        return 200;
+        return EXECUTED;
     }
 
     /**

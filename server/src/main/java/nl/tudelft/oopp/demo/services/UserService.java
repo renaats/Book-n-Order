@@ -1,5 +1,15 @@
 package nl.tudelft.oopp.demo.services;
 
+import static nl.tudelft.oopp.demo.config.Constants.ADDED;
+import static nl.tudelft.oopp.demo.config.Constants.ADDED_CONFIRM_EMAIL;
+import static nl.tudelft.oopp.demo.config.Constants.ATTRIBUTE_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.DUPLICATE_EMAIL;
+import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
+import static nl.tudelft.oopp.demo.config.Constants.INVALID_CONFIRMATION;
+import static nl.tudelft.oopp.demo.config.Constants.INVALID_EMAIL;
+import static nl.tudelft.oopp.demo.config.Constants.INVALID_EMAIL_DOMAIN;
+import static nl.tudelft.oopp.demo.config.Constants.RECOVER_PASSWORD;
+import static nl.tudelft.oopp.demo.config.Constants.USER_NOT_FOUND;
 import static nl.tudelft.oopp.demo.security.SecurityConstants.HEADER_STRING;
 import static nl.tudelft.oopp.demo.security.SecurityConstants.SECRET;
 import static nl.tudelft.oopp.demo.security.SecurityConstants.TOKEN_PREFIX;
@@ -15,11 +25,13 @@ import java.util.HashSet;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+
 import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.Role;
 import nl.tudelft.oopp.demo.events.OnRegistrationSuccessEvent;
 import nl.tudelft.oopp.demo.repositories.RoleRepository;
 import nl.tudelft.oopp.demo.repositories.UserRepository;
+
 import org.apache.commons.text.RandomStringGenerator;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,11 +89,11 @@ public class UserService {
         String token = request.getHeader(HEADER_STRING);
         AppUser appUser = getAppUser(token, userRepository);
         if (appUser == null) {
-            return 419;
+            return USER_NOT_FOUND;
         }
         appUser.setLoggedIn(false);
         userRepository.save(appUser);
-        return 201;
+        return ADDED;
     }
 
     /**
@@ -110,13 +122,13 @@ public class UserService {
      */
     public int add(String email, String password, String name, String surname, String faculty) {
         if (!EmailValidator.getInstance().isValid(URLDecoder.decode(email, StandardCharsets.UTF_8))) {
-            return 423;
+            return INVALID_EMAIL;
         }
         if (!email.contains("@student.tudelft.nl") && !email.contains("@tudelft.nl")) {
-            return 424;
+            return INVALID_EMAIL_DOMAIN;
         }
         if (userRepository.existsById(email)) {
-            return 310;
+            return DUPLICATE_EMAIL;
         }
         AppUser appUser = new AppUser();
         appUser.setEmail(email);
@@ -146,7 +158,7 @@ public class UserService {
             e.printStackTrace();
             System.out.println("Event did not go as expected.");
         }
-        return 203;
+        return ADDED_CONFIRM_EMAIL;
     }
 
     /**
@@ -159,14 +171,14 @@ public class UserService {
         String token = request.getHeader(HEADER_STRING);
         AppUser appUser = getAppUser(token, userRepository);
         if (appUser == null) {
-            return 419;
+            return USER_NOT_FOUND;
         }
         if (sixDigitCode == appUser.getConfirmationNumber()) {
             appUser.setConfirmationNumber(-1);
             userRepository.save(appUser);
-            return 200;
+            return EXECUTED;
         }
-        return 431;
+        return INVALID_CONFIRMATION;
     }
 
     /**
@@ -178,7 +190,7 @@ public class UserService {
      */
     public int update(String email, String attribute, String value) {
         if (userRepository.findById(email).isEmpty()) {
-            return 419;
+            return USER_NOT_FOUND;
         }
         AppUser appUser = userRepository.findById(email).get();
 
@@ -196,10 +208,10 @@ public class UserService {
                 appUser.setFaculty(value);
                 break;
             default:
-                return 412;
+                return ATTRIBUTE_NOT_FOUND;
         }
         userRepository.save(appUser);
-        return 200;
+        return EXECUTED;
     }
 
     /**
@@ -209,10 +221,10 @@ public class UserService {
      */
     public int delete(String email) {
         if (!userRepository.existsById(email)) {
-            return 419;
+            return USER_NOT_FOUND;
         }
         userRepository.deleteById(email);
-        return 200;
+        return EXECUTED;
     }
 
     /**
@@ -243,7 +255,7 @@ public class UserService {
      */
     public int addRole(String email, String roleName) {
         if (!userRepository.existsById(email)) {
-            return 419;
+            return USER_NOT_FOUND;
         }
         AppUser appUser = userRepository.getOne(email);
         Role role;
@@ -255,7 +267,7 @@ public class UserService {
         role = roleRepository.findByName(roleName);
         appUser.addRole(role);
         userRepository.save(appUser);
-        return 201;
+        return ADDED;
     }
 
     /**
@@ -297,9 +309,9 @@ public class UserService {
             AppUser appUser = userRepository.findByEmail(email);
             appUser.setPassword(bcryptPasswordEncoder.encode(password));
             userRepository.save(appUser);
-            return 205;
+            return RECOVER_PASSWORD;
         }
-        return 419;
+        return USER_NOT_FOUND;
     }
 
     /**
@@ -326,11 +338,11 @@ public class UserService {
         String token = request.getHeader(HEADER_STRING);
         AppUser appUser = getAppUser(token, userRepository);
         if (appUser == null) {
-            return 419;
+            return USER_NOT_FOUND;
         }
         appUser.setPassword(bcryptPasswordEncoder.encode(password));
         appUser.setLoggedIn(false);
         userRepository.save(appUser);
-        return 201;
+        return ADDED;
     }
 }
