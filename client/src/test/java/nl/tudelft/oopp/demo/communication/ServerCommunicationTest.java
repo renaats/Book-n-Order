@@ -58,7 +58,10 @@ public class ServerCommunicationTest {
         stubFor(delete(urlEqualTo("/room_reservation/delete?id=1")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(get(urlEqualTo("/user/info")).willReturn(aResponse().withStatus(200).withBody("Information")));
         stubFor(post(urlEqualTo("/login")).willReturn(aResponse().withStatus(200).withBody("token")));
+<<<<<<< HEAD
         stubFor(get(urlEqualTo("/room_reservation/find/10")).willReturn(aResponse().withStatus(200).withBody("Message10")));
+=======
+>>>>>>> 181-Adding_Admin_Menu_Restaurant
         stubFor(post(urlEqualTo("/restaurant/update?id=1&attribute=a&value=a")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(post(urlEqualTo("/restaurant/add?buildingId=1&name=name")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(get(urlEqualTo("/restaurant/all")).willReturn(aResponse().withStatus(200).withBody("Restaurants")));
