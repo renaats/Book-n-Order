@@ -2,10 +2,8 @@ package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 
 import nl.tudelft.oopp.demo.authentication.AuthenticationKey;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
@@ -22,10 +20,9 @@ public class ConfirmationSixDigitsController {
 
     /**
      * Checks the authenticity of user's email.
-     * @param actionEvent A confirm button click
      * @throws IOException Deals with improper input
      */
-    public void confirmValidity(ActionEvent actionEvent) throws IOException {
+    public void confirmValidity() throws IOException {
         try {
             int code = Integer.parseInt(sixDigitCode.getText());
             String response =  ServerCommunication.validateUser(code);
@@ -41,10 +38,9 @@ public class ConfirmationSixDigitsController {
 
     /**
      * Goes to login menu if the user clicks on the back arrow.
-     * @param mouseEvent The click on the back arrow
      * @throws IOException Deals with improper input
      */
-    public void goToLoginScreen(MouseEvent mouseEvent) throws IOException {
+    public void goToLoginScreen() throws IOException {
         AuthenticationKey.setBearerKey(null);
         ApplicationDisplay.changeScene("/login-screen.fxml");
     }

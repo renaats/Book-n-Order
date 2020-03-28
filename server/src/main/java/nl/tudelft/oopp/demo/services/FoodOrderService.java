@@ -59,7 +59,7 @@ public class FoodOrderService {
      * @param deliverTimeMs = the deliver time of the food order in milliseconds (Java Date).
      * @return String containing the result of your request.
      */
-    public int add(int restaurantId, String userEmail, int deliverLocation, long deliverTimeMs, Set<Integer> dishIds) {
+    public int add(int restaurantId, String userEmail, int deliverLocation, long deliverTimeMs) {
         Optional<Restaurant> optionalRestaurant = restaurantRepository.findById(restaurantId);
         if (optionalRestaurant.isEmpty()) {
             return 428;

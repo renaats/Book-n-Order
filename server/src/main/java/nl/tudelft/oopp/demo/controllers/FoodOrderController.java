@@ -1,10 +1,7 @@
 package nl.tudelft.oopp.demo.controllers;
 
-import java.util.Set;
-
 import javax.servlet.http.HttpServletRequest;
 
-import nl.tudelft.oopp.demo.entities.Dish;
 import nl.tudelft.oopp.demo.entities.FoodOrder;
 import nl.tudelft.oopp.demo.services.FoodOrderService;
 
@@ -13,6 +10,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,15 +34,15 @@ public class FoodOrderController {
      * @param restaurantId = the id of the restaurant where the food order is placed.
      * @param userEmail = the email of the user associated to the food order.
      * @param deliverLocation = the delivery location of the food order.
-     * @param deliverTimeMs = the delivery time of the food order.
+     * @param deliverTimeMs = the delivery time of the food order in milliseconds.
      * @return String containing the result of your request.
      */
     @Secured("ROLE_USER")
     @PostMapping(path = "/add") // Map ONLY POST Requests
     @ResponseBody
     public int addNewFoodOrder(@RequestParam String userEmail, @RequestParam int restaurantId, @RequestParam int deliverLocation,
-                               @RequestParam long deliverTimeMs, @RequestParam Set<Integer> dishIds) {
-        return foodOrderService.add(restaurantId, userEmail, deliverLocation, deliverTimeMs, dishIds);
+                               @RequestParam long deliverTimeMs) {
+        return foodOrderService.add(restaurantId, userEmail, deliverLocation, deliverTimeMs);
     }
 
     /**
@@ -81,7 +79,7 @@ public class FoodOrderController {
     @Secured({"ROLE_ADMIN"})
     @DeleteMapping(path = "/delete")
     @ResponseBody
-    public int deleteFoodOrder(@RequestParam int id) {
+    public int deleteFoodOrder(@PathVariable(value = "id") int id) {
         return foodOrderService.delete(id);
     }
 

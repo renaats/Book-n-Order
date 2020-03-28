@@ -10,14 +10,6 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
  */
 public class DatabaseMainMenuController {
 
-    public void dataBaseBikes() throws IOException {
-        ApplicationDisplay.changeScene("/mainMenu.fxml");
-    }
-
-    public void databaseFood() throws IOException {
-        ApplicationDisplay.changeScene("/mainMenu.fxml");
-    }
-
     public void databaseBuildings() throws IOException {
         ApplicationDisplay.changeScene("/DatabaseBuildingMenu.fxml");
     }

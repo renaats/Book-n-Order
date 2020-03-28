@@ -12,8 +12,10 @@ import javafx.scene.control.DialogPane;
 import javafx.stage.StageStyle;
 
 import nl.tudelft.oopp.demo.entities.AppUser;
+import nl.tudelft.oopp.demo.entities.BikeReservation;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.BuildingHours;
+import nl.tudelft.oopp.demo.entities.FoodOrder;
 import nl.tudelft.oopp.demo.entities.Restaurant;
 import nl.tudelft.oopp.demo.entities.RestaurantHours;
 import nl.tudelft.oopp.demo.entities.Room;
@@ -300,6 +302,98 @@ public class JsonMapper {
             alert.setTitle("Error");
             alert.setHeaderText(null);
             alert.setContentText(roomReservationsJson);
+            alert.showAndWait();
+        }
+        return null;
+    }
+
+    /**
+     * Maps JSON to FoodOrder entity.
+     * @param foodOrderJson representation of a food order.
+     * @return FoodOrder entity.
+     */
+    public static FoodOrder foodOrderMapper(String foodOrderJson) {
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+
+        try {
+            // Convert JSON string to Object
+            return mapper.readValue(foodOrderJson, FoodOrder.class);
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText(foodOrderJson);
+            alert.showAndWait();
+        }
+        return null;
+    }
+
+    /**
+     * Maps all Food Orders JSONS to a list.
+     * @param foodOrdersJson a JSON string representing a list.
+     * @return A list filled with object Food Order
+     */
+    public static List<FoodOrder> foodOrdersListMapper(String foodOrdersJson) {
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+
+        try {
+            // Convert JSON string to Object
+            return mapper.readValue(foodOrdersJson, new TypeReference<List<FoodOrder>>(){});
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText(foodOrdersJson);
+            alert.showAndWait();
+        }
+        return null;
+    }
+
+    /**
+     * Maps JSON to BikeReservation entity.
+     * @param bikeReservationJson representation of a bike reservation.
+     * @return BikeReservation entity.
+     */
+    public static BikeReservation bikeReservationMapper(String bikeReservationJson) {
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+
+        try {
+            // Convert JSON string to Object
+            return mapper.readValue(bikeReservationJson, BikeReservation.class);
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText(bikeReservationJson);
+            alert.showAndWait();
+        }
+        return null;
+    }
+
+    /**
+     * Maps all Bike Reservation JSONS to a list.
+     * @param bikeReservationsJson a JSON string representing a list.
+     * @return A list filled with object Bike Reservation
+     */
+    public static List<BikeReservation> bikeReservationsListMapper(String bikeReservationsJson) {
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+
+        try {
+            // Convert JSON string to Object
+            return mapper.readValue(bikeReservationsJson, new TypeReference<List<BikeReservation>>(){});
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText(bikeReservationsJson);
             alert.showAndWait();
         }
         return null;

@@ -1,4 +1,4 @@
-package nl.tudelft.oopp.demo;
+package nl.tudelft.oopp.demo.services;
 
 import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
 import static nl.tudelft.oopp.demo.security.SecurityConstants.EXPIRATION_TIME;

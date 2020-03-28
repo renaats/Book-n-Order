@@ -1,4 +1,4 @@
-package nl.tudelft.oopp.demo;
+package nl.tudelft.oopp.demo.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -133,6 +133,18 @@ public class BuildingServiceTest {
         assertNotEquals("Aula", buildingService.find(id).getName());
         buildingService.update(id, "name", "Aula");
         assertEquals("Aula", buildingService.find(id).getName());
+    }
+
+    /**
+     * Tests duplicate building names.
+     */
+    @Test
+    public void testChangeNameToAlreadyExistingOne() {
+        buildingService.add(building.getName(), building.getStreet(), building.getHouseNumber());
+        buildingService.add(building2.getName(), building2.getStreet(), building2.getHouseNumber());
+        int id = buildingService.all().get(0).getId();
+        assertEquals("EWI", buildingService.find(id).getName());
+        assertEquals(309, buildingService.update(id, "name", "EWI2"));
     }
 
     /**

@@ -22,7 +22,7 @@ public class LoginController {
     private TextField passwordField;
 
     /**
-     * Changes current to templateScene.fxml.
+     * Changes current to mainMenu.fxml.
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
     public void mainMenu() throws IOException {
