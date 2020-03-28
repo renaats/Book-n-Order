@@ -328,23 +328,80 @@ class JsonMapperTest {
         stubFor(get(urlEqualTo("/food_order/find/4"))
                 .willReturn(aResponse()
                         .withStatus(200)
-                        .withBody("{\"id\":4,\"restaurant\":{\"id\":2,\"building\":{\"id\":1,\"name\":\"alto\",\"street\":\"rruga\",\"houseNumber"
-                                + "\":24},\"name\":\"Ad\",\"menu\":null},\"appUser\":{\"email\":\"a.delia@student.tudelft.nl\",\"password\":\""
-                                + "$2a$10$x9OlEoG2tU62ASvF5mDrYurry8qijsQ/oZgRIGlvHeTxpC6.NgAsW\",\"name\":\"Alto\",\"surname\":\"Delia\",\"faculty"
-                                + "\":\"EWI\",\"loggedIn\":true,\"confirmationNumber\":33712,\"roles\":[{\"id\":2,\"name\":\"ROLE_ADMIN\"},{\"id\":1,"
-                                + "\"name\":\"ROLE_USER\"}]},\"deliveryLocation\":{\"id\":1,\"name\":\"alto\",\"street\":\"rruga\",\"houseNumber\":24}")));
+                        .withBody("{\"id\":4,\"restaurant\":{\"id\":2,\"building\":{\"id\":1,\"name\":\"alto\",\"street\":\"rruga\""
+                                + ",\"houseNumber\":24},\"name\":\"Ad\",\"menu\":null},\"appUser\":{\"email\":\"a.delia@student.tudelft.nl"
+                                + "\",\"password\":\"$2a$10$x9OlEoG2tU62ASvF5mDrYurry8qijsQ/oZgRIGlvHeTxpC6.NgAsW\",\"name\":\"Alto\",\""
+                                + "surname\":\"Delia\",\"faculty\":\"EWI\",\"loggedIn\":true,\"confirmationNumber\":33712,\"roles\":[{\"id\""
+                                + ":2,\"name\":\"ROLE_ADMIN\"},{\"id\":1,\"name\":\"ROLE_USER\"}]},\"deliveryLocation\":{\"id\":1,\"name\":\""
+                                + "alto\",\"street\":\"rruga\",\"houseNumber\":24},\"deliveryTime\":\"1970-01-01T00:00:00.100+0000\",\"menu\""
+                                + ":null,\"dishes\":[]}")));
 
-        String json = "{\"id\":4,\"restaurant\":{\"id\":2,\"building\":{\"id\":1,\"name\":\"alto\",\"street\":\"rruga\",\"houseNumber"
-                + "\":24},\"name\":\"Ad\",\"menu\":null},\"appUser\":{\"email\":\"a.delia@student.tudelft.nl\",\"password\":\""
-                + "$2a$10$x9OlEoG2tU62ASvF5mDrYurry8qijsQ/oZgRIGlvHeTxpC6.NgAsW\",\"name\":\"Alto\",\"surname\":\"Delia\",\"faculty"
-                + "\":\"EWI\",\"loggedIn\":true,\"confirmationNumber\":33712,\"roles\":[{\"id\":2,\"name\":\"ROLE_ADMIN\"},{\"id\":1,"
-                + "\"name\":\"ROLE_USER\"}]},\"deliveryLocation\":{\"id\":1,\"name\":\"alto\",\"street\":\"rruga\",\"houseNumber\":24}";
+        String json = "{\"id\":4,\"restaurant\":{\"id\":2,\"building\":{\"id\":1,\"name\":\"alto\",\"street\":\"rruga\""
+                + ",\"houseNumber\":24},\"name\":\"Ad\",\"menu\":null},\"appUser\":{\"email\":\"a.delia@student.tudelft.nl"
+                + "\",\"password\":\"$2a$10$x9OlEoG2tU62ASvF5mDrYurry8qijsQ/oZgRIGlvHeTxpC6.NgAsW\",\"name\":\"Alto\",\""
+                + "surname\":\"Delia\",\"faculty\":\"EWI\",\"loggedIn\":true,\"confirmationNumber\":33712,\"roles\":[{\"id\""
+                + ":2,\"name\":\"ROLE_ADMIN\"},{\"id\":1,\"name\":\"ROLE_USER\"}]},\"deliveryLocation\":{\"id\":1,\"name\":\""
+                + "alto\",\"street\":\"rruga\",\"houseNumber\":24},\"deliveryTime\":\"1970-01-01T00:00:00.100+0000\",\"menu\""
+                + ":null,\"dishes\":[]}";
 
         FoodOrder foodOrder = JsonMapper.foodOrderMapper(json);
-        assertEquals(foodOrder, JsonMapper.foodOrderMapper("{\"id\":4,\"restaurant\":{\"id\":2,\"building\":{\"id\":1,\"name\":\"alto\",\"street\":\"rruga\",\"houseNumber"
-                + "\":24},\"name\":\"Ad\",\"menu\":null},\"appUser\":{\"email\":\"a.delia@student.tudelft.nl\",\"password\":\""
-                + "$2a$10$x9OlEoG2tU62ASvF5mDrYurry8qijsQ/oZgRIGlvHeTxpC6.NgAsW\",\"name\":\"Alto\",\"surname\":\"Delia\",\"faculty"
-                + "\":\"EWI\",\"loggedIn\":true,\"confirmationNumber\":33712,\"roles\":[{\"id\":2,\"name\":\"ROLE_ADMIN\"},{\"id\":1,"
-                + "\"name\":\"ROLE_USER\"}]},\"deliveryLocation\":{\"id\":1,\"name\":\"alto\",\"street\":\"rruga\",\"houseNumber\":24}"));
+        assertEquals(foodOrder, JsonMapper.foodOrderMapper("{\"id\":4,\"restaurant\":{\"id\":2,\"building\""
+                + ":{\"id\":1,\"name\":\"alto\",\"street\":\"rruga\""
+                + ",\"houseNumber\":24},\"name\":\"Ad\",\"menu\":null},\"appUser\":{\"email\":\"a.delia@student.tudelft.nl"
+                + "\",\"password\":\"$2a$10$x9OlEoG2tU62ASvF5mDrYurry8qijsQ/oZgRIGlvHeTxpC6.NgAsW\",\"name\":\"Alto\",\""
+                + "surname\":\"Delia\",\"faculty\":\"EWI\",\"loggedIn\":true,\"confirmationNumber\":33712,\"roles\":[{\"id\""
+                + ":2,\"name\":\"ROLE_ADMIN\"},{\"id\":1,\"name\":\"ROLE_USER\"}]},\"deliveryLocation\":{\"id\":1,\"name\":\""
+                + "alto\",\"street\":\"rruga\",\"houseNumber\":24},\"deliveryTime\":\"1970-01-01T00:00:00.100+0000\",\"menu\""
+                + ":null,\"dishes\":[]}"));
+    }
+
+    @Test
+    void foodOrderListMapperTest() {
+        stubFor(get(urlEqualTo("/food_order/all"))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withBody("[{\"id\":4,\"restaurant\":{\"id\":2,\"building\":{\"id\":1,\"name\":\"alto\",\"street\":\"rruga\""
+                                + ",\"houseNumber\":24},\"name\":\"Ad\",\"menu\":null},\"appUser\":{\"email\":\"a.delia@student.tudelft.nl"
+                                + "\",\"password\":\"$2a$10$x9OlEoG2tU62ASvF5mDrYurry8qijsQ/oZgRIGlvHeTxpC6.NgAsW\",\"name\":\"Alto\",\""
+                                + "surname\":\"Delia\",\"faculty\":\"EWI\",\"loggedIn\":true,\"confirmationNumber\":33712,\"roles\":[{\"id\""
+                                + ":2,\"name\":\"ROLE_ADMIN\"},{\"id\":1,\"name\":\"ROLE_USER\"}]},\"deliveryLocation\":{\"id\":1,\"name\":\""
+                                + "alto\",\"street\":\"rruga\",\"houseNumber\":24},\"deliveryTime\":\"1970-01-01T00:00:00.100+0000\",\"menu\""
+                                + ":null,\"dishes\":[]},{\"id\":5,\"restaurant\":{\"id\":2,\"building\":{\"id\":1,\"name\":\"alto\",\"street\":\"rruga\""
+                                + ",\"houseNumber\":24},\"name\":\"Ad\",\"menu\":null},\"appUser\":{\"email\":\"a.delia@student.tudelft.nl"
+                                + "\",\"password\":\"$2a$10$x9OlEoG2tU62ASvF5mDrYurry8qijsQ/oZgRIGlvHeTxpC6.NgAsW\",\"name\":\"Alto\",\""
+                                + "surname\":\"Delia\",\"faculty\":\"EWI\",\"loggedIn\":true,\"confirmationNumber\":33712,\"roles\":[{\"id\""
+                                + ":2,\"name\":\"ROLE_ADMIN\"},{\"id\":1,\"name\":\"ROLE_USER\"}]},\"deliveryLocation\":{\"id\":1,\"name\":\""
+                                + "alto\",\"street\":\"rruga\",\"houseNumber\":24},\"deliveryTime\":\"1970-01-01T00:00:00.100+0000\",\"menu\""
+                                + ":null,\"dishes\":[]}]")));
+
+        String json = "[{\"id\":4,\"restaurant\":{\"id\":2,\"building\":{\"id\":1,\"name\":\"alto\",\"street\":\"rruga\""
+                + ",\"houseNumber\":24},\"name\":\"Ad\",\"menu\":null},\"appUser\":{\"email\":\"a.delia@student.tudelft.nl"
+                + "\",\"password\":\"$2a$10$x9OlEoG2tU62ASvF5mDrYurry8qijsQ/oZgRIGlvHeTxpC6.NgAsW\",\"name\":\"Alto\",\""
+                + "surname\":\"Delia\",\"faculty\":\"EWI\",\"loggedIn\":true,\"confirmationNumber\":33712,\"roles\":[{\"id\""
+                + ":2,\"name\":\"ROLE_ADMIN\"},{\"id\":1,\"name\":\"ROLE_USER\"}]},\"deliveryLocation\":{\"id\":1,\"name\":\""
+                + "alto\",\"street\":\"rruga\",\"houseNumber\":24},\"deliveryTime\":\"1970-01-01T00:00:00.100+0000\",\"menu\""
+                + ":null,\"dishes\":[]},{\"id\":5,\"restaurant\":{\"id\":2,\"building\":{\"id\":1,\"name\":\"alto\",\"street\":\"rruga\""
+                + ",\"houseNumber\":24},\"name\":\"Ad\",\"menu\":null},\"appUser\":{\"email\":\"a.delia@student.tudelft.nl"
+                + "\",\"password\":\"$2a$10$x9OlEoG2tU62ASvF5mDrYurry8qijsQ/oZgRIGlvHeTxpC6.NgAsW\",\"name\":\"Alto\",\""
+                + "surname\":\"Delia\",\"faculty\":\"EWI\",\"loggedIn\":true,\"confirmationNumber\":33712,\"roles\":[{\"id\""
+                + ":2,\"name\":\"ROLE_ADMIN\"},{\"id\":1,\"name\":\"ROLE_USER\"}]},\"deliveryLocation\":{\"id\":1,\"name\":\""
+                + "alto\",\"street\":\"rruga\",\"houseNumber\":24},\"deliveryTime\":\"1970-01-01T00:00:00.100+0000\",\"menu\""
+                + ":null,\"dishes\":[]}]";
+
+        List<FoodOrder> foodOrders = JsonMapper.foodOrdersListMapper(json);
+
+        assertEquals(foodOrders, JsonMapper.foodOrdersListMapper("[{\"id\":4,\"restaurant\":{\"id\":2,\"building\":{\"id\":1,\"name\":\"alto\",\"street\":\"rruga\""
+                + ",\"houseNumber\":24},\"name\":\"Ad\",\"menu\":null},\"appUser\":{\"email\":\"a.delia@student.tudelft.nl"
+                + "\",\"password\":\"$2a$10$x9OlEoG2tU62ASvF5mDrYurry8qijsQ/oZgRIGlvHeTxpC6.NgAsW\",\"name\":\"Alto\",\""
+                + "surname\":\"Delia\",\"faculty\":\"EWI\",\"loggedIn\":true,\"confirmationNumber\":33712,\"roles\":[{\"id\""
+                + ":2,\"name\":\"ROLE_ADMIN\"},{\"id\":1,\"name\":\"ROLE_USER\"}]},\"deliveryLocation\":{\"id\":1,\"name\":\""
+                + "alto\",\"street\":\"rruga\",\"houseNumber\":24},\"deliveryTime\":\"1970-01-01T00:00:00.100+0000\",\"menu\""
+                + ":null,\"dishes\":[]},{\"id\":5,\"restaurant\":{\"id\":2,\"building\":{\"id\":1,\"name\":\"alto\",\"street\":\"rruga\""
+                + ",\"houseNumber\":24},\"name\":\"Ad\",\"menu\":null},\"appUser\":{\"email\":\"a.delia@student.tudelft.nl"
+                + "\",\"password\":\"$2a$10$x9OlEoG2tU62ASvF5mDrYurry8qijsQ/oZgRIGlvHeTxpC6.NgAsW\",\"name\":\"Alto\",\""
+                + "surname\":\"Delia\",\"faculty\":\"EWI\",\"loggedIn\":true,\"confirmationNumber\":33712,\"roles\":[{\"id\""
+                + ":2,\"name\":\"ROLE_ADMIN\"},{\"id\":1,\"name\":\"ROLE_USER\"}]},\"deliveryLocation\":{\"id\":1,\"name\":\""
+                + "alto\",\"street\":\"rruga\",\"houseNumber\":24},\"deliveryTime\":\"1970-01-01T00:00:00.100+0000\",\"menu\""
+                + ":null,\"dishes\":[]}]"));
     }
 }
