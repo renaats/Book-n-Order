@@ -10,7 +10,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Objects;
 
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
@@ -45,16 +48,16 @@ public class PersonalCalendarView extends CalendarView {
                 new ArrayList<>(Objects.requireNonNull(JsonMapper.roomReservationsListMapper(ServerCommunication.getRoomReservations())));
         for (RoomReservation reservation : roomReservationList) {
             if (reservation.getAppUser().getEmail().equals(this.currentUser)) {
-            Entry<RoomReservation> bookedEntry = new Entry<>("Booking of " + reservation.getRoom().getName());
+                Entry<RoomReservation> bookedEntry = new Entry<>("Booking of " + reservation.getRoom().getName());
 
-            LocalTime startTime = convertToLocalTime(reservation.getFromTime());
-            LocalTime endTime = convertToLocalTime(reservation.getToTime());
-            LocalDate date = convertToLocalDate(reservation.getFromTime());
+                LocalTime startTime = convertToLocalTime(reservation.getFromTime());
+                LocalTime endTime = convertToLocalTime(reservation.getToTime());
+                LocalDate date = convertToLocalDate(reservation.getFromTime());
 
-            bookedEntry.setLocation(reservation.getRoom().getBuilding().toString());
-            bookedEntry.setInterval(date);
-            bookedEntry.setInterval(startTime, endTime);
-            bookedRooms.addEntry(bookedEntry);
+                bookedEntry.setLocation(reservation.getRoom().getBuilding().toString());
+                bookedEntry.setInterval(date);
+                bookedEntry.setInterval(startTime, endTime);
+                bookedRooms.addEntry(bookedEntry);
             }
         }
     }
@@ -65,7 +68,7 @@ public class PersonalCalendarView extends CalendarView {
     public void loadFoodOrders() {
         List<FoodOrder> foodOrdersList =
                 new ArrayList<>(Objects.requireNonNull(JsonMapper.foodOrdersListMapper(ServerCommunication.getAllFoodOrders())));
-        for(FoodOrder foodOrder: foodOrdersList) {
+        for (FoodOrder foodOrder: foodOrdersList) {
             if (foodOrder.getAppUser().getEmail().equals(this.currentUser)) {
                 Entry<RoomReservation> bookedEntry = new Entry<>("Order Number: " + foodOrder.getId());
 

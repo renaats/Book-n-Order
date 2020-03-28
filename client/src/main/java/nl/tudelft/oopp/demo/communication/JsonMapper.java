@@ -283,8 +283,7 @@ public class JsonMapper {
         return null;
     }
 
-
-     /**
+    /**
      * Maps all Room Reservation JSONS to a list.
      * @param roomReservationsJson a JSON string representing a list.
      * @return A list filled with object Room Reservation
