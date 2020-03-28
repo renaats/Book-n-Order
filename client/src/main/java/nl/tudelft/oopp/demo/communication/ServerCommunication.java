@@ -592,6 +592,17 @@ public class ServerCommunication {
     }
 
     /**
+     * Changes the password of a given user
+     * @param changeValue = New value of the password.
+     * @return the body of the response from the server.
+     */
+    public static String changeUserPassword(String changeValue) {
+        HttpRequest request;
+        request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/user/changePassword?password=" + URLEncoder.encode(changeValue, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnErrorMessage(request);
+    }
+
+    /**
      * Retrieves a boolean value from the server, false = no admin access, true = admin access.
      * @return the body of the response from the server.
      */
@@ -744,8 +755,101 @@ public class ServerCommunication {
     }
 
     /**
+<<<<<<< HEAD
      * Finds all future and current bike reservations for the user that sends the request
      * @return response.body of the server
+=======
+     * Removes a room from the database.
+     * @param id = the id of the room.
+     * @return the body of the response from the server.
+     */
+    public static String deleteRoom(int id) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room/delete/" + id)).DELETE().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnErrorMessage(request);
+    }
+
+    /**
+     * Removes building hours from the database.
+     * @param id = the id of the building.
+     * @param day = the day of the week represented in an int.
+     * @return the body of the response from the server.
+     */
+    public static String deleteBuildingHours(int id, int day) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building_hours/delete?id=" + id + "&day=" + day)).DELETE().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnErrorMessage(request);
+    }
+
+    /**
+     * Removes restaurant hours from the database.
+     * @param id = the id of the restaurant.
+     * @param day = the day of the week represented in an int.
+     * @return the body of the response from the server.
+     */
+    public static String deleteRestaurantHours(int id, int day) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant_hours/delete?id=" + id + "&day=" + day)).DELETE().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnErrorMessage(request);
+    }
+
+    /**
+     * Updates a given attribute of a room.
+     * @param id = the id of the room.
+     * @param attribute = The attribute whose value is to be changed.
+     * @param changeValue = New value.
+     * @return the body of the response from the server.
+     */
+    public static String updateRoom(int id, String attribute, String changeValue) {
+        HttpRequest request;
+        request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room/update?id=" + id + "&attribute=" + attribute + "&value=" + URLEncoder.encode(changeValue, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnErrorMessage(request);
+    }
+
+    /**
+     * Communicates addRoom to the database
+     * @param name room name
+     * @param faculty faculty name
+     * @param buildingId building ID
+     * @param facultySpecific is it specific for a faculty
+     * @param screen does the room have a screen
+     * @param projector does the room have a projector
+     * @param capacity capacity of the room in people
+     * @param plugs amount of available plugs
+     * @return body response
+     */
+    public static String addRoom(String name, String faculty,
+                                 int buildingId, boolean facultySpecific,
+                                 boolean screen, boolean projector,
+                                 int capacity, int plugs) {
+        HttpRequest request;
+        request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room/add?name=" + URLEncoder.encode(name, StandardCharsets.UTF_8) + "&faculty=" + URLEncoder.encode(faculty, StandardCharsets.UTF_8) + "&facultySpecific=" + facultySpecific + "&screen=" + screen + "&projector=" + projector + "&buildingId=" + buildingId + "&capacity=" + capacity + "&plugs=" + plugs)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnErrorMessage(request);
+    }
+
+    /**
+     * Communicates the buildings to add to the database
+     * @param name building name
+     * @param street street name
+     * @param houseNumber house number
+     * @return response body
+     */
+    public static String addBuilding(String name, String street,int houseNumber) {
+        HttpRequest request;
+        request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building/add?name=" + URLEncoder.encode(name, StandardCharsets.UTF_8) + "&street=" + URLEncoder.encode(street, StandardCharsets.UTF_8) + "&houseNumber=" + houseNumber)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnErrorMessage(request);
+    }
+
+    /**
+     * Should log the user out
+     * @return confirmation message
+     */
+    public static String logoutUser() {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/user/logout")).POST(HttpRequest.BodyPublishers.noBody()).build();
+        return communicateAndReturnErrorMessage(request);
+    }
+
+    /**
+     * Retrieves all room reservations from the server.
+     * @return the body of a get request to the server.
+>>>>>>> 141-ChangePassword
      */
     public static String getAllFutureBikeReservations() {
         HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/bike_reservation/future")).build();
