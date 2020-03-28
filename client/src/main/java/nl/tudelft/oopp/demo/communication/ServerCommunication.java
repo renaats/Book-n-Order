@@ -474,13 +474,13 @@ public class ServerCommunication {
     /**
      * Adds restaurant hours to the database
      * @param restaurantId restaurant id
-     * @param day day represented by int
+     * @param date day represented by int
      * @param startTimeS start time in seconds
      * @param endTimeS end time in seconds
      * @return response.body of the server
      */
-    public static String addRestaurantHours(int restaurantId, int day, int startTimeS, int endTimeS) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant_hours/add?restaurantId=" + restaurantId + "&day=" + day + "&startTimeS=" + startTimeS + "&endTimeS=" + endTimeS)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+    public static String addRestaurantHours(int restaurantId, long date, int startTimeS, int endTimeS) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant_hours/add?restaurantId=" + restaurantId + "&date=" + date + "&startTimeS=" + startTimeS + "&endTimeS=" + endTimeS)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnBodyOfResponse(request);
     }
 
