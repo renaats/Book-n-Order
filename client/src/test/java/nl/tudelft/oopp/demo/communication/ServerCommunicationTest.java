@@ -56,6 +56,9 @@ public class ServerCommunicationTest {
         stubFor(delete(urlEqualTo("/room_reservation/delete?id=1")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(get(urlEqualTo("/user/info")).willReturn(aResponse().withStatus(200).withBody("Information")));
         stubFor(post(urlEqualTo("/login")).willReturn(aResponse().withStatus(200).withBody("token")));
+        stubFor(post(urlEqualTo("/restaurant/update?id=1&attribute=a&value=a")).willReturn(aResponse().withStatus(200).withBody("200")));
+        stubFor(post(urlEqualTo("/restaurant/add?buildingId=1&name=name")).willReturn(aResponse().withStatus(200).withBody("200")));
+        stubFor(get(urlEqualTo("/restaurant/all")).willReturn(aResponse().withStatus(200).withBody("Restaurants")));
         stubFor(post(urlEqualTo("/dish/add?name=test&menuId=1")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(delete(urlEqualTo("/dish/delete/1")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(delete(urlEqualTo("/food_order/delete/1")).willReturn(aResponse().withStatus(200).withBody("200")));
@@ -332,11 +335,35 @@ public class ServerCommunicationTest {
     }
 
     /**
+     * Tests the response when the updateRestaurant request is successful.
+     */
+    @Test
+    public void testSuccessfulUpdateRestaurant() {
+        assertEquals(ErrorMessages.getErrorMessage(200), ServerCommunication.updateRestaurant( 1, "a", "a"));
+    }
+
+    /**
+     * Tests the response when the addRestaurant request is successful.
+     */
+    @Test
+    public void testSuccessfulAddRestaurant() {
+        assertEquals(ErrorMessages.getErrorMessage(200), ServerCommunication.addRestaurant(1,"name"));
+    }
+
+    /**
      * Tests the response when the addRoom request is successful.
      */
     @Test
     public void testSuccessfulAddRoom() {
         assertEquals(ErrorMessages.getErrorMessage(200), ServerCommunication.addRoom("a", "a", 1, true, true, true, 1, 1));
+    }
+
+    /**
+     * Tests the response when the getRestaurants request is successful.
+     */
+    @Test
+    public void testSuccessfulGetRestaurants() {
+        assertEquals("Restaurants", ServerCommunication.getRestaurants());
     }
 
     /**
