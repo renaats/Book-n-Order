@@ -14,6 +14,8 @@ import java.util.*;
 
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
+import nl.tudelft.oopp.demo.entities.BikeReservation;
+import nl.tudelft.oopp.demo.entities.FoodOrder;
 import nl.tudelft.oopp.demo.entities.RoomReservation;
 
 public class PersonalCalendarView extends CalendarView {
@@ -31,6 +33,8 @@ public class PersonalCalendarView extends CalendarView {
         this.currentUser = currentUser;
         displayCalendars();
         loadRoomReservations();
+        loadBikeReservations();
+        loadFoodOrders();
     }
 
     /**
@@ -47,6 +51,7 @@ public class PersonalCalendarView extends CalendarView {
             LocalTime endTime = convertToLocalTime(reservation.getToTime());
             LocalDate date = convertToLocalDate(reservation.getFromTime());
 
+            bookedEntry.setLocation(reservation.getRoom().getBuilding().toString());
             bookedEntry.setInterval(date);
             bookedEntry.setInterval(startTime, endTime);
             bookedRooms.addEntry(bookedEntry);
@@ -54,9 +59,49 @@ public class PersonalCalendarView extends CalendarView {
         }
     }
 
-    //method to load room reservations
+    /**
+     * Methods that loads food orders of personal user
+     */
+    public void loadFoodOrders() {
+        List<FoodOrder> foodOrdersList =
+                new ArrayList<>(Objects.requireNonNull(JsonMapper.foodOrdersListMapper(ServerCommunication.getAllFoodOrders())));
+        for(FoodOrder foodOrder: foodOrdersList) {
+            if (foodOrder.getAppUser().getEmail().equals(this.currentUser)) {
+                Entry<RoomReservation> bookedEntry = new Entry<>("Order Number: " + foodOrder.getId());
 
-    //method to load bike rentals
+                LocalTime startTime = convertToLocalTime(foodOrder.getDeliveryTime());
+                LocalTime endTime = convertToLocalTime(foodOrder.getDeliveryTime());
+                LocalDate date = convertToLocalDate(foodOrder.getDeliveryTime());
+
+                bookedEntry.setLocation(foodOrder.getDeliveryLocation().toString());
+                bookedEntry.setInterval(date);
+                bookedEntry.setInterval(startTime, endTime);
+                orderedFood.addEntry(bookedEntry);
+            }
+        }
+    }
+
+    /**
+     * Methods that loads room reservations of personal user
+     */
+    public void loadBikeReservations() {
+        List<BikeReservation> bikeReservationList =
+                new ArrayList<>(Objects.requireNonNull(JsonMapper.bikeReservationsListMapper(ServerCommunication.getAllBikeReservations())));
+        for (BikeReservation reservation : bikeReservationList) {
+            if (reservation.getAppUser().getEmail().equals(this.currentUser)) {
+                Entry<RoomReservation> bookedEntry = new Entry<>("Booking of " + String.valueOf(reservation.getBike().getId()));
+
+                LocalTime startTime = convertToLocalTime(reservation.getFromTime());
+                LocalTime endTime = convertToLocalTime(reservation.getToTime());
+                LocalDate date = convertToLocalDate(reservation.getFromTime());
+
+                bookedEntry.setLocation(reservation.getFromBuilding().toString());
+                bookedEntry.setInterval(date);
+                bookedEntry.setInterval(startTime, endTime);
+                rentedBikes.addEntry(bookedEntry);
+            }
+        }
+    }
 
     /**
      * Method that displays the different calendars.
