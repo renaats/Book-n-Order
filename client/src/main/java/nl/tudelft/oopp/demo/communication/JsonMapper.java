@@ -87,6 +87,7 @@ public class JsonMapper {
         }
         return null;
     }
+
     /**
      * Maps all room JSONS to a list.
      * @param menuJson a JSON string representing a list.
