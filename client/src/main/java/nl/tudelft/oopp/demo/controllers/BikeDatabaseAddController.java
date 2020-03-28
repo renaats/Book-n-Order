@@ -47,9 +47,6 @@ public class BikeDatabaseAddController implements Initializable {
         }
     }
 
-    public BikeDatabaseAddController() throws IOException {
-    }
-
     /**
      * Loads all the buildings of the database into the choice box as options for bike locations.
      */
