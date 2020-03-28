@@ -491,8 +491,7 @@ public class ServerCommunication {
      * @return the body of the response from the server.
      */
     public static String addRestaurant(int buildingId, String name) {
-        HttpRequest request;
-        request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant/add?name=" + URLEncoder.encode(name, StandardCharsets.UTF_8) + "&=buildingId" + buildingId)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant/add?buildingId=" + buildingId + "&name=" + URLEncoder.encode(name, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnErrorMessage(request);
     }
 
@@ -502,7 +501,19 @@ public class ServerCommunication {
      * @return the body of the response from the server.
      */
     public static String deleteRestaurant(int id) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant/delete?id=" + id)).DELETE().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant/delete/" + id)).DELETE().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnErrorMessage(request);
+    }
+
+    /**
+     * Updates an attribute of the restaurant
+     * @param restaurantId the Id of the restaurant that will be updated
+     * @param attribute the attribute to be updated
+     * @param value the new value of the attribute
+     * @return
+     */
+    public static String updateRestaurant(int restaurantId, String attribute, String value) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant/update?id=" + restaurantId + "&attribute=" + URLEncoder.encode(attribute, StandardCharsets.UTF_8) + "&value=" + URLEncoder.encode(value, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnErrorMessage(request);
     }
 
