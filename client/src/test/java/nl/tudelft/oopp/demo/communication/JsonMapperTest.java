@@ -322,4 +322,29 @@ class JsonMapperTest {
                 + ":50},\"fromTime\":\"2020-03-19T14:00:00.000+0000\""
                 + ",\"toTime\":\"2020-03-19T19:00:00.000+0000\"}]"));
     }
+
+    @Test
+    void foodOrderMapperTest() {
+        stubFor(get(urlEqualTo("/food_order/find/4"))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withBody("{\"id\":4,\"restaurant\":{\"id\":2,\"building\":{\"id\":1,\"name\":\"alto\",\"street\":\"rruga\",\"houseNumber"
+                                + "\":24},\"name\":\"Ad\",\"menu\":null},\"appUser\":{\"email\":\"a.delia@student.tudelft.nl\",\"password\":\""
+                                + "$2a$10$x9OlEoG2tU62ASvF5mDrYurry8qijsQ/oZgRIGlvHeTxpC6.NgAsW\",\"name\":\"Alto\",\"surname\":\"Delia\",\"faculty"
+                                + "\":\"EWI\",\"loggedIn\":true,\"confirmationNumber\":33712,\"roles\":[{\"id\":2,\"name\":\"ROLE_ADMIN\"},{\"id\":1,"
+                                + "\"name\":\"ROLE_USER\"}]},\"deliveryLocation\":{\"id\":1,\"name\":\"alto\",\"street\":\"rruga\",\"houseNumber\":24}")));
+
+        String json = "{\"id\":4,\"restaurant\":{\"id\":2,\"building\":{\"id\":1,\"name\":\"alto\",\"street\":\"rruga\",\"houseNumber"
+                + "\":24},\"name\":\"Ad\",\"menu\":null},\"appUser\":{\"email\":\"a.delia@student.tudelft.nl\",\"password\":\""
+                + "$2a$10$x9OlEoG2tU62ASvF5mDrYurry8qijsQ/oZgRIGlvHeTxpC6.NgAsW\",\"name\":\"Alto\",\"surname\":\"Delia\",\"faculty"
+                + "\":\"EWI\",\"loggedIn\":true,\"confirmationNumber\":33712,\"roles\":[{\"id\":2,\"name\":\"ROLE_ADMIN\"},{\"id\":1,"
+                + "\"name\":\"ROLE_USER\"}]},\"deliveryLocation\":{\"id\":1,\"name\":\"alto\",\"street\":\"rruga\",\"houseNumber\":24}";
+
+        FoodOrder foodOrder = JsonMapper.foodOrderMapper(json);
+        assertEquals(foodOrder, JsonMapper.foodOrderMapper("{\"id\":4,\"restaurant\":{\"id\":2,\"building\":{\"id\":1,\"name\":\"alto\",\"street\":\"rruga\",\"houseNumber"
+                + "\":24},\"name\":\"Ad\",\"menu\":null},\"appUser\":{\"email\":\"a.delia@student.tudelft.nl\",\"password\":\""
+                + "$2a$10$x9OlEoG2tU62ASvF5mDrYurry8qijsQ/oZgRIGlvHeTxpC6.NgAsW\",\"name\":\"Alto\",\"surname\":\"Delia\",\"faculty"
+                + "\":\"EWI\",\"loggedIn\":true,\"confirmationNumber\":33712,\"roles\":[{\"id\":2,\"name\":\"ROLE_ADMIN\"},{\"id\":1,"
+                + "\"name\":\"ROLE_USER\"}]},\"deliveryLocation\":{\"id\":1,\"name\":\"alto\",\"street\":\"rruga\",\"houseNumber\":24}"));
+    }
 }
