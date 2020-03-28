@@ -109,24 +109,6 @@ public class JsonMapper {
 
     /**
      * Maps all room JSONS to a list.
-     * @param menuJson a JSON string representing a list.
-     * @return A list filled with object Buildings
-     */
-    public static List<Menu> menuListMapper(String menuJson) {
-
-        ObjectMapper mapper = new ObjectMapper();
-
-        try {
-            // Convert JSON string to Object
-            return mapper.readValue(menuJson, new TypeReference<>(){});
-        } catch (Exception e) {
-            CustomAlert.warningAlert(menuJson);
-        }
-        return null;
-    }
-
-    /**
-     * Maps all room JSONS to a list.
      * @param roomsJson a JSON string representing a list.
      * @return A list filled with object Buildings
      */
