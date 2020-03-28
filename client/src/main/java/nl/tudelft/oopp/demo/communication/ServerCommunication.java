@@ -191,6 +191,17 @@ public class ServerCommunication {
     }
 
     /**
+     * Retrieve specific restaurant opening hours for specific day in the database by id.
+     * @param restaurantId Restaurant id, which is parsed from a text field.
+     * @param day Int representation for the day of the week
+     * @return the body of the response.
+     */
+    public static String findRestaurantHours(int restaurantId, int day) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant_hours/find/" + restaurantId + "/" + day)).GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
      * Removes restaurant hours from the database.
      * @param id = the id of the restaurant.
      * @param date the date in milliseconds or the day of the week for regular hours represented by long.
@@ -210,17 +221,6 @@ public class ServerCommunication {
     public static String deleteRestaurantHours(int id, int day) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant_hours/delete?id=" + id + "&day=" + day)).DELETE().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnErrorMessage(request);
-    }
-
-    /**
-     * Retrieve specific restaurant opening hours for specific day in the database by id.
-     * @param restaurantId Restaurant id, which is parsed from a text field.
-     * @param day Int representation for the day of the week
-     * @return the body of the response.
-     */
-    public static String findRestaurantHours(int restaurantId, int day) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant_hours/find/" + restaurantId + "/" + day)).GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        return communicateAndReturnBodyOfResponse(request);
     }
 
     /**
