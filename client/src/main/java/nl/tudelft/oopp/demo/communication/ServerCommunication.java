@@ -715,7 +715,7 @@ public class ServerCommunication {
      * @param id = the id of the food order.
      * @param attribute = the attribute whose value is changed.
      * @param value = the new value of the attribute.
-     * @return response.body of the server
+     * @return response body of the server
      */
     public static String updateDish(int id, String attribute, String value) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/dish/update?id=" + id + "&attribute=" + URLEncoder.encode(attribute, StandardCharsets.UTF_8) + "&value=" + URLEncoder.encode(value, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
