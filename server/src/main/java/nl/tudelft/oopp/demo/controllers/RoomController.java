@@ -4,6 +4,8 @@ import static nl.tudelft.oopp.demo.config.Constants.ADMIN;
 import static nl.tudelft.oopp.demo.config.Constants.BUILDING_ADMIN;
 import static nl.tudelft.oopp.demo.config.Constants.USER;
 
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -64,7 +66,8 @@ public class RoomController {
             @RequestParam int buildingId,
             @RequestParam int capacity,
             @RequestParam int plugs) {
-        return roomService.add(name, faculty, facultySpecific, screen, projector, buildingId, capacity, plugs);
+        return roomService.add(name, URLDecoder.decode(faculty, StandardCharsets.UTF_8), facultySpecific, screen,
+                projector, buildingId, capacity, plugs);
     }
 
     /**
