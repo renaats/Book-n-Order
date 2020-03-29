@@ -83,7 +83,6 @@ public class MainMenuReservationsController {
      * @throws IOException this method should never throw an exception
      */
     public void openCalendar() throws IOException {
-        UserInformation user = JsonMapper.userInformationMapper(ServerCommunication.getOwnUserInformation());
-        ApplicationDisplay.showCalendarScene(new PersonalCalendarView(user.getEmail()));
+        ApplicationDisplay.showCalendarScene(new PersonalCalendarView());
     }
 }

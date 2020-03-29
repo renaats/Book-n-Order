@@ -24,8 +24,6 @@ import nl.tudelft.oopp.demo.entities.RoomReservation;
 
 public class PersonalCalendarView extends CalendarView {
 
-    private String currentUser;
-
     Calendar bookedRooms = new Calendar("Room Bookings");
     Calendar orderedFood = new Calendar("Food Orders");
     Calendar rentedBikes = new Calendar("Bike Rent");
@@ -33,8 +31,7 @@ public class PersonalCalendarView extends CalendarView {
     /**
      * Constuctor for the Personal Calendar View
      */
-    public PersonalCalendarView(String currentUser) {
-        this.currentUser = currentUser;
+    public PersonalCalendarView() {
         displayCalendars();
         loadRoomReservations();
         loadBikeReservations();
@@ -67,7 +64,7 @@ public class PersonalCalendarView extends CalendarView {
         roomReservationList.addAll(roomReservationList1);
 
         for (RoomReservation reservation : roomReservationList) {
-            if (reservation != null && reservation.getAppUser().getEmail().equals(this.currentUser)) {
+            if (reservation != null) {
                 Entry<RoomReservation> bookedEntry = new Entry<>("Booking of Room: " + reservation.getRoom().getName());
 
                 LocalTime startTime = convertToLocalTime(reservation.getFromTime());
@@ -105,7 +102,7 @@ public class PersonalCalendarView extends CalendarView {
 
         foodOrderList.addAll(foodOrderList1);
         for (FoodOrder foodOrder: foodOrderList) {
-            if (foodOrder != null && foodOrder.getAppUser().getEmail().equals(this.currentUser)) {
+            if (foodOrder != null) {
                 Entry<FoodOrder> bookedEntry = new Entry<>("Order Number: " + foodOrder.getId());
 
                 LocalTime startTime = convertToLocalTime(foodOrder.getDeliveryTime()).minusMinutes(15);
@@ -146,7 +143,7 @@ public class PersonalCalendarView extends CalendarView {
         bikeReservationList.addAll(bikeReservationList1);
 
         for (BikeReservation reservation : bikeReservationList) {
-            if (reservation != null && reservation.getAppUser().getEmail().equals(this.currentUser)) {
+            if (reservation != null) {
                 Entry<BikeReservation> bookedEntry = new Entry<>("Booking of Bike: " + reservation.getBike().getId());
 
                 LocalTime startTime = convertToLocalTime(reservation.getFromTime());
