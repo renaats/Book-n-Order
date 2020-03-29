@@ -48,13 +48,13 @@ public class PersonalCalendarView extends CalendarView {
                 new ArrayList<>(Objects.requireNonNull(JsonMapper.roomReservationsListMapper(ServerCommunication.getRoomReservations())));
         for (RoomReservation reservation : roomReservationList) {
             if (reservation.getAppUser().getEmail().equals(this.currentUser)) {
-                Entry<RoomReservation> bookedEntry = new Entry<>("Booking of " + reservation.getRoom().getName());
+                Entry<RoomReservation> bookedEntry = new Entry<>("Booking of Room: " + reservation.getRoom().getName());
 
                 LocalTime startTime = convertToLocalTime(reservation.getFromTime());
                 LocalTime endTime = convertToLocalTime(reservation.getToTime());
                 LocalDate date = convertToLocalDate(reservation.getFromTime());
 
-                bookedEntry.setLocation(reservation.getRoom().getBuilding().toString());
+                bookedEntry.setLocation(reservation.getRoom().getBuilding().getName());
                 bookedEntry.setInterval(date);
                 bookedEntry.setInterval(startTime, endTime);
                 bookedRooms.addEntry(bookedEntry);
@@ -70,13 +70,13 @@ public class PersonalCalendarView extends CalendarView {
                 new ArrayList<>(Objects.requireNonNull(JsonMapper.foodOrdersListMapper(ServerCommunication.getAllFoodOrders())));
         for (FoodOrder foodOrder: foodOrdersList) {
             if (foodOrder.getAppUser().getEmail().equals(this.currentUser)) {
-                Entry<RoomReservation> bookedEntry = new Entry<>("Order Number: " + foodOrder.getId());
+                Entry<FoodOrder> bookedEntry = new Entry<>("Order Number: " + foodOrder.getId());
 
-                LocalTime startTime = convertToLocalTime(foodOrder.getDeliveryTime());
+                LocalTime startTime = convertToLocalTime(foodOrder.getDeliveryTime()).minusMinutes(15);
                 LocalTime endTime = convertToLocalTime(foodOrder.getDeliveryTime());
                 LocalDate date = convertToLocalDate(foodOrder.getDeliveryTime());
 
-                bookedEntry.setLocation(foodOrder.getDeliveryLocation().toString());
+                bookedEntry.setLocation(foodOrder.getDeliveryLocation().getName());
                 bookedEntry.setInterval(date);
                 bookedEntry.setInterval(startTime, endTime);
                 orderedFood.addEntry(bookedEntry);
@@ -92,13 +92,13 @@ public class PersonalCalendarView extends CalendarView {
                 new ArrayList<>(Objects.requireNonNull(JsonMapper.bikeReservationsListMapper(ServerCommunication.getAllBikeReservations())));
         for (BikeReservation reservation : bikeReservationList) {
             if (reservation.getAppUser().getEmail().equals(this.currentUser)) {
-                Entry<RoomReservation> bookedEntry = new Entry<>("Booking of " + String.valueOf(reservation.getBike().getId()));
+                Entry<BikeReservation> bookedEntry = new Entry<>("Booking of Bike: " + reservation.getBike().getId());
 
                 LocalTime startTime = convertToLocalTime(reservation.getFromTime());
                 LocalTime endTime = convertToLocalTime(reservation.getToTime());
                 LocalDate date = convertToLocalDate(reservation.getFromTime());
 
-                bookedEntry.setLocation(reservation.getFromBuilding().toString());
+                bookedEntry.setLocation(reservation.getFromBuilding().getName());
                 bookedEntry.setInterval(date);
                 bookedEntry.setInterval(startTime, endTime);
                 rentedBikes.addEntry(bookedEntry);
@@ -114,15 +114,9 @@ public class PersonalCalendarView extends CalendarView {
         orderedFood.setStyle(Calendar.Style.STYLE3);
         rentedBikes.setStyle(Calendar.Style.STYLE4);
 
-        bookedRooms.setReadOnly(true);
-        orderedFood.setReadOnly(true);
-        rentedBikes.setReadOnly(true);
-
         CalendarSource myCalendarSource = new CalendarSource("My Calendars");
         myCalendarSource.getCalendars().addAll(bookedRooms, orderedFood, rentedBikes);
         this.getCalendarSources().add(myCalendarSource);
-
-        CalendarView view = new CalendarView();
     }
 
     public Date convertToDate(LocalTime time, LocalDate date) {
