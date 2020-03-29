@@ -1,7 +1,6 @@
 package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,10 +13,15 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.Building;
@@ -76,6 +80,7 @@ public class DatabaseBuildingMenuController implements Initializable {
         tableHoverMethod();
         loadFacultyChoiceBox();
     }
+
     /**
      * return to the database main menu when the home icon is clicked
      * @throws IOException this should not throw an exception, since the input is always the same
@@ -128,6 +133,9 @@ public class DatabaseBuildingMenuController implements Initializable {
         table.setItems(buildingResult);
     }
 
+    /**
+     * Handles the clicking to the next table page.
+     */
     public void nextPage() {
         if (pageNumber < (int) totalPages) {
             pageNumber++;
@@ -135,6 +143,9 @@ public class DatabaseBuildingMenuController implements Initializable {
         }
     }
 
+    /**
+     * Handles the clicking to the previous page
+     */
     public void previousPage() {
         if (pageNumber > 1) {
             pageNumber--;
@@ -185,6 +196,9 @@ public class DatabaseBuildingMenuController implements Initializable {
         });
     }
 
+    /**
+     * Takes care of finding a building by name or ID.
+     */
     public void findBuilding() {
         try {
             int id = Integer.parseInt(buildingFindTextField.getText());
@@ -205,6 +219,9 @@ public class DatabaseBuildingMenuController implements Initializable {
         }
     }
 
+    /**
+     * Updates a building directly from the fields.
+     */
     public void updateBuilding() {
         int id;
         boolean passes = true;
@@ -230,9 +247,9 @@ public class DatabaseBuildingMenuController implements Initializable {
                 CustomAlert.warningAlert("Cannot parse house number.");
                 passes = false;
             }
-//            if (!building.getFaculty().equals(facultyChoiceBox.getValue())) {
-//                ServerCommunication.updateBuilding(id, "faculty", facultyChoiceBox.getValue());
-//            }
+            //            if (!building.getFaculty().equals(facultyChoiceBox.getValue())) {
+            //                ServerCommunication.updateBuilding(id, "faculty", facultyChoiceBox.getValue());
+            //            }
         } catch (NumberFormatException e) {
             CustomAlert.warningAlert("No selection detected.");
             passes = false;

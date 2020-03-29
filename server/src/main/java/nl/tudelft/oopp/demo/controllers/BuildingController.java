@@ -79,17 +79,18 @@ public class BuildingController {
     }
 
 
+    /**
+     * Retrieves the building with the specified id.
+     * @param id = the id of the building.
+     * @return Building that matches the id.
+     */
     @Secured("ROLE_USER")
     @GetMapping(path = "/find/{buildingID}")
     @ResponseBody
-    public Building findBuilding(@PathVariable(value = "buildingSearch") String buildingSearch) {
-        try {
-            int id = Integer.parseInt(buildingSearch);
-            return buildingService.find(id);
-        } catch (Exception e) {
-            return buildingService.find(buildingSearch);
-        }
+    public Building findBuilding(@PathVariable(value = "buildingID") int id) {
+        return buildingService.find(id);
     }
+
 
     /**
      * Return all rooms that are in the building with the specified id.
