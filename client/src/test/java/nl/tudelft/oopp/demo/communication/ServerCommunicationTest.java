@@ -15,8 +15,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.http.Fault;
 
-import java.io.IOException;
-
 import nl.tudelft.oopp.demo.errors.ErrorMessages;
 
 import org.junit.jupiter.api.AfterEach;
@@ -376,6 +374,9 @@ public class ServerCommunicationTest {
     @Test
     public void testSuccessfulGetRestaurants() {
         assertEquals("Restaurants", ServerCommunication.getRestaurants());
+    }
+
+    /**
      * Tests the response when the filterRooms request is successful.
      */
     @Test
