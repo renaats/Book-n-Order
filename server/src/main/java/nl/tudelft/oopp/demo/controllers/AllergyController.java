@@ -77,4 +77,18 @@ public class AllergyController {
     public Allergy findAllergy(@PathVariable (value = "name") String name) {
         return allergyService.findByAllergyName(name);
     }
+
+    /**
+     * Updates and allergy.
+     * @param name allergy name (that is what is used as the Id ).
+     * @param attribute the attribute to be updated.
+     * @param value the new value of the attribute
+     * @return Error code
+     */
+    @Secured({ADMIN, RESTAURANT})
+    @PostMapping(path = "/update")
+    @ResponseBody
+    public int updateMenu(@RequestParam String name, @RequestParam String attribute, @RequestParam String value) {
+        return allergyService.update(name, attribute, value);
+    }
 }

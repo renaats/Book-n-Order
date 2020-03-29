@@ -65,4 +65,29 @@ public class Allergy {
         return Objects.equals(allergyName, allergy.allergyName)
                 && Objects.equals(dishes, allergy.dishes);
     }
+
+    /**
+     * Adds a dish to the allergy.
+     * @param dish the dish to be added.
+     */
+    public void addDish(Dish dish) {
+        this.dishes.add(dish);
+    }
+
+    /**
+     * Deletes a dish to the allergies if the allergy doesn't have this dish it should do nothing.
+     * @param dish the dish to be deleted.
+     */
+    public void deleteDish(Dish dish) {
+        if (this.dishes.contains(dish)){
+            this.dishes.remove(dish);
+        }
+    }
+
+    /**
+     * Deletes all dishes.
+     */
+    public void deleteAllDish() {
+        this.dishes.clear();
+    }
 }

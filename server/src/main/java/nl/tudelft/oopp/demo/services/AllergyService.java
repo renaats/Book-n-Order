@@ -1,16 +1,19 @@
 package nl.tudelft.oopp.demo.services;
 
-import static nl.tudelft.oopp.demo.config.Constants.ADDED;
-import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
-import static nl.tudelft.oopp.demo.config.Constants.ID_NOT_FOUND;
-
 import java.util.List;
+import java.util.Optional;
 
 import nl.tudelft.oopp.demo.entities.Allergy;
+import nl.tudelft.oopp.demo.entities.Dish;
+import nl.tudelft.oopp.demo.entities.Menu;
+import nl.tudelft.oopp.demo.entities.Restaurant;
 import nl.tudelft.oopp.demo.repositories.AllergyRepository;
 
+import nl.tudelft.oopp.demo.repositories.DishRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import static nl.tudelft.oopp.demo.config.Constants.*;
 
 /**
  * Supports CRUD operations for the Allergy entity.
@@ -20,6 +23,8 @@ import org.springframework.stereotype.Service;
 public class AllergyService {
     @Autowired
     private AllergyRepository allergyRepository;
+    @Autowired
+    private DishRepository dishRepository;
 
     /**
      * Adds an allergy.
@@ -61,5 +66,47 @@ public class AllergyService {
      */
     public Allergy findByAllergyName(String allergyName) {
         return allergyRepository.findByAllergyName(allergyName);
+    }
+
+
+    /**
+     * Updates a specified attribute for some allergy.
+     * @param name = the id of the      * Updates a specified attribute for some allergy..
+     * @param attribute = the attribute whose value is changed.
+     * @param value = the new value of the attribute.
+     * @return String containing the result of your request.
+     */
+    public int update(String name, String attribute, String value) {
+        if (allergyRepository.findById(name).isEmpty()) {
+            return ALLERGY_NOT_FOUND;
+        }
+        Allergy allergy = allergyRepository.findById(name).get();
+        switch (attribute) {
+            case "dishAdd":
+                int dishId = Integer.parseInt(value);
+                Optional<Dish> optionalDish = dishRepository.findById(dishId);
+                if (optionalDish.isEmpty()) {
+                    return BUILDING_NOT_FOUND;
+                }
+                Dish dish = optionalDish.get();
+                allergy.addDish(dish);
+                break;
+            case "dishDelete":
+                int dishIdDelete = Integer.parseInt(value);
+                Optional<Dish> optionalDishDelete = dishRepository.findById(dishIdDelete);
+                if (optionalDishDelete.isEmpty()) {
+                    return BUILDING_NOT_FOUND;
+                }
+                Dish dishDelete = optionalDishDelete.get();
+                allergy.deleteDish(dishDelete);
+                break;
+            case "dishDeleteAll":
+                allergy.deleteAllDish();
+                break;
+            default:
+                return ATTRIBUTE_NOT_FOUND;
+        }
+        allergyRepository.save(allergy);
+        return EXECUTED;
     }
 }

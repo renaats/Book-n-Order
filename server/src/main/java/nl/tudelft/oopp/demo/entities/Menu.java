@@ -73,16 +73,26 @@ public class Menu {
         this.dishes = dishes;
     }
 
+    /**
+     * Adds a dish to the menu.
+     * @param dish the dish to be added.
+     */
     public void addDish(Dish dish) {
         this.dishes.add(dish);
     }
 
+    /**
+     * Deletes a dish from the menu, if the menu doesn't have said dish it does nothing.
+     * @param dish
+     */
     public void deleteDish(Dish dish) {
-        this.dishes.remove(dish);
+        if (this.dishes.contains(dish)){
+            this.dishes.remove(dish);
+        }
     }
 
     /**
-     * Deletes all dishes
+     * Deletes all dishes.
      */
     public void deleteAllDish() {
         this.dishes.clear();

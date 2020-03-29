@@ -85,7 +85,6 @@ public class MenuService {
         return menuRepository.findById(id).orElse(null);
     }
 
-
     /**
      * Updates a specified attribute for some menu.
      * @param id = the id of the menu.
@@ -95,7 +94,7 @@ public class MenuService {
      */
     public int update(int id, String attribute, String value) {
         if (menuRepository.findById(id).isEmpty()) {
-            return RESERVATION_NOT_FOUND;
+            return MENU_NOT_FOUND;
         }
         Menu menu = menuRepository.findById(id).get();
         switch (attribute) {
