@@ -71,7 +71,7 @@
          <Cursor fx:constant="HAND" />
       </cursor>
    </ImageView>
-   <Text layoutX="24.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add" AnchorPane.leftAnchor="22.0" AnchorPane.topAnchor="92.0" />
+   <Text layoutX="24.0" layoutY="105.0" onMouseClicked="#goToAddBuildings" strokeType="OUTSIDE" strokeWidth="0.0" text="Add" AnchorPane.leftAnchor="22.0" AnchorPane.topAnchor="92.0" />
    <Text layoutX="54.0" layoutY="237.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID:" AnchorPane.leftAnchor="54.0" AnchorPane.topAnchor="216.0">
       <font>
          <Font size="17.0" />
@@ -138,5 +138,14 @@
       </cursor>
    </Button>
    <ChoiceBox fx:id="facultyChoiceBox" layoutX="117.0" layoutY="282.0" prefHeight="25.0" prefWidth="383.0" />
+   <ImageView fitHeight="26.0" fitWidth="20.0" layoutX="157.0" layoutY="185.0" onMouseClicked="#goToAddBuildings" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@images/ko7djzvdIPehWkkQYeDHv7ZYArEETK3uclcEy1WmrEHakj5qfn1nysOSyuNxsI2FsTJGcKNFdQ-9TIGRXV3le_sG-lyGg6Lu2OpiVNdwOZw_Fw16XYOh.png" />
+      </image>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </ImageView>
+   <Text layoutX="181.0" layoutY="199.0" onMouseClicked="#goToAddBuildings" strokeType="OUTSIDE" strokeWidth="0.0" text="Add" />
 
 </AnchorPane>
