@@ -2,7 +2,11 @@ package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
 
+import nl.tudelft.oopp.demo.communication.JsonMapper;
+import nl.tudelft.oopp.demo.communication.ServerCommunication;
+import nl.tudelft.oopp.demo.user.UserInformation;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
+import nl.tudelft.oopp.demo.views.PersonalCalendarView;
 
 /**
  * Loads the correct content into the FXML objects that need to display server information and
@@ -72,5 +76,14 @@ public class MainMenuReservationsController {
      */
     public void rentBikeIcon() throws IOException {
         ApplicationDisplay.changeScene("/bikeReservations.fxml");
+    }
+
+    /**
+     * goes to bike reservations when the bike image is clicked
+     * @throws IOException this method should never throw an exception
+     */
+    public void openCalendar() throws IOException {
+        UserInformation user = JsonMapper.userInformationMapper(ServerCommunication.getOwnUserInformation());
+        ApplicationDisplay.showCalendarScene(new PersonalCalendarView(user.getEmail()));
     }
 }
