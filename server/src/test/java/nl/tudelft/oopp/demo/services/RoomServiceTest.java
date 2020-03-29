@@ -22,6 +22,9 @@ import java.util.Set;
 
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Room;
+import nl.tudelft.oopp.demo.services.BuildingService;
+import nl.tudelft.oopp.demo.services.RoomService;
+import nl.tudelft.oopp.demo.specifications.ServiceHelper;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -54,11 +57,22 @@ public class RoomServiceTest {
         }
     }
 
+    @TestConfiguration
+    static class ServiceHelperTestConfiguration {
+        @Bean
+        public ServiceHelper serviceHelper() {
+            return new ServiceHelper();
+        }
+    }
+
     @Autowired
     RoomService roomService;
 
     @Autowired
     BuildingService buildingService;
+
+    @Autowired
+    ServiceHelper serviceHelper;
 
 
     Building building;
@@ -317,5 +331,136 @@ public class RoomServiceTest {
     @Test
     public void testDeleteIllegal() {
         assertEquals(ROOM_NOT_FOUND, roomService.delete(0));
+    }
+
+    /**
+     * Tests the searching of a room by name.
+     */
+    @Test
+    public void testSearchByName() {
+        roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200);
+        roomService.add("Boole", "EWI2", false, true, true, building2.getId(), 200, 200);
+        List<Room> rooms = roomService.search("name:Ampere");
+        assertTrue(rooms.contains(room));
+        assertFalse(rooms.contains(room2));
+    }
+
+    /**
+     * Tests the searching of a room by faculty.
+     */
+    @Test
+    public void testSearchByFaculty() {
+        roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200);
+        roomService.add("Boole", "EWI2", false, true, true, building2.getId(), 200, 200);
+        List<Room> rooms = roomService.search("faculty:EWI2");
+        assertFalse(rooms.contains(room));
+        assertTrue(rooms.contains(room2));
+    }
+
+    /**
+     * Tests the searching of a room by the boolean facultySpecific.
+     */
+    @Test
+    public void testSearchByFacultySpecific() {
+        roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200);
+        roomService.add("Boole", "EWI2", false, true, true, building2.getId(), 200, 200);
+        List<Room> rooms = roomService.search("facultySpecific:false");
+        assertTrue(rooms.contains(room));
+        assertTrue(rooms.contains(room2));
+    }
+
+    /**
+     * Tests the searching of a room by the boolean screen.
+     */
+    @Test
+    public void testSearchByScreen() {
+        roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200);
+        roomService.add("Boole", "EWI2", false, true, true, building2.getId(), 200, 200);
+        List<Room> rooms = roomService.search("screen:true");
+        assertTrue(rooms.contains(room));
+        assertTrue(rooms.contains(room2));
+    }
+
+    /**
+     * Tests the searching of a room by the boolean projector.
+     */
+    @Test
+    public void testSearchByProjector() {
+        roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200);
+        roomService.add("Boole", "EWI2", false, true, true, building2.getId(), 200, 200);
+        List<Room> rooms = roomService.search("projector:true");
+        assertTrue(rooms.contains(room));
+        assertTrue(rooms.contains(room2));
+    }
+
+    /**
+     * Tests the searching of a room in a specific building.
+     */
+    @Test
+    public void testSearchByBuildingId() {
+        roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200);
+        roomService.add("Boole", "EWI2", false, true, true, building2.getId(), 200, 200);
+        List<Room> rooms = roomService.search("building:" + building.getId());
+        assertTrue(rooms.contains(room));
+        assertFalse(rooms.contains(room2));
+    }
+
+    /**
+     * Tests the searching of a room by the capacity.
+     */
+    @Test
+    public void testSearchByCapacity() {
+        roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200);
+        roomService.add("Boole", "EWI2", false, true, true, building2.getId(), 200, 200);
+        List<Room> rooms = roomService.search("capacity>150");
+        assertTrue(rooms.contains(room));
+        assertTrue(rooms.contains(room2));
+    }
+
+    /**
+     * Tests the searching of a room by the number of plugs in a room.
+     */
+    @Test
+    public void testSearchByNumberOfPlugs() {
+        roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200);
+        roomService.add("Boole", "EWI2", false, true, true, building2.getId(), 200, 200);
+        List<Room> rooms = roomService.search("plugs>150");
+        assertTrue(rooms.contains(room));
+        assertTrue(rooms.contains(room2));
+    }
+
+    /**
+     * Tests the searching of a room by two parameters.
+     */
+    @Test
+    public void testCompoundSearch() {
+        roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200);
+        roomService.add("Boole", "EWI2", false, true, true, building2.getId(), 200, 200);
+        List<Room> rooms = roomService.search("name:Boole,plugs>150");
+        assertFalse(rooms.contains(room));
+        assertTrue(rooms.contains(room2));
+    }
+
+    /**
+     * Tests the searching of a room by many parameters.
+     */
+    @Test
+    public void testCompoundSearchWithManyArguments() {
+        roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200);
+        roomService.add("Boole", "EWI2", false, true, true, building2.getId(), 200, 200);
+        List<Room> rooms = roomService.search("name:Boole,plugs>150,faculty:EWI2,projector:true,plugs<300");
+        assertFalse(rooms.contains(room));
+        assertTrue(rooms.contains(room2));
+    }
+
+    /**
+     * Tests the searching of a nonexistent room.
+     */
+    @Test
+    public void testSearchOfNonexistentRoom() {
+        roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200);
+        roomService.add("Boole", "EWI2", false, true, true, building2.getId(), 200, 200);
+        List<Room> rooms = roomService.search("plugs<150");
+        assertEquals(rooms.size(), 0);
     }
 }
