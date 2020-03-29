@@ -15,6 +15,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.http.Fault;
 
+import java.io.IOException;
+
 import nl.tudelft.oopp.demo.errors.ErrorMessages;
 
 import org.junit.jupiter.api.AfterEach;
@@ -44,6 +46,7 @@ public class ServerCommunicationTest {
         stubFor(get(urlEqualTo("/building/find/1")).willReturn(aResponse().withStatus(200).withBody("Message4")));
         stubFor(post(urlEqualTo("/building/update?id=1&attribute=a&value=a")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(get(urlEqualTo("/room/find/1")).willReturn(aResponse().withStatus(200).withBody("Message5")));
+        stubFor(post(urlEqualTo("/user/changePassword?password=Password")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(delete(urlEqualTo("/room/delete/1")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(post(urlEqualTo("/room/update?id=1&attribute=a&value=a")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(post(urlEqualTo("/room/add?name=a&faculty=a&facultySpecific=true&screen=true&projector=true&buildingId=1&capacity=1&plugs=1"))
@@ -77,6 +80,9 @@ public class ServerCommunicationTest {
         stubFor(post(urlEqualTo("/restaurant/update?id=1&attribute=a&value=a")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(post(urlEqualTo("/restaurant/add?buildingId=1&name=name")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(get(urlEqualTo("/restaurant/all")).willReturn(aResponse().withStatus(200).withBody("Restaurants")));
+        stubFor(get(urlEqualTo("/room/filter?query=name:Auditorium")).willReturn(aResponse().withStatus(200).withBody("Message15")));
+        stubFor(get(urlEqualTo("/dish/filter?query=name:Tosti")).willReturn(aResponse().withStatus(200).withBody("Message11")));
+        stubFor(get(urlEqualTo("/allergy/filter?query=name:Lactose")).willReturn(aResponse().withStatus(200).withBody("Message12")));
         stubFor(get(urlEqualTo("/room_reservation/past")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(get(urlEqualTo("/room_reservation/future")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(get(urlEqualTo("/bike_reservation/all")).willReturn(aResponse().withStatus(200).withBody("200")));
@@ -370,6 +376,27 @@ public class ServerCommunicationTest {
     @Test
     public void testSuccessfulGetRestaurants() {
         assertEquals("Restaurants", ServerCommunication.getRestaurants());
+     * Tests the response when the filterRooms request is successful.
+     */
+    @Test
+    public void testSuccessfulFilterRooms() {
+        assertEquals("Message15", ServerCommunication.filterRooms("name:Auditorium"));
+    }
+
+    /**
+     * Tests the response when the filterDishes request is successful.
+     */
+    @Test
+    public void testSuccessfulFilterDishes() {
+        assertEquals("Message11", ServerCommunication.filterDishes("name:Tosti"));
+    }
+
+    /**
+     * Tests the response when the filterAllergies request is successful.
+     */
+    @Test
+    public void testSuccessfulFilterAllergies() {
+        assertEquals("Message12", ServerCommunication.filterAllergies("name:Lactose"));
     }
 
     /**
@@ -479,6 +506,14 @@ public class ServerCommunicationTest {
     @Test
     public void testSuccessfulLoginUser() {
         assertEquals(ErrorMessages.getErrorMessage(311), ServerCommunication.loginUser("a", "b"));
+    }
+
+    /**
+     * Tests the response when the loginUser request is successful.
+     */
+    @Test
+    public void testSuccessfulChangePassword() {
+        assertEquals(ErrorMessages.getErrorMessage(200), ServerCommunication.changeUserPassword("Password"));
     }
 
     /**

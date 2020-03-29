@@ -20,9 +20,8 @@ public class ConfirmationSixDigitsController {
 
     /**
      * Checks the authenticity of user's email.
-     * @throws IOException Deals with improper input
      */
-    public void confirmValidity() throws IOException {
+    public void confirmValidity() {
         try {
             int code = Integer.parseInt(sixDigitCode.getText());
             String response =  ServerCommunication.validateUser(code);

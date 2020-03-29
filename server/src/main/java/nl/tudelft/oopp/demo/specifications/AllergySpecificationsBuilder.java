@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import nl.tudelft.oopp.demo.entities.Allergy;
-import nl.tudelft.oopp.demo.entities.Room;
 
 import org.springframework.data.jpa.domain.Specification;
 
@@ -16,7 +15,7 @@ public class AllergySpecificationsBuilder {
     private final List<SearchCriteria> params;
 
     public AllergySpecificationsBuilder() {
-        params = new ArrayList<SearchCriteria>();
+        params = new ArrayList<>();
     }
 
     public AllergySpecificationsBuilder with(String key, String operation, Object value) {

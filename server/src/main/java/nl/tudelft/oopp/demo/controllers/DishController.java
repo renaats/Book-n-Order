@@ -2,6 +2,7 @@ package nl.tudelft.oopp.demo.controllers;
 
 import static nl.tudelft.oopp.demo.config.Constants.ADMIN;
 import static nl.tudelft.oopp.demo.config.Constants.RESTAURANT;
+import static nl.tudelft.oopp.demo.config.Constants.USER;
 
 import java.util.List;
 
@@ -89,7 +90,7 @@ public class DishController {
      *               where [operation] is ':', '<', or '>'.
      * @return List of Dish objects that match the search criteria.
      */
-    @Secured("ROLE_USER")
+    @Secured(USER)
     @GetMapping(path = "/filter")
     @ResponseBody
     public List<Dish> search(@RequestParam String query) {
