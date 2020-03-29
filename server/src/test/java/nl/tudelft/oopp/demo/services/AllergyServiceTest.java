@@ -3,17 +3,13 @@ package nl.tudelft.oopp.demo.services;
 import static nl.tudelft.oopp.demo.config.Constants.ADDED;
 import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
 import static nl.tudelft.oopp.demo.config.Constants.ID_NOT_FOUND;
+import static org.junit.jupiter.api.Assertions.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import nl.tudelft.oopp.demo.entities.Allergy;
 
+import nl.tudelft.oopp.demo.entities.Dish;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -118,5 +114,35 @@ public class AllergyServiceTest {
     @Test
     public void testDeleteIllegal() {
         assertEquals(ID_NOT_FOUND, allergyService.delete("Vegan"));
+    }
+
+    /**
+     * Tests the adding of a dish to an allergy.
+     */
+    @Test
+    public void testAddDish() {
+        Dish dish = new Dish();
+        int dishId = dish.getId();
+        allergyService.add(allergy1.getAllergyName());
+        String id = allergyService.all().get(0).getAllergyName();
+        assertFalse(allergyService.findByAllergyName(id).getDish().contains(dish));
+        allergyService.update(id, "dishAdd", "" + dishId);
+        assertTrue(allergyService.findByAllergyName(id).getDish().contains(dish));
+    }
+
+    /**
+     * Tests the adding of a dish to an allergy.
+     */
+    @Test
+    public void testDeleteDish() {
+        Dish dish = new Dish();
+        int dishId = dish.getId();
+        Set<Dish> dishSet = new HashSet<>();
+        allergy1.setDish(dishSet);
+        allergyService.add(allergy1.getAllergyName());
+        String id = allergyService.all().get(0).getAllergyName();
+        assertTrue(allergyService.findByAllergyName(id).getDish().contains(dish));
+        allergyService.update(id, "dishDelete", "" + dishId);
+        assertFalse(allergyService.findByAllergyName(id).getDish().contains(dish));
     }
 }

@@ -1,8 +1,5 @@
 package nl.tudelft.oopp.demo.entities;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,11 +9,14 @@ import nl.tudelft.oopp.demo.entities.Menu;
 import nl.tudelft.oopp.demo.repositories.AllergyRepository;
 import nl.tudelft.oopp.demo.repositories.DishRepository;
 import nl.tudelft.oopp.demo.repositories.MenuRepository;
+import org.assertj.core.api.Assert;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Tests the Allergy entity.
@@ -103,6 +103,42 @@ public class AllergyTest {
         dish.setAllergies(new HashSet<>());
         dish.addAllergy(allergy1);
         assertEquals(allergySet, dish.getAllergies());
+    }
+
+    /**
+     * Tests the addDish method of the Allergy class.
+     */
+    @Test
+    public void testAddDish() {
+        Dish dish = new Dish();
+        allergy1.addDish(dish);
+        assertTrue(allergy1.getDish().contains(dish));
+    }
+
+    /**
+     * Tests the deleteDish method of the Allergy class.
+     */
+    @Test
+    public void testDeleteDish() {
+        Dish dish = new Dish();
+        Set<Dish> dishSet = new HashSet<>();
+        dishSet.add(dish);
+        allergy1.setDish(dishSet);
+        allergy1.deleteDish(dish);
+        assertFalse(allergy1.getDish().contains(dish));
+    }
+
+    /**
+     * Tests the deleteAllDish method of the Allergy class.
+     */
+    @Test
+    public void testDeleteAllDish() {
+        Dish dish = new Dish();
+        Set<Dish> dishSet = new HashSet<>();
+        dishSet.add(dish);
+        allergy1.setDish(dishSet);
+        allergy1.deleteAllDish();
+        assertTrue(allergy1.getDish().isEmpty());
     }
 
     /**
