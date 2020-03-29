@@ -77,7 +77,7 @@ public class RegistrationController implements Initializable {
 
     private void loadData() {
         facultyList.clear();
-        String a = "Architecture and the build Environment";
+        String a = "Architecture and the Built Environment";
         String b = "Civil Engineering and Geosciences";
         String c = "Electrical Engineering, Mathematics & Computer Science";
         String d = "Industrial Design Engineering";

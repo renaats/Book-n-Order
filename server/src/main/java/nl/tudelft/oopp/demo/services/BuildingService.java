@@ -34,13 +34,14 @@ public class BuildingService {
      * @param name = the name of the building
      * @return String to see if your request passed
      */
-    public int add(String name, String street, int houseNumber) {
+    public int add(String name, String street, String faculty, int houseNumber) {
         if (buildingRepository.existsByName(name)) {
             return DUPLICATE_NAME;
         }
         Building building = new Building();
         building.setName(name);
         building.setStreet(street);
+        building.setFaculty(faculty);
         building.setHouseNumber(houseNumber);
         building.setRooms(new HashSet<>());
         buildingRepository.save(building);
@@ -68,6 +69,9 @@ public class BuildingService {
                 break;
             case "street":
                 building.setStreet(value);
+                break;
+            case "faculty":
+                building.setFaculty(value);
                 break;
             case "housenumber":
                 building.setHouseNumber(Integer.parseInt(value));

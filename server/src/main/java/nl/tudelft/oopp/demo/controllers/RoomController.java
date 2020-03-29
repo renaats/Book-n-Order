@@ -4,13 +4,20 @@ import static nl.tudelft.oopp.demo.config.Constants.ADMIN;
 import static nl.tudelft.oopp.demo.config.Constants.BUILDING_ADMIN;
 import static nl.tudelft.oopp.demo.config.Constants.USER;
 
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.entities.RoomReservation;
+import nl.tudelft.oopp.demo.repositories.RoomRepository;
 import nl.tudelft.oopp.demo.services.RoomService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,6 +25,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -58,7 +66,8 @@ public class RoomController {
             @RequestParam int buildingId,
             @RequestParam int capacity,
             @RequestParam int plugs) {
-        return roomService.add(name, faculty, facultySpecific, screen, projector, buildingId, capacity, plugs);
+        return roomService.add(name, URLDecoder.decode(faculty, StandardCharsets.UTF_8), facultySpecific, screen,
+                projector, buildingId, capacity, plugs);
     }
 
     /**
@@ -122,4 +131,16 @@ public class RoomController {
         return roomService.reservations(id);
     }
 
+    /**
+     * Allows for a multi-parameter Room search in a RoomRepository.
+     * @param query The search string in the format "[param1][operation][value],[param2][operation][value],..."
+     *               where [operation] is ':', '<', or '>'.
+     * @return List of Room objects that match the search criteria.
+     */
+    @Secured("ROLE_USER")
+    @GetMapping(path = "/filter")
+    @ResponseBody
+    public List<Room> search(@RequestParam String query) {
+        return roomService.search(query);
+    }
 }

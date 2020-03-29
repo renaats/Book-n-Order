@@ -97,13 +97,13 @@ public class BikeReservationServiceTest {
         appUser2.setBikeReservations(new HashSet<>());
         userRepository.save(appUser2);
 
-        fromBuilding = new Building("Sporthal", "Mekelweg", 8);
+        fromBuilding = new Building("Sporthal", "Mekelweg", "None", 8);
         buildingRepository.save(fromBuilding);
 
-        toBuilding = new Building("EWI", "Mekelweg", 4);
+        toBuilding = new Building("EWI", "Mekelweg", "EWI", 4);
         buildingRepository.save(toBuilding);
 
-        toBuilding2 = new Building("Library", "Prometheusplein", 1);
+        toBuilding2 = new Building("Library", "Prometheusplein", "None", 1);
         buildingRepository.save(toBuilding2);
 
         bike = new Bike(fromBuilding, true);
