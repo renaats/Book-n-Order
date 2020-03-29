@@ -102,12 +102,14 @@
     - [ ] Warning when missing a field
     - [ ] Error when the capacity or plugs is not an integer
     - [ ] Error when faculty specific, screen or projector is not a boolean
+    - [ ] Only limited to valid buildings
     - [ ] Successfully added alert
     - [ ] Name already exists error
   - Update the room's attributes, delete it, add again
     - [ ] All of room's fields can be changed to other valid values
     - [ ] Warning when the capacity or plugs is not an integer
     - [ ] Warning when faculty specific, screen or projector is not a boolean
+    - [ ] Only limited to valid buildings
     - [ ] Name already exists error
   - Try to add a new restaurant / bike (should not work)
     - [ ] Should have an "Unauthorized" warning
@@ -181,12 +183,14 @@
     - [ ] Warning when missing a field
     - [ ] Error when the capacity or plugs is not an integer
     - [ ] Error when faculty specific, screen or projector is not a boolean
+    - [ ] Only limited to valid buildings
     - [ ] Successfully added alert
     - [ ] Name already exists error
   - Update the room's attributes, delete it, add again
     - [ ] All of room's fields can be changed to other valid values
     - [ ] Warning when the capacity or plugs is not an integer
     - [ ] Warning when faculty specific, screen or projector is not a boolean
+    - [ ] Only limited to valid buildings
     - [ ] Name already exists error
   - *Add new bikes*
     - [ ] *Warning when missing a field*
