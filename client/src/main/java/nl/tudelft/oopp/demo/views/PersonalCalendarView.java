@@ -10,20 +10,16 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
-import nl.tudelft.oopp.demo.entities.BikeReservation;
-import nl.tudelft.oopp.demo.entities.FoodOrder;
-import nl.tudelft.oopp.demo.entities.RoomReservation;
+import nl.tudelft.oopp.demo.entities.*;
 
 public class PersonalCalendarView extends CalendarView {
 
     private String currentUser;
+    private AppUser user;
 
     Calendar bookedRooms = new Calendar("Room Bookings");
     Calendar orderedFood = new Calendar("Food Orders");
@@ -35,63 +31,78 @@ public class PersonalCalendarView extends CalendarView {
     public PersonalCalendarView(String currentUser) {
         this.currentUser = currentUser;
         displayCalendars();
-        loadRoomReservations();
+//        loadRoomReservations();
         loadBikeReservations();
-        loadFoodOrders();
+//        loadFoodOrders();
     }
 
-    /**
-     * Methods that loads room reservations of personal user
-     */
-    public void loadRoomReservations() {
-        List<RoomReservation> roomReservationList =
-                new ArrayList<>(Objects.requireNonNull(JsonMapper.roomReservationsListMapper(ServerCommunication.getRoomReservations())));
-        for (RoomReservation reservation : roomReservationList) {
-            if (reservation.getAppUser().getEmail().equals(this.currentUser)) {
-                Entry<RoomReservation> bookedEntry = new Entry<>("Booking of Room: " + reservation.getRoom().getName());
-
-                LocalTime startTime = convertToLocalTime(reservation.getFromTime());
-                LocalTime endTime = convertToLocalTime(reservation.getToTime());
-                LocalDate date = convertToLocalDate(reservation.getFromTime());
-
-                bookedEntry.setLocation(reservation.getRoom().getBuilding().getName());
-                bookedEntry.setInterval(date);
-                bookedEntry.setInterval(startTime, endTime);
-                bookedRooms.addEntry(bookedEntry);
-            }
-        }
-    }
-
-    /**
-     * Methods that loads food orders of personal user
-     */
-    public void loadFoodOrders() {
-        List<FoodOrder> foodOrdersList =
-                new ArrayList<>(Objects.requireNonNull(JsonMapper.foodOrdersListMapper(ServerCommunication.getAllFoodOrders())));
-        for (FoodOrder foodOrder: foodOrdersList) {
-            if (foodOrder.getAppUser().getEmail().equals(this.currentUser)) {
-                Entry<FoodOrder> bookedEntry = new Entry<>("Order Number: " + foodOrder.getId());
-
-                LocalTime startTime = convertToLocalTime(foodOrder.getDeliveryTime()).minusMinutes(15);
-                LocalTime endTime = convertToLocalTime(foodOrder.getDeliveryTime());
-                LocalDate date = convertToLocalDate(foodOrder.getDeliveryTime());
-
-                bookedEntry.setLocation(foodOrder.getDeliveryLocation().getName());
-                bookedEntry.setInterval(date);
-                bookedEntry.setInterval(startTime, endTime);
-                orderedFood.addEntry(bookedEntry);
-            }
-        }
-    }
+//    /**
+//     * Methods that loads room reservations of personal user
+//     */
+//    public void loadRoomReservations() {
+//
+//        for (RoomReservation reservation : roomReservationSet) {
+//            if (reservation != null && reservation.getAppUser().getEmail().equals(this.currentUser)) {
+//                Entry<RoomReservation> bookedEntry = new Entry<>("Booking of Room: " + reservation.getRoom().getName());
+//
+//                LocalTime startTime = convertToLocalTime(reservation.getFromTime());
+//                LocalTime endTime = convertToLocalTime(reservation.getToTime());
+//                LocalDate date = convertToLocalDate(reservation.getFromTime());
+//
+//                bookedEntry.setLocation(reservation.getRoom().getBuilding().getName());
+//                bookedEntry.setInterval(date);
+//                bookedEntry.setInterval(startTime, endTime);
+//                bookedRooms.addEntry(bookedEntry);
+//            }
+//        }
+//    }
+//
+//    /**
+//     * Methods that loads food orders of personal user
+//     */
+//    public void loadFoodOrders() {
+//
+//        for (FoodOrder foodOrder: foodOrderSet) {
+//            if (foodOrder != null && foodOrder.getAppUser().getEmail().equals(this.currentUser)) {
+//                Entry<FoodOrder> bookedEntry = new Entry<>("Order Number: " + foodOrder.getId());
+//
+//                LocalTime startTime = convertToLocalTime(foodOrder.getDeliveryTime()).minusMinutes(15);
+//                LocalTime endTime = convertToLocalTime(foodOrder.getDeliveryTime());
+//                LocalDate date = convertToLocalDate(foodOrder.getDeliveryTime());
+//
+//                bookedEntry.setLocation(foodOrder.getDeliveryLocation().getName());
+//                bookedEntry.setInterval(date);
+//                bookedEntry.setInterval(startTime, endTime);
+//                orderedFood.addEntry(bookedEntry);
+//            }
+//        }
+//    }
 
     /**
      * Methods that loads room reservations of personal user
      */
     public void loadBikeReservations() {
-        List<BikeReservation> bikeReservationList =
-                new ArrayList<>(Objects.requireNonNull(JsonMapper.bikeReservationsListMapper(ServerCommunication.getAllBikeReservations())));
+        List<BikeReservation> bikeReservationList;
+        List<BikeReservation> bikeReservationList1;
+
+        try {
+            bikeReservationList = new ArrayList<>(Objects.requireNonNull(JsonMapper.bikeReservationsListMapper(ServerCommunication.getAllPreviousBikeReservations())));
+        } catch (NullPointerException e) {
+            bikeReservationList = new ArrayList<>();
+            bikeReservationList.add(null);
+        }
+
+        try {
+            bikeReservationList1 = new ArrayList<>(Objects.requireNonNull(JsonMapper.bikeReservationsListMapper(ServerCommunication.getAllFutureBikeReservations())));
+        } catch (NullPointerException e) {
+            bikeReservationList1 = new ArrayList<>();
+            bikeReservationList1.add(null);
+        }
+
+        bikeReservationList.addAll(bikeReservationList1);
+
         for (BikeReservation reservation : bikeReservationList) {
-            if (reservation.getAppUser().getEmail().equals(this.currentUser)) {
+            if (reservation != null && reservation.getAppUser().getEmail().equals(this.currentUser)) {
                 Entry<BikeReservation> bookedEntry = new Entry<>("Booking of Bike: " + reservation.getBike().getId());
 
                 LocalTime startTime = convertToLocalTime(reservation.getFromTime());
