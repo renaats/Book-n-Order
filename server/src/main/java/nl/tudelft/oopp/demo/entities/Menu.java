@@ -73,6 +73,21 @@ public class Menu {
         this.dishes = dishes;
     }
 
+    public void addDish(Dish dish) {
+        this.dishes.add(dish);
+    }
+
+    public void deleteDish(Dish dish) {
+        this.dishes.remove(dish);
+    }
+
+    /**
+     * Deletes all dishes
+     */
+    public void deleteAllDish() {
+        this.dishes.clear();
+    }
+
     public void setName(String name) {
         this.name = name;
     }

@@ -529,6 +529,18 @@ public class ServerCommunication {
         return communicateAndReturnErrorMessage(request);
     }
 
+    /**
+     * Updates a give attribute from a menu.
+     * @param id the Id of the menu.
+     * @param attribute the attribute to be updated.
+     * @param value the new value of the attribute.
+     * @return
+     */
+    public static String updateMenu(int id, String attribute, String value) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/menu/update?id=" + id + "&attribute=" + attribute + "&value=" + URLEncoder.encode(value, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnErrorMessage(request);
+    }
+
     // -----------------------------------------
     // User related Server Communication Methods
     // -----------------------------------------
