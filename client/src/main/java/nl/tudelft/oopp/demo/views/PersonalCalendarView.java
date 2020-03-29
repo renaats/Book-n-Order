@@ -10,11 +10,17 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Objects;
 
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
-import nl.tudelft.oopp.demo.entities.*;
+import nl.tudelft.oopp.demo.entities.BikeReservation;
+import nl.tudelft.oopp.demo.entities.FoodOrder;
+import nl.tudelft.oopp.demo.entities.RoomReservation;
+
 
 public class PersonalCalendarView extends CalendarView {
 
@@ -43,14 +49,16 @@ public class PersonalCalendarView extends CalendarView {
         List<RoomReservation> roomReservationList1;
 
         try {
-            roomReservationList = new ArrayList<>(Objects.requireNonNull(JsonMapper.roomReservationsListMapper(ServerCommunication.getAllPreviousRoomReservations())));
+            String roomReservationJson = ServerCommunication.getAllPreviousRoomReservations();
+            roomReservationList = new ArrayList<>(Objects.requireNonNull(JsonMapper.roomReservationsListMapper(roomReservationJson)));
         } catch (NullPointerException e) {
             roomReservationList = new ArrayList<>();
             roomReservationList.add(null);
         }
 
         try {
-            roomReservationList1 = new ArrayList<>(Objects.requireNonNull(JsonMapper.roomReservationsListMapper(ServerCommunication.getAllFutureRoomReservations())));
+            String roomReservationJson = ServerCommunication.getAllFutureRoomReservations();
+            roomReservationList1 = new ArrayList<>(Objects.requireNonNull(JsonMapper.roomReservationsListMapper(roomReservationJson)));
         } catch (NullPointerException e) {
             roomReservationList1 = new ArrayList<>();
             roomReservationList1.add(null);
@@ -120,14 +128,16 @@ public class PersonalCalendarView extends CalendarView {
         List<BikeReservation> bikeReservationList1;
 
         try {
-            bikeReservationList = new ArrayList<>(Objects.requireNonNull(JsonMapper.bikeReservationsListMapper(ServerCommunication.getAllPreviousBikeReservations())));
+            String bikeReservationJson = ServerCommunication.getAllPreviousBikeReservations();
+            bikeReservationList = new ArrayList<>(Objects.requireNonNull(JsonMapper.bikeReservationsListMapper(bikeReservationJson)));
         } catch (NullPointerException e) {
             bikeReservationList = new ArrayList<>();
             bikeReservationList.add(null);
         }
 
         try {
-            bikeReservationList1 = new ArrayList<>(Objects.requireNonNull(JsonMapper.bikeReservationsListMapper(ServerCommunication.getAllFutureBikeReservations())));
+            String bikeReservationJson = ServerCommunication.getAllFutureBikeReservations();
+            bikeReservationList1 = new ArrayList<>(Objects.requireNonNull(JsonMapper.bikeReservationsListMapper(bikeReservationJson)));
         } catch (NullPointerException e) {
             bikeReservationList1 = new ArrayList<>();
             bikeReservationList1.add(null);
