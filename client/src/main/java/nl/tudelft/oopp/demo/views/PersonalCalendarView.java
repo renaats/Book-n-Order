@@ -19,7 +19,6 @@ import nl.tudelft.oopp.demo.entities.*;
 public class PersonalCalendarView extends CalendarView {
 
     private String currentUser;
-    private AppUser user;
 
     Calendar bookedRooms = new Calendar("Room Bookings");
     Calendar orderedFood = new Calendar("Food Orders");
@@ -31,52 +30,87 @@ public class PersonalCalendarView extends CalendarView {
     public PersonalCalendarView(String currentUser) {
         this.currentUser = currentUser;
         displayCalendars();
-//        loadRoomReservations();
+        loadRoomReservations();
         loadBikeReservations();
-//        loadFoodOrders();
+        loadFoodOrders();
     }
 
-//    /**
-//     * Methods that loads room reservations of personal user
-//     */
-//    public void loadRoomReservations() {
-//
-//        for (RoomReservation reservation : roomReservationSet) {
-//            if (reservation != null && reservation.getAppUser().getEmail().equals(this.currentUser)) {
-//                Entry<RoomReservation> bookedEntry = new Entry<>("Booking of Room: " + reservation.getRoom().getName());
-//
-//                LocalTime startTime = convertToLocalTime(reservation.getFromTime());
-//                LocalTime endTime = convertToLocalTime(reservation.getToTime());
-//                LocalDate date = convertToLocalDate(reservation.getFromTime());
-//
-//                bookedEntry.setLocation(reservation.getRoom().getBuilding().getName());
-//                bookedEntry.setInterval(date);
-//                bookedEntry.setInterval(startTime, endTime);
-//                bookedRooms.addEntry(bookedEntry);
-//            }
-//        }
-//    }
-//
-//    /**
-//     * Methods that loads food orders of personal user
-//     */
-//    public void loadFoodOrders() {
-//
-//        for (FoodOrder foodOrder: foodOrderSet) {
-//            if (foodOrder != null && foodOrder.getAppUser().getEmail().equals(this.currentUser)) {
-//                Entry<FoodOrder> bookedEntry = new Entry<>("Order Number: " + foodOrder.getId());
-//
-//                LocalTime startTime = convertToLocalTime(foodOrder.getDeliveryTime()).minusMinutes(15);
-//                LocalTime endTime = convertToLocalTime(foodOrder.getDeliveryTime());
-//                LocalDate date = convertToLocalDate(foodOrder.getDeliveryTime());
-//
-//                bookedEntry.setLocation(foodOrder.getDeliveryLocation().getName());
-//                bookedEntry.setInterval(date);
-//                bookedEntry.setInterval(startTime, endTime);
-//                orderedFood.addEntry(bookedEntry);
-//            }
-//        }
-//    }
+    /**
+     * Methods that loads room reservations of personal user
+     */
+    public void loadRoomReservations() {
+        List<RoomReservation> roomReservationList;
+        List<RoomReservation> roomReservationList1;
+
+        try {
+            roomReservationList = new ArrayList<>(Objects.requireNonNull(JsonMapper.roomReservationsListMapper(ServerCommunication.getAllPreviousRoomReservations())));
+        } catch (NullPointerException e) {
+            roomReservationList = new ArrayList<>();
+            roomReservationList.add(null);
+        }
+
+        try {
+            roomReservationList1 = new ArrayList<>(Objects.requireNonNull(JsonMapper.roomReservationsListMapper(ServerCommunication.getAllFutureRoomReservations())));
+        } catch (NullPointerException e) {
+            roomReservationList1 = new ArrayList<>();
+            roomReservationList1.add(null);
+        }
+
+        roomReservationList.addAll(roomReservationList1);
+
+        for (RoomReservation reservation : roomReservationList) {
+            if (reservation != null && reservation.getAppUser().getEmail().equals(this.currentUser)) {
+                Entry<RoomReservation> bookedEntry = new Entry<>("Booking of Room: " + reservation.getRoom().getName());
+
+                LocalTime startTime = convertToLocalTime(reservation.getFromTime());
+                LocalTime endTime = convertToLocalTime(reservation.getToTime());
+                LocalDate date = convertToLocalDate(reservation.getFromTime());
+
+                bookedEntry.setLocation(reservation.getRoom().getBuilding().getName());
+                bookedEntry.setInterval(date);
+                bookedEntry.setInterval(startTime, endTime);
+                bookedRooms.addEntry(bookedEntry);
+            }
+        }
+    }
+
+    /**
+     * Methods that loads food orders of personal user
+     */
+    public void loadFoodOrders() {
+        List<FoodOrder> foodOrderList;
+        List<FoodOrder> foodOrderList1;
+
+        try {
+            foodOrderList = new ArrayList<>(Objects.requireNonNull(JsonMapper.foodOrdersListMapper(ServerCommunication.getAllPreviousFoodOrders())));
+        } catch (NullPointerException e) {
+            foodOrderList = new ArrayList<>();
+            foodOrderList.add(null);
+        }
+
+        try {
+            foodOrderList1 = new ArrayList<>(Objects.requireNonNull(JsonMapper.foodOrdersListMapper(ServerCommunication.getAllFutureFoodOrders())));
+        } catch (NullPointerException e) {
+            foodOrderList1 = new ArrayList<>();
+            foodOrderList1.add(null);
+        }
+
+        foodOrderList.addAll(foodOrderList1);
+        for (FoodOrder foodOrder: foodOrderList) {
+            if (foodOrder != null && foodOrder.getAppUser().getEmail().equals(this.currentUser)) {
+                Entry<FoodOrder> bookedEntry = new Entry<>("Order Number: " + foodOrder.getId());
+
+                LocalTime startTime = convertToLocalTime(foodOrder.getDeliveryTime()).minusMinutes(15);
+                LocalTime endTime = convertToLocalTime(foodOrder.getDeliveryTime());
+                LocalDate date = convertToLocalDate(foodOrder.getDeliveryTime());
+
+                bookedEntry.setLocation(foodOrder.getDeliveryLocation().getName());
+                bookedEntry.setInterval(date);
+                bookedEntry.setInterval(startTime, endTime);
+                orderedFood.addEntry(bookedEntry);
+            }
+        }
+    }
 
     /**
      * Methods that loads room reservations of personal user
