@@ -1,7 +1,10 @@
 package nl.tudelft.oopp.demo.services;
 
+import static nl.tudelft.oopp.demo.config.Constants.ADDED;
+import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
+import static nl.tudelft.oopp.demo.config.Constants.ID_NOT_FOUND;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
@@ -10,7 +13,7 @@ import java.util.Collections;
 import java.util.List;
 
 import nl.tudelft.oopp.demo.entities.Allergy;
-import nl.tudelft.oopp.demo.services.AllergyService;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +65,7 @@ public class AllergyServiceTest {
      */
     @Test
     public void testCreate() {
-        assertEquals(201, allergyService.add(allergy1.getAllergyName()));
+        assertEquals(ADDED, allergyService.add(allergy1.getAllergyName()));
         assertEquals(Collections.singletonList(allergy1), allergyService.all());
     }
 
@@ -105,7 +108,7 @@ public class AllergyServiceTest {
     public void testDelete() {
         allergyService.add(allergy2.getAllergyName());
         String name = allergyService.all().get(0).getAllergyName();
-        assertEquals(200, allergyService.delete(name));
+        assertEquals(EXECUTED, allergyService.delete(name));
         assertEquals(0, allergyService.all().size());
     }
 
@@ -114,6 +117,6 @@ public class AllergyServiceTest {
      */
     @Test
     public void testDeleteIllegal() {
-        assertEquals(416, allergyService.delete("Vegan"));
+        assertEquals(ID_NOT_FOUND, allergyService.delete("Vegan"));
     }
 }

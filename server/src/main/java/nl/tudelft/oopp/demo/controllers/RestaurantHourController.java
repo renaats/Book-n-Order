@@ -1,7 +1,12 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import static nl.tudelft.oopp.demo.config.Constants.ADMIN;
+import static nl.tudelft.oopp.demo.config.Constants.RESTAURANT;
+import static nl.tudelft.oopp.demo.config.Constants.USER;
+
 import nl.tudelft.oopp.demo.entities.RestaurantHours;
 import nl.tudelft.oopp.demo.services.RestaurantHourService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Repository;
@@ -34,7 +39,7 @@ public class RestaurantHourController {
      * @param endTimeS = the ending time in seconds.
      * @return Error code.
      */
-    @Secured({"ROLE_ADMIN", "ROLE_RESTAURANT"})
+    @Secured({ADMIN, RESTAURANT})
     @PostMapping(path = "/add")
     @ResponseBody
     public int addRestaurantHours(@RequestParam int restaurantId, @RequestParam long date, @RequestParam int startTimeS, @RequestParam int endTimeS) {
@@ -48,7 +53,7 @@ public class RestaurantHourController {
      * @param value = the new value of the attribute.
      * @return Error code.
      */
-    @Secured({"ROLE_ADMIN", "ROLE_RESTAURANT"})
+    @Secured({ADMIN, RESTAURANT})
     @PostMapping(path = "/update")
     @ResponseBody
     public int updateRestaurantHours(@RequestParam int id, @RequestParam String attribute, @RequestParam String value) {
@@ -61,7 +66,7 @@ public class RestaurantHourController {
      * @param date = the date in milliseconds or the day of the week for regular hours.
      * @return Error code.
      */
-    @Secured({"ROLE_ADMIN", "ROLE_RESTAURANT"})
+    @Secured({ADMIN, RESTAURANT})
     @DeleteMapping(path = "/delete")
     @ResponseBody
     public int deleteRestaurantHours(@RequestParam int restaurantId, @RequestParam long date) {
@@ -72,7 +77,7 @@ public class RestaurantHourController {
      * Lists all restaurant hours in the database.
      * @return all restaurant hours in the database.
      */
-    @Secured({"ROLE_ADMIN", "ROLE_RESTAURANT"})
+    @Secured({ADMIN, RESTAURANT})
     @GetMapping(path = "/all")
     @ResponseBody
     public Iterable<RestaurantHours> getAllRestaurantHours() {
@@ -85,7 +90,7 @@ public class RestaurantHourController {
      * @param dateInMilliseconds = the date in milliseconds.
      * @return restaurant hours that match the id.
      */
-    @Secured("ROLE_USER")
+    @Secured(USER)
     @GetMapping(path = "/find/{restaurantID}/{day}")
     @ResponseBody
     public RestaurantHours findRestaurantHours(@PathVariable(value = "restaurantID") int restaurantId,

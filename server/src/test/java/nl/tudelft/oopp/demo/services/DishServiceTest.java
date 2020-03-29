@@ -1,5 +1,10 @@
 package nl.tudelft.oopp.demo.services;
 
+import static nl.tudelft.oopp.demo.config.Constants.ADDED;
+import static nl.tudelft.oopp.demo.config.Constants.DISH_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
+import static nl.tudelft.oopp.demo.config.Constants.MENU_NOT_FOUND;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -18,8 +23,6 @@ import nl.tudelft.oopp.demo.entities.Menu;
 import nl.tudelft.oopp.demo.entities.Restaurant;
 import nl.tudelft.oopp.demo.repositories.AllergyRepository;
 import nl.tudelft.oopp.demo.repositories.MenuRepository;
-import nl.tudelft.oopp.demo.services.DishService;
-import nl.tudelft.oopp.demo.services.MenuService;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -111,7 +114,7 @@ public class DishServiceTest {
     @Test
     public void testCreate() {
         allergyRepository.save(allergy);
-        assertEquals(201, dishService.add(dish.getName(), dish.getMenu().getId()));
+        assertEquals(ADDED, dishService.add(dish.getName(), dish.getMenu().getId()));
         int id = dishService.all().get(0).getId();
         dishService.find(id).setAllergies(allergySet);
         assertEquals(Collections.singletonList(dish), dishService.all());
@@ -122,7 +125,7 @@ public class DishServiceTest {
      */
     @Test
     public void testCreateIllegalMenu() {
-        assertEquals(429, dishService.add(dish.getName(), 0));
+        assertEquals(MENU_NOT_FOUND, dishService.add(dish.getName(), 0));
     }
 
     /**
@@ -212,7 +215,7 @@ public class DishServiceTest {
         dishService.add(dish.getName(), dish.getMenu().getId());
         dishService.add(dish2.getName(), dish2.getMenu().getId());
         int id = dishService.all().get(0).getId();
-        assertEquals(200, dishService.delete(id));
+        assertEquals(EXECUTED, dishService.delete(id));
         assertEquals(1, dishService.all().size());
     }
 
@@ -221,6 +224,6 @@ public class DishServiceTest {
      */
     @Test
     public void testDeleteIllegal() {
-        assertEquals(430, dishService.delete(0));
+        assertEquals(DISH_NOT_FOUND, dishService.delete(0));
     }
 }
