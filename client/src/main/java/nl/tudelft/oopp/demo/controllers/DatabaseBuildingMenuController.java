@@ -235,6 +235,7 @@ public class DatabaseBuildingMenuController implements Initializable {
 //            }
         } catch (NumberFormatException e) {
             CustomAlert.warningAlert("No selection detected.");
+            passes = false;
         }
         if (passes) {
             CustomAlert.informationAlert("Successfully Executed.");
