@@ -334,6 +334,17 @@ public class ServerCommunication {
     // -----------------------------------------
 
     /**
+     * Adds a menu to the database
+     * @param name the name of the menu
+     * @param buildingId the id of the restaurant for which the menu is applicable
+     * @return response.body of the server
+     */
+    public static String addRestaurant(String name, int buildingId) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant/add?building=" + buildingId + "&name=" + name)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
      * Adds a dish to the database
      * @param name dish name
      * @param menuId menu id
@@ -540,7 +551,7 @@ public class ServerCommunication {
      * @return
      */
     public static String updateMenu(int id, String attribute, String value) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/menu/update?id=" + id + "&attribute=" + URLEncoder.encode(attribute, StandardCharsets.UTF_8) + "&value=" + URLEncoder.encode(value, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/menu/update?id=" + id + "&attribute=" + URLEncoder.encode(attribute, StandardCharsets.UTF_8) + "name" + URLEncoder.encode(value, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnErrorMessage(request);
     }
     /**

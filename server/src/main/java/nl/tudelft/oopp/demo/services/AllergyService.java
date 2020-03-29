@@ -86,7 +86,7 @@ public class AllergyService {
                 int dishId = Integer.parseInt(value);
                 Optional<Dish> optionalDish = dishRepository.findById(dishId);
                 if (optionalDish.isEmpty()) {
-                    return BUILDING_NOT_FOUND;
+                    return DISH_NOT_FOUND;
                 }
                 Dish dish = optionalDish.get();
                 allergy.addDish(dish);
@@ -95,7 +95,7 @@ public class AllergyService {
                 int dishIdDelete = Integer.parseInt(value);
                 Optional<Dish> optionalDishDelete = dishRepository.findById(dishIdDelete);
                 if (optionalDishDelete.isEmpty()) {
-                    return BUILDING_NOT_FOUND;
+                    return DISH_NOT_FOUND;
                 }
                 Dish dishDelete = optionalDishDelete.get();
                 allergy.deleteDish(dishDelete);
