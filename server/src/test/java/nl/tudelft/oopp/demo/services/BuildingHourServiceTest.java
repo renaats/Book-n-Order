@@ -1,5 +1,15 @@
 package nl.tudelft.oopp.demo.services;
 
+import static nl.tudelft.oopp.demo.config.Constants.ADDED;
+import static nl.tudelft.oopp.demo.config.Constants.ATTRIBUTE_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.BUILDING_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.DUPLICATE_DAY;
+import static nl.tudelft.oopp.demo.config.Constants.END_BEFORE_START;
+import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
+import static nl.tudelft.oopp.demo.config.Constants.ID_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.INVALID_DAY;
+import static nl.tudelft.oopp.demo.config.Constants.NOT_FOUND;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -16,8 +26,6 @@ import java.util.List;
 
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.BuildingHours;
-import nl.tudelft.oopp.demo.services.BuildingHourService;
-import nl.tudelft.oopp.demo.services.BuildingService;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -100,7 +108,7 @@ public class BuildingHourServiceTest {
      */
     @Test
     public void testInvalidBuilding() {
-        assertEquals(422, buildingHourService.add(0, buildingHours.getDay(), 1000, 3000));
+        assertEquals(BUILDING_NOT_FOUND, buildingHourService.add(0, buildingHours.getDay(), 1000, 3000));
     }
 
     /**
@@ -108,7 +116,7 @@ public class BuildingHourServiceTest {
      */
     @Test
     public void testInvalidDay() {
-        assertEquals(425, buildingHourService.add(building.getId(), 8, 1000, 3000));
+        assertEquals(INVALID_DAY, buildingHourService.add(building.getId(), 8, 1000, 3000));
     }
 
     /**
@@ -116,7 +124,7 @@ public class BuildingHourServiceTest {
      */
     @Test
     public void testEndBeforeStart() {
-        assertEquals(426, buildingHourService.add(building.getId(), buildingHours.getDay(), 3000, 1000));
+        assertEquals(END_BEFORE_START, buildingHourService.add(building.getId(), buildingHours.getDay(), 3000, 1000));
     }
 
     /**
@@ -124,8 +132,8 @@ public class BuildingHourServiceTest {
      */
     @Test
     public void testSameBuildingTwice() {
-        assertEquals(201, buildingHourService.add(building.getId(), buildingHours.getDay(), 1000, 3000));
-        assertEquals(427, buildingHourService.add(building.getId(), buildingHours.getDay(), 1000, 3000));
+        assertEquals(ADDED, buildingHourService.add(building.getId(), buildingHours.getDay(), 1000, 3000));
+        assertEquals(DUPLICATE_DAY, buildingHourService.add(building.getId(), buildingHours.getDay(), 1000, 3000));
     }
 
     /**
@@ -133,7 +141,7 @@ public class BuildingHourServiceTest {
      */
     @Test
     public void testRetrieveOne() {
-        assertEquals(201, buildingHourService.add(building.getId(), buildingHours.getDay(), 1000, 3000));
+        assertEquals(ADDED, buildingHourService.add(building.getId(), buildingHours.getDay(), 1000, 3000));
         assertEquals(Collections.singletonList(buildingHours), buildingHourService.all());
     }
 
@@ -164,7 +172,7 @@ public class BuildingHourServiceTest {
      */
     @Test
     public void testFindNonExisting() {
-        assertEquals(201, buildingHourService.add(building.getId(), buildingHours.getDay(), 1000, 3000));
+        assertEquals(ADDED, buildingHourService.add(building.getId(), buildingHours.getDay(), 1000, 3000));
 
         buildingHours = buildingHourService.all().iterator().next();
         assertNull(buildingHourService.find(5, 1));
@@ -190,7 +198,7 @@ public class BuildingHourServiceTest {
     public void testUpdateNonExisting() {
         buildingHourService.add(building.getId(), buildingHours.getDay(), 1000, 3000);
         buildingHourService.add(building2.getId(), buildingHours2.getDay(), 2000, 4000);
-        assertEquals(416, buildingHourService.update(1234, "attr", "val"));
+        assertEquals(ID_NOT_FOUND, buildingHourService.update(1234, "attr", "val"));
     }
 
     /**
@@ -200,7 +208,7 @@ public class BuildingHourServiceTest {
     public void testUpdateNonExistingAttribute() {
         buildingHourService.add(building.getId(), buildingHours.getDay(), 1000, 3000);
         int id = buildingHourService.all().get(0).getId();
-        assertEquals(412, buildingHourService.update(id, "a", "a"));
+        assertEquals(ATTRIBUTE_NOT_FOUND, buildingHourService.update(id, "a", "a"));
     }
 
     /**
@@ -299,7 +307,7 @@ public class BuildingHourServiceTest {
 
         buildingHourService.update(buildingHours2.getId(), "buildingid", buildingHours.getBuilding().getId().toString());
 
-        assertEquals(427, buildingHourService.update(buildingHours2.getId(), "day", ((Long) buildingHours.getDay()).toString()));
+        assertEquals(DUPLICATE_DAY, buildingHourService.update(buildingHours2.getId(), "day", ((Long) buildingHours.getDay()).toString()));
     }
 
     /**
@@ -351,7 +359,7 @@ public class BuildingHourServiceTest {
         buildingHours = buildingHourList.get(0);
         buildingHours2 = buildingHourList.get(1);
 
-        assertEquals(404, buildingHourService.delete(buildingHourList.get(0).getBuilding().getId(), buildingHourList.get(0).getDay() + 1));
+        assertEquals(NOT_FOUND, buildingHourService.delete(buildingHourList.get(0).getBuilding().getId(), buildingHourList.get(0).getDay() + 1));
     }
 
     /**
@@ -359,7 +367,7 @@ public class BuildingHourServiceTest {
      */
     @Test
     public void testRetrieveSpecial() {
-        assertEquals(201, buildingHourService.add(building.getId(), 939600000, 1000, 3000));
+        assertEquals(ADDED, buildingHourService.add(building.getId(), 939600000, 1000, 3000));
         assertEquals(Collections.singletonList(buildingHoursSpecial), buildingHourService.all());
     }
 
@@ -387,7 +395,7 @@ public class BuildingHourServiceTest {
     public void testDeleteSpecial() {
         buildingHourService.add(building.getId(), 939600000, 1000, 3000);
         buildingHoursSpecial = buildingHourService.all().get(0);
-        assertEquals(200, buildingHourService.delete(buildingHoursSpecial.getBuilding().getId(), buildingHoursSpecial.getDay()));
+        assertEquals(EXECUTED, buildingHourService.delete(buildingHoursSpecial.getBuilding().getId(), buildingHoursSpecial.getDay()));
         assertEquals(0, buildingHourService.all().size());
     }
 

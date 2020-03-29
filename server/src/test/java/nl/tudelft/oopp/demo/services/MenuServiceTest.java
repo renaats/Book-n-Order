@@ -1,5 +1,9 @@
 package nl.tudelft.oopp.demo.services;
 
+import static nl.tudelft.oopp.demo.config.Constants.ADDED;
+import static nl.tudelft.oopp.demo.config.Constants.MENU_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.RESTAURANT_NOT_FOUND;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -17,8 +21,7 @@ import nl.tudelft.oopp.demo.entities.Restaurant;
 import nl.tudelft.oopp.demo.repositories.BuildingRepository;
 import nl.tudelft.oopp.demo.repositories.DishRepository;
 import nl.tudelft.oopp.demo.repositories.RestaurantRepository;
-import nl.tudelft.oopp.demo.services.MenuService;
-import nl.tudelft.oopp.demo.services.RestaurantService;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -112,7 +115,7 @@ public class MenuServiceTest {
 
     @Test
     public void testCreate() {
-        assertEquals(201, menuService.add(menu1.getName(), menu1.getRestaurant().getId()));
+        assertEquals(ADDED, menuService.add(menu1.getName(), menu1.getRestaurant().getId()));
         menuService.all().get(0).setDishes(dishes);
         assertEquals(Collections.singletonList(menu1), menuService.all());
     }
@@ -122,7 +125,7 @@ public class MenuServiceTest {
      */
     @Test
     public void testCreateIllegalRestaurant() {
-        assertEquals(428, menuService.add(menu1.getName(), 0));
+        assertEquals(RESTAURANT_NOT_FOUND, menuService.add(menu1.getName(), 0));
     }
 
     /**
@@ -175,6 +178,6 @@ public class MenuServiceTest {
      */
     @Test
     public void testDeleteIllegal() {
-        assertEquals(429, menuService.delete(0));
+        assertEquals(MENU_NOT_FOUND, menuService.delete(0));
     }
 }

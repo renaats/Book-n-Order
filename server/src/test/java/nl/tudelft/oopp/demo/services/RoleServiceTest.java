@@ -1,5 +1,11 @@
 package nl.tudelft.oopp.demo.services;
 
+import static nl.tudelft.oopp.demo.config.Constants.ADDED;
+import static nl.tudelft.oopp.demo.config.Constants.ADMIN;
+import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
+import static nl.tudelft.oopp.demo.config.Constants.ID_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.USER;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -10,7 +16,7 @@ import java.util.Collections;
 import java.util.List;
 
 import nl.tudelft.oopp.demo.entities.Role;
-import nl.tudelft.oopp.demo.services.RoleService;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -46,10 +52,10 @@ public class RoleServiceTest {
     @BeforeEach
     public void setup() {
         role = new Role();
-        role.setName("ROLE_USER");
+        role.setName(USER);
 
         role2 = new Role();
-        role2.setName("ROLE_ADMIN");
+        role2.setName(ADMIN);
     }
 
     /**
@@ -65,7 +71,7 @@ public class RoleServiceTest {
      */
     @Test
     public void testCreate() {
-        assertEquals(201, roleService.add(role.getName()));
+        assertEquals(ADDED, roleService.add(role.getName()));
         assertEquals(Collections.singletonList(role), roleService.all());
     }
 
@@ -92,7 +98,7 @@ public class RoleServiceTest {
      */
     @Test
     public void testUpdateNonExistingInstance() {
-        assertEquals(416, roleService.update(0, "a"));
+        assertEquals(ID_NOT_FOUND, roleService.update(0, "a"));
     }
 
     /**
@@ -102,9 +108,9 @@ public class RoleServiceTest {
     public void testChangeName() {
         roleService.add(role.getName());
         int id = roleService.all().get(0).getId();
-        assertNotEquals("ROLE_ADMIN", roleService.find(id).getName());
-        roleService.update(id, "ROLE_ADMIN");
-        assertEquals("ROLE_ADMIN", roleService.find(id).getName());
+        assertNotEquals(ADMIN, roleService.find(id).getName());
+        roleService.update(id, ADMIN);
+        assertEquals(ADMIN, roleService.find(id).getName());
     }
 
     /**
@@ -128,7 +134,7 @@ public class RoleServiceTest {
     public void testDelete() {
         roleService.add(role.getName());
         int id = roleService.all().get(0).getId();
-        assertEquals(200, roleService.delete(id));
+        assertEquals(EXECUTED, roleService.delete(id));
         assertEquals(0, roleService.all().size());
     }
 
@@ -137,6 +143,6 @@ public class RoleServiceTest {
      */
     @Test
     public void testDeleteIllegal() {
-        assertEquals(416, roleService.delete(0));
+        assertEquals(ID_NOT_FOUND, roleService.delete(0));
     }
 }

@@ -1,5 +1,15 @@
 package nl.tudelft.oopp.demo.services;
 
+import static nl.tudelft.oopp.demo.config.Constants.ADDED;
+import static nl.tudelft.oopp.demo.config.Constants.ATTRIBUTE_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.BUILDING_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.DUPLICATE_DAY;
+import static nl.tudelft.oopp.demo.config.Constants.END_BEFORE_START;
+import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
+import static nl.tudelft.oopp.demo.config.Constants.ID_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.INVALID_DAY;
+import static nl.tudelft.oopp.demo.config.Constants.NOT_FOUND;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
@@ -11,6 +21,7 @@ import java.util.TimeZone;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.BuildingHours;
 import nl.tudelft.oopp.demo.repositories.BuildingHourRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -55,20 +66,20 @@ public class BuildingHourService {
             date = parse(date);
         }
         if (building == null) {
-            return 422;
+            return BUILDING_NOT_FOUND;
         }
         if (date < 1) {
-            return 425;
+            return INVALID_DAY;
         }
         if (endTimeS < startTimeS) {
-            return 426;
+            return END_BEFORE_START;
         }
         if (buildingHourRepository.existsByBuilding_IdAndDay(buildingId, date)) {
-            return 427;
+            return DUPLICATE_DAY;
         }
         BuildingHours buildingHours = new BuildingHours(date, building, LocalTime.ofSecondOfDay(startTimeS), LocalTime.ofSecondOfDay(endTimeS));
         buildingHourRepository.save(buildingHours);
-        return 201;
+        return ADDED;
     }
 
     /**
@@ -80,7 +91,7 @@ public class BuildingHourService {
      */
     public int update(int id, String attribute, String value) {
         if (!buildingHourRepository.existsById(id)) {
-            return 416;
+            return ID_NOT_FOUND;
         }
         BuildingHours buildingHours = buildingHourRepository.getOne(id);
         switch (attribute.toLowerCase()) {
@@ -90,18 +101,18 @@ public class BuildingHourService {
                     dateInMilliseconds = parse(dateInMilliseconds);
                 }
                 if (buildingHourRepository.existsByBuilding_IdAndDay(buildingHours.getBuilding().getId(), dateInMilliseconds)) {
-                    return 427;
+                    return DUPLICATE_DAY;
                 }
                 buildingHours.setDay(dateInMilliseconds);
                 break;
             case "buildingid":
                 int buildingId = Integer.parseInt(value);
                 if (buildingHourRepository.existsByBuilding_IdAndDay(buildingId, buildingHours.getDay())) {
-                    return 427;
+                    return DUPLICATE_DAY;
                 }
                 Building building = buildingService.find(buildingId);
                 if (building == null) {
-                    return 422;
+                    return BUILDING_NOT_FOUND;
                 }
                 buildingHours.setBuilding(building);
                 break;
@@ -112,10 +123,10 @@ public class BuildingHourService {
                 buildingHours.setEndTime(LocalTime.ofSecondOfDay(Integer.parseInt(value)));
                 break;
             default:
-                return 412;
+                return ATTRIBUTE_NOT_FOUND;
         }
         buildingHourRepository.save(buildingHours);
-        return 201;
+        return ADDED;
     }
 
     /**
@@ -129,10 +140,10 @@ public class BuildingHourService {
             dateInMilliseconds = parse(dateInMilliseconds);
         }
         if (!buildingHourRepository.existsByBuilding_IdAndDay(buildingId, dateInMilliseconds)) {
-            return 404;
+            return NOT_FOUND;
         }
         buildingHourRepository.deleteByBuilding_IdAndDay(buildingId, dateInMilliseconds);
-        return 200;
+        return EXECUTED;
     }
 
     /**

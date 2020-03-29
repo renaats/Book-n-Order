@@ -1,7 +1,11 @@
 package nl.tudelft.oopp.demo.controllers;
 
+<<<<<<< server/src/main/java/nl/tudelft/oopp/demo/controllers/MenuController.java
 import nl.tudelft.oopp.demo.entities.Menu;
+import static nl.tudelft.oopp.demo.config.Constants.ADMIN;
+import static nl.tudelft.oopp.demo.config.Constants.RESTAURANT;
 import nl.tudelft.oopp.demo.services.MenuService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Repository;
@@ -32,7 +36,7 @@ public class MenuController {
      * @param restaurantId restaurant id
      * @return Error code
      */
-    @Secured({"RESTAURANT_OWNER", "ROLE_ADMIN"})
+    @Secured({ADMIN, RESTAURANT})
     @PostMapping(path = "/add")
     @ResponseBody
     public int addNewMenu(@RequestParam String name, @RequestParam int restaurantId) {
@@ -55,7 +59,7 @@ public class MenuController {
      * @param id menu id
      * @return Error code
      */
-    @Secured({"RESTAURANT_OWNER", "ROLE_ADMIN"})
+    @Secured({ADMIN, RESTAURANT})
     @DeleteMapping(path = "/delete/{menuID}")
     @ResponseBody
     public int deleteMenu(@PathVariable(value = "menuID") int id) {

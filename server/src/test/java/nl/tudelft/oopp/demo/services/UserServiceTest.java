@@ -1,6 +1,19 @@
 package nl.tudelft.oopp.demo.services;
 
 import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
+
+import static nl.tudelft.oopp.demo.config.Constants.ADDED;
+import static nl.tudelft.oopp.demo.config.Constants.ADDED_CONFIRM_EMAIL;
+import static nl.tudelft.oopp.demo.config.Constants.ADMIN;
+import static nl.tudelft.oopp.demo.config.Constants.ATTRIBUTE_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.DUPLICATE_EMAIL;
+import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
+import static nl.tudelft.oopp.demo.config.Constants.INVALID_CONFIRMATION;
+import static nl.tudelft.oopp.demo.config.Constants.INVALID_EMAIL;
+import static nl.tudelft.oopp.demo.config.Constants.INVALID_EMAIL_DOMAIN;
+import static nl.tudelft.oopp.demo.config.Constants.RECOVER_PASSWORD;
+import static nl.tudelft.oopp.demo.config.Constants.USER;
+import static nl.tudelft.oopp.demo.config.Constants.USER_NOT_FOUND;
 import static nl.tudelft.oopp.demo.security.SecurityConstants.EXPIRATION_TIME;
 import static nl.tudelft.oopp.demo.security.SecurityConstants.HEADER_STRING;
 import static nl.tudelft.oopp.demo.security.SecurityConstants.SECRET;
@@ -23,7 +36,6 @@ import java.util.Set;
 import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.Role;
 import nl.tudelft.oopp.demo.repositories.RoleRepository;
-import nl.tudelft.oopp.demo.services.UserService;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -72,7 +84,7 @@ class UserServiceTest {
         appUser.setSurname("Spasov");
         appUser.setFaculty("EEMCS");
         role = new Role();
-        role.setName("ROLE_USER");
+        role.setName(USER);
         roleSet = new HashSet<>();
         roleSet.add(role);
         appUser.setRoles(roleSet);
@@ -100,7 +112,8 @@ class UserServiceTest {
     @Test
     public void testCreate() {
         roleRepository.save(role);
-        assertEquals(203, userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty()));
+        assertEquals(ADDED_CONFIRM_EMAIL,
+                userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty()));
         userService.find(appUser.getEmail()).setRoles(roleSet);
         assertEquals(Collections.singletonList(appUser), userService.all());
     }
@@ -110,7 +123,7 @@ class UserServiceTest {
      */
     @Test
     public void testCreateInvalidEmail() {
-        assertEquals(423, userService.add("notValidEmail", "1111", "name","surname","faculty"));
+        assertEquals(INVALID_EMAIL, userService.add("notValidEmail", "1111", "name","surname","faculty"));
     }
 
     /**
@@ -118,7 +131,7 @@ class UserServiceTest {
      */
     @Test
     public void testCreateNonDelftEmail() {
-        assertEquals(424, userService.add("r.jursevskis@gmail.com", "1111", "name","surname","faculty"));
+        assertEquals(INVALID_EMAIL_DOMAIN, userService.add("r.jursevskis@gmail.com", "1111", "name","surname","faculty"));
     }
 
     /**
@@ -126,8 +139,8 @@ class UserServiceTest {
      */
     @Test
     public void testCreateDuplicateAccount() {
-        assertEquals(203, userService.add(appUser.getEmail(), "1111", "name","surname","faculty"));
-        assertEquals(310, userService.add(appUser.getEmail(), "1111", "name","surname","faculty"));
+        assertEquals(ADDED_CONFIRM_EMAIL, userService.add(appUser.getEmail(), "1111", "name","surname","faculty"));
+        assertEquals(DUPLICATE_EMAIL, userService.add(appUser.getEmail(), "1111", "name","surname","faculty"));
     }
 
     /**
@@ -153,7 +166,7 @@ class UserServiceTest {
      */
     @Test
     public void testUpdateNonExistingInstance() {
-        assertEquals(419, userService.update("not a valid email", "nonexistent attribute", "random value"));
+        assertEquals(USER_NOT_FOUND, userService.update("not a valid email", "nonexistent attribute", "random value"));
     }
 
     /**
@@ -163,7 +176,7 @@ class UserServiceTest {
     public void testUpdateNonExistingAttribute() {
         userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty());
         String email = userService.all().get(0).getEmail();
-        assertEquals(412,  userService.update(email, "non_existent_attribute", "value"));
+        assertEquals(ATTRIBUTE_NOT_FOUND,  userService.update(email, "non_existent_attribute", "value"));
     }
 
     /**
@@ -228,7 +241,7 @@ class UserServiceTest {
                 .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .sign(HMAC512(SECRET.getBytes()));
         request.addHeader(HEADER_STRING, token);
-        assertEquals(200, userService.validate(request, number));
+        assertEquals(EXECUTED, userService.validate(request, number));
     }
 
     /**
@@ -243,7 +256,7 @@ class UserServiceTest {
                 .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .sign(HMAC512(SECRET.getBytes()));
         request.addHeader(HEADER_STRING, token);
-        assertEquals(431, userService.validate(request, 12345));
+        assertEquals(INVALID_CONFIRMATION, userService.validate(request, 12345));
         MockHttpServletRequest request2 = new MockHttpServletRequest();
         token = JWT.create()
                 .withSubject("NotAnEmailOfARealUser@tudelft.nl")
@@ -251,7 +264,7 @@ class UserServiceTest {
                 .sign(HMAC512(SECRET.getBytes()));
         request2.addHeader(HEADER_STRING, token);
         int number = userService.find(appUser.getEmail()).getConfirmationNumber();
-        assertEquals(419, userService.validate(request2, number));
+        assertEquals(USER_NOT_FOUND, userService.validate(request2, number));
     }
 
     /**
@@ -261,7 +274,7 @@ class UserServiceTest {
     public void testDelete() {
         userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty());
         String email = userService.all().get(0).getEmail();
-        assertEquals(200, userService.delete(email));
+        assertEquals(EXECUTED, userService.delete(email));
         assertEquals(0, userService.all().size());
     }
 
@@ -270,7 +283,7 @@ class UserServiceTest {
      */
     @Test
     public void testDeleteIllegal() {
-        assertEquals(419, userService.delete("asd"));
+        assertEquals(USER_NOT_FOUND, userService.delete("asd"));
     }
 
     /**
@@ -279,18 +292,18 @@ class UserServiceTest {
     @Test
     public void testAddRole() {
         userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty());
-        userService.addRole(appUser.getEmail(),"ROLE_ADMIN");
+        userService.addRole(appUser.getEmail(),ADMIN);
         Iterator<Role> roles = userService.find(appUser.getEmail()).getRoles().iterator();
         String role1 = roles.next().getName();
         String role2 = roles.next().getName();
         String swap;
-        if (role2.equals("ROLE_USER")) {
+        if (role2.equals(USER)) {
             swap = role2;
             role2 = role1;
             role1 = swap;
         }
-        assertEquals(role1, "ROLE_USER");
-        assertEquals(role2,"ROLE_ADMIN");
+        assertEquals(role1, USER);
+        assertEquals(role2,ADMIN);
     }
 
     /**
@@ -298,7 +311,7 @@ class UserServiceTest {
      */
     @Test
     public void testAddRoleNonExistent() {
-        assertEquals(419, userService.addRole("a","ROLE_ADMIN"));
+        assertEquals(USER_NOT_FOUND, userService.addRole("a",ADMIN));
     }
 
     /**
@@ -339,7 +352,7 @@ class UserServiceTest {
                 .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .sign(HMAC512(SECRET.getBytes()));
         request.addHeader(HEADER_STRING, token);
-        assertEquals(201, userService.logout(request));
+        assertEquals(ADDED, userService.logout(request));
     }
 
     /**
@@ -349,7 +362,7 @@ class UserServiceTest {
     public void testNonExistentLogOut() {
         userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty());
         MockHttpServletRequest request = new MockHttpServletRequest();
-        assertEquals(419, userService.logout(request));
+        assertEquals(USER_NOT_FOUND, userService.logout(request));
     }
 
     /**
@@ -365,7 +378,7 @@ class UserServiceTest {
                 .sign(HMAC512(SECRET.getBytes()));
         request.addHeader(HEADER_STRING, token);
         assertFalse(userService.isAdmin(request));
-        userService.addRole(appUser.getEmail(), "ROLE_ADMIN");
+        userService.addRole(appUser.getEmail(), ADMIN);
         assertTrue(userService.isAdmin(request));
     }
 
@@ -385,8 +398,8 @@ class UserServiceTest {
     @Test
     public void testRecoverPassword() {
         userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty());
-        assertEquals(205, userService.recoverPassword(appUser.getEmail()));
-        assertEquals(419, userService.recoverPassword("NotARealEmail@tudelft.nl"));
+        assertEquals(RECOVER_PASSWORD, userService.recoverPassword(appUser.getEmail()));
+        assertEquals(USER_NOT_FOUND, userService.recoverPassword("NotARealEmail@tudelft.nl"));
     }
      
     /**   
@@ -430,7 +443,7 @@ class UserServiceTest {
                 .sign(HMAC512(SECRET.getBytes()));
         request.addHeader(HEADER_STRING, token);
         String password = userService.all().get(0).getPassword();
-        assertEquals(201, userService.changePassword(request, password));
+        assertEquals(ADDED, userService.changePassword(request, password));
         assertNotEquals(password, userService.all().get(0).getPassword());
     }
 
@@ -441,6 +454,6 @@ class UserServiceTest {
     public void testNonExistentPassword() {
         userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty());
         MockHttpServletRequest request = new MockHttpServletRequest();
-        assertEquals(419, userService.changePassword(request, "123"));
+        assertEquals(USER_NOT_FOUND, userService.changePassword(request, "123"));
     }
 }

@@ -1,5 +1,15 @@
 package nl.tudelft.oopp.demo.services;
 
+import static nl.tudelft.oopp.demo.config.Constants.ADDED;
+import static nl.tudelft.oopp.demo.config.Constants.ATTRIBUTE_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.BUILDING_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.DUPLICATE_DAY;
+import static nl.tudelft.oopp.demo.config.Constants.END_BEFORE_START;
+import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
+import static nl.tudelft.oopp.demo.config.Constants.ID_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.INVALID_DAY;
+import static nl.tudelft.oopp.demo.config.Constants.NOT_FOUND;
+
 import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.Date;
@@ -9,6 +19,7 @@ import java.util.TimeZone;
 import nl.tudelft.oopp.demo.entities.Restaurant;
 import nl.tudelft.oopp.demo.entities.RestaurantHours;
 import nl.tudelft.oopp.demo.repositories.RestaurantHourRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,21 +49,21 @@ public class RestaurantHourService {
             date = BuildingHourService.parse(date);
         }
         if (restaurant == null) {
-            return 422;
+            return BUILDING_NOT_FOUND;
         }
         if (date < 1) {
-            return 425;
+            return INVALID_DAY;
         }
         if (endTimeS < startTimeS) {
-            return 426;
+            return END_BEFORE_START;
         }
         if (restaurantHourRepository.existsByRestaurant_IdAndDay(restaurantId, date)) {
-            return 427;
+            return DUPLICATE_DAY;
         }
         RestaurantHours restaurantHours =
                 new RestaurantHours(date, restaurant, LocalTime.ofSecondOfDay(startTimeS), LocalTime.ofSecondOfDay(endTimeS));
         restaurantHourRepository.save(restaurantHours);
-        return 201;
+        return ADDED;
     }
 
     /**
@@ -64,7 +75,7 @@ public class RestaurantHourService {
      */
     public int update(int id, String attribute, String value) {
         if (!restaurantHourRepository.existsById(id)) {
-            return 416;
+            return ID_NOT_FOUND;
         }
         RestaurantHours restaurantHours = restaurantHourRepository.getOne(id);
         switch (attribute.toLowerCase()) {
@@ -74,18 +85,18 @@ public class RestaurantHourService {
                     dateInMilliseconds = BuildingHourService.parse(dateInMilliseconds);
                 }
                 if (restaurantHourRepository.existsByRestaurant_IdAndDay(restaurantHours.getRestaurant().getId(), dateInMilliseconds)) {
-                    return 427;
+                    return DUPLICATE_DAY;
                 }
                 restaurantHours.setDay(dateInMilliseconds);
                 break;
             case "restaurantid":
                 int restaurantId = Integer.parseInt(value);
                 if (restaurantHourRepository.existsByRestaurant_IdAndDay(restaurantId, restaurantHours.getDay())) {
-                    return 427;
+                    return DUPLICATE_DAY;
                 }
                 Restaurant restaurant = restaurantService.find(restaurantId);
                 if (restaurant == null) {
-                    return 422;
+                    return BUILDING_NOT_FOUND;
                 }
                 restaurantHours.setRestaurant(restaurant);
                 break;
@@ -96,10 +107,10 @@ public class RestaurantHourService {
                 restaurantHours.setEndTime(LocalTime.ofSecondOfDay(Integer.parseInt(value)));
                 break;
             default:
-                return 412;
+                return ATTRIBUTE_NOT_FOUND;
         }
         restaurantHourRepository.save(restaurantHours);
-        return 201;
+        return ADDED;
     }
 
     /**
@@ -113,10 +124,10 @@ public class RestaurantHourService {
             dateInMilliseconds = BuildingHourService.parse(dateInMilliseconds);
         }
         if (!restaurantHourRepository.existsByRestaurant_IdAndDay(restaurantId, dateInMilliseconds)) {
-            return 404;
+            return NOT_FOUND;
         }
         restaurantHourRepository.deleteByRestaurant_IdAndDay(restaurantId, dateInMilliseconds);
-        return 200;
+        return EXECUTED;
     }
 
     /**
