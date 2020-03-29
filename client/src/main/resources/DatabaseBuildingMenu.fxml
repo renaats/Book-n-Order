@@ -118,7 +118,7 @@
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor></Button>
-   <Button fx:id="nextPageButton" layoutX="954.0" layoutY="573.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#nextPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&gt;&gt;" textFill="WHITE">
+   <Button fx:id="nextPageButton" layoutX="956.0" layoutY="573.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#nextPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&gt;&gt;" textFill="WHITE">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor>
