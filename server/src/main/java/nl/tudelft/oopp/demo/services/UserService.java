@@ -255,7 +255,7 @@ public class UserService {
 
         switch (attribute) {
             case "password":
-                appUser.setPassword(bcryptPasswordEncoder.encode(value));
+                appUser.setPassword(bcryptPasswordEncoder.encode(URLDecoder.decode(value, StandardCharsets.UTF_8)));
                 break;
             case "name":
                 appUser.setName(value);
