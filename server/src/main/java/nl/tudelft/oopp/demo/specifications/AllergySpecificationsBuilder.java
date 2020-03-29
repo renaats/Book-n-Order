@@ -15,7 +15,7 @@ public class AllergySpecificationsBuilder {
     private final List<SearchCriteria> params;
 
     public AllergySpecificationsBuilder() {
-        params = new ArrayList<SearchCriteria>();
+        params = new ArrayList<>();
     }
 
     public AllergySpecificationsBuilder with(String key, String operation, Object value) {

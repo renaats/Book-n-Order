@@ -295,7 +295,7 @@ public class JsonMapper {
 
         try {
             // Convert JSON string to Object
-            return mapper.readValue(roomReservationsJson, new TypeReference<List<RoomReservation>>(){});
+            return mapper.readValue(roomReservationsJson, new TypeReference<>(){});
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Error");
@@ -341,7 +341,7 @@ public class JsonMapper {
 
         try {
             // Convert JSON string to Object
-            return mapper.readValue(foodOrdersJson, new TypeReference<List<FoodOrder>>(){});
+            return mapper.readValue(foodOrdersJson, new TypeReference<>(){});
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Error");
@@ -387,7 +387,7 @@ public class JsonMapper {
 
         try {
             // Convert JSON string to Object
-            return mapper.readValue(bikeReservationsJson, new TypeReference<List<BikeReservation>>(){});
+            return mapper.readValue(bikeReservationsJson, new TypeReference<>(){});
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Error");

@@ -15,7 +15,7 @@ public class RoomSpecificationsBuilder {
     private final List<SearchCriteria> params;
 
     public RoomSpecificationsBuilder() {
-        params = new ArrayList<SearchCriteria>();
+        params = new ArrayList<>();
     }
 
     public RoomSpecificationsBuilder with(String key, String operation, Object value) {

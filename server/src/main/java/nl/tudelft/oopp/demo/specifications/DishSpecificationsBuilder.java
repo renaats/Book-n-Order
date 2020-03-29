@@ -15,7 +15,7 @@ public class DishSpecificationsBuilder {
     private final List<SearchCriteria> params;
 
     public DishSpecificationsBuilder() {
-        params = new ArrayList<SearchCriteria>();
+        params = new ArrayList<>();
     }
 
     public DishSpecificationsBuilder with(String key, String operation, Object value) {
