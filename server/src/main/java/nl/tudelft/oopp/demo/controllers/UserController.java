@@ -3,6 +3,9 @@ package nl.tudelft.oopp.demo.controllers;
 import static nl.tudelft.oopp.demo.config.Constants.ADMIN;
 import static nl.tudelft.oopp.demo.config.Constants.USER;
 
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
+
 import javax.servlet.http.HttpServletRequest;
 
 import nl.tudelft.oopp.demo.entities.AppUser;
@@ -77,7 +80,7 @@ public class UserController {
             @RequestParam String name,
             @RequestParam String surname,
             @RequestParam String faculty) {
-        return userService.add(email,password,name,surname,faculty);
+        return userService.add(email,password,name,surname, URLDecoder.decode(faculty, StandardCharsets.UTF_8));
     }
 
     /**
