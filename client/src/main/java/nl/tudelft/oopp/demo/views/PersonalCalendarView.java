@@ -114,6 +114,10 @@ public class PersonalCalendarView extends CalendarView {
         orderedFood.setStyle(Calendar.Style.STYLE3);
         rentedBikes.setStyle(Calendar.Style.STYLE4);
 
+        bookedRooms.setReadOnly(true);
+        orderedFood.setReadOnly(true);
+        rentedBikes.setReadOnly(true);
+
         CalendarSource myCalendarSource = new CalendarSource("My Calendars");
         myCalendarSource.getCalendars().addAll(bookedRooms, orderedFood, rentedBikes);
         this.getCalendarSources().add(myCalendarSource);
