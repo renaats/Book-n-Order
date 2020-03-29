@@ -215,8 +215,8 @@ public class DishServiceTest {
         dishService.add(dish.getName(), dish.getMenu().getId());
         dishService.add(dish2.getName(), dish2.getMenu().getId());
         int id = dishService.all().get(0).getId();
-        assertEquals(EXECUTED, dishService.delete(id));
-        assertEquals(1, dishService.all().size());
+        Assertions.assertEquals(EXECUTED, dishService.delete(id));
+        Assertions.assertEquals(1, dishService.all().size());
     }
 
     /**

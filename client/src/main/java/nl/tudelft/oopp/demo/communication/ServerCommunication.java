@@ -106,6 +106,11 @@ public class ServerCommunication {
         return communicateAndReturnBodyOfResponse(request);
     }
 
+    public static String findBuildingByName(String name) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building/find/" + name)).GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
     /**
      * Communicates the buildings to add to the database
      * @param name building name

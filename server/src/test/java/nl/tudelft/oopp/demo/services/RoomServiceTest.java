@@ -85,8 +85,8 @@ public class RoomServiceTest {
      */
     @BeforeEach
     public void setup() {
-        buildingService.add("EWI", "Mekelweg", 4);
-        buildingService.add("EWI2", "Mekelweg2", 42);
+        buildingService.add("EWI", "Mekelweg", "EWI", 4);
+        buildingService.add("EWI2", "Mekelweg2", "EWI", 42);
 
         List<Building> buildings = new ArrayList<>(buildingService.all());
         building = buildings.get(0);

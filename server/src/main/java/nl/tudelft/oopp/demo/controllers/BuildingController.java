@@ -42,8 +42,8 @@ public class BuildingController {
     @Secured({ADMIN, BUILDING_ADMIN})
     @PostMapping(path = "/add")
     @ResponseBody
-    public int addNewBuilding(@RequestParam String name, @RequestParam String street, @RequestParam int houseNumber) {
-        return buildingService.add(name, street, houseNumber);
+    public int addNewBuilding(@RequestParam String name, @RequestParam String street, @RequestParam String faculty, @RequestParam int houseNumber) {
+        return buildingService.add(name, street, faculty, houseNumber);
     }
 
     /**
@@ -82,7 +82,7 @@ public class BuildingController {
     public Iterable<Building> getAllBuildings() {
         return buildingService.all();
     }
-
+    
     /**
      * Retrieves the building with the specified id.
      * @param id = the id of the building.
@@ -96,6 +96,18 @@ public class BuildingController {
     }
 
     /**
+     * Finds a building with the specified name.
+     * @param name = the name of the building
+     * @return a building that matches the name
+     */
+    @Secured(USER)
+    @GetMapping(path = "/findName/{name}")
+    @ResponseBody
+    public Building findBuildingByName(@PathVariable(value = "name") String name) {
+        return buildingService.find(name);
+    }
+
+    /**
      * Return all rooms that are in the building with the specified id.
      * @param id = the id of the building.
      * @return Set of all rooms in the retrieved building.
@@ -106,5 +118,4 @@ public class BuildingController {
     public Set<Room> getRooms(@PathVariable(value = "buildingId") int id) {
         return buildingService.rooms(id);
     }
-
 }

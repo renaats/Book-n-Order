@@ -66,7 +66,8 @@ public class RoomController {
             @RequestParam int buildingId,
             @RequestParam int capacity,
             @RequestParam int plugs) {
-        return roomService.add(name, faculty, facultySpecific, screen, projector, buildingId, capacity, plugs);
+        return roomService.add(name, URLDecoder.decode(faculty, StandardCharsets.UTF_8), facultySpecific, screen,
+                projector, buildingId, capacity, plugs);
     }
 
     /**

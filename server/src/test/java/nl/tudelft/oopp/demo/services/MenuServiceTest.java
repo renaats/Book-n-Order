@@ -77,7 +77,7 @@ public class MenuServiceTest {
      */
     @BeforeEach
     public void setup() {
-        building2 = new Building("EWI2", "Mekelweg2", 42);
+        building2 = new Building("EWI2", "Mekelweg2", "EWI", 42);
         buildingRepository.save(building2);
 
         restaurant1 = new Restaurant(building, "Hangout");
@@ -101,7 +101,7 @@ public class MenuServiceTest {
 
         menu2 = new Menu("BK menu", restaurant2);
 
-        building = new Building("EWI", "Mekelweg", 4);
+        building = new Building("EWI", "Mekelweg", "EWI", 4);
         buildingRepository.save(building);
     }
 
