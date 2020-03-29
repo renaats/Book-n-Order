@@ -42,8 +42,8 @@ public class BuildingController {
     @Secured({ADMIN, BUILDING_ADMIN})
     @PostMapping(path = "/add")
     @ResponseBody
-    public int addNewBuilding(@RequestParam String name, @RequestParam String street, @RequestParam int houseNumber) {
-        return buildingService.add(name, street, houseNumber);
+    public int addNewBuilding(@RequestParam String name, @RequestParam String street, @RequestParam String faculty, @RequestParam int houseNumber) {
+        return buildingService.add(name, street, faculty, houseNumber);
     }
 
     /**

@@ -58,13 +58,13 @@ public class FoodOrderTest {
      */
     @BeforeEach
     public void setup() {
-        building = new Building("XTUDelft", "Mekelweg", 8);
+        building = new Building("XTUDelft", "Mekelweg", "None", 8);
         buildingRepository.saveAndFlush(building);
 
         restaurant = new Restaurant(building, "CafeX");
         restaurantRepository.saveAndFlush(restaurant);
 
-        deliveryLocation = new Building("EWI", "Mekelweg", 4);
+        deliveryLocation = new Building("EWI", "Mekelweg", "EWI", 4);
         buildingRepository.saveAndFlush(deliveryLocation);
 
         appUser = new AppUser("l.j.jongejans@student.tudelft.nl", "1234", "Liselotte", "Jongejans", "EWI");
