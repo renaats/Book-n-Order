@@ -142,7 +142,7 @@ public class UserController {
      * @param roleName = the name of the role
      * @return an error code corresponding to the outcome of the request
      */
-    //@Secured("ROLE_ADMIN") SHOULD BE UNCOMMENTED WHEN IN PRODUCTION!
+    @Secured("ROLE_ADMIN")
     @PostMapping(path = "/addRole")
     @ResponseBody
     public int addRole(@RequestParam String email, @RequestParam String roleName) {
