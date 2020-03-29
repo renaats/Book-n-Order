@@ -62,8 +62,7 @@ public class DatabaseEditFoodRestaurantsController implements Initializable {
             CustomAlert.warningAlert("There are no buildings in the database");
         }
     }
-
-
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         loadChoiceBoxes();
