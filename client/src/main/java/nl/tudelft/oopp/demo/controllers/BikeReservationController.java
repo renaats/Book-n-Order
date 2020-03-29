@@ -3,26 +3,21 @@ package nl.tudelft.oopp.demo.controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
+
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
- * This class controls the functionality of the different buttons in bike reservations and creates the entries in the choice boxes
+ * Loads the correct content into the FXML objects that need to display server information and
+ * controls all the user inputs made through the GUI in the "bikeReservations.fxml" file
  */
-
 public class BikeReservationController implements Initializable {
-
-    final ObservableList listLocations = FXCollections.observableArrayList();
-
     final ObservableList<String> listTime = FXCollections.observableArrayList();
-
     final ObservableList<String> listMinutes = FXCollections.observableArrayList();
 
     @FXML
@@ -33,14 +28,12 @@ public class BikeReservationController implements Initializable {
     private ComboBox<String> dropOffTimeH;
     @FXML
     private ComboBox<String> dropOffTimeMin;
-    @FXML
-    private TextField screen;
 
-    public void mainMenu(MouseEvent mouseEvent) throws IOException {
+    public void mainMenu() throws IOException {
         ApplicationDisplay.changeScene("/mainMenu.fxml");
     }
 
-    public void bikeConfirmation(ActionEvent actionEvent) throws IOException {
+    public void bikeConfirmation() throws IOException {
         ApplicationDisplay.changeScene("/bikeConfirmation.fxml");
     }
 
@@ -50,8 +43,8 @@ public class BikeReservationController implements Initializable {
     }
 
     private void loadData() {
-        listTime.removeAll(listTime);
-        listMinutes.removeAll(listMinutes);
+        listTime.clear();
+        listMinutes.clear();
         for (int i = 0;i <= 45; i = i + 15) {
             if (i == 0) {
                 listMinutes.add("00");
@@ -74,7 +67,7 @@ public class BikeReservationController implements Initializable {
 
     /**
      * return to the reservations menu when the back arrow button is clicked.
-     * @throws IOException the input will allways be the same, so it should never throw an IO exception
+     * @throws IOException the input will always be the same, so it should never throw an IO exception
      */
     public void goToMainMenuReservations() throws IOException {
         ApplicationDisplay.changeScene("/mainMenuReservations.fxml");

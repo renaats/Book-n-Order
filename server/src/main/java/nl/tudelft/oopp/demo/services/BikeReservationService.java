@@ -1,8 +1,22 @@
 package nl.tudelft.oopp.demo.services;
 
+import static nl.tudelft.oopp.demo.config.Constants.ADDED;
+import static nl.tudelft.oopp.demo.config.Constants.ALREADY_RESERVED;
+import static nl.tudelft.oopp.demo.config.Constants.ATTRIBUTE_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.BUILDING_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
+import static nl.tudelft.oopp.demo.config.Constants.ID_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.RESERVATION_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.USER_NOT_FOUND;
+import static nl.tudelft.oopp.demo.security.SecurityConstants.HEADER_STRING;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+
+import javax.servlet.http.HttpServletRequest;
 
 import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.Bike;
@@ -12,6 +26,7 @@ import nl.tudelft.oopp.demo.repositories.BikeRepository;
 import nl.tudelft.oopp.demo.repositories.BikeReservationRepository;
 import nl.tudelft.oopp.demo.repositories.BuildingRepository;
 import nl.tudelft.oopp.demo.repositories.UserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,7 +62,7 @@ public class BikeReservationService {
     public int add(int bikeId, String userEmail, int fromBuilding, int toBuilding, long fromTimeMs, long toTimeMs) {
         Optional<Bike> optionalBike = bikeRepository.findById(bikeId);
         if (optionalBike.isEmpty()) {
-            return 416;
+            return ID_NOT_FOUND;
         }
         Bike bike = optionalBike.get();
         BikeReservation bikeReservation = new BikeReservation();
@@ -55,33 +70,33 @@ public class BikeReservationService {
 
         Optional<AppUser> optionalUser = userRepository.findById(userEmail);
         if (optionalUser.isEmpty()) {
-            return 404;
+            return NOT_FOUND;
         }
         AppUser appUser = optionalUser.get();
         bikeReservation.setAppUser(appUser);
 
         Optional<Building> optionalFromBuilding = buildingRepository.findById(fromBuilding);
-        if (!optionalFromBuilding.isPresent()) {
-            return 422;
+        if (optionalFromBuilding.isEmpty()) {
+            return BUILDING_NOT_FOUND;
         }
         Building fromBuildingLoc = optionalFromBuilding.get();
         bikeReservation.setFromBuilding(fromBuildingLoc);
 
         Optional<Building> optionalToBuilding = buildingRepository.findById(toBuilding);
-        if (!optionalToBuilding.isPresent()) {
-            return 422;
+        if (optionalToBuilding.isEmpty()) {
+            return BUILDING_NOT_FOUND;
         }
         Building toBuildingLoc = optionalToBuilding.get();
         bikeReservation.setToBuilding(toBuildingLoc);
 
         if (bike.hasBikeReservationBetween(new Date(fromTimeMs), new Date(toTimeMs))) {
-            return 308;
+            return ALREADY_RESERVED;
         }
         bikeReservation.setFromTime(new Date(fromTimeMs));
         bikeReservation.setToTime(new Date(toTimeMs));
 
         bikeReservationRepository.save(bikeReservation);
-        return 201;
+        return ADDED;
     }
 
     /**
@@ -93,7 +108,7 @@ public class BikeReservationService {
      */
     public int update(int id, String attribute, String value) {
         if (bikeReservationRepository.findById(id).isEmpty()) {
-            return 421;
+            return RESERVATION_NOT_FOUND;
         }
         BikeReservation bikeReservation = bikeReservationRepository.findById(id).get();
 
@@ -108,7 +123,7 @@ public class BikeReservationService {
                 int fromBuildingId = Integer.parseInt(value);
                 Optional<Building> optionalFromBuilding = buildingRepository.findById(fromBuildingId);
                 if (optionalFromBuilding.isEmpty()) {
-                    return 422;
+                    return BUILDING_NOT_FOUND;
                 }
                 Building fromBuilding = optionalFromBuilding.get();
                 bikeReservation.setFromBuilding(fromBuilding);
@@ -117,7 +132,7 @@ public class BikeReservationService {
                 int toBuildingId = Integer.parseInt(value);
                 Optional<Building> optionalToBuilding = buildingRepository.findById(toBuildingId);
                 if (optionalToBuilding.isEmpty()) {
-                    return 422;
+                    return BUILDING_NOT_FOUND;
                 }
                 Building toBuilding = optionalToBuilding.get();
                 bikeReservation.setToBuilding(toBuilding);
@@ -126,7 +141,7 @@ public class BikeReservationService {
                 int bikeId = Integer.parseInt(value);
                 Optional<Bike> optionalBike = bikeRepository.findById(bikeId);
                 if (optionalBike.isEmpty()) {
-                    return 416;
+                    return ID_NOT_FOUND;
                 }
                 Bike bike = optionalBike.get();
                 bikeReservation.setBike(bike);
@@ -134,16 +149,16 @@ public class BikeReservationService {
             case "useremail":
                 Optional<AppUser> optionalUser = userRepository.findById(value);
                 if (optionalUser.isEmpty()) {
-                    return 419;
+                    return USER_NOT_FOUND;
                 }
                 AppUser appUser = optionalUser.get();
                 bikeReservation.setAppUser(appUser);
                 break;
             default:
-                return 420;
+                return ATTRIBUTE_NOT_FOUND;
         }
         bikeReservationRepository.save(bikeReservation);
-        return 200;
+        return EXECUTED;
     }
 
     /**
@@ -153,10 +168,10 @@ public class BikeReservationService {
      */
     public int delete(int id) {
         if (!bikeReservationRepository.existsById(id)) {
-            return 421;
+            return RESERVATION_NOT_FOUND;
         }
         bikeReservationRepository.deleteById(id);
-        return 200;
+        return EXECUTED;
     }
 
     /**
@@ -170,10 +185,49 @@ public class BikeReservationService {
     /**
      * Finds a bike reservation with the specified id.
      * @param id = the bike reservation id
-     * @return a bike reservation that matches the id
+     * @return a bike reservation that matches the id.
      */
     public BikeReservation find(int id) {
         return bikeReservationRepository.findById(id).orElse(null);
     }
 
+    /**
+     * Finds all past bike reservations for the user that sends the Http request.
+     * @param request = the Http request that calls this method
+     * @return a list of past bike reservations for this user.
+     */
+    public List<BikeReservation> past(HttpServletRequest request) {
+        List<BikeReservation> bikeReservations = new ArrayList<>();
+        String token = request.getHeader(HEADER_STRING);
+        AppUser appUser = UserService.getAppUser(token, userRepository);
+        if (appUser == null) {
+            return bikeReservations;
+        }
+        for (BikeReservation bikeReservation: bikeReservationRepository.findAll()) {
+            if (bikeReservation.getAppUser() == appUser && bikeReservation.getToTime().before(new Date())) {
+                bikeReservations.add(bikeReservation);
+            }
+        }
+        return bikeReservations;
+    }
+
+    /**
+     * Finds all future bike reservations for the user that sends the Http request.
+     * @param request = the Http request that calls this method
+     * @return a list of future bike reservations for this user.
+     */
+    public List<BikeReservation> future(HttpServletRequest request) {
+        List<BikeReservation> bikeReservations = new ArrayList<>();
+        String token = request.getHeader(HEADER_STRING);
+        AppUser appUser = UserService.getAppUser(token, userRepository);
+        if (appUser == null) {
+            return bikeReservations;
+        }
+        for (BikeReservation bikeReservation: bikeReservationRepository.findAll()) {
+            if (bikeReservation.getAppUser() == appUser && bikeReservation.getToTime().after(new Date())) {
+                bikeReservations.add(bikeReservation);
+            }
+        }
+        return bikeReservations;
+    }
 }

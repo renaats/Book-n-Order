@@ -1,9 +1,15 @@
 package nl.tudelft.oopp.demo.services;
 
+import static nl.tudelft.oopp.demo.config.Constants.ADDED;
+import static nl.tudelft.oopp.demo.config.Constants.DUPLICATE_NAME;
+import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
+import static nl.tudelft.oopp.demo.config.Constants.ID_NOT_FOUND;
+
 import java.util.List;
 
 import nl.tudelft.oopp.demo.entities.Role;
 import nl.tudelft.oopp.demo.repositories.RoleRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,10 +29,13 @@ public class RoleService {
      * @return String to see if your request passed
      */
     public int add(String name) {
+        if (roleRepository.existsByName(name)) {
+            return DUPLICATE_NAME;
+        }
         Role role = new Role();
         role.setName(name);
         roleRepository.save(role);
-        return 201;
+        return ADDED;
     }
 
     /**
@@ -37,13 +46,13 @@ public class RoleService {
      */
     public int update(int id, String name) {
         if (!roleRepository.existsById(id)) {
-            return 416;
+            return ID_NOT_FOUND;
         }
         Role role = roleRepository.getOne(id);
         String old = role.getName();
         role.setName(name);
         roleRepository.save(role);
-        return 201;
+        return ADDED;
     }
 
     /**
@@ -53,10 +62,10 @@ public class RoleService {
      */
     public int delete(int id) {
         if (!roleRepository.existsById(id)) {
-            return 416;
+            return ID_NOT_FOUND;
         }
         roleRepository.deleteById(id);
-        return 200;
+        return EXECUTED;
     }
 
     /**

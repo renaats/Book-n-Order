@@ -4,6 +4,9 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+/**
+ * Manages the Building object that is retrieved from the server
+ */
 public class Building {
 
     private int id;

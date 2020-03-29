@@ -1,7 +1,12 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import static nl.tudelft.oopp.demo.config.Constants.ADMIN;
+import static nl.tudelft.oopp.demo.config.Constants.RESTAURANT;
+import static nl.tudelft.oopp.demo.config.Constants.USER;
+
 import nl.tudelft.oopp.demo.entities.Restaurant;
 import nl.tudelft.oopp.demo.services.RestaurantService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Repository;
@@ -32,7 +37,7 @@ public class RestaurantController {
      * @param name = the name of the restaurant
      * @return Error code
      */
-    @Secured({"ROLE_ADMIN", "ROLE_RESTAURANT"})
+    @Secured({ADMIN, RESTAURANT})
     @PostMapping(path = "/add") // Map ONLY POST Requests
     @ResponseBody
     public int addNewRestaurant(
@@ -49,7 +54,7 @@ public class RestaurantController {
      * @param value = the new value of the attribute
      * @return Error code
      */
-    @Secured({"ROLE_ADMIN", "ROLE_RESTAURANT"})
+    @Secured({ADMIN, RESTAURANT})
     @PostMapping(path = "/update")
     @ResponseBody
     public int updateAttribute(@RequestParam int id, @RequestParam String attribute, @RequestParam String value) {
@@ -62,7 +67,7 @@ public class RestaurantController {
      * @param id = the id of the restaurant
      * @return Error code
      */
-    @Secured({"ROLE_ADMIN", "ROLE_RESTAURANT"})
+    @Secured({ADMIN, RESTAURANT})
     @DeleteMapping(path = "/delete/{restaurantID}")
     @ResponseBody
     public int deleteRestaurant(@PathVariable(value = "restaurantID") int id) {
@@ -73,7 +78,7 @@ public class RestaurantController {
      * Lists all restaurants.
      * @return all restaurants
      */
-    @Secured("ROLE_USER")
+    @Secured(USER)
     @GetMapping(path = "/all")
     @ResponseBody
     public Iterable<Restaurant> getAllRestaurants() {
@@ -85,7 +90,7 @@ public class RestaurantController {
      * @param id = the restaurant id
      * @return a restaurant that matches the id
      */
-    @Secured("ROLE_USER")
+    @Secured(USER)
     @GetMapping(path = "/find/{id}")
     @ResponseBody
     public Restaurant findRestaurant(@PathVariable (value = "id") int id) {

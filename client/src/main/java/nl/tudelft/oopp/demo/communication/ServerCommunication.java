@@ -2,7 +2,6 @@ package nl.tudelft.oopp.demo.communication;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
@@ -12,21 +11,23 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import nl.tudelft.oopp.demo.authentication.AuthenticationKey;
 import nl.tudelft.oopp.demo.errors.ErrorMessages;
-import nl.tudelft.oopp.demo.user.UserInformation;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
+/**
+ * Controls all client to server communication
+ * Sends the appropriate HTTP request depending on the method
+ */
 public class ServerCommunication {
-
     private static final HttpClient client = HttpClient.newBuilder().build();
 
     /**
      * Handles the request/response process between client/server.
-     * @param request HttpRequest that was made
+     * @param request HttpRequest that was made.
      * @return the error message corresponding to the server's response.
      */
     public static String communicateAndReturnErrorMessage(HttpRequest request) {
@@ -37,19 +38,18 @@ public class ServerCommunication {
             e.printStackTrace();
             return "Communication with server failed";
         }
+        if (response.statusCode() != 200 && response.statusCode() != 201) {
+            System.out.println("Status: " + response.statusCode());
+        }
         if (response.statusCode() == 403) {
             return ErrorMessages.getErrorMessage(401);
-        }
-        if (response.statusCode() != 200) {
-            System.out.println(response.body());
-            System.out.println("Status: " + response.statusCode());
         }
         return ErrorMessages.getErrorMessage(Integer.parseInt(response.body()));
     }
 
     /**
      * Handles the request/response process between client/server.
-     * @param request HttpRequest that was made
+     * @param request HttpRequest that was made.
      * @return the body of the response from the server.
      */
     public static String communicateAndReturnBodyOfResponse(HttpRequest request) {
@@ -60,9 +60,11 @@ public class ServerCommunication {
             e.printStackTrace();
             return "Communication with server failed";
         }
-        if (response.statusCode() != 200) {
-            System.out.println(response.body());
+        if (response.statusCode() != 200 && response.statusCode() != 201) {
             System.out.println("Status: " + response.statusCode());
+        }
+        if (response.statusCode() == 403) {
+            return ErrorMessages.getErrorMessage(401);
         }
         if (response.body().equals("[]") || response.body().equals("")) {
             return ErrorMessages.getErrorMessage(404);
@@ -71,105 +73,16 @@ public class ServerCommunication {
         }
     }
 
-    /**
-     * Retrieves the String representation of a user from the server.
-     * @return the body of the response from the server.
-     */
-    public static String getUser() {
-        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + UserInformation.getBearerKey()).uri(URI.create("http://localhost:8080/user")).build();
-        HttpResponse<String> response;
-        try {
-            response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "Communication with server failed";
-        }
-        if (response.statusCode() == 403) {
-            return ErrorMessages.getErrorMessage(401);
-        }
-        if (response.statusCode() != 200) {
-            System.out.println("Status: " + response.statusCode());
-        }
-        return response.body();
-    }
-
-    /**
-     * Retrieves a user from the server.
-     * @param email User's email
-     * @param name User's name
-     * @param surname User's surname
-     * @param password User's password
-     * @return the body of a get request to the server.
-     */
-    public static String addUser(String email, String name, String surname, String faculty, String password) {
-        HttpRequest request;
-        try {
-            request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/user/add?email=" + URLEncoder.encode(email,"UTF-8")  + "&name=" + URLEncoder.encode(name,"UTF-8") + "&surname=" + URLEncoder.encode(surname,"UTF-8") + "&faculty=" + faculty + "&password=" + URLEncoder.encode(password,"UTF-8"))).POST(HttpRequest.BodyPublishers.noBody()).build();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            return "Please enter an encoding that is supported by the URLEncode class.";
-        }
-        HttpResponse<String> response;
-        try {
-            request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/user/add?email=" + URLEncoder.encode(email,"UTF-8")  + "&name=" + URLEncoder.encode(name,"UTF-8") + "&surname=" + URLEncoder.encode(surname,"UTF-8") + "&faculty=" + faculty + "&password=" + URLEncoder.encode(password,"UTF-8"))).POST(HttpRequest.BodyPublishers.noBody()).build();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            return "Please enter an encoding that is supported by the URLEncode class.";
-        }
-        return communicateAndReturnErrorMessage(request);
-    }
-
-    /**
-     * Authorizes the user.
-     * @param email User's email
-     * @param password User's password
-     * @return the body of a get request to the server.
-     */
-    public static String loginUser(String email, String password) throws IOException {
-
-        URL url = new URL("http://localhost:8080/login");
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod("POST");
-        connection.setRequestProperty("Content-Type", "application/json; utf-8");
-        connection.setRequestProperty("Accept", "application/json");
-        connection.setDoOutput(true);
-
-        String jsonInputString = "{\"email\": \"" + email + "\", \"password\":\"" + password + "\"}";
-        try (OutputStream os = connection.getOutputStream()) {
-            byte[] input = jsonInputString.getBytes(StandardCharsets.UTF_8);
-            os.write(input, 0, input.length);
-        }
-
-        Map<String, List<String>> map = connection.getHeaderFields();
-
-        for (Map.Entry<String, List<String>> entry : map.entrySet()) {
-            if (entry.getKey() != null) {
-                if (entry.getKey().equals("Authorization")) {
-                    // Yes it's gross, it works, it grabs the key
-                    UserInformation.setBearerKey((Arrays.asList(entry.getValue().get(0).split(" ")).get(1)));
-                    ApplicationDisplay.changeScene("/mainMenu.fxml");
-                    return ErrorMessages.getErrorMessage(200);
-                }
-            }
-        }
-        return ErrorMessages.getErrorMessage(311);
-    }
+    // ---------------------------------------------
+    // Building related Server Communication methods
+    // ---------------------------------------------
 
     /**
      * Retrieves all buildings from the server.
      * @return the body of the response from the server.
      */
     public static String getBuildings() {
-        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + UserInformation.getBearerKey()).uri(URI.create("http://localhost:8080/building/all")).build();
-        return communicateAndReturnBodyOfResponse(request);
-    }
-
-    /**
-     * Retrieves a JSON string representation of all rooms from the server.
-     * @return the body of the response from the server.
-     */
-    public static String getRooms() {
-        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + UserInformation.getBearerKey()).uri(URI.create("http://localhost:8080/room/all")).build();
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/building/all")).build();
         return communicateAndReturnBodyOfResponse(request);
     }
 
@@ -179,7 +92,7 @@ public class ServerCommunication {
      * @return the body of the response from the server.
      */
     public static String deleteBuilding(int id) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building/delete/" + id)).DELETE().header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building/delete/" + id)).DELETE().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnErrorMessage(request);
     }
 
@@ -189,10 +102,22 @@ public class ServerCommunication {
      * @return the body of the response.
      */
     public static String findBuilding(int buildingID) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building/find/" + buildingID)).GET().header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building/find/" + buildingID)).GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnBodyOfResponse(request);
     }
 
+    /**
+     * Communicates the buildings to add to the database
+     * @param name building name
+     * @param street street name
+     * @param houseNumber house number
+     * @return response body
+     */
+    public static String addBuilding(String name, String street,int houseNumber) {
+        HttpRequest request;
+        request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building/add?name=" + URLEncoder.encode(name, StandardCharsets.UTF_8) + "&street=" + URLEncoder.encode(street, StandardCharsets.UTF_8) + "&houseNumber=" + houseNumber)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnErrorMessage(request);
+    }
 
     /**
      * Updates a given attribute of building.
@@ -203,20 +128,78 @@ public class ServerCommunication {
      */
     public static String updateBuilding(int id, String attribute, String changeValue) {
         HttpRequest request;
-        try {
-            request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building/update?id=" + id + "&attribute=" + attribute + "&value=" + URLEncoder.encode(changeValue, "UTF-8"))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            return "Please enter an encoding that is supported by the URLEncode class.";
-        }
-        HttpResponse<String> response;
-        try {
-            request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building/update?id=" + id + "&attribute=" + attribute + "&value=" + URLEncoder.encode(changeValue, "UTF-8"))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            return "Please enter an encoding that is supported by the URLEncode class.";
-        }
+        request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building/update?id=" + id + "&attribute=" + attribute + "&value=" + URLEncoder.encode(changeValue, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnErrorMessage(request);
+    }
+
+    /**
+     * Adds building hours to the server
+     * @param buildingId building id
+     * @param date day represented by int
+     * @param startTimeS start time in seconds
+     * @param endTimeS end time in seconds
+     * @return response.body of the server
+     */
+    public static String addBuildingHours(int buildingId, long date, int startTimeS, int endTimeS) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building_hours/add?buildingId=" + buildingId + "&date=" + date + "&startTimeS=" + startTimeS + "&endTimeS=" + endTimeS)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Retrieves all building_hours from the server.
+     * @return the body of the response from the server.
+     */
+    public static String getBuildingHours() {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/building_hours/all")).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Retrieve specific building hours for specific day in the database by id.
+     * @param buildingId = building id, which is parsed from a text field.
+     * @param day = the date in milliseconds or the day of the week for regular hours represented by long
+     * @return the body of the response.
+     */
+    public static String findBuildingHours(int buildingId, long day) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building_hours/find/" + buildingId + "/" + day)).GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Updates a given attribute of building hours.
+     * @param id = id of the building hour to be updated.
+     * @param attribute = The attribute whose value is to be updated.
+     * @param changeValue = New value.
+     * @return The body of the response from the server.
+     * */
+    public static String updateBuildingHours(int id, String attribute, String changeValue) {
+        HttpRequest request;
+        request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building_hours/update?id=" + id + "&attribute=" + attribute + "&value=" + URLEncoder.encode(changeValue, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnErrorMessage(request);
+    }
+
+    /**
+     * Removes building hours from the database.
+     * @param id = the id of the building.
+     * @param date = the date in milliseconds or the day of the week for regular hours represented by long
+     * @return the body of the response from the server.
+     */
+    public static String deleteBuildingHours(int id, long date) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building_hours/delete?id=" + id + "&date=" + date)).DELETE().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnErrorMessage(request);
+    }
+
+    // -----------------------------------------
+    // Room related Server Communication Methods
+    // -----------------------------------------
+
+    /**
+     * Retrieves a JSON string representation of all rooms from the server.
+     * @return the body of the response from the server.
+     */
+    public static String getRooms() {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/room/all")).build();
+        return communicateAndReturnBodyOfResponse(request);
     }
 
     /**
@@ -225,18 +208,18 @@ public class ServerCommunication {
      * @return The body of the response from the server.
      */
     public static String findRoom(int roomId) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room/find/" + roomId)).GET().header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room/find/" + roomId)).GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnBodyOfResponse(request);
     }
 
     /**
-     * Removes a room from the database.
-     * @param id = the id of the room.
-     * @return the body of the response from the server.
+     * Retrieves a room reservation by given id.
+     * @param roomReservationId = the id of the room.
+     * @return The body of the response from the server.
      */
-    public static String deleteRoom(int id) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room/delete/" + id)).DELETE().header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
-        return communicateAndReturnErrorMessage(request);
+    public static String findRoomReservation(int roomReservationId) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room_reservation/find/" + roomReservationId)).GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
     }
 
     /**
@@ -248,19 +231,7 @@ public class ServerCommunication {
      */
     public static String updateRoom(int id, String attribute, String changeValue) {
         HttpRequest request;
-        try {
-            request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room/update?id=" + id + "&attribute=" + attribute + "&value=" + URLEncoder.encode(changeValue, "UTF-8"))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            return "Please enter an encoding that is supported by the URLEncode class.";
-        }
-        HttpResponse<String> response;
-        try {
-            request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room/update?id=" + id + "&attribute=" + attribute + "&value=" + URLEncoder.encode(changeValue, "UTF-8"))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            return "Please enter an encoding that is supported by the URLEncode class.";
-        }
+        request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room/update?id=" + id + "&attribute=" + attribute + "&value=" + URLEncoder.encode(changeValue, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnErrorMessage(request);
     }
 
@@ -281,45 +252,392 @@ public class ServerCommunication {
                                  boolean screen, boolean projector,
                                  int capacity, int plugs) {
         HttpRequest request;
-        try {
-            request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room/add?name=" + URLEncoder.encode(name, "UTF-8") + "&faculty=" + URLEncoder.encode(faculty, "UTF-8") + "&facultySpecific=" + facultySpecific + "&screen=" + screen + "&projector=" + projector + "&buildingId=" + buildingId + "&nrPeople=" + capacity + "&plugs=" + plugs)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            return "Please enter an encoding that is supported by the URLEncode class.";
-        }
-        HttpResponse<String> response;
-        try {
-            request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room/add?name=" + URLEncoder.encode(name, "UTF-8") + "&faculty=" + URLEncoder.encode(faculty, "UTF-8") + "&facultySpecific=" + facultySpecific + "&screen=" + screen + "&projector=" + projector + "&buildingId=" + buildingId + "&nrPeople=" + capacity + "&plugs=" + plugs)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            return "Please enter an encoding that is supported by the URLEncode class.";
-        }
+        request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room/add?name=" + URLEncoder.encode(name, StandardCharsets.UTF_8) + "&faculty=" + URLEncoder.encode(faculty, StandardCharsets.UTF_8) + "&facultySpecific=" + facultySpecific + "&screen=" + screen + "&projector=" + projector + "&buildingId=" + buildingId + "&capacity=" + capacity + "&plugs=" + plugs)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnErrorMessage(request);
     }
 
     /**
-     * Communicates the buildings to add to the database
-     * @param name building name
-     * @param street street name
-     * @param houseNumber house number
-     * @return response body
+     * Retrieves all room reservations from the server.
+     * @return the body of a get request to the server.
      */
-    public static String addBuilding(String name, String street, int houseNumber) {
+    public static String getRoomReservations() {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/room_reservation/all")).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Retrieves all future and current room reservations from the server
+     * @return the response.body for the server
+     */
+    public static String getAllFutureRoomReservations() {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/room_reservation/future")).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Retrieves all previous room reservations from the server
+     * @return the response.body for the server
+     */
+    public static String getAllPreviousRoomReservations() {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/room_reservation/past")).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Communicates addRoomReservation to the database
+     * @param roomId id of the room
+     * @param userEmail user email
+     * @param fromTimeMs start time of the reservation in milliseconds
+     * @param toTimeMs end time of the reservation in milliseconds
+     * @return body response
+     */
+    public static String addRoomReservation(int roomId, String userEmail, long fromTimeMs, long toTimeMs) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room_reservation/add?roomId=" + roomId + "&userEmail=" + userEmail + "&fromTimeMs=" + fromTimeMs + "&toTimeMs=" + toTimeMs)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnErrorMessage(request);
+    }
+
+    /**
+     * Updates a given attribute of a room reservation.
+     * @param id = the id of the room reservation.
+     * @param attribute = The attribute whose value is to be changed.
+     * @param changeValue = New value.
+     * @return the body of the response from the server.
+     */
+    public static String updateRoomReservation(int id, String attribute, String changeValue) {
         HttpRequest request;
-        try {
-            request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building/add?name=" + URLEncoder.encode(name, "UTF-8") + "&street=" + URLEncoder.encode(street, "UTF-8") + "&houseNumber=" + houseNumber)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            return "Please enter an encoding that is supported by the URLEncode class.";
-        }
+        request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room_reservation/update?id=" + id + "&attribute=" + attribute + "&value=" + URLEncoder.encode(changeValue, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnErrorMessage(request);
+    }
+
+    /**
+     * Removes a room reservation from the database.
+     * @param id = the id of the room reservation.
+     * @return the body of the response from the server.
+     */
+    public static String deleteRoomReservation(int id) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room_reservation/delete?id=" + id)).DELETE().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnErrorMessage(request);
+    }
+
+    /**
+     * Removes a room from the database.
+     * @param id = the id of the room.
+     * @return the body of the response from the server.
+     */
+    public static String deleteRoom(int id) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room/delete/" + id)).DELETE().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnErrorMessage(request);
+    }
+
+    // -----------------------------------------
+    // Food related Server Communication Methods
+    // -----------------------------------------
+
+    /**
+     * Adds a dish to the database
+     * @param name dish name
+     * @param menuId menu id
+     * @return response.body of the server
+     */
+    public static String addDish(String name, int menuId) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/dish/add?name=" + URLEncoder.encode(name, StandardCharsets.UTF_8) + "&menuId=" + menuId)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Add an allergy to a dish
+     * @param name allergy name
+     * @param id dish id
+     * @return response.body of the server
+     */
+    public static String addAllergyToDish(String name, int id) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/dish/addAllergy?id=" + id + "&allergyName=" + URLEncoder.encode(name, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Updates a dish on the server
+     * @param id = the id of the food order.
+     * @param attribute = the attribute whose value is changed.
+     * @param value = the new value of the attribute.
+     * @return response.body of the server
+     */
+    public static String updateDish(int id, String attribute, String value) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/dish/update?id=" + id + "&attribute=" + URLEncoder.encode(attribute, StandardCharsets.UTF_8) + "&value=" + URLEncoder.encode(value, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Deletes a dish from the database
+     * @param dishId the id of the dish
+     * @return response.body of the server
+     */
+    public static String deleteDish(int dishId) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/dish/delete/" + dishId)).DELETE().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Adds a food order to the database
+     * @param email user email
+     * @param restaurantId restaurant id
+     * @param deliverLocation the location to deliver to
+     * @param deliverTimeMs the deliver time in milliseconds.
+     * @return response.body of the server
+     */
+    public static String addFoodOrder(String email, int restaurantId, int deliverLocation, long deliverTimeMs) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/food_order/add?userEmail=" + URLEncoder.encode(email, StandardCharsets.UTF_8) + "&restaurantId=" + restaurantId + "&deliverLocation=" + deliverLocation + "&deliverTimeMs=" + deliverTimeMs)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Updates a specific attribute of a food order
+     * @param id food order id
+     * @param attribute the attribute you want to change
+     * @param value the value of the change
+     * @return response.body of the server
+     */
+    public static String updateFoodOrder(int id, String attribute, String value) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/food_order/update?id=" + id + "&attribute=" + URLEncoder.encode(attribute, StandardCharsets.UTF_8) + "&value=" + URLEncoder.encode(value, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Updates a specific attribute of a food order
+     * @param id food order id
+     * @param name the name of the dish you want to add
+     * @return response.body of the server
+     */
+    public static String addDishToFoodOrder(int id, String name) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/food_order/addDish?id=" + id + "&name=" + URLEncoder.encode(name, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Deletes a food order from the database
+     * @param id the id of the food order
+     * @return response.body of the server
+     */
+    public static String deleteFoodOrder(int id) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/food_order/delete/" + id)).DELETE().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * gets all food orders from the database
+     * @return response.body of the server
+     */
+    public static String getAllFoodOrders() {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/food_order/all")).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Finds all past food orders for the user that sends the request
+     * @return response.body of the server
+     */
+    public static String getAllPreviousFoodOrders() {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/food_order/past")).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Finds all future and actual food orders for the user that sends the request
+     * @return response.body of the server
+     */
+    public static String getAllFutureFoodOrders() {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/food_order/future")).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Adds a menu to the database
+     * @param name the name of the menu
+     * @param restaurantId the id of the restaurant for which the menu is applicable
+     * @return response.body of the server
+     */
+    public static String addMenu(String name, int restaurantId) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/menu/add?name=" + URLEncoder.encode(name, StandardCharsets.UTF_8) + "&restaurantId=" + restaurantId)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Deletes a menu from the database
+     * @param id the id of the menu
+     * @return response.body of the server
+     */
+    public static String deleteMenu(int id) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/menu/delete/" + id)).DELETE().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Adds restaurant hours to the database
+     * @param restaurantId restaurant id
+     * @param date day represented by int
+     * @param startTimeS start time in seconds
+     * @param endTimeS end time in seconds
+     * @return response.body of the server
+     */
+    public static String addRestaurantHours(int restaurantId, long date, int startTimeS, int endTimeS) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant_hours/add?restaurantId=" + restaurantId + "&date=" + date + "&startTimeS=" + startTimeS + "&endTimeS=" + endTimeS)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Retrieves all restaurant hours from the server.
+     * @return the body of the response from the server.
+     */
+    public static String getRestaurantHours() {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/restaurant_hours/all")).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Retrieve specific restaurant opening hours for specific day in the database by id.
+     * @param restaurantId = restaurant id, which is parsed from a text field.
+     * @param day = the date in milliseconds or the day of the week for regular hours represented by long
+     * @return the body of the response.
+     */
+    public static String findRestaurantHours(int restaurantId, long day) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant_hours/find/" + restaurantId + "/" + day)).GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Updates a given attribute of restaurant hours.
+     * @param id = id of the restaurant hour to be updated.
+     * @param attribute = The attribute whose value is to be updated.
+     * @param changeValue = New value.
+     * @return The body of the response from the server.
+     */
+    public static String updateRestaurantHours(int id, String attribute, String changeValue) {
+        HttpRequest request;
+        request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant_hours/update?id=" + id + "&attribute=" + attribute + "&value=" + URLEncoder.encode(changeValue, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        HttpResponse<String> response;
+        return communicateAndReturnErrorMessage(request);
+    }
+
+    /**
+     * Removes restaurant hours from the database.
+     * @param id = the id of the restaurant.
+     * @param date the date in milliseconds or the day of the week for regular hours represented by long.
+     * @return the body of the response from the server.
+     */
+    public static String deleteRestaurantHours(int id, long date) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant_hours/delete?id=" + id + "&date=" + date)).DELETE().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnErrorMessage(request);
+    }
+
+    // -----------------------------------------
+    // User related Server Communication Methods
+    // -----------------------------------------
+
+    /**
+     * Retrieves the String representation of a user's own information from the server.
+     * @return the body of the response from the server.
+     */
+    public static String getOwnUserInformation() {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/user/info")).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Retrieves a boolean value from the server, false = no admin access, true = admin access.
+     * @return the body of the response from the server.
+     */
+    public static boolean getAdminButtonPermission() {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/user/admin")).build();
         HttpResponse<String> response;
         try {
-            request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building/add?name=" + URLEncoder.encode(name, "UTF-8") + "&street=" + URLEncoder.encode(street, "UTF-8") + "&houseNumber=" + houseNumber)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
-        } catch (UnsupportedEncodingException e) {
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (Exception e) {
             e.printStackTrace();
-            return "Please enter an encoding that is supported by the URLEncode class.";
+            return false;
         }
+        return response.body().contains("true");
+    }
+
+    /**
+     * Retrieves a boolean value from the server, false = not activated, true = activated.
+     * @return the body of the response from the server.
+     */
+    public static boolean getAccountActivation() {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/user/activated")).build();
+        HttpResponse<String> response;
+        try {
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return response.body().contains("true");
+    }
+
+    /**
+     * Registers a user.
+     * @param email User's email
+     * @param name User's name
+     * @param surname User's surname
+     * @param password User's password
+     * @return the body of a get request to the server.
+     */
+    public static String addUser(String email, String name, String surname, String faculty, String password) {
+        HttpRequest request;
+        request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/user/add?email=" + URLEncoder.encode(email, StandardCharsets.UTF_8)  + "&name=" + URLEncoder.encode(name, StandardCharsets.UTF_8) + "&surname=" + URLEncoder.encode(surname, StandardCharsets.UTF_8) + "&faculty=" + URLEncoder.encode(faculty, StandardCharsets.UTF_8) + "&password=" + URLEncoder.encode(password, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).build();
         return communicateAndReturnErrorMessage(request);
+    }
+
+    /**
+     * Validates the six digit code of the user.
+     * @param sixDigitCode The six digit code that the user inputs
+     * @return  The error message corresponding to the response of the server
+     */
+    public static String validateUser(int sixDigitCode) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/user/validate?sixDigitCode=" + sixDigitCode)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnErrorMessage(request);
+    }
+
+    /**
+     * Authorizes the user.
+     * @param email User's email
+     * @param password User's password
+     * @return the body of a get request to the server.
+     */
+    public static String loginUser(String email, String password) {
+        try {
+            URL url = new URL("http://localhost:8080/login");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Content-Type", "application/json; utf-8");
+            connection.setRequestProperty("Accept", "application/json");
+            connection.setDoOutput(true);
+
+            String jsonInputString = "{\"email\": \"" + email + "\", \"password\":\"" + password + "\"}";
+            try (OutputStream os = connection.getOutputStream()) {
+                byte[] input = jsonInputString.getBytes(StandardCharsets.UTF_8);
+                os.write(input, 0, input.length);
+            }
+
+            Map<String, List<String>> map = connection.getHeaderFields();
+
+            for (Map.Entry<String, List<String>> entry : map.entrySet()) {
+                if (entry.getKey() != null) {
+                    if (entry.getKey().equals("Authorization")) {
+                        AuthenticationKey.setBearerKey((Arrays.asList(entry.getValue().get(0).split(" ")).get(1)));
+                        if (!getAccountActivation()) {
+                            ApplicationDisplay.changeScene("/ConfirmationSixDigits.fxml");
+                        } else {
+                            ApplicationDisplay.changeScene("/mainMenu.fxml");
+                        }
+                        return ErrorMessages.getErrorMessage(200);
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return ErrorMessages.getErrorMessage(311);
     }
 
     /**
@@ -332,59 +650,52 @@ public class ServerCommunication {
     }
 
     /**
-     * Retrieves all room reservations from the server.
-     *
-     * @return the body of a get request to the server.
-     * @throws Exception if communication with the server fails.
+     * Requests a new password for the user.
+     * @param email User's email.
+     * @return the body of the response from the server.
      */
-    public static String getRoomReservations() {
-        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + UserInformation.getBearerKey()).uri(URI.create("http://localhost:8080/room_reservation/all")).build();
+    public static String sendRecoveryPassword(String email) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/user/recoverPassword?email="  + email)).POST(HttpRequest.BodyPublishers.noBody()).build();
+        return communicateAndReturnErrorMessage(request);
+    }
+
+    /**
+     * Retrieves the String representation of a user from the server.
+     * @return the body of the response from the server.
+     */
+    public static String getUser() {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/user")).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    // -----------------------------------------
+    // Bike related Server Communication Methods
+    // -----------------------------------------
+
+    /**
+     * gets all bike reservations from the database
+     * @return response.body of the server
+     */
+    public static String getAllBikeReservations() {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/bike_reservation/all")).build();
         return communicateAndReturnBodyOfResponse(request);
     }
 
     /**
-     * Retrieves a room reservation by given id.
-     * @param roomReservationId = the id of the room reservation.
-     * @return The body of the response from the server.
+     * Finds all past bike reservations for the user that sends the request
+     * @return response.body of the server
      */
-    public static String findRoomReservation(int roomReservationId) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room_reservation/find/" + roomReservationId)).GET().header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
+    public static String getAllPreviousBikeReservations() {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/bike_reservation/past")).build();
         return communicateAndReturnBodyOfResponse(request);
     }
 
     /**
-     * Communicates addRoomReservation to the database
-     * @param room name of the room
-     * @param buildingId building ID
-     * @param userId user ID
-     * @param from start date and time of the reservation
-     * @param to end date and time of the reservation
-     * @return body response
+     * Finds all future and current bike reservations for the user that sends the request
+     * @return response.body of the server
      */
-    public static String addRoomReservation(String room, int buildingId, int userId, Date from, Date to) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room_reservation/add?room" + room + "&buildingId=" + buildingId + "&userId=" + userId + "&from=" + from + "&to=" + to)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
-        return communicateAndReturnErrorMessage(request);
-    }
-
-    /**
-     * Updates a given attribute of a room reservation.
-     * @param id = the id of the room reservation.
-     * @param attribute = The attribute whose value is to be changed.
-     * @param changeValue = New value.
-     * @return the body of the response from the server.
-     */
-    public static String updateRoomReservation(int id, String attribute, String changeValue) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room_reservation/update?id=" + id + "&attribute=" + attribute + "&value=" + changeValue)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
-        return communicateAndReturnErrorMessage(request);
-    }
-
-    /**
-     * Removes a room reservation from the database.
-     * @param id = the id of the room reservation.
-     * @return the body of the response from the server.
-     */
-    public static String deleteRoomReservation(int id) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room_reservation/delete/" + id)).DELETE().header("Authorization", "Bearer " + UserInformation.getBearerKey()).build();
-        return communicateAndReturnErrorMessage(request);
+    public static String getAllFutureBikeReservations() {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/bike_reservation/future")).build();
+        return communicateAndReturnBodyOfResponse(request);
     }
 }

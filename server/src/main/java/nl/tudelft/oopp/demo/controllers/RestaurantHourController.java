@@ -1,7 +1,12 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import static nl.tudelft.oopp.demo.config.Constants.ADMIN;
+import static nl.tudelft.oopp.demo.config.Constants.RESTAURANT;
+import static nl.tudelft.oopp.demo.config.Constants.USER;
+
 import nl.tudelft.oopp.demo.entities.RestaurantHours;
 import nl.tudelft.oopp.demo.services.RestaurantHourService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Repository;
@@ -29,26 +34,26 @@ public class RestaurantHourController {
     /**
      * Adds restaurant hours to the database.
      * @param restaurantId = the id of the restaurant.
-     * @param day = the day of the week in number representation (1 to 7)
-     * @param startTimeS = the starting time in seconds
-     * @param endTimeS = the ending time in seconds
-     * @return Error code
+     * @param date = the date in milliseconds or the day of the week for regular hours.
+     * @param startTimeS = the starting time in seconds.
+     * @param endTimeS = the ending time in seconds.
+     * @return Error code.
      */
-    @Secured({"ROLE_ADMIN", "ROLE_RESTAURANT"})
+    @Secured({ADMIN, RESTAURANT})
     @PostMapping(path = "/add")
     @ResponseBody
-    public int addRestaurantHours(@RequestParam int restaurantId, @RequestParam int day, @RequestParam int startTimeS, @RequestParam int endTimeS) {
-        return restaurantHourService.add(restaurantId, day, startTimeS, endTimeS);
+    public int addRestaurantHours(@RequestParam int restaurantId, @RequestParam long date, @RequestParam int startTimeS, @RequestParam int endTimeS) {
+        return restaurantHourService.add(restaurantId, date, startTimeS, endTimeS);
     }
 
     /**
      * Updates a database attribute.
-     * @param id = the restaurant hour id
-     * @param attribute = the attribute that is changed
-     * @param value = the new value of the attribute
-     * @return Error code
+     * @param id = the restaurant hour id.
+     * @param attribute = the attribute that is changed.
+     * @param value = the new value of the attribute.
+     * @return Error code.
      */
-    @Secured({"ROLE_ADMIN", "ROLE_RESTAURANT"})
+    @Secured({ADMIN, RESTAURANT})
     @PostMapping(path = "/update")
     @ResponseBody
     public int updateRestaurantHours(@RequestParam int id, @RequestParam String attribute, @RequestParam String value) {
@@ -57,22 +62,22 @@ public class RestaurantHourController {
 
     /**
      * Deletes restaurant hours.
-     * @param restaurantId = the id of the restaurant
-     * @param day = the day of the week
-     * @return Error code
+     * @param restaurantId = the id of the restaurant.
+     * @param date = the date in milliseconds or the day of the week for regular hours.
+     * @return Error code.
      */
-    @Secured({"ROLE_ADMIN", "ROLE_RESTAURANT"})
+    @Secured({ADMIN, RESTAURANT})
     @DeleteMapping(path = "/delete")
     @ResponseBody
-    public int deleteRestaurantHours(@RequestParam int restaurantId, @RequestParam int day) {
-        return restaurantHourService.delete(restaurantId, day);
+    public int deleteRestaurantHours(@RequestParam int restaurantId, @RequestParam long date) {
+        return restaurantHourService.delete(restaurantId, date);
     }
 
     /**
      * Lists all restaurant hours in the database.
-     * @return all restaurant hours in the database
+     * @return all restaurant hours in the database.
      */
-    @Secured({"ROLE_ADMIN", "ROLE_RESTAURANT"})
+    @Secured({ADMIN, RESTAURANT})
     @GetMapping(path = "/all")
     @ResponseBody
     public Iterable<RestaurantHours> getAllRestaurantHours() {
@@ -81,14 +86,15 @@ public class RestaurantHourController {
 
     /**
      * Finds the hours for a restaurant with the specified id.
-     * @param restaurantId = the id of the restaurant
-     * @param day = the day of the week
-     * @return restaurant hours that match the id
+     * @param restaurantId = the id of the restaurant.
+     * @param dateInMilliseconds = the date in milliseconds.
+     * @return restaurant hours that match the id.
      */
-    @Secured("ROLE_USER")
+    @Secured(USER)
     @GetMapping(path = "/find/{restaurantID}/{day}")
     @ResponseBody
-    public RestaurantHours findRestaurantHours(@PathVariable(value = "restaurantID") int restaurantId, @PathVariable(value = "day") int day) {
-        return restaurantHourService.find(restaurantId, day);
+    public RestaurantHours findRestaurantHours(@PathVariable(value = "restaurantID") int restaurantId,
+                                               @PathVariable(value = "day") long dateInMilliseconds) {
+        return restaurantHourService.find(restaurantId, dateInMilliseconds);
     }
 }

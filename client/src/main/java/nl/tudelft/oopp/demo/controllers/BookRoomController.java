@@ -1,37 +1,30 @@
 package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
+import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
- * This class controls the functionality of the different buttons in bike reservations and creates the entries in the choice boxes
+ * Loads the correct content into the FXML objects that need to display server information and
+ * controls all the user inputs made through the GUI in the "bookRoom.fxml" file
  */
-public class BookRoomController implements Initializable {
+public class BookRoomController {
 
-    final ObservableList<String> listOfRooms = FXCollections.observableArrayList();
-    final ObservableList<String> listOfTimeSlots = FXCollections.observableArrayList();
-    final ObservableList<String> listOfBuildings = FXCollections.observableArrayList();
-
-    public class Search {
-        private boolean screen;
-        private boolean beamer;
-        private int capacity;
-        private String building;
-        private int nuOfPlugs;
+    public static class Search {
+        private final boolean screen;
+        private final boolean beamer;
+        private final int capacity;
+        private final String building;
+        private final int nuOfPlugs;
 
         /**
          * constructor for the search object
@@ -64,38 +57,21 @@ public class BookRoomController implements Initializable {
     private TextField nuOfPlugs;
     private TextArea rooms;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        loadRoomData();
-    }
-
     /**
      * applies the selected filters
      * @return returns an object of search with the proper properties
      */
     public Search applyFilters() {
         if (building.getValue() == null) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Authenticator");
-            alert.setHeaderText(null);
-            alert.setContentText("Please select a building");
-            alert.showAndWait();
+            CustomAlert.warningAlert("Please select a building.");
             return null;
         }
         if (capacity.getCharacters() == null) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Authenticator");
-            alert.setHeaderText(null);
-            alert.setContentText("Please select a capacity");
-            alert.showAndWait();
+            CustomAlert.warningAlert("Please select a capacity.");
             return null;
         }
         if (nuOfPlugs.getCharacters() == null) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Authenticator");
-            alert.setHeaderText(null);
-            alert.setContentText("Please select a number of plugs");
-            alert.showAndWait();
+            CustomAlert.warningAlert("Please select the amount of plugs.");
             return null;
         }
         boolean isScreen = false;
@@ -112,31 +88,23 @@ public class BookRoomController implements Initializable {
         int intPlugs;
         String stringPlugs = (String) nuOfPlugs.getCharacters();
         intPlugs = Integer.parseInt(stringPlugs);
-        Search search = new Search(isScreen, isBeamer, intCapacity, building.getValue(), intPlugs);
-        return search;
+        return new Search(isScreen, isBeamer, intCapacity, building.getValue(), intPlugs);
     }
 
     /**
      * return to the reservations menu when the back arrow button is clicked.
-     * @throws IOException the input will allways be the same, so it should never throw an IO exception
+     * @throws IOException the input will always be the same, so it should never throw an IO exception
      */
     public void goToMainMenuReservations() throws IOException {
         ApplicationDisplay.changeScene("/mainMenuReservations.fxml");
     }
     /**
      * return to the reservations menu when the back arrow button is clicked.
-     * @throws IOException the input will allways be the same, so it should never throw an IO exception
+     * @throws IOException the input will always be the same, so it should never throw an IO exception
      */
 
     public void goToRoomConfirmation() throws IOException {
         ApplicationDisplay.changeScene("/RoomConfirmation.fxml");
-    }
-    /**
-     * Adds the items to the choice boxes
-     */
-
-    public void loadRoomData() {
-        //rooms.setText("rooms=" + "ServerCommunication.getRooms()");
     }
 
     /**
@@ -153,14 +121,6 @@ public class BookRoomController implements Initializable {
      */
     public void myPreviousBookings() throws IOException {
         ApplicationDisplay.changeScene("/myPreviousBookings.fxml");
-    }
-
-    /**
-     * Changes to myAccountScene.fxml.
-     * @throws IOException when it fails
-     */
-    public void myAccountScene() throws IOException {
-        ApplicationDisplay.changeScene("/myAccountScene.fxml");
     }
 
     /**

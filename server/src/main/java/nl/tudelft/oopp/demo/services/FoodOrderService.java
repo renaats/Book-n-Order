@@ -1,17 +1,37 @@
 package nl.tudelft.oopp.demo.services;
 
+import static nl.tudelft.oopp.demo.config.Constants.ADDED;
+import static nl.tudelft.oopp.demo.config.Constants.ATTRIBUTE_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.BUILDING_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
+import static nl.tudelft.oopp.demo.config.Constants.ID_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.RESERVATION_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.RESTAURANT_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.USER_NOT_FOUND;
+import static nl.tudelft.oopp.demo.security.SecurityConstants.HEADER_STRING;
+
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
 
 import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.Building;
+import nl.tudelft.oopp.demo.entities.Dish;
 import nl.tudelft.oopp.demo.entities.FoodOrder;
 import nl.tudelft.oopp.demo.entities.Restaurant;
 import nl.tudelft.oopp.demo.repositories.BuildingRepository;
+import nl.tudelft.oopp.demo.repositories.DishRepository;
 import nl.tudelft.oopp.demo.repositories.FoodOrderRepository;
+import nl.tudelft.oopp.demo.repositories.MenuRepository;
 import nl.tudelft.oopp.demo.repositories.RestaurantRepository;
 import nl.tudelft.oopp.demo.repositories.UserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,30 +54,36 @@ public class FoodOrderService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private MenuRepository menuRepository;
+
+    @Autowired
+    private DishRepository dishRepository;
+
     /**
      * Adds a foodOrder.
      * @param restaurantId = the id of the restaurant associated to the food order.
      * @param userEmail = the email of the user associated to the food order.
      * @param deliverLocation = the building where the food order needs to be delivered.
-     * @param deliverTimeMs = the deliver time of the food order.
+     * @param deliverTimeMs = the deliver time of the food order in milliseconds (Java Date).
      * @return String containing the result of your request.
      */
     public int add(int restaurantId, String userEmail, int deliverLocation, long deliverTimeMs) {
         Optional<Restaurant> optionalRestaurant = restaurantRepository.findById(restaurantId);
         if (optionalRestaurant.isEmpty()) {
-            return 428;
+            return RESTAURANT_NOT_FOUND;
         }
         Restaurant restaurant = optionalRestaurant.get();
 
         Optional<AppUser> optionalUser = userRepository.findById(userEmail);
         if (optionalUser.isEmpty()) {
-            return 404;
+            return NOT_FOUND;
         }
         AppUser appUser = optionalUser.get();
 
         Optional<Building> optionalDeliveryLocation = buildingRepository.findById(deliverLocation);
         if (optionalDeliveryLocation.isEmpty()) {
-            return 422;
+            return BUILDING_NOT_FOUND;
         }
         Building deliveryLocation = optionalDeliveryLocation.get();
 
@@ -66,8 +92,9 @@ public class FoodOrderService {
         foodOrder.setAppUser(appUser);
         foodOrder.setDeliveryLocation(deliveryLocation);
         foodOrder.setDeliveryTime(new Date(deliverTimeMs));
+        foodOrder.setDishes(new HashSet<>());
         foodOrderRepository.save(foodOrder);
-        return 201;
+        return ADDED;
     }
 
     /**
@@ -79,7 +106,7 @@ public class FoodOrderService {
      */
     public int update(int id, String attribute, String value) {
         if (foodOrderRepository.findById(id).isEmpty()) {
-            return 421;
+            return RESERVATION_NOT_FOUND;
         }
         FoodOrder foodOrder = foodOrderRepository.findById(id).get();
         switch (attribute) {
@@ -87,7 +114,7 @@ public class FoodOrderService {
                 int buildingId = Integer.parseInt(value);
                 Optional<Building> optionalDeliveryLocation = buildingRepository.findById(buildingId);
                 if (optionalDeliveryLocation.isEmpty()) {
-                    return 422;
+                    return BUILDING_NOT_FOUND;
                 }
                 Building deliveryLocation = optionalDeliveryLocation.get();
                 foodOrder.setDeliveryLocation(deliveryLocation);
@@ -98,16 +125,33 @@ public class FoodOrderService {
             case "useremail":
                 Optional<AppUser> optionalUser = userRepository.findById(value);
                 if (optionalUser.isEmpty()) {
-                    return 419;
+                    return USER_NOT_FOUND;
                 }
                 AppUser appUser = optionalUser.get();
                 foodOrder.setAppUser(appUser);
                 break;
             default:
-                return 420;
+                return ATTRIBUTE_NOT_FOUND;
         }
         foodOrderRepository.save(foodOrder);
-        return 200;
+        return EXECUTED;
+    }
+
+    /**
+     * Adds a dish to food order.
+     * @param id = the id of the food order.
+     * @param dishName = the name of the dish.
+     */
+    public int addDish(int id, String dishName) {
+        if (!foodOrderRepository.existsById(id)) {
+            return ID_NOT_FOUND;
+        }
+        FoodOrder foodOrder = foodOrderRepository.getOne(id);
+        Dish dish;
+        dish = dishRepository.findByName(dishName);
+        foodOrder.addDish(dish);
+        foodOrderRepository.save(foodOrder);
+        return ADDED;
     }
 
     /**
@@ -117,10 +161,10 @@ public class FoodOrderService {
      */
     public int delete(int id) {
         if (!foodOrderRepository.existsById(id)) {
-            return 421;
+            return RESERVATION_NOT_FOUND;
         }
         foodOrderRepository.deleteById(id);
-        return 200;
+        return EXECUTED;
     }
 
     /**
@@ -133,10 +177,50 @@ public class FoodOrderService {
 
     /**
      * Finds a food order with the specified id.
-     * @param id = the food order id
-     * @return a food order that matches the id
+     * @param id = the food order id.
+     * @return a food order that matches the id.
      */
     public FoodOrder find(int id) {
         return foodOrderRepository.findById(id).orElse(null);
+    }
+
+    /**
+     * Finds all past food orders for the user that sends the Http request.
+     * @param request = the Http request that calls this method.
+     * @return a list of past food orders for this user.
+     */
+    public List<FoodOrder> past(HttpServletRequest request) {
+        List<FoodOrder> foodOrders = new ArrayList<>();
+        String token = request.getHeader(HEADER_STRING);
+        AppUser appUser = UserService.getAppUser(token, userRepository);
+        if (appUser == null) {
+            return foodOrders;
+        }
+        for (FoodOrder foodOrder: foodOrderRepository.findAll()) {
+            if (foodOrder.getAppUser() == appUser && foodOrder.getDeliveryTime().before(new Date())) {
+                foodOrders.add(foodOrder);
+            }
+        }
+        return foodOrders;
+    }
+
+    /**
+     * Finds all future food orders for the user that sends the Http request.
+     * @param request = the Http request that calls this method.
+     * @return a list of future food orders for this user.
+     */
+    public List<FoodOrder> future(HttpServletRequest request) {
+        List<FoodOrder> foodOrders = new ArrayList<>();
+        String token = request.getHeader(HEADER_STRING);
+        AppUser appUser = UserService.getAppUser(token, userRepository);
+        if (appUser == null) {
+            return foodOrders;
+        }
+        for (FoodOrder foodOrder: foodOrderRepository.findAll()) {
+            if (foodOrder.getAppUser() == appUser && foodOrder.getDeliveryTime().after(new Date())) {
+                foodOrders.add(foodOrder);
+            }
+        }
+        return foodOrders;
     }
 }

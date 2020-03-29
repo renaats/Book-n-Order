@@ -12,16 +12,21 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
+/**
+ * Loads the correct content into the FXML objects that need to display server information and
+ * controls all the user inputs made through the GUI in the "OrderFoodPickDate.fxml" file
+ */
 public class OrderFoodController implements Initializable {
 
-    final ObservableList listTime = FXCollections.observableArrayList();
-    final ObservableList listMinutes = FXCollections.observableArrayList();
+    final ObservableList<String> listTime = FXCollections.observableArrayList();
+    final ObservableList<String> listMinutes = FXCollections.observableArrayList();
 
     @FXML
-    public ComboBox pickUpTimeMin;
-    public ComboBox pickUpTimeH;
+    public ComboBox<String> pickUpTimeMin;
+    public ComboBox<String> pickUpTimeH;
     public Label explanationOfTheRestaurantText;
 
     @Override
@@ -31,38 +36,30 @@ public class OrderFoodController implements Initializable {
 
     /**
      * loads the content of the label depending on the restaurant
-     * and loads the times into the Comboboxes
+     * and loads the times into the ComboBoxes
      */
     public void loadData() {
-        setLabel();
         loadTime();
-    }
-
-    /**
-     * Should set the label to the ID
-     */
-    public void setLabel() {
-        //TODO
     }
 
     /**
      * loads the time to the choice boxes
      */
     public void loadTime() {
-        listTime.removeAll(listTime);
-        listMinutes.removeAll(listMinutes);
+        listTime.clear();
+        listMinutes.clear();
         for (int i = 0;i <= 45; i = i + 15) {
             if (i == 0) {
                 listMinutes.add("00");
             } else {
-                listMinutes.add(i);
+                listMinutes.add(((Integer) i).toString());
             }
         }
         for (int i = 0; i <= 23; i++) {
             if (i < 10) {
                 listTime.add("0" + i);
             } else {
-                listTime.add(i);
+                listTime.add(((Integer) i).toString());
             }
         }
         pickUpTimeH.getItems().addAll(listTime);
@@ -81,7 +78,7 @@ public class OrderFoodController implements Initializable {
     /**
      * return to the reservations menu when the back arrow button is clicked.
      * @param mouseEvent The event tis the clicking of the arrow button
-     * @throws IOException the input will allways be the same, so it should never throw an IO exception
+     * @throws IOException the input will always be the same, so it should never throw an IO exception
      */
     public void goToMainMenuReservations(MouseEvent mouseEvent) throws IOException {
         ApplicationDisplay.changeScene("/mainMenuReservations.fxml");
@@ -94,16 +91,5 @@ public class OrderFoodController implements Initializable {
      */
     public void goToFoodOrderConfirmation(ActionEvent actionEvent) throws IOException {
         ApplicationDisplay.changeScene("/FoodConfirmation.fxml");
-    }
-
-    /**
-     * Applies the filter to the menu
-     */
-    public void applyFilters() {
-        //TODO
-    }
-
-    public void restaurantChoice(ActionEvent actionEvent) {
-
     }
 }

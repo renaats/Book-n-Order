@@ -22,7 +22,7 @@ public class RestaurantHours {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    private int day;
+    private long day;
 
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -33,12 +33,12 @@ public class RestaurantHours {
 
     /**
      * Creates a new instance of RestaurantHours.
-     * @param day = the day of the week in number representation (1 to 7)
-     * @param restaurant = the restaurant
-     * @param startTime = the starting time
-     * @param endTime = the ending time
+     * @param day = the day of the week in number representation (1 to 7).
+     * @param restaurant = the restaurant.
+     * @param startTime = the starting time.
+     * @param endTime = the ending time.
      */
-    public RestaurantHours(int day, Restaurant restaurant, LocalTime startTime, LocalTime endTime) {
+    public RestaurantHours(long day, Restaurant restaurant, LocalTime startTime, LocalTime endTime) {
         this.day = day;
         this.restaurant = restaurant;
         this.startTime = startTime;
@@ -49,7 +49,7 @@ public class RestaurantHours {
 
     }
 
-    public void setDay(int day) {
+    public void setDay(long day) {
         this.day = day;
     }
 
@@ -69,7 +69,7 @@ public class RestaurantHours {
         return id;
     }
 
-    public int getDay() {
+    public long getDay() {
         return day;
     }
 

@@ -1,12 +1,18 @@
 package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
+
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.input.MouseEvent;
+
+import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
+/**
+ * Loads the correct content into the FXML objects that need to display server information and
+ * controls all the user inputs made through the GUI in the "changePassword.fxml" file
+ */
 public class ChangePasswordController {
     @FXML
     public PasswordField newPassword2;
@@ -27,16 +33,10 @@ public class ChangePasswordController {
      * @throws IOException should never throw an exception
      */
     public void changePassword() throws IOException {
-        //String password1 = (String) newPassword1.getCharacters();
-        //String password2 = (String) newPassword2.getCharacters();
-        if (true) {
+        if (newPassword1.getText().equals(newPassword2.getText())) {
             ApplicationDisplay.changeScene("/myAccountScene.fxml");
         } else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Authenticator");
-            alert.setHeaderText(null);
-            alert.setContentText("the 2 new passwords are not the same, please re-enter them");
-            alert.showAndWait();
+            CustomAlert.errorAlert("Passwords do not match.");
         }
     }
 }

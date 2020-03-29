@@ -1,17 +1,22 @@
 package nl.tudelft.oopp.demo.errors;
 
+/**
+ * Creates the appropriate error messages when a problem occurs.
+ */
 public class ErrorMessages {
     private static final String addedMessage = "Successfully added!";
+    private static final String confirmEmailMessage = "Successfully added. Please confirm this account via the link sent to your email.";
+    private static final String recoverPasswordMessage = "You will shortly receive an email to recover your account!";
     private static final String notFoundMessage = "Not found.";
     private static final String unAuthorizedMessage = "You do not have the proper authorization.";
     private static final String preConditionFailedMessage = "Attribute does not exist!";
     private static final String IdNotFoundMessage = "No results on ID.";
     private static final String hasRoomsMessage = "Building has rooms.";
     private static final String executedMessage = "Successfully executed.";
-    private static final String alreadyReservedMessage = "Already reserved at this timeslot.";
+    private static final String codesDoNotMatchMessage = "The six digit code does not match with the one sent in the email. Try again.";
+    private static final String alreadyReservedMessage = "Already reserved at this time slot.";
     private static final String roomNotFoundMessage = "Room not found.";
     private static final String userNotFoundMessage = "User not found.";
-    private static final String attributeNotFoundMessage = "Attribute not found.";
     private static final String reservationNotFoundMessage = "Reservation not found.";
     private static final String buildingNotFoundMessage = "Building not found.";
     private static final String nameAlreadyExistsMessage = "Name already exists.";
@@ -50,6 +55,10 @@ public class ErrorMessages {
                 return executedMessage;
             case 201:
                 return addedMessage;
+            case 203:
+                return confirmEmailMessage;
+            case 205:
+                return recoverPasswordMessage;
             case 308:
                 return alreadyReservedMessage;
             case 309:
@@ -72,8 +81,6 @@ public class ErrorMessages {
                 return roomNotFoundMessage;
             case 419:
                 return userNotFoundMessage;
-            case 420:
-                return attributeNotFoundMessage;
             case 421:
                 return reservationNotFoundMessage;
             case 422:
@@ -94,6 +101,8 @@ public class ErrorMessages {
                 return menuNotFoundMessage;
             case 430:
                 return dishNotFoundMessage;
+            case 431:
+                return codesDoNotMatchMessage;
             case 502:
                 return unsupportedEncodingMessage;
             default:

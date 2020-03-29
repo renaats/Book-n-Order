@@ -1,5 +1,9 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import static nl.tudelft.oopp.demo.config.Constants.ADMIN;
+import static nl.tudelft.oopp.demo.config.Constants.BUILDING_ADMIN;
+import static nl.tudelft.oopp.demo.config.Constants.USER;
+
 import nl.tudelft.oopp.demo.entities.BuildingHours;
 import nl.tudelft.oopp.demo.services.BuildingHourService;
 
@@ -30,26 +34,26 @@ public class BuildingHourController {
     /**
      * Adds building hours to the database.
      * @param buildingId = the id of the building.
-     * @param day = the day of the week in number representation (1 to 7)
-     * @param startTimeS = the starting time in seconds
-     * @param endTimeS = the ending time in seconds
+     * @param date = the date in milliseconds or the day of the week for regular hours.
+     * @param startTimeS = the starting time in seconds.
+     * @param endTimeS = the ending time in seconds.
      * @return Error code
      */
-    @Secured({"ROLE_ADMIN", "ROLE_BUILDING_ADMIN"})
+    @Secured({ADMIN, BUILDING_ADMIN})
     @PostMapping(path = "/add")
     @ResponseBody
-    public int addBuildingHours(@RequestParam int buildingId, @RequestParam int day, @RequestParam int startTimeS, @RequestParam int endTimeS) {
-        return buildingHourService.add(buildingId, day, startTimeS, endTimeS);
+    public int addBuildingHours(@RequestParam int buildingId, @RequestParam long date, @RequestParam int startTimeS, @RequestParam int endTimeS) {
+        return buildingHourService.add(buildingId, date, startTimeS, endTimeS);
     }
 
     /**
      * Updates a database attribute.
-     * @param id = the building hour id
-     * @param attribute = the attribute that is changed
-     * @param value = the new value of the attribute
+     * @param id = the building hour id.
+     * @param attribute = the attribute that is changed.
+     * @param value = the new value of the attribute.
      * @return Error code
      */
-    @Secured({"ROLE_ADMIN", "ROLE_BUILDING_ADMIN"})
+    @Secured({ADMIN, BUILDING_ADMIN})
     @PostMapping(path = "/update")
     @ResponseBody
     public int updateBuildingHours(@RequestParam int id, @RequestParam String attribute, @RequestParam String value) {
@@ -58,22 +62,22 @@ public class BuildingHourController {
 
     /**
      * Deletes building hours.
-     * @param buildingId = the id of the building
-     * @param day = the day of the week
-     * @return Error code
+     * @param buildingId = the id of the building.
+     * @param date = the date in milliseconds or the day of the week for regular hours.
+     * @return Error code.
      */
-    @Secured({"ROLE_ADMIN", "ROLE_BUILDING_ADMIN"})
+    @Secured({ADMIN, BUILDING_ADMIN})
     @DeleteMapping(path = "/delete")
     @ResponseBody
-    public int deleteBuildingHours(@RequestParam int buildingId, @RequestParam int day) {
-        return buildingHourService.delete(buildingId, day);
+    public int deleteBuildingHours(@RequestParam int buildingId, @RequestParam long date) {
+        return buildingHourService.delete(buildingId, date);
     }
 
     /**
      * Lists all building hours in the database.
-     * @return all building hours in the database
+     * @return all building hours in the database.
      */
-    @Secured({"ROLE_ADMIN", "ROLE_BUILDING_ADMIN"})
+    @Secured({ADMIN, BUILDING_ADMIN})
     @GetMapping(path = "/all")
     @ResponseBody
     public Iterable<BuildingHours> getAllBuildingHours() {
@@ -82,14 +86,14 @@ public class BuildingHourController {
 
     /**
      * Finds the hours for a building with the specified id.
-     * @param buildingId = the id of the building
-     * @param day = the day of the week
-     * @return building hours that match the id
+     * @param buildingId = the id of the building.
+     * @param dateInMilliseconds = the date in milliseconds.
+     * @return building hours that match the id.
      */
-    @Secured("ROLE_USER")
+    @Secured(USER)
     @GetMapping(path = "/find/{buildingID}/{day}")
     @ResponseBody
-    public BuildingHours findBuildingHours(@PathVariable(value = "buildingID") int buildingId, @PathVariable(value = "day") int day) {
-        return buildingHourService.find(buildingId, day);
+    public BuildingHours findBuildingHours(@PathVariable(value = "buildingID") int buildingId, @PathVariable(value = "day") long dateInMilliseconds) {
+        return buildingHourService.find(buildingId, dateInMilliseconds);
     }
 }

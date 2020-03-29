@@ -61,6 +61,10 @@ public class Bike {
         this.available = available;
     }
 
+    public void setBikeReservations(Set<BikeReservation> bikeReservations) {
+        this.bikeReservations = bikeReservations;
+    }
+
     public int getId() {
         return id;
     }
@@ -71,6 +75,10 @@ public class Bike {
 
     public boolean isAvailable() {
         return available;
+    }
+
+    public Set<BikeReservation> getBikeReservations() {
+        return bikeReservations;
     }
 
     /**

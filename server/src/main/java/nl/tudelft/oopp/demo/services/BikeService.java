@@ -1,5 +1,11 @@
 package nl.tudelft.oopp.demo.services;
 
+import static nl.tudelft.oopp.demo.config.Constants.ADDED;
+import static nl.tudelft.oopp.demo.config.Constants.ATTRIBUTE_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
+import static nl.tudelft.oopp.demo.config.Constants.ID_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.NOT_FOUND;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -7,6 +13,7 @@ import nl.tudelft.oopp.demo.entities.Bike;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.repositories.BikeRepository;
 import nl.tudelft.oopp.demo.repositories.BuildingRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,14 +38,14 @@ public class BikeService {
     public int add(int buildingId, boolean available) {
         Optional<Building> optionalBuilding = buildingRepository.findById(buildingId);
         if (optionalBuilding.isEmpty()) {
-            return 416;
+            return ID_NOT_FOUND;
         }
 
         Bike bike = new Bike();
         bike.setLocation(optionalBuilding.get());
         bike.setAvailable(available);
         bikeRepository.save(bike);
-        return 201;
+        return ADDED;
     }
 
     /**
@@ -50,7 +57,7 @@ public class BikeService {
      */
     public int update(int id, String attribute, String value) {
         if (bikeRepository.findById(id).isEmpty()) {
-            return 416;
+            return ID_NOT_FOUND;
         }
         Bike bike = bikeRepository.findById(id).get();
 
@@ -62,16 +69,16 @@ public class BikeService {
                 int buildingid = Integer.parseInt(value);
                 Optional<Building> optionalBuilding = buildingRepository.findById(buildingid);
                 if (optionalBuilding.isEmpty()) {
-                    return 416;
+                    return ID_NOT_FOUND;
                 }
                 Building building = optionalBuilding.get();
                 bike.setLocation(building);
                 break;
             default:
-                return 412;
+                return ATTRIBUTE_NOT_FOUND;
         }
         bikeRepository.save(bike);
-        return 200;
+        return EXECUTED;
     }
 
     /**
@@ -81,10 +88,10 @@ public class BikeService {
      */
     public int delete(int id) {
         if (!bikeRepository.existsById(id)) {
-            return 404;
+            return NOT_FOUND;
         }
         bikeRepository.deleteById(id);
-        return 200;
+        return EXECUTED;
     }
 
     /**

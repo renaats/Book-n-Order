@@ -1,15 +1,13 @@
 package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
-import nl.tudelft.oopp.demo.communication.ServerCommunication;
+
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
-
+/**
+ * Loads the correct content into the FXML objects that need to display server information and
+ * controls all the user inputs made through the GUI in the "DatabaseRemoveBuildings.fxml" file
+ */
 public class DatabaseRemoveBuildingController {
 
     /**

@@ -1,25 +1,14 @@
 package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-import javafx.fxml.Initializable;
+
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
-
-public class MyPreviousBikeReservationsController implements Initializable {
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        loadData();
-    }
-
-    /**
-     * Should load the previous reservations
-     */
-    public void loadData() {
-        //TODO
-    }
-
+/**
+ * Loads the correct content into the FXML objects that need to display server information and
+ * controls all the user inputs made through the GUI in the "myPreviousTenBikeReservations.fxml" file
+ */
+public class MyPreviousBikeReservationsController {
     /**
      * change the view to the main menu when the home icon is clicked
      * @throws IOException should never throw an exception
