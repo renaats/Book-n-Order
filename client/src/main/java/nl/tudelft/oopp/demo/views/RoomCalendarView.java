@@ -25,7 +25,7 @@ import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.*;
 import nl.tudelft.oopp.demo.entities.RoomReservation;
 
-public class RoomCalendarView extends WeekView {
+public class RoomCalendarView extends CalendarView {
 
     private Room room;
     private AppUser user;
@@ -36,11 +36,11 @@ public class RoomCalendarView extends WeekView {
     /**
      * Constuctor for the Personal Calendar View
      */
-    public RoomCalendarView(Room room, AppUser user) {
-        this.room = room;
-        this.user = user;
+    public RoomCalendarView() {
+//        this.room = room;
+//        this.user = user;
         displayCalendars();
-        loadRoomReservations();
+//        loadRoomReservations();
     }
 
     /**

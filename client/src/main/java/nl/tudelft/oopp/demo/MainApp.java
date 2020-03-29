@@ -8,6 +8,6 @@ public class MainApp {
      * runs the client side app
      */
     public static void main(String[] args) {
-       Cal.main(new String[0]);
+       ApplicationDisplay.main(new String[0]);
     }
 }
