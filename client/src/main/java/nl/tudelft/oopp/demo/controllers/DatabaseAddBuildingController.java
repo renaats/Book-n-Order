@@ -98,7 +98,7 @@ public class DatabaseAddBuildingController implements Initializable {
      */
     private void loadFacultyChoiceBox() {
         facultyList.clear();
-        String a = "Architecture and the Build Environment";
+        String a = "Architecture and the Built Environment";
         String b = "Civil Engineering and Geosciences";
         String c = "Electrical Engineering, Mathematics & Computer Science";
         String d = "Industrial Design Engineering";
