@@ -81,7 +81,7 @@ public class FoodOrderController {
      * @return String containing the result of your request.
      */
     @Secured({ADMIN, RESTAURANT})
-    @DeleteMapping(path = "/delete")
+    @DeleteMapping(path = "/delete/{id}")
     @ResponseBody
     public int deleteFoodOrder(@PathVariable(value = "id") int id) {
         return foodOrderService.delete(id);
