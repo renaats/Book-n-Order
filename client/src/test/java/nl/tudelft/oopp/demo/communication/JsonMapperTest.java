@@ -14,16 +14,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.BikeReservation;
-import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.BuildingHours;
 import nl.tudelft.oopp.demo.entities.FoodOrder;
-import nl.tudelft.oopp.demo.entities.Restaurant;
 import nl.tudelft.oopp.demo.entities.RestaurantHours;
 import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.entities.RoomReservation;
-import nl.tudelft.oopp.demo.user.UserInformation;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

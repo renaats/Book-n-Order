@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import nl.tudelft.oopp.demo.entities.Allergy;
-import nl.tudelft.oopp.demo.entities.Room;
 
 import org.springframework.data.jpa.domain.Specification;
 

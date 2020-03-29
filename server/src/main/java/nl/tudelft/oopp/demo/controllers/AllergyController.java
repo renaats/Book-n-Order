@@ -7,7 +7,6 @@ import static nl.tudelft.oopp.demo.config.Constants.USER;
 import java.util.List;
 
 import nl.tudelft.oopp.demo.entities.Allergy;
-import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.services.AllergyService;
 
 import org.springframework.beans.factory.annotation.Autowired;

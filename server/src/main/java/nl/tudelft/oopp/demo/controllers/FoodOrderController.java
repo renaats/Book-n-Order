@@ -4,8 +4,6 @@ import static nl.tudelft.oopp.demo.config.Constants.ADMIN;
 import static nl.tudelft.oopp.demo.config.Constants.RESTAURANT;
 import static nl.tudelft.oopp.demo.config.Constants.USER;
 
-import java.util.Set;
-
 import javax.servlet.http.HttpServletRequest;
 
 import nl.tudelft.oopp.demo.entities.FoodOrder;
