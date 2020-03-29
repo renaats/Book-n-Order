@@ -14,7 +14,7 @@ import javax.persistence.ManyToMany;
 /**
  * Represents a user role. Holds all necessary information about the role that is then stored in the database.
  * Is uniquely identified by its id.
- * By default, roles "ROLE_USER", "ROLE_ADMIN", "ROLE_BUILDING_ADMIN", "ROLE_BIKE_ADMIN", "ROLE_RESTAURANT" have predefined access control.
+ * By default, roles USER, ADMIN, BUILDING_ADMIN, BIKE_ADMIN, RESTAURANT have predefined access control.
  */
 @Entity
 public class Role {

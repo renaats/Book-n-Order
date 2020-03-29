@@ -1,7 +1,7 @@
 package nl.tudelft.oopp.demo.security;
 
 /**
- * Stores some pre-defined security constraints.
+ * Stores some pre-defined security constants.
  */
 public class SecurityConstants {
     public static final String SECRET = "SecretKeyToGenJWTs";

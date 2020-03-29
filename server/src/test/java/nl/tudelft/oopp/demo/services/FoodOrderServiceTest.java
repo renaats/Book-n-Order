@@ -2,6 +2,12 @@ package nl.tudelft.oopp.demo.services;
 
 import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
 
+import static nl.tudelft.oopp.demo.config.Constants.ATTRIBUTE_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.BUILDING_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
+import static nl.tudelft.oopp.demo.config.Constants.NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.RESERVATION_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.RESTAURANT_NOT_FOUND;
 import static nl.tudelft.oopp.demo.security.SecurityConstants.EXPIRATION_TIME;
 import static nl.tudelft.oopp.demo.security.SecurityConstants.HEADER_STRING;
 import static nl.tudelft.oopp.demo.security.SecurityConstants.SECRET;
@@ -32,7 +38,6 @@ import nl.tudelft.oopp.demo.repositories.DishRepository;
 import nl.tudelft.oopp.demo.repositories.MenuRepository;
 import nl.tudelft.oopp.demo.repositories.RestaurantRepository;
 import nl.tudelft.oopp.demo.repositories.UserRepository;
-import nl.tudelft.oopp.demo.services.FoodOrderService;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -147,7 +152,7 @@ public class FoodOrderServiceTest {
      */
     @Test
     public void testCreateIllegalRestaurant() {
-        assertEquals(428, foodOrderService.add(0, appUser.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds));
+        assertEquals(RESTAURANT_NOT_FOUND, foodOrderService.add(0, appUser.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds));
     }
 
     /**
@@ -155,7 +160,7 @@ public class FoodOrderServiceTest {
      */
     @Test
     public void testCreateIllegalUser() {
-        assertEquals(404, foodOrderService.add(restaurant.getId(), "a", deliverLocation.getId(), deliverTimeMilliseconds));
+        assertEquals(NOT_FOUND, foodOrderService.add(restaurant.getId(), "a", deliverLocation.getId(), deliverTimeMilliseconds));
     }
 
     /**
@@ -163,7 +168,7 @@ public class FoodOrderServiceTest {
      */
     @Test
     public void testCreateIllegalLocation() {
-        assertEquals(422, foodOrderService.add(restaurant.getId(), appUser.getEmail(), 0, deliverTimeMilliseconds));
+        assertEquals(BUILDING_NOT_FOUND, foodOrderService.add(restaurant.getId(), appUser.getEmail(), 0, deliverTimeMilliseconds));
     }
 
     /**
@@ -189,7 +194,7 @@ public class FoodOrderServiceTest {
      */
     @Test
     public void testUpdateNonExistingInstance() {
-        assertEquals(421, foodOrderService.update(0, "a", "a"));
+        assertEquals(RESERVATION_NOT_FOUND, foodOrderService.update(0, "a", "a"));
     }
 
     /**
@@ -199,7 +204,7 @@ public class FoodOrderServiceTest {
     public void testUpdateNonExistingAttribute() {
         foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds);
         int id = foodOrderService.all().get(0).getId();
-        assertEquals(420, foodOrderService.update(id, "a", "a"));
+        assertEquals(ATTRIBUTE_NOT_FOUND, foodOrderService.update(id, "a", "a"));
     }
 
     /**
@@ -259,7 +264,7 @@ public class FoodOrderServiceTest {
     public void testDelete() {
         foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds);
         int id = foodOrderService.all().get(0).getId();
-        assertEquals(200, foodOrderService.delete(id));
+        assertEquals(EXECUTED, foodOrderService.delete(id));
         assertEquals(0, foodOrderService.all().size());
     }
 
@@ -268,7 +273,7 @@ public class FoodOrderServiceTest {
      */
     @Test
     public void testDeleteIllegal() {
-        assertEquals(421, foodOrderService.delete(0));
+        assertEquals(RESERVATION_NOT_FOUND, foodOrderService.delete(0));
     }
 
     /**

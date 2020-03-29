@@ -2,6 +2,15 @@ package nl.tudelft.oopp.demo.services;
 
 import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
 
+import static nl.tudelft.oopp.demo.config.Constants.ADDED;
+import static nl.tudelft.oopp.demo.config.Constants.ALREADY_RESERVED;
+import static nl.tudelft.oopp.demo.config.Constants.ATTRIBUTE_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
+import static nl.tudelft.oopp.demo.config.Constants.ID_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.RESERVATION_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.ROOM_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.USER_NOT_FOUND;
 import static nl.tudelft.oopp.demo.security.SecurityConstants.EXPIRATION_TIME;
 import static nl.tudelft.oopp.demo.security.SecurityConstants.HEADER_STRING;
 import static nl.tudelft.oopp.demo.security.SecurityConstants.SECRET;
@@ -25,8 +34,6 @@ import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.entities.RoomReservation;
 import nl.tudelft.oopp.demo.repositories.RoomRepository;
 import nl.tudelft.oopp.demo.repositories.UserRepository;
-import nl.tudelft.oopp.demo.services.RoomReservationService;
-import nl.tudelft.oopp.demo.services.RoomService;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -137,7 +144,7 @@ class RoomReservationServiceTest {
      */
     @Test
     public void testCreate() {
-        assertEquals(201, roomReservationService.add(room.getId(), appUser.getEmail(), 300, 500));
+        assertEquals(ADDED, roomReservationService.add(room.getId(), appUser.getEmail(), 300, 500));
         assertEquals(Collections.singletonList(roomReservation), roomReservationService.all());
     }
 
@@ -146,7 +153,7 @@ class RoomReservationServiceTest {
      */
     @Test
     public void testCreateIllegalRoom() {
-        assertEquals(416, roomReservationService.add(-3,"This is wrong room Id.",50,100));
+        assertEquals(ID_NOT_FOUND, roomReservationService.add(-3,"This is wrong room Id.",50,100));
     }
 
     /**
@@ -154,7 +161,7 @@ class RoomReservationServiceTest {
      */
     @Test
     public void testCreateIllegalUser() {
-        assertEquals(404, roomReservationService.add(room.getId(),"NotARealEmail@tudelft.nl",50,100));
+        assertEquals(NOT_FOUND, roomReservationService.add(room.getId(),"NotARealEmail@tudelft.nl",50,100));
     }
 
     /**
@@ -162,7 +169,7 @@ class RoomReservationServiceTest {
      */
     @Test
     public void testCreateIllegalTime() {
-        assertEquals(308, roomReservationService.add(room.getId(), appUser.getEmail(), 300, 280));
+        assertEquals(ALREADY_RESERVED, roomReservationService.add(room.getId(), appUser.getEmail(), 300, 280));
     }
 
     /**
@@ -188,7 +195,7 @@ class RoomReservationServiceTest {
      */
     @Test
     public void testUpdateNonExistingInstance() {
-        assertEquals(421, roomReservationService.update(0, "a", "a"));
+        assertEquals(RESERVATION_NOT_FOUND, roomReservationService.update(0, "a", "a"));
     }
 
     /**
@@ -198,7 +205,7 @@ class RoomReservationServiceTest {
     public void testUpdateNonExistingAttribute() {
         roomReservationService.add(room.getId(), appUser.getEmail(), 300, 500);
         int id = roomReservationService.all().get(0).getId();
-        assertEquals(420, roomReservationService.update(id, "nonexistent attribute", "random value"));
+        assertEquals(ATTRIBUTE_NOT_FOUND, roomReservationService.update(id, "nonexistent attribute", "random value"));
     }
 
     /**
@@ -244,7 +251,7 @@ class RoomReservationServiceTest {
     public void testChangeRoomNonExisting() {
         roomReservationService.add(room.getId(), appUser.getEmail(), 300, 500);
         int id = roomReservationService.all().get(0).getId();
-        assertEquals(418, roomReservationService.update(id, "roomid", "-3"));
+        assertEquals(ROOM_NOT_FOUND, roomReservationService.update(id, "roomid", "-3"));
     }
 
     /**
@@ -266,7 +273,7 @@ class RoomReservationServiceTest {
     public void testChangeUserNonExisting() {
         roomReservationService.add(room.getId(), appUser.getEmail(), 300, 500);
         int id = roomReservationService.all().get(0).getId();
-        assertEquals(419, roomReservationService.update(id, "useremail", "non.existent.email@student.tudelft.nl"));
+        assertEquals(USER_NOT_FOUND, roomReservationService.update(id, "useremail", "non.existent.email@student.tudelft.nl"));
     }
 
     /**
@@ -302,7 +309,7 @@ class RoomReservationServiceTest {
     public void testDelete() {
         roomReservationService.add(room.getId(), appUser.getEmail(), 300, 500);
         int id = roomReservationService.all().get(0).getId();
-        assertEquals(200, roomReservationService.delete(id));
+        assertEquals(EXECUTED, roomReservationService.delete(id));
         assertEquals(0, roomReservationService.all().size());
     }
 
@@ -311,7 +318,7 @@ class RoomReservationServiceTest {
      */
     @Test
     public void testDeleteIllegal() {
-        assertEquals(421, roomReservationService.delete(0));
+        assertEquals(RESERVATION_NOT_FOUND, roomReservationService.delete(0));
     }
 
     /**

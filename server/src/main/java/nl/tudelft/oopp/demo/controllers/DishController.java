@@ -1,5 +1,8 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import static nl.tudelft.oopp.demo.config.Constants.ADMIN;
+import static nl.tudelft.oopp.demo.config.Constants.RESTAURANT;
+
 import nl.tudelft.oopp.demo.services.DishService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +34,7 @@ public class DishController {
      * @param menuId menu id.
      * @return Error code.
      */
-    @Secured({"ROLE_RESTAURANT", "ROLE_ADMIN"})
+    @Secured({ADMIN, RESTAURANT})
     @PostMapping(path = "/add")
     @ResponseBody
     public int addNewDish(@RequestParam String name, @RequestParam int menuId) {
@@ -43,7 +46,7 @@ public class DishController {
      * @param id = the id of the dish.
      * @param allergyName = the name of the allergy.
      */
-    @Secured({"ROLE_ADMIN", "ROLE_RESTAURANT"})
+    @Secured({ADMIN, RESTAURANT})
     @PostMapping(path = "/addAllergy")
     @ResponseBody
     public void addAllergy(@RequestParam int id, @RequestParam String allergyName) {
@@ -57,7 +60,7 @@ public class DishController {
      * @param value = the new value of the attribute.
      * @return String containing the result of your request.
      */
-    @Secured({"ROLE_ADMIN", "ROLE_RESTAURANT"})
+    @Secured({ADMIN, RESTAURANT})
     @PostMapping(path = "/update")
     @ResponseBody
     public int updateAttribute(@RequestParam int id, @RequestParam String attribute, @RequestParam String value) {
@@ -69,7 +72,7 @@ public class DishController {
      * @param id dish id.
      * @return Error code.
      */
-    @Secured({"ROLE_RESTAURANT", "ROLE_ADMIN"})
+    @Secured({ADMIN, RESTAURANT})
     @DeleteMapping(path = "/delete/{dishID}")
     @ResponseBody
     public int deleteDish(@PathVariable(value = "dishID") int id) {
