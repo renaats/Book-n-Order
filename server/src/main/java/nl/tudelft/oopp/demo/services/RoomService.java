@@ -1,5 +1,12 @@
 package nl.tudelft.oopp.demo.services;
 
+import static nl.tudelft.oopp.demo.config.Constants.ADDED;
+import static nl.tudelft.oopp.demo.config.Constants.ATTRIBUTE_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.BUILDING_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.DUPLICATE_NAME;
+import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
+import static nl.tudelft.oopp.demo.config.Constants.ROOM_NOT_FOUND;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -51,11 +58,11 @@ public class RoomService {
                    int plugs) {
         Optional<Building> optionalBuilding = buildingRepository.findById(buildingId);
         if (optionalBuilding.isEmpty()) {
-            return 422;
+            return BUILDING_NOT_FOUND;
         }
         Building building = optionalBuilding.get();
         if (building.hasRoomWithName(name)) {
-            return 309;
+            return DUPLICATE_NAME;
         }
 
         Room room = new Room();
@@ -68,7 +75,7 @@ public class RoomService {
         room.setCapacity(capacity);
         room.setPlugs(plugs);
         roomRepository.save(room);
-        return 201;
+        return ADDED;
     }
 
     /**
@@ -80,7 +87,7 @@ public class RoomService {
      */
     public int update(int id, String attribute, String value) {
         if (roomRepository.findById(id).isEmpty()) {
-            return 418;
+            return ROOM_NOT_FOUND;
         }
         Room room = roomRepository.findById(id).get();
 
@@ -104,7 +111,7 @@ public class RoomService {
                 int buildingid = Integer.parseInt(value);
                 Optional<Building> optionalBuilding = buildingRepository.findById(buildingid);
                 if (optionalBuilding.isEmpty()) {
-                    return 422;
+                    return BUILDING_NOT_FOUND;
                 }
                 Building building = optionalBuilding.get();
                 room.setBuilding(building);
@@ -116,10 +123,10 @@ public class RoomService {
                 room.setPlugs(Integer.parseInt(value));
                 break;
             default:
-                return 412;
+                return ATTRIBUTE_NOT_FOUND;
         }
         roomRepository.save(room);
-        return 200;
+        return EXECUTED;
     }
 
     /**
@@ -129,10 +136,10 @@ public class RoomService {
      */
     public int delete(int id) {
         if (!roomRepository.existsById(id)) {
-            return 418;
+            return ROOM_NOT_FOUND;
         }
         roomRepository.deleteById(id);
-        return 200;
+        return EXECUTED;
     }
 
     /**

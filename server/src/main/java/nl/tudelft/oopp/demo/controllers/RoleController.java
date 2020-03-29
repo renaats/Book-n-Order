@@ -1,7 +1,10 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import static nl.tudelft.oopp.demo.config.Constants.ADMIN;
+
 import nl.tudelft.oopp.demo.entities.Role;
 import nl.tudelft.oopp.demo.services.RoleService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Repository;
@@ -31,7 +34,7 @@ public class RoleController {
      * @param name = the name of the new role.
      * @return Error code
      */
-    @Secured("ROLE_ADMIN")
+    @Secured(ADMIN)
     @PostMapping(path = "/add")
     @ResponseBody
     public int addRole(@RequestParam String name) {
@@ -44,7 +47,7 @@ public class RoleController {
      * @param name = new name.
      * @return Error code
      */
-    @Secured("ROLE_ADMIN")
+    @Secured(ADMIN)
     @PostMapping(path = "/update_name")
     @ResponseBody
     public int updateName(@RequestParam int id, @RequestParam String name) {
@@ -56,7 +59,7 @@ public class RoleController {
      * @param id = the role id.
      * @return Error code
      */
-    @Secured("ROLE_ADMIN")
+    @Secured(ADMIN)
     @DeleteMapping(path = "/delete")
     @ResponseBody
     public int deleteRole(@RequestParam int id) {
@@ -67,7 +70,7 @@ public class RoleController {
      * Lists all roles in the database.
      * @return An Iterable of all roles.
      */
-    @Secured("ROLE_ADMIN")
+    @Secured(ADMIN)
     @GetMapping(path = "/all")
     @ResponseBody
     public Iterable<Role> getAllRoles() {
@@ -79,7 +82,7 @@ public class RoleController {
      * @param id = the id of the role
      * @return the role that matches the provided id
      */
-    @Secured("ROLE_ADMIN")
+    @Secured(ADMIN)
     @GetMapping(path = "/find/{roleId}")
     @ResponseBody
     public Role findRole(@PathVariable(name = "roleId") int id) {

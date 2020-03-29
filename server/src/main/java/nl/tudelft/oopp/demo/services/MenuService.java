@@ -1,5 +1,10 @@
 package nl.tudelft.oopp.demo.services;
 
+import static nl.tudelft.oopp.demo.config.Constants.ADDED;
+import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
+import static nl.tudelft.oopp.demo.config.Constants.MENU_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.RESTAURANT_NOT_FOUND;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -7,6 +12,7 @@ import nl.tudelft.oopp.demo.entities.Menu;
 import nl.tudelft.oopp.demo.entities.Restaurant;
 import nl.tudelft.oopp.demo.repositories.MenuRepository;
 import nl.tudelft.oopp.demo.repositories.RestaurantRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +37,7 @@ public class MenuService {
     public int add(String name, int restaurantId) {
         Optional<Restaurant> optionalRestaurant = restaurantRepository.findById(restaurantId);
         if (optionalRestaurant.isEmpty()) {
-            return 428;
+            return RESTAURANT_NOT_FOUND;
         }
         Restaurant restaurant = optionalRestaurant.get();
 
@@ -39,7 +45,7 @@ public class MenuService {
         menu.setName(name);
         menu.setRestaurant(restaurant);
         menuRepository.save(menu);
-        return 201;
+        return ADDED;
     }
 
     /**
@@ -49,10 +55,10 @@ public class MenuService {
      */
     public int delete(int id) {
         if (!menuRepository.existsById(id)) {
-            return 429;
+            return MENU_NOT_FOUND;
         }
         menuRepository.deleteById(id);
-        return 200;
+        return EXECUTED;
     }
 
     /**

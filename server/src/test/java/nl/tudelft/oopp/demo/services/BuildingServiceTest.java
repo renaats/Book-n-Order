@@ -1,5 +1,13 @@
 package nl.tudelft.oopp.demo.services;
 
+import static nl.tudelft.oopp.demo.config.Constants.ADDED;
+import static nl.tudelft.oopp.demo.config.Constants.ATTRIBUTE_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.DUPLICATE_NAME;
+import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
+import static nl.tudelft.oopp.demo.config.Constants.HAS_ROOMS;
+import static nl.tudelft.oopp.demo.config.Constants.ID_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.NOT_FOUND;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -12,8 +20,7 @@ import java.util.Set;
 
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Room;
-import nl.tudelft.oopp.demo.services.BuildingService;
-import nl.tudelft.oopp.demo.services.RoomService;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -83,7 +90,7 @@ public class BuildingServiceTest {
      */
     @Test
     public void testCreate() {
-        assertEquals(201, buildingService.add(building.getName(), building.getStreet(), building.getHouseNumber()));
+        assertEquals(ADDED, buildingService.add(building.getName(), building.getStreet(), building.getHouseNumber()));
         assertEquals(Collections.singletonList(building), buildingService.all());
     }
 
@@ -110,7 +117,7 @@ public class BuildingServiceTest {
      */
     @Test
     public void testUpdateNonExistingInstance() {
-        assertEquals(416, buildingService.update(0, "a", "a"));
+        assertEquals(ID_NOT_FOUND, buildingService.update(0, "a", "a"));
     }
 
     /**
@@ -120,7 +127,7 @@ public class BuildingServiceTest {
     public void testUpdateNonExistingAttribute() {
         buildingService.add(building.getName(), building.getStreet(), building.getHouseNumber());
         int id = buildingService.all().get(0).getId();
-        assertEquals(412, buildingService.update(id, "a", "a"));
+        assertEquals(ATTRIBUTE_NOT_FOUND, buildingService.update(id, "a", "a"));
     }
 
     /**
@@ -133,6 +140,18 @@ public class BuildingServiceTest {
         assertNotEquals("Aula", buildingService.find(id).getName());
         buildingService.update(id, "name", "Aula");
         assertEquals("Aula", buildingService.find(id).getName());
+    }
+
+    /**
+     * Tests duplicate building names.
+     */
+    @Test
+    public void testChangeNameToAlreadyExistingOne() {
+        buildingService.add(building.getName(), building.getStreet(), building.getHouseNumber());
+        buildingService.add(building2.getName(), building2.getStreet(), building2.getHouseNumber());
+        int id = buildingService.all().get(0).getId();
+        assertEquals("EWI", buildingService.find(id).getName());
+        assertEquals(DUPLICATE_NAME, buildingService.update(id, "name", "EWI2"));
     }
 
     /**
@@ -180,7 +199,7 @@ public class BuildingServiceTest {
     public void testDelete() {
         buildingService.add(building.getName(), building.getStreet(), building.getHouseNumber());
         int id = buildingService.all().get(0).getId();
-        assertEquals(200, buildingService.delete(id));
+        assertEquals(EXECUTED, buildingService.delete(id));
         assertEquals(0, buildingService.all().size());
     }
 
@@ -189,7 +208,7 @@ public class BuildingServiceTest {
      */
     @Test
     public void testDeleteIllegal() {
-        assertEquals(404, buildingService.delete(0));
+        assertEquals(NOT_FOUND, buildingService.delete(0));
     }
 
     /**
@@ -204,7 +223,7 @@ public class BuildingServiceTest {
         rooms.add(roomService.all().get(0));
         buildingService.find(id).setRooms(rooms);
         assertEquals(rooms, buildingService.rooms(id));
-        assertEquals(417, buildingService.delete(id));
+        assertEquals(HAS_ROOMS, buildingService.delete(id));
     }
 
     /**

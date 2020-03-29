@@ -17,7 +17,6 @@ public class ErrorMessages {
     private static final String alreadyReservedMessage = "Already reserved at this time slot.";
     private static final String roomNotFoundMessage = "Room not found.";
     private static final String userNotFoundMessage = "User not found.";
-    private static final String attributeNotFoundMessage = "Attribute not found.";
     private static final String reservationNotFoundMessage = "Reservation not found.";
     private static final String buildingNotFoundMessage = "Building not found.";
     private static final String nameAlreadyExistsMessage = "Name already exists.";
@@ -82,8 +81,6 @@ public class ErrorMessages {
                 return roomNotFoundMessage;
             case 419:
                 return userNotFoundMessage;
-            case 420:
-                return attributeNotFoundMessage;
             case 421:
                 return reservationNotFoundMessage;
             case 422:

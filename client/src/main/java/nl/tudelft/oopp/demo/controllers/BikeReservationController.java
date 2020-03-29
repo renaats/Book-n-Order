@@ -29,7 +29,6 @@ public class BikeReservationController implements Initializable {
     @FXML
     private ComboBox<String> dropOffTimeMin;
 
-
     public void mainMenu() throws IOException {
         ApplicationDisplay.changeScene("/mainMenu.fxml");
     }

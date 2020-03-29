@@ -1,5 +1,14 @@
 package nl.tudelft.oopp.demo.services;
 
+import static nl.tudelft.oopp.demo.config.Constants.ADDED;
+import static nl.tudelft.oopp.demo.config.Constants.ALREADY_RESERVED;
+import static nl.tudelft.oopp.demo.config.Constants.ATTRIBUTE_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
+import static nl.tudelft.oopp.demo.config.Constants.ID_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.RESERVATION_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.ROOM_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.USER_NOT_FOUND;
 import static nl.tudelft.oopp.demo.security.SecurityConstants.HEADER_STRING;
 
 import java.util.ArrayList;
@@ -46,18 +55,18 @@ public class RoomReservationService {
     public int add(int roomId, String userEmail, long fromTimeMs, long toTimeMs) {
         Optional<Room> optionalRoom = roomRepository.findById(roomId);
         if (optionalRoom.isEmpty()) {
-            return 416;
+            return ID_NOT_FOUND;
         }
         Room room = optionalRoom.get();
 
         Optional<AppUser> optionalUser = userRepository.findById(userEmail);
         if (optionalUser.isEmpty()) {
-            return 404;
+            return NOT_FOUND;
         }
         AppUser appUser = optionalUser.get();
 
         if (room.hasRoomReservationBetween(new Date(fromTimeMs), new Date(toTimeMs))) {
-            return 308;
+            return ALREADY_RESERVED;
         }
 
         RoomReservation roomReservation = new RoomReservation();
@@ -66,7 +75,7 @@ public class RoomReservationService {
         roomReservation.setFromTime(new Date(fromTimeMs));
         roomReservation.setToTime(new Date(toTimeMs));
         roomReservationRepository.save(roomReservation);
-        return 201;
+        return ADDED;
     }
 
     /**
@@ -78,7 +87,7 @@ public class RoomReservationService {
      */
     public int update(int id, String attribute, String value) {
         if (roomReservationRepository.findById(id).isEmpty()) {
-            return 421;
+            return RESERVATION_NOT_FOUND;
         }
         RoomReservation roomReservation = roomReservationRepository.findById(id).get();
 
@@ -93,7 +102,7 @@ public class RoomReservationService {
                 int roomId = Integer.parseInt(value);
                 Optional<Room> optionalRoom = roomRepository.findById(roomId);
                 if (optionalRoom.isEmpty()) {
-                    return 418;
+                    return ROOM_NOT_FOUND;
                 }
                 Room room = optionalRoom.get();
                 roomReservation.setRoom(room);
@@ -101,16 +110,16 @@ public class RoomReservationService {
             case "useremail":
                 Optional<AppUser> optionalUser = userRepository.findById(value);
                 if (optionalUser.isEmpty()) {
-                    return 419;
+                    return USER_NOT_FOUND;
                 }
                 AppUser appUser = optionalUser.get();
                 roomReservation.setAppUser(appUser);
                 break;
             default:
-                return 420;
+                return ATTRIBUTE_NOT_FOUND;
         }
         roomReservationRepository.save(roomReservation);
-        return 200;
+        return EXECUTED;
     }
 
     /**
@@ -120,10 +129,10 @@ public class RoomReservationService {
      */
     public int delete(int id) {
         if (!roomReservationRepository.existsById(id)) {
-            return 421;
+            return RESERVATION_NOT_FOUND;
         }
         roomReservationRepository.deleteById(id);
-        return 200;
+        return EXECUTED;
     }
 
     /**

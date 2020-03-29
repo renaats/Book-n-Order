@@ -1,5 +1,12 @@
 package nl.tudelft.oopp.demo.services;
 
+import static nl.tudelft.oopp.demo.config.Constants.ADDED;
+import static nl.tudelft.oopp.demo.config.Constants.ATTRIBUTE_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.BUILDING_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.DUPLICATE_NAME;
+import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
+import static nl.tudelft.oopp.demo.config.Constants.ROOM_NOT_FOUND;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -119,7 +126,7 @@ public class RoomServiceTest {
      */
     @Test
     public void testCreate() {
-        assertEquals(201, roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200));
+        assertEquals(ADDED, roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200));
         assertEquals(Collections.singletonList(room), roomService.all());
     }
 
@@ -128,7 +135,7 @@ public class RoomServiceTest {
      */
     @Test
     public void testCreateIllegalBuilding() {
-        assertEquals(422, roomService.add("Not an actual room", "Faculty", false, true, true, -3, 300, 200));
+        assertEquals(BUILDING_NOT_FOUND, roomService.add("Not an actual room", "Faculty", false, true, true, -3, 300, 200));
     }
 
     /**
@@ -136,11 +143,11 @@ public class RoomServiceTest {
      */
     @Test
     public void testCreateDuplicateRoom() {
-        assertEquals(201, roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200));
+        assertEquals(ADDED, roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200));
         Set<Room> rooms = new HashSet<>();
         rooms.add(roomService.all().get(0));
         building.setRooms(rooms);
-        assertEquals(309, roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200));
+        assertEquals(DUPLICATE_NAME, roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200));
     }
 
     /**
@@ -166,7 +173,7 @@ public class RoomServiceTest {
      */
     @Test
     public void testUpdateNonExistingInstance() {
-        assertEquals(418, roomService.update(-3, "This is not an actual id of a room.", "value"));
+        assertEquals(ROOM_NOT_FOUND, roomService.update(-3, "This is not an actual id of a room.", "value"));
     }
 
     /**
@@ -176,7 +183,7 @@ public class RoomServiceTest {
     public void testUpdateNonExistingAttribute() {
         roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200);
         int id = roomService.all().get(0).getId();
-        assertEquals(412, roomService.update(id, "Non existent attribute", "value"));
+        assertEquals(ATTRIBUTE_NOT_FOUND, roomService.update(id, "Non existent attribute", "value"));
     }
 
     /**
@@ -282,7 +289,7 @@ public class RoomServiceTest {
     public void testChangeBuildingNonExisting() {
         roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200);
         int id = roomService.all().get(0).getId();
-        assertEquals(422, roomService.update(id, "buildingid", "-3"));
+        assertEquals(BUILDING_NOT_FOUND, roomService.update(id, "buildingid", "-3"));
     }
 
     /**
@@ -314,7 +321,7 @@ public class RoomServiceTest {
     public void testDelete() {
         roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200);
         int id = roomService.all().get(0).getId();
-        assertEquals(200, roomService.delete(id));
+        assertEquals(EXECUTED, roomService.delete(id));
         assertEquals(0, roomService.all().size());
     }
 
@@ -323,7 +330,7 @@ public class RoomServiceTest {
      */
     @Test
     public void testDeleteIllegal() {
-        assertEquals(418, roomService.delete(0));
+        assertEquals(ROOM_NOT_FOUND, roomService.delete(0));
     }
 
     /**

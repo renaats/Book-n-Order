@@ -1,5 +1,11 @@
 package nl.tudelft.oopp.demo.services;
 
+import static nl.tudelft.oopp.demo.config.Constants.ADDED;
+import static nl.tudelft.oopp.demo.config.Constants.ATTRIBUTE_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.BUILDING_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
+import static nl.tudelft.oopp.demo.config.Constants.RESTAURANT_NOT_FOUND;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -7,6 +13,7 @@ import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Restaurant;
 import nl.tudelft.oopp.demo.repositories.BuildingRepository;
 import nl.tudelft.oopp.demo.repositories.RestaurantRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,14 +38,14 @@ public class RestaurantService {
     public int add(int buildingId, String name) {
         Optional<Building> optionalBuilding = buildingRepository.findById(buildingId);
         if (optionalBuilding.isEmpty()) {
-            return 422;
+            return BUILDING_NOT_FOUND;
         }
 
         Restaurant restaurant = new Restaurant();
         restaurant.setBuilding(optionalBuilding.get());
         restaurant.setName(name);
         restaurantRepository.save(restaurant);
-        return 201;
+        return ADDED;
     }
 
     /**
@@ -50,7 +57,7 @@ public class RestaurantService {
      */
     public int update(int id, String attribute, String value) {
         if (restaurantRepository.findById(id).isEmpty()) {
-            return 428;
+            return RESTAURANT_NOT_FOUND;
         }
         Restaurant restaurant = restaurantRepository.findById(id).get();
 
@@ -62,16 +69,16 @@ public class RestaurantService {
                 int buildingid = Integer.parseInt(value);
                 Optional<Building> optionalBuilding = buildingRepository.findById(buildingid);
                 if (optionalBuilding.isEmpty()) {
-                    return 422;
+                    return BUILDING_NOT_FOUND;
                 }
                 Building building = optionalBuilding.get();
                 restaurant.setBuilding(building);
                 break;
             default:
-                return 412;
+                return ATTRIBUTE_NOT_FOUND;
         }
         restaurantRepository.save(restaurant);
-        return 201;
+        return ADDED;
     }
 
     /**
@@ -81,10 +88,10 @@ public class RestaurantService {
      */
     public int delete(int id) {
         if (!restaurantRepository.existsById(id)) {
-            return 428;
+            return RESTAURANT_NOT_FOUND;
         }
         restaurantRepository.deleteById(id);
-        return 200;
+        return EXECUTED;
     }
 
     /**

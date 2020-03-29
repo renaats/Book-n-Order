@@ -2,6 +2,13 @@ package nl.tudelft.oopp.demo.services;
 
 import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
 
+import static nl.tudelft.oopp.demo.config.Constants.ADDED;
+import static nl.tudelft.oopp.demo.config.Constants.ATTRIBUTE_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.BUILDING_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
+import static nl.tudelft.oopp.demo.config.Constants.ID_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.RESERVATION_NOT_FOUND;
 import static nl.tudelft.oopp.demo.security.SecurityConstants.EXPIRATION_TIME;
 import static nl.tudelft.oopp.demo.security.SecurityConstants.HEADER_STRING;
 import static nl.tudelft.oopp.demo.security.SecurityConstants.SECRET;
@@ -25,7 +32,6 @@ import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.repositories.BikeRepository;
 import nl.tudelft.oopp.demo.repositories.BuildingRepository;
 import nl.tudelft.oopp.demo.repositories.UserRepository;
-import nl.tudelft.oopp.demo.services.BikeReservationService;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -136,7 +142,7 @@ public class BikeReservationServiceTest {
      */
     @Test
     public void testInvalidBike() {
-        assertEquals(416, bikeReservationService.add(
+        assertEquals(ID_NOT_FOUND, bikeReservationService.add(
                     0, appUser.getEmail(), fromBuilding.getId(), toBuilding.getId(), fromTimeMilliseconds, toTimeMilliseconds));
     }
 
@@ -145,7 +151,7 @@ public class BikeReservationServiceTest {
      */
     @Test
     public void testInvalidAppUser() {
-        assertEquals(404, bikeReservationService.add(
+        assertEquals(NOT_FOUND, bikeReservationService.add(
                         bike.getId(), "aa", fromBuilding.getId(), toBuilding.getId(), fromTimeMilliseconds, toTimeMilliseconds));
     }
 
@@ -154,7 +160,7 @@ public class BikeReservationServiceTest {
      */
     @Test
     public void testInvalidFromBuilding() {
-        assertEquals(422, bikeReservationService.add(
+        assertEquals(BUILDING_NOT_FOUND, bikeReservationService.add(
                         bike.getId(), appUser.getEmail(), 0, toBuilding.getId(), fromTimeMilliseconds, toTimeMilliseconds));
     }
 
@@ -163,7 +169,7 @@ public class BikeReservationServiceTest {
      */
     @Test
     public void testInvalidToBuilding() {
-        assertEquals(422, bikeReservationService.add(
+        assertEquals(BUILDING_NOT_FOUND, bikeReservationService.add(
                 bike.getId(), appUser.getEmail(), fromBuilding.getId(), 0, fromTimeMilliseconds, toTimeMilliseconds));
     }
 
@@ -172,7 +178,7 @@ public class BikeReservationServiceTest {
      */
     @Test
     public void testAdd() {
-        assertEquals(201, bikeReservationService.add(
+        assertEquals(ADDED, bikeReservationService.add(
                 bike.getId(), appUser.getEmail(), fromBuilding.getId(), toBuilding.getId(), fromTimeMilliseconds, toTimeMilliseconds));
         assertEquals(Collections.singletonList(bikeReservation), bikeReservationService.all());
     }
@@ -201,7 +207,7 @@ public class BikeReservationServiceTest {
      */
     @Test
     public void testUpdateNonExistingInstance() {
-        assertEquals(421, bikeReservationService.update(0, "a", "a"));
+        assertEquals(RESERVATION_NOT_FOUND, bikeReservationService.update(0, "a", "a"));
     }
 
     /**
@@ -212,7 +218,7 @@ public class BikeReservationServiceTest {
         bikeReservationService.add(
                 bike.getId(), appUser.getEmail(), fromBuilding.getId(), toBuilding.getId(), fromTimeMilliseconds, toTimeMilliseconds);
         int id = bikeReservationService.all().get(0).getId();
-        assertEquals(420, bikeReservationService.update(id, "a", "a"));
+        assertEquals(ATTRIBUTE_NOT_FOUND, bikeReservationService.update(id, "a", "a"));
     }
 
     /**
@@ -317,7 +323,7 @@ public class BikeReservationServiceTest {
         bikeReservationService.add(
                 bike.getId(), appUser.getEmail(), fromBuilding.getId(), toBuilding.getId(), fromTimeMilliseconds, toTimeMilliseconds);
         int id = bikeReservationService.all().get(0).getId();
-        assertEquals(200, bikeReservationService.delete(id));
+        assertEquals(EXECUTED, bikeReservationService.delete(id));
         assertEquals(0, bikeReservationService.all().size());
     }
 
@@ -326,7 +332,7 @@ public class BikeReservationServiceTest {
      */
     @Test
     public void testDeleteIllegal() {
-        assertEquals(421, bikeReservationService.delete(0));
+        assertEquals(RESERVATION_NOT_FOUND, bikeReservationService.delete(0));
     }
 
     /**

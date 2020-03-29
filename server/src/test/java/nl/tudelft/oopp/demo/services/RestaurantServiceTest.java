@@ -1,5 +1,11 @@
 package nl.tudelft.oopp.demo.services;
 
+import static nl.tudelft.oopp.demo.config.Constants.ADDED;
+import static nl.tudelft.oopp.demo.config.Constants.ATTRIBUTE_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.BUILDING_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
+import static nl.tudelft.oopp.demo.config.Constants.RESTAURANT_NOT_FOUND;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -12,7 +18,7 @@ import java.util.List;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Restaurant;
 import nl.tudelft.oopp.demo.repositories.BuildingRepository;
-import nl.tudelft.oopp.demo.services.RestaurantService;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,7 +79,7 @@ public class RestaurantServiceTest {
      */
     @Test
     public void testCreate() {
-        assertEquals(201, restaurantService.add(restaurant.getBuilding().getId(), restaurant.getName()));
+        assertEquals(ADDED, restaurantService.add(restaurant.getBuilding().getId(), restaurant.getName()));
         assertEquals(Collections.singletonList(restaurant), restaurantService.all());
     }
 
@@ -82,7 +88,7 @@ public class RestaurantServiceTest {
      */
     @Test
     public void testCreateIllegalBuilding() {
-        assertEquals(422, restaurantService.add(-3,"The Ghost Restaurant"));
+        assertEquals(BUILDING_NOT_FOUND, restaurantService.add(-3,"The Ghost Restaurant"));
     }
 
     /**
@@ -108,7 +114,7 @@ public class RestaurantServiceTest {
      */
     @Test
     public void testUpdateNonExistingInstance() {
-        assertEquals(428, restaurantService.update(0, "a", "a"));
+        assertEquals(RESTAURANT_NOT_FOUND, restaurantService.update(0, "a", "a"));
     }
 
     /**
@@ -118,7 +124,7 @@ public class RestaurantServiceTest {
     public void testUpdateNonExistingAttribute() {
         restaurantService.add(restaurant.getBuilding().getId(), restaurant.getName());
         int id = restaurantService.all().get(0).getId();
-        assertEquals(412, restaurantService.update(id, "a", "a"));
+        assertEquals(ATTRIBUTE_NOT_FOUND, restaurantService.update(id, "a", "a"));
     }
 
     /**
@@ -166,7 +172,7 @@ public class RestaurantServiceTest {
     public void testDelete() {
         restaurantService.add(restaurant.getBuilding().getId(), restaurant.getName());
         int id = restaurantService.all().get(0).getId();
-        assertEquals(200, restaurantService.delete(id));
+        assertEquals(EXECUTED, restaurantService.delete(id));
         assertEquals(0, restaurantService.all().size());
     }
 
@@ -175,6 +181,6 @@ public class RestaurantServiceTest {
      */
     @Test
     public void testDeleteIllegal() {
-        assertEquals(428, restaurantService.delete(0));
+        assertEquals(RESTAURANT_NOT_FOUND, restaurantService.delete(0));
     }
 }
