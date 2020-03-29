@@ -14,96 +14,82 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+
+import com.calendarfx.view.WeekView;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
-import nl.tudelft.oopp.demo.entities.Room;
+import nl.tudelft.oopp.demo.entities.*;
 import nl.tudelft.oopp.demo.entities.RoomReservation;
 
-public class RoomCalendarView extends Application {
+public class RoomCalendarView extends WeekView {
 
     private Room room;
+    private AppUser user;
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        CalendarView roomCal = new CalendarView();
-        roomCal.setShowSearchField(false);
-        roomCal.setShowPrintButton(false);
-        roomCal.setShowPageToolBarControls(false);
-        roomCal.setShowPageSwitcher(true);
-        roomCal.setShowAddCalendarButton(false);
-        roomCal.setShowSourceTray(false);
-        roomCal.setFocusTraversable(false);
+    Calendar unavailableSpots = new Calendar("Unavailable Spots");
+    Calendar myReservations = new Calendar("My Reservations");
 
-        Calendar bookedSlotsCalendar = new Calendar("Unavailable Slots"); //calendar that stores reserved slot entries
-        bookedSlotsCalendar.setStyle(Style.STYLE2); //sets color of calendar to blue
-        bookedSlotsCalendar.setReadOnly(true); //disables any user modification to the already reserved slot entries
+    /**
+     * Constuctor for the Personal Calendar View
+     */
+    public RoomCalendarView(Room room, AppUser user) {
+        this.room = room;
+        this.user = user;
+        displayCalendars();
+        loadRoomReservations();
+    }
 
-        Calendar myBookingCalendar = new Calendar("My Bookings");
-        myBookingCalendar.setStyle(Style.STYLE1);
-
+    /**
+     * Methods that loads room reservations of personal user
+     */
+    public void loadRoomReservations() {
         List<RoomReservation> roomReservationList =
                 new ArrayList<>(Objects.requireNonNull(JsonMapper.roomReservationsListMapper(ServerCommunication.getRoomReservations())));
         for (RoomReservation reservation : roomReservationList) {
             if (reservation.getRoom().equals(this.room)) {
-                Entry<RoomReservation> bookedEntry = new Entry<>("Room is booked or unavailable.");
+                Entry<RoomReservation> bookedEntry = new Entry<>("This slot is Reserved/Unavailable");
 
                 LocalTime startTime = convertToLocalTime(reservation.getFromTime());
                 LocalTime endTime = convertToLocalTime(reservation.getToTime());
                 LocalDate date = convertToLocalDate(reservation.getFromTime());
 
-                bookedEntry.setInterval(startTime, endTime);
+                bookedEntry.setLocation(reservation.getRoom().getBuilding().getName());
                 bookedEntry.setInterval(date);
-                bookedSlotsCalendar.addEntry(bookedEntry);
-            }
-        }
+                bookedEntry.setInterval(startTime, endTime);
 
-        CalendarSource myCalendarSource = new CalendarSource("Calendars");
-        myCalendarSource.getCalendars().removeAll();
-        myCalendarSource.getCalendars().addAll(bookedSlotsCalendar, myBookingCalendar);
-
-        roomCal.getCalendarSources().addAll(myCalendarSource);
-        roomCal.setRequestedTime(LocalTime.now());
-
-
-        Thread updateTimeThread = new Thread("Calendar: Update Time Thread") {
-            @Override
-            public void run() {
-                while (true) {
-                    Platform.runLater(() -> {
-                        roomCal.setToday(LocalDate.now());
-                        roomCal.setTime(LocalTime.now());
-
-                    });
-
-                    try {
-                        // update every 10 seconds
-                        sleep(10000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                if (reservation.getAppUser().equals(this.user)) {
+                    bookedEntry.setTitle("Reservation #" + reservation.getId());
+                    myReservations.addEntry(bookedEntry);
+                }
+                else {
+                    unavailableSpots.addEntry(bookedEntry);
                 }
             }
-        };
-
-        updateTimeThread.setPriority(Thread.MIN_PRIORITY);
-        updateTimeThread.setDaemon(true);
-        updateTimeThread.start();
-
-        Scene scene = new Scene(roomCal);
-        primaryStage.setTitle("Room Bookings");
-        primaryStage.setScene(scene);
-        primaryStage.setWidth(1000);
-        primaryStage.setHeight(800);
-        primaryStage.centerOnScreen();
-        primaryStage.show();
+        }
     }
 
-    public static void main(String[] args) {
-        launch();
+    /**
+     * Method that displays the different calendars.
+     */
+    public void displayCalendars() {
+        unavailableSpots.setStyle(Calendar.Style.STYLE5);
+        myReservations.setStyle(Calendar.Style.STYLE4);
+
+        unavailableSpots.setReadOnly(true);
+//        myReservations.setReadOnly(true);
+
+        CalendarSource myCalendarSource = new CalendarSource("My Calendars");
+        myCalendarSource.getCalendars().addAll(myReservations, unavailableSpots);
+        this.getCalendarSources().add(myCalendarSource);
+    }
+
+    public Date convertToDate(LocalTime time, LocalDate date) {
+        LocalDateTime dateTime = LocalDateTime.of(date, time);
+        return Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant());
     }
 
     public LocalTime convertToLocalTime(Date date) {
