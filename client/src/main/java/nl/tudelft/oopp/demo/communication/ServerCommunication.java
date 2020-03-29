@@ -310,9 +310,8 @@ public class ServerCommunication {
 
     /**
      * Updates a given attribute of a room reservation.
-     *
-     * @param id          = the id of the room reservation.
-     * @param attribute   = The attribute whose value is to be changed.
+     * @param id = the id of the room reservation.
+     * @param attribute = The attribute whose value is to be changed.
      * @param changeValue = New value.
      * @return the body of the response from the server.
      */
@@ -324,7 +323,6 @@ public class ServerCommunication {
 
     /**
      * Removes a room reservation from the database.
-     *
      * @param id = the id of the room reservation.
      * @return the body of the response from the server.
      */
@@ -489,7 +487,7 @@ public class ServerCommunication {
     /**
      * Removes restaurant hours from the database.
      * @param id = the id of the restaurant.
-     * @param date the date in milliseconds or the day of the week for regular hours represented by long.
+     * @param date = the date in milliseconds or the day of the week for regular hours represented by long.
      * @return the body of the response from the server.
      */
     public static String deleteRestaurantHours(int id, long date) {
@@ -727,8 +725,8 @@ public class ServerCommunication {
     }
 
     /**
-     * Retrieves all bike reservations from the server.
-     * @return the body of a get request to the server.
+     * Finds all future and current bike reservations for the user that sends the request
+     * @return response.body of the server
      */
     public static String getAllFutureBikeReservations() {
         HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/bike_reservation/future")).build();
