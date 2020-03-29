@@ -59,6 +59,9 @@ public class ServerCommunicationTest {
         stubFor(get(urlEqualTo("/user/info")).willReturn(aResponse().withStatus(200).withBody("Information")));
         stubFor(post(urlEqualTo("/login")).willReturn(aResponse().withStatus(200).withBody("token")));
         stubFor(get(urlEqualTo("/room_reservation/find/10")).willReturn(aResponse().withStatus(200).withBody("Message10")));
+        stubFor(get(urlEqualTo("/room/filter?query=name:Auditorium")).willReturn(aResponse().withStatus(200).withBody("Message15")));
+        stubFor(get(urlEqualTo("/dish/filter?query=name:Tosti")).willReturn(aResponse().withStatus(200).withBody("Message11")));
+        stubFor(get(urlEqualTo("/allergy/filter?query=name:Lactose")).willReturn(aResponse().withStatus(200).withBody("Message12")));
     }
 
     /**
@@ -175,6 +178,30 @@ public class ServerCommunicationTest {
     @Test
     public void testSuccessfulAddRoom() {
         assertEquals(ErrorMessages.getErrorMessage(200), ServerCommunication.addRoom("a", "a", 1, true, true, true, 1, 1));
+    }
+
+    /**
+     * Tests the response when the filterRooms request is successful.
+     */
+    @Test
+    public void testSuccessfulFilterRooms() {
+        assertEquals("Message15", ServerCommunication.filterRooms("name:Auditorium"));
+    }
+
+    /**
+     * Tests the response when the filterDishes request is successful.
+     */
+    @Test
+    public void testSuccessfulFilterDishes() {
+        assertEquals("Message11", ServerCommunication.filterDishes("name:Tosti"));
+    }
+
+    /**
+     * Tests the response when the filterAllergies request is successful.
+     */
+    @Test
+    public void testSuccessfulFilterAllergies() {
+        assertEquals("Message12", ServerCommunication.filterAllergies("name:Lactose"));
     }
 
     /**

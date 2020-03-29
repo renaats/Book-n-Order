@@ -408,19 +408,12 @@ public class ServerCommunication {
     }
 
     /**
-<<<<<<< HEAD
-     * Communicates the buildings to add to the database.
-     * @param name building name.
-     * @param street street name.
-     * @param houseNumber house number.
-     * @return response body.
-=======
      * Queries the rooms on specific attributes.
      * @param query the query parameters
      * @return A JSON list of rooms matching the query
      */
     public static String filterRooms(String query) {
-        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/room/filter?query=" + URLEncoder.encode(query, StandardCharsets.UTF_8))).build();
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/room/filter?query=" + query)).build();
         return communicateAndReturnBodyOfResponse(request);
     }
 
@@ -430,7 +423,6 @@ public class ServerCommunication {
      * @param street street name
      * @param houseNumber house number
      * @return response body
->>>>>>> 5c90bf03b68ff0e54ac867ef372dab8ec3e11603
      */
     public static String addBuilding(String name, String street,int houseNumber) {
         HttpRequest request;
@@ -503,7 +495,6 @@ public class ServerCommunication {
     }
 
     /**
-<<<<<<< HEAD
      * Requests a new password for the user.
      * @param email User's email.
      * @return the body of the response from the server.
@@ -511,14 +502,25 @@ public class ServerCommunication {
     public static String sendRecoveryPassword(String email) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/user/recoverPassword?email="  + email)).POST(HttpRequest.BodyPublishers.noBody()).build();
         return communicateAndReturnErrorMessage(request);
-=======
+    }
+
+    /**
      * Queries the dishes on specific attributes.
      * @param query the query parameters
      * @return A JSON list of rooms matching the query
      */
     public static String filterDishes(String query) {
-        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/dish/filter?query=" + URLEncoder.encode(query, StandardCharsets.UTF_8))).build();
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/dish/filter?query=" + query)).build();
         return communicateAndReturnBodyOfResponse(request);
->>>>>>> 5c90bf03b68ff0e54ac867ef372dab8ec3e11603
+    }
+
+    /**
+     * Queries the allergies on specific attributes.
+     * @param query the query parameters
+     * @return A JSON list of allergies matching the query
+     */
+    public static String filterAllergies(String query) {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/allergy/filter?query=" + query)).build();
+        return communicateAndReturnBodyOfResponse(request);
     }
 }
