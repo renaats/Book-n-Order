@@ -42,8 +42,8 @@ public class BuildingController {
     @Secured({ADMIN, BUILDING_ADMIN})
     @PostMapping(path = "/add")
     @ResponseBody
-    public int addNewBuilding(@RequestParam String name, @RequestParam String street, @RequestParam int houseNumber) {
-        return buildingService.add(name, street, houseNumber);
+    public int addNewBuilding(@RequestParam String name, @RequestParam String street, @RequestParam String faculty, @RequestParam int houseNumber) {
+        return buildingService.add(name, street, faculty, houseNumber);
     }
 
     /**
@@ -93,6 +93,18 @@ public class BuildingController {
     @ResponseBody
     public Building findBuilding(@PathVariable(value = "buildingID") int id) {
         return buildingService.find(id);
+    }
+
+    /**
+     * Finds a building with the specified name.
+     * @param name = the name of the building
+     * @return a building that matches the name
+     */
+    @Secured(USER)
+    @GetMapping(path = "/findName/{name}")
+    @ResponseBody
+    public Building findBuildingByName(@PathVariable(value = "name") String name) {
+        return buildingService.find(name);
     }
 
     /**
