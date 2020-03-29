@@ -96,6 +96,18 @@ public class BuildingController {
     }
 
     /**
+     * Finds a building with the specified name.
+     * @param name = the name of the building
+     * @return a building that matches the name
+     */
+    @Secured(USER)
+    @GetMapping(path = "/findName/{name}")
+    @ResponseBody
+    public Building findBuildingByName(@PathVariable(value = "name") String name) {
+        return buildingService.find(name);
+    }
+
+    /**
      * Return all rooms that are in the building with the specified id.
      * @param id = the id of the building.
      * @return Set of all rooms in the retrieved building.
