@@ -590,7 +590,7 @@ public class ServerCommunication {
 
     /**
      * Retrieves a boolean value from the server, false = not activated, true = activated.
-     * @return the body of the response from the server.a
+     * @return the body of the response from the server.
      */
     public static boolean getAccountActivation() {
         HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/user/activated")).build();
