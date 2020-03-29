@@ -2,13 +2,19 @@ package nl.tudelft.oopp.demo.services;
 
 import static nl.tudelft.oopp.demo.config.Constants.ADDED;
 import static nl.tudelft.oopp.demo.config.Constants.ADDED_CONFIRM_EMAIL;
+import static nl.tudelft.oopp.demo.config.Constants.ADMIN;
 import static nl.tudelft.oopp.demo.config.Constants.ATTRIBUTE_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.BIKE_ADMIN;
+import static nl.tudelft.oopp.demo.config.Constants.BUILDING_ADMIN;
 import static nl.tudelft.oopp.demo.config.Constants.DUPLICATE_EMAIL;
 import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
 import static nl.tudelft.oopp.demo.config.Constants.INVALID_CONFIRMATION;
 import static nl.tudelft.oopp.demo.config.Constants.INVALID_EMAIL;
 import static nl.tudelft.oopp.demo.config.Constants.INVALID_EMAIL_DOMAIN;
 import static nl.tudelft.oopp.demo.config.Constants.RECOVER_PASSWORD;
+import static nl.tudelft.oopp.demo.config.Constants.RESTAURANT;
+import static nl.tudelft.oopp.demo.config.Constants.STAFF;
+import static nl.tudelft.oopp.demo.config.Constants.USER;
 import static nl.tudelft.oopp.demo.config.Constants.USER_NOT_FOUND;
 import static nl.tudelft.oopp.demo.security.SecurityConstants.HEADER_STRING;
 import static nl.tudelft.oopp.demo.security.SecurityConstants.SECRET;
@@ -137,20 +143,73 @@ public class UserService {
         appUser.setSurname(surname);
         appUser.setFaculty(faculty);
         appUser.setRoles(new HashSet<>());
-        if (!roleRepository.existsByName("ROLE_USER")) {
+        if (!roleRepository.existsByName(USER)) {
             Role role = new Role();
-            role.setName("ROLE_USER");
+            role.setName(USER);
             roleRepository.save(role);
         }
-        appUser.addRole(roleRepository.findByName("ROLE_USER"));
+        appUser.addRole(roleRepository.findByName(USER));
         if (email.contains("@tudelft.nl")) {
-            if (!roleRepository.existsByName("ROLE_STAFF")) {
+            if (!roleRepository.existsByName(STAFF)) {
                 Role role = new Role();
-                role.setName("ROLE_STAFF");
+                role.setName(STAFF);
                 roleRepository.save(role);
             }
-            appUser.addRole(roleRepository.findByName("ROLE_STAFF"));
+            appUser.addRole(roleRepository.findByName(STAFF));
         }
+
+        // NEED TO BE DELETED BEFORE PRODUCTION! ONLY USED FOR END-TO-END TESTING!
+        if (appUser.getEmail().equals("staff@tudelft.nl")) {
+            appUser.setConfirmationNumber(-1);
+            userRepository.save(appUser);
+            return 203;
+        }
+        if (appUser.getEmail().equals("admin@tudelft.nl")) {
+            if (!roleRepository.existsByName(ADMIN)) {
+                Role role = new Role();
+                role.setName(ADMIN);
+                roleRepository.save(role);
+            }
+            appUser.setConfirmationNumber(-1);
+            appUser.addRole(roleRepository.findByName(ADMIN));
+            userRepository.save(appUser);
+            return 203;
+        }
+        if (appUser.getEmail().equals("building_admin@tudelft.nl")) {
+            if (!roleRepository.existsByName(BUILDING_ADMIN)) {
+                Role role = new Role();
+                role.setName(BUILDING_ADMIN);
+                roleRepository.save(role);
+            }
+            appUser.setConfirmationNumber(-1);
+            appUser.addRole(roleRepository.findByName(BUILDING_ADMIN));
+            userRepository.save(appUser);
+            return 203;
+        }
+        if (appUser.getEmail().equals("bike_admin@tudelft.nl")) {
+            if (!roleRepository.existsByName(BIKE_ADMIN)) {
+                Role role = new Role();
+                role.setName(BIKE_ADMIN);
+                roleRepository.save(role);
+            }
+            appUser.setConfirmationNumber(-1);
+            appUser.addRole(roleRepository.findByName(BIKE_ADMIN));
+            userRepository.save(appUser);
+            return 203;
+        }
+        if (appUser.getEmail().equals("restaurant@tudelft.nl")) {
+            if (!roleRepository.existsByName(RESTAURANT)) {
+                Role role = new Role();
+                role.setName(RESTAURANT);
+                roleRepository.save(role);
+            }
+            appUser.setConfirmationNumber(-1);
+            appUser.addRole(roleRepository.findByName(RESTAURANT));
+            userRepository.save(appUser);
+            return 203;
+        }
+        // NEED TO BE DELETED BEFORE PRODUCTION! ONLY USED FOR END-TO-END TESTING!
+
         userRepository.save(appUser);
         try {
             eventPublisher.publishEvent(new OnRegistrationSuccessEvent(appUser));
@@ -281,10 +340,10 @@ public class UserService {
         if (appUser == null) {
             return false;
         }
-        return appUser.getRoles().contains(roleRepository.findByName("ROLE_ADMIN"))
-                || appUser.getRoles().contains(roleRepository.findByName("ROLE_BUILDING_ADMIN"))
-                || appUser.getRoles().contains(roleRepository.findByName("ROLE_BIKE_ADMIN"))
-                || appUser.getRoles().contains(roleRepository.findByName("ROLE_RESTAURANT"));
+        return appUser.getRoles().contains(roleRepository.findByName(ADMIN))
+                || appUser.getRoles().contains(roleRepository.findByName(BUILDING_ADMIN))
+                || appUser.getRoles().contains(roleRepository.findByName(BIKE_ADMIN))
+                || appUser.getRoles().contains(roleRepository.findByName(RESTAURANT));
     }
 
     /**

@@ -4,6 +4,7 @@ import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
 
 import static nl.tudelft.oopp.demo.config.Constants.ADDED;
 import static nl.tudelft.oopp.demo.config.Constants.ADDED_CONFIRM_EMAIL;
+import static nl.tudelft.oopp.demo.config.Constants.ADMIN;
 import static nl.tudelft.oopp.demo.config.Constants.ATTRIBUTE_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.DUPLICATE_EMAIL;
 import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
@@ -11,6 +12,7 @@ import static nl.tudelft.oopp.demo.config.Constants.INVALID_CONFIRMATION;
 import static nl.tudelft.oopp.demo.config.Constants.INVALID_EMAIL;
 import static nl.tudelft.oopp.demo.config.Constants.INVALID_EMAIL_DOMAIN;
 import static nl.tudelft.oopp.demo.config.Constants.RECOVER_PASSWORD;
+import static nl.tudelft.oopp.demo.config.Constants.USER;
 import static nl.tudelft.oopp.demo.config.Constants.USER_NOT_FOUND;
 import static nl.tudelft.oopp.demo.security.SecurityConstants.EXPIRATION_TIME;
 import static nl.tudelft.oopp.demo.security.SecurityConstants.HEADER_STRING;
@@ -82,7 +84,7 @@ class UserServiceTest {
         appUser.setSurname("Spasov");
         appUser.setFaculty("EEMCS");
         role = new Role();
-        role.setName("ROLE_USER");
+        role.setName(USER);
         roleSet = new HashSet<>();
         roleSet.add(role);
         appUser.setRoles(roleSet);
@@ -290,18 +292,18 @@ class UserServiceTest {
     @Test
     public void testAddRole() {
         userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty());
-        userService.addRole(appUser.getEmail(),"ROLE_ADMIN");
+        userService.addRole(appUser.getEmail(),ADMIN);
         Iterator<Role> roles = userService.find(appUser.getEmail()).getRoles().iterator();
         String role1 = roles.next().getName();
         String role2 = roles.next().getName();
         String swap;
-        if (role2.equals("ROLE_USER")) {
+        if (role2.equals(USER)) {
             swap = role2;
             role2 = role1;
             role1 = swap;
         }
-        assertEquals(role1, "ROLE_USER");
-        assertEquals(role2,"ROLE_ADMIN");
+        assertEquals(role1, USER);
+        assertEquals(role2,ADMIN);
     }
 
     /**
@@ -309,7 +311,7 @@ class UserServiceTest {
      */
     @Test
     public void testAddRoleNonExistent() {
-        assertEquals(USER_NOT_FOUND, userService.addRole("a","ROLE_ADMIN"));
+        assertEquals(USER_NOT_FOUND, userService.addRole("a",ADMIN));
     }
 
     /**
@@ -376,7 +378,7 @@ class UserServiceTest {
                 .sign(HMAC512(SECRET.getBytes()));
         request.addHeader(HEADER_STRING, token);
         assertFalse(userService.isAdmin(request));
-        userService.addRole(appUser.getEmail(), "ROLE_ADMIN");
+        userService.addRole(appUser.getEmail(), ADMIN);
         assertTrue(userService.isAdmin(request));
     }
 

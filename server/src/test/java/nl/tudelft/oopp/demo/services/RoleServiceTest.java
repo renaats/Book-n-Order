@@ -1,8 +1,10 @@
 package nl.tudelft.oopp.demo.services;
 
 import static nl.tudelft.oopp.demo.config.Constants.ADDED;
+import static nl.tudelft.oopp.demo.config.Constants.ADMIN;
 import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
 import static nl.tudelft.oopp.demo.config.Constants.ID_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.USER;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -50,10 +52,10 @@ public class RoleServiceTest {
     @BeforeEach
     public void setup() {
         role = new Role();
-        role.setName("ROLE_USER");
+        role.setName(USER);
 
         role2 = new Role();
-        role2.setName("ROLE_ADMIN");
+        role2.setName(ADMIN);
     }
 
     /**
@@ -106,9 +108,9 @@ public class RoleServiceTest {
     public void testChangeName() {
         roleService.add(role.getName());
         int id = roleService.all().get(0).getId();
-        assertNotEquals("ROLE_ADMIN", roleService.find(id).getName());
-        roleService.update(id, "ROLE_ADMIN");
-        assertEquals("ROLE_ADMIN", roleService.find(id).getName());
+        assertNotEquals(ADMIN, roleService.find(id).getName());
+        roleService.update(id, ADMIN);
+        assertEquals(ADMIN, roleService.find(id).getName());
     }
 
     /**
