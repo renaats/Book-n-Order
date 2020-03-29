@@ -1,5 +1,10 @@
 package nl.tudelft.oopp.demo.services;
 
+import static nl.tudelft.oopp.demo.config.Constants.ADDED;
+import static nl.tudelft.oopp.demo.config.Constants.DISH_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
+import static nl.tudelft.oopp.demo.config.Constants.MENU_NOT_FOUND;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
@@ -107,7 +112,7 @@ public class DishServiceTest {
     @Test
     public void testCreate() {
         allergyRepository.save(allergy);
-        assertEquals(201, dishService.add(dish.getName(), dish.getMenu().getId()));
+        assertEquals(ADDED, dishService.add(dish.getName(), dish.getMenu().getId()));
         int id = dishService.all().get(0).getId();
         dishService.find(id).setAllergies(allergySet);
         assertEquals(Collections.singletonList(dish), dishService.all());
@@ -118,7 +123,7 @@ public class DishServiceTest {
      */
     @Test
     public void testCreateIllegalMenu() {
-        Assertions.assertEquals(429, dishService.add(dish.getName(), 0));
+        assertEquals(MENU_NOT_FOUND, dishService.add(dish.getName(), 0));
     }
 
     /**
@@ -210,7 +215,7 @@ public class DishServiceTest {
         dishService.add(dish.getName(), dish.getMenu().getId());
         dishService.add(dish2.getName(), dish2.getMenu().getId());
         int id = dishService.all().get(0).getId();
-        Assertions.assertEquals(200, dishService.delete(id));
+        Assertions.assertEquals(EXECUTED, dishService.delete(id));
         Assertions.assertEquals(1, dishService.all().size());
     }
 
@@ -248,5 +253,12 @@ public class DishServiceTest {
         List<Dish> dishes = dishService.search("name:soup");
         Assertions.assertFalse(dishes.contains(dish));
         Assertions.assertFalse(dishes.contains(dish2));
+    }
+    
+    /**
+     * Tests the deletion of a nonexistent dish.
+     */
+    public void testDeleteIllegal() {
+        assertEquals(DISH_NOT_FOUND, dishService.delete(0));
     }
 }

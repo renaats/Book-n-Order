@@ -1,5 +1,11 @@
 package nl.tudelft.oopp.demo.services;
 
+import static nl.tudelft.oopp.demo.config.Constants.ADDED;
+import static nl.tudelft.oopp.demo.config.Constants.ATTRIBUTE_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
+import static nl.tudelft.oopp.demo.config.Constants.ID_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.NOT_FOUND;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -13,7 +19,7 @@ import java.util.Collections;
 import nl.tudelft.oopp.demo.entities.Bike;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.repositories.BuildingRepository;
-import nl.tudelft.oopp.demo.services.BikeService;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,7 +79,7 @@ public class BikeServiceTest {
      */
     @Test
     public void testCreateIllegalBuilding() {
-        assertEquals(416, bikeService.add(0, true));
+        assertEquals(ID_NOT_FOUND, bikeService.add(0, true));
     }
 
     /**
@@ -81,7 +87,7 @@ public class BikeServiceTest {
      */
     @Test
     public void testAdd() {
-        assertEquals(201, bikeService.add(building.getId(), true));
+        assertEquals(ADDED, bikeService.add(building.getId(), true));
         assertEquals(Collections.singletonList(bike), bikeService.all());
     }
 
@@ -108,7 +114,7 @@ public class BikeServiceTest {
      */
     @Test
     public void testUpdateNonExistingInstance() {
-        assertEquals(416, bikeService.update(0, "a", "a"));
+        assertEquals(ID_NOT_FOUND, bikeService.update(0, "a", "a"));
     }
 
     /**
@@ -118,7 +124,7 @@ public class BikeServiceTest {
     public void testUpdateNonExistingAttribute() {
         bikeService.add(building.getId(), true);
         int id = bikeService.all().get(0).getId();
-        assertEquals(412, bikeService.update(id, "a", "a"));
+        assertEquals(ATTRIBUTE_NOT_FOUND, bikeService.update(id, "a", "a"));
     }
 
     /**
@@ -166,7 +172,7 @@ public class BikeServiceTest {
     public void testDelete() {
         bikeService.add(building.getId(), true);
         int id = bikeService.all().get(0).getId();
-        assertEquals(200, bikeService.delete(id));
+        assertEquals(EXECUTED, bikeService.delete(id));
         assertEquals(0, bikeService.all().size());
     }
 
@@ -175,6 +181,6 @@ public class BikeServiceTest {
      */
     @Test
     public void testDeleteIllegal() {
-        assertEquals(404, bikeService.delete(0));
+        assertEquals(NOT_FOUND, bikeService.delete(0));
     }
 }

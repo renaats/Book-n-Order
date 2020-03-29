@@ -1,5 +1,9 @@
 package nl.tudelft.oopp.demo.services;
 
+import static nl.tudelft.oopp.demo.config.Constants.ADDED;
+import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
+import static nl.tudelft.oopp.demo.config.Constants.ID_NOT_FOUND;
+
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -30,7 +34,7 @@ public class AllergyService {
         Allergy allergy = new Allergy();
         allergy.setAllergyName(allergyName);
         allergyRepository.save(allergy);
-        return 201;
+        return ADDED;
     }
 
     /**
@@ -40,10 +44,10 @@ public class AllergyService {
      */
     public int delete(String allergyName) {
         if (!allergyRepository.existsByAllergyName(allergyName)) {
-            return 416;
+            return ID_NOT_FOUND;
         }
         allergyRepository.deleteByAllergyName(allergyName);
-        return 200;
+        return EXECUTED;
     }
 
     /**

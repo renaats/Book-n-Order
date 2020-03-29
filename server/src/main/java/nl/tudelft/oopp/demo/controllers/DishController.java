@@ -1,5 +1,8 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import static nl.tudelft.oopp.demo.config.Constants.ADMIN;
+import static nl.tudelft.oopp.demo.config.Constants.RESTAURANT;
+
 import java.util.List;
 
 import nl.tudelft.oopp.demo.entities.Dish;
@@ -35,7 +38,7 @@ public class DishController {
      * @param menuId menu id.
      * @return Error code.
      */
-    @Secured({"ROLE_RESTAURANT", "ROLE_ADMIN"})
+    @Secured({ADMIN, RESTAURANT})
     @PostMapping(path = "/add")
     @ResponseBody
     public int addNewDish(@RequestParam String name, @RequestParam int menuId) {
@@ -47,7 +50,7 @@ public class DishController {
      * @param id = the id of the dish.
      * @param allergyName = the name of the allergy.
      */
-    @Secured({"ROLE_ADMIN", "ROLE_RESTAURANT"})
+    @Secured({ADMIN, RESTAURANT})
     @PostMapping(path = "/addAllergy")
     @ResponseBody
     public void addAllergy(@RequestParam int id, @RequestParam String allergyName) {
@@ -55,11 +58,25 @@ public class DishController {
     }
 
     /**
+     * Updates a specified attribute for a dish.
+     * @param id = the id of the food order.
+     * @param attribute = the attribute whose value is changed.
+     * @param value = the new value of the attribute.
+     * @return String containing the result of your request.
+     */
+    @Secured({ADMIN, RESTAURANT})
+    @PostMapping(path = "/update")
+    @ResponseBody
+    public int updateAttribute(@RequestParam int id, @RequestParam String attribute, @RequestParam String value) {
+        return dishService.update(id, attribute, value);
+    }
+
+    /**
      * Deletes a dish.
      * @param id dish id.
      * @return Error code.
      */
-    @Secured({"ROLE_RESTAURANT", "ROLE_ADMIN"})
+    @Secured({ADMIN, RESTAURANT})
     @DeleteMapping(path = "/delete/{dishID}")
     @ResponseBody
     public int deleteDish(@PathVariable(value = "dishID") int id) {

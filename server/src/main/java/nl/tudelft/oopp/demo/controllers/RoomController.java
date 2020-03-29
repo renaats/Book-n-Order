@@ -1,5 +1,9 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import static nl.tudelft.oopp.demo.config.Constants.ADMIN;
+import static nl.tudelft.oopp.demo.config.Constants.BUILDING_ADMIN;
+import static nl.tudelft.oopp.demo.config.Constants.USER;
+
 import java.util.List;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -9,7 +13,6 @@ import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.entities.RoomReservation;
 import nl.tudelft.oopp.demo.repositories.RoomRepository;
 import nl.tudelft.oopp.demo.services.RoomService;
-import nl.tudelft.oopp.demo.specifications.RoomSpecificationsBuilder;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
@@ -49,7 +52,7 @@ public class RoomController {
      * @param plugs = the number of plugs in this room.
      * @return Error code
      */
-    @Secured({"ROLE_ADMIN", "ROLE_BUILDING_ADMIN"})
+    @Secured({ADMIN, BUILDING_ADMIN})
     @PostMapping(path = "/add") // Map ONLY POST Requests
     @ResponseBody
     public int addNewRoom(
@@ -71,7 +74,7 @@ public class RoomController {
      * @param value = the new value of the attribute.
      * @return Error code
      */
-    @Secured({"ROLE_ADMIN", "ROLE_BUILDING_ADMIN"})
+    @Secured({ADMIN, BUILDING_ADMIN})
     @PostMapping(path = "/update")
     @ResponseBody
     public int updateAttribute(@RequestParam int id, @RequestParam String attribute, @RequestParam String value) {
@@ -83,7 +86,7 @@ public class RoomController {
      * @param id = the id of the room to be deleted.
      * @return Error code
      */
-    @Secured({"ROLE_ADMIN", "ROLE_BUILDING_ADMIN"})
+    @Secured({ADMIN, BUILDING_ADMIN})
     @DeleteMapping(path = "/delete/{roomID}")
     @ResponseBody
     public int deleteRoom(@PathVariable(value = "roomID") int id) {
@@ -94,7 +97,7 @@ public class RoomController {
      * Lists all rooms.
      * @return Iterable of all rooms.
      */
-    @Secured("ROLE_USER")
+    @Secured(USER)
     @GetMapping(path = "/all")
     @ResponseBody
     public Iterable<Room> getAllRooms() {
@@ -106,7 +109,7 @@ public class RoomController {
      * @param id = the room id.
      * @return Room that matches the id.
      */
-    @Secured("ROLE_USER")
+    @Secured(USER)
     @GetMapping(path = "/find/{roomId}")
     @ResponseBody
     public Room findRoom(@PathVariable (value = "roomId") int id) {
@@ -118,7 +121,7 @@ public class RoomController {
      * @param id = the room id.
      * @return Set of all room reservations for the room that matches the id.
      */
-    @Secured({"ROLE_ADMIN", "ROLE_BUILDING_ADMIN"})
+    @Secured({ADMIN, BUILDING_ADMIN})
     @GetMapping(path = "/reservations/{roomId}")
     @ResponseBody
     public Set<RoomReservation> findReservations(@PathVariable (value = "roomId") int id) {

@@ -1,5 +1,9 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import static nl.tudelft.oopp.demo.config.Constants.ADMIN;
+import static nl.tudelft.oopp.demo.config.Constants.RESTAURANT;
+import static nl.tudelft.oopp.demo.config.Constants.USER;
+
 import java.util.List;
 
 import nl.tudelft.oopp.demo.entities.Allergy;
@@ -35,7 +39,7 @@ public class AllergyController {
      * @param allergyName = the name of the allergy.
      * @return Error code.
      */
-    @Secured({"ROLE_ADMIN", "ROLE_RESTAURANT"})
+    @Secured({ADMIN, RESTAURANT})
     @PostMapping(path = "/add") // Map ONLY POST Requests
     @ResponseBody
     public int addAllergy(@RequestParam String allergyName) {
@@ -47,7 +51,7 @@ public class AllergyController {
      * @param name = the name of the allergy.
      * @return Error code.
      */
-    @Secured({"ROLE_ADMIN", "ROLE_RESTAURANT"})
+    @Secured({ADMIN, RESTAURANT})
     @DeleteMapping(path = "/delete/{allergyName}")
     @ResponseBody
     public int deleteAllergy(@PathVariable(value = "allergyName") String name) {
@@ -58,7 +62,7 @@ public class AllergyController {
      * Lists all allergies.
      * @return all allergies.
      */
-    @Secured({"ROLE_USER", "ROLE_RESTAURANT"})
+    @Secured(USER)
     @GetMapping(path = "/all")
     @ResponseBody
     public Iterable<Allergy> getAllAllergies() {
@@ -70,7 +74,7 @@ public class AllergyController {
      * @param name = the name of the allergy.
      * @return an allergy that matches the id.
      */
-    @Secured({"ROLE_USER", "ROLE_RESTAURANT"})
+    @Secured(USER)
     @GetMapping(path = "/find/{name}")
     @ResponseBody
     public Allergy findAllergy(@PathVariable (value = "name") String name) {

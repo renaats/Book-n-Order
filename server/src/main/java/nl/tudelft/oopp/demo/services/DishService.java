@@ -1,5 +1,12 @@
 package nl.tudelft.oopp.demo.services;
 
+import static nl.tudelft.oopp.demo.config.Constants.ADDED;
+import static nl.tudelft.oopp.demo.config.Constants.ATTRIBUTE_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.DISH_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
+import static nl.tudelft.oopp.demo.config.Constants.ID_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.MENU_NOT_FOUND;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -41,7 +48,7 @@ public class DishService {
     public int add(String name, int menuId) {
         Optional<Menu> optionalMenu = menuRepository.findById(menuId);
         if (optionalMenu.isEmpty()) {
-            return 429;
+            return MENU_NOT_FOUND;
         }
         Menu menu = optionalMenu.get();
 
@@ -50,7 +57,7 @@ public class DishService {
         dish.setMenu(menu);
         dish.setAllergies(new HashSet<>());
         dishRepository.save(dish);
-        return 201;
+        return ADDED;
     }
 
     /**
@@ -62,7 +69,7 @@ public class DishService {
      */
     public int update(int id, String attribute, String value) {
         if (dishRepository.findById(id).isEmpty()) {
-            return 416;
+            return ID_NOT_FOUND;
         }
         Dish dish = dishRepository.findById(id).get();
         switch (attribute) {
@@ -73,16 +80,16 @@ public class DishService {
                 int menuid = Integer.parseInt(value);
                 Optional<Menu> optionalMenu = menuRepository.findById(menuid);
                 if (optionalMenu.isEmpty()) {
-                    return 416;
+                    return ID_NOT_FOUND;
                 }
                 Menu menu = optionalMenu.get();
                 dish.setMenu(menu);
                 break;
             default:
-                return 412;
+                return ATTRIBUTE_NOT_FOUND;
         }
         dishRepository.save(dish);
-        return 200;
+        return EXECUTED;
     }
 
     /**
@@ -92,7 +99,7 @@ public class DishService {
      */
     public int addAllergy(int id, String allergyName) {
         if (!dishRepository.existsById(id)) {
-            return 416;
+            return ID_NOT_FOUND;
         }
         Dish dish = dishRepository.getOne(id);
         Allergy allergy;
@@ -104,7 +111,7 @@ public class DishService {
         allergy = allergyRepository.findByAllergyName(allergyName);
         dish.addAllergy(allergy);
         dishRepository.save(dish);
-        return 201;
+        return ADDED;
     }
 
     /**
@@ -114,10 +121,10 @@ public class DishService {
      */
     public int delete(int id) {
         if (!dishRepository.existsById(id)) {
-            return 430;
+            return DISH_NOT_FOUND;
         }
         dishRepository.deleteById(id);
-        return 200;
+        return EXECUTED;
     }
 
     /**

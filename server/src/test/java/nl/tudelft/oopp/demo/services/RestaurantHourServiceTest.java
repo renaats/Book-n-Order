@@ -1,5 +1,15 @@
 package nl.tudelft.oopp.demo.services;
 
+import static nl.tudelft.oopp.demo.config.Constants.ADDED;
+import static nl.tudelft.oopp.demo.config.Constants.ATTRIBUTE_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.BUILDING_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.DUPLICATE_DAY;
+import static nl.tudelft.oopp.demo.config.Constants.END_BEFORE_START;
+import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
+import static nl.tudelft.oopp.demo.config.Constants.ID_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.INVALID_DAY;
+import static nl.tudelft.oopp.demo.config.Constants.NOT_FOUND;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -17,10 +27,6 @@ import java.util.List;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Restaurant;
 import nl.tudelft.oopp.demo.entities.RestaurantHours;
-import nl.tudelft.oopp.demo.services.BuildingHourService;
-import nl.tudelft.oopp.demo.services.BuildingService;
-import nl.tudelft.oopp.demo.services.RestaurantHourService;
-import nl.tudelft.oopp.demo.services.RestaurantService;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -121,7 +127,7 @@ public class RestaurantHourServiceTest {
      */
     @Test
     public void testInvalidBuilding() {
-        assertEquals(422, restaurantHourService.add(0, restaurantHours.getDay(), 1000, 3000));
+        assertEquals(BUILDING_NOT_FOUND, restaurantHourService.add(0, restaurantHours.getDay(), 1000, 3000));
     }
 
     /**
@@ -129,7 +135,7 @@ public class RestaurantHourServiceTest {
      */
     @Test
     public void testInvalidDay() {
-        assertEquals(425, restaurantHourService.add(restaurant.getId(), 0, 1000, 3000));
+        assertEquals(INVALID_DAY, restaurantHourService.add(restaurant.getId(), 0, 1000, 3000));
     }
 
     /**
@@ -137,7 +143,7 @@ public class RestaurantHourServiceTest {
      */
     @Test
     public void testEndBeforeStart() {
-        assertEquals(426, restaurantHourService.add(restaurant.getId(), restaurantHours.getDay(), 3000, 1000));
+        assertEquals(END_BEFORE_START, restaurantHourService.add(restaurant.getId(), restaurantHours.getDay(), 3000, 1000));
     }
 
     /**
@@ -145,8 +151,8 @@ public class RestaurantHourServiceTest {
      */
     @Test
     public void testSameBuildingTwice() {
-        assertEquals(201, restaurantHourService.add(restaurant.getId(), restaurantHours.getDay(), 1000, 3000));
-        assertEquals(427, restaurantHourService.add(restaurant.getId(), restaurantHours.getDay(), 1000, 3000));
+        assertEquals(ADDED, restaurantHourService.add(restaurant.getId(), restaurantHours.getDay(), 1000, 3000));
+        assertEquals(DUPLICATE_DAY, restaurantHourService.add(restaurant.getId(), restaurantHours.getDay(), 1000, 3000));
     }
 
     /**
@@ -154,7 +160,7 @@ public class RestaurantHourServiceTest {
      */
     @Test
     public void testRetrieveOne() {
-        assertEquals(201, restaurantHourService.add(restaurant.getId(), restaurantHours.getDay(), 1000, 3000));
+        assertEquals(ADDED, restaurantHourService.add(restaurant.getId(), restaurantHours.getDay(), 1000, 3000));
         assertEquals(Collections.singletonList(restaurantHours), restaurantHourService.all());
     }
 
@@ -209,7 +215,7 @@ public class RestaurantHourServiceTest {
     public void testUpdateNonExisting() {
         restaurantHourService.add(restaurant.getId(), restaurantHours.getDay(), 1000, 3000);
         restaurantHourService.add(restaurant2.getId(), restaurantHours2.getDay(), 2000, 4000);
-        assertEquals(416, restaurantHourService.update(1234, "attr", "val"));
+        assertEquals(ID_NOT_FOUND, restaurantHourService.update(1234, "attr", "val"));
     }
 
     /**
@@ -219,7 +225,7 @@ public class RestaurantHourServiceTest {
     public void testUpdateNonExistingAttribute() {
         restaurantHourService.add(restaurant.getId(), restaurantHours.getDay(), 1000, 3000);
         int id = restaurantHourService.all().get(0).getId();
-        assertEquals(412, restaurantHourService.update(id, "a", "a"));
+        assertEquals(ATTRIBUTE_NOT_FOUND, restaurantHourService.update(id, "a", "a"));
     }
 
     /**
@@ -318,7 +324,7 @@ public class RestaurantHourServiceTest {
 
         restaurantHourService.update(restaurantHours2.getId(), "restaurantid", ((Integer) restaurantHours.getRestaurant().getId()).toString());
 
-        assertEquals(427, restaurantHourService.update(restaurantHours2.getId(), "day", ((Long) restaurantHours.getDay()).toString()));
+        assertEquals(DUPLICATE_DAY, restaurantHourService.update(restaurantHours2.getId(), "day", ((Long) restaurantHours.getDay()).toString()));
     }
 
     /**
@@ -333,7 +339,7 @@ public class RestaurantHourServiceTest {
         restaurantHours = restaurantHourList.get(0);
         restaurantHours2 = restaurantHourList.get(1);
 
-        assertEquals(200, restaurantHourService.delete(restaurantHourList.get(0).getRestaurant().getId(), restaurantHourList.get(0).getDay()));
+        assertEquals(EXECUTED, restaurantHourService.delete(restaurantHourList.get(0).getRestaurant().getId(), restaurantHourList.get(0).getDay()));
 
         restaurantHourList = new ArrayList<>(restaurantHourService.all());
         assertEquals(1, restaurantHourList.size());
@@ -370,7 +376,7 @@ public class RestaurantHourServiceTest {
         restaurantHours = restaurantHourList.get(0);
         restaurantHours2 = restaurantHourList.get(1);
 
-        assertEquals(404, restaurantHourService.delete(restaurantHourList.get(0).getRestaurant().getId(), restaurantHourList.get(0).getDay() + 1));
+        assertEquals(NOT_FOUND, restaurantHourService.delete(restaurantHourList.get(0).getRestaurant().getId(), restaurantHourList.get(1).getDay()));
     }
 
     /**
@@ -378,7 +384,7 @@ public class RestaurantHourServiceTest {
      */
     @Test
     public void testRetrieveSpecial() {
-        assertEquals(201, restaurantHourService.add(restaurant.getId(), 939600000, 1000, 3000));
+        assertEquals(ADDED, restaurantHourService.add(restaurant.getId(), 939600000, 1000, 3000));
         assertEquals(Collections.singletonList(restaurantHoursSpecial), restaurantHourService.all());
     }
 
@@ -406,7 +412,7 @@ public class RestaurantHourServiceTest {
     public void testDeleteSpecial() {
         restaurantHourService.add(restaurant.getId(), 939600000, 1000, 3000);
         restaurantHoursSpecial = restaurantHourService.all().get(0);
-        assertEquals(200, restaurantHourService.delete(restaurantHoursSpecial.getRestaurant().getId(), restaurantHoursSpecial.getDay()));
+        assertEquals(EXECUTED, restaurantHourService.delete(restaurantHoursSpecial.getRestaurant().getId(), restaurantHoursSpecial.getDay()));
         assertEquals(0, restaurantHourService.all().size());
     }
 

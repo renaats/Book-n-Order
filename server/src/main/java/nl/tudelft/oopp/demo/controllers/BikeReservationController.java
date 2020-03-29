@@ -1,5 +1,9 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import static nl.tudelft.oopp.demo.config.Constants.ADMIN;
+import static nl.tudelft.oopp.demo.config.Constants.BIKE_ADMIN;
+import static nl.tudelft.oopp.demo.config.Constants.USER;
+
 import javax.servlet.http.HttpServletRequest;
 
 import nl.tudelft.oopp.demo.entities.BikeReservation;
@@ -38,7 +42,7 @@ public class BikeReservationController {
      * @param toTimeMs = the ending time of the reservation.
      * @return String containing the result of your request.
      */
-    @Secured("ROLE_USER")
+    @Secured(USER)
     @PostMapping(path = "/add") // Map ONLY POST Requests
     @ResponseBody
     public int addNewBikeReservation(
@@ -58,7 +62,7 @@ public class BikeReservationController {
      * @param value = the new value of the attribute.
      * @return String containing the result of your request.
      */
-    @Secured({"ROLE_ADMIN"})
+    @Secured({ADMIN, BIKE_ADMIN})
     @PostMapping(path = "/update")
     @ResponseBody
     public int updateAttribute(@RequestParam int id, @RequestParam String attribute, @RequestParam String value) {
@@ -70,7 +74,7 @@ public class BikeReservationController {
      * @param id = the id of the bike reservation.
      * @return String containing the result of your request.
      */
-    @Secured({"ROLE_ADMIN"})
+    @Secured({ADMIN, BIKE_ADMIN})
     @DeleteMapping(path = "/delete")
     @ResponseBody
     public int deleteBikeReservation(@RequestParam int id) {
@@ -81,7 +85,7 @@ public class BikeReservationController {
      * Lists all bike reservations.
      * @return Iterable of all bike reservations.
      */
-    @Secured("ROLE_ADMIN")
+    @Secured({ADMIN, BIKE_ADMIN})
     @GetMapping(path = "/all")
     @ResponseBody
     public Iterable<BikeReservation> getAllBikeReservations() {
@@ -93,7 +97,7 @@ public class BikeReservationController {
      * @param request = the Http request that calls this method
      * @return a list of past bike reservations for this user.
      */
-    @Secured("ROLE_USER")
+    @Secured(USER)
     @GetMapping(path = "/past")
     public Iterable<BikeReservation> getPastReservations(HttpServletRequest request) {
         return bikeReservationService.past(request);
@@ -104,7 +108,7 @@ public class BikeReservationController {
      * @param request = the Http request that calls this method
      * @return a list of future bike reservations for this user.
      */
-    @Secured("ROLE_USER")
+    @Secured(USER)
     @GetMapping(path = "/future")
     public Iterable<BikeReservation> getFutureReservations(HttpServletRequest request) {
         return bikeReservationService.future(request);
