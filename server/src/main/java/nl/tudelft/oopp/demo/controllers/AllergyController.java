@@ -7,7 +7,6 @@ import static nl.tudelft.oopp.demo.config.Constants.USER;
 import java.util.List;
 
 import nl.tudelft.oopp.demo.entities.Allergy;
-import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.services.AllergyService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,7 +86,7 @@ public class AllergyController {
      *               where [operation] is ':', '<', or '>'.
      * @return List of Room objects that match the search criteria.
      */
-    @Secured("ROLE_USER")
+    @Secured(USER)
     @GetMapping(path = "/filter")
     @ResponseBody
     public List<Allergy> search(@RequestParam String query) {

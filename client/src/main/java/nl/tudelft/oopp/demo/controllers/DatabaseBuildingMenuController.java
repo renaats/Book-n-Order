@@ -9,8 +9,6 @@ import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -176,19 +174,16 @@ public class DatabaseBuildingMenuController implements Initializable {
                     deleteButton.setMinWidth(60);
                     deleteButton.setStyle("-fx-background-color:  #CC5653; -fx-font-size:10; -fx-text-fill: white");
                     deleteButton.setMinHeight(20);
-                    deleteButton.setOnAction(new EventHandler<ActionEvent>() {
-                        @Override
-                        public void handle(ActionEvent event) {
-                            for (int i = 0; i < buildingResult.size(); i++) {
-                                if (buildingResult.get(i).getId().equals(building.getId())) {
-                                    buildingResult.remove(buildingResult.get(i));
-                                    anchorPane.getChildren().remove(deleteButton);
-                                }
+                    deleteButton.setOnAction(event -> {
+                        for (int i1 = 0; i1 < buildingResult.size(); i1++) {
+                            if (buildingResult.get(i1).getId().equals(building.getId())) {
+                                buildingResult.remove(buildingResult.get(i1));
+                                anchorPane.getChildren().remove(deleteButton);
                             }
-                            String response = ServerCommunication.deleteBuilding(building.getId());
-                            listBuildingsButtonClicked();
-                            CustomAlert.informationAlert(response);
                         }
+                        String response = ServerCommunication.deleteBuilding(building.getId());
+                        listBuildingsButtonClicked();
+                        CustomAlert.informationAlert(response);
                     });
                     anchorPane.getChildren().add(deleteButton);
                 }

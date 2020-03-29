@@ -4,8 +4,6 @@ import static nl.tudelft.oopp.demo.config.Constants.ADMIN;
 import static nl.tudelft.oopp.demo.config.Constants.RESTAURANT;
 import static nl.tudelft.oopp.demo.config.Constants.USER;
 
-import java.util.Set;
-
 import javax.servlet.http.HttpServletRequest;
 
 import nl.tudelft.oopp.demo.entities.FoodOrder;
@@ -83,7 +81,7 @@ public class FoodOrderController {
      * @return String containing the result of your request.
      */
     @Secured({ADMIN, RESTAURANT})
-    @DeleteMapping(path = "/delete")
+    @DeleteMapping(path = "/delete/{id}")
     @ResponseBody
     public int deleteFoodOrder(@PathVariable(value = "id") int id) {
         return foodOrderService.delete(id);

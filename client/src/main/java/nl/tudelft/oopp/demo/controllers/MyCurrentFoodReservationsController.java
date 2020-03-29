@@ -2,8 +2,6 @@ package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
 
-import javafx.fxml.Initializable;
-
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**

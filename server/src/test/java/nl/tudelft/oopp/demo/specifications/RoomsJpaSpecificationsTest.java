@@ -7,13 +7,10 @@ import static org.hamcrest.Matchers.not;
 import java.util.List;
 import javax.transaction.Transactional;
 
-import nl.tudelft.oopp.demo.controllers.RoomController;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.repositories.BuildingRepository;
 import nl.tudelft.oopp.demo.repositories.RoomRepository;
-import nl.tudelft.oopp.demo.specifications.RoomSpecification;
-import nl.tudelft.oopp.demo.specifications.SearchCriteria;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

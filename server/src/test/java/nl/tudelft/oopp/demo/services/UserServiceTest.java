@@ -443,7 +443,7 @@ class UserServiceTest {
                 .sign(HMAC512(SECRET.getBytes()));
         request.addHeader(HEADER_STRING, token);
         String password = userService.all().get(0).getPassword();
-        assertEquals(ADDED, userService.changePassword(request, password));
+        assertEquals(EXECUTED, userService.changePassword(request, password));
         assertNotEquals(password, userService.all().get(0).getPassword());
     }
 

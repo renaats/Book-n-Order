@@ -1,7 +1,5 @@
 package nl.tudelft.oopp.demo.specifications;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.in;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -10,7 +8,6 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import nl.tudelft.oopp.demo.entities.Allergy;
-import nl.tudelft.oopp.demo.entities.Dish;
 import nl.tudelft.oopp.demo.repositories.AllergyRepository;
 
 import org.junit.jupiter.api.BeforeEach;

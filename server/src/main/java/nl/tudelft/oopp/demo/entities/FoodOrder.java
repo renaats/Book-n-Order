@@ -50,11 +50,6 @@ public class FoodOrder {
     @Temporal(TemporalType.TIMESTAMP)
     private Date deliveryTime;
 
-    @ManyToOne
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn
-    private Menu menu;
-
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Dish> dishes;
 
@@ -92,10 +87,6 @@ public class FoodOrder {
         this.deliveryTime = deliveryTime;
     }
 
-    public void setMenu(Menu menu) {
-        this.menu = menu;
-    }
-
     public void setDishes(Set<Dish> dishes) {
         this.dishes = dishes;
     }
@@ -124,10 +115,6 @@ public class FoodOrder {
         return deliveryTime;
     }
 
-    public Menu getMenu() {
-        return menu;
-    }
-
     public Set<Dish> getDishes() {
         return dishes;
     }
@@ -145,7 +132,6 @@ public class FoodOrder {
                 && Objects.equals(appUser, that.appUser)
                 && Objects.equals(deliveryLocation, that.deliveryLocation)
                 && Objects.equals(deliveryTime, that.deliveryTime)
-                && Objects.equals(menu, that.menu)
                 && Objects.equals(dishes, that.dishes);
     }
 }
