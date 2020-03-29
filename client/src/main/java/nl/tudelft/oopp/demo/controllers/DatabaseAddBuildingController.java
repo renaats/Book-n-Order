@@ -1,8 +1,14 @@
 package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
@@ -13,7 +19,9 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
  * Loads the correct content into the FXML objects that need to display server information and
  * controls all the user inputs made through the GUI in the "DatabaseAddBuildings.fxml" file
  */
-public class DatabaseAddBuildingController {
+public class DatabaseAddBuildingController implements Initializable {
+
+    private final ObservableList<String> facultyList = FXCollections.observableArrayList();
 
     @FXML
     private TextField nameTextField;
@@ -21,23 +29,20 @@ public class DatabaseAddBuildingController {
     private TextField streetTextField;
     @FXML
     private TextField houseNumberTextField;
+    @FXML
+    private ChoiceBox<String> facultyChoiceBox;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        loadFacultyChoiceBox();
+    }
 
     /**
      * return to the database main menu when the home icon is clicked
      * @throws IOException this should not throw an exception, since the input is always the same
      */
-
     public void mainMenu() throws IOException {
         ApplicationDisplay.changeScene("/DatabaseMainMenu.fxml");
-    }
-
-    /**
-     * sends the user to the add building view
-     * @throws IOException this should not throw an exception, since the input is always the same
-     */
-
-    public void goToAddBuildings() throws IOException {
-        ApplicationDisplay.changeScene("/DatabaseAddBuildings.fxml");
     }
 
     /**
@@ -45,7 +50,7 @@ public class DatabaseAddBuildingController {
      * @throws IOException this should not throw an exception, since the input is always the same
      */
     public void goToEditBuildings() throws IOException {
-        ApplicationDisplay.changeScene("/DatabaseEditBuildings.fxml");
+        ApplicationDisplay.changeScene("/DatabaseBuildingMenu.fxml");
     }
 
     /**
@@ -86,5 +91,23 @@ public class DatabaseAddBuildingController {
      */
     public void goToBuildingMenu() throws IOException {
         ApplicationDisplay.changeScene("/DatabaseBuildingMenu.fxml");
+    }
+
+    /**
+     * Takes care of the options for the updateChoiceBox in the GUI
+     */
+    private void loadFacultyChoiceBox() {
+        facultyList.clear();
+        String a = "Architecture and the Built Environment";
+        String b = "Civil Engineering and Geosciences";
+        String c = "Electrical Engineering, Mathematics & Computer Science";
+        String d = "Industrial Design Engineering";
+        String e = "Aerospace Engineering";
+        String f = "Technology, Policy and Management";
+        String g = "Applied Sciences";
+        String h = "Mechanical, Maritime and Materials Engineering";
+        String i = "";
+        facultyList.addAll(a, b, c, d, e, f, g, h, i);
+        facultyChoiceBox.getItems().addAll(facultyList);
     }
 }

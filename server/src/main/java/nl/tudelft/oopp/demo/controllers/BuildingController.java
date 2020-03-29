@@ -82,7 +82,7 @@ public class BuildingController {
     public Iterable<Building> getAllBuildings() {
         return buildingService.all();
     }
-
+    
     /**
      * Retrieves the building with the specified id.
      * @param id = the id of the building.
@@ -118,5 +118,4 @@ public class BuildingController {
     public Set<Room> getRooms(@PathVariable(value = "buildingId") int id) {
         return buildingService.rooms(id);
     }
-
 }
