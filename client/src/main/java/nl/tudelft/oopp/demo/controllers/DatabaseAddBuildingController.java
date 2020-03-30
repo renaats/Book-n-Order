@@ -61,11 +61,22 @@ public class DatabaseAddBuildingController implements Initializable {
         String street = null;
         // -1 is a placeholder since you cannot initialize an empty integer.
         int houseNumber = -1;
+        String faculty = null;
         try {
             name = nameTextField.getText();
             street = streetTextField.getText();
-            if (name.equals("") || street.equals("")) {
-                CustomAlert.warningAlert("Missing attributes.");
+            if (facultyChoiceBox.getValue() == null) {
+                CustomAlert.warningAlert("Please choose a faculty, or select the blank space.");
+                return;
+            } else {
+                faculty = facultyChoiceBox.getValue();
+            }
+            if (name.equals("")) {
+                CustomAlert.warningAlert("Missing name.");
+                return;
+            }
+            if (street.equals("")) {
+                CustomAlert.warningAlert("Missing street.");
                 return;
             }
             try {
@@ -77,7 +88,7 @@ public class DatabaseAddBuildingController implements Initializable {
         } catch (Exception e) {
             CustomAlert.errorAlert("Could not parse attributes.");
         }
-        String response = ServerCommunication.addBuilding(name, street, houseNumber);
+        String response = ServerCommunication.addBuilding(name, street, houseNumber, faculty);
         if (response.equals("Successfully added!")) {
             CustomAlert.informationAlert(response);
         } else {

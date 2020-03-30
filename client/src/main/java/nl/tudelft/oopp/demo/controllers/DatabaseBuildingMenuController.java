@@ -58,6 +58,8 @@ public class DatabaseBuildingMenuController implements Initializable {
     @FXML
     private TableColumn<Building, Integer> colHouseNumber;
     @FXML
+    private TableColumn<Building, Integer> colFaculty;
+    @FXML
     private ChoiceBox<String> facultyChoiceBox;
 
     private int pageNumber;
@@ -69,11 +71,13 @@ public class DatabaseBuildingMenuController implements Initializable {
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
         colStreet.setCellValueFactory(new PropertyValueFactory<>("street"));
         colHouseNumber.setCellValueFactory(new PropertyValueFactory<>("houseNumber"));
+        colFaculty.setCellValueFactory(new PropertyValueFactory<>("faculty"));
 
         idFieldRead.setDisable(true);
         if (pageNumber == 0) {
             pageNumber++;
         }
+
         listBuildingsButtonClicked();
         tableHoverMethod();
         loadFacultyChoiceBox();
@@ -164,6 +168,7 @@ public class DatabaseBuildingMenuController implements Initializable {
                 nameFieldRead.setText(building.getName());
                 streetFieldRead.setText(building.getStreet());
                 houseNumberFieldRead.setText(Integer.toString(building.getHouseNumber()));
+                facultyChoiceBox.setValue(building.getFaculty());
             }
 
             for (int i = 0; i < buildingResult.size(); i++) {
@@ -202,14 +207,17 @@ public class DatabaseBuildingMenuController implements Initializable {
                 buildingResult.clear();
                 buildingResult.add(building);
                 table.setItems(buildingResult);
+                pagesText.setText("1 / 1 pages");
             }
         } catch (Exception e) {
             String name = buildingFindTextField.getText();
+            System.out.println(name);
             Building building = JsonMapper.buildingMapper(ServerCommunication.findBuildingByName(name));
             if (building != null) {
                 buildingResult.clear();
                 buildingResult.add(building);
                 table.setItems(buildingResult);
+                pagesText.setText("1 / 1 pages");
             }
         }
     }
@@ -242,9 +250,9 @@ public class DatabaseBuildingMenuController implements Initializable {
                 CustomAlert.warningAlert("Cannot parse house number.");
                 passes = false;
             }
-            //            if (!building.getFaculty().equals(facultyChoiceBox.getValue())) {
-            //                ServerCommunication.updateBuilding(id, "faculty", facultyChoiceBox.getValue());
-            //            }
+            if ((building.getFaculty() == null) || !building.getFaculty().equals(facultyChoiceBox.getValue())) {
+                ServerCommunication.updateBuilding(id, "faculty", facultyChoiceBox.getValue());
+            }
         } catch (NumberFormatException e) {
             CustomAlert.warningAlert("No selection detected.");
             passes = false;

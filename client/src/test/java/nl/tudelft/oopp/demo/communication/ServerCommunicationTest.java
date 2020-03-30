@@ -15,8 +15,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.http.Fault;
 
-import java.io.IOException;
-
 import nl.tudelft.oopp.demo.errors.ErrorMessages;
 
 import org.junit.jupiter.api.AfterEach;
@@ -51,7 +49,7 @@ public class ServerCommunicationTest {
         stubFor(post(urlEqualTo("/room/update?id=1&attribute=a&value=a")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(post(urlEqualTo("/room/add?name=a&faculty=a&facultySpecific=true&screen=true&projector=true&buildingId=1&capacity=1&plugs=1"))
                 .willReturn(aResponse().withStatus(200).withBody("200")));
-        stubFor(post(urlEqualTo("/building/add?name=a&street=a&houseNumber=1")).willReturn(aResponse().withStatus(200).withBody("200")));
+        stubFor(post(urlEqualTo("/building/add?name=a&street=a&houseNumber=1&faculty=faculty")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(post(urlEqualTo("/room_reservation/add?roomId=1&userEmail=a&fromTimeMs=1&toTimeMs=2"))
                 .willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(get(urlEqualTo("/room_reservation/all")).willReturn(aResponse().withStatus(200).withBody("RoomReservations")));
@@ -374,7 +372,7 @@ public class ServerCommunicationTest {
      */
     @Test
     public void testSuccessfulAddBuilding() {
-        assertEquals(ErrorMessages.getErrorMessage(200), ServerCommunication.addBuilding("a", "a", 1));
+        assertEquals(ErrorMessages.getErrorMessage(200), ServerCommunication.addBuilding("a", "a", 1, "faculty"));
     }
 
     /**

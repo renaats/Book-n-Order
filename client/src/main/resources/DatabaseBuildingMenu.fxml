@@ -17,36 +17,36 @@
       <image>
          <Image url="@images/mainMenuBackground.jpg" />
       </image></ImageView>
-    <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="63.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="63.0" AnchorPane.topAnchor="12.0">
-        <image>
-            <Image url="@images/TuDelftLogoFinal.png" />
-        </image>
-    </ImageView>
-    <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="258.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="576.0" AnchorPane.leftAnchor="258.0" AnchorPane.rightAnchor="902.0" AnchorPane.topAnchor="120.0">
-        <Image url="@images/booknorderlogo.png" />
-    </ImageView>
-    <ImageView fitHeight="41.0" fitWidth="44.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#mainMenu" pickOnBounds="true" preserveRatio="true">
-        <Image url="@images/HomeIconTransparent.png" />
+   <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="63.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="63.0" AnchorPane.topAnchor="12.0">
+      <image>
+         <Image url="@images/TuDelftLogoFinal.png" />
+      </image>
+   </ImageView>
+   <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="258.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="576.0" AnchorPane.leftAnchor="258.0" AnchorPane.rightAnchor="902.0" AnchorPane.topAnchor="120.0">
+      <Image url="@images/booknorderlogo.png" />
+   </ImageView>
+   <ImageView fitHeight="41.0" fitWidth="44.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#mainMenu" pickOnBounds="true" preserveRatio="true">
+      <Image url="@images/HomeIconTransparent.png" />
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor>
-    </ImageView>
-    <Text fill="WHITE" layoutX="20.0" layoutY="555.576171875" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback is welcome" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0">
-        <font>
-            <Font size="18.0" />
-        </font>
-    </Text>
-    <Text fill="WHITE" layoutX="20.0" layoutY="578.75" strokeType="OUTSIDE" strokeWidth="0.0" text="© 2020 TU Delft. All rights reserved." AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0">
-        <font>
-            <Font name="Calibri" size="11.0" />
-        </font>
-    </Text>
-   <TableView fx:id="table" layoutX="634.0" layoutY="179.0" prefHeight="386.0" prefWidth="562.0" stylesheets="@table.css">
+   </ImageView>
+   <Text fill="WHITE" layoutX="20.0" layoutY="555.576171875" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback is welcome" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0">
+      <font>
+         <Font size="18.0" />
+      </font>
+   </Text>
+   <Text fill="WHITE" layoutX="20.0" layoutY="578.75" strokeType="OUTSIDE" strokeWidth="0.0" text="© 2020 TU Delft. All rights reserved." AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0">
+      <font>
+         <Font name="Calibri" size="11.0" />
+      </font>
+   </Text>
+   <TableView fx:id="table" layoutX="634.0" layoutY="179.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="386.0" prefWidth="562.0" stylesheets="@table.css">
       <columns>
-         <TableColumn fx:id="colName" prefWidth="129.0" text="Name" />
-         <TableColumn fx:id="colStreet" prefWidth="129.0" text="Street" />
-         <TableColumn fx:id="colHouseNumber" prefWidth="129.0" text="House Number" />
-         <TableColumn fx:id="colFaculty" prefWidth="170.4000244140625" text="Faculty" />
+         <TableColumn fx:id="colName" maxWidth="129.0" prefWidth="129.0" resizable="false" text="Name" />
+         <TableColumn fx:id="colStreet" maxWidth="129.0" prefWidth="129.0" resizable="false" text="Street" />
+         <TableColumn fx:id="colHouseNumber" maxWidth="129.0" minWidth="129.0" prefWidth="129.0" resizable="false" text="House Number" />
+         <TableColumn fx:id="colFaculty" maxWidth="170.4000244140625" prefWidth="170.4000244140625" resizable="false" text="Faculty" />
       </columns>
    </TableView>
    <TextField fx:id="idFieldRead" layoutX="118.0" layoutY="210.0" prefHeight="25.0" prefWidth="56.0" promptText="ID" AnchorPane.leftAnchor="118.0" AnchorPane.topAnchor="216.0" />
