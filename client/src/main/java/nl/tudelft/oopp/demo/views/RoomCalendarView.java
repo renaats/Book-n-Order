@@ -15,6 +15,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+import com.calendarfx.view.WeekDayView;
 import com.calendarfx.view.WeekView;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -30,6 +31,7 @@ public class RoomCalendarView extends CalendarView {
     private Room room;
     private AppUser user;
 
+    CalendarView view = new CalendarView();
     Calendar unavailableSpots = new Calendar("Unavailable Spots");
     Calendar myReservations = new Calendar("My Reservations");
 
@@ -37,11 +39,10 @@ public class RoomCalendarView extends CalendarView {
      * Constuctor for the Personal Calendar View
      */
     public RoomCalendarView() {
-//        this.room = room;
-//        this.user = user;
         displayCalendars();
-//        loadRoomReservations();
+
     }
+
 
     /**
      * Methods that loads room reservations of personal user
@@ -78,9 +79,7 @@ public class RoomCalendarView extends CalendarView {
     public void displayCalendars() {
         unavailableSpots.setStyle(Calendar.Style.STYLE5);
         myReservations.setStyle(Calendar.Style.STYLE4);
-
         unavailableSpots.setReadOnly(true);
-//        myReservations.setReadOnly(true);
 
         CalendarSource myCalendarSource = new CalendarSource("My Calendars");
         myCalendarSource.getCalendars().addAll(myReservations, unavailableSpots);
