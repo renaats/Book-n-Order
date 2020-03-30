@@ -90,8 +90,8 @@ public class AllergyServiceTest {
         allergy2 = new Allergy();
         allergy2.setAllergyName("Nuts");
 
-        building = new Building("Building Name", "street", 1);
-        buildingService.add(building.getName(), building.getStreet(), building.getId());
+        building = new Building("Building Name", "street", "faculty", 1);
+        buildingService.add(building.getName(), building.getStreet(), building.getFaculty(), building.getId());
         restaurant = new Restaurant(building,"restaurant");
         restaurantService.add((buildingService.all().get(0).getId()), restaurant.getName());
         menu = new Menu("Menu", restaurant);
