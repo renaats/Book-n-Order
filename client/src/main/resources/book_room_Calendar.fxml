@@ -68,7 +68,7 @@
             <Font name="Calibri" size="11.0" />
          </font>
       </Text>
-      <ImageView fx:id="homeIcon" fitHeight="41.0" fitWidth="44.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="homeIcon" fitHeight="41.0" onMouseClicked="#mainMenu" fitWidth="44.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -76,7 +76,7 @@
             <Image url="@images/HomeIconTransparent.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="41.0" fitWidth="69.0" layoutX="14.0" layoutY="67.0"  pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="41.0" fitWidth="69.0" onMouseClicked="#goToRoomBook" layoutX="14.0" layoutY="67.0"  pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/BackArrow.png" />
          </image>

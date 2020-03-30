@@ -103,8 +103,8 @@ public class BookRoomController {
      * @throws IOException the input will always be the same, so it should never throw an IO exception
      */
 
-    public void goToRoomConfirmation() throws IOException {
-        ApplicationDisplay.changeScene("/RoomConfirmation.fxml");
+    public void goToRoomCalendar() throws IOException {
+        ApplicationDisplay.changeScene("/book_room_Calendar.fxml");
     }
 
     /**

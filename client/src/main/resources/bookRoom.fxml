@@ -59,7 +59,7 @@
          <Cursor fx:constant="HAND" />
       </cursor>
    </ImageView>
-   <Button layoutX="651.0" layoutY="557.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#goToRoomConfirmation" style="-fx-background-color: #00a6d6;" text="Reserve Selected Room" textFill="WHITE" />
+   <Button layoutX="651.0" layoutY="557.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#goToRoomCalendar" style="-fx-background-color: #00a6d6;" text="Reserve Selected Room" textFill="WHITE" />
    <Text layoutX="149.0" layoutY="221.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Room characteristics">
       <font>
          <Font size="26.0" />
