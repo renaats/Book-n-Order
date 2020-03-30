@@ -1,4 +1,4 @@
-package nl.tudelft.oopp.demo.communication;
+package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -106,29 +106,21 @@ public class ServerCommunication {
         return communicateAndReturnBodyOfResponse(request);
     }
 
-    /**
-     * Finds a building in the database by name.
-     * @param name String of the name.
-     * @return the body of the response.
-     */
     public static String findBuildingByName(String name) {
-        System.out.println(name);
-        System.out.println(URLEncoder.encode(name, StandardCharsets.UTF_8));
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building/findName/" + URLEncoder.encode(name, StandardCharsets.UTF_8))).GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building/find/" + name)).GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnBodyOfResponse(request);
     }
 
     /**
-     * Communicates the buildings to add to the database.
-     * @param name building name.
-     * @param street street name.
-     * @param houseNumber house number.
-     * @param faculty the faculty of the building if applicable.
-     * @return response body.
+     * Communicates the buildings to add to the database
+     * @param name building name
+     * @param street street name
+     * @param houseNumber house number
+     * @return response body
      */
-    public static String addBuilding(String name, String street, int houseNumber, String faculty) {
+    public static String addBuilding(String name, String street,int houseNumber) {
         HttpRequest request;
-        request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building/add?name=" + URLEncoder.encode(name, StandardCharsets.UTF_8) + "&street=" + URLEncoder.encode(street, StandardCharsets.UTF_8) + "&houseNumber=" + houseNumber + "&faculty=" + URLEncoder.encode(faculty, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building/add?name=" + URLEncoder.encode(name, StandardCharsets.UTF_8) + "&street=" + URLEncoder.encode(street, StandardCharsets.UTF_8) + "&houseNumber=" + houseNumber)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnErrorMessage(request);
     }
 
@@ -146,12 +138,12 @@ public class ServerCommunication {
     }
 
     /**
-     * Adds building hours to the server.
-     * @param buildingId building id.
-     * @param date day represented by int.
-     * @param startTimeS start time in seconds.
-     * @param endTimeS end time in seconds.
-     * @return response.body of the server.
+     * Adds building hours to the server
+     * @param buildingId building id
+     * @param date day represented by int
+     * @param startTimeS start time in seconds
+     * @param endTimeS end time in seconds
+     * @return response.body of the server
      */
     public static String addBuildingHours(int buildingId, long date, int startTimeS, int endTimeS) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building_hours/add?buildingId=" + buildingId + "&date=" + date + "&startTimeS=" + startTimeS + "&endTimeS=" + endTimeS)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
@@ -170,7 +162,7 @@ public class ServerCommunication {
     /**
      * Retrieve specific building hours for specific day in the database by id.
      * @param buildingId = building id, which is parsed from a text field.
-     * @param day = the date in milliseconds or the day of the week for regular hours represented by long.
+     * @param day = the date in milliseconds or the day of the week for regular hours represented by long
      * @return the body of the response.
      */
     public static String findBuildingHours(int buildingId, long day) {
@@ -205,7 +197,7 @@ public class ServerCommunication {
     /**
      * Removes building hours from the database.
      * @param id = the id of the building.
-     * @param date = the date in milliseconds or the day of the week for regular hours represented by long.
+     * @param date = the date in milliseconds or the day of the week for regular hours represented by long
      * @return the body of the response from the server.
      */
     public static String deleteBuildingHours(int id, long date) {
@@ -554,7 +546,7 @@ public class ServerCommunication {
      * @param date day represented by int
      * @param startTimeS start time in seconds
      * @param endTimeS end time in seconds
-     * @return response.body of the server
+     * @return response body of the server
      */
     public static String addRestaurantHours(int restaurantId, long date, int startTimeS, int endTimeS) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant_hours/add?restaurantId=" + restaurantId + "&date=" + date + "&startTimeS=" + startTimeS + "&endTimeS=" + endTimeS)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
@@ -779,11 +771,51 @@ public class ServerCommunication {
     }
 
     /**
-     * Finds all future and current bike reservations for the user that sends the request
-     * @return response.body of the server
+     * Removes a Restaurant from the database.
+     * @param id = the id of the Restaurant.
+     * @return the body of the response from the server.
+     */
+    public static String deleteRestaurant(int id) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant/delete/" + id)).DELETE().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnErrorMessage(request);
+    }
+
+    /**
+     * Updates an attribute of the restaurant
+     * @param restaurantId the Id of the restaurant that will be updated
+     * @param attribute the attribute to be updated
+     * @param value the new value of the attribute
+     * @return the body of the response from the server.
+     */
+    public static String updateRestaurant(int restaurantId, String attribute, String value) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant/update?id=" + restaurantId + "&attribute=" + URLEncoder.encode(attribute, StandardCharsets.UTF_8) + "&value=" + URLEncoder.encode(value, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnErrorMessage(request);
+    }
+
+    /**
+     * Requests all future bike reservations from the server.
+     * @return the body of the response from the server
      */
     public static String getAllFutureBikeReservations() {
         HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/bike_reservation/future")).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Retrieves a JSON string representation of all restaurants from the server.
+     * @return the body of the response from the server.
+     */
+    public static String getRestaurants() {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/restaurant/all")).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Requests all the menus from the database
+     * @return a JSON string on menus.
+     */
+    public static String getMenus() {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/menu/all")).build();
         return communicateAndReturnBodyOfResponse(request);
     }
 }
