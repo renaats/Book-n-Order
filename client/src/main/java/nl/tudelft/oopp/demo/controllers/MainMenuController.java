@@ -19,8 +19,7 @@ public class MainMenuController {
      * @throws IOException when it fails
      */
     public void calendarIcon() throws IOException {
-        UserInformation user = JsonMapper.userInformationMapper(ServerCommunication.getOwnUserInformation());
-        ApplicationDisplay.showCalendarScene(new PersonalCalendarView(user.getEmail()));
+        ApplicationDisplay.showCalendarScene(new PersonalCalendarView());
     }
 
     /**

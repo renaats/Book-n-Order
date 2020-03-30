@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.scene.control.Alert;
@@ -305,7 +306,6 @@ public class JsonMapper {
         return null;
     }
 
-    /**
      * Maps JSON to FoodOrder entity.
      * @param foodOrderJson representation of a food order.
      * @return FoodOrder entity.
@@ -342,13 +342,8 @@ public class JsonMapper {
             // Convert JSON string to Object
             return mapper.readValue(foodOrdersJson, new TypeReference<>(){});
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText(foodOrdersJson);
-            alert.showAndWait();
+            return new ArrayList();
         }
-        return null;
     }
 
     /**
@@ -388,12 +383,7 @@ public class JsonMapper {
             // Convert JSON string to Object
             return mapper.readValue(bikeReservationsJson, new TypeReference<>(){});
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText(bikeReservationsJson);
-            alert.showAndWait();
+            return new ArrayList();
         }
-        return null;
     }
 }
