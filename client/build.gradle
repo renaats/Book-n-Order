@@ -17,6 +17,7 @@ dependencies {
     testRuntime("org.junit.jupiter:junit-jupiter-engine:5.6.0")
     testCompile "com.github.tomakehurst:wiremock-jre8:2.26.3"
     compile "org.slf4j:slf4j-simple:1.7.9"
+    implementation 'com.calendarfx:view:11.8.3'
 }
 
 javafx {

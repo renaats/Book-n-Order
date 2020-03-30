@@ -38,7 +38,9 @@ public class AppUser {
 
     }
 
+    Set<FoodOrder> foodOrders = new HashSet<>();
     Set<RoomReservation> roomReservations = new HashSet<>();
+    Set<BikeReservation> bikeReservations = new HashSet<>();
 
     public void setEmail(String email) {
         this.email = email;
@@ -76,6 +78,13 @@ public class AppUser {
         this.roomReservations = roomReservations;
     }
 
+    public void setFoodOrders(Set<FoodOrder> foodOrders) {
+        this.foodOrders = foodOrders;
+    }
+
+    public void setBikeReservations(Set<BikeReservation> bikeReservations) {
+        this.bikeReservations = bikeReservations;
+    }
 
     public String getEmail() {
         return email;
@@ -111,6 +120,14 @@ public class AppUser {
 
     public Set<RoomReservation> getRoomReservations() {
         return roomReservations;
+    }
+
+    public Set<FoodOrder> getFoodOrders() {
+        return foodOrders;
+    }
+
+    public Set<BikeReservation> getBikeReservations() {
+        return bikeReservations;
     }
 
     @Override
