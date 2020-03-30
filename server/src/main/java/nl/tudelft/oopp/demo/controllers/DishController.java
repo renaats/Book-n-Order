@@ -47,7 +47,6 @@ public class DishController {
         return dishService.add(name, menuId);
     }
 
-
     /**
      * Lists all dishes.
      * @return all dishes.
