@@ -22,7 +22,6 @@ import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.entities.RoomReservation;
 import nl.tudelft.oopp.demo.user.UserInformation;
 
-
 /**
  * Maps Json server responses into objects in the Entities package
  */
