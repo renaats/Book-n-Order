@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 
@@ -18,7 +19,7 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 public class DatabaseAddRoomController {
 
     @FXML
-    private ToggleButton facultySpecificToggle;
+    private ChoiceBox<String> studySpecificChoiceBox;
     @FXML
     private ToggleButton screenToggle;
     @FXML
@@ -34,31 +35,14 @@ public class DatabaseAddRoomController {
     @FXML
     private TextField plugsTextField;
 
-    private boolean facultySpecificToggleFlag;
     private boolean screenToggleFlag;
     private boolean projectorToggleFlag;
 
     /**
      * Makes sure the button toggles from false to true every time.
-     * @param e Just an ActionEvent param
      */
     @FXML
-    private void toggleClickFacultySpecific(ActionEvent e) {
-        if (facultySpecificToggleFlag) {
-            facultySpecificToggle.setText("False");
-            facultySpecificToggleFlag = false;
-        } else {
-            facultySpecificToggle.setText("True");
-            facultySpecificToggleFlag = true;
-        }
-    }
-
-    /**
-     * Makes sure the button toggles from false to true every time.
-     * @param e Just an ActionEvent param
-     */
-    @FXML
-    private void toggleClickProjector(ActionEvent e) {
+    private void toggleClickProjector() {
         if (projectorToggleFlag) {
             projectorToggle.setText("False");
             projectorToggleFlag = false;
@@ -70,10 +54,9 @@ public class DatabaseAddRoomController {
 
     /**
      * Makes sure the button toggles from false to true every time.
-     * @param e Just an ActionEvent param
      */
     @FXML
-    private void toggleClickScreen(ActionEvent e) {
+    private void toggleClickScreen() {
         if (screenToggleFlag) {
             screenToggle.setText("False");
             screenToggleFlag = false;
@@ -84,31 +67,18 @@ public class DatabaseAddRoomController {
     }
 
     /**
-     * Switches scene to DatabaseAddRooms.fxml
-     * @throws IOException Input will be valid
-     */
-    public void databaseAddRooms() throws IOException {
-        ApplicationDisplay.changeScene("/DatabaseAddRooms.fxml");
-    }
-
-    public void myAccountScene() throws IOException {
-        ApplicationDisplay.changeScene("/myAccountScene.fxml");
-    }
-
-    /**
      * Adds a room to the database
-     * @param actionEvent action event parameter
      */
-    public void databaseAddRoom(ActionEvent actionEvent) {
+    public void databaseAddRoom() {
         String name = nameTextField.getText();
         String faculty = facultyTextField.getText();
         int buildingId = Integer.parseInt(buildingIdTextField.getText());
-        boolean facultySpecific = Boolean.parseBoolean(facultySpecificToggle.getText());
+        String studySpecific = studySpecificChoiceBox.getValue();
         boolean screen = Boolean.parseBoolean(screenToggle.getText());
         boolean projector = Boolean.parseBoolean(projectorToggle.getText());
         int capacity = Integer.parseInt(capacityTextField.getText());
         int plugs = Integer.parseInt(plugsTextField.getText());
-        String response = ServerCommunication.addRoom(name, faculty, buildingId, facultySpecific, screen, projector, capacity, plugs);
+        String response = ServerCommunication.addRoom(name, faculty, buildingId, studySpecific, screen, projector, capacity, plugs);
         if (response.equals("Successfully added!")) {
             CustomAlert.informationAlert(response);
         } else {
@@ -128,7 +98,7 @@ public class DatabaseAddRoomController {
      * When the menu item edit is clicked it take you to the DatabaseAddRooms.fxml view
      * @throws IOException the input will always be correct, so it should never throw and exception.
      */
-    public void databaseEditRooms() throws IOException {
-        ApplicationDisplay.changeScene("/DatabaseEditRoom.fxml");
+    public void goToRoomMenu() throws IOException {
+        ApplicationDisplay.changeScene("/DatabaseRoomMenu.fxml");
     }
 }

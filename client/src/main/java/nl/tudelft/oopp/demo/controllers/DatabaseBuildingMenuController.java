@@ -79,7 +79,7 @@ public class DatabaseBuildingMenuController implements Initializable {
         }
 
         listBuildingsButtonClicked();
-        tableHoverMethod();
+        tableSelectMethod();
         loadFacultyChoiceBox();
     }
 
@@ -158,7 +158,7 @@ public class DatabaseBuildingMenuController implements Initializable {
     /**
      * Listener that checks if a row is selected, if so, fill the text fields.
      */
-    public void tableHoverMethod() {
+    public void tableSelectMethod() {
         table.getSelectionModel().selectedItemProperty().addListener((obs) -> {
             anchorPane.getChildren().remove(deleteButton);
 
@@ -172,6 +172,7 @@ public class DatabaseBuildingMenuController implements Initializable {
             }
 
             for (int i = 0; i < buildingResult.size(); i++) {
+                assert building != null;
                 if (buildingResult.get(i).getId().equals(building.getId())) {
                     deleteButton = new Button("Delete");
                     deleteButton.setLayoutX(1200);
@@ -211,7 +212,6 @@ public class DatabaseBuildingMenuController implements Initializable {
             }
         } catch (Exception e) {
             String name = buildingFindTextField.getText();
-            System.out.println(name);
             Building building = JsonMapper.buildingMapper(ServerCommunication.findBuildingByName(name));
             if (building != null) {
                 buildingResult.clear();
@@ -247,7 +247,7 @@ public class DatabaseBuildingMenuController implements Initializable {
                     ServerCommunication.updateBuilding(id, "houseNumber", houseNumberFieldRead.getText());
                 }
             } catch (NumberFormatException e) {
-                CustomAlert.warningAlert("Cannot parse house number.");
+                CustomAlert.warningAlert("House number has to be an integer.");
                 passes = false;
             }
             if ((building.getFaculty() == null) || !building.getFaculty().equals(facultyChoiceBox.getValue())) {
@@ -259,6 +259,8 @@ public class DatabaseBuildingMenuController implements Initializable {
         }
         if (passes) {
             CustomAlert.informationAlert("Successfully Executed.");
+        } else {
+            CustomAlert.warningAlert("Executed with warnings.");
         }
         listBuildingsButtonClicked();
     }

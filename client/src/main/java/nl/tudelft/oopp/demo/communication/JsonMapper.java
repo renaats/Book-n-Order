@@ -1,5 +1,6 @@
 package nl.tudelft.oopp.demo.communication;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -94,24 +95,11 @@ public class JsonMapper {
      * @param roomsJson a JSON string representing a list.
      * @return A list filled with object Buildings
      */
-    public static List<Room> roomListMapper(String roomsJson) {
+    public static List<Room> roomListMapper(String roomsJson) throws IOException {
 
         ObjectMapper mapper = new ObjectMapper();
 
-        try {
-            // Convert JSON string to Object
-            return mapper.readValue(roomsJson, new TypeReference<>(){});
-        } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle(null);
-            alert.setHeaderText(null);
-            alert.setContentText(roomsJson);
-            alert.initStyle(StageStyle.UNDECORATED);
-            DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(JsonMapper.class.getResource("/alertWarning.css").toExternalForm());
-            alert.showAndWait();
-        }
-        return null;
+        return mapper.readValue(roomsJson, new TypeReference<>(){});
     }
 
     /**
