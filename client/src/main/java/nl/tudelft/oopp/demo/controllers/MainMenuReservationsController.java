@@ -79,7 +79,7 @@ public class MainMenuReservationsController {
     }
 
     /**
-     * Goes to bike reservations when the bike image is clicked
+     * Goes to personal calendar when the calendar image is clicked
      * @throws IOException this method should never throw an exception
      */
     public void openCalendar() throws IOException {
