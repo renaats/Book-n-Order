@@ -11,14 +11,13 @@ import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
->>>>>>> server/src/main/java/nl/tudelft/oopp/demo/services/AllergyService.java
 
 import nl.tudelft.oopp.demo.entities.Allergy;
 import nl.tudelft.oopp.demo.entities.Dish;
 import nl.tudelft.oopp.demo.repositories.AllergyRepository;
+import nl.tudelft.oopp.demo.repositories.DishRepository;
 import nl.tudelft.oopp.demo.specifications.AllergySpecificationsBuilder;
 
-import nl.tudelft.oopp.demo.repositories.DishRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;

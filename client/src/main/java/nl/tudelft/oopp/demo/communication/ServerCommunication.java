@@ -607,17 +607,6 @@ public class ServerCommunication {
     }
 
     /**
-     * Removes restaurant hours from the database.
-     * @param id = the id of the restaurant.
-     * @param date the date in milliseconds or the day of the week for regular hours represented by long.
-     * @return the body of the response from the server.
-     */
-    public static String deleteRestaurantHours(int id, long date) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant_hours/delete?id=" + id + "&date=" + date)).DELETE().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        return communicateAndReturnErrorMessage(request);
-    }
-
-    /**
      * Updates a give attribute from a menu.
      * @param id the Id of the menu.
      * @param attribute the attribute to be updated. Used dishAdd, dishDelete and dishDeleteAll to edit the dishes.

@@ -80,16 +80,4 @@ public class MenuController {
     public int deleteMenu(@PathVariable(value = "menuID") int id) {
         return menuService.delete(id);
     }
-
-    /**
-     * Lists all menus.
-     * @return all menus
-     */
-    @Secured(USER)
-    @GetMapping(path = "/all")
-    @ResponseBody
-    public Iterable<Menu> getAllMenus() {
-        return menuService.all();
-    }
-
 }
