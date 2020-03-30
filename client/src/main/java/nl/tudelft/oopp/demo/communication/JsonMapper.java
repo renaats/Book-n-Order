@@ -306,7 +306,7 @@ public class JsonMapper {
         return null;
     }
 
-     /** Maps JSON to FoodOrder entity.
+    /** Maps JSON to FoodOrder entity.
      * @param foodOrderJson representation of a food order.
      * @return FoodOrder entity.
      */
