@@ -12,11 +12,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.DatabaseBuildingMenuController">
+
+<AnchorPane fx:id="anchorPane" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.DatabaseBuildingMenuController">
    <ImageView fitWidth="1280.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@images/mainMenuBackground.jpg" />
-      </image></ImageView>
+      </image>
+   </ImageView>
    <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="63.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="63.0" AnchorPane.topAnchor="12.0">
       <image>
          <Image url="@images/TuDelftLogoFinal.png" />
@@ -99,11 +101,13 @@
    <Button fx:id="confirmFindByIdButton" layoutX="434.0" layoutY="389.0" mnemonicParsing="false" onAction="#findBuilding" prefHeight="26.0" prefWidth="68.0" style="-fx-background-color: #00a6d6;" text="Find" textFill="WHITE" AnchorPane.topAnchor="389.0">
       <cursor>
          <Cursor fx:constant="HAND" />
-      </cursor></Button>
+      </cursor>
+   </Button>
    <Button fx:id="buildingFindAllButton" layoutX="197.0" layoutY="426.0" mnemonicParsing="false" onAction="#listBuildingsButtonClicked" prefHeight="26.0" prefWidth="223.0" style="-fx-background-color: #00a6d6;" text="Find all" textFill="WHITE">
       <cursor>
          <Cursor fx:constant="HAND" />
-      </cursor></Button>
+      </cursor>
+   </Button>
    <Text layoutX="54.0" layoutY="374.056640625" strokeType="OUTSIDE" strokeWidth="0.0" text="Searching" AnchorPane.leftAnchor="54.0" AnchorPane.topAnchor="346.0">
       <font>
          <Font size="26.0" />
@@ -117,7 +121,8 @@
    <Button fx:id="updateBuildingButton" layoutX="197.0" layoutY="314.0" mnemonicParsing="false" onAction="#updateBuilding" prefHeight="26.0" prefWidth="223.0" style="-fx-background-color: #00a6d6;" text="Update" textFill="WHITE">
       <cursor>
          <Cursor fx:constant="HAND" />
-      </cursor></Button>
+      </cursor>
+   </Button>
    <Button fx:id="nextPageButton" layoutX="956.0" layoutY="573.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#nextPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&gt;&gt;" textFill="WHITE">
       <cursor>
          <Cursor fx:constant="HAND" />
@@ -148,4 +153,4 @@
    </ImageView>
    <Text layoutX="181.0" layoutY="199.0" onMouseClicked="#goToAddBuildings" strokeType="OUTSIDE" strokeWidth="0.0" text="Add" />
 
-</AnchorPane>
+      </AnchorPane>

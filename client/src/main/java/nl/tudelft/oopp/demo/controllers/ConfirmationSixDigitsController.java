@@ -41,7 +41,7 @@ public class ConfirmationSixDigitsController {
      */
     public void goToLoginScreen() throws IOException {
         AuthenticationKey.setBearerKey(null);
-        ApplicationDisplay.changeScene("/login-screen.fxml");
+        ApplicationDisplay.changeScene("/loginScreen.fxml");
     }
 }
 

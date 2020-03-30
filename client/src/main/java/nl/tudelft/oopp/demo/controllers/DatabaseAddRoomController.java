@@ -125,14 +125,6 @@ public class DatabaseAddRoomController {
     }
 
     /**
-     * When the room icon is clicked it take you to the RoomEditOrAdd.fxml view
-     * @throws IOException the input will always be correct, so it should never throw and exception.
-     */
-    public void goToRoomMenu() throws IOException {
-        ApplicationDisplay.changeScene("/RoomsEditOrAdd.fxml");
-    }
-
-    /**
      * When the menu item edit is clicked it take you to the DatabaseAddRooms.fxml view
      * @throws IOException the input will always be correct, so it should never throw and exception.
      */

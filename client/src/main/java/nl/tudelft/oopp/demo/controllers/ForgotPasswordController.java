@@ -21,7 +21,7 @@ public class ForgotPasswordController {
      * @throws IOException the input is always the same so there should not be an exception
      */
     public void loginScene() throws IOException {
-        ApplicationDisplay.changeScene("/login-screen.fxml");
+        ApplicationDisplay.changeScene("/loginScreen.fxml");
     }
 
     /**

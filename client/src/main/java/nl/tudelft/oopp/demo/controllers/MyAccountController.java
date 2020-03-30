@@ -95,7 +95,7 @@ public class MyAccountController implements Initializable {
     public void logoutUser() throws IOException {
         ServerCommunication.logoutUser();
         CustomAlert.informationAlert("Logged out!");
-        ApplicationDisplay.changeScene("/login-screen.fxml");
+        ApplicationDisplay.changeScene("/loginScreen.fxml");
     }
 
     /**

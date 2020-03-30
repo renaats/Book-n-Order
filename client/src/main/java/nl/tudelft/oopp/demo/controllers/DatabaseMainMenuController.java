@@ -14,11 +14,11 @@ public class DatabaseMainMenuController {
         ApplicationDisplay.changeScene("/DatabaseBuildingMenu.fxml");
     }
 
-    public void databaseRooms() throws IOException {
-        ApplicationDisplay.changeScene("/RoomsEditOrAdd.fxml");
-    }
-
     public void mainMenu() throws IOException {
         ApplicationDisplay.changeScene("/mainMenu.fxml");
+    }
+
+    public void databaseRooms() throws IOException {
+        ApplicationDisplay.changeScene("/DatabaseRoomMenu.fxml");
     }
 }

@@ -39,7 +39,7 @@ public class ChangePasswordController {
         if (password1.equals(password2)) {
             String response = ServerCommunication.changeUserPassword(password1);
             CustomAlert.informationAlert(response);
-            ApplicationDisplay.changeScene("/login-screen.fxml");
+            ApplicationDisplay.changeScene("/loginScreen.fxml");
         } else {
             CustomAlert.errorAlert("Passwords do not match.");
         }
