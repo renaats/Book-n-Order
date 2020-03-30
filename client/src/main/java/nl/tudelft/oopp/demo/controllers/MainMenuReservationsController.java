@@ -47,7 +47,7 @@ public class MainMenuReservationsController {
     }
 
     /**
-     * returns to the main menu when the home icon is clicked
+     * Returns to the main menu when the home icon is clicked
      * @throws IOException this method should never throw an exception
      */
     public void mainMenu() throws IOException {
@@ -55,7 +55,7 @@ public class MainMenuReservationsController {
     }
 
     /**
-     * goes to room reservations when the room image is clicked
+     * Goes to room reservations when the room image is clicked
      * @throws IOException this method should never throw an exception
      */
     public void bookRoomIcon() throws IOException {
@@ -63,7 +63,7 @@ public class MainMenuReservationsController {
     }
 
     /**
-     * goes to food reservations when the food image is clicked
+     * Goes to food reservations when the food image is clicked
      * @throws IOException this method should never throw an exception
      */
     public void orderFoodIcon() throws IOException {
@@ -71,7 +71,7 @@ public class MainMenuReservationsController {
     }
 
     /**
-     * goes to bike reservations when the bike image is clicked
+     * Goes to bike reservations when the bike image is clicked
      * @throws IOException this method should never throw an exception
      */
     public void rentBikeIcon() throws IOException {
@@ -79,7 +79,7 @@ public class MainMenuReservationsController {
     }
 
     /**
-     * goes to bike reservations when the bike image is clicked
+     * Goes to bike reservations when the bike image is clicked
      * @throws IOException this method should never throw an exception
      */
     public void openCalendar() throws IOException {
