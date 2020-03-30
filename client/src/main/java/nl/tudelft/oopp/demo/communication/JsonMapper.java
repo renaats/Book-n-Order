@@ -202,13 +202,8 @@ public class JsonMapper {
             List<RoomReservation> allRoomReservations = mapper.readValue(roomReservationsJson, new TypeReference<List<RoomReservation>>(){});
             return allRoomReservations;
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText(roomReservationsJson);
-            alert.showAndWait();
+            return new ArrayList();
         }
-        return null;
     }
 
     /**
