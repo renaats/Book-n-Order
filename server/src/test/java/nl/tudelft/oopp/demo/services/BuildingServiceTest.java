@@ -69,11 +69,13 @@ public class BuildingServiceTest {
         building = new Building();
         building.setName("EWI");
         building.setStreet("Mekelweg");
+        building.setFaculty("EWI");
         building.setHouseNumber(4);
 
         building2 = new Building();
         building2.setName("EWI2");
         building2.setStreet("Mekelweg2");
+        building2.setFaculty("EWI");
         building2.setHouseNumber(42);
     }
 
@@ -90,7 +92,7 @@ public class BuildingServiceTest {
      */
     @Test
     public void testCreate() {
-        assertEquals(ADDED, buildingService.add(building.getName(), building.getStreet(), building.getHouseNumber()));
+        assertEquals(ADDED, buildingService.add(building.getName(), building.getStreet(), building.getFaculty(), building.getHouseNumber()));
         assertEquals(Collections.singletonList(building), buildingService.all());
     }
 
@@ -107,7 +109,7 @@ public class BuildingServiceTest {
      */
     @Test
     public void testFindExisting() {
-        buildingService.add(building.getName(), building.getStreet(), building.getHouseNumber());
+        buildingService.add(building.getName(), building.getStreet(), building.getFaculty(), building.getHouseNumber());
         int id = buildingService.all().get(0).getId();
         assertNotNull(buildingService.find(id));
     }
@@ -125,7 +127,7 @@ public class BuildingServiceTest {
      */
     @Test
     public void testUpdateNonExistingAttribute() {
-        buildingService.add(building.getName(), building.getStreet(), building.getHouseNumber());
+        buildingService.add(building.getName(), building.getStreet(), building.getFaculty(), building.getHouseNumber());
         int id = buildingService.all().get(0).getId();
         assertEquals(ATTRIBUTE_NOT_FOUND, buildingService.update(id, "a", "a"));
     }
@@ -135,7 +137,7 @@ public class BuildingServiceTest {
      */
     @Test
     public void testChangeName() {
-        buildingService.add(building.getName(), building.getStreet(), building.getHouseNumber());
+        buildingService.add(building.getName(), building.getStreet(), building.getFaculty(), building.getHouseNumber());
         int id = buildingService.all().get(0).getId();
         assertNotEquals("Aula", buildingService.find(id).getName());
         buildingService.update(id, "name", "Aula");
@@ -147,8 +149,8 @@ public class BuildingServiceTest {
      */
     @Test
     public void testChangeNameToAlreadyExistingOne() {
-        buildingService.add(building.getName(), building.getStreet(), building.getHouseNumber());
-        buildingService.add(building2.getName(), building2.getStreet(), building2.getHouseNumber());
+        buildingService.add(building.getName(), building.getStreet(), building.getFaculty(), building.getHouseNumber());
+        buildingService.add(building2.getName(), building2.getStreet(), building2.getFaculty(), building2.getHouseNumber());
         int id = buildingService.all().get(0).getId();
         assertEquals("EWI", buildingService.find(id).getName());
         assertEquals(DUPLICATE_NAME, buildingService.update(id, "name", "EWI2"));
@@ -159,7 +161,7 @@ public class BuildingServiceTest {
      */
     @Test
     public void testChangeStreet() {
-        buildingService.add(building.getName(), building.getStreet(), building.getHouseNumber());
+        buildingService.add(building.getName(), building.getStreet(), building.getFaculty(), building.getHouseNumber());
         int id = buildingService.all().get(0).getId();
         assertNotEquals("Drebelweg", buildingService.find(id).getStreet());
         buildingService.update(id, "street", "Drebelweg");
@@ -167,11 +169,23 @@ public class BuildingServiceTest {
     }
 
     /**
+     * Tests the change of the faculty by using the service.
+     */
+    @Test
+    public void testChangeFaculty() {
+        buildingService.add(building.getName(), building.getStreet(), building.getFaculty(), building.getHouseNumber());
+        int id = buildingService.all().get(0).getId();
+        assertNotEquals("3M", buildingService.find(id).getFaculty());
+        buildingService.update(id, "faculty", "3M");
+        assertEquals("3M", buildingService.find(id).getFaculty());
+    }
+
+    /**
      * Tests the change of the house number by using the service.
      */
     @Test
     public void testChangeHouseNumber() {
-        buildingService.add(building.getName(), building.getStreet(), building.getHouseNumber());
+        buildingService.add(building.getName(), building.getStreet(), building.getFaculty(), building.getHouseNumber());
         int id = buildingService.all().get(0).getId();
         assertNotEquals(7, buildingService.find(id).getHouseNumber());
         buildingService.update(id, "housenumber", "7");
@@ -183,8 +197,8 @@ public class BuildingServiceTest {
      */
     @Test
     public void testMultipleInstances() {
-        buildingService.add(building.getName(), building.getStreet(), building.getHouseNumber());
-        buildingService.add(building2.getName(), building2.getStreet(), building2.getHouseNumber());
+        buildingService.add(building.getName(), building.getStreet(), building.getFaculty(), building.getHouseNumber());
+        buildingService.add(building2.getName(), building2.getStreet(), building2.getFaculty(), building2.getHouseNumber());
         assertEquals(2, buildingService.all().size());
         ArrayList<Building> buildings = new ArrayList<>();
         buildings.add(building);
@@ -197,7 +211,7 @@ public class BuildingServiceTest {
      */
     @Test
     public void testDelete() {
-        buildingService.add(building.getName(), building.getStreet(), building.getHouseNumber());
+        buildingService.add(building.getName(), building.getStreet(), building.getFaculty(), building.getHouseNumber());
         int id = buildingService.all().get(0).getId();
         assertEquals(EXECUTED, buildingService.delete(id));
         assertEquals(0, buildingService.all().size());
@@ -216,7 +230,7 @@ public class BuildingServiceTest {
      */
     @Test
     public void testHasRooms() {
-        buildingService.add(building.getName(), building.getStreet(), building.getHouseNumber());
+        buildingService.add(building.getName(), building.getStreet(), building.getFaculty(), building.getHouseNumber());
         int id = buildingService.all().get(0).getId();
         roomService.add("Ampere", "EWI", false, true, true, id, 300, 50);
         Set<Room> rooms = new HashSet<>();

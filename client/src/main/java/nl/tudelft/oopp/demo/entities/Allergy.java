@@ -52,7 +52,7 @@ public class Allergy {
             return false;
         }
         Allergy allergy = (Allergy) o;
-        return allergyName == allergy.allergyName
+        return Objects.equals(allergyName, allergy.allergyName)
                 && Objects.equals(dishes, allergy.dishes);
     }
 }

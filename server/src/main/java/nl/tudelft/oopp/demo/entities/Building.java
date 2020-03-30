@@ -23,17 +23,20 @@ public class Building {
 
     private String name;
     private String street;
+    private String faculty;
     private int houseNumber;
 
     /** Creates a new instance of Building.
      * @param name the name of the building.
      * @param street the street name of the building's address.
+     * @param faculty the faculty of the building
      * @param houseNumber the house number of the building.
      */
-    public Building(String name, String street, int houseNumber) {
+    public Building(String name, String street, String faculty, int houseNumber) {
         this.name = name;
         this.street = street;
         this.houseNumber = houseNumber;
+        this.faculty = faculty;
     }
 
     public Building() {
@@ -64,6 +67,10 @@ public class Building {
         this.street = street;
     }
 
+    public void setFaculty(String faculty) {
+        this.faculty = faculty;
+    }
+
     public void setHouseNumber(int houseNumber) {
         this.houseNumber = houseNumber;
     }
@@ -82,6 +89,10 @@ public class Building {
 
     public String getStreet() {
         return street;
+    }
+
+    public String getFaculty() {
+        return faculty;
     }
 
     public int getHouseNumber() {
@@ -122,6 +133,7 @@ public class Building {
         return houseNumber == building.houseNumber
                 && Objects.equals(name, building.name)
                 && Objects.equals(street, building.street)
+                && Objects.equals(faculty, building.faculty)
                 && Objects.equals(rooms, building.rooms);
     }
 

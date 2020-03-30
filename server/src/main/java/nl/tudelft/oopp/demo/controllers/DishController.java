@@ -4,6 +4,8 @@ import static nl.tudelft.oopp.demo.config.Constants.ADMIN;
 import static nl.tudelft.oopp.demo.config.Constants.RESTAURANT;
 import static nl.tudelft.oopp.demo.config.Constants.USER;
 
+import java.util.List;
+
 import nl.tudelft.oopp.demo.entities.Dish;
 import nl.tudelft.oopp.demo.services.DishService;
 
@@ -93,5 +95,18 @@ public class DishController {
     @ResponseBody
     public int deleteDish(@PathVariable(value = "dishID") int id) {
         return dishService.delete(id);
+    }
+
+    /**
+     * Allows for a multi-parameter Dish search in a DishRepository.
+     * @param query The search string in the format "[param1][operation][value],[param2][operation][value],..."
+     *               where [operation] is ':', '<', or '>'.
+     * @return List of Dish objects that match the search criteria.
+     */
+    @Secured(USER)
+    @GetMapping(path = "/filter")
+    @ResponseBody
+    public List<Dish> search(@RequestParam String query) {
+        return dishService.search(query);
     }
 }

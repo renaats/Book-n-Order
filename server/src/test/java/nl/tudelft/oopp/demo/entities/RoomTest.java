@@ -38,7 +38,7 @@ public class RoomTest {
      */
     @BeforeEach
     public void setup() {
-        building = new Building("EWI", "Mekelweg", 4);
+        building = new Building("EWI", "Mekelweg", "EWI", 4);
         buildingRepository.save(building);
 
         room = new Room("Ampere", building, "EWI", false, true, true, 300, 250);

@@ -97,11 +97,11 @@ public class UserController {
     }
 
     /**
-     * Updates a specified attribute for some user.
-     * @param email = the email of the user
-     * @param attribute = the attribute that is changed
-     * @param value = the new value of the attribute
-     * @return an error code corresponding to the outcome of the request
+     * Updates a specified attribute for given user.
+     * @param email = the email of the user.
+     * @param attribute = the attribute whose value is to be changed.
+     * @param value = the new value of the attribute.
+     * @return an error code corresponding to the outcome of the request.
      */
     @Secured(ADMIN)
     @PostMapping(path = "/update")

@@ -9,13 +9,18 @@ import static nl.tudelft.oopp.demo.config.Constants.ID_NOT_FOUND;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+>>>>>>> server/src/main/java/nl/tudelft/oopp/demo/services/AllergyService.java
 
 import nl.tudelft.oopp.demo.entities.Allergy;
 import nl.tudelft.oopp.demo.entities.Dish;
 import nl.tudelft.oopp.demo.repositories.AllergyRepository;
+import nl.tudelft.oopp.demo.specifications.AllergySpecificationsBuilder;
 
 import nl.tudelft.oopp.demo.repositories.DishRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 /**
@@ -71,7 +76,6 @@ public class AllergyService {
         return allergyRepository.findByAllergyName(allergyName);
     }
 
-
     /**
      * Updates a specified attribute for some allergy.
      * @param name = the id of the      * Updates a specified attribute for some allergy..
@@ -111,5 +115,21 @@ public class AllergyService {
         }
         allergyRepository.save(allergy);
         return EXECUTED;
+    }
+    
+    /**
+     * Queries the allergy repository based on input
+     * @param search String consisting of query parameters
+     * @return list of allergies that match the query
+     */
+    public List<Allergy> search(String search) {
+        AllergySpecificationsBuilder builder = new AllergySpecificationsBuilder();
+        Pattern pattern = Pattern.compile("(\\w+?)([:<>])(\\w+?),");
+        Matcher matcher = pattern.matcher(search + ",");
+        while (matcher.find()) {
+            builder.with(matcher.group(1), matcher.group(2), matcher.group(3));
+        }
+        Specification<Allergy> spec = builder.build();
+        return allergyRepository.findAll(spec);
     }
 }

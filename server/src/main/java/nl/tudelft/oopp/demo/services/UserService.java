@@ -162,7 +162,7 @@ public class UserService {
         if (appUser.getEmail().equals("staff@tudelft.nl")) {
             appUser.setConfirmationNumber(-1);
             userRepository.save(appUser);
-            return 203;
+            return ADDED;
         }
         if (appUser.getEmail().equals("admin@tudelft.nl")) {
             if (!roleRepository.existsByName(ADMIN)) {
@@ -173,7 +173,7 @@ public class UserService {
             appUser.setConfirmationNumber(-1);
             appUser.addRole(roleRepository.findByName(ADMIN));
             userRepository.save(appUser);
-            return 203;
+            return ADDED;
         }
         if (appUser.getEmail().equals("building_admin@tudelft.nl")) {
             if (!roleRepository.existsByName(BUILDING_ADMIN)) {
@@ -184,7 +184,7 @@ public class UserService {
             appUser.setConfirmationNumber(-1);
             appUser.addRole(roleRepository.findByName(BUILDING_ADMIN));
             userRepository.save(appUser);
-            return 203;
+            return ADDED;
         }
         if (appUser.getEmail().equals("bike_admin@tudelft.nl")) {
             if (!roleRepository.existsByName(BIKE_ADMIN)) {
@@ -195,7 +195,7 @@ public class UserService {
             appUser.setConfirmationNumber(-1);
             appUser.addRole(roleRepository.findByName(BIKE_ADMIN));
             userRepository.save(appUser);
-            return 203;
+            return ADDED;
         }
         if (appUser.getEmail().equals("restaurant@tudelft.nl")) {
             if (!roleRepository.existsByName(RESTAURANT)) {
@@ -206,7 +206,7 @@ public class UserService {
             appUser.setConfirmationNumber(-1);
             appUser.addRole(roleRepository.findByName(RESTAURANT));
             userRepository.save(appUser);
-            return 203;
+            return ADDED;
         }
         // NEED TO BE DELETED BEFORE PRODUCTION! ONLY USED FOR END-TO-END TESTING!
 
@@ -255,7 +255,7 @@ public class UserService {
 
         switch (attribute) {
             case "password":
-                appUser.setPassword(bcryptPasswordEncoder.encode(value));
+                appUser.setPassword(bcryptPasswordEncoder.encode(URLDecoder.decode(value, StandardCharsets.UTF_8)));
                 break;
             case "name":
                 appUser.setName(value);
@@ -402,6 +402,6 @@ public class UserService {
         appUser.setPassword(bcryptPasswordEncoder.encode(password));
         appUser.setLoggedIn(false);
         userRepository.save(appUser);
-        return ADDED;
+        return EXECUTED;
     }
 }

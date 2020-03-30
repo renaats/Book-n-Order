@@ -77,12 +77,12 @@ public class BuildingHourServiceTest {
      */
     @BeforeEach
     public void setup() {
-        building = new Building("EWI", "Mekelweg", 4);
+        building = new Building("EWI", "Mekelweg", "EWI", 4);
 
-        building2 = new Building("EWI2", "Mekelweg2", 42);
+        building2 = new Building("EWI2", "Mekelweg2", "EWI", 42);
 
-        buildingService.add("EWI", "Mekelweg", 4);
-        buildingService.add("EWI2", "Mekelweg2", 42);
+        buildingService.add("EWI", "Mekelweg", "EWI", 4);
+        buildingService.add("EWI2", "Mekelweg2", "EWI", 42);
 
         building = buildingService.find("EWI");
         building2 = buildingService.find("EWI2");

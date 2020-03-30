@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.scene.control.Alert;
@@ -295,15 +296,10 @@ public class JsonMapper {
 
         try {
             // Convert JSON string to Object
-            return mapper.readValue(roomReservationsJson, new TypeReference<List<RoomReservation>>(){});
+            return mapper.readValue(roomReservationsJson, new TypeReference<>(){});
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText(roomReservationsJson);
-            alert.showAndWait();
+            return new ArrayList();
         }
-        return null;
     }
 
     /**
@@ -341,15 +337,10 @@ public class JsonMapper {
 
         try {
             // Convert JSON string to Object
-            return mapper.readValue(foodOrdersJson, new TypeReference<List<FoodOrder>>(){});
+            return mapper.readValue(foodOrdersJson, new TypeReference<>(){});
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText(foodOrdersJson);
-            alert.showAndWait();
+            return new ArrayList();
         }
-        return null;
     }
 
     /**
@@ -387,14 +378,9 @@ public class JsonMapper {
 
         try {
             // Convert JSON string to Object
-            return mapper.readValue(bikeReservationsJson, new TypeReference<List<BikeReservation>>(){});
+            return mapper.readValue(bikeReservationsJson, new TypeReference<>(){});
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText(bikeReservationsJson);
-            alert.showAndWait();
+            return new ArrayList();
         }
-        return null;
     }
 }

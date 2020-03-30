@@ -51,7 +51,7 @@ public class BikeReservationTest {
      */
     @BeforeEach
     public void setup() {
-        building = new Building("EWI", "Mekelweg", 4);
+        building = new Building("EWI", "Mekelweg", "EWI", 4);
         buildingRepository.saveAndFlush(building);
 
         bike = new Bike();
@@ -63,10 +63,10 @@ public class BikeReservationTest {
         appUser.setRoomReservations(new HashSet<>());
         userRepository.saveAndFlush(appUser);
 
-        fromBuilding = new Building("EWI", "Mekelweg", 4);
+        fromBuilding = new Building("EWI", "Mekelweg", "EWI", 4);
         buildingRepository.saveAndFlush(fromBuilding);
 
-        toBuilding = new Building("SportHal", "Mekelweg", 8);
+        toBuilding = new Building("SportHal", "Mekelweg", "EWI", 8);
         buildingRepository.saveAndFlush(toBuilding);
 
         bikeReservation = new BikeReservation(bike, userRepository.findAll().get(0), fromBuilding, toBuilding,

@@ -35,10 +35,10 @@ public class BuildingHourTest {
      */
     @BeforeEach
     public void setup() {
-        building = new Building("EWI", "Mekelweg", 4);
+        building = new Building("EWI", "Mekelweg", "EWI", 4);
         buildingRepository.save(building);
 
-        building2 = new Building("EWI2", "Mekelweg2", 42);
+        building2 = new Building("EWI2", "Mekelweg2", "EWI", 42);
         buildingRepository.save(building2);
 
         buildingHours = new BuildingHours(1, building, LocalTime.ofSecondOfDay(1000), LocalTime.ofSecondOfDay(3000));

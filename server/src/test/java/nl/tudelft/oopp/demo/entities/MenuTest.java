@@ -72,7 +72,7 @@ public class MenuTest {
 
         menu2 = new Menu("BK menu", restaurant2);
 
-        building = new Building("EWI", "Mekelweg", 4);
+        building = new Building("EWI", "Mekelweg", "EWI", 4);
         buildingRepository.saveAndFlush(building);
     }
 
