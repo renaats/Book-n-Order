@@ -15,23 +15,17 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-import com.calendarfx.view.WeekDayView;
-import com.calendarfx.view.WeekView;
-import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
-import nl.tudelft.oopp.demo.entities.*;
+import nl.tudelft.oopp.demo.entities.AppUser;
+import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.entities.RoomReservation;
 
 public class RoomCalendarView extends CalendarView {
 
     private Room room;
     private AppUser user;
-
-    CalendarView view = new CalendarView();
+    
     Calendar unavailableSpots = new Calendar("Unavailable Spots");
     Calendar myReservations = new Calendar("My Reservations");
 
@@ -40,7 +34,6 @@ public class RoomCalendarView extends CalendarView {
      */
     public RoomCalendarView() {
         displayCalendars();
-
     }
 
 
@@ -65,8 +58,7 @@ public class RoomCalendarView extends CalendarView {
                 if (reservation.getAppUser().equals(this.user)) {
                     bookedEntry.setTitle("Reservation #" + reservation.getId());
                     myReservations.addEntry(bookedEntry);
-                }
-                else {
+                } else {
                     unavailableSpots.addEntry(bookedEntry);
                 }
             }

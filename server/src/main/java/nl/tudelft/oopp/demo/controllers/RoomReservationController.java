@@ -82,7 +82,7 @@ public class RoomReservationController {
      * Lists all room reservations.
      * @return Iterable of all room reservations.
      */
-    @Secured({ADMIN, BUILDING_ADMIN})
+    @Secured({ADMIN, BUILDING_ADMIN, USER})
     @GetMapping(path = "/all")
     @ResponseBody
     public Iterable<RoomReservation> getAllRoomReservations() {
