@@ -21,7 +21,6 @@ import nl.tudelft.oopp.demo.entities.BikeReservation;
 import nl.tudelft.oopp.demo.entities.FoodOrder;
 import nl.tudelft.oopp.demo.entities.RoomReservation;
 
-
 public class PersonalCalendarView extends CalendarView {
 
     Calendar bookedRooms = new Calendar("Room Bookings");
