@@ -2,6 +2,7 @@ package nl.tudelft.oopp.demo.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -71,6 +72,9 @@ public class Allergy {
      * @param dish the dish to be added.
      */
     public void addDish(Dish dish) {
+        if (this.dishes == null) {
+            this.dishes = new HashSet<Dish>();
+        }
         this.dishes.add(dish);
     }
 
@@ -79,7 +83,7 @@ public class Allergy {
      * @param dish the dish to be deleted.
      */
     public void deleteDish(Dish dish) {
-        if (this.dishes.contains(dish)){
+        if (this.dishes.contains(dish)) {
             this.dishes.remove(dish);
         }
     }
