@@ -18,6 +18,8 @@ import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.entities.RoomReservation;
@@ -197,12 +199,12 @@ public class RoomReservationService {
      * @param roomId = the id of the room for which reservations are retrieved.
      * @return a list of future room reservations for this user.
      */
-    public List<RoomReservation> forRoom(int roomId) {
+    public String forRoom(int roomId) {
         List<RoomReservation> roomReservations = new ArrayList<>();
         Optional<Room> optionalRoom = roomRepository.findById(roomId);
 
         if (optionalRoom.isEmpty()) {
-            return roomReservations;
+            return null;
         }
         Room room = optionalRoom.get();
 
@@ -211,6 +213,7 @@ public class RoomReservationService {
                 roomReservations.add(roomReservation);
             }
         }
-        return roomReservations;
+        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+        return gson.toJson(roomReservations);
     }
 }

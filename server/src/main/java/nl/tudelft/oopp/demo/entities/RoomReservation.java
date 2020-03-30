@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.google.gson.annotations.Expose;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -25,7 +26,8 @@ public class RoomReservation {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    
+
+    @Expose
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn
@@ -36,9 +38,11 @@ public class RoomReservation {
     @JoinColumn
     private AppUser appUser;
 
+    @Expose
     @Temporal(TemporalType.TIMESTAMP)
     private Date fromTime;
 
+    @Expose
     @Temporal(TemporalType.TIMESTAMP)
     private Date toTime;
 

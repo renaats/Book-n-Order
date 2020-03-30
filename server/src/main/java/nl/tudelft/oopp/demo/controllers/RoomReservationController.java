@@ -118,7 +118,7 @@ public class RoomReservationController {
      */
     @Secured(USER)
     @GetMapping(path = "/room")
-    public Iterable<RoomReservation> getReservationsForRoom(int roomId) {
+    public String getReservationsForRoom(@RequestParam int roomId) {
         return roomReservationService.forRoom(roomId);
     }
 }
