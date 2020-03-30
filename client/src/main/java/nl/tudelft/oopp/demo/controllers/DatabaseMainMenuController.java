@@ -2,6 +2,7 @@ package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
 
+import javafx.scene.input.MouseEvent;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
@@ -20,5 +21,9 @@ public class DatabaseMainMenuController {
 
     public void mainMenu() throws IOException {
         ApplicationDisplay.changeScene("/mainMenu.fxml");
+    }
+
+    public void goToBikeMenu() throws IOException {
+        ApplicationDisplay.changeScene("/BikeDatabaseMenu.fxml");
     }
 }

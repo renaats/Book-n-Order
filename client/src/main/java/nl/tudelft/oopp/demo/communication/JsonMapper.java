@@ -13,6 +13,7 @@ import javafx.scene.control.DialogPane;
 import javafx.stage.StageStyle;
 
 import nl.tudelft.oopp.demo.entities.AppUser;
+import nl.tudelft.oopp.demo.entities.Bike;
 import nl.tudelft.oopp.demo.entities.BikeReservation;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.BuildingHours;
@@ -21,6 +22,7 @@ import nl.tudelft.oopp.demo.entities.Restaurant;
 import nl.tudelft.oopp.demo.entities.RestaurantHours;
 import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.entities.RoomReservation;
+import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.user.UserInformation;
 
 /**
@@ -49,6 +51,25 @@ public class JsonMapper {
             DialogPane dialogPane = alert.getDialogPane();
             dialogPane.getStylesheets().add(JsonMapper.class.getResource("/alertWarning.css").toExternalForm());
             alert.showAndWait();
+        }
+        return null;
+    }
+
+    /**
+     * Maps all building hours JSONS to an object.
+     * @param bikesJson a JSON string.
+     * @return building hour object.
+     */
+    public static List<Bike> bikeListMapper(String bikesJson) {
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        try {
+            // Convert JSON string to Object
+            List<Bike> bikes = mapper.readValue(bikesJson, new TypeReference<List<Bike>>(){});
+            return bikes;
+        } catch (Exception e) {
+            CustomAlert.warningAlert("Error");
         }
         return null;
     }

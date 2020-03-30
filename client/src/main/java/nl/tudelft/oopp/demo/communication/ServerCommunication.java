@@ -775,4 +775,25 @@ public class ServerCommunication {
         HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/bike_reservation/future")).build();
         return communicateAndReturnBodyOfResponse(request);
     }
+
+    /**
+     * Asks the server for all bikes in the database
+     * @return a Json string with all the bikes in the database
+     */
+    public static String getBikes() {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/bike/all")).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Communicates addBike to the database
+     * @return body response
+     */
+    public static String addBike(int buildingId, boolean available) {
+        HttpRequest request;
+        request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/bike/add?buildingId=" + buildingId + "&available=" + available)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        HttpResponse<String> response;
+        request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/bike/add?buildingId=" + buildingId + "&available=" + available)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnErrorMessage(request);
+    }
 }
