@@ -2,6 +2,7 @@ package nl.tudelft.oopp.demo.controllers;
 
 import static nl.tudelft.oopp.demo.config.Constants.ADMIN;
 import static nl.tudelft.oopp.demo.config.Constants.RESTAURANT;
+import static nl.tudelft.oopp.demo.config.Constants.USER;
 
 import nl.tudelft.oopp.demo.entities.Menu;
 import nl.tudelft.oopp.demo.services.MenuService;
@@ -59,7 +60,7 @@ public class MenuController {
      * Lists all menus.
      * @return all menus
      */
-    @Secured("ROLE_USER")
+    @Secured(USER)
     @GetMapping(path = "/all")
     @ResponseBody
     public Iterable<Menu> getAllMenus() {

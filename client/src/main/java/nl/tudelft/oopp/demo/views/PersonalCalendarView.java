@@ -23,8 +23,6 @@ import nl.tudelft.oopp.demo.entities.RoomReservation;
 
 public class PersonalCalendarView extends CalendarView {
 
-    private String currentUser;
-
     Calendar bookedRooms = new Calendar("Room Bookings");
     Calendar orderedFood = new Calendar("Food Orders");
     Calendar rentedBikes = new Calendar("Bike Rent");
@@ -32,8 +30,7 @@ public class PersonalCalendarView extends CalendarView {
     /**
      * Constuctor for the Personal Calendar View
      */
-    public PersonalCalendarView(String currentUser) {
-        this.currentUser = currentUser;
+    public PersonalCalendarView() {
         displayCalendars();
         loadRoomReservations();
         loadBikeReservations();
@@ -44,10 +41,29 @@ public class PersonalCalendarView extends CalendarView {
      * Methods that loads room reservations of personal user
      */
     public void loadRoomReservations() {
-        List<RoomReservation> roomReservationList =
-                new ArrayList<>(Objects.requireNonNull(JsonMapper.roomReservationsListMapper(ServerCommunication.getRoomReservations())));
+        List<RoomReservation> roomReservationList;
+        List<RoomReservation> roomReservationList1;
+
+        try {
+            String roomReservationJson = ServerCommunication.getAllPreviousRoomReservations();
+            roomReservationList = new ArrayList<>(Objects.requireNonNull(JsonMapper.roomReservationsListMapper(roomReservationJson)));
+        } catch (NullPointerException e) {
+            roomReservationList = new ArrayList<>();
+            roomReservationList.add(null);
+        }
+
+        try {
+            String roomReservationJson = ServerCommunication.getAllFutureRoomReservations();
+            roomReservationList1 = new ArrayList<>(Objects.requireNonNull(JsonMapper.roomReservationsListMapper(roomReservationJson)));
+        } catch (NullPointerException e) {
+            roomReservationList1 = new ArrayList<>();
+            roomReservationList1.add(null);
+        }
+
+        roomReservationList.addAll(roomReservationList1);
+
         for (RoomReservation reservation : roomReservationList) {
-            if (reservation.getAppUser().getEmail().equals(this.currentUser)) {
+            if (reservation != null) {
                 Entry<RoomReservation> bookedEntry = new Entry<>("Booking of Room: " + reservation.getRoom().getName());
 
                 LocalTime startTime = convertToLocalTime(reservation.getFromTime());
@@ -66,10 +82,26 @@ public class PersonalCalendarView extends CalendarView {
      * Methods that loads food orders of personal user
      */
     public void loadFoodOrders() {
-        List<FoodOrder> foodOrdersList =
-                new ArrayList<>(Objects.requireNonNull(JsonMapper.foodOrdersListMapper(ServerCommunication.getAllFoodOrders())));
-        for (FoodOrder foodOrder: foodOrdersList) {
-            if (foodOrder.getAppUser().getEmail().equals(this.currentUser)) {
+        List<FoodOrder> foodOrderList;
+        List<FoodOrder> foodOrderList1;
+
+        try {
+            foodOrderList = new ArrayList<>(Objects.requireNonNull(JsonMapper.foodOrdersListMapper(ServerCommunication.getAllPreviousFoodOrders())));
+        } catch (NullPointerException e) {
+            foodOrderList = new ArrayList<>();
+            foodOrderList.add(null);
+        }
+
+        try {
+            foodOrderList1 = new ArrayList<>(Objects.requireNonNull(JsonMapper.foodOrdersListMapper(ServerCommunication.getAllFutureFoodOrders())));
+        } catch (NullPointerException e) {
+            foodOrderList1 = new ArrayList<>();
+            foodOrderList1.add(null);
+        }
+
+        foodOrderList.addAll(foodOrderList1);
+        for (FoodOrder foodOrder: foodOrderList) {
+            if (foodOrder != null) {
                 Entry<FoodOrder> bookedEntry = new Entry<>("Order Number: " + foodOrder.getId());
 
                 LocalTime startTime = convertToLocalTime(foodOrder.getDeliveryTime()).minusMinutes(15);
@@ -88,10 +120,29 @@ public class PersonalCalendarView extends CalendarView {
      * Methods that loads room reservations of personal user
      */
     public void loadBikeReservations() {
-        List<BikeReservation> bikeReservationList =
-                new ArrayList<>(Objects.requireNonNull(JsonMapper.bikeReservationsListMapper(ServerCommunication.getAllBikeReservations())));
+        List<BikeReservation> bikeReservationList;
+        List<BikeReservation> bikeReservationList1;
+
+        try {
+            String bikeReservationJson = ServerCommunication.getAllPreviousBikeReservations();
+            bikeReservationList = new ArrayList<>(Objects.requireNonNull(JsonMapper.bikeReservationsListMapper(bikeReservationJson)));
+        } catch (NullPointerException e) {
+            bikeReservationList = new ArrayList<>();
+            bikeReservationList.add(null);
+        }
+
+        try {
+            String bikeReservationJson = ServerCommunication.getAllFutureBikeReservations();
+            bikeReservationList1 = new ArrayList<>(Objects.requireNonNull(JsonMapper.bikeReservationsListMapper(bikeReservationJson)));
+        } catch (NullPointerException e) {
+            bikeReservationList1 = new ArrayList<>();
+            bikeReservationList1.add(null);
+        }
+
+        bikeReservationList.addAll(bikeReservationList1);
+
         for (BikeReservation reservation : bikeReservationList) {
-            if (reservation.getAppUser().getEmail().equals(this.currentUser)) {
+            if (reservation != null) {
                 Entry<BikeReservation> bookedEntry = new Entry<>("Booking of Bike: " + reservation.getBike().getId());
 
                 LocalTime startTime = convertToLocalTime(reservation.getFromTime());
