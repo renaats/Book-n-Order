@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.MyCurrentBookingsController">
+<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.ContactInformationController">
     <ImageView fitWidth="1280.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
         <image>
             <Image url="@images/mainMenuBackground.jpg" />
@@ -34,19 +34,19 @@
             <Font size="48.0" />
         </font>
     </Text>
-    <ImageView fitHeight="150.0" fitWidth="140.0" layoutX="474.0" layoutY="213.0" onMouseClicked="#myCurrentBikeReservations" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="666.0" AnchorPane.topAnchor="213.0">
+    <ImageView fitHeight="150.0" fitWidth="140.0" layoutX="474.0" layoutY="213.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="666.0" AnchorPane.topAnchor="213.0">
         <Image url="@images/phone.png" />
         <cursor>
             <Cursor fx:constant="HAND" />
         </cursor>
     </ImageView>
-    <ImageView fitHeight="140.0" fitWidth="140.0" layoutX="474.0" layoutY="356.0" onMouseClicked="#myCurrentFoodOrders" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="474.0" AnchorPane.rightAnchor="666.0" AnchorPane.topAnchor="356.0">
+    <ImageView fitHeight="140.0" fitWidth="140.0" layoutX="474.0" layoutY="356.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="474.0" AnchorPane.rightAnchor="666.0" AnchorPane.topAnchor="356.0">
         <Image url="@images/mail.png" />
         <cursor>
             <Cursor fx:constant="HAND" />
         </cursor>
     </ImageView>
-    <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="469.0" layoutY="518.0" onMouseClicked="#myCurrentRoomBookings" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="469.0" AnchorPane.topAnchor="518.0">
+    <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="469.0" layoutY="518.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="469.0" AnchorPane.topAnchor="518.0">
         <Image url="@images/location.png" />
         <cursor>
             <Cursor fx:constant="HAND" />
