@@ -106,6 +106,11 @@ public class ServerCommunication {
         return communicateAndReturnBodyOfResponse(request);
     }
 
+    public static String findBuildingByName(String name) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building/find/" + name)).GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
     /**
      * Communicates the buildings to add to the database
      * @param name building name
@@ -171,10 +176,21 @@ public class ServerCommunication {
      * @param attribute = The attribute whose value is to be updated.
      * @param changeValue = New value.
      * @return The body of the response from the server.
-     * */
+     */
     public static String updateBuildingHours(int id, String attribute, String changeValue) {
         HttpRequest request;
         request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building_hours/update?id=" + id + "&attribute=" + attribute + "&value=" + URLEncoder.encode(changeValue, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnErrorMessage(request);
+    }
+
+    /**
+     * Removes building hours from the database.
+     * @param id = the id of the building.
+     * @param day = the day of the week represented in an int.
+     * @return the body of the response from the server.
+     */
+    public static String deleteBuildingHours(int id, int day) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building_hours/delete?id=" + id + "&day=" + day)).DELETE().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnErrorMessage(request);
     }
 
@@ -199,26 +215,6 @@ public class ServerCommunication {
      */
     public static String getRooms() {
         HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/room/all")).build();
-        return communicateAndReturnBodyOfResponse(request);
-    }
-
-    /**
-     * Retrieves a room by given id.
-     * @param roomId = the id of the room.
-     * @return The body of the response from the server.
-     */
-    public static String findRoom(int roomId) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room/find/" + roomId)).GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        return communicateAndReturnBodyOfResponse(request);
-    }
-
-    /**
-     * Retrieves a room reservation by given id.
-     * @param roomReservationId = the id of the room.
-     * @return The body of the response from the server.
-     */
-    public static String findRoomReservation(int roomReservationId) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room_reservation/find/" + roomReservationId)).GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnBodyOfResponse(request);
     }
 
@@ -254,6 +250,37 @@ public class ServerCommunication {
         HttpRequest request;
         request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room/add?name=" + URLEncoder.encode(name, StandardCharsets.UTF_8) + "&faculty=" + URLEncoder.encode(faculty, StandardCharsets.UTF_8) + "&facultySpecific=" + facultySpecific + "&screen=" + screen + "&projector=" + projector + "&buildingId=" + buildingId + "&capacity=" + capacity + "&plugs=" + plugs)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnErrorMessage(request);
+    }
+    
+    /**
+     * Queries the rooms on specific attributes.
+     * @param query the query parameters
+     * @return A JSON list of rooms matching the query
+     */
+    public static String filterRooms(String query) {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/room/filter?query=" + query)).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Retrieves a room by given id.
+     *
+     * @param roomId = the id of the room.
+     * @return The body of the response from the server.
+     */
+    public static String findRoom(int roomId) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room/find/" + roomId)).GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Retrieves a room reservation by given id.
+     * @param roomReservationId = the id of the room.
+     * @return The body of the response from the server.
+     */
+    public static String findRoomReservation(int roomReservationId) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room_reservation/find/" + roomReservationId)).GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
     }
 
     /**
@@ -368,6 +395,16 @@ public class ServerCommunication {
     }
 
     /**
+     * Queries the dishes on specific attributes.
+     * @param query the query parameters
+     * @return A JSON list of rooms matching the query
+     */
+    public static String filterDishes(String query) {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/dish/filter?query=" + query)).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+    
+    /**
      * Deletes a dish from the database
      * @param dishId the id of the dish
      * @return response.body of the server
@@ -377,6 +414,16 @@ public class ServerCommunication {
         return communicateAndReturnBodyOfResponse(request);
     }
 
+    /**
+     * Queries the allergies on specific attributes.
+     * @param query the query parameters
+     * @return A JSON list of allergies matching the query
+     */
+    public static String filterAllergies(String query) {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/allergy/filter?query=" + query)).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+    
     /**
      * Adds a food order to the database
      * @param email user email
@@ -462,6 +509,28 @@ public class ServerCommunication {
     }
 
     /**
+     * Removes restaurant hours from the database.
+     * @param id = the id of the restaurant.
+     * @param day = the day of the week represented in an int.
+     * @return the body of the response from the server.
+     */
+    public static String deleteRestaurantHours(int id, int day) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant_hours/delete?id=" + id + "&day=" + day)).DELETE().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnErrorMessage(request);
+    }
+
+    /**
+     * Removes restaurant hours from the database.
+     * @param id = the id of the restaurant.
+     * @param date = the date in milliseconds or the day of the week for regular hours represented by long.
+     * @return the body of the response from the server.
+     */
+    public static String deleteRestaurantHours(int id, long date) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant_hours/delete?id=" + id + "&date=" + date)).DELETE().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnErrorMessage(request);
+    }
+
+    /**
      * Deletes a menu from the database
      * @param id the id of the menu
      * @return response.body of the server
@@ -518,17 +587,6 @@ public class ServerCommunication {
         return communicateAndReturnErrorMessage(request);
     }
 
-    /**
-     * Removes restaurant hours from the database.
-     * @param id = the id of the restaurant.
-     * @param date the date in milliseconds or the day of the week for regular hours represented by long.
-     * @return the body of the response from the server.
-     */
-    public static String deleteRestaurantHours(int id, long date) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant_hours/delete?id=" + id + "&date=" + date)).DELETE().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        return communicateAndReturnErrorMessage(request);
-    }
-
     // -----------------------------------------
     // User related Server Communication Methods
     // -----------------------------------------
@@ -540,6 +598,17 @@ public class ServerCommunication {
     public static String getOwnUserInformation() {
         HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/user/info")).build();
         return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Changes the password of a given user
+     * @param changeValue = New value of the password.
+     * @return the body of the response from the server.
+     */
+    public static String changeUserPassword(String changeValue) {
+        HttpRequest request;
+        request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/user/changePassword?password=" + URLEncoder.encode(changeValue, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnErrorMessage(request);
     }
 
     /**

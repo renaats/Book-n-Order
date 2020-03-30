@@ -3,6 +3,9 @@ package nl.tudelft.oopp.demo.controllers;
 import static nl.tudelft.oopp.demo.config.Constants.ADMIN;
 import static nl.tudelft.oopp.demo.config.Constants.USER;
 
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
+
 import javax.servlet.http.HttpServletRequest;
 
 import nl.tudelft.oopp.demo.entities.AppUser;
@@ -77,7 +80,7 @@ public class UserController {
             @RequestParam String name,
             @RequestParam String surname,
             @RequestParam String faculty) {
-        return userService.add(email,password,name,surname,faculty);
+        return userService.add(email,password,name,surname, URLDecoder.decode(faculty, StandardCharsets.UTF_8));
     }
 
     /**
@@ -94,11 +97,11 @@ public class UserController {
     }
 
     /**
-     * Updates a specified attribute for some user.
-     * @param email = the email of the user
-     * @param attribute = the attribute that is changed
-     * @param value = the new value of the attribute
-     * @return an error code corresponding to the outcome of the request
+     * Updates a specified attribute for given user.
+     * @param email = the email of the user.
+     * @param attribute = the attribute whose value is to be changed.
+     * @param value = the new value of the attribute.
+     * @return an error code corresponding to the outcome of the request.
      */
     @Secured(ADMIN)
     @PostMapping(path = "/update")

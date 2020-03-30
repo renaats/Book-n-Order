@@ -4,6 +4,8 @@ import static nl.tudelft.oopp.demo.config.Constants.ADMIN;
 import static nl.tudelft.oopp.demo.config.Constants.RESTAURANT;
 import static nl.tudelft.oopp.demo.config.Constants.USER;
 
+import java.util.List;
+
 import nl.tudelft.oopp.demo.entities.Allergy;
 import nl.tudelft.oopp.demo.services.AllergyService;
 
@@ -76,5 +78,18 @@ public class AllergyController {
     @ResponseBody
     public Allergy findAllergy(@PathVariable (value = "name") String name) {
         return allergyService.findByAllergyName(name);
+    }
+
+    /**
+     * Allows for a multi-parameter Allergy search in a AllergyRepository.
+     * @param query The search string in the format "[param1][operation][value],[param2][operation][value],..."
+     *               where [operation] is ':', '<', or '>'.
+     * @return List of Room objects that match the search criteria.
+     */
+    @Secured(USER)
+    @GetMapping(path = "/filter")
+    @ResponseBody
+    public List<Allergy> search(@RequestParam String query) {
+        return allergyService.search(query);
     }
 }

@@ -101,7 +101,7 @@ public class FoodOrderServiceTest {
      */
     @BeforeEach
     public void setup() {
-        building = new Building("Sporthal", "Mekelweg", 8);
+        building = new Building("Sporthal", "Mekelweg", "EWI", 8);
         buildingRepository.save(building);
 
         restaurant = new Restaurant(building, "Cafe X");
@@ -115,7 +115,7 @@ public class FoodOrderServiceTest {
         appUser2.setFoodOrder(new HashSet<>());
         userRepository.save(appUser2);
 
-        deliverLocation = new Building("EWI", "Mekelweg", 4);
+        deliverLocation = new Building("EWI", "Mekelweg", "EWI", 4);
         buildingRepository.save(deliverLocation);
 
         deliverTime = new Date(11000000000L);

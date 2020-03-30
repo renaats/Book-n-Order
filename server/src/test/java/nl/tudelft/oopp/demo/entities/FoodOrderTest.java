@@ -58,13 +58,13 @@ public class FoodOrderTest {
      */
     @BeforeEach
     public void setup() {
-        building = new Building("XTUDelft", "Mekelweg", 8);
+        building = new Building("XTUDelft", "Mekelweg", "None", 8);
         buildingRepository.saveAndFlush(building);
 
         restaurant = new Restaurant(building, "CafeX");
         restaurantRepository.saveAndFlush(restaurant);
 
-        deliveryLocation = new Building("EWI", "Mekelweg", 4);
+        deliveryLocation = new Building("EWI", "Mekelweg", "EWI", 4);
         buildingRepository.saveAndFlush(deliveryLocation);
 
         appUser = new AppUser("l.j.jongejans@student.tudelft.nl", "1234", "Liselotte", "Jongejans", "EWI");
@@ -76,7 +76,6 @@ public class FoodOrderTest {
 
         foodOrder = new FoodOrder(restaurantRepository.findAll().get(0), userRepository.findAll().get(0),
                 buildingRepository.findAll().get(1), new Date(11000000000L));
-        foodOrder.setMenu(menu);
         foodOrderRepository.saveAndFlush(foodOrder);
         foodOrder = foodOrderRepository.findAll().get(0);
     }
@@ -135,21 +134,11 @@ public class FoodOrderTest {
     }
 
     /**
-     * Tests the getter for the menu field.
-     */
-    @Test
-    public void testGetMenu() {
-        foodOrder2 = foodOrderRepository.findAll().get(0);
-        assertEquals(foodOrder.getMenu(), foodOrder2.getMenu());
-    }
-
-    /**
      * Tests the equals method for 2 equal food orders.
      */
     @Test
     public void testEqualFoodOrder() {
         foodOrder2 = new FoodOrder(restaurant, appUser, deliveryLocation, new Date(11000000000L));
-        foodOrder2.setMenu(menu);
         assertEquals(foodOrder, foodOrder2);
         assertNotSame(foodOrder, foodOrder2);
     }

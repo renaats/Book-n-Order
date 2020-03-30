@@ -34,11 +34,6 @@ public class Menu {
     @JoinColumn
     private Restaurant restaurant;
 
-    @OneToOne
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn
-    private FoodOrder foodOrder;
-
     /**
      * Creates a new instance of Menu.
      * @param name = name of the menu.

@@ -91,13 +91,13 @@ public class RestaurantHourServiceTest {
      */
     @BeforeEach
     public void setup() {
-        building = new Building("EWI", "Mekelweg", 4);
+        building = new Building("EWI", "Mekelweg", "EWI", 4);
 
         restaurant = new Restaurant(building, "Food Station");
 
         restaurant2 = new Restaurant(building, "Hangout");
 
-        buildingService.add("EWI", "Mekelweg", 4);
+        buildingService.add("EWI", "Mekelweg", "EWI", 4);
         building = buildingService.find("EWI");
 
         restaurantService.add(building.getId(), "Food Station");

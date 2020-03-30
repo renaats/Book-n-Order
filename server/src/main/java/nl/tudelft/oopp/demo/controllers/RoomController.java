@@ -4,6 +4,9 @@ import static nl.tudelft.oopp.demo.config.Constants.ADMIN;
 import static nl.tudelft.oopp.demo.config.Constants.BUILDING_ADMIN;
 import static nl.tudelft.oopp.demo.config.Constants.USER;
 
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
 import java.util.Set;
 
 import nl.tudelft.oopp.demo.entities.Room;
@@ -58,7 +61,8 @@ public class RoomController {
             @RequestParam int buildingId,
             @RequestParam int capacity,
             @RequestParam int plugs) {
-        return roomService.add(name, faculty, facultySpecific, screen, projector, buildingId, capacity, plugs);
+        return roomService.add(name, URLDecoder.decode(faculty, StandardCharsets.UTF_8), facultySpecific, screen,
+                projector, buildingId, capacity, plugs);
     }
 
     /**
@@ -122,4 +126,16 @@ public class RoomController {
         return roomService.reservations(id);
     }
 
+    /**
+     * Allows for a multi-parameter Room search in a RoomRepository.
+     * @param query The search string in the format "[param1][operation][value],[param2][operation][value],..."
+     *               where [operation] is ':', '<', or '>'.
+     * @return List of Room objects that match the search criteria.
+     */
+    @Secured(USER)
+    @GetMapping(path = "/filter")
+    @ResponseBody
+    public List<Room> search(@RequestParam String query) {
+        return roomService.search(query);
+    }
 }

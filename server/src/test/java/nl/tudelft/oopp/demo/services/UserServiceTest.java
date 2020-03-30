@@ -27,6 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.auth0.jwt.JWT;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
@@ -443,7 +444,7 @@ class UserServiceTest {
                 .sign(HMAC512(SECRET.getBytes()));
         request.addHeader(HEADER_STRING, token);
         String password = userService.all().get(0).getPassword();
-        assertEquals(ADDED, userService.changePassword(request, password));
+        assertEquals(EXECUTED, userService.changePassword(request, password));
         assertNotEquals(password, userService.all().get(0).getPassword());
     }
 
