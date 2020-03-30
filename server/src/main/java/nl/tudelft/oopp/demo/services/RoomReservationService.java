@@ -191,4 +191,26 @@ public class RoomReservationService {
         }
         return roomReservations;
     }
+
+    /**
+     * Finds all future room reservations for the user that sends the Http request.
+     * @param roomId = the id of the room for which reservations are retrieved.
+     * @return a list of future room reservations for this user.
+     */
+    public List<RoomReservation> forRoom(int roomId) {
+        List<RoomReservation> roomReservations = new ArrayList<>();
+        Optional<Room> optionalRoom = roomRepository.findById(roomId);
+
+        if (optionalRoom.isEmpty()) {
+            return roomReservations;
+        }
+        Room room = optionalRoom.get();
+
+        for (RoomReservation roomReservation: roomReservationRepository.findAll()) {
+            if (roomReservation.getRoom() == room) {
+                roomReservations.add(roomReservation);
+            }
+        }
+        return roomReservations;
+    }
 }

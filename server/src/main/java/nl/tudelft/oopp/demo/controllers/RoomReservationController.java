@@ -110,4 +110,15 @@ public class RoomReservationController {
     public Iterable<RoomReservation> getFutureReservations(HttpServletRequest request) {
         return roomReservationService.future(request);
     }
+
+    /**
+     * Finds all room reservations for the specified room
+     * @param roomId = the room id.
+     * @return a list of future room reservations for this user.
+     */
+    @Secured(USER)
+    @GetMapping(path = "/room")
+    public Iterable<RoomReservation> getReservationsForRoom(int roomId) {
+        return roomReservationService.forRoom(roomId);
+    }
 }
