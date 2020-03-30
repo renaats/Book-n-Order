@@ -36,6 +36,7 @@ public class Building {
         this.name = name;
         this.street = street;
         this.houseNumber = houseNumber;
+        this.faculty = faculty;
     }
 
     public Building() {

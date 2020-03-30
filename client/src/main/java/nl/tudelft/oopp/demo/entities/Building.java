@@ -13,6 +13,7 @@ public class Building {
     private String name;
     private String street;
     private int houseNumber;
+    private String faculty;
 
     Set<Room> rooms = new HashSet<>();
 
@@ -25,10 +26,11 @@ public class Building {
      * @param street the street name of the building's address.
      * @param houseNumber the house number of the building.
      */
-    public Building(String name, String street, int houseNumber) {
+    public Building(String name, String street, int houseNumber, String faculty) {
         this.name = name;
         this.street = street;
         this.houseNumber = houseNumber;
+        this.faculty = faculty;
     }
 
     public Building() {
@@ -49,6 +51,14 @@ public class Building {
 
     public void setRooms(Set<Room> rooms) {
         this.rooms = rooms;
+    }
+
+    public void setFaculty(String faculty) {
+        this.faculty = faculty;
+    }
+
+    public String getFaculty() {
+        return faculty;
     }
 
     public Integer getId() {
