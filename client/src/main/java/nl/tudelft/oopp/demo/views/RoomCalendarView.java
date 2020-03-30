@@ -5,6 +5,7 @@ import com.calendarfx.model.Calendar.Style;
 import com.calendarfx.model.CalendarSource;
 import com.calendarfx.model.Entry;
 import com.calendarfx.view.CalendarView;
+
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
