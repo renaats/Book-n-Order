@@ -1,22 +1,22 @@
 package nl.tudelft.oopp.demo.entities;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.HashSet;
 import java.util.Set;
 
-import nl.tudelft.oopp.demo.entities.Allergy;
-import nl.tudelft.oopp.demo.entities.Dish;
-import nl.tudelft.oopp.demo.entities.Menu;
 import nl.tudelft.oopp.demo.repositories.AllergyRepository;
 import nl.tudelft.oopp.demo.repositories.DishRepository;
 import nl.tudelft.oopp.demo.repositories.MenuRepository;
-import org.assertj.core.api.Assert;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Tests the Allergy entity.

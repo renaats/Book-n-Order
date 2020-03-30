@@ -10,14 +10,11 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import nl.tudelft.oopp.demo.entities.AppUser;
-import nl.tudelft.oopp.demo.entities.Bike;
-import nl.tudelft.oopp.demo.entities.BikeReservation;
-import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.repositories.BikeRepository;
 import nl.tudelft.oopp.demo.repositories.BikeReservationRepository;
 import nl.tudelft.oopp.demo.repositories.BuildingRepository;
 import nl.tudelft.oopp.demo.repositories.UserRepository;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

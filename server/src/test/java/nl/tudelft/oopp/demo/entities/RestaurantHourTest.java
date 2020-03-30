@@ -6,9 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.time.LocalTime;
 
-import nl.tudelft.oopp.demo.entities.Building;
-import nl.tudelft.oopp.demo.entities.Restaurant;
-import nl.tudelft.oopp.demo.entities.RestaurantHours;
 import nl.tudelft.oopp.demo.repositories.BuildingRepository;
 import nl.tudelft.oopp.demo.repositories.RestaurantHourRepository;
 import nl.tudelft.oopp.demo.repositories.RestaurantRepository;

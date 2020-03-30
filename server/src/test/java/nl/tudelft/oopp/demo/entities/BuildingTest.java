@@ -9,8 +9,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.HashSet;
 import java.util.Set;
 
-import nl.tudelft.oopp.demo.entities.Building;
-import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.repositories.BuildingRepository;
 import nl.tudelft.oopp.demo.repositories.RoomRepository;
 import org.junit.jupiter.api.AfterEach;

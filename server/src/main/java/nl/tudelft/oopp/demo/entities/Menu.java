@@ -83,10 +83,10 @@ public class Menu {
 
     /**
      * Deletes a dish from the menu, if the menu doesn't have said dish it does nothing.
-     * @param dish
+     * @param dish the dish to be deleted
      */
     public void deleteDish(Dish dish) {
-        if (this.dishes.contains(dish)){
+        if (this.dishes.contains(dish)) {
             this.dishes.remove(dish);
         }
     }

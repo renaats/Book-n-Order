@@ -7,8 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import nl.tudelft.oopp.demo.entities.Bike;
-import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.repositories.BikeRepository;
 import nl.tudelft.oopp.demo.repositories.BuildingRepository;
 import org.junit.jupiter.api.AfterEach;

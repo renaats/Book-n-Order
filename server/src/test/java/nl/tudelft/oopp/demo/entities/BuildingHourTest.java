@@ -6,8 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.time.LocalTime;
 
-import nl.tudelft.oopp.demo.entities.Building;
-import nl.tudelft.oopp.demo.entities.BuildingHours;
 import nl.tudelft.oopp.demo.repositories.BuildingHourRepository;
 import nl.tudelft.oopp.demo.repositories.BuildingRepository;
 

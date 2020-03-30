@@ -1,15 +1,24 @@
 package nl.tudelft.oopp.demo.controllers;
 
-import nl.tudelft.oopp.demo.entities.Allergy;
+import static nl.tudelft.oopp.demo.config.Constants.ADMIN;
+import static nl.tudelft.oopp.demo.config.Constants.RESTAURANT;
+import static nl.tudelft.oopp.demo.config.Constants.USER;
+
 import nl.tudelft.oopp.demo.entities.Dish;
 import nl.tudelft.oopp.demo.services.DishService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-import static nl.tudelft.oopp.demo.config.Constants.*;
 
 /**
  * Creates server side endpoints and routes requests to the DishService.

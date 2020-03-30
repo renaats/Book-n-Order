@@ -554,6 +554,7 @@ public class ServerCommunication {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/menu/update?id=" + id + "&attribute=" + URLEncoder.encode(attribute, StandardCharsets.UTF_8) + "name" + URLEncoder.encode(value, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnErrorMessage(request);
     }
+
     /**
      * Updates a give attribute from a menu.
      * @param name the name of the allergy (that is used as the ID).
