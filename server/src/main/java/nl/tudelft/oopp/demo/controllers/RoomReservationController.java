@@ -116,7 +116,7 @@ public class RoomReservationController {
     /**
      * Finds all room reservations for the specified room
      * @param id = the room id.
-     * @return a list of future room reservations for this user.
+     * @return a list of reservations for this room.
      */
     @Secured(USER)
     @GetMapping(path = "/room/{roomId}")

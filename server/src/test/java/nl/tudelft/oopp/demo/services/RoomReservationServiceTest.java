@@ -378,6 +378,9 @@ class RoomReservationServiceTest {
         assertEquals(new ArrayList<>(), roomReservationService.future(request));
     }
 
+    /**
+     * Tests the retrieval of reservations for a specific room that holds reservation
+     */
     @Test
     public void testGetReservationsForRoomWithReservation() {
         roomReservationService.add(room2.getId(), appUser2.getEmail(), 1500, 5000);
@@ -403,12 +406,18 @@ class RoomReservationServiceTest {
         assertEquals("[" + test + "]", roomReservationService.forRoom(room2.getId()));
     }
 
+    /**
+     * Tests for reservations of non-existent rooms
+     */
     @Test
     public void testGetReservationsForNonExistentRoom() {
         roomReservationService.add(room2.getId(), appUser2.getEmail(), 1500, 5000);
         assertNull(roomReservationService.forRoom(-1));
     }
 
+    /**
+     * Tests for reservations of a room that does not hold any reservation.
+     */
     @Test
     public void testGetReservationsForRoomWithoutReservation() {
         assertEquals("[]", roomReservationService.forRoom(room2.getId()));

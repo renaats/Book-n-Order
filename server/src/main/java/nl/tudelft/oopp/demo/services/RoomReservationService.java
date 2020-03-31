@@ -199,9 +199,9 @@ public class RoomReservationService {
     }
 
     /**
-     * Finds all future room reservations for the user that sends the Http request.
+     * Finds all reservations for a specific room.
      * @param roomId = the id of the room for which reservations are retrieved.
-     * @return a list of future room reservations for this user.
+     * @return a list of reservations for this room.
      */
     public String forRoom(int roomId) {
         List<RoomReservation> roomReservations = new ArrayList<>();
