@@ -170,7 +170,8 @@ public class DatabaseAddRoomController implements Initializable {
         boolean projector = Boolean.parseBoolean(projectorToggle.getText());
         int capacity = Integer.parseInt(capacityTextField.getText());
         int plugs = Integer.parseInt(plugsTextField.getText());
-        String response = ServerCommunication.addRoom(name, buildingId, studySpecific, screen, projector, capacity, plugs);
+        String status = nameTextField.getText();
+        String response = ServerCommunication.addRoom(name, buildingId, studySpecific, screen, projector, capacity, plugs, status);
         if (response.equals("Successfully added!")) {
             CustomAlert.informationAlert(response);
         } else {

@@ -37,6 +37,7 @@ public class RoomService {
     private BuildingRepository buildingRepository;
 
     /**
+<<<<<<< HEAD
      * Adds a room to the database.
      * @param name = the name of the new room.
      * @param studySpecific = the study that this room is restricted to.
@@ -45,6 +46,18 @@ public class RoomService {
      * @param projector = boolean representing the availability of a projector.
      * @param capacity = the number of people this room fits.
      * @param plugs = the number of plugs in this room.
+=======
+     * Adds a room.
+     * @param name = the name of the room
+     * @param faculty = the name of the faculty
+     * @param facultySpecific = boolean representing room restrictions
+     * @param screen = boolean representing the availability of a screen
+     * @param projector = boolean representing the availability of a projector
+     * @param buildingId = the id of the building of the room
+     * @param capacity = the number of people this room fits
+     * @param plugs = the number of plugs in this room
+     * @param status = the status of the room.
+>>>>>>> 212-Add_status_field
      * @return Error code
      */
     public int add(String name,
@@ -53,7 +66,8 @@ public class RoomService {
                    boolean projector,
                    int buildingId,
                    int capacity,
-                   int plugs) {
+                   int plugs,
+                   String status) {
         Optional<Building> optionalBuilding = buildingRepository.findById(buildingId);
         if (optionalBuilding.isEmpty()) {
             return BUILDING_NOT_FOUND;
@@ -71,6 +85,7 @@ public class RoomService {
         room.setProjector(projector);
         room.setCapacity(capacity);
         room.setPlugs(plugs);
+        room.setStatus(status);
         roomRepository.save(room);
         return ADDED;
     }
@@ -115,6 +130,9 @@ public class RoomService {
                 break;
             case "plugs":
                 room.setPlugs(Integer.parseInt(value));
+                break;
+            case "status":
+                room.setStatus(value);
                 break;
             default:
                 return ATTRIBUTE_NOT_FOUND;

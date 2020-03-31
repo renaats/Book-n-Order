@@ -95,6 +95,7 @@ class RoomReservationServiceTest {
         room.setProjector(true);
         room.setPlugs(250);
         room.setCapacity(300);
+        room.setStatus("Open");
         roomRepository.save(room);
 
         room2 = new Room();
