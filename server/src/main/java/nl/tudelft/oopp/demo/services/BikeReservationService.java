@@ -9,6 +9,7 @@ import static nl.tudelft.oopp.demo.config.Constants.ID_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.RESERVATION_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.USER_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.WRONG_USER;
 import static nl.tudelft.oopp.demo.security.SecurityConstants.HEADER_STRING;
 
 import java.util.ArrayList;
@@ -51,50 +52,50 @@ public class BikeReservationService {
 
     /**
      * Adds a bike reservation.
+     * @param request = the Http request that calls this method.
      * @param bikeId = the id of the bike associated to the reservation.
-     * @param userEmail = the email of the user associated to the reservation.
      * @param fromBuilding = the building where the user picks up the reserved bike.
      * @param toBuilding = the building where the user drops off the reserved bike.
      * @param fromTimeMs = the starting time of the reservation.
      * @param toTimeMs = the ending time of the reservation.
      * @return String containing the result of your request.
      */
-    public int add(int bikeId, String userEmail, int fromBuilding, int toBuilding, long fromTimeMs, long toTimeMs) {
+    public int add(HttpServletRequest request, int bikeId, int fromBuilding, int toBuilding, long fromTimeMs, long toTimeMs) {
         Optional<Bike> optionalBike = bikeRepository.findById(bikeId);
         if (optionalBike.isEmpty()) {
             return ID_NOT_FOUND;
         }
-        Bike bike = optionalBike.get();
-        BikeReservation bikeReservation = new BikeReservation();
-        bikeReservation.setBike(bike);
 
-        Optional<AppUser> optionalUser = userRepository.findById(userEmail);
-        if (optionalUser.isEmpty()) {
+        String token = request.getHeader(HEADER_STRING);
+        AppUser appUser = UserService.getAppUser(token, userRepository);
+        if (appUser == null) {
             return NOT_FOUND;
         }
-        AppUser appUser = optionalUser.get();
-        bikeReservation.setAppUser(appUser);
 
         Optional<Building> optionalFromBuilding = buildingRepository.findById(fromBuilding);
         if (optionalFromBuilding.isEmpty()) {
             return BUILDING_NOT_FOUND;
         }
-        Building fromBuildingLoc = optionalFromBuilding.get();
-        bikeReservation.setFromBuilding(fromBuildingLoc);
 
         Optional<Building> optionalToBuilding = buildingRepository.findById(toBuilding);
         if (optionalToBuilding.isEmpty()) {
             return BUILDING_NOT_FOUND;
         }
-        Building toBuildingLoc = optionalToBuilding.get();
-        bikeReservation.setToBuilding(toBuildingLoc);
 
+        Bike bike = optionalBike.get();
         if (bike.hasBikeReservationBetween(new Date(fromTimeMs), new Date(toTimeMs))) {
             return ALREADY_RESERVED;
         }
+        Building fromBuildingLoc = optionalFromBuilding.get();
+        Building toBuildingLoc = optionalToBuilding.get();
+
+        BikeReservation bikeReservation = new BikeReservation();
+        bikeReservation.setBike(bike);
+        bikeReservation.setAppUser(appUser);
+        bikeReservation.setFromBuilding(fromBuildingLoc);
+        bikeReservation.setToBuilding(toBuildingLoc);
         bikeReservation.setFromTime(new Date(fromTimeMs));
         bikeReservation.setToTime(new Date(toTimeMs));
-
         bikeReservationRepository.save(bikeReservation);
         return ADDED;
     }

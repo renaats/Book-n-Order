@@ -63,24 +63,24 @@ public class FoodOrderService {
 
     /**
      * Adds a foodOrder.
+     * @param request = the Http request that calls this method.
      * @param restaurantId = the id of the restaurant associated to the food order.
-     * @param userEmail = the email of the user associated to the food order.
      * @param deliverLocation = the building where the food order needs to be delivered.
      * @param deliverTimeMs = the deliver time of the food order in milliseconds (Java Date).
      * @return String containing the result of your request.
      */
-    public int add(int restaurantId, String userEmail, int deliverLocation, long deliverTimeMs) {
+    public int add(HttpServletRequest request, int restaurantId, int deliverLocation, long deliverTimeMs) {
         Optional<Restaurant> optionalRestaurant = restaurantRepository.findById(restaurantId);
         if (optionalRestaurant.isEmpty()) {
             return RESTAURANT_NOT_FOUND;
         }
         Restaurant restaurant = optionalRestaurant.get();
 
-        Optional<AppUser> optionalUser = userRepository.findById(userEmail);
-        if (optionalUser.isEmpty()) {
+        String token = request.getHeader(HEADER_STRING);
+        AppUser appUser = UserService.getAppUser(token, userRepository);
+        if (appUser == null) {
             return NOT_FOUND;
         }
-        AppUser appUser = optionalUser.get();
 
         Optional<Building> optionalDeliveryLocation = buildingRepository.findById(deliverLocation);
         if (optionalDeliveryLocation.isEmpty()) {

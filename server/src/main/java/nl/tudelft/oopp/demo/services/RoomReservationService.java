@@ -47,34 +47,30 @@ public class RoomReservationService {
 
     /**
      * Adds a room reservation.
+     * @param request = the Http request that calls this method.
      * @param roomId = the id of the room associated to the reservation.
-     * @param userEmail = the email of the user associated to the reservation.
      * @param fromTimeMs = the starting time of the reservation.
      * @param toTimeMs = the ending time of the reservation.
      * @return String containing the result of your request.
      */
-    public int add(int roomId, String userEmail, long fromTimeMs, long toTimeMs) {
+    public int add(HttpServletRequest request, int roomId, long fromTimeMs, long toTimeMs) {
         Optional<Room> optionalRoom = roomRepository.findById(roomId);
         if (optionalRoom.isEmpty()) {
             return ID_NOT_FOUND;
         }
         Room room = optionalRoom.get();
 
-        Optional<AppUser> optionalUser = userRepository.findById(userEmail);
-        if (optionalUser.isEmpty()) {
+        String token = request.getHeader(HEADER_STRING);
+        AppUser appUser = UserService.getAppUser(token, userRepository);
+        if (appUser == null) {
             return NOT_FOUND;
         }
-        AppUser appUser = optionalUser.get();
 
         if (room.hasRoomReservationBetween(new Date(fromTimeMs), new Date(toTimeMs))) {
             return ALREADY_RESERVED;
         }
 
-        RoomReservation roomReservation = new RoomReservation();
-        roomReservation.setRoom(room);
-        roomReservation.setAppUser(appUser);
-        roomReservation.setFromTime(new Date(fromTimeMs));
-        roomReservation.setToTime(new Date(toTimeMs));
+        RoomReservation roomReservation = new RoomReservation(room, appUser, new Date(fromTimeMs), new Date(toTimeMs));
         roomReservationRepository.save(roomReservation);
         return ADDED;
     }

@@ -35,8 +35,8 @@ public class BikeReservationController {
 
     /**
      * Adds a bike reservation.
+     * @param request = the Http request that calls this method.
      * @param bikeId = the id of the bike associated to the reservation.
-     * @param userEmail = the email of the user associated to the reservation.
      * @param fromBuilding = the building where the user picks up the reserved bike.
      * @param toBuilding = the building where the user drops off the reserved bike.
      * @param fromTimeMs = the starting time of the reservation.
@@ -45,15 +45,14 @@ public class BikeReservationController {
      */
     @Secured(USER)
     @PostMapping(path = "/add") // Map ONLY POST Requests
-    @ResponseBody
     public int addNewBikeReservation(
-            @RequestParam String userEmail,
+            HttpServletRequest request,
             @RequestParam int bikeId,
             @RequestParam int fromBuilding,
             @RequestParam int toBuilding,
             @RequestParam long fromTimeMs,
             @RequestParam long toTimeMs) {
-        return bikeReservationService.add(bikeId, userEmail, fromBuilding, toBuilding, fromTimeMs, toTimeMs);
+        return bikeReservationService.add(request, bikeId, fromBuilding, toBuilding, fromTimeMs, toTimeMs);
     }
 
     /**

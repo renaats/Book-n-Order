@@ -35,21 +35,20 @@ public class RoomReservationController {
 
     /**
      * Adds a room reservation.
+     * @param request = the Http request that calls this method.
      * @param roomId = the id of the room associated to the reservation.
-     * @param userEmail = the email of the user associated to the reservation.
      * @param fromTimeMs = the starting time of the reservation.
      * @param toTimeMs = the ending time of the reservation.
      * @return Error code
      */
     @Secured(USER)
     @PostMapping(path = "/add") // Map ONLY POST Requests
-    @ResponseBody
     public int addNewRoomReservation(
-            @RequestParam String userEmail,
+            HttpServletRequest request,
             @RequestParam int roomId,
             @RequestParam long fromTimeMs,
             @RequestParam long toTimeMs) {
-        return roomReservationService.add(roomId, userEmail, fromTimeMs, toTimeMs);
+        return roomReservationService.add(request, roomId, fromTimeMs, toTimeMs);
     }
 
     /**
