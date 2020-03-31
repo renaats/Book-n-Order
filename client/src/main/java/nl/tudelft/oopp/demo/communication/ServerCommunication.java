@@ -318,15 +318,23 @@ public class ServerCommunication {
     }
 
     /**
+     * Retrieves all active room reservations from the server
+     * @return the response.body for the server
+     */
+    public static String getAllActiveRoomReservations() {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/room_reservation/active")).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
      * Communicates addRoomReservation to the database
      * @param roomId id of the room
-     * @param userEmail user email
      * @param fromTimeMs start time of the reservation in milliseconds
      * @param toTimeMs end time of the reservation in milliseconds
      * @return body response
      */
-    public static String addRoomReservation(int roomId, String userEmail, long fromTimeMs, long toTimeMs) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room_reservation/add?roomId=" + roomId + "&userEmail=" + userEmail + "&fromTimeMs=" + fromTimeMs + "&toTimeMs=" + toTimeMs)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+    public static String addRoomReservation(int roomId, long fromTimeMs, long toTimeMs) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room_reservation/add?roomId=" + roomId + "&fromTimeMs=" + fromTimeMs + "&toTimeMs=" + toTimeMs)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnErrorMessage(request);
     }
 
@@ -350,6 +358,16 @@ public class ServerCommunication {
      */
     public static String deleteRoomReservation(int id) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room_reservation/delete?id=" + id)).DELETE().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnErrorMessage(request);
+    }
+
+    /**
+     * Cancels a room reservation for the user who sends the request.
+     * @param id = the id of the room reservation.
+     * @return the body of the response from the server.
+     */
+    public static String cancelRoomReservation(int id) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room_reservation/cancel/" + id)).GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnErrorMessage(request);
     }
 
@@ -391,7 +409,7 @@ public class ServerCommunication {
 
     /**
      * Updates a dish on the server
-     * @param id = the id of the food order.
+     * @param id = the id of the dish.
      * @param attribute = the attribute whose value is changed.
      * @param value = the new value of the attribute.
      * @return response.body of the server
@@ -433,14 +451,13 @@ public class ServerCommunication {
     
     /**
      * Adds a food order to the database
-     * @param email user email
      * @param restaurantId restaurant id
      * @param deliverLocation the location to deliver to
      * @param deliverTimeMs the deliver time in milliseconds.
      * @return response.body of the server
      */
-    public static String addFoodOrder(String email, int restaurantId, int deliverLocation, long deliverTimeMs) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/food_order/add?userEmail=" + URLEncoder.encode(email, StandardCharsets.UTF_8) + "&restaurantId=" + restaurantId + "&deliverLocation=" + deliverLocation + "&deliverTimeMs=" + deliverTimeMs)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+    public static String addFoodOrder(int restaurantId, int deliverLocation, long deliverTimeMs) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/food_order/add?restaurantId=" + restaurantId + "&deliverLocation=" + deliverLocation + "&deliverTimeMs=" + deliverTimeMs)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnBodyOfResponse(request);
     }
 
@@ -478,7 +495,7 @@ public class ServerCommunication {
     }
 
     /**
-     * gets all food orders from the database
+     * Gets all food orders from the database
      * @return response.body of the server
      */
     public static String getAllFoodOrders() {
@@ -502,6 +519,25 @@ public class ServerCommunication {
     public static String getAllFutureFoodOrders() {
         HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/food_order/future")).build();
         return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Finds all future and actual food orders for the user that sends the request
+     * @return response.body of the server
+     */
+    public static String getAllActiveFoodOrders() {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/food_order/active")).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Cancels a food order for the user that sends the request
+     * @param id food order id
+     * @return response.body of the server
+     */
+    public static String cancelFoodOrder(int id) {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/food_order/cancel/" + id)).build();
+        return communicateAndReturnErrorMessage(request);
     }
 
     /**
@@ -773,5 +809,24 @@ public class ServerCommunication {
     public static String getAllFutureBikeReservations() {
         HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/bike_reservation/future")).build();
         return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Finds all future and current bike reservations for the user that sends the request
+     * @return response.body of the server
+     */
+    public static String getAllActiveBikeReservations() {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/bike_reservation/active")).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Cancels a bike reservations for the user that sends the request
+     * @param id the id of the bike reservation
+     * @return response.body of the server
+     */
+    public static String cancelBikeReservation(int id) {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/bike_reservation/cancel/" + id)).build();
+        return communicateAndReturnErrorMessage(request);
     }
 }
