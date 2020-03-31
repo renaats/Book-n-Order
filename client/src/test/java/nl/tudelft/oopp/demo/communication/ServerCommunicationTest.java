@@ -129,7 +129,7 @@ public class ServerCommunicationTest {
      */
     @Test
     public void testSuccessfulAddDishes() {
-        assertEquals("200", ServerCommunication.addDish("test", 1));
+        assertEquals("Successfully executed.", ServerCommunication.addDish("test", 1));
     }
 
     /**
@@ -217,7 +217,7 @@ public class ServerCommunicationTest {
      */
     @Test
     public void testSuccessfulAddMenu() {
-        assertEquals("200", ServerCommunication.addMenu("test", 1));
+        assertEquals("Successfully executed.", ServerCommunication.addMenu("test", 1));
     }
 
     /**
