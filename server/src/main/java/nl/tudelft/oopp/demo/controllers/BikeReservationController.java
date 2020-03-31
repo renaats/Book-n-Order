@@ -14,6 +14,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -112,5 +113,28 @@ public class BikeReservationController {
     @GetMapping(path = "/future")
     public Iterable<BikeReservation> getFutureReservations(HttpServletRequest request) {
         return bikeReservationService.future(request);
+    }
+
+    /**
+     * Finds all active bike reservations for the user that sends the Http request.
+     * @param request = the Http request that calls this method
+     * @return a list of active bike reservations for this user.
+     */
+    @Secured(USER)
+    @GetMapping(path = "/active")
+    public Iterable<BikeReservation> getActiveReservations(HttpServletRequest request) {
+        return bikeReservationService.active(request);
+    }
+
+    /**
+     * Cancels a bike reservation if it was made by the user that sends the Http request.
+     * @param request = the Http request that calls this method.
+     * @param bikeReservationId = the id of the target reservation.
+     * @return an error code.
+     */
+    @Secured(USER)
+    @GetMapping(path = "/cancel/{id}")
+    public int cancelReservation(HttpServletRequest request, @PathVariable(value = "id") int bikeReservationId) {
+        return bikeReservationService.cancel(request, bikeReservationId);
     }
 }

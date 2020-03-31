@@ -14,6 +14,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -91,7 +92,7 @@ public class RoomReservationController {
 
     /**
      * Finds all past room reservations for the user that sends the Http request.
-     * @param request = the Http request that calls this method
+     * @param request = the Http request that calls this method.
      * @return a list of past room reservations for this user.
      */
     @Secured(USER)
@@ -102,12 +103,35 @@ public class RoomReservationController {
 
     /**
      * Finds all future room reservations for the user that sends the Http request.
-     * @param request = the Http request that calls this method
+     * @param request = the Http request that calls this method.
      * @return a list of future room reservations for this user.
      */
     @Secured(USER)
     @GetMapping(path = "/future")
     public Iterable<RoomReservation> getFutureReservations(HttpServletRequest request) {
         return roomReservationService.future(request);
+    }
+
+    /**
+     * Finds all active  room reservations for the user that sends the Http request.
+     * @param request = the Http request that calls this method.
+     * @return a list of active room reservations for this user.
+     */
+    @Secured(USER)
+    @GetMapping(path = "/active")
+    public Iterable<RoomReservation> getActiveReservations(HttpServletRequest request) {
+        return roomReservationService.active(request);
+    }
+
+    /**
+     * Cancels a room reservation if it was made by the user that sends the Http request.
+     * @param request = the Http request that calls this method.
+     * @param roomReservationId = the id of the target reservation.
+     * @return an error code.
+     */
+    @Secured(USER)
+    @GetMapping(path = "/cancel/{id}")
+    public int cancelReservation(HttpServletRequest request, @PathVariable(value = "id") int roomReservationId) {
+        return roomReservationService.cancel(request, roomReservationId);
     }
 }

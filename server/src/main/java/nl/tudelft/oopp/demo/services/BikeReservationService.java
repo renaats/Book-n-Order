@@ -154,6 +154,9 @@ public class BikeReservationService {
                 AppUser appUser = optionalUser.get();
                 bikeReservation.setAppUser(appUser);
                 break;
+            case "active":
+                bikeReservation.setActive(Boolean.parseBoolean(value));
+                break;
             default:
                 return ATTRIBUTE_NOT_FOUND;
         }
@@ -204,7 +207,7 @@ public class BikeReservationService {
             return bikeReservations;
         }
         for (BikeReservation bikeReservation: bikeReservationRepository.findAll()) {
-            if (bikeReservation.getAppUser() == appUser && bikeReservation.getToTime().before(new Date())) {
+            if (bikeReservation.getAppUser() == appUser && (!bikeReservation.getToTime().after(new Date())) || !bikeReservation.isActive()) {
                 bikeReservations.add(bikeReservation);
             }
         }
@@ -224,10 +227,50 @@ public class BikeReservationService {
             return bikeReservations;
         }
         for (BikeReservation bikeReservation: bikeReservationRepository.findAll()) {
-            if (bikeReservation.getAppUser() == appUser && bikeReservation.getToTime().after(new Date())) {
+            if (bikeReservation.getAppUser() == appUser && bikeReservation.getToTime().after(new Date()) && bikeReservation.isActive()) {
                 bikeReservations.add(bikeReservation);
             }
         }
         return bikeReservations;
+    }
+
+    /**
+     * Finds all active bike reservations for the user that sends the Http request.
+     * @param request = the Http request that calls this method
+     * @return a list of active bike reservations for this user.
+     */
+    public List<BikeReservation> active(HttpServletRequest request) {
+        List<BikeReservation> bikeReservations = new ArrayList<>();
+        String token = request.getHeader(HEADER_STRING);
+        AppUser appUser = UserService.getAppUser(token, userRepository);
+        if (appUser == null) {
+            return bikeReservations;
+        }
+        for (BikeReservation bikeReservation: bikeReservationRepository.findAll()) {
+            if (bikeReservation.getAppUser() == appUser && bikeReservation.isActive()) {
+                bikeReservations.add(bikeReservation);
+            }
+        }
+        return bikeReservations;
+    }
+
+    /**
+     * Cancels a bike reservation if it was made by the user that sends the Http request.
+     * @param request = the Http request that calls this method.
+     * @param bikeReservationId = the id of the target reservation.
+     * @return an error code.
+     */
+    public int cancel(HttpServletRequest request, int bikeReservationId) {
+        String token = request.getHeader(HEADER_STRING);
+        AppUser appUser = UserService.getAppUser(token, userRepository);
+        if (bikeReservationRepository.findById(bikeReservationId).isEmpty()) {
+            return RESERVATION_NOT_FOUND;
+        }
+        BikeReservation bikeReservation = bikeReservationRepository.findById(bikeReservationId).get();
+        if (!bikeReservation.getAppUser().equals(appUser)) {
+            return WRONG_USER;
+        }
+        bikeReservation.setActive(false);
+        return EXECUTED;
     }
 }

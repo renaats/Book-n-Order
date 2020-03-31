@@ -70,9 +70,8 @@ public class FoodOrderController {
      */
     @Secured(USER)
     @PostMapping(path = "/addDish")
-    @ResponseBody
-    public void addDish(@RequestParam int id, @RequestParam String name) {
-        foodOrderService.addDish(id, name);
+    public void addDish(HttpServletRequest request, @RequestParam int id, @RequestParam String name) {
+        foodOrderService.addDish(request, id, name);
     }
 
     /**
@@ -118,5 +117,28 @@ public class FoodOrderController {
     @GetMapping(path = "/future")
     public Iterable<FoodOrder> getFutureReservations(HttpServletRequest request) {
         return foodOrderService.future(request);
+    }
+
+    /**
+     * Finds all active food orders for the user that sends the Http request.
+     * @param request = the Http request that calls this method.
+     * @return a list of active food orders for this user.
+     */
+    @Secured(USER)
+    @GetMapping(path = "/active")
+    public Iterable<FoodOrder> getActiveReservations(HttpServletRequest request) {
+        return foodOrderService.active(request);
+    }
+
+    /**
+     * Cancels a food order if it was made by the user that sends the Http request.
+     * @param request = the Http request that calls this method.
+     * @param foodOrderId = the id of the target order.
+     * @return an error code.
+     */
+    @Secured(USER)
+    @GetMapping(path = "/cancel/{id}")
+    public int cancelOrder(HttpServletRequest request, @PathVariable(value = "id") int foodOrderId) {
+        return foodOrderService.cancel(request, foodOrderId);
     }
 }

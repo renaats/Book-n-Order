@@ -6,9 +6,11 @@ import static nl.tudelft.oopp.demo.config.Constants.BUILDING_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
 import static nl.tudelft.oopp.demo.config.Constants.ID_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.ORDER_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.RESERVATION_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.RESTAURANT_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.USER_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.WRONG_USER;
 import static nl.tudelft.oopp.demo.security.SecurityConstants.HEADER_STRING;
 
 import java.util.ArrayList;
@@ -129,6 +131,9 @@ public class FoodOrderService {
                 AppUser appUser = optionalUser.get();
                 foodOrder.setAppUser(appUser);
                 break;
+            case "active":
+                foodOrder.setActive(Boolean.parseBoolean(value));
+                break;
             default:
                 return ATTRIBUTE_NOT_FOUND;
         }
@@ -141,11 +146,19 @@ public class FoodOrderService {
      * @param id = the id of the food order.
      * @param dishName = the name of the dish.
      */
-    public int addDish(int id, String dishName) {
+    public int addDish(HttpServletRequest request, int id, String dishName) {
         if (!foodOrderRepository.existsById(id)) {
             return ID_NOT_FOUND;
         }
+        String token = request.getHeader(HEADER_STRING);
+        AppUser appUser = UserService.getAppUser(token, userRepository);
+        if (appUser == null) {
+            return NOT_FOUND;
+        }
         FoodOrder foodOrder = foodOrderRepository.getOne(id);
+        if (!appUser.equals(foodOrder.getAppUser())) {
+            return WRONG_USER;
+        }
         Dish dish;
         dish = dishRepository.findByName(dishName);
         foodOrder.addDish(dish);
@@ -196,7 +209,7 @@ public class FoodOrderService {
             return foodOrders;
         }
         for (FoodOrder foodOrder: foodOrderRepository.findAll()) {
-            if (foodOrder.getAppUser() == appUser && foodOrder.getDeliveryTime().before(new Date())) {
+            if (foodOrder.getAppUser() == appUser && (!foodOrder.getDeliveryTime().after(new Date()) || !foodOrder.isActive())) {
                 foodOrders.add(foodOrder);
             }
         }
@@ -216,10 +229,50 @@ public class FoodOrderService {
             return foodOrders;
         }
         for (FoodOrder foodOrder: foodOrderRepository.findAll()) {
-            if (foodOrder.getAppUser() == appUser && foodOrder.getDeliveryTime().after(new Date())) {
+            if (foodOrder.getAppUser() == appUser && foodOrder.getDeliveryTime().after(new Date()) && foodOrder.isActive()) {
                 foodOrders.add(foodOrder);
             }
         }
         return foodOrders;
+    }
+
+    /**
+     * Finds all active food orders for the user that sends the Http request.
+     * @param request = the Http request that calls this method.
+     * @return a list of active food orders for this user.
+     */
+    public List<FoodOrder> active(HttpServletRequest request) {
+        List<FoodOrder> foodOrders = new ArrayList<>();
+        String token = request.getHeader(HEADER_STRING);
+        AppUser appUser = UserService.getAppUser(token, userRepository);
+        if (appUser == null) {
+            return foodOrders;
+        }
+        for (FoodOrder foodOrder: foodOrderRepository.findAll()) {
+            if (foodOrder.getAppUser() == appUser && foodOrder.isActive()) {
+                foodOrders.add(foodOrder);
+            }
+        }
+        return foodOrders;
+    }
+
+    /**
+     * Cancels a food order if it was made by the user that sends the Http request.
+     * @param request = the Http request that calls this method.
+     * @param foodOrderId = the id of the target order.
+     * @return an error code.
+     */
+    public int cancel(HttpServletRequest request, int foodOrderId) {
+        String token = request.getHeader(HEADER_STRING);
+        AppUser appUser = UserService.getAppUser(token, userRepository);
+        if (foodOrderRepository.findById(foodOrderId).isEmpty()) {
+            return ORDER_NOT_FOUND;
+        }
+        FoodOrder foodOrder = foodOrderRepository.findById(foodOrderId).get();
+        if (!foodOrder.getAppUser().equals(appUser)) {
+            return WRONG_USER;
+        }
+        foodOrder.setActive(false);
+        return EXECUTED;
     }
 }
