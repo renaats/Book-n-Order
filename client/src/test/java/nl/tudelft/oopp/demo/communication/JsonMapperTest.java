@@ -92,7 +92,7 @@ class JsonMapperTest {
     }
 
     @Test
-    void roomListMapper() {
+    void roomListMapper() throws IOException {
         List<Room> room =
                 new ArrayList<>(Objects
                         .requireNonNull(JsonMapper
