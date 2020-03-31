@@ -812,7 +812,7 @@ public class ServerCommunication {
     }
 
     /**
-     * Finds all future and current bike reservations for the user that sends the request
+     * Finds all active bike reservations for the user that sends the request
      * @return response.body of the server
      */
     public static String getAllActiveBikeReservations() {
@@ -821,7 +821,7 @@ public class ServerCommunication {
     }
 
     /**
-     * Cancels a bike reservations for the user that sends the request
+     * Cancels a bike reservation for the user that sends the request
      * @param id the id of the bike reservation
      * @return response.body of the server
      */

@@ -112,7 +112,7 @@ public class RoomReservationController {
     }
 
     /**
-     * Finds all active  room reservations for the user that sends the Http request.
+     * Finds all active room reservations for the user that sends the Http request.
      * @param request = the Http request that calls this method.
      * @return a list of active room reservations for this user.
      */
