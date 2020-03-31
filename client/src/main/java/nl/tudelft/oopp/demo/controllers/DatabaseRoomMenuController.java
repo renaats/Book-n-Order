@@ -34,6 +34,7 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 public class DatabaseRoomMenuController implements Initializable {
 
     final ObservableList<Room> roomResult = FXCollections.observableArrayList();
+    private final ObservableList<String> studyList = FXCollections.observableArrayList();
 
     @FXML
     private TableView<Room> table;
@@ -60,7 +61,7 @@ public class DatabaseRoomMenuController implements Initializable {
     @FXML
     private TextField buildingFieldRead;
     @FXML
-    private TextField capacityFieldRead;
+    private TextField capacityReadField;
     @FXML
     private TextField plugsReadField;
     @FXML
@@ -88,6 +89,9 @@ public class DatabaseRoomMenuController implements Initializable {
         idFieldRead.setDisable(true);
         buildingFieldRead.setDisable(true);
         retrieveAllRooms();
+        tableSelectMethod();
+        loadStatusChoiceBox();
+        loadStudySpecificChoiceBox();
     }
 
     /**
@@ -219,8 +223,8 @@ public class DatabaseRoomMenuController implements Initializable {
                 ServerCommunication.updateRoom(id, "screen", screenToggle.getText().toLowerCase());
             }
             try {
-                if (!(room.getCapacity() == Integer.parseInt(capacityFieldRead.getText()))) {
-                    ServerCommunication.updateRoom(id, "capacity", capacityFieldRead.getText());
+                if (!(room.getCapacity() == Integer.parseInt(capacityReadField.getText()))) {
+                    ServerCommunication.updateRoom(id, "capacity", capacityReadField.getText());
                 }
             } catch (NumberFormatException e) {
                 CustomAlert.warningAlert("Capacity has to be an integer.");
@@ -279,10 +283,10 @@ public class DatabaseRoomMenuController implements Initializable {
     @FXML
     private void toggleClickScreen() {
         if (screenToggleFlag) {
-            screenToggle.setText("False");
+            screenToggle.setText("false");
             screenToggleFlag = false;
         } else {
-            screenToggle.setText("True");
+            screenToggle.setText("true");
             screenToggleFlag = true;
         }
     }
@@ -302,12 +306,16 @@ public class DatabaseRoomMenuController implements Initializable {
                 studyChoiceBox.setValue(room.getStudySpecific());
                 statusChoiceBox.setValue(room.getStatus());
                 screenToggle.setText(Boolean.toString(room.hasScreen()));
+                plugsReadField.setText(Integer.toString(room.getPlugs()));
+                capacityReadField.setText(Integer.toString(room.getCapacity()));
                 if (!screenToggleFlag == room.hasScreen()) {
                     screenToggleFlag = !screenToggleFlag;
+                    screenToggle.setSelected(screenToggleFlag);
                 }
                 projectorToggle.setText(Boolean.toString(room.hasProjector()));
                 if (!projectorToggleFlag == room.hasProjector()) {
                     projectorToggleFlag = !projectorToggleFlag;
+                    projectorToggle.setSelected(projectorToggleFlag);
                 }
             }
 
@@ -315,8 +323,8 @@ public class DatabaseRoomMenuController implements Initializable {
                 assert room != null;
                 if (roomResult.get(i).getId().equals(room.getId())) {
                     deleteButton = new Button("Delete");
-                    deleteButton.setLayoutX(1200);
-                    deleteButton.setLayoutY(179 + (24 * (i + 1)));
+                    deleteButton.setLayoutX(1120);
+                    deleteButton.setLayoutY(168 + (24 * (i + 1)));
                     deleteButton.setMinWidth(60);
                     deleteButton.setStyle("-fx-background-color:  #CC5653; -fx-font-size:10; -fx-text-fill: white");
                     deleteButton.setMinHeight(20);
@@ -327,7 +335,7 @@ public class DatabaseRoomMenuController implements Initializable {
                                 anchorPane.getChildren().remove(deleteButton);
                             }
                         }
-                        String response = ServerCommunication.deleteBuilding(room.getId());
+                        String response = ServerCommunication.deleteRoom(room.getId());
                         retrieveAllRooms();
                         CustomAlert.informationAlert(response);
                     });
@@ -335,5 +343,22 @@ public class DatabaseRoomMenuController implements Initializable {
                 }
             }
         });
+    }
+
+    private void loadStudySpecificChoiceBox() {
+        studyList.clear();
+        String a = "Computer Science and Engineering";
+        studyList.addAll(a);
+        studyChoiceBox.getItems().addAll(studyList);
+    }
+
+    private void loadStatusChoiceBox() {
+        studyList.clear();
+        String a = "Open";
+        String b = "Closed";
+        String c = "Staff-Only";
+        String d = "Maintenance";
+        studyList.addAll(a);
+        studyChoiceBox.getItems().addAll(studyList);
     }
 }

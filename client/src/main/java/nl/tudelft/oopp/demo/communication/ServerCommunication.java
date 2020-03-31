@@ -255,6 +255,7 @@ public class ServerCommunication {
                                  boolean screen, boolean projector,
                                  int capacity, int plugs) {
         HttpRequest request;
+        System.out.println(capacity);
         request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room/add?name=" + URLEncoder.encode(name, StandardCharsets.UTF_8) + "&studySpecific=" + URLEncoder.encode(studySpecific, StandardCharsets.UTF_8) + "&screen=" + screen + "&projector=" + projector + "&buildingId=" + buildingId + "&capacity=" + capacity + "&plugs=" + plugs)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnErrorMessage(request);
     }

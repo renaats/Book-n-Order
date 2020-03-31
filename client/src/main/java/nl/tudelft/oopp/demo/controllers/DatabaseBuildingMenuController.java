@@ -121,7 +121,7 @@ public class DatabaseBuildingMenuController implements Initializable {
 
         pagesText.setText(pageNumber + " / " + (int) totalPages + " pages");
 
-        if (buildings.size() > 16) {
+        if (buildings.size() > 15) {
             for (int i = 1; i < 16; i++) {
                 try {
                     buildingResult.add(buildings.get((i - 15) + pageNumber * 15));
