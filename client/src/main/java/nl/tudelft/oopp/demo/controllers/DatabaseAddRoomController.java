@@ -12,8 +12,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
 
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
@@ -171,11 +176,9 @@ public class DatabaseAddRoomController implements Initializable {
      * Adds a room to the database
      */
     public void databaseAddRoom() {
-        String name = nameTextField.getText();
         int buildingId = -1;
         int capacity = -1;
         int plugs = -1;
-        String response = null;
         try {
             buildingId = Integer.parseInt(buildingIdTextField.getText());
         } catch (NumberFormatException e) {
@@ -187,9 +190,6 @@ public class DatabaseAddRoomController implements Initializable {
                 buildingId = building.getId();
             }
         }
-        String studySpecific = studySpecificChoiceBox.getValue();
-        boolean screen = Boolean.parseBoolean(screenToggle.getText());
-        boolean projector = Boolean.parseBoolean(projectorToggle.getText());
         try {
             capacity = Integer.parseInt(capacityTextField.getText());
         } catch (NumberFormatException e) {
@@ -201,7 +201,16 @@ public class DatabaseAddRoomController implements Initializable {
             CustomAlert.warningAlert("Plugs requires an integer.");
         }
         String status = statusChoiceBox.getValue();
-        response = ServerCommunication.addRoom(name, buildingId, studySpecific, screen, projector, capacity, plugs, status);
+        String name = null;
+        if (nameTextField.getText().equals("")) {
+            CustomAlert.errorAlert("Name cannot be empty.");
+        } else {
+            name = nameTextField.getText();
+        }
+        String studySpecific = studySpecificChoiceBox.getValue();
+        boolean screen = Boolean.parseBoolean(screenToggle.getText());
+        boolean projector = Boolean.parseBoolean(projectorToggle.getText());
+        String response = ServerCommunication.addRoom(name, buildingId, studySpecific, screen, projector, capacity, plugs, status);
         if (response.equals("Successfully added!")) {
             CustomAlert.informationAlert(response);
         } else {

@@ -40,7 +40,15 @@ public class Room {
      * @param capacity = number of people who can sit in the room.
      * @param plugs = number of plugs in the room.
      */
-    public Room(String name, Building building, String faculty, String studySpecific, boolean projector, boolean screen, int capacity, int plugs, String status) {
+    public Room(String name,
+                Building building,
+                String faculty,
+                String studySpecific,
+                boolean projector,
+                boolean screen,
+                int capacity,
+                int plugs,
+                String status) {
         this.name = name;
         this.building = building;
         this.faculty = faculty;
@@ -173,8 +181,12 @@ public class Room {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Room)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Room)) {
+            return false;
+        }
         Room room = (Room) o;
         return projector == room.projector
                 && screen == room.screen

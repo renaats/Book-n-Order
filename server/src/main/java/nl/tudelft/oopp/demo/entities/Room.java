@@ -180,18 +180,22 @@ public class Room {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Room)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Room)) {
+            return false;
+        }
         Room room = (Room) o;
-        return capacity == room.capacity &&
-                plugs == room.plugs &&
-                Objects.equals(id, room.id) &&
-                Objects.equals(name, room.name) &&
-                Objects.equals(building, room.building) &&
-                Objects.equals(studySpecific, room.studySpecific) &&
-                Objects.equals(projector, room.projector) &&
-                Objects.equals(screen, room.screen) &&
-                Objects.equals(status, room.status) &&
-                Objects.equals(roomReservations, room.roomReservations);
+        return capacity == room.capacity
+                && plugs == room.plugs
+                && Objects.equals(id, room.id)
+                && Objects.equals(name, room.name)
+                && Objects.equals(building, room.building)
+                && Objects.equals(studySpecific, room.studySpecific)
+                && Objects.equals(projector, room.projector)
+                && Objects.equals(screen, room.screen)
+                && Objects.equals(status, room.status)
+                && Objects.equals(roomReservations, room.roomReservations);
     }
 }
