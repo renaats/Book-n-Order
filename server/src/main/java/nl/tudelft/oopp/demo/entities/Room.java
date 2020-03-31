@@ -189,7 +189,6 @@ public class Room {
         Room room = (Room) o;
         return capacity == room.capacity
                 && plugs == room.plugs
-                && Objects.equals(id, room.id)
                 && Objects.equals(name, room.name)
                 && Objects.equals(building, room.building)
                 && Objects.equals(studySpecific, room.studySpecific)

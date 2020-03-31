@@ -242,7 +242,7 @@ public class RoomServiceTest {
         roomService.add("Ampere", "CSE", true, true, building.getId(), 200, 200, "Open");
         int id = roomService.all().get(0).getId();
         assertNotEquals(400, roomService.all().get(0).getCapacity());
-        roomService.update(id, "amountofpeople", "400");
+        roomService.update(id, "capacity", "400");
         assertEquals(400, roomService.all().get(0).getCapacity());
     }
 
@@ -422,8 +422,8 @@ public class RoomServiceTest {
      */
     @Test
     public void testSearchByStatus() {
-        roomService.add("Ampere", "EWI", false, true, building.getId(), 200, 200, "Open");
-        roomService.add("Boole", "EWI2", false, true, building2.getId(), 200, 200, "Closed");
+        roomService.add("Ampere", "CSE", true, true, building.getId(), 200, 200, "Open");
+        roomService.add("Boole", "CSE2", true, true, building2.getId(), 200, 200, "Closed");
         List<Room> rooms = roomService.search("status:Open");
         assertTrue(rooms.contains(room));
         assertFalse(rooms.contains(room2));
