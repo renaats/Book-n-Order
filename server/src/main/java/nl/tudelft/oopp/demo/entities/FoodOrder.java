@@ -32,6 +32,8 @@ public class FoodOrder {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
+    private boolean active;
+
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn
@@ -64,11 +66,16 @@ public class FoodOrder {
         this.appUser = appUser;
         this.deliveryLocation = deliveryLocation;
         this.deliveryTime = deliveryTime;
+        this.active = true;
         dishes = new HashSet<>();
     }
 
     public FoodOrder() {
+        this.active = true;
+    }
 
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public void setRestaurant(Restaurant restaurant) {
@@ -97,6 +104,10 @@ public class FoodOrder {
 
     public Integer getId() {
         return id;
+    }
+
+    public boolean isActive() {
+        return active;
     }
 
     public Restaurant getRestaurant() {
@@ -128,7 +139,8 @@ public class FoodOrder {
             return false;
         }
         FoodOrder that = (FoodOrder) o;
-        return Objects.equals(restaurant, that.restaurant)
+        return active == that.active
+                && Objects.equals(restaurant, that.restaurant)
                 && Objects.equals(appUser, that.appUser)
                 && Objects.equals(deliveryLocation, that.deliveryLocation)
                 && Objects.equals(deliveryTime, that.deliveryTime)
