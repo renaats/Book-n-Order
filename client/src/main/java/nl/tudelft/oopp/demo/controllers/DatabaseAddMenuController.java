@@ -84,11 +84,11 @@ public class DatabaseAddMenuController implements Initializable {
      */
     public void databaseAddMenu() {
         String name = nameTextField.getText();
-        if (name.equals("")){
+        if (name.equals("")) {
             CustomAlert.warningAlert("please input a name");
         }
         String restaurantName = restaurantChoiceBox.getValue();
-        if (name.equals(null)){
+        if (name.equals(null)) {
             CustomAlert.warningAlert("select a menu");
         }
         int id = -1;

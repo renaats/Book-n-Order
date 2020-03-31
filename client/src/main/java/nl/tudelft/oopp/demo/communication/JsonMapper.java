@@ -4,15 +4,20 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javafx.scene.control.Alert;
-import javafx.scene.control.DialogPane;
-import javafx.stage.StageStyle;
-
-import nl.tudelft.oopp.demo.entities.*;
+import nl.tudelft.oopp.demo.entities.AppUser;
+import nl.tudelft.oopp.demo.entities.BikeReservation;
+import nl.tudelft.oopp.demo.entities.Building;
+import nl.tudelft.oopp.demo.entities.BuildingHours;
+import nl.tudelft.oopp.demo.entities.Dish;
+import nl.tudelft.oopp.demo.entities.FoodOrder;
+import nl.tudelft.oopp.demo.entities.Menu;
+import nl.tudelft.oopp.demo.entities.Restaurant;
+import nl.tudelft.oopp.demo.entities.RestaurantHours;
+import nl.tudelft.oopp.demo.entities.Room;
+import nl.tudelft.oopp.demo.entities.RoomReservation;
 import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.user.UserInformation;
 
@@ -34,14 +39,7 @@ public class JsonMapper {
             // Convert JSON string to Object
             return mapper.readValue(buildingJson, Building.class);
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle(null);
-            alert.setHeaderText(null);
-            alert.setContentText(buildingJson);
-            alert.initStyle(StageStyle.UNDECORATED);
-            DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(JsonMapper.class.getResource("/alertWarning.css").toExternalForm());
-            alert.showAndWait();
+            CustomAlert.warningAlert(buildingJson);
         }
         return null;
     }
@@ -51,11 +49,17 @@ public class JsonMapper {
      * @param buildingsJson a JSON string representing a list.
      * @return A list filled with object Buildings.
      */
-    public static List<Building> buildingListMapper(String buildingsJson) throws IOException {
+    public static List<Building> buildingListMapper(String buildingsJson) {
 
         ObjectMapper mapper = new ObjectMapper();
 
-        return mapper.readValue(buildingsJson, new TypeReference<>(){});
+        try {
+            // Convert JSON string to Object
+            return mapper.readValue(buildingsJson, new TypeReference<>(){});
+        } catch (Exception e) {
+            CustomAlert.warningAlert(buildingsJson);
+        }
+        return null;
     }
 
     /**
@@ -71,14 +75,7 @@ public class JsonMapper {
             // Convert JSON string to Object
             return mapper.readValue(roomJson, Room.class);
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle(null);
-            alert.setHeaderText(null);
-            alert.setContentText(roomJson);
-            alert.initStyle(StageStyle.UNDECORATED);
-            DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(JsonMapper.class.getResource("/alertWarning.css").toExternalForm());
-            alert.showAndWait();
+            CustomAlert.warningAlert(roomJson);
         }
         return null;
     }
@@ -96,14 +93,7 @@ public class JsonMapper {
             // Convert JSON string to Object
             return mapper.readValue(roomsJson, new TypeReference<>(){});
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle(null);
-            alert.setHeaderText(null);
-            alert.setContentText(roomsJson);
-            alert.initStyle(StageStyle.UNDECORATED);
-            DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(JsonMapper.class.getResource("/alertWarning.css").toExternalForm());
-            alert.showAndWait();
+            CustomAlert.warningAlert(roomsJson);
         }
         return null;
     }
@@ -121,14 +111,7 @@ public class JsonMapper {
             // Convert JSON string to Object
             return mapper.readValue(appUserJson, AppUser.class);
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle(null);
-            alert.setHeaderText(null);
-            alert.setContentText(appUserJson);
-            alert.initStyle(StageStyle.UNDECORATED);
-            DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(JsonMapper.class.getResource("/alertWarning.css").toExternalForm());
-            alert.showAndWait();
+            CustomAlert.warningAlert(appUserJson);
         }
         return null;
     }
@@ -146,14 +129,7 @@ public class JsonMapper {
             // Convert JSON string to Object
             return mapper.readValue(userInformationJson, UserInformation.class);
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle(null);
-            alert.setHeaderText(null);
-            alert.setContentText(userInformationJson);
-            alert.initStyle(StageStyle.UNDECORATED);
-            DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(JsonMapper.class.getResource("/alertWarning.css").toExternalForm());
-            alert.showAndWait();
+            CustomAlert.warningAlert(userInformationJson);
         }
         return null;
     }
@@ -171,14 +147,7 @@ public class JsonMapper {
             // Convert JSON string to Object
             return mapper.readValue(restaurantJson, Restaurant.class);
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle(null);
-            alert.setHeaderText(null);
-            alert.setContentText(restaurantJson);
-            alert.initStyle(StageStyle.UNDECORATED);
-            DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(JsonMapper.class.getResource("/alertWarning.css").toExternalForm());
-            alert.showAndWait();
+            CustomAlert.warningAlert(restaurantJson);
         }
         return null;
     }
@@ -196,14 +165,7 @@ public class JsonMapper {
             // Convert JSON string to Object
             return mapper.readValue(restaurantsJson, new TypeReference<>(){});
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle(null);
-            alert.setHeaderText(null);
-            alert.setContentText(restaurantsJson);
-            alert.initStyle(StageStyle.UNDECORATED);
-            DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(JsonMapper.class.getResource("/alertWarning.css").toExternalForm());
-            alert.showAndWait();
+            CustomAlert.warningAlert(restaurantsJson);
         }
         return null;
     }
@@ -222,11 +184,7 @@ public class JsonMapper {
             // Convert JSON string to Object
             return mapper.readValue(restaurantHoursJson, RestaurantHours.class);
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText(restaurantHoursJson);
-            alert.showAndWait();
+            CustomAlert.warningAlert(restaurantHoursJson);
         }
         return null;
     }
@@ -245,11 +203,7 @@ public class JsonMapper {
             // Convert JSON string to Object
             return mapper.readValue(buildingHourJson, BuildingHours.class);
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText(buildingHourJson);
-            alert.showAndWait();
+            CustomAlert.warningAlert(buildingHourJson);
         }
         return null;
     }
@@ -268,11 +222,7 @@ public class JsonMapper {
             // Convert JSON string to Object
             return mapper.readValue(roomReservationJson, RoomReservation.class);
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText(roomReservationJson);
-            alert.showAndWait();
+            CustomAlert.warningAlert(roomReservationJson);
         }
         return null;
     }
@@ -291,8 +241,9 @@ public class JsonMapper {
             // Convert JSON string to Object
             return mapper.readValue(roomReservationsJson, new TypeReference<>(){});
         } catch (Exception e) {
-            return new ArrayList();
+            CustomAlert.warningAlert(roomReservationsJson);
         }
+        return null;
     }
 
     /**
@@ -309,11 +260,7 @@ public class JsonMapper {
             // Convert JSON string to Object
             return mapper.readValue(foodOrderJson, FoodOrder.class);
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText(foodOrderJson);
-            alert.showAndWait();
+            CustomAlert.warningAlert(foodOrderJson);
         }
         return null;
     }
@@ -332,8 +279,9 @@ public class JsonMapper {
             // Convert JSON string to Object
             return mapper.readValue(foodOrdersJson, new TypeReference<>(){});
         } catch (Exception e) {
-            return new ArrayList();
+            CustomAlert.warningAlert(foodOrdersJson);
         }
+        return null;
     }
 
     /**
@@ -350,11 +298,7 @@ public class JsonMapper {
             // Convert JSON string to Object
             return mapper.readValue(bikeReservationJson, BikeReservation.class);
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText(bikeReservationJson);
-            alert.showAndWait();
+            CustomAlert.warningAlert(bikeReservationJson);
         }
         return null;
     }

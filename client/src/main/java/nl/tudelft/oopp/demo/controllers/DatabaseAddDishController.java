@@ -1,5 +1,10 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.Objects;
+import java.util.ResourceBundle;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -12,11 +17,6 @@ import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.Menu;
 import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
-
-import java.io.IOException;
-import java.net.URL;
-import java.util.Objects;
-import java.util.ResourceBundle;
 
 /**
  * Manages the User inputs for the DatabaseAddDish.fxml scene
@@ -77,13 +77,16 @@ public class DatabaseAddDishController implements Initializable {
         ApplicationDisplay.changeScene("/DatabaseFoodMainMenu.fxml");
     }
 
+    /**
+     * Adds a dish to the database with the given menu and given name
+     */
     public void databaseAddDish() {
         String name = nameTextField.getText();
-        if (name.equals("")){
+        if (name.equals("")) {
             CustomAlert.warningAlert("please input a name");
         }
         String menuName = menuChoiceBox.getValue();
-        if (name.equals(null)){
+        if (name.equals(null)) {
             CustomAlert.warningAlert("select a menu");
         }
         int menuId = -1;
