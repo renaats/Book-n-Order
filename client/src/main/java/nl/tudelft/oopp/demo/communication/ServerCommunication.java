@@ -610,6 +610,18 @@ public class ServerCommunication {
     }
 
     /**
+     * Updates an attribute of the restaurant
+     * @param restaurantId the Id of the restaurant that will be updated
+     * @param attribute the attribute to be updated
+     * @param value the new value of the attribute
+     * @return the body of the response from the server.
+     */
+    public static String updateRestaurant(int restaurantId, String attribute, String value) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant/update?id=" + restaurantId + "&attribute=" + URLEncoder.encode(attribute, StandardCharsets.UTF_8) + "&value=" + URLEncoder.encode(value, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnErrorMessage(request);
+    }
+
+    /**
      * Retrieve specific restaurant opening hours for specific day in the database by id.
      * @param restaurantId = restaurant id, which is parsed from a text field.
      * @param day = the date in milliseconds or the day of the week for regular hours represented by long
