@@ -67,6 +67,8 @@ public class DatabaseRoomMenuController implements Initializable {
     @FXML
     private TextField plugsReadField;
     @FXML
+    private TextField roomFindTextField;
+    @FXML
     private ChoiceBox<String> studyChoiceBox;
     @FXML
     private ChoiceBox<String> statusChoiceBox;
@@ -175,7 +177,7 @@ public class DatabaseRoomMenuController implements Initializable {
      */
     public void findRoom() {
         try {
-            int id = Integer.parseInt(idFieldRead.getText());
+            int id = Integer.parseInt(roomFindTextField.getText());
             Room room = JsonMapper.roomMapper(ServerCommunication.findRoom(id));
             if (room != null) {
                 roomResult.clear();
@@ -184,7 +186,7 @@ public class DatabaseRoomMenuController implements Initializable {
                 pagesText.setText("1 / 1 pages");
             }
         } catch (Exception e) {
-            String name = idFieldRead.getText();
+            String name = roomFindTextField.getText();
             Room room = JsonMapper.roomMapper(ServerCommunication.findRoomByName(name));
             if (room != null) {
                 roomResult.clear();

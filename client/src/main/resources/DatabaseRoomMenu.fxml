@@ -114,7 +114,7 @@
          <Font size="17.0" />
       </font>
    </Text>
-   <TextField fx:id="buildingFindTextField" layoutX="118.0" layoutY="567.0" prefHeight="25.0" prefWidth="315.0" promptText="Name or ID of room" AnchorPane.leftAnchor="118.0" AnchorPane.rightAnchor="847.0" />
+   <TextField fx:id="roomFindTextField" layoutX="118.0" layoutY="567.0" prefHeight="25.0" prefWidth="315.0" promptText="Name or ID of room" AnchorPane.leftAnchor="118.0" AnchorPane.rightAnchor="847.0" />
    <Button fx:id="confirmFindByIdButton" layoutX="444.0" layoutY="567.0" mnemonicParsing="false" onAction="#findRoom" prefHeight="26.0" prefWidth="68.0" style="-fx-background-color: #00a6d6;" text="Find" textFill="WHITE">
       <cursor>
          <Cursor fx:constant="HAND" />
