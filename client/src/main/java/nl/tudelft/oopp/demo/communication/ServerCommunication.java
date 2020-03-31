@@ -775,9 +775,4 @@ public class ServerCommunication {
         HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/bike_reservation/future")).build();
         return communicateAndReturnBodyOfResponse(request);
     }
-
-    public static String getRoomReservationsForRoom() {
-        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/room_reservation/room")).build();
-        return communicateAndReturnBodyOfResponse(request);
-    }
 }
