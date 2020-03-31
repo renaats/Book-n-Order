@@ -35,8 +35,8 @@ public class AllergyService {
 
     /**
      * Adds an allergy.
-     * @param allergyName = the name of the allergy
-     * @return int to see if your request passed
+     * @param allergyName the name of the allergy.
+     * @return int to see if your request passed.
      */
     public int add(String allergyName) {
         Allergy allergy = new Allergy();
@@ -46,9 +46,9 @@ public class AllergyService {
     }
 
     /**
-     * Deletes an allergy.
-     * @param allergyName = the name of the allergy
-     * @return String to see if your request passed
+     * Deletes an allergy with the given Id.
+     * @param allergyName = the name of the allergy.
+     * @return String to see if your request passed.
      */
     public int delete(String allergyName) {
         if (!allergyRepository.existsByAllergyName(allergyName)) {
@@ -60,7 +60,7 @@ public class AllergyService {
 
     /**
      * Lists all allergies.
-     * @return all allergies
+     * @return all allergies.
      */
     public List<Allergy> all() {
         return allergyRepository.findAll();
@@ -68,8 +68,8 @@ public class AllergyService {
 
     /**
      * Finds an allergy with the specified id.
-     * @param allergyName = the name of the allergy
-     * @return the allergy that matches the provided id
+     * @param allergyName = the name of the allergy.
+     * @return the allergy that matches the provided id.
      */
     public Allergy findByAllergyName(String allergyName) {
         return allergyRepository.findByAllergyName(allergyName);
@@ -77,9 +77,9 @@ public class AllergyService {
 
     /**
      * Updates a specified attribute for some allergy.
-     * @param name = the id of the      * Updates a specified attribute for some allergy..
-     * @param attribute = the attribute whose value is changed.
-     * @param value = the new value of the attribute.
+     * @param name the id of the allergy (that is used as the ID).
+     * @param attribute the attribute whose value is changed.
+     * @param value the new value of the attribute.
      * @return String containing the result of your request.
      */
     public int update(String name, String attribute, String value) {
@@ -117,9 +117,9 @@ public class AllergyService {
     }
     
     /**
-     * Queries the allergy repository based on input
-     * @param search String consisting of query parameters
-     * @return list of allergies that match the query
+     * Queries the allergy repository based on input.
+     * @param search String consisting of query parameters.
+     * @return list of allergies that match the query.
      */
     public List<Allergy> search(String search) {
         AllergySpecificationsBuilder builder = new AllergySpecificationsBuilder();

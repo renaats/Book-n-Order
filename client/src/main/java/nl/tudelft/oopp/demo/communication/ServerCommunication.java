@@ -369,36 +369,36 @@ public class ServerCommunication {
     // -----------------------------------------
 
     /**
-     * Adds a menu to the database
-     * @param name the name of the menu
-     * @param buildingId the id of the restaurant for which the menu is applicable
-     * @return response.body of the server
+     * Adds send a request to the server to add a menu to the database.
+     * @param name the name of the menu.
+     * @param buildingId the id of the restaurant for which the menu is applicable.
+     * @return response body of the server.
      */
     public static String addRestaurant(String name, int buildingId) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant/add?building=" + buildingId + "&name=" + name)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        return communicateAndReturnBodyOfResponse(request);
+        return communicateAndReturnErrorMessage(request);
     }
 
     /**
-     * Adds a dish to the database
-     * @param name dish name
-     * @param menuId menu id
-     * @return response.body of the server
+     * Adds send a request to the server to add a dish to the database.
+     * @param name dish name.
+     * @param menuId menu id.
+     * @return response body of the server.
      */
     public static String addDish(String name, int menuId) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/dish/add?name=" + URLEncoder.encode(name, StandardCharsets.UTF_8) + "&menuId=" + menuId)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        return communicateAndReturnBodyOfResponse(request);
+        return communicateAndReturnErrorMessage(request);
     }
 
     /**
-     * Add an allergy to a dish
-     * @param name allergy name
-     * @param id dish id
-     * @return response.body of the server
+     * Adds send a request to the server to add a Allergy to a dish to the database.
+     * @param name allergy name.
+     * @param id dish id.
+     * @return response body of the server.
      */
     public static String addAllergyToDish(String name, int id) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/dish/addAllergy?id=" + id + "&allergyName=" + URLEncoder.encode(name, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        return communicateAndReturnBodyOfResponse(request);
+        return communicateAndReturnErrorMessage(request);
     }
 
     /**

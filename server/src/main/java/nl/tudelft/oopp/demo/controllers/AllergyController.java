@@ -81,7 +81,7 @@ public class AllergyController {
     }
 
     /**
-     * Updates and allergy.
+     * Updates a specified attribute for some allergy.
      * @param name allergy name (that is what is used as the Id ).
      * @param attribute the attribute to be updated.
      * @param value the new value of the attribute
@@ -90,7 +90,7 @@ public class AllergyController {
     @Secured({ADMIN, RESTAURANT})
     @PostMapping(path = "/update")
     @ResponseBody
-    public int updateMenu(@RequestParam String name, @RequestParam String attribute, @RequestParam String value) {
+    public int updateAllergy(@RequestParam String name, @RequestParam String attribute, @RequestParam String value) {
         return allergyService.update(name, attribute, value);
     }
     

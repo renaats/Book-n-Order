@@ -45,7 +45,7 @@ public class MenuController {
     }
 
     /**
-     * Updates a menu.
+     * Updates a specified attribute for some menu.
      * @param id menu id.
      * @param attribute the attribute to be updated.
      * @param value the new value of the attribute

@@ -35,10 +35,10 @@ public class MenuService {
     private DishRepository dishRepository;
 
     /**
-     * Adds a menu to a restaurant
-     * @param name menu name
-     * @param restaurantId restaurant id
-     * @return Error code
+     * Adds a menu to a restaurant.
+     * @param name menu name.
+     * @param restaurantId restaurant id.
+     * @return Error code.
      */
     public int add(String name, int restaurantId) {
         Optional<Restaurant> optionalRestaurant = restaurantRepository.findById(restaurantId);
@@ -55,9 +55,9 @@ public class MenuService {
     }
 
     /**
-     * Deletes a menu
-     * @param id menu id
-     * @return Error code
+     * Deletes the menu with the given Id.
+     * @param id menu id.
+     * @return Error code.
      */
     public int delete(int id) {
         if (!menuRepository.existsById(id)) {
@@ -68,17 +68,17 @@ public class MenuService {
     }
 
     /**
-     * Lists all menus
-     * @return all menus
+     * Lists all menus.
+     * @return all menus.
      */
     public List<Menu> all() {
         return menuRepository.findAll();
     }
 
     /**
-     * Finds a menu with a certain id
-     * @param id menu id
-     * @return menu
+     * Finds a menu with a certain id.
+     * @param id menu id.
+     * @return menu.
      */
     public Menu find(int id) {
         return menuRepository.findById(id).orElse(null);
@@ -86,9 +86,9 @@ public class MenuService {
 
     /**
      * Updates a specified attribute for some menu.
-     * @param id = the id of the menu.
-     * @param attribute = the attribute whose value is changed.
-     * @param value = the new value of the attribute.
+     * @param id the id of the menu.
+     * @param attribute the attribute whose value is changed.
+     * @param value the new value of the attribute.
      * @return String containing the result of your request.
      */
     public int update(int id, String attribute, String value) {
