@@ -229,6 +229,7 @@ public class RoomReservationService {
             return WRONG_USER;
         }
         roomReservation.setActive(false);
+        roomReservationRepository.save(roomReservation);
         return EXECUTED;
     }
 }

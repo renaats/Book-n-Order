@@ -272,6 +272,7 @@ public class BikeReservationService {
             return WRONG_USER;
         }
         bikeReservation.setActive(false);
+        bikeReservationRepository.save(bikeReservation);
         return EXECUTED;
     }
 }

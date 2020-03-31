@@ -273,6 +273,7 @@ public class FoodOrderService {
             return WRONG_USER;
         }
         foodOrder.setActive(false);
+        foodOrderRepository.save(foodOrder);
         return EXECUTED;
     }
 }
