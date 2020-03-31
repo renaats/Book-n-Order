@@ -75,9 +75,12 @@
          <Cursor fx:constant="HAND" />
       </cursor>
    </Button>
-   <Button layoutX="590.0" layoutY="570.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="100.0" mnemonicParsing="false" onAction="#goToContactInformation" prefHeight="26.0" prefWidth="100.0" style="-fx-background-color: #00a6d6;" text="Contact info" textFill="WHITE">
+   <Hyperlink layoutX="1166.0" layoutY="662.0" onMouseClicked="#goToContactInformation" text="Contact Us" textAlignment="CENTER" textFill="WHITE">
+      <font>
+         <Font size="18.0" />
+      </font>
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor>
-   </Button>
+   </Hyperlink>
 </AnchorPane>
