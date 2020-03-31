@@ -227,7 +227,6 @@ public class DatabaseBuildingMenuController implements Initializable {
      */
     public void updateBuilding() {
         int id;
-        boolean passes = true;
         try {
             id = Integer.parseInt(idFieldRead.getText());
             Building building = JsonMapper.buildingMapper(ServerCommunication.findBuilding(id));
@@ -235,8 +234,8 @@ public class DatabaseBuildingMenuController implements Initializable {
             if (!building.getName().equals(nameFieldRead.getText())) {
                 String response = ServerCommunication.updateBuilding(id, "name", nameFieldRead.getText());
                 if (response.equals("Name already exists.")) {
-                    passes = false;
                     CustomAlert.warningAlert("Name already exists.");
+                    return;
                 }
             }
             if (!building.getStreet().equals(streetFieldRead.getText())) {
@@ -248,20 +247,16 @@ public class DatabaseBuildingMenuController implements Initializable {
                 }
             } catch (NumberFormatException e) {
                 CustomAlert.warningAlert("House number has to be an integer.");
-                passes = false;
+                return;
             }
             if ((building.getFaculty() == null) || !building.getFaculty().equals(facultyChoiceBox.getValue())) {
                 ServerCommunication.updateBuilding(id, "faculty", facultyChoiceBox.getValue());
             }
         } catch (NumberFormatException e) {
             CustomAlert.warningAlert("No selection detected.");
-            passes = false;
+            return;
         }
-        if (passes) {
-            CustomAlert.informationAlert("Successfully Executed.");
-        } else {
-            CustomAlert.warningAlert("Executed with warnings.");
-        }
+        CustomAlert.informationAlert("Successfully Executed.");
         listBuildingsButtonClicked();
     }
 
@@ -271,7 +266,7 @@ public class DatabaseBuildingMenuController implements Initializable {
     public void deleteBuilding() {
         try {
             int id = Integer.parseInt(idFieldRead.getText());
-            ServerCommunication.deleteBuilding(id);
+            CustomAlert.informationAlert(ServerCommunication.deleteBuilding(id));
             buildingResult.removeIf(b -> b.getId() == id);
         } catch (Exception e) {
             CustomAlert.warningAlert("No selection detected.");

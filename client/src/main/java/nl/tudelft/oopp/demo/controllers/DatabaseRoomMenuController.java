@@ -200,7 +200,6 @@ public class DatabaseRoomMenuController implements Initializable {
      */
     public void updateRoom() {
         int id;
-        boolean passes = true;
         try {
             id = Integer.parseInt(idFieldRead.getText());
             Room room = JsonMapper.roomMapper(ServerCommunication.findRoom(id));
@@ -208,8 +207,8 @@ public class DatabaseRoomMenuController implements Initializable {
             if (!room.getName().equals(nameFieldRead.getText())) {
                 String response = ServerCommunication.updateRoom(id, "name", nameFieldRead.getText());
                 if (response.equals("Name already exists.")) {
-                    passes = false;
                     CustomAlert.warningAlert("Name already exists.");
+                    return;
                 }
             }
             if (!room.getStudySpecific().equals(studyChoiceBox.getValue())) {
@@ -230,7 +229,7 @@ public class DatabaseRoomMenuController implements Initializable {
                 }
             } catch (NumberFormatException e) {
                 CustomAlert.warningAlert("Capacity has to be an integer.");
-                passes = false;
+                return;
             }
             try {
                 if (!(room.getPlugs() == Integer.parseInt(plugsReadField.getText()))) {
@@ -238,17 +237,13 @@ public class DatabaseRoomMenuController implements Initializable {
                 }
             } catch (NumberFormatException e) {
                 CustomAlert.warningAlert("Plugs has to be an integer.");
-                passes = false;
+                return;
             }
         } catch (Exception e) {
             CustomAlert.warningAlert("No selection detected.");
-            passes = false;
+            return;
         }
-        if (passes) {
-            CustomAlert.informationAlert("Successfully Executed.");
-        } else {
-            CustomAlert.warningAlert("Executed with warnings.");
-        }
+        CustomAlert.informationAlert("Successfully Executed.");
         retrieveAllRooms();
     }
 
@@ -258,7 +253,7 @@ public class DatabaseRoomMenuController implements Initializable {
     public void deleteRoom() {
         try {
             int id = Integer.parseInt(idFieldRead.getText());
-            ServerCommunication.deleteRoom(id);
+            CustomAlert.informationAlert(ServerCommunication.deleteRoom(id));
             roomResult.removeIf(r -> r.getId() == id);
         } catch (Exception e) {
             CustomAlert.warningAlert("No selection detected.");
