@@ -95,8 +95,7 @@ public class RoomServiceTest {
         room = new Room();
         room.setName("Ampere");
         room.setBuilding(building);
-        room.setFaculty("EWI");
-        room.setFacultySpecific(false);
+        room.setStudySpecific("CSE");
         room.setScreen(true);
         room.setProjector(true);
         room.setCapacity(200);
@@ -105,8 +104,7 @@ public class RoomServiceTest {
         room2 = new Room();
         room2.setName("Boole");
         room2.setBuilding(building2);
-        room2.setFaculty("EWI2");
-        room2.setFacultySpecific(false);
+        room2.setStudySpecific("CSE2");
         room2.setScreen(true);
         room2.setProjector(true);
         room2.setCapacity(200);
@@ -126,7 +124,7 @@ public class RoomServiceTest {
      */
     @Test
     public void testCreate() {
-        assertEquals(ADDED, roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200));
+        assertEquals(ADDED, roomService.add("Ampere", "CSE", true, true, building.getId(), 200, 200));
         assertEquals(Collections.singletonList(room), roomService.all());
     }
 
@@ -135,7 +133,7 @@ public class RoomServiceTest {
      */
     @Test
     public void testCreateIllegalBuilding() {
-        assertEquals(BUILDING_NOT_FOUND, roomService.add("Not an actual room", "Faculty", false, true, true, -3, 300, 200));
+        assertEquals(BUILDING_NOT_FOUND, roomService.add("Not an actual room", "Study", true, true, -3, 300, 200));
     }
 
     /**
@@ -143,11 +141,11 @@ public class RoomServiceTest {
      */
     @Test
     public void testCreateDuplicateRoom() {
-        assertEquals(ADDED, roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200));
+        assertEquals(ADDED, roomService.add("Ampere", "CSE", true, true, building.getId(), 200, 200));
         Set<Room> rooms = new HashSet<>();
         rooms.add(roomService.all().get(0));
         building.setRooms(rooms);
-        assertEquals(DUPLICATE_NAME, roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200));
+        assertEquals(DUPLICATE_NAME, roomService.add("Ampere", "CSE", true, true, building.getId(), 200, 200));
     }
 
     /**
@@ -163,7 +161,7 @@ public class RoomServiceTest {
      */
     @Test
     public void testFindExisting() {
-        roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200);
+        roomService.add("Ampere", "CSE", true, true, building.getId(), 200, 200);
         int id = roomService.all().get(0).getId();
         assertNotNull(roomService.find(id));
     }
@@ -181,7 +179,7 @@ public class RoomServiceTest {
      */
     @Test
     public void testUpdateNonExistingAttribute() {
-        roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200);
+        roomService.add("Ampere", "CSE", true, true, building.getId(), 200, 200);
         int id = roomService.all().get(0).getId();
         assertEquals(ATTRIBUTE_NOT_FOUND, roomService.update(id, "Non existent attribute", "value"));
     }
@@ -191,7 +189,7 @@ public class RoomServiceTest {
      */
     @Test
     public void testChangeName() {
-        roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200);
+        roomService.add("Ampere", "CSE", true, true, building.getId(), 200, 200);
         int id = roomService.all().get(0).getId();
         assertNotEquals("Boole", roomService.all().get(0).getName());
         roomService.update(id, "name", "Boole");
@@ -199,27 +197,15 @@ public class RoomServiceTest {
     }
 
     /**
-     * Tests the change of the faculty by using the service.
+     * Tests the change of the studySpecific by using the service.
      */
     @Test
-    public void testChangeFaculty() {
-        roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200);
+    public void testChangeStudySpecific() {
+        roomService.add("Ampere", "CSE", true, true, building.getId(), 200, 200);
         int id = roomService.all().get(0).getId();
-        assertNotEquals("3M", roomService.all().get(0).getFaculty());
-        roomService.update(id, "faculty", "3M");
-        assertEquals("3M", roomService.all().get(0).getFaculty());
-    }
-
-    /**
-     * Tests the change of facultySpecific by using the service.
-     */
-    @Test
-    public void testChangeFacultySpecific() {
-        roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200);
-        int id = roomService.all().get(0).getId();
-        assertFalse(roomService.all().get(0).isFacultySpecific());
-        roomService.update(id, "facultyspecific", "true");
-        assertTrue(roomService.all().get(0).isFacultySpecific());
+        assertNotEquals("EE", roomService.all().get(0).getStudySpecific());
+        roomService.update(id, "studyspecific", "EE");
+        assertEquals("EE", roomService.all().get(0).getStudySpecific());
     }
 
     /**
@@ -227,7 +213,7 @@ public class RoomServiceTest {
      */
     @Test
     public void testChangeScreen() {
-        roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200);
+        roomService.add("Ampere", "CSE", true, true, building.getId(), 200, 200);
         int id = roomService.all().get(0).getId();
         assertTrue(roomService.all().get(0).isScreen());
         roomService.update(id, "screen", "false");
@@ -239,7 +225,7 @@ public class RoomServiceTest {
      */
     @Test
     public void testChangeProjector() {
-        roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200);
+        roomService.add("Ampere", "CSE", true, true, building.getId(), 200, 200);
         int id = roomService.all().get(0).getId();
         assertTrue(roomService.all().get(0).isProjector());
         roomService.update(id, "projector", "false");
@@ -251,7 +237,7 @@ public class RoomServiceTest {
      */
     @Test
     public void testChangeCapacity() {
-        roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200);
+        roomService.add("Ampere", "CSE", true, true, building.getId(), 200, 200);
         int id = roomService.all().get(0).getId();
         assertNotEquals(400, roomService.all().get(0).getCapacity());
         roomService.update(id, "amountofpeople", "400");
@@ -263,7 +249,7 @@ public class RoomServiceTest {
      */
     @Test
     public void testChangePlugs() {
-        roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200);
+        roomService.add("Ampere", "CSE", true, true, building.getId(), 200, 200);
         int id = roomService.all().get(0).getId();
         assertNotEquals(400, roomService.all().get(0).getPlugs());
         roomService.update(id, "plugs", "400");
@@ -275,7 +261,7 @@ public class RoomServiceTest {
      */
     @Test
     public void testChangeBuilding() {
-        roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200);
+        roomService.add("Ampere", "CSE", true, true, building.getId(), 200, 200);
         int id = roomService.all().get(0).getId();
         assertNotEquals(building2, roomService.all().get(0).getBuilding());
         roomService.update(id, "buildingid", building2.getId().toString());
@@ -287,7 +273,7 @@ public class RoomServiceTest {
      */
     @Test
     public void testChangeBuildingNonExisting() {
-        roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200);
+        roomService.add("Ampere", "CSE", true, true, building.getId(), 200, 200);
         int id = roomService.all().get(0).getId();
         assertEquals(BUILDING_NOT_FOUND, roomService.update(id, "buildingid", "-3"));
     }
@@ -305,8 +291,8 @@ public class RoomServiceTest {
      */
     @Test
     public void testMultipleInstances() {
-        roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200);
-        roomService.add("Boole", "EWI2", false, true, true, building2.getId(), 200, 200);
+        roomService.add("Ampere", "CSE", true, true, building.getId(), 200, 200);
+        roomService.add("Boole", "CSE2", true, true, building2.getId(), 200, 200);
         assertEquals(2, roomService.all().size());
         List<Room> rooms = new ArrayList<>();
         rooms.add(room);
@@ -319,7 +305,7 @@ public class RoomServiceTest {
      */
     @Test
     public void testDelete() {
-        roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200);
+        roomService.add("Ampere", "CSE", true, true, building.getId(), 200, 200);
         int id = roomService.all().get(0).getId();
         assertEquals(EXECUTED, roomService.delete(id));
         assertEquals(0, roomService.all().size());
@@ -338,34 +324,22 @@ public class RoomServiceTest {
      */
     @Test
     public void testSearchByName() {
-        roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200);
-        roomService.add("Boole", "EWI2", false, true, true, building2.getId(), 200, 200);
+        roomService.add("Ampere", "CSE", true, true, building.getId(), 200, 200);
+        roomService.add("Boole", "CSE2", true, true, building2.getId(), 200, 200);
         List<Room> rooms = roomService.search("name:Ampere");
         assertTrue(rooms.contains(room));
         assertFalse(rooms.contains(room2));
     }
 
     /**
-     * Tests the searching of a room by faculty.
+     * Tests the searching of a room by studySpecific.
      */
     @Test
-    public void testSearchByFaculty() {
-        roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200);
-        roomService.add("Boole", "EWI2", false, true, true, building2.getId(), 200, 200);
-        List<Room> rooms = roomService.search("faculty:EWI2");
+    public void testSearchByStudySpecific() {
+        roomService.add("Ampere", "CSE", true, true, building.getId(), 200, 200);
+        roomService.add("Boole", "CSE2", true, true, building2.getId(), 200, 200);
+        List<Room> rooms = roomService.search("studySpecific:CSE2");
         assertFalse(rooms.contains(room));
-        assertTrue(rooms.contains(room2));
-    }
-
-    /**
-     * Tests the searching of a room by the boolean facultySpecific.
-     */
-    @Test
-    public void testSearchByFacultySpecific() {
-        roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200);
-        roomService.add("Boole", "EWI2", false, true, true, building2.getId(), 200, 200);
-        List<Room> rooms = roomService.search("facultySpecific:false");
-        assertTrue(rooms.contains(room));
         assertTrue(rooms.contains(room2));
     }
 
@@ -374,8 +348,8 @@ public class RoomServiceTest {
      */
     @Test
     public void testSearchByScreen() {
-        roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200);
-        roomService.add("Boole", "EWI2", false, true, true, building2.getId(), 200, 200);
+        roomService.add("Ampere", "CSE", true, true, building.getId(), 200, 200);
+        roomService.add("Boole", "CSE2", true, true, building2.getId(), 200, 200);
         List<Room> rooms = roomService.search("screen:true");
         assertTrue(rooms.contains(room));
         assertTrue(rooms.contains(room2));
@@ -386,8 +360,8 @@ public class RoomServiceTest {
      */
     @Test
     public void testSearchByProjector() {
-        roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200);
-        roomService.add("Boole", "EWI2", false, true, true, building2.getId(), 200, 200);
+        roomService.add("Ampere", "CSE", true, true, building.getId(), 200, 200);
+        roomService.add("Boole", "CSE2", true, true, building2.getId(), 200, 200);
         List<Room> rooms = roomService.search("projector:true");
         assertTrue(rooms.contains(room));
         assertTrue(rooms.contains(room2));
@@ -398,8 +372,8 @@ public class RoomServiceTest {
      */
     @Test
     public void testSearchByBuildingId() {
-        roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200);
-        roomService.add("Boole", "EWI2", false, true, true, building2.getId(), 200, 200);
+        roomService.add("Ampere", "CSE", true, true, building.getId(), 200, 200);
+        roomService.add("Boole", "CSE2", true, true, building2.getId(), 200, 200);
         List<Room> rooms = roomService.search("building:" + building.getId());
         assertTrue(rooms.contains(room));
         assertFalse(rooms.contains(room2));
@@ -410,8 +384,8 @@ public class RoomServiceTest {
      */
     @Test
     public void testSearchByCapacity() {
-        roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200);
-        roomService.add("Boole", "EWI2", false, true, true, building2.getId(), 200, 200);
+        roomService.add("Ampere", "CSE", true, true, building.getId(), 200, 200);
+        roomService.add("Boole", "CSE2", true, true, building2.getId(), 200, 200);
         List<Room> rooms = roomService.search("capacity>150");
         assertTrue(rooms.contains(room));
         assertTrue(rooms.contains(room2));
@@ -422,8 +396,8 @@ public class RoomServiceTest {
      */
     @Test
     public void testSearchByNumberOfPlugs() {
-        roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200);
-        roomService.add("Boole", "EWI2", false, true, true, building2.getId(), 200, 200);
+        roomService.add("Ampere", "CSE", true, true, building.getId(), 200, 200);
+        roomService.add("Boole", "CSE2", true, true, building2.getId(), 200, 200);
         List<Room> rooms = roomService.search("plugs>150");
         assertTrue(rooms.contains(room));
         assertTrue(rooms.contains(room2));
@@ -434,8 +408,8 @@ public class RoomServiceTest {
      */
     @Test
     public void testCompoundSearch() {
-        roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200);
-        roomService.add("Boole", "EWI2", false, true, true, building2.getId(), 200, 200);
+        roomService.add("Ampere", "CSE", true, true, building.getId(), 200, 200);
+        roomService.add("Boole", "CSE2", true, true, building2.getId(), 200, 200);
         List<Room> rooms = roomService.search("name:Boole,plugs>150");
         assertFalse(rooms.contains(room));
         assertTrue(rooms.contains(room2));
@@ -446,9 +420,9 @@ public class RoomServiceTest {
      */
     @Test
     public void testCompoundSearchWithManyArguments() {
-        roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200);
-        roomService.add("Boole", "EWI2", false, true, true, building2.getId(), 200, 200);
-        List<Room> rooms = roomService.search("name:Boole,plugs>150,faculty:EWI2,projector:true,plugs<300");
+        roomService.add("Ampere", "CSE", true, true, building.getId(), 200, 200);
+        roomService.add("Boole", "CSE2", true, true, building2.getId(), 200, 200);
+        List<Room> rooms = roomService.search("name:Boole,plugs>150,studySpecific:CSE2,projector:true,plugs<300");
         assertFalse(rooms.contains(room));
         assertTrue(rooms.contains(room2));
     }
@@ -458,8 +432,8 @@ public class RoomServiceTest {
      */
     @Test
     public void testSearchOfNonexistentRoom() {
-        roomService.add("Ampere", "EWI", false, true, true, building.getId(), 200, 200);
-        roomService.add("Boole", "EWI2", false, true, true, building2.getId(), 200, 200);
+        roomService.add("Ampere", "CSE", true, true, building.getId(), 200, 200);
+        roomService.add("Boole", "CSE2", true, true, building2.getId(), 200, 200);
         List<Room> rooms = roomService.search("plugs<150");
         assertEquals(rooms.size(), 0);
     }

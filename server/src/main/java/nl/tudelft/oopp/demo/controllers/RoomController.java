@@ -40,9 +40,8 @@ public class RoomController {
     /**
      * Adds a room to the database.
      * @param name = the name of the new room.
-     * @param faculty = the name of the faculty.
+     * @param studySpecific = the study that this room is restricted to.
      * @param buildingId = the id of the building of the room.
-     * @param facultySpecific = boolean representing room restrictions.
      * @param screen = boolean representing the availability of a screen.
      * @param projector = boolean representing the availability of a projector.
      * @param capacity = the number of people this room fits.
@@ -54,14 +53,13 @@ public class RoomController {
     @ResponseBody
     public int addNewRoom(
             @RequestParam String name,
-            @RequestParam String faculty,
-            @RequestParam boolean facultySpecific,
+            @RequestParam String studySpecific,
             @RequestParam boolean screen,
             @RequestParam boolean projector,
             @RequestParam int buildingId,
             @RequestParam int capacity,
             @RequestParam int plugs) {
-        return roomService.add(name, URLDecoder.decode(faculty, StandardCharsets.UTF_8), facultySpecific, screen,
+        return roomService.add(name, URLDecoder.decode(studySpecific, StandardCharsets.UTF_8), screen,
                 projector, buildingId, capacity, plugs);
     }
 
