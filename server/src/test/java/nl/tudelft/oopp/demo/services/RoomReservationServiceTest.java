@@ -29,12 +29,19 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.gson.ExclusionStrategy;
+import com.google.gson.FieldAttributes;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.entities.RoomReservation;
 import nl.tudelft.oopp.demo.repositories.RoomRepository;
+import nl.tudelft.oopp.demo.repositories.RoomReservationRepository;
 import nl.tudelft.oopp.demo.repositories.UserRepository;
 
+import org.aspectj.lang.annotation.After;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -369,5 +376,41 @@ class RoomReservationServiceTest {
         roomReservationService.add(room2.getId(), appUser2.getEmail(), 300000000000000L, 500000000000000L);
         MockHttpServletRequest request = new MockHttpServletRequest();
         assertEquals(new ArrayList<>(), roomReservationService.future(request));
+    }
+
+    @Test
+    public void testGetReservationsForRoomWithReservation() {
+        roomReservationService.add(room2.getId(), appUser2.getEmail(), 1500, 5000);
+        int id = roomReservationService.all().get(0).getId();
+        RoomReservation r = roomReservationService.find(id);
+
+        GsonBuilder gsonBuilder = new GsonBuilder();
+
+        gsonBuilder.setExclusionStrategies(new ExclusionStrategy() {
+            @Override
+            public boolean shouldSkipField(FieldAttributes f) {
+                return f.getName().contains("appUser") || f.getAnnotation(JsonIgnore.class) != null;
+            }
+
+            @Override
+            public boolean shouldSkipClass(Class<?> c) {
+                return c == AppUser.class;
+            }
+        });
+
+        Gson gson = gsonBuilder.create();
+        String test = gson.toJson(r);
+        assertEquals("[" + test + "]", roomReservationService.forRoom(room2.getId()));
+    }
+
+    @Test
+    public void testGetReservationsForNonExistentRoom() {
+        roomReservationService.add(room2.getId(), appUser2.getEmail(), 1500, 5000);
+        assertNull(roomReservationService.forRoom(-1));
+    }
+
+    @Test
+    public void testGetReservationsForRoomWithoutReservation() {
+        assertEquals("[]", roomReservationService.forRoom(room2.getId()));
     }
 }
