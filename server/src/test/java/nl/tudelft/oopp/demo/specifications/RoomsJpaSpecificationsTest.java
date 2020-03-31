@@ -5,6 +5,7 @@ import static org.hamcrest.Matchers.in;
 import static org.hamcrest.Matchers.not;
 
 import java.util.List;
+
 import javax.transaction.Transactional;
 
 import nl.tudelft.oopp.demo.entities.Building;
