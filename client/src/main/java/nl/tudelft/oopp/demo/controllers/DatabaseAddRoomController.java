@@ -31,9 +31,12 @@ public class DatabaseAddRoomController implements Initializable {
 
     private final ObservableList<String> studyList = FXCollections.observableArrayList();
     private final ObservableList<Building> buildingResult = FXCollections.observableArrayList();
+    private final ObservableList<String> statusList = FXCollections.observableArrayList();
 
     @FXML
     private ChoiceBox<String> studySpecificChoiceBox;
+    @FXML
+    private ChoiceBox<String> statusChoiceBox;
     @FXML
     private ToggleButton screenToggle;
     @FXML
@@ -59,9 +62,9 @@ public class DatabaseAddRoomController implements Initializable {
     @FXML
     private AnchorPane anchorPane;
     @FXML
-    private TableColumn<Building, String> colName;
-    @FXML
     private TableColumn<Building, Integer> colId;
+    @FXML
+    private TableColumn<Building, String> colName;
 
     private boolean screenToggleFlag;
     private boolean projectorToggleFlag;
@@ -92,15 +95,27 @@ public class DatabaseAddRoomController implements Initializable {
         anchorPane.getChildren().remove(pagesText);
 
         loadStudySpecificChoiceBox();
+        loadStatusChoiceBox();
         retrieveAllBuildings();
 
         tableSelectMethod();
     }
 
+    private void loadStatusChoiceBox() {
+        statusList.clear();
+        String a = "Open";
+        String b = "Closed";
+        String c = "Staff-Only";
+        String d = "Maintenance";
+        statusList.addAll(a, b, c, d);
+        statusChoiceBox.getItems().addAll(statusList);
+    }
+
     private void loadStudySpecificChoiceBox() {
         studyList.clear();
-        String a = "Computer Science and Engineering";
-        studyList.addAll(a);
+        String a = "";
+        String b = "Computer Science and Engineering";
+        studyList.addAll(a, b);
         studySpecificChoiceBox.getItems().addAll(studyList);
     }
 
@@ -157,21 +172,36 @@ public class DatabaseAddRoomController implements Initializable {
      */
     public void databaseAddRoom() {
         String name = nameTextField.getText();
-        int buildingId;
+        int buildingId = -1;
+        int capacity = -1;
+        int plugs = -1;
+        String response = null;
         try {
             buildingId = Integer.parseInt(buildingIdTextField.getText());
         } catch (NumberFormatException e) {
             Building building = JsonMapper.buildingMapper(ServerCommunication.findBuildingByName(buildingIdTextField.getText()));
-            assert building != null;
-            buildingId = building.getId();
+            if (building == null) {
+                CustomAlert.errorAlert("Building not found");
+                return;
+            } else {
+                buildingId = building.getId();
+            }
         }
         String studySpecific = studySpecificChoiceBox.getValue();
         boolean screen = Boolean.parseBoolean(screenToggle.getText());
         boolean projector = Boolean.parseBoolean(projectorToggle.getText());
-        int capacity = Integer.parseInt(capacityTextField.getText());
-        int plugs = Integer.parseInt(plugsTextField.getText());
-        String status = nameTextField.getText();
-        String response = ServerCommunication.addRoom(name, buildingId, studySpecific, screen, projector, capacity, plugs, status);
+        try {
+            capacity = Integer.parseInt(capacityTextField.getText());
+        } catch (NumberFormatException e) {
+            CustomAlert.warningAlert("Capacity requires an integer.");
+        }
+        try {
+            plugs = Integer.parseInt(plugsTextField.getText());
+        } catch (NumberFormatException e) {
+            CustomAlert.warningAlert("Plugs requires an integer.");
+        }
+        String status = statusChoiceBox.getValue();
+        response = ServerCommunication.addRoom(name, buildingId, studySpecific, screen, projector, capacity, plugs, status);
         if (response.equals("Successfully added!")) {
             CustomAlert.informationAlert(response);
         } else {

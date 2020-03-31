@@ -76,7 +76,7 @@
          <Cursor fx:constant="HAND" />
       </cursor>
    </Button>
-   <Text fx:id="pagesText" layoutX="807.0" layoutY="577.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0 / pages" AnchorPane.bottomAnchor="139.0" />
+   <Text fx:id="pagesText" layoutX="803.0" layoutY="577.3999999999997" strokeType="OUTSIDE" strokeWidth="0.0" text="0 / pages" AnchorPane.bottomAnchor="138.60000000000025" />
    <TextField fx:id="idFieldRead" editable="false" layoutX="128.0" layoutY="220.0" prefHeight="25.0" prefWidth="56.0" promptText="ID" AnchorPane.leftAnchor="118.0" AnchorPane.topAnchor="216.0" />
    <Text layoutX="50.0" layoutY="202.056640625" strokeType="OUTSIDE" strokeWidth="0.0" text="Room" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="174.0">
       <font>

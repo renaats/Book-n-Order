@@ -54,7 +54,7 @@
             <Font size="17.0" />
         </font>
     </Text>
-    <Text layoutX="488.0" layoutY="326.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Screen:" AnchorPane.leftAnchor="488.0" AnchorPane.topAnchor="307.6552734375">
+    <Text layoutX="488.0" layoutY="359.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Screen:" AnchorPane.leftAnchor="488.0" AnchorPane.topAnchor="340.6552734375">
         <font>
             <Font size="17.0" />
         </font>
@@ -64,34 +64,34 @@
             <Font size="17.0" />
         </font>
     </Text>
-    <Text layoutX="488.0" layoutY="358.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Projector:" AnchorPane.leftAnchor="488.0" AnchorPane.topAnchor="339.6552734375">
+    <Text layoutX="488.0" layoutY="391.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Projector:" AnchorPane.leftAnchor="488.0" AnchorPane.topAnchor="372.6552734375">
         <font>
             <Font size="17.0" />
         </font>
     </Text>
-    <Text layoutX="488.0" layoutY="386.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Capacity:" AnchorPane.leftAnchor="488.0" AnchorPane.topAnchor="367.6552734375">
+    <Text layoutX="488.0" layoutY="419.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Capacity:" AnchorPane.leftAnchor="488.0" AnchorPane.topAnchor="400.6552734375">
         <font>
             <Font size="17.0" />
         </font>
     </Text>
-    <Text layoutX="488.0" layoutY="416.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Plugs:" AnchorPane.leftAnchor="488.0" AnchorPane.topAnchor="397.6552734375">
+    <Text layoutX="488.0" layoutY="449.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Plugs:" AnchorPane.leftAnchor="488.0" AnchorPane.topAnchor="430.6552734375">
         <font>
             <Font size="17.0" />
         </font>
     </Text>
     <TextField fx:id="nameTextField" layoutX="617.0" layoutY="221.0" promptText="Room name" AnchorPane.leftAnchor="617.0" AnchorPane.topAnchor="221.0" />
     <TextField fx:id="buildingIdTextField" layoutX="617.0" layoutY="249.0" promptText="Building ID or Name" AnchorPane.leftAnchor="617.0" AnchorPane.rightAnchor="514.3333333333334" AnchorPane.topAnchor="249.0" />
-    <ToggleButton fx:id="screenToggle" layoutX="616.0" layoutY="307.0" mnemonicParsing="false" onAction="#toggleClickScreen" prefHeight="26.0" prefWidth="149.0" text="False" textFill="WHITE" AnchorPane.leftAnchor="617.0" AnchorPane.rightAnchor="514.3333333333334" AnchorPane.topAnchor="307.0">
+    <ToggleButton fx:id="screenToggle" layoutX="617.0" layoutY="340.0" mnemonicParsing="false" onAction="#toggleClickScreen" prefHeight="26.0" prefWidth="149.0" text="False" textFill="WHITE" AnchorPane.leftAnchor="617.0" AnchorPane.rightAnchor="514.3333333333334" AnchorPane.topAnchor="340.0">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor></ToggleButton>
-    <ToggleButton fx:id="projectorToggle" layoutX="617.0" layoutY="337.0" mnemonicParsing="false" onAction="#toggleClickProjector" prefHeight="26.0" prefWidth="149.0" text="False" textFill="WHITE" AnchorPane.leftAnchor="617.0" AnchorPane.rightAnchor="514.3333333333334" AnchorPane.topAnchor="337.0">
+    <ToggleButton fx:id="projectorToggle" layoutX="617.0" layoutY="370.0" mnemonicParsing="false" onAction="#toggleClickProjector" prefHeight="26.0" prefWidth="149.0" text="False" textFill="WHITE" AnchorPane.leftAnchor="617.0" AnchorPane.rightAnchor="514.3333333333334" AnchorPane.topAnchor="370.0">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor></ToggleButton>
-    <TextField fx:id="capacityTextField" layoutX="617.0" layoutY="367.0" promptText="Amount of people" AnchorPane.leftAnchor="617.0" AnchorPane.rightAnchor="514.3333333333334" AnchorPane.topAnchor="367.0" />
-    <TextField fx:id="plugsTextField" layoutX="617.0" layoutY="397.0" promptText="Amount of plugs" AnchorPane.leftAnchor="617.0" AnchorPane.rightAnchor="514.3333333333334" AnchorPane.topAnchor="397.0" />
-    <Button fx:id="AddButton" layoutX="503.0" layoutY="434.0" mnemonicParsing="false" onAction="#databaseAddRoom" prefHeight="25.0" prefWidth="240.0" style="-fx-background-color: #00a6d6;" text="Add" textFill="WHITE" AnchorPane.topAnchor="434.0">
+    <TextField fx:id="capacityTextField" layoutX="617.0" layoutY="400.0" promptText="Amount of people" AnchorPane.leftAnchor="617.0" AnchorPane.rightAnchor="514.3333333333334" AnchorPane.topAnchor="400.0" />
+    <TextField fx:id="plugsTextField" layoutX="617.0" layoutY="430.0" promptText="Amount of plugs" AnchorPane.leftAnchor="617.0" AnchorPane.rightAnchor="514.3333333333334" AnchorPane.topAnchor="430.0" />
+    <Button fx:id="AddButton" layoutX="503.0" layoutY="467.0" mnemonicParsing="false" onAction="#databaseAddRoom" prefHeight="25.0" prefWidth="240.0" style="-fx-background-color: #00a6d6;" text="Add" textFill="WHITE" AnchorPane.topAnchor="467.0">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor></Button>
@@ -151,4 +151,10 @@
       </cursor>
    </Button>
    <Text fx:id="pagesText" layoutX="942.0" layoutY="447.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0 / pages" />
+   <Text layoutX="488.0" layoutY="327.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status:">
+      <font>
+         <Font size="17.0" />
+      </font>
+   </Text>
+   <ChoiceBox fx:id="statusChoiceBox" layoutX="616.0" layoutY="308.0" prefWidth="150.0" />
 </AnchorPane>

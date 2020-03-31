@@ -37,7 +37,6 @@ public class RoomService {
     private BuildingRepository buildingRepository;
 
     /**
-<<<<<<< HEAD
      * Adds a room to the database.
      * @param name = the name of the new room.
      * @param studySpecific = the study that this room is restricted to.
@@ -46,18 +45,7 @@ public class RoomService {
      * @param projector = boolean representing the availability of a projector.
      * @param capacity = the number of people this room fits.
      * @param plugs = the number of plugs in this room.
-=======
-     * Adds a room.
-     * @param name = the name of the room
-     * @param faculty = the name of the faculty
-     * @param facultySpecific = boolean representing room restrictions
-     * @param screen = boolean representing the availability of a screen
-     * @param projector = boolean representing the availability of a projector
-     * @param buildingId = the id of the building of the room
-     * @param capacity = the number of people this room fits
-     * @param plugs = the number of plugs in this room
      * @param status = the status of the room.
->>>>>>> 212-Add_status_field
      * @return Error code
      */
     public int add(String name,
@@ -125,7 +113,7 @@ public class RoomService {
                 Building building = optionalBuilding.get();
                 room.setBuilding(building);
                 break;
-            case "amountofpeople":
+            case "capacity":
                 room.setCapacity(Integer.parseInt(value));
                 break;
             case "plugs":

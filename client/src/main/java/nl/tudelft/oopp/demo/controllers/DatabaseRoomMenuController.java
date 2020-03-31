@@ -27,14 +27,17 @@ import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
+import javax.crypto.spec.PSource;
+
 /**
  * Loads the correct content into the FXML objects that need to display server information and
  * controls all the user inputs made through the GUI in the "DatabaseEditRooms.fxml" file
  */
 public class DatabaseRoomMenuController implements Initializable {
 
-    final ObservableList<Room> roomResult = FXCollections.observableArrayList();
+    private final ObservableList<Room> roomResult = FXCollections.observableArrayList();
     private final ObservableList<String> studyList = FXCollections.observableArrayList();
+    private final ObservableList<String> statusList = FXCollections.observableArrayList();
 
     @FXML
     private TableView<Room> table;
@@ -211,7 +214,7 @@ public class DatabaseRoomMenuController implements Initializable {
                 }
             }
             if (!room.getStudySpecific().equals(studyChoiceBox.getValue())) {
-                ServerCommunication.updateRoom(id, "studySpecific", studyChoiceBox.getValue());
+                ServerCommunication.updateRoom(id, "studyspecific", studyChoiceBox.getValue());
             }
             if (!(room.getStatus().equals(statusChoiceBox.getValue()))) {
                 ServerCommunication.updateRoom(id, "status", statusChoiceBox.getValue());
@@ -232,13 +235,13 @@ public class DatabaseRoomMenuController implements Initializable {
             }
             try {
                 if (!(room.getPlugs() == Integer.parseInt(plugsReadField.getText()))) {
-                    ServerCommunication.updateRoom(id, "capacity", plugsReadField.getText());
+                    ServerCommunication.updateRoom(id, "plugs", plugsReadField.getText());
                 }
             } catch (NumberFormatException e) {
                 CustomAlert.warningAlert("Plugs has to be an integer.");
                 passes = false;
             }
-        } catch (NumberFormatException e) {
+        } catch (Exception e) {
             CustomAlert.warningAlert("No selection detected.");
             passes = false;
         }
@@ -347,18 +350,19 @@ public class DatabaseRoomMenuController implements Initializable {
 
     private void loadStudySpecificChoiceBox() {
         studyList.clear();
-        String a = "Computer Science and Engineering";
-        studyList.addAll(a);
+        String a = "";
+        String b = "Computer Science and Engineering";
+        studyList.addAll(a, b);
         studyChoiceBox.getItems().addAll(studyList);
     }
 
     private void loadStatusChoiceBox() {
-        studyList.clear();
+        statusList.clear();
         String a = "Open";
         String b = "Closed";
         String c = "Staff-Only";
         String d = "Maintenance";
-        studyList.addAll(a);
-        studyChoiceBox.getItems().addAll(studyList);
+        statusList.addAll(a, b, c, d);
+        statusChoiceBox.getItems().addAll(statusList);
     }
 }

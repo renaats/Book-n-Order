@@ -112,7 +112,6 @@ public class ServerCommunication {
      * @return the body of the response.
      */
     public static String findBuildingByName(String name) {
-        System.out.println(name);
         System.out.println(URLEncoder.encode(name, StandardCharsets.UTF_8));
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building/findName/" + URLEncoder.encode(name, StandardCharsets.UTF_8))).GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnBodyOfResponse(request);
