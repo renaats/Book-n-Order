@@ -11,6 +11,7 @@ import static nl.tudelft.oopp.demo.config.Constants.ROOM_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.USER_NOT_FOUND;
 import static nl.tudelft.oopp.demo.security.SecurityConstants.HEADER_STRING;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
@@ -222,7 +223,7 @@ public class RoomReservationService {
         gsonBuilder.setExclusionStrategies(new ExclusionStrategy() {
             @Override
             public boolean shouldSkipField(FieldAttributes f) {
-                return f.getName().contains("appUser");
+                return f.getName().contains("appUser") || f.getAnnotation(JsonIgnore.class) != null;
             }
 
             @Override
