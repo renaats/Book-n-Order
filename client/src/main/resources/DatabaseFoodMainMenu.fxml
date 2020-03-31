@@ -39,17 +39,7 @@
         <Cursor fx:constant="HAND" />
     </cursor>
 </Button>
-   <Button layoutX="88.0" layoutY="325.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#goToEditRestaurant" style="-fx-background-color: #00a6d6;" text="Edit Restaurants" textFill="WHITE">
-      <cursor>
-         <Cursor fx:constant="HAND" />
-      </cursor>
-   </Button>
    <Button layoutX="88.0" layoutY="370.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#goToAddMenu" style="-fx-background-color: #00a6d6;" text="Add Menus" textFill="WHITE">
-      <cursor>
-         <Cursor fx:constant="HAND" />
-      </cursor>
-   </Button>
-   <Button layoutX="88.0" layoutY="415.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#goToEditMenu" style="-fx-background-color: #00a6d6;" text="Edit Menus" textFill="WHITE">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor>
@@ -59,7 +49,7 @@
          <Cursor fx:constant="HAND" />
       </cursor>
    </Button>
-   <Button layoutX="88.0" layoutY="507.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#goToEditRestaurantHours" style="-fx-background-color: #00a6d6;" text="Edit Restaurant Hours" textFill="WHITE">
+   <Button layoutX="318.0" layoutY="286.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#goToAddDish" style="-fx-background-color: #00a6d6;" text="Add Dishes" textFill="WHITE">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor>

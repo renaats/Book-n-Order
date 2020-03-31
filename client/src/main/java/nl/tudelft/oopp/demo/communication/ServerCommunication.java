@@ -376,7 +376,7 @@ public class ServerCommunication {
      */
     public static String addDish(String name, int menuId) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/dish/add?name=" + URLEncoder.encode(name, StandardCharsets.UTF_8) + "&menuId=" + menuId)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        return communicateAndReturnBodyOfResponse(request);
+        return communicateAndReturnErrorMessage(request);
     }
 
     /**
@@ -513,7 +513,7 @@ public class ServerCommunication {
      */
     public static String addMenu(String name, int restaurantId) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/menu/add?name=" + URLEncoder.encode(name, StandardCharsets.UTF_8) + "&restaurantId=" + restaurantId)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        return communicateAndReturnBodyOfResponse(request);
+        return communicateAndReturnErrorMessage(request);
     }
 
     /**
@@ -561,12 +561,51 @@ public class ServerCommunication {
         return communicateAndReturnBodyOfResponse(request);
     }
 
+
+    /**
+     * Adds a restaurant to the database.
+     * @param buildingId the ID of the building where the restaurant is located restaurant.
+     * @param name the name of the restaurant.
+     * @return the body of the response from the server.
+     */
+    public static String addRestaurant(int buildingId, String name) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant/add?buildingId=" + buildingId + "&name=" + URLEncoder.encode(name, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnErrorMessage(request);
+    }
+
     /**
      * Retrieves all restaurant hours from the server.
      * @return the body of the response from the server.
      */
     public static String getRestaurantHours() {
         HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/restaurant_hours/all")).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Retrieves all menus from the server.
+     * @return the body of the response from the server.
+     */
+    public static String getMenus() {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/menu/all")).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Retrieves all restaurants from the server.
+     * @return the body of the response from the server.
+     */
+    public static String getRestaurants() {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/restaurant/all")).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Retrieves all dishes from the server.
+     * @return the body of the response from the server.
+     */
+    public static String getDishes() {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/dish/all")).build();
         return communicateAndReturnBodyOfResponse(request);
     }
 
@@ -765,17 +804,6 @@ public class ServerCommunication {
     public static String getAllPreviousBikeReservations() {
         HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/bike_reservation/past")).build();
         return communicateAndReturnBodyOfResponse(request);
-    }
-
-    /**
-     * Adds a restaurant to the database.
-     * @param buildingId the ID of the building where the restaurant is located restaurant.
-     * @param name the name of the restaurant.
-     * @return the body of the response from the server.
-     */
-    public static String addRestaurant(int buildingId, String name) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant/add?buildingId=" + buildingId + "&name=" + URLEncoder.encode(name, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        return communicateAndReturnErrorMessage(request);
     }
 
     /**

@@ -2,6 +2,7 @@ package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
 
+import javafx.event.ActionEvent;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 public class DatabaseFoodMainMenuController {
@@ -31,5 +32,9 @@ public class DatabaseFoodMainMenuController {
 
     public void goToEditRestaurantHours() throws IOException {
         ApplicationDisplay.changeScene("/DatabaseEditRestaurantHours.fxml");
+    }
+
+    public void goToAddDish() throws IOException {
+        ApplicationDisplay.changeScene("/DatabaseAddDish.fxml");
     }
 }

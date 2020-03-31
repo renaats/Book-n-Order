@@ -7,6 +7,7 @@ import static nl.tudelft.oopp.demo.config.Constants.USER;
 import java.util.List;
 
 import nl.tudelft.oopp.demo.entities.Dish;
+import nl.tudelft.oopp.demo.entities.Menu;
 import nl.tudelft.oopp.demo.services.DishService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,5 +96,16 @@ public class DishController {
     @ResponseBody
     public List<Dish> search(@RequestParam String query) {
         return dishService.search(query);
+    }
+
+    /**
+     * Lists all dishes.
+     * @return all dishes
+     */
+    @Secured(USER)
+    @GetMapping(path = "/all")
+    @ResponseBody
+    public Iterable<Dish> getAllMenus() {
+        return dishService.all();
     }
 }
