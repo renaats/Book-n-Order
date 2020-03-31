@@ -11,6 +11,8 @@ import static nl.tudelft.oopp.demo.config.Constants.ROOM_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.USER_NOT_FOUND;
 import static nl.tudelft.oopp.demo.security.SecurityConstants.HEADER_STRING;
 
+import com.google.gson.ExclusionStrategy;
+import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -214,7 +216,22 @@ public class RoomReservationService {
                 roomReservations.add(roomReservation);
             }
         }
-        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+
+        GsonBuilder gsonBuilder = new GsonBuilder();
+
+        gsonBuilder.setExclusionStrategies(new ExclusionStrategy() {
+            @Override
+            public boolean shouldSkipField(FieldAttributes f) {
+                return f.getName().contains("appUser");
+            }
+
+            @Override
+            public boolean shouldSkipClass(Class<?> c) {
+                return c == AppUser.class;
+            }
+        });
+
+        Gson gson = gsonBuilder.create();
         return gson.toJson(roomReservations);
     }
 }

@@ -113,6 +113,7 @@ public class RoomReservationController {
      */
     @Secured(USER)
     @GetMapping(path = "/room/{roomId}")
+    @ResponseBody
     public String getReservationsForRoom(@PathVariable(value = "roomId") int id) {
         return roomReservationService.forRoom(id);
     }
