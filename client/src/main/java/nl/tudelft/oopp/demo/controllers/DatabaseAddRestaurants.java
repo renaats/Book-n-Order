@@ -32,13 +32,9 @@ public class DatabaseAddRestaurants implements Initializable {
     }
 
     private void loadDataIntoChoiceBoxes() {
-        try {
-            buildings.addAll(JsonMapper.buildingListMapper(ServerCommunication.getBuildings()));
-            for (Building building : buildings) {
-                buildingsChoiceBox.getItems().add(building.getName());
-            }
-        } catch (IOException e) {
-            CustomAlert.warningAlert("There are no buildings in the database");
+        buildings.addAll(JsonMapper.buildingListMapper(ServerCommunication.getBuildings()));
+        for (Building building : buildings) {
+            buildingsChoiceBox.getItems().add(building.getName());
         }
     }
 
