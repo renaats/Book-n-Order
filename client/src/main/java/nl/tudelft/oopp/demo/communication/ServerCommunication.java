@@ -242,7 +242,6 @@ public class ServerCommunication {
     /**
      * Communicates addRoom to the database
      * @param name room name
-     * @param faculty faculty name
      * @param buildingId building ID
      * @param studySpecific is it specific for a faculty
      * @param screen does the room have a screen
@@ -251,12 +250,12 @@ public class ServerCommunication {
      * @param plugs amount of available plugs
      * @return body response
      */
-    public static String addRoom(String name, String faculty,
+    public static String addRoom(String name,
                                  int buildingId, String studySpecific,
                                  boolean screen, boolean projector,
                                  int capacity, int plugs) {
         HttpRequest request;
-        request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room/add?name=" + URLEncoder.encode(name, StandardCharsets.UTF_8) + "&faculty=" + URLEncoder.encode(faculty, StandardCharsets.UTF_8) + "&studySpecific=" + URLEncoder.encode(studySpecific, StandardCharsets.UTF_8) + "&screen=" + screen + "&projector=" + projector + "&buildingId=" + buildingId + "&capacity=" + capacity + "&plugs=" + plugs)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room/add?name=" + URLEncoder.encode(name, StandardCharsets.UTF_8) + "&studySpecific=" + URLEncoder.encode(studySpecific, StandardCharsets.UTF_8) + "&screen=" + screen + "&projector=" + projector + "&buildingId=" + buildingId + "&capacity=" + capacity + "&plugs=" + plugs)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnErrorMessage(request);
     }
     

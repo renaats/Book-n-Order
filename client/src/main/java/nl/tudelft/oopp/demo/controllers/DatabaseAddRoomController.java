@@ -71,14 +71,13 @@ public class DatabaseAddRoomController {
      */
     public void databaseAddRoom() {
         String name = nameTextField.getText();
-        String faculty = facultyTextField.getText();
         int buildingId = Integer.parseInt(buildingIdTextField.getText());
         String studySpecific = studySpecificChoiceBox.getValue();
         boolean screen = Boolean.parseBoolean(screenToggle.getText());
         boolean projector = Boolean.parseBoolean(projectorToggle.getText());
         int capacity = Integer.parseInt(capacityTextField.getText());
         int plugs = Integer.parseInt(plugsTextField.getText());
-        String response = ServerCommunication.addRoom(name, faculty, buildingId, studySpecific, screen, projector, capacity, plugs);
+        String response = ServerCommunication.addRoom(name, buildingId, studySpecific, screen, projector, capacity, plugs);
         if (response.equals("Successfully added!")) {
             CustomAlert.informationAlert(response);
         } else {

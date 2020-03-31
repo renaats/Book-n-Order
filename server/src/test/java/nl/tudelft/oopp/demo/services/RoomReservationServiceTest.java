@@ -90,8 +90,7 @@ class RoomReservationServiceTest {
     public void setup() {
         room = new Room();
         room.setName("Ampere");
-        room.setFaculty("EEMCS");
-        room.setFacultySpecific(false);
+        room.setStudySpecific("CSE");
         room.setScreen(true);
         room.setProjector(true);
         room.setPlugs(250);
