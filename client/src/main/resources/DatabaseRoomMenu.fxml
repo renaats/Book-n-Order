@@ -26,12 +26,12 @@
    <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="258.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="576.0" AnchorPane.leftAnchor="258.0" AnchorPane.rightAnchor="902.0" AnchorPane.topAnchor="120.0">
       <Image url="@images/booknorderlogo.png" />
    </ImageView>
-   <ImageView fx:id="goToRoomMenuButton" fitHeight="26.0" fitWidth="41.0" layoutX="20.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="180.0">
+   <ImageView fitHeight="26.0" fitWidth="41.0" layoutX="20.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="180.0">
       <image>
          <Image url="@images/DatabasemenuRoomIcon.png" />
       </image>
       <cursor>
-         <Cursor fx:constant="HAND" />
+         <Cursor fx:constant="DEFAULT" />
       </cursor>
    </ImageView>
    <Text layoutX="65.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" AnchorPane.leftAnchor="65.0" AnchorPane.topAnchor="168.6552734375">

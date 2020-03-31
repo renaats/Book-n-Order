@@ -102,7 +102,6 @@ public class DatabaseAddRoomController implements Initializable {
         loadStudySpecificChoiceBox();
         loadStatusChoiceBox();
         retrieveAllBuildings();
-
         tableSelectMethod();
     }
 
@@ -114,6 +113,7 @@ public class DatabaseAddRoomController implements Initializable {
         String d = "Maintenance";
         statusList.addAll(a, b, c, d);
         statusChoiceBox.getItems().addAll(statusList);
+        statusChoiceBox.setValue(a);
     }
 
     private void loadStudySpecificChoiceBox() {
@@ -122,6 +122,7 @@ public class DatabaseAddRoomController implements Initializable {
         String b = "Computer Science and Engineering";
         studyList.addAll(a, b);
         studySpecificChoiceBox.getItems().addAll(studyList);
+        studySpecificChoiceBox.setValue(a);
     }
 
     /**
@@ -179,41 +180,64 @@ public class DatabaseAddRoomController implements Initializable {
         int buildingId = -1;
         int capacity = -1;
         int plugs = -1;
+        boolean buildingFound = false;
         try {
             buildingId = Integer.parseInt(buildingIdTextField.getText());
         } catch (NumberFormatException e) {
-            Building building = JsonMapper.buildingMapper(ServerCommunication.findBuildingByName(buildingIdTextField.getText()));
+            Building building = null;
+            if (!buildingIdTextField.getText().equals("")) {
+                building = JsonMapper.buildingMapper(ServerCommunication.findBuildingByName(buildingIdTextField.getText()));
+            } else {
+                CustomAlert.warningAlert("Building cannot be empty.");
+                return;
+            }
             if (building == null) {
                 CustomAlert.errorAlert("Building not found");
                 return;
             } else {
                 buildingId = building.getId();
+                buildingFound = true;
             }
         }
-        try {
-            capacity = Integer.parseInt(capacityTextField.getText());
-        } catch (NumberFormatException e) {
-            CustomAlert.warningAlert("Capacity requires an integer.");
-        }
-        try {
-            plugs = Integer.parseInt(plugsTextField.getText());
-        } catch (NumberFormatException e) {
-            CustomAlert.warningAlert("Plugs requires an integer.");
-        }
-        String status = statusChoiceBox.getValue();
+
         String name = null;
         if (nameTextField.getText().equals("")) {
-            CustomAlert.errorAlert("Name cannot be empty.");
+            CustomAlert.warningAlert("Name cannot be empty.");
+            return;
         } else {
             name = nameTextField.getText();
         }
+
+        try {
+            capacity = Integer.parseInt(capacityTextField.getText());
+            if (capacity == -1) {
+                CustomAlert.warningAlert("Capacity cannot be empty.");
+                return;
+            }
+        } catch (NumberFormatException e) {
+            CustomAlert.warningAlert("Capacity requires an integer.");
+            return;
+        }
+
+        try {
+            plugs = Integer.parseInt(plugsTextField.getText());
+            if (plugs == -1) {
+                CustomAlert.warningAlert("Plugs cannot be empty.");
+                return;
+            }
+        } catch (NumberFormatException e) {
+            CustomAlert.warningAlert("Plugs requires an integer.");
+            return;
+        }
+
+        String status = statusChoiceBox.getValue();
         String studySpecific = studySpecificChoiceBox.getValue();
         boolean screen = Boolean.parseBoolean(screenToggle.getText());
         boolean projector = Boolean.parseBoolean(projectorToggle.getText());
         String response = ServerCommunication.addRoom(name, buildingId, studySpecific, screen, projector, capacity, plugs, status);
-        if (response.equals("Successfully added!")) {
+        if (response.equals("Successfully added!") && buildingFound) {
             CustomAlert.informationAlert(response);
-        } else {
+        } else if (buildingFound) {
             CustomAlert.errorAlert(response);
         }
     }
