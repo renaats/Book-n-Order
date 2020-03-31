@@ -69,7 +69,7 @@ public class BikeDatabaseAddController implements Initializable {
      * @throws IOException should never throw an exception as the input is always the same.
      */
     public void goToBikeMenu() throws IOException {
-        ApplicationDisplay.changeScene("/BikeDatabaseMenu.fxml");
+        ApplicationDisplay.changeScene("/DatabaseMainMenu.fxml");
     }
 
     /**

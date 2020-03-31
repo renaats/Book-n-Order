@@ -24,6 +24,6 @@ public class DatabaseMainMenuController {
     }
 
     public void goToBikeMenu() throws IOException {
-        ApplicationDisplay.changeScene("/BikeDatabaseMenu.fxml");
+        ApplicationDisplay.changeScene("/BikeDatabaseAdd.fxml");
     }
 }
