@@ -5,6 +5,7 @@ import static nl.tudelft.oopp.demo.config.Constants.BUILDING_ADMIN;
 import static nl.tudelft.oopp.demo.config.Constants.USER;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.websocket.server.PathParam;
 
 import nl.tudelft.oopp.demo.entities.RoomReservation;
 import nl.tudelft.oopp.demo.services.RoomReservationService;
@@ -12,13 +13,7 @@ import nl.tudelft.oopp.demo.services.RoomReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Creates server side endpoints and routes requests to the RoomReservationService.
@@ -113,12 +108,12 @@ public class RoomReservationController {
 
     /**
      * Finds all room reservations for the specified room
-     * @param roomId = the room id.
+     * @param id = the room id.
      * @return a list of future room reservations for this user.
      */
     @Secured(USER)
-    @GetMapping(path = "/room")
-    public String getReservationsForRoom(@RequestParam int roomId) {
-        return roomReservationService.forRoom(roomId);
+    @GetMapping(path = "/room/{roomId}")
+    public String getReservationsForRoom(@PathVariable(value = "roomId") int id) {
+        return roomReservationService.forRoom(id);
     }
 }
