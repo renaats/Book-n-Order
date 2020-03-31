@@ -41,6 +41,7 @@ public class Room {
     private Boolean screen;
     private int capacity;
     private int plugs;
+    private String status = "Open";
 
     /**
      * Creates a new instance of Room.
@@ -53,7 +54,8 @@ public class Room {
      * @param capacity = number of people who can sit in the room.
      * @param plugs = number of plugs in the room.
      */
-    public Room(String name, Building building, String faculty, boolean facultySpecific, boolean projector, boolean screen, int capacity, int plugs) {
+    public Room(String name, Building building, String faculty, boolean facultySpecific,
+                boolean projector, boolean screen, int capacity, int plugs, String status) {
         this.name = name;
         this.building = building;
         this.faculty = faculty;
@@ -62,6 +64,7 @@ public class Room {
         this.screen = screen;
         this.capacity = capacity;
         this.plugs = plugs;
+        this.status = status;
     }
 
     public Room() {
@@ -104,6 +107,10 @@ public class Room {
         this.plugs = plugs;
     }
 
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public void setRoomReservations(Set<RoomReservation> roomReservations) {
         this.roomReservations = roomReservations;
     }
@@ -142,6 +149,10 @@ public class Room {
 
     public int getPlugs() {
         return plugs;
+    }
+
+    public String getStatus() {
+        return status;
     }
 
     public Set<RoomReservation> getRoomReservations() {
@@ -196,6 +207,7 @@ public class Room {
                 && Objects.equals(name, room.name)
                 && Objects.equals(building, room.building)
                 && Objects.equals(faculty, room.faculty)
+                && Objects.equals(status, room.status)
                 && Objects.equals(roomReservations, room.roomReservations);
     }
 }

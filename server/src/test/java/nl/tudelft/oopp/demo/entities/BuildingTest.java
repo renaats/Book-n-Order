@@ -42,7 +42,7 @@ public class BuildingTest {
         building = new Building("EWI", "Mekelweg", "EWI", 4);
         buildingRepository.save(building);
 
-        room = new Room("Ampere", building, "EWI", false, true, true, 300, 250);
+        room = new Room("Ampere", building, "EWI", false, true, true, 300, 250, "Open");
         roomRepository.save(room);
 
         rooms = new HashSet<>();

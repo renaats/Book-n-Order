@@ -47,6 +47,7 @@ public class RoomController {
      * @param projector = boolean representing the availability of a projector.
      * @param capacity = the number of people this room fits.
      * @param plugs = the number of plugs in this room.
+     * @param status = the status of the room.
      * @return Error code
      */
     @Secured({ADMIN, BUILDING_ADMIN})
@@ -60,9 +61,10 @@ public class RoomController {
             @RequestParam boolean projector,
             @RequestParam int buildingId,
             @RequestParam int capacity,
-            @RequestParam int plugs) {
+            @RequestParam int plugs,
+            @RequestParam String status) {
         return roomService.add(name, URLDecoder.decode(faculty, StandardCharsets.UTF_8), facultySpecific, screen,
-                projector, buildingId, capacity, plugs);
+                projector, buildingId, capacity, plugs, status);
     }
 
     /**

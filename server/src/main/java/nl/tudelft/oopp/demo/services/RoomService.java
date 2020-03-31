@@ -46,6 +46,7 @@ public class RoomService {
      * @param buildingId = the id of the building of the room
      * @param capacity = the number of people this room fits
      * @param plugs = the number of plugs in this room
+     * @param status = the status of the room.
      * @return Error code
      */
     public int add(String name,
@@ -55,7 +56,8 @@ public class RoomService {
                    boolean projector,
                    int buildingId,
                    int capacity,
-                   int plugs) {
+                   int plugs,
+                   String status) {
         Optional<Building> optionalBuilding = buildingRepository.findById(buildingId);
         if (optionalBuilding.isEmpty()) {
             return BUILDING_NOT_FOUND;
@@ -74,6 +76,7 @@ public class RoomService {
         room.setProjector(projector);
         room.setCapacity(capacity);
         room.setPlugs(plugs);
+        room.setStatus(status);
         roomRepository.save(room);
         return ADDED;
     }
@@ -121,6 +124,9 @@ public class RoomService {
                 break;
             case "plugs":
                 room.setPlugs(Integer.parseInt(value));
+                break;
+            case "status":
+                room.setStatus(value);
                 break;
             default:
                 return ATTRIBUTE_NOT_FOUND;
