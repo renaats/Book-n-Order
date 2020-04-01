@@ -114,6 +114,9 @@ public class MenuServiceTest {
         assertNotNull(menuService);
     }
 
+    /**
+     * Tests the creation of a valid instance of Menu.
+     */
     @Test
     @WithMockUser(username = "restaurant@tudelft.nl", roles = {"USER", "STAFF", "RESTAURANT"})
     public void testCreate() {
