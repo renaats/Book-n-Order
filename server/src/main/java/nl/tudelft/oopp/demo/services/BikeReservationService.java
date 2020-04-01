@@ -188,7 +188,7 @@ public class BikeReservationService {
 
     /**
      * Finds a bike reservation with the specified id.
-     * @param id = the bike reservation id
+     * @param id = the bike reservation id.
      * @return a bike reservation that matches the id.
      */
     public BikeReservation find(int id) {
@@ -197,7 +197,7 @@ public class BikeReservationService {
 
     /**
      * Finds all past bike reservations for the user that sends the Http request.
-     * @param request = the Http request that calls this method
+     * @param request = the Http request that calls this method.
      * @return a list of past bike reservations for this user.
      */
     public List<BikeReservation> past(HttpServletRequest request) {
@@ -217,7 +217,7 @@ public class BikeReservationService {
 
     /**
      * Finds all future bike reservations for the user that sends the Http request.
-     * @param request = the Http request that calls this method
+     * @param request = the Http request that calls this method.
      * @return a list of future bike reservations for this user.
      */
     public List<BikeReservation> future(HttpServletRequest request) {
@@ -237,7 +237,7 @@ public class BikeReservationService {
 
     /**
      * Finds all active bike reservations for the user that sends the Http request.
-     * @param request = the Http request that calls this method
+     * @param request = the Http request that calls this method.
      * @return a list of active bike reservations for this user.
      */
     public List<BikeReservation> active(HttpServletRequest request) {

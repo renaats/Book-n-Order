@@ -94,7 +94,7 @@ public class BikeReservationController {
 
     /**
      * Finds all past bike reservations for the user that sends the Http request.
-     * @param request = the Http request that calls this method
+     * @param request = the Http request that calls this method.
      * @return a list of past bike reservations for this user.
      */
     @Secured(USER)
@@ -105,7 +105,7 @@ public class BikeReservationController {
 
     /**
      * Finds all future bike reservations for the user that sends the Http request.
-     * @param request = the Http request that calls this method
+     * @param request = the Http request that calls this method.
      * @return a list of future bike reservations for this user.
      */
     @Secured(USER)
@@ -116,7 +116,7 @@ public class BikeReservationController {
 
     /**
      * Finds all active bike reservations for the user that sends the Http request.
-     * @param request = the Http request that calls this method
+     * @param request = the Http request that calls this method.
      * @return a list of active bike reservations for this user.
      */
     @Secured(USER)
