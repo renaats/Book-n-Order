@@ -17,6 +17,7 @@ import com.github.tomakehurst.wiremock.http.Fault;
 
 import nl.tudelft.oopp.demo.errors.ErrorMessages;
 
+import org.eclipse.jetty.server.Server;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -56,6 +57,7 @@ public class ServerCommunicationTest {
         stubFor(get(urlEqualTo("/room_reservation/all")).willReturn(aResponse().withStatus(200).withBody("RoomReservations")));
         stubFor(post(urlEqualTo("/room_reservation/update?id=1&attribute=a&value=b")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(delete(urlEqualTo("/room_reservation/delete?id=1")).willReturn(aResponse().withStatus(200).withBody("200")));
+        stubFor(get(urlEqualTo("/room_reservation/room/2")).willReturn(aResponse().withStatus(200).withBody("Message6")));
         stubFor(get(urlEqualTo("/user/info")).willReturn(aResponse().withStatus(200).withBody("Information")));
         stubFor(post(urlEqualTo("/login")).willReturn(aResponse().withStatus(200).withBody("token")));
         stubFor(post(urlEqualTo("/dish/add?name=test&menuId=1")).willReturn(aResponse().withStatus(200).withBody("200")));
@@ -81,6 +83,14 @@ public class ServerCommunicationTest {
         stubFor(get(urlEqualTo("/bike_reservation/all")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(get(urlEqualTo("/bike_reservation/future")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(get(urlEqualTo("/bike_reservation/past")).willReturn(aResponse().withStatus(200).withBody("200")));
+    }
+
+    /**
+     * Test for getting all reservations for a specific room from server
+     */
+    @Test
+    public void testSuccessfulGetAllReservationsForRoom() {
+        assertEquals("Message6", ServerCommunication.getRoomReservationsForRoom(2));
     }
 
     /**

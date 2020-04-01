@@ -776,8 +776,8 @@ public class ServerCommunication {
         return communicateAndReturnBodyOfResponse(request);
     }
 
-    public static String getRoomReservationsForRoom() {
-        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/room_reservation/room")).build();
+    public static String getRoomReservationsForRoom(int roomId) {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/room_reservation/room/" + roomId)).build();
         return communicateAndReturnBodyOfResponse(request);
     }
 }
