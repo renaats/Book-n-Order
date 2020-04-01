@@ -385,7 +385,7 @@ class RoomReservationServiceTest {
     public void testGetReservationsForRoomWithReservation() {
         roomReservationService.add(room2.getId(), appUser2.getEmail(), 1500, 5000);
         int id = roomReservationService.all().get(0).getId();
-        RoomReservation r = roomReservationService.find(id);
+        RoomReservation reservation = roomReservationService.find(id);
 
         GsonBuilder gsonBuilder = new GsonBuilder();
 
@@ -402,7 +402,7 @@ class RoomReservationServiceTest {
         });
 
         Gson gson = gsonBuilder.create();
-        String test = gson.toJson(r);
+        String test = gson.toJson(reservation);
         assertEquals("[" + test + "]", roomReservationService.forRoom(room2.getId()));
     }
 
