@@ -21,8 +21,4 @@ public class DatabaseMainMenuController {
     public void mainMenu() throws IOException {
         ApplicationDisplay.changeScene("/mainMenu.fxml");
     }
-
-    public void goToFood() throws IOException {
-        ApplicationDisplay.changeScene("/DatabaseFoodMainMenu.fxml");
-    }
 }
