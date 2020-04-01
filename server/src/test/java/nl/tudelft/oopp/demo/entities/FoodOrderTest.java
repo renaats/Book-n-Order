@@ -3,6 +3,7 @@ package nl.tudelft.oopp.demo.entities;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -125,6 +126,15 @@ public class FoodOrderTest {
     public void testGetDeliveryTime() {
         foodOrder2 = foodOrderRepository.findAll().get(0);
         assertEquals(foodOrder.getDeliveryTime(), foodOrder2.getDeliveryTime());
+    }
+
+    /**
+     * Tests the getter for the active field.
+     */
+    @Test
+    public void testGetActive() {
+        foodOrder2 = foodOrderRepository.findAll().get(0);
+        assertTrue(foodOrder2.isActive());
     }
 
     /**

@@ -9,14 +9,17 @@ import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
 import static nl.tudelft.oopp.demo.config.Constants.ID_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.RESERVATION_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.WRONG_USER;
 import static nl.tudelft.oopp.demo.security.SecurityConstants.EXPIRATION_TIME;
 import static nl.tudelft.oopp.demo.security.SecurityConstants.HEADER_STRING;
 import static nl.tudelft.oopp.demo.security.SecurityConstants.SECRET;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.auth0.jwt.JWT;
 
@@ -84,6 +87,9 @@ public class BikeReservationServiceTest {
     BikeReservation bikeReservation;
     BikeReservation bikeReservation2;
 
+    MockHttpServletRequest request;
+    MockHttpServletRequest request2;
+
     /**
      * Sets up the entities and saves them via a service before executing every test.
      */
@@ -127,6 +133,20 @@ public class BikeReservationServiceTest {
         bikeReservation = new BikeReservation(bike, appUser, fromBuilding, toBuilding, fromTime, toTime);
 
         bikeReservation2 = new BikeReservation(bike2, appUser2, fromBuilding, toBuilding2, fromTime2, toTime2);
+
+        request = new MockHttpServletRequest();
+        String token = JWT.create()
+                .withSubject(appUser.getEmail())
+                .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                .sign(HMAC512(SECRET.getBytes()));
+        request.addHeader(HEADER_STRING, token);
+
+        request2 = new MockHttpServletRequest();
+        token = JWT.create()
+                .withSubject(appUser2.getEmail())
+                .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                .sign(HMAC512(SECRET.getBytes()));
+        request2.addHeader(HEADER_STRING, token);
     }
 
     /**
@@ -142,8 +162,8 @@ public class BikeReservationServiceTest {
      */
     @Test
     public void testInvalidBike() {
-        assertEquals(ID_NOT_FOUND, bikeReservationService.add(
-                    0, appUser.getEmail(), fromBuilding.getId(), toBuilding.getId(), fromTimeMilliseconds, toTimeMilliseconds));
+        assertEquals(ID_NOT_FOUND,
+                bikeReservationService.add(request, 0, fromBuilding.getId(), toBuilding.getId(), fromTimeMilliseconds, toTimeMilliseconds));
     }
 
     /**
@@ -152,7 +172,7 @@ public class BikeReservationServiceTest {
     @Test
     public void testInvalidAppUser() {
         assertEquals(NOT_FOUND, bikeReservationService.add(
-                        bike.getId(), "aa", fromBuilding.getId(), toBuilding.getId(), fromTimeMilliseconds, toTimeMilliseconds));
+                new MockHttpServletRequest(), bike.getId(), fromBuilding.getId(), toBuilding.getId(), fromTimeMilliseconds, toTimeMilliseconds));
     }
 
     /**
@@ -160,8 +180,8 @@ public class BikeReservationServiceTest {
      */
     @Test
     public void testInvalidFromBuilding() {
-        assertEquals(BUILDING_NOT_FOUND, bikeReservationService.add(
-                        bike.getId(), appUser.getEmail(), 0, toBuilding.getId(), fromTimeMilliseconds, toTimeMilliseconds));
+        assertEquals(BUILDING_NOT_FOUND,
+                bikeReservationService.add(request, bike.getId(), 0, toBuilding.getId(), fromTimeMilliseconds, toTimeMilliseconds));
     }
 
     /**
@@ -169,8 +189,8 @@ public class BikeReservationServiceTest {
      */
     @Test
     public void testInvalidToBuilding() {
-        assertEquals(BUILDING_NOT_FOUND, bikeReservationService.add(
-                bike.getId(), appUser.getEmail(), fromBuilding.getId(), 0, fromTimeMilliseconds, toTimeMilliseconds));
+        assertEquals(BUILDING_NOT_FOUND,
+                bikeReservationService.add(request, bike.getId(), fromBuilding.getId(), 0, fromTimeMilliseconds, toTimeMilliseconds));
     }
 
     /**
@@ -178,8 +198,8 @@ public class BikeReservationServiceTest {
      */
     @Test
     public void testAdd() {
-        assertEquals(ADDED, bikeReservationService.add(
-                bike.getId(), appUser.getEmail(), fromBuilding.getId(), toBuilding.getId(), fromTimeMilliseconds, toTimeMilliseconds));
+        assertEquals(ADDED,
+              bikeReservationService.add(request, bike.getId(), fromBuilding.getId(), toBuilding.getId(), fromTimeMilliseconds, toTimeMilliseconds));
         assertEquals(Collections.singletonList(bikeReservation), bikeReservationService.all());
     }
 
@@ -196,8 +216,7 @@ public class BikeReservationServiceTest {
      */
     @Test
     public void testFindExisting() {
-        bikeReservationService.add(
-                bike.getId(), appUser.getEmail(), fromBuilding.getId(), toBuilding.getId(), fromTimeMilliseconds, toTimeMilliseconds);
+        bikeReservationService.add(request, bike.getId(), fromBuilding.getId(), toBuilding.getId(), fromTimeMilliseconds, toTimeMilliseconds);
         int id = bikeReservationService.all().get(0).getId();
         assertNotNull(bikeReservationService.find(id));
     }
@@ -215,8 +234,7 @@ public class BikeReservationServiceTest {
      */
     @Test
     public void testUpdateNonExistingAttribute() {
-        bikeReservationService.add(
-                bike.getId(), appUser.getEmail(), fromBuilding.getId(), toBuilding.getId(), fromTimeMilliseconds, toTimeMilliseconds);
+        bikeReservationService.add(request, bike.getId(), fromBuilding.getId(), toBuilding.getId(), fromTimeMilliseconds, toTimeMilliseconds);
         int id = bikeReservationService.all().get(0).getId();
         assertEquals(ATTRIBUTE_NOT_FOUND, bikeReservationService.update(id, "a", "a"));
     }
@@ -226,8 +244,7 @@ public class BikeReservationServiceTest {
      */
     @Test
     public void testChangeBike() {
-        bikeReservationService.add(
-                bike.getId(), appUser.getEmail(), fromBuilding.getId(), toBuilding.getId(), fromTimeMilliseconds, toTimeMilliseconds);
+        bikeReservationService.add(request, bike.getId(), fromBuilding.getId(), toBuilding.getId(), fromTimeMilliseconds, toTimeMilliseconds);
         int id = bikeReservationService.all().get(0).getId();
         assertNotEquals(bike2, bikeReservationService.find(id).getBike());
         bikeReservationService.update(id, "bike", ((Integer) bike2.getId()).toString());
@@ -239,8 +256,7 @@ public class BikeReservationServiceTest {
      */
     @Test
     public void testChangeUser() {
-        bikeReservationService.add(
-                bike.getId(), appUser.getEmail(), fromBuilding.getId(), toBuilding.getId(), fromTimeMilliseconds, toTimeMilliseconds);
+        bikeReservationService.add(request, bike.getId(), fromBuilding.getId(), toBuilding.getId(), fromTimeMilliseconds, toTimeMilliseconds);
         int id = bikeReservationService.all().get(0).getId();
         assertNotEquals(appUser2, bikeReservationService.find(id).getAppUser());
         bikeReservationService.update(id, "useremail", appUser2.getEmail());
@@ -252,8 +268,7 @@ public class BikeReservationServiceTest {
      */
     @Test
     public void testChangeFromBuilding() {
-        bikeReservationService.add(
-                bike.getId(), appUser.getEmail(), fromBuilding.getId(), toBuilding.getId(), fromTimeMilliseconds, toTimeMilliseconds);
+        bikeReservationService.add(request, bike.getId(), fromBuilding.getId(), toBuilding.getId(), fromTimeMilliseconds, toTimeMilliseconds);
         int id = bikeReservationService.all().get(0).getId();
         assertNotEquals(toBuilding, bikeReservationService.find(id).getFromBuilding());
         bikeReservationService.update(id, "frombuilding", toBuilding.getId().toString());
@@ -265,8 +280,7 @@ public class BikeReservationServiceTest {
      */
     @Test
     public void testChangeToBuilding() {
-        bikeReservationService.add(
-                bike.getId(), appUser.getEmail(), fromBuilding.getId(), toBuilding.getId(), fromTimeMilliseconds, toTimeMilliseconds);
+        bikeReservationService.add(request, bike.getId(), fromBuilding.getId(), toBuilding.getId(), fromTimeMilliseconds, toTimeMilliseconds);
         int id = bikeReservationService.all().get(0).getId();
         assertNotEquals(toBuilding2, bikeReservationService.find(id).getToBuilding());
         bikeReservationService.update(id, "tobuilding", toBuilding2.getId().toString());
@@ -278,8 +292,7 @@ public class BikeReservationServiceTest {
      */
     @Test
     public void testChangeFromTime() {
-        bikeReservationService.add(
-                bike.getId(), appUser.getEmail(), fromBuilding.getId(), toBuilding.getId(), fromTimeMilliseconds, toTimeMilliseconds);
+        bikeReservationService.add(request, bike.getId(), fromBuilding.getId(), toBuilding.getId(), fromTimeMilliseconds, toTimeMilliseconds);
         int id = bikeReservationService.all().get(0).getId();
         assertNotEquals(toTime, bikeReservationService.find(id).getFromTime());
         bikeReservationService.update(id, "fromtime", ((Long) toTime.getTime()).toString());
@@ -291,8 +304,7 @@ public class BikeReservationServiceTest {
      */
     @Test
     public void testChangeToTime() {
-        bikeReservationService.add(
-                bike.getId(), appUser.getEmail(), fromBuilding.getId(), toBuilding.getId(), fromTimeMilliseconds, toTimeMilliseconds);
+        bikeReservationService.add(request, bike.getId(), fromBuilding.getId(), toBuilding.getId(), fromTimeMilliseconds, toTimeMilliseconds);
         int id = bikeReservationService.all().get(0).getId();
         assertNotEquals(fromTime, bikeReservationService.find(id).getToTime());
         bikeReservationService.update(id, "totime", ((Long) fromTime.getTime()).toString());
@@ -300,14 +312,24 @@ public class BikeReservationServiceTest {
     }
 
     /**
+     * Tests the change of the active by using the service.
+     */
+    @Test
+    public void testChangeActive() {
+        bikeReservationService.add(request, bike.getId(), fromBuilding.getId(), toBuilding.getId(), fromTimeMilliseconds, toTimeMilliseconds);
+        int id = bikeReservationService.all().get(0).getId();
+        assertTrue(bikeReservationService.find(id).isActive());
+        bikeReservationService.update(id, "active", "false");
+        assertFalse(bikeReservationService.find(id).isActive());
+    }
+
+    /**
      * Tests the retrieval of multiple instances.
      */
     @Test
     public void testMultipleInstances() {
-        bikeReservationService.add(
-                bike.getId(), appUser.getEmail(), fromBuilding.getId(), toBuilding.getId(), fromTimeMilliseconds, toTimeMilliseconds);
-        bikeReservationService.add(
-                bike2.getId(), appUser2.getEmail(), fromBuilding.getId(), toBuilding2.getId(), fromTimeMilliseconds2, toTimeMilliseconds2);
+        bikeReservationService.add(request, bike.getId(), fromBuilding.getId(), toBuilding.getId(), fromTimeMilliseconds, toTimeMilliseconds);
+        bikeReservationService.add(request2, bike2.getId(), fromBuilding.getId(), toBuilding2.getId(), fromTimeMilliseconds2, toTimeMilliseconds2);
         assertEquals(2, bikeReservationService.all().size());
         ArrayList<BikeReservation> bikeReservations = new ArrayList<>();
         bikeReservations.add(bikeReservation);
@@ -320,8 +342,7 @@ public class BikeReservationServiceTest {
      */
     @Test
     public void testDelete() {
-        bikeReservationService.add(
-                bike.getId(), appUser.getEmail(), fromBuilding.getId(), toBuilding.getId(), fromTimeMilliseconds, toTimeMilliseconds);
+        bikeReservationService.add(request, bike.getId(), fromBuilding.getId(), toBuilding.getId(), fromTimeMilliseconds, toTimeMilliseconds);
         int id = bikeReservationService.all().get(0).getId();
         assertEquals(EXECUTED, bikeReservationService.delete(id));
         assertEquals(0, bikeReservationService.all().size());
@@ -340,14 +361,7 @@ public class BikeReservationServiceTest {
      */
     @Test
     public void testGetPastBikeReservations() {
-        bikeReservationService.add(
-                bike.getId(), appUser.getEmail(), fromBuilding.getId(), toBuilding.getId(), fromTimeMilliseconds, toTimeMilliseconds);
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        String token = JWT.create()
-                .withSubject(appUser.getEmail())
-                .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-                .sign(HMAC512(SECRET.getBytes()));
-        request.addHeader(HEADER_STRING, token);
+        bikeReservationService.add(request, bike.getId(), fromBuilding.getId(), toBuilding.getId(), fromTimeMilliseconds, toTimeMilliseconds);
         assertEquals(Collections.singletonList(bikeReservation), bikeReservationService.past(request));
     }
 
@@ -356,8 +370,7 @@ public class BikeReservationServiceTest {
      */
     @Test
     public void testGetNonExistentPastBikeReservations() {
-        bikeReservationService.add(
-                bike.getId(), appUser.getEmail(), fromBuilding.getId(), toBuilding.getId(), fromTimeMilliseconds, toTimeMilliseconds);
+        bikeReservationService.add(request, bike.getId(), fromBuilding.getId(), toBuilding.getId(), fromTimeMilliseconds, toTimeMilliseconds);
         MockHttpServletRequest request = new MockHttpServletRequest();
         assertEquals(new ArrayList<>(), bikeReservationService.past(request));
     }
@@ -367,15 +380,8 @@ public class BikeReservationServiceTest {
      */
     @Test
     public void testGetFutureBikeReservations() {
-        bikeReservationService.add(
-                bike2.getId(), appUser2.getEmail(), fromBuilding.getId(), toBuilding2.getId(), fromTimeMilliseconds2, toTimeMilliseconds2);
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        String token = JWT.create()
-                .withSubject(appUser2.getEmail())
-                .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-                .sign(HMAC512(SECRET.getBytes()));
-        request.addHeader(HEADER_STRING, token);
-        assertEquals(Collections.singletonList(bikeReservation2), bikeReservationService.future(request));
+        bikeReservationService.add(request2, bike2.getId(), fromBuilding.getId(), toBuilding2.getId(), fromTimeMilliseconds2, toTimeMilliseconds2);
+        assertEquals(Collections.singletonList(bikeReservation2), bikeReservationService.future(request2));
     }
 
     /**
@@ -383,9 +389,58 @@ public class BikeReservationServiceTest {
      */
     @Test
     public void testGetNonExistentFutureBikeReservations() {
-        bikeReservationService.add(
-                bike2.getId(), appUser2.getEmail(), fromBuilding.getId(), toBuilding2.getId(), fromTimeMilliseconds2, toTimeMilliseconds2);
+        bikeReservationService.add(request, bike.getId(), fromBuilding.getId(), toBuilding.getId(), fromTimeMilliseconds, toTimeMilliseconds);
         MockHttpServletRequest request = new MockHttpServletRequest();
         assertEquals(new ArrayList<>(), bikeReservationService.future(request));
+    }
+
+    /**
+     * Tests the retrieval of active bike reservations for the user that sends the request.
+     */
+    @Test
+    public void testActiveBikeReservations() {
+        bikeReservationService.add(request, bike.getId(), fromBuilding.getId(), toBuilding.getId(), fromTimeMilliseconds, toTimeMilliseconds);
+        assertEquals(Collections.singletonList(bikeReservation), bikeReservationService.active(request));
+    }
+
+    /**
+     * Tests the retrieval of active bike reservations for a non-existent user.
+     */
+    @Test
+    public void testGetNonExistentActiveBikeReservations() {
+        bikeReservationService.add(request, bike.getId(), fromBuilding.getId(), toBuilding.getId(), fromTimeMilliseconds, toTimeMilliseconds);
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        assertEquals(new ArrayList<>(), bikeReservationService.active(request));
+    }
+
+    /**
+     * Tests the cancellation of bike reservations for the user that sends the request.
+     */
+    @Test
+    public void testCancelBikeReservations() {
+        bikeReservationService.add(request, bike.getId(), fromBuilding.getId(), toBuilding.getId(), fromTimeMilliseconds, toTimeMilliseconds);
+        assertNotEquals(new ArrayList<>(), bikeReservationService.active(request));
+        bikeReservationService.cancel(request, bikeReservationService.all().get(0).getId());
+        assertEquals(new ArrayList<>(), bikeReservationService.active(request));
+    }
+
+    /**
+     * Tests the cancellation of bike reservations for a non-existent room reservation.
+     */
+    @Test
+    public void testCancelNonExistentBikeReservations() {
+        bikeReservationService.add(request, bike.getId(), fromBuilding.getId(), toBuilding.getId(), fromTimeMilliseconds, toTimeMilliseconds);
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        assertEquals(RESERVATION_NOT_FOUND, bikeReservationService.cancel(request, 0));
+    }
+
+    /**
+     * Tests the cancellation of bike reservations for a non-existent user.
+     */
+    @Test
+    public void testCancelNonExistentUserBikeReservations() {
+        bikeReservationService.add(request, bike.getId(), fromBuilding.getId(), toBuilding.getId(), fromTimeMilliseconds, toTimeMilliseconds);
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        assertEquals(WRONG_USER, bikeReservationService.cancel(request, bikeReservationService.all().get(0).getId()));
     }
 }

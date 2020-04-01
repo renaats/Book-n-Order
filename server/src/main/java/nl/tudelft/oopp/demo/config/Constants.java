@@ -22,10 +22,12 @@ public class Constants {
     public static final int UNAUTHORIZED = 401;
     public static final int NOT_FOUND = 404;
     public static final int ATTRIBUTE_NOT_FOUND = 412;
+    public static final int ORDER_NOT_FOUND = 415;
     public static final int ID_NOT_FOUND = 416;
     public static final int HAS_ROOMS = 417;
     public static final int ROOM_NOT_FOUND = 418;
     public static final int USER_NOT_FOUND = 419;
+    public static final int WRONG_USER = 420;
     public static final int RESERVATION_NOT_FOUND = 421;
     public static final int BUILDING_NOT_FOUND = 422;
     public static final int INVALID_EMAIL = 423;

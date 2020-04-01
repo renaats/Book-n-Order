@@ -5,6 +5,7 @@ import static org.hamcrest.Matchers.in;
 import static org.hamcrest.Matchers.not;
 
 import java.util.List;
+
 import javax.transaction.Transactional;
 
 import nl.tudelft.oopp.demo.entities.Building;
@@ -42,8 +43,7 @@ public class RoomsJpaSpecificationsTest {
 
         roomAlpha = new Room();
         roomAlpha.setBuilding(building);
-        roomAlpha.setFaculty("EWI");
-        roomAlpha.setFacultySpecific(true);
+        roomAlpha.setStudySpecific("CSE");
         roomAlpha.setName("Auditorium");
         roomAlpha.setCapacity(500);
         roomAlpha.setPlugs(0);
@@ -53,8 +53,7 @@ public class RoomsJpaSpecificationsTest {
 
         roomBeta = new Room();
         roomBeta.setBuilding(building);
-        roomBeta.setFaculty("EWI");
-        roomBeta.setFacultySpecific(true);
+        roomBeta.setStudySpecific("CSE");
         roomBeta.setName("CZ A");
         roomBeta.setCapacity(250);
         roomBeta.setPlugs(125);
@@ -86,12 +85,12 @@ public class RoomsJpaSpecificationsTest {
     }
 
     /**
-     * Tests querying on the faculty and capacity of a room.
+     * Tests querying on the studySpecific and capacity of a room.
      */
     @Test
-    public void facultyAndCapacity() {
+    public void studySpecificAndCapacity() {
         RoomSpecification spec1 = new RoomSpecification(new SearchCriteria("capacity", ">", 250));
-        RoomSpecification spec2 = new RoomSpecification(new SearchCriteria("faculty", ":", "EWI"));
+        RoomSpecification spec2 = new RoomSpecification(new SearchCriteria("studySpecific", ":", "CSE"));
         List<Room> results = roomRepository.findAll(spec1.and(spec2));
         assertThat(roomAlpha, in(results));
         assertThat(roomBeta, in(results));

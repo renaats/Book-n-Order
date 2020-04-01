@@ -9,6 +9,7 @@ import java.util.Set;
  */
 public class FoodOrder {
     private Integer id;
+    private Boolean active;
     private Restaurant restaurant;
     private Menu menu;
     private AppUser appUser;
@@ -28,10 +29,15 @@ public class FoodOrder {
         this.deliveryLocation = deliveryLocation;
         this.deliveryTime = deliveryTime;
         this.menu = menu;
+        this.active = true;
     }
 
     public FoodOrder() {
+        this.active = true;
+    }
 
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 
     public void setRestaurant(Restaurant restaurant) {
@@ -60,6 +66,10 @@ public class FoodOrder {
 
     public Integer getId() {
         return id;
+    }
+
+    public Boolean getActive() {
+        return active;
     }
 
     public Restaurant getRestaurant() {

@@ -37,20 +37,18 @@ public class RoomService {
     private BuildingRepository buildingRepository;
 
     /**
-     * Adds a room.
-     * @param name = the name of the room
-     * @param faculty = the name of the faculty
-     * @param facultySpecific = boolean representing room restrictions
-     * @param screen = boolean representing the availability of a screen
-     * @param projector = boolean representing the availability of a projector
-     * @param buildingId = the id of the building of the room
-     * @param capacity = the number of people this room fits
-     * @param plugs = the number of plugs in this room
+     * Adds a room to the database.
+     * @param name = the name of the new room.
+     * @param studySpecific = the study that this room is restricted to.
+     * @param buildingId = the id of the building of the room.
+     * @param screen = boolean representing the availability of a screen.
+     * @param projector = boolean representing the availability of a projector.
+     * @param capacity = the number of people this room fits.
+     * @param plugs = the number of plugs in this room.
      * @return Error code
      */
     public int add(String name,
-                   String faculty,
-                   boolean facultySpecific,
+                   String studySpecific,
                    boolean screen,
                    boolean projector,
                    int buildingId,
@@ -68,8 +66,7 @@ public class RoomService {
         Room room = new Room();
         room.setBuilding(building);
         room.setName(name);
-        room.setFaculty(faculty);
-        room.setFacultySpecific(facultySpecific);
+        room.setStudySpecific(studySpecific);
         room.setScreen(screen);
         room.setProjector(projector);
         room.setCapacity(capacity);
@@ -93,13 +90,13 @@ public class RoomService {
 
         switch (attribute) {
             case "name":
+                if (room.getBuilding().hasRoomWithName(value)) {
+                    return DUPLICATE_NAME;
+                }
                 room.setName(value);
                 break;
-            case "faculty":
-                room.setFaculty(value);
-                break;
-            case "facultyspecific":
-                room.setFacultySpecific(Boolean.parseBoolean(value));
+            case "studyspecific":
+                room.setStudySpecific(value);
                 break;
             case "screen":
                 room.setScreen(Boolean.parseBoolean(value));

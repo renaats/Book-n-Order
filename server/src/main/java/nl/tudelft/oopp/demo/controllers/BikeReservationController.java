@@ -14,6 +14,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,8 +35,8 @@ public class BikeReservationController {
 
     /**
      * Adds a bike reservation.
+     * @param request = the Http request that calls this method.
      * @param bikeId = the id of the bike associated to the reservation.
-     * @param userEmail = the email of the user associated to the reservation.
      * @param fromBuilding = the building where the user picks up the reserved bike.
      * @param toBuilding = the building where the user drops off the reserved bike.
      * @param fromTimeMs = the starting time of the reservation.
@@ -44,15 +45,14 @@ public class BikeReservationController {
      */
     @Secured(USER)
     @PostMapping(path = "/add") // Map ONLY POST Requests
-    @ResponseBody
     public int addNewBikeReservation(
-            @RequestParam String userEmail,
+            HttpServletRequest request,
             @RequestParam int bikeId,
             @RequestParam int fromBuilding,
             @RequestParam int toBuilding,
             @RequestParam long fromTimeMs,
             @RequestParam long toTimeMs) {
-        return bikeReservationService.add(bikeId, userEmail, fromBuilding, toBuilding, fromTimeMs, toTimeMs);
+        return bikeReservationService.add(request, bikeId, fromBuilding, toBuilding, fromTimeMs, toTimeMs);
     }
 
     /**
@@ -94,7 +94,7 @@ public class BikeReservationController {
 
     /**
      * Finds all past bike reservations for the user that sends the Http request.
-     * @param request = the Http request that calls this method
+     * @param request = the Http request that calls this method.
      * @return a list of past bike reservations for this user.
      */
     @Secured(USER)
@@ -105,12 +105,35 @@ public class BikeReservationController {
 
     /**
      * Finds all future bike reservations for the user that sends the Http request.
-     * @param request = the Http request that calls this method
+     * @param request = the Http request that calls this method.
      * @return a list of future bike reservations for this user.
      */
     @Secured(USER)
     @GetMapping(path = "/future")
     public Iterable<BikeReservation> getFutureReservations(HttpServletRequest request) {
         return bikeReservationService.future(request);
+    }
+
+    /**
+     * Finds all active bike reservations for the user that sends the Http request.
+     * @param request = the Http request that calls this method.
+     * @return a list of active bike reservations for this user.
+     */
+    @Secured(USER)
+    @GetMapping(path = "/active")
+    public Iterable<BikeReservation> getActiveReservations(HttpServletRequest request) {
+        return bikeReservationService.active(request);
+    }
+
+    /**
+     * Cancels a bike reservation if it was made by the user that sends the Http request.
+     * @param request = the Http request that calls this method.
+     * @param bikeReservationId = the id of the target reservation.
+     * @return an error code.
+     */
+    @Secured(USER)
+    @GetMapping(path = "/cancel/{id}")
+    public int cancelReservation(HttpServletRequest request, @PathVariable(value = "id") int bikeReservationId) {
+        return bikeReservationService.cancel(request, bikeReservationId);
     }
 }

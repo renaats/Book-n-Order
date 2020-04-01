@@ -41,7 +41,7 @@ public class RoomTest {
         building = new Building("EWI", "Mekelweg", "EWI", 4);
         buildingRepository.save(building);
 
-        room = new Room("Ampere", building, "EWI", false, true, true, 300, 250);
+        room = new Room("Ampere", building, "CSE", true, true, 300, 250);
 
         roomRepository.save(room);
     }
@@ -83,21 +83,12 @@ public class RoomTest {
     }
 
     /**
-     * Tests the getter for the faculty field.
+     * Tests the getter for the studySpecific field.
      */
     @Test
-    public void testFacultyGetter() {
+    public void testStudySpecificGetter() {
         room2 = roomRepository.findAll().get(0);
-        assertEquals("EWI", room2.getFaculty());
-    }
-
-    /**
-     * Tests the getter for the facultySpecific field.
-     */
-    @Test
-    public void testFacultySpecificGetter() {
-        room2 = roomRepository.findAll().get(0);
-        assertFalse(room2.isFacultySpecific());
+        assertEquals("CSE", room2.getStudySpecific());
     }
 
     /**
@@ -157,23 +148,13 @@ public class RoomTest {
     }
 
     /**
-     * Tests the the change of the faculty by using a setter.
+     * Tests the the change of the studySpecific by using a setter.
      */
     @Test
-    public void testChangeFaculty() {
-        assertNotEquals("EEMCS", room.getFaculty());
-        room.setFaculty("EEMCS");
-        assertEquals("EEMCS", room.getFaculty());
-    }
-
-    /**
-     * Tests the the change of the facultySpecific by using a setter.
-     */
-    @Test
-    public void testChangeFacultySpecific() {
-        assertFalse(room.isFacultySpecific());
-        room.setFacultySpecific(true);
-        assertTrue(room.isFacultySpecific());
+    public void testChangeStudySpecific() {
+        assertNotEquals("", room.getStudySpecific());
+        room.setStudySpecific("");
+        assertEquals("", room.getStudySpecific());
     }
 
     /**

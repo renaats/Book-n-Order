@@ -42,25 +42,13 @@ public class PersonalCalendarView extends CalendarView {
      */
     public void loadRoomReservations() {
         List<RoomReservation> roomReservationList;
-        List<RoomReservation> roomReservationList1;
-
         try {
-            String roomReservationJson = ServerCommunication.getAllPreviousRoomReservations();
+            String roomReservationJson = ServerCommunication.getAllActiveRoomReservations();
             roomReservationList = new ArrayList<>(Objects.requireNonNull(JsonMapper.roomReservationsListMapper(roomReservationJson)));
         } catch (NullPointerException e) {
             roomReservationList = new ArrayList<>();
             roomReservationList.add(null);
         }
-
-        try {
-            String roomReservationJson = ServerCommunication.getAllFutureRoomReservations();
-            roomReservationList1 = new ArrayList<>(Objects.requireNonNull(JsonMapper.roomReservationsListMapper(roomReservationJson)));
-        } catch (NullPointerException e) {
-            roomReservationList1 = new ArrayList<>();
-            roomReservationList1.add(null);
-        }
-
-        roomReservationList.addAll(roomReservationList1);
 
         for (RoomReservation reservation : roomReservationList) {
             if (reservation != null) {
@@ -83,23 +71,14 @@ public class PersonalCalendarView extends CalendarView {
      */
     public void loadFoodOrders() {
         List<FoodOrder> foodOrderList;
-        List<FoodOrder> foodOrderList1;
 
         try {
-            foodOrderList = new ArrayList<>(Objects.requireNonNull(JsonMapper.foodOrdersListMapper(ServerCommunication.getAllPreviousFoodOrders())));
+            foodOrderList = new ArrayList<>(Objects.requireNonNull(JsonMapper.foodOrdersListMapper(ServerCommunication.getAllActiveFoodOrders())));
         } catch (NullPointerException e) {
             foodOrderList = new ArrayList<>();
             foodOrderList.add(null);
         }
 
-        try {
-            foodOrderList1 = new ArrayList<>(Objects.requireNonNull(JsonMapper.foodOrdersListMapper(ServerCommunication.getAllFutureFoodOrders())));
-        } catch (NullPointerException e) {
-            foodOrderList1 = new ArrayList<>();
-            foodOrderList1.add(null);
-        }
-
-        foodOrderList.addAll(foodOrderList1);
         for (FoodOrder foodOrder: foodOrderList) {
             if (foodOrder != null) {
                 Entry<FoodOrder> bookedEntry = new Entry<>("Order Number: " + foodOrder.getId());
@@ -121,25 +100,14 @@ public class PersonalCalendarView extends CalendarView {
      */
     public void loadBikeReservations() {
         List<BikeReservation> bikeReservationList;
-        List<BikeReservation> bikeReservationList1;
 
         try {
-            String bikeReservationJson = ServerCommunication.getAllPreviousBikeReservations();
+            String bikeReservationJson = ServerCommunication.getAllActiveBikeReservations();
             bikeReservationList = new ArrayList<>(Objects.requireNonNull(JsonMapper.bikeReservationsListMapper(bikeReservationJson)));
         } catch (NullPointerException e) {
             bikeReservationList = new ArrayList<>();
             bikeReservationList.add(null);
         }
-
-        try {
-            String bikeReservationJson = ServerCommunication.getAllFutureBikeReservations();
-            bikeReservationList1 = new ArrayList<>(Objects.requireNonNull(JsonMapper.bikeReservationsListMapper(bikeReservationJson)));
-        } catch (NullPointerException e) {
-            bikeReservationList1 = new ArrayList<>();
-            bikeReservationList1.add(null);
-        }
-
-        bikeReservationList.addAll(bikeReservationList1);
 
         for (BikeReservation reservation : bikeReservationList) {
             if (reservation != null) {

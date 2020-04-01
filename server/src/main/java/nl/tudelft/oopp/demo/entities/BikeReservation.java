@@ -28,6 +28,8 @@ public class BikeReservation {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
+    private boolean active;
+
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn
@@ -69,10 +71,15 @@ public class BikeReservation {
         this.toBuilding = toBuilding;
         this.fromTime = fromTime;
         this.toTime = toTime;
+        this.active = true;
     }
 
     public BikeReservation() {
+        this.active = true;
+    }
 
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public void setBike(Bike bike) {
@@ -101,6 +108,10 @@ public class BikeReservation {
 
     public Integer getId() {
         return id;
+    }
+
+    public boolean isActive() {
+        return active;
     }
 
     public Bike getBike() {
@@ -136,7 +147,8 @@ public class BikeReservation {
             return false;
         }
         BikeReservation that = (BikeReservation) o;
-        return Objects.equals(bike, that.bike)
+        return active == that.active
+                && Objects.equals(bike, that.bike)
                 && Objects.equals(appUser, that.appUser)
                 && Objects.equals(fromBuilding, that.fromBuilding)
                 && Objects.equals(toBuilding, that.toBuilding)

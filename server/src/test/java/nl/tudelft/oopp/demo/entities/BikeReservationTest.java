@@ -123,13 +123,22 @@ public class BikeReservationTest {
      * Tests the getter for the toTime field.
      */
     @Test
-    public void testToTime() {
+    public void testGetToTime() {
         bikeReservation2 = bikeReservationRepository.findAll().get(0);
         assertEquals(bikeReservation.getToTime(), bikeReservation2.getToTime());
     }
 
     /**
-     * Tests the getter for the user field.
+     * Tests the getter for the active field.
+     */
+    @Test
+    public void testGetActive() {
+        bikeReservation2 = bikeReservationRepository.findAll().get(0);
+        assertTrue(bikeReservation.isActive());
+    }
+
+    /**
+     * Tests the comparison between two equal bike reservations.
      */
     @Test
     public void testEqualBikeReservations() {

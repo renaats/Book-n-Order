@@ -8,6 +8,7 @@ import java.util.Objects;
  */
 public class BikeReservation {
     private Integer id;
+    private Boolean active;
     private Bike bike;
     private AppUser appUser;
     private Building fromBuilding;
@@ -30,10 +31,15 @@ public class BikeReservation {
         this.toBuilding = toBuilding;
         this.fromTime = fromTime;
         this.toTime = toTime;
+        this.active = true;
     }
 
     public BikeReservation() {
+        this.active = true;
+    }
 
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 
     public void setBike(Bike bike) {
@@ -62,6 +68,10 @@ public class BikeReservation {
 
     public Integer getId() {
         return id;
+    }
+
+    public Boolean getActive() {
+        return active;
     }
 
     public Bike getBike() {
@@ -97,7 +107,8 @@ public class BikeReservation {
             return false;
         }
         BikeReservation that = (BikeReservation) o;
-        return Objects.equals(bike, that.bike)
+        return active == that.active
+                && Objects.equals(bike, that.bike)
                 && Objects.equals(appUser, that.appUser)
                 && Objects.equals(fromBuilding, that.fromBuilding)
                 && Objects.equals(toBuilding, that.toBuilding)
