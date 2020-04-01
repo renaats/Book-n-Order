@@ -57,10 +57,10 @@ public class MenuTest {
         restaurant2 = new Restaurant(building, "Burger King", "");
         restaurantRepository.saveAndFlush(restaurant2);
 
-        dish = new Dish("Chicken", menu1, 300);
+        dish = new Dish("Chicken", menu1, 300, "Cooked", "123");
         dishRepository.saveAndFlush(dish);
 
-        dish2 = new Dish("Spicy Chicken", menu2, 400);
+        dish2 = new Dish("Spicy Chicken", menu2, 400, "Grilled", "234");
         dishRepository.saveAndFlush(dish2);
 
         dishes = new HashSet<>();

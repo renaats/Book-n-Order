@@ -128,9 +128,9 @@ public class FoodOrderServiceTest {
         menu = new Menu("Lunch Menu", restaurant);
         menuRepository.saveAndFlush(menu);
 
-        dish1 = new Dish("Pizza", menu, 300);
+        dish1 = new Dish("Pizza", menu, 300, "Cooked", "123");
         dishRepository.saveAndFlush(dish1);
-        dish2 = new Dish("Salad", menu, 400);
+        dish2 = new Dish("Salad", menu, 400, "Grilled", "234");
         dishRepository.saveAndFlush(dish2);
         dishes = new HashSet<>();
         dishes.add(dish1);
@@ -322,9 +322,9 @@ public class FoodOrderServiceTest {
     @Test
     @WithMockUser(username = "restaurant@tudelft.nl", roles = {"USER", "STAFF", "RESTAURANT"})
     public void testAddDish() {
-        Dish dishA = new Dish("Tosti", menu, 300);
+        Dish dishA = new Dish("Tosti", menu, 300, "Cooked", "123");
         dishRepository.save(dishA);
-        Dish dishB = new Dish("Hamburger", menu, 400);
+        Dish dishB = new Dish("Hamburger", menu, 400, "Grilled", "234");
         dishRepository.save(dishB);
         foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds);
         foodOrder = foodOrderService.all().get(0);

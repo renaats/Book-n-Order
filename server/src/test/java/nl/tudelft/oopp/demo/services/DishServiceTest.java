@@ -103,10 +103,10 @@ public class DishServiceTest {
         allergySet = new HashSet<>();
         allergySet.add(allergy);
 
-        dish = new Dish("Chicken", menu1, 300);
+        dish = new Dish("Chicken", menu1, 300, "Cooked", "123");
         dish.setAllergies(allergySet);
 
-        dish2 = new Dish("Spicy Chicken", menu2, 400);
+        dish2 = new Dish("Spicy Chicken", menu2, 400, "Grilled", "234");
         dish2.setAllergies(allergySet);
 
         dishes = new HashSet<>();
@@ -129,7 +129,7 @@ public class DishServiceTest {
     @WithMockUser(username = "restaurant@tudelft.nl", roles = {"USER", "STAFF", "RESTAURANT"})
     public void testCreate() {
         allergyRepository.save(allergy);
-        assertEquals(ADDED, dishService.add(dish.getName(), dish.getMenu().getId(), 300));
+        assertEquals(ADDED, dishService.add(dish.getName(), dish.getMenu().getId(), 300, "Cooked", "123"));
         int id = dishService.all().get(0).getId();
         dishService.find(id).setAllergies(allergySet);
         assertEquals(Collections.singletonList(dish), dishService.all());
@@ -141,7 +141,7 @@ public class DishServiceTest {
     @Test
     @WithMockUser(username = "restaurant@tudelft.nl", roles = {"USER", "STAFF", "RESTAURANT"})
     public void testCreateIllegalMenu() {
-        assertEquals(MENU_NOT_FOUND, dishService.add(dish.getName(), 0, 300));
+        assertEquals(MENU_NOT_FOUND, dishService.add(dish.getName(), 0, 300, "Cooked", "123"));
     }
 
     /**
@@ -150,7 +150,7 @@ public class DishServiceTest {
     @Test
     @WithMockUser(username = "restaurant2@tudelft.nl", roles = {"USER", "STAFF", "RESTAURANT"})
     public void testCreateNoPermissions() {
-        assertEquals(WRONG_CREDENTIALS, dishService.add(dish.getName(), menu1.getId(), 300));
+        assertEquals(WRONG_CREDENTIALS, dishService.add(dish.getName(), menu1.getId(), 300, "Cooked", "123"));
     }
 
     /**
@@ -167,7 +167,7 @@ public class DishServiceTest {
     @Test
     @WithMockUser(username = "restaurant@tudelft.nl", roles = {"USER", "STAFF", "RESTAURANT"})
     public void testFindExisting() {
-        dishService.add(dish.getName(), dish.getMenu().getId(), 300);
+        dishService.add(dish.getName(), dish.getMenu().getId(), 300, "Cooked", "123");
         int id = dishService.all().get(0).getId();
         Assertions.assertNotNull(dishService.find(id));
     }
@@ -178,7 +178,7 @@ public class DishServiceTest {
     @Test
     @WithMockUser(username = "restaurant@tudelft.nl", roles = {"USER", "STAFF", "RESTAURANT"})
     public void testChangeName() {
-        dishService.add("Tosti", menu1.getId(), 300);
+        dishService.add("Tosti", menu1.getId(), 300, "Cooked", "123");
         int id = dishService.all().get(0).getId();
         assertNotEquals("Hamburger", dishService.find(id).getName());
         dishService.update(id, "name", "Hamburger");
@@ -191,7 +191,7 @@ public class DishServiceTest {
     @Test
     @WithMockUser(username = "restaurant@tudelft.nl", roles = {"USER", "STAFF", "RESTAURANT"})
     public void testChangeMenu() {
-        dishService.add("Tosti", menu1.getId(), 300);
+        dishService.add("Tosti", menu1.getId(), 300, "Cooked", "123");
         int id = dishService.all().get(0).getId();
         assertNotEquals(menu2, dishService.find(id).getMenu());
         String menu2Id = Integer.toString(menu2.getId());
@@ -205,11 +205,37 @@ public class DishServiceTest {
     @Test
     @WithMockUser(username = "restaurant@tudelft.nl", roles = {"USER", "STAFF", "RESTAURANT"})
     public void testChangePrice() {
-        dishService.add("Tosti", menu1.getId(), 300);
+        dishService.add("Tosti", menu1.getId(), 300, "Cooked", "123");
         int id = dishService.all().get(0).getId();
         assertNotEquals(500, dishService.find(id).getPrice());
         dishService.update(id, "price", "500");
         assertEquals(500, dishService.find(id).getPrice());
+    }
+
+    /**
+     * Tests the change of the description of the dish.
+     */
+    @Test
+    @WithMockUser(username = "restaurant@tudelft.nl", roles = {"USER", "STAFF", "RESTAURANT"})
+    public void testChangeDescription() {
+        dishService.add("Tosti", menu1.getId(), 300, "Cooked", "123");
+        int id = dishService.all().get(0).getId();
+        assertNotEquals("Grilled", dishService.find(id).getDescription());
+        dishService.update(id, "description", "Grilled");
+        assertEquals("Grilled", dishService.find(id).getDescription());
+    }
+
+    /**
+     * Tests the change of the image of the dish.
+     */
+    @Test
+    @WithMockUser(username = "restaurant@tudelft.nl", roles = {"USER", "STAFF", "RESTAURANT"})
+    public void testChangeImage() {
+        dishService.add("Tosti", menu1.getId(), 300, "Cooked", "123");
+        int id = dishService.all().get(0).getId();
+        assertNotEquals("234", dishService.find(id).getImage());
+        dishService.update(id, "image", "234");
+        assertEquals("234", dishService.find(id).getImage());
     }
 
     /**
@@ -218,7 +244,7 @@ public class DishServiceTest {
     @Test
     @WithMockUser(username = "restaurant@tudelft.nl", roles = {"USER", "STAFF", "RESTAURANT"})
     public void testChangeNonExisting() {
-        dishService.add("Tosti", menu1.getId(), 300);
+        dishService.add("Tosti", menu1.getId(), 300, "Cooked", "123");
         int id = dishService.all().get(0).getId();
         assertEquals(ATTRIBUTE_NOT_FOUND, dishService.update(id, "illegal", "illegal"));
     }
@@ -229,7 +255,7 @@ public class DishServiceTest {
     @Test
     @WithMockUser(username = "restaurant@tudelft.nl", roles = {"USER", "STAFF", "RESTAURANT"})
     public void testAddAllergy() {
-        dishService.add("Tosti", menu1.getId(), 300);
+        dishService.add("Tosti", menu1.getId(), 300, "Cooked", "123");
         dish = dishService.all().get(0);
         dishService.addAllergy(dish.getId(), "Nuts");
         dishService.addAllergy(dish.getId(), "Lactose");
@@ -252,8 +278,8 @@ public class DishServiceTest {
     @Test
     @WithMockUser(username = "restaurant@tudelft.nl", roles = {"USER", "STAFF", "RESTAURANT"})
     public void testMultipleInstances() {
-        dishService.add(dish.getName(), dish.getMenu().getId(), 300);
-        dishService.add(dish2.getName(), dish2.getMenu().getId(), 400);
+        dishService.add(dish.getName(), dish.getMenu().getId(), 300, "Cooked", "123");
+        dishService.add(dish2.getName(), dish2.getMenu().getId(), 400, "Grilled", "234");
         Assertions.assertEquals(2, dishService.all().size());
         int id1 = dishService.all().get(0).getId();
         int id2 = dishService.all().get(1).getId();
@@ -269,8 +295,8 @@ public class DishServiceTest {
     @Test
     @WithMockUser(username = "restaurant@tudelft.nl", roles = {"USER", "STAFF", "RESTAURANT"})
     public void testDelete() {
-        dishService.add(dish.getName(), dish.getMenu().getId(), 300);
-        dishService.add(dish2.getName(), dish2.getMenu().getId(), 400);
+        dishService.add(dish.getName(), dish.getMenu().getId(), 300, "Cooked", "123");
+        dishService.add(dish2.getName(), dish2.getMenu().getId(), 400, "Grilled", "234");
         int id = dishService.all().get(0).getId();
         Assertions.assertEquals(EXECUTED, dishService.delete(id));
         Assertions.assertEquals(1, dishService.all().size());
@@ -282,8 +308,8 @@ public class DishServiceTest {
     @Test
     @WithMockUser(username = "restaurant@tudelft.nl", roles = {"USER", "STAFF", "RESTAURANT"})
     public void testSearchByName() {
-        dishService.add(dish.getName(), dish.getMenu().getId(), 300);
-        dishService.add(dish2.getName(), dish2.getMenu().getId(), 400);
+        dishService.add(dish.getName(), dish.getMenu().getId(), 300, "Cooked", "123");
+        dishService.add(dish2.getName(), dish2.getMenu().getId(), 400, "Grilled", "234");
         List<Dish> dishes = dishService.search("name:Chicken");
         Assertions.assertEquals(dishes.get(0).getName(), dish.getName());
         Assertions.assertEquals(dishes.get(1).getName(), dish2.getName());
@@ -295,8 +321,8 @@ public class DishServiceTest {
     @Test
     @WithMockUser(username = "restaurant@tudelft.nl", roles = {"USER", "STAFF", "RESTAURANT"})
     public void testSearchByPartOfName() {
-        dishService.add(dish.getName(), dish.getMenu().getId(), 300);
-        dishService.add(dish2.getName(), dish2.getMenu().getId(), 400);
+        dishService.add(dish.getName(), dish.getMenu().getId(), 300, "Cooked", "123");
+        dishService.add(dish2.getName(), dish2.getMenu().getId(), 400, "Grilled", "234");
         List<Dish> dishes = dishService.search("name:Spicy");
         assertEquals(1, dishes.size());
         Assertions.assertEquals(dishes.get(0).getName(), dish2.getName());
@@ -308,8 +334,8 @@ public class DishServiceTest {
     @Test
     @WithMockUser(username = "restaurant@tudelft.nl", roles = {"USER", "STAFF", "RESTAURANT"})
     public void testSearchNonexistentDish() {
-        dishService.add(dish.getName(), dish.getMenu().getId(), 300);
-        dishService.add(dish2.getName(), dish2.getMenu().getId(), 400);
+        dishService.add(dish.getName(), dish.getMenu().getId(), 300, "Cooked", "123");
+        dishService.add(dish2.getName(), dish2.getMenu().getId(), 400, "Grilled", "234");
         List<Dish> dishes = dishService.search("name:soup");
         Assertions.assertFalse(dishes.contains(dish));
         Assertions.assertFalse(dishes.contains(dish2));

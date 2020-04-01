@@ -87,10 +87,10 @@ public class MenuServiceTest {
         restaurant2 = new Restaurant(building2, "Food station", "restaurant@tudelft.nl");
         restaurantRepository.save(restaurant2);
 
-        dish = new Dish("Chicken", menu1, 300);
+        dish = new Dish("Chicken", menu1, 300, "Cooked", "123");
         dishRepository.save(dish);
 
-        dish2 = new Dish("Spicy Chicken", menu2, 400);
+        dish2 = new Dish("Spicy Chicken", menu2, 400, "Grilled", "234");
         dishRepository.save(dish2);
 
         dishes = new HashSet<>();
