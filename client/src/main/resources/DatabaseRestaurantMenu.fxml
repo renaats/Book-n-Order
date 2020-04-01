@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.database.DatabaseRestaurantMenuController">
+    <ImageView fitHeight="720.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+        <image>
+            <Image url="@images/Living-Campus-1-1280x600-c-center.jpg" />
+        </image></ImageView>
+    <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="63.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+        <image>
+            <Image url="@images/TuDelftLogoFinal.png" />
+        </image>
+    </ImageView>
+    <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="258.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="576.0" AnchorPane.leftAnchor="258.0" AnchorPane.rightAnchor="902.0" AnchorPane.topAnchor="120.0">
+        <Image url="@images/booknorderlogo.png" />
+    </ImageView>
+    <ImageView fitHeight="41.0" fitWidth="44.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#mainMenu" pickOnBounds="true" preserveRatio="true"><Image url="@images/HomeIconTransparent.png" />
+        <cursor>
+            <Cursor fx:constant="HAND" />
+        </cursor>
+    </ImageView>
+    <Text fill="WHITE" layoutX="20.0" layoutY="555.576171875" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback is welcome" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0">
+        <font>
+            <Font size="18.0" />
+        </font>
+    </Text>
+    <Text fill="WHITE" layoutX="20.0" layoutY="578.75" strokeType="OUTSIDE" strokeWidth="0.0" text="© 2020 TU Delft. All rights reserved." AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0">
+        <font>
+            <Font name="Calibri" size="11.0" />
+        </font>
+    </Text>
+   <ImageView fitHeight="32.0" fitWidth="41.0" layoutX="19.0" layoutY="177.0" onMouseClicked="#databaseRestaurants" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="19.0" AnchorPane.topAnchor="177.0">
+      <image>
+         <Image url="@images/DatabaseMenuFoodIcon.png" />
+      </image>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </ImageView>
+   <Text layoutX="60.0" layoutY="212.056640625" strokeType="OUTSIDE" strokeWidth="0.0" text="Restaurant" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="174.0">
+      <font>
+         <Font size="26.0" />
+      </font>
+   </Text>
+   <Text layoutX="50.0" layoutY="241.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID:" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="222.6552734375">
+      <font>
+         <Font size="17.0" />
+      </font>
+   </Text>
+   <Text layoutX="59.0" layoutY="278.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Building:" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="255.0">
+      <font>
+         <Font size="17.0" />
+      </font>
+   </Text>
+   <TextField fx:id="buildingFieldRead" layoutX="123.0" layoutY="247.0" prefHeight="26.0" prefWidth="390.0" promptText="Location" AnchorPane.leftAnchor="118.0" AnchorPane.rightAnchor="774.0" AnchorPane.topAnchor="255.0" />
+   <TextField fx:id="idFieldRead" editable="false" layoutX="118.0" layoutY="222.0" prefHeight="25.0" prefWidth="56.0" promptText="ID" AnchorPane.topAnchor="222.0" />
+   <Text layoutX="183.0" layoutY="241.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:">
+      <font>
+         <Font size="17.0" />
+      </font>
+   </Text>
+   <TextField fx:id="nameFieldRead" layoutX="246.0" layoutY="222.0" prefHeight="26.0" prefWidth="260.0" promptText="Restaurant name" />
+   <ToggleButton fx:id="buildingsTableToggle" layoutX="212.0" layoutY="286.0" mnemonicParsing="false" onAction="#toggleClickBuildingsTable" prefHeight="25.0" prefWidth="223.0" selected="true" stylesheets="@DatabaseAddRooms.css" text="Show menu">
+      <graphic>
+         <ImageView fitHeight="17.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@images/Hamburger_icon.png" />
+            </image>
+            <cursor>
+               <Cursor fx:constant="DEFAULT" />
+            </cursor>
+         </ImageView>
+      </graphic>
+   </ToggleButton>
+   <TableView fx:id="table" layoutX="118.0" layoutY="409.0" prefHeight="203.0" prefWidth="388.0" stylesheets="@table.css">
+      <columns>
+         <TableColumn fx:id="colId" prefWidth="41.3333740234375" resizable="false" text="ID" />
+         <TableColumn fx:id="colName" prefWidth="264.00001525878906" resizable="false" text="Dish">
+            <graphic>
+               <ImageView fitHeight="17.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@images/dishesIcon.png" />
+                  </image>
+                  <cursor>
+                     <Cursor fx:constant="DEFAULT" />
+                  </cursor>
+               </ImageView>
+            </graphic>
+         </TableColumn>
+         <TableColumn fx:id="colId1" minWidth="0.0" prefWidth="80.00003051757812" resizable="false" text="Price (€)" />
+      </columns>
+   </TableView>
+   <Button fx:id="nextPageButton" layoutX="358.0" layoutY="621.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#nextPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&gt;&gt;" textFill="WHITE">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
+   <Button fx:id="previousPageButton" layoutX="214.0" layoutY="621.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#previousPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&lt;&lt;" textFill="WHITE">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
+   <Text fx:id="pagesText" layoutX="287.0" layoutY="638.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0 / pages" />
+   <ToggleButton fx:id="buildingsTableToggle1" layoutX="117.0" layoutY="360.0" mnemonicParsing="false" onAction="#toggleClickBuildingsTable" prefHeight="25.0" prefWidth="83.0" stylesheets="@DatabaseAddRooms.css" text="Hide">
+      <graphic>
+         <ImageView fitHeight="17.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@images/dishesIcon.png" />
+            </image>
+            <cursor>
+               <Cursor fx:constant="DEFAULT" />
+            </cursor>
+         </ImageView>
+      </graphic>
+   </ToggleButton>
+   <Text layoutX="50.0" layoutY="345.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID:">
+      <font>
+         <Font size="17.0" />
+      </font>
+   </Text>
+   <TextField fx:id="idFieldRead1" editable="false" layoutX="118.0" layoutY="326.0" prefHeight="25.0" prefWidth="56.0" promptText="ID" />
+   <Text layoutX="183.0" layoutY="345.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:">
+      <font>
+         <Font size="17.0" />
+      </font>
+   </Text>
+   <TextField fx:id="nameFieldRead1" layoutX="246.0" layoutY="325.0" prefHeight="26.0" prefWidth="260.0" promptText="Menu name" />
+   <Button fx:id="updateBuildingButton" layoutX="184.0" layoutY="360.0" mnemonicParsing="false" onAction="#updateRoom" prefHeight="26.0" prefWidth="223.0" style="-fx-background-color: #00a6d6;" text="Update" textFill="WHITE" AnchorPane.leftAnchor="207.0" AnchorPane.rightAnchor="849.6666666666666">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
+   <Button layoutX="437.0" layoutY="360.0" maxHeight="26.0" maxWidth="68.0" minHeight="20.0" minWidth="60.0" mnemonicParsing="false" onAction="#deleteRoom" prefHeight="26.0" prefWidth="68.0" style="-fx-background-color: #CC5653;" text="Delete" textFill="WHITE" AnchorPane.rightAnchor="775.0">
+      <font>
+         <Font size="10.0" />
+      </font>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
+</AnchorPane>
