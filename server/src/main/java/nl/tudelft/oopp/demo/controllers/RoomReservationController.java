@@ -71,7 +71,7 @@ public class RoomReservationController {
     /**
      * Deletes a room reservation.
      * @param id = the id of the room reservation.
-     * @return Error code
+     * @return Error code.
      */
     @Secured({ADMIN, BUILDING_ADMIN})
     @DeleteMapping(path = "/delete")
@@ -93,7 +93,7 @@ public class RoomReservationController {
 
     /**
      * Finds all past room reservations for the user that sends the Http request.
-     * @param request = the Http request that calls this method
+     * @param request = the Http request that calls this method.
      * @return a list of past room reservations for this user.
      */
     @Secured(USER)
@@ -104,7 +104,7 @@ public class RoomReservationController {
 
     /**
      * Finds all future room reservations for the user that sends the Http request.
-     * @param request = the Http request that calls this method
+     * @param request = the Http request that calls this method.
      * @return a list of future room reservations for this user.
      */
     @Secured(USER)
@@ -114,7 +114,7 @@ public class RoomReservationController {
     }
 
     /**
-     * Finds all room reservations for the specified room
+     * Finds all room reservations for the specified room.
      * @param id = the room id.
      * @return a list of reservations for this room.
      */
