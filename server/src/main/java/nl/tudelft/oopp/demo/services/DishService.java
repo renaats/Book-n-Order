@@ -45,17 +45,22 @@ public class DishService {
      * Adds a dish.
      * @param name = dish name.
      * @param menuId = menu id.
+     * @param price the price of the dish.
      * @return Error code.
      */
-    public int add(String name, int menuId) {
+    public int add(String name, int menuId, int price) {
         Optional<Menu> optionalMenu = menuRepository.findById(menuId);
         if (optionalMenu.isEmpty()) {
             return MENU_NOT_FOUND;
         }
         Menu menu = optionalMenu.get();
+        if (RestaurantService.noPermissions(SecurityContextHolder.getContext(), menu.getRestaurant())) {
+            return WRONG_CREDENTIALS;
+        }
 
         Dish dish = new Dish();
         dish.setName(name);
+        dish.setPrice(price);
         dish.setMenu(menu);
         dish.setAllergies(new HashSet<>());
         dishRepository.save(dish);
@@ -89,6 +94,9 @@ public class DishService {
                 }
                 Menu menu = optionalMenu.get();
                 dish.setMenu(menu);
+                break;
+            case "price":
+                dish.setPrice(Integer.parseInt(value));
                 break;
             default:
                 return ATTRIBUTE_NOT_FOUND;

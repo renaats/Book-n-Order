@@ -28,6 +28,7 @@ public class Dish {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
+    private int price;
 
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -46,9 +47,10 @@ public class Dish {
      * @param name = name of the dish.
      * @param menu = menu to which dish is associated.
      */
-    public Dish(String name, Menu menu) {
+    public Dish(String name, Menu menu, int price) {
         this.name = name;
         this.menu = menu;
+        this.price = price;
     }
 
     public Dish() {
@@ -61,6 +63,10 @@ public class Dish {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 
     public void setAllergies(Set<Allergy> allergies) {
@@ -77,6 +83,10 @@ public class Dish {
 
     public String getName() {
         return name;
+    }
+
+    public int getPrice() {
+        return price;
     }
 
     public Set<Allergy> getAllergies() {
@@ -98,6 +108,7 @@ public class Dish {
         Dish dish = (Dish) o;
         return Objects.equals(name, dish.name)
                 && Objects.equals(menu, dish.menu)
+                && Objects.equals(price, dish.price)
                 && Objects.equals(allergies, dish.allergies)
                 && Objects.equals(foodOrders, dish.foodOrders);
     }

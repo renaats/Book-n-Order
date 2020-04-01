@@ -37,13 +37,14 @@ public class DishController {
      * Adds a dish.
      * @param name dish name.
      * @param menuId menu id.
+     * @param price the price of the dish.
      * @return Error code.
      */
     @Secured({ADMIN, RESTAURANT})
     @PostMapping(path = "/add")
     @ResponseBody
-    public int addNewDish(@RequestParam String name, @RequestParam int menuId) {
-        return dishService.add(name, menuId);
+    public int addNewDish(@RequestParam String name, @RequestParam int menuId, @RequestParam int price) {
+        return dishService.add(name, menuId, price);
     }
 
     /**
