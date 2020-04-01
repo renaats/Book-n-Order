@@ -6,16 +6,20 @@ import static nl.tudelft.oopp.demo.config.Constants.ATTRIBUTE_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.BUILDING_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
 import static nl.tudelft.oopp.demo.config.Constants.NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.ORDER_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.RESERVATION_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.RESTAURANT_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.WRONG_USER;
 import static nl.tudelft.oopp.demo.security.SecurityConstants.EXPIRATION_TIME;
 import static nl.tudelft.oopp.demo.security.SecurityConstants.HEADER_STRING;
 import static nl.tudelft.oopp.demo.security.SecurityConstants.SECRET;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.auth0.jwt.JWT;
 
@@ -97,6 +101,8 @@ public class FoodOrderServiceTest {
     FoodOrder foodOrder2;
     Set<Integer> dishIds;
 
+    MockHttpServletRequest request;
+
     /**
      * Sets up the entities and saves them via a service before executing every test.
      */
@@ -138,6 +144,13 @@ public class FoodOrderServiceTest {
 
         foodOrder = new FoodOrder(restaurant, appUser, deliverLocation, deliverTime);
         foodOrder2 = new FoodOrder(restaurant, appUser, deliverLocation, deliverTime2);
+
+        request = new MockHttpServletRequest();
+        String token = JWT.create()
+                .withSubject(appUser.getEmail())
+                .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                .sign(HMAC512(SECRET.getBytes()));
+        request.addHeader(HEADER_STRING, token);
     }
 
     /**
@@ -154,7 +167,7 @@ public class FoodOrderServiceTest {
     @Test
     @WithMockUser(username = "restaurant@tudelft.nl", roles = {"USER", "STAFF", "RESTAURANT"})
     public void testCreateIllegalRestaurant() {
-        assertEquals(RESTAURANT_NOT_FOUND, foodOrderService.add(0, appUser.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds));
+        assertEquals(RESTAURANT_NOT_FOUND, foodOrderService.add(request, 0, deliverLocation.getId(), deliverTimeMilliseconds));
     }
 
     /**
@@ -163,7 +176,8 @@ public class FoodOrderServiceTest {
     @Test
     @WithMockUser(username = "restaurant@tudelft.nl", roles = {"USER", "STAFF", "RESTAURANT"})
     public void testCreateIllegalUser() {
-        assertEquals(NOT_FOUND, foodOrderService.add(restaurant.getId(), "a", deliverLocation.getId(), deliverTimeMilliseconds));
+        assertEquals(NOT_FOUND,
+                foodOrderService.add(new MockHttpServletRequest(), restaurant.getId(), deliverLocation.getId(), deliverTimeMilliseconds));
     }
 
     /**
@@ -172,7 +186,7 @@ public class FoodOrderServiceTest {
     @Test
     @WithMockUser(username = "restaurant@tudelft.nl", roles = {"USER", "STAFF", "RESTAURANT"})
     public void testCreateIllegalLocation() {
-        assertEquals(BUILDING_NOT_FOUND, foodOrderService.add(restaurant.getId(), appUser.getEmail(), 0, deliverTimeMilliseconds));
+        assertEquals(BUILDING_NOT_FOUND, foodOrderService.add(request, restaurant.getId(),0, deliverTimeMilliseconds));
     }
 
     /**
@@ -189,7 +203,7 @@ public class FoodOrderServiceTest {
     @Test
     @WithMockUser(username = "restaurant@tudelft.nl", roles = {"USER", "STAFF", "RESTAURANT"})
     public void testFindExisting() {
-        foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds);
+        foodOrderService.add(request, restaurant.getId(), deliverLocation.getId(), deliverTimeMilliseconds);
         int id = foodOrderService.all().get(0).getId();
         assertNotNull(foodOrderService.find(id));
     }
@@ -209,7 +223,7 @@ public class FoodOrderServiceTest {
     @Test
     @WithMockUser(username = "restaurant@tudelft.nl", roles = {"USER", "STAFF", "RESTAURANT"})
     public void testUpdateNonExistingAttribute() {
-        foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds);
+        foodOrderService.add(request, restaurant.getId(), deliverLocation.getId(), deliverTimeMilliseconds);
         int id = foodOrderService.all().get(0).getId();
         assertEquals(ATTRIBUTE_NOT_FOUND, foodOrderService.update(id, "a", "a"));
     }
@@ -220,7 +234,7 @@ public class FoodOrderServiceTest {
     @Test
     @WithMockUser(username = "restaurant@tudelft.nl", roles = {"USER", "STAFF", "RESTAURANT"})
     public void testChangeDeliveryLocation() {
-        foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds);
+        foodOrderService.add(request, restaurant.getId(), deliverLocation.getId(), deliverTimeMilliseconds);
         int id = foodOrderService.all().get(0).getId();
         assertNotEquals(building, foodOrderService.find(id).getDeliveryLocation());
         foodOrderService.update(id, "deliverylocation", building.getId().toString());
@@ -233,7 +247,7 @@ public class FoodOrderServiceTest {
     @Test
     @WithMockUser(username = "restaurant@tudelft.nl", roles = {"USER", "STAFF", "RESTAURANT"})
     public void testChangeDeliveryTime() {
-        foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds);
+        foodOrderService.add(request, restaurant.getId(), deliverLocation.getId(), deliverTimeMilliseconds);
         int id = foodOrderService.all().get(0).getId();
         assertNotEquals(deliverTimeMilliseconds2, foodOrderService.find(id).getDeliveryTime().getTime());
         foodOrderService.update(id, "deliverytime", ((Long) deliverTimeMilliseconds2).toString());
@@ -246,11 +260,23 @@ public class FoodOrderServiceTest {
     @Test
     @WithMockUser(username = "restaurant@tudelft.nl", roles = {"USER", "STAFF", "RESTAURANT"})
     public void testChangeUser() {
-        foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds);
+        foodOrderService.add(request, restaurant.getId(), deliverLocation.getId(), deliverTimeMilliseconds);
         int id = foodOrderService.all().get(0).getId();
         assertNotEquals(appUser2, foodOrderService.find(id).getAppUser());
         foodOrderService.update(id, "useremail", appUser2.getEmail());
         assertEquals(appUser2, foodOrderService.find(id).getAppUser());
+    }
+
+    /**
+     * Tests the change of active by using the service.
+     */
+    @Test
+    public void testChangeActive() {
+        foodOrderService.add(request, restaurant.getId(), deliverLocation.getId(), deliverTimeMilliseconds);
+        int id = foodOrderService.all().get(0).getId();
+        assertTrue(foodOrderService.find(id).isActive());
+        foodOrderService.update(id, "active", "false");
+        assertFalse(foodOrderService.find(id).isActive());
     }
 
     /**
@@ -259,8 +285,8 @@ public class FoodOrderServiceTest {
     @Test
     @WithMockUser(username = "restaurant@tudelft.nl", roles = {"USER", "STAFF", "RESTAURANT"})
     public void testMultipleInstances() {
-        foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds);
-        foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds2);
+        foodOrderService.add(request, restaurant.getId(), deliverLocation.getId(), deliverTimeMilliseconds);
+        foodOrderService.add(request, restaurant.getId(), deliverLocation.getId(), deliverTimeMilliseconds2);
         assertEquals(2, foodOrderService.all().size());
         List<FoodOrder> foodOrders = new ArrayList<>();
         foodOrders.add(foodOrder);
@@ -274,7 +300,7 @@ public class FoodOrderServiceTest {
     @Test
     @WithMockUser(username = "restaurant@tudelft.nl", roles = {"USER", "STAFF", "RESTAURANT"})
     public void testDelete() {
-        foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds);
+        foodOrderService.add(request, restaurant.getId(), deliverLocation.getId(), deliverTimeMilliseconds);
         int id = foodOrderService.all().get(0).getId();
         assertEquals(EXECUTED, foodOrderService.delete(id));
         assertEquals(0, foodOrderService.all().size());
@@ -295,13 +321,7 @@ public class FoodOrderServiceTest {
     @Test
     @WithMockUser(username = "restaurant@tudelft.nl", roles = {"USER", "STAFF", "RESTAURANT"})
     public void testGetPastFoodOrders() {
-        foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds);
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        String token = JWT.create()
-                .withSubject(appUser.getEmail())
-                .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-                .sign(HMAC512(SECRET.getBytes()));
-        request.addHeader(HEADER_STRING, token);
+        foodOrderService.add(request, restaurant.getId(), deliverLocation.getId(), deliverTimeMilliseconds);
         assertEquals(Collections.singletonList(foodOrder), foodOrderService.past(request));
     }
 
@@ -311,7 +331,7 @@ public class FoodOrderServiceTest {
     @Test
     @WithMockUser(username = "restaurant@tudelft.nl", roles = {"USER", "STAFF", "RESTAURANT"})
     public void testGetNonExistentPastFoodOrders() {
-        foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds);
+        foodOrderService.add(request, restaurant.getId(), deliverLocation.getId(), deliverTimeMilliseconds);
         MockHttpServletRequest request = new MockHttpServletRequest();
         assertEquals(new ArrayList<>(), foodOrderService.past(request));
     }
@@ -326,10 +346,10 @@ public class FoodOrderServiceTest {
         dishRepository.save(dishA);
         Dish dishB = new Dish("Hamburger", menu, 400, "Grilled", "234");
         dishRepository.save(dishB);
-        foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds);
+        foodOrderService.add(request, restaurant.getId(), deliverLocation.getId(), deliverTimeMilliseconds);
         foodOrder = foodOrderService.all().get(0);
-        foodOrderService.addDish(foodOrder.getId(),"Tosti");
-        foodOrderService.addDish(foodOrder.getId(),"Hamburger");
+        foodOrderService.addDish(request, foodOrder.getId(),"Tosti");
+        foodOrderService.addDish(request, foodOrder.getId(),"Hamburger");
         Iterator<Dish> dishes = foodOrderService.find(foodOrder.getId()).getDishes().iterator();
         String dish1 = dishes.next().getName();
         String dish2 = dishes.next().getName();
@@ -349,13 +369,7 @@ public class FoodOrderServiceTest {
     @Test
     @WithMockUser(username = "restaurant@tudelft.nl", roles = {"USER", "STAFF", "RESTAURANT"})
     public void testGetFutureFoodOrders() {
-        foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds2);
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        String token = JWT.create()
-                .withSubject(appUser.getEmail())
-                .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-                .sign(HMAC512(SECRET.getBytes()));
-        request.addHeader(HEADER_STRING, token);
+        foodOrderService.add(request, restaurant.getId(), deliverLocation.getId(), deliverTimeMilliseconds2);
         assertEquals(Collections.singletonList(foodOrder2), foodOrderService.future(request));
     }
 
@@ -365,8 +379,58 @@ public class FoodOrderServiceTest {
     @Test
     @WithMockUser(username = "restaurant@tudelft.nl", roles = {"USER", "STAFF", "RESTAURANT"})
     public void testGetNonExistentFutureFoodOrders() {
-        foodOrderService.add(restaurant.getId(), appUser.getEmail(), deliverLocation.getId(), deliverTimeMilliseconds2);
-        MockHttpServletRequest request = new MockHttpServletRequest();
+        foodOrderService.add(request, restaurant.getId(), deliverLocation.getId(), deliverTimeMilliseconds2);
+        request = new MockHttpServletRequest();
         assertEquals(new ArrayList<>(), foodOrderService.future(request));
+    }
+
+    /**
+     * Tests the retrieval of active food orders for the user that sends the request.
+     */
+    @Test
+    public void testActiveFoodOrders() {
+        foodOrderService.add(request, restaurant.getId(), deliverLocation.getId(), deliverTimeMilliseconds2);
+        assertEquals(Collections.singletonList(foodOrder2), foodOrderService.active(request));
+    }
+
+    /**
+     * Tests the retrieval of active food orders for a non-existent user.
+     */
+    @Test
+    public void testGetNonExistentActiveFoodOrders() {
+        foodOrderService.add(request, restaurant.getId(), deliverLocation.getId(), deliverTimeMilliseconds2);
+        request = new MockHttpServletRequest();
+        assertEquals(new ArrayList<>(), foodOrderService.active(request));
+    }
+
+    /**
+     * Tests the cancellation of food orders for the user that sends the request.
+     */
+    @Test
+    public void testCancelFoodOrders() {
+        foodOrderService.add(request, restaurant.getId(), deliverLocation.getId(), deliverTimeMilliseconds2);
+        assertNotEquals(new ArrayList<>(), foodOrderService.active(request));
+        foodOrderService.cancel(request, foodOrderService.all().get(0).getId());
+        assertEquals(new ArrayList<>(), foodOrderService.active(request));
+    }
+
+    /**
+     * Tests the cancellation of food orders for a non-existent room reservation.
+     */
+    @Test
+    public void testCancelNonExistentFoodOrders() {
+        foodOrderService.add(request, restaurant.getId(), deliverLocation.getId(), deliverTimeMilliseconds2);
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        assertEquals(ORDER_NOT_FOUND, foodOrderService.cancel(request, 0));
+    }
+
+    /**
+     * Tests the cancellation of food orders for a non-existent user.
+     */
+    @Test
+    public void testCancelNonExistentUserFoodOrders() {
+        foodOrderService.add(request, restaurant.getId(), deliverLocation.getId(), deliverTimeMilliseconds2);
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        assertEquals(WRONG_USER, foodOrderService.cancel(request, foodOrderService.all().get(0).getId()));
     }
 }

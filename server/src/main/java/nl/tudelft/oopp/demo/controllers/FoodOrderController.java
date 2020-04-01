@@ -35,18 +35,17 @@ public class FoodOrderController {
 
     /**
      * Adds a food order.
+     * @param request = the Http request that calls this method.
      * @param restaurantId = the id of the restaurant where the food order is placed.
-     * @param userEmail = the email of the user associated to the food order.
      * @param deliverLocation = the delivery location of the food order.
      * @param deliverTimeMs = the delivery time of the food order in milliseconds.
      * @return String containing the result of your request.
      */
     @Secured(USER)
     @PostMapping(path = "/add") // Map ONLY POST Requests
-    @ResponseBody
-    public int addNewFoodOrder(@RequestParam String userEmail, @RequestParam int restaurantId, @RequestParam int deliverLocation,
+    public int addNewFoodOrder(HttpServletRequest request, @RequestParam int restaurantId, @RequestParam int deliverLocation,
                                @RequestParam long deliverTimeMs) {
-        return foodOrderService.add(restaurantId, userEmail, deliverLocation, deliverTimeMs);
+        return foodOrderService.add(request, restaurantId, deliverLocation, deliverTimeMs);
     }
 
     /**
@@ -70,9 +69,9 @@ public class FoodOrderController {
      */
     @Secured(USER)
     @PostMapping(path = "/addDish")
-    @ResponseBody
-    public int addDish(@RequestParam int id, @RequestParam String name) {
-        return foodOrderService.addDish(id, name);
+    public int addDish(HttpServletRequest request, @RequestParam int id, @RequestParam String name) {
+        return foodOrderService.addDish(request, id, name);
+
     }
 
     /**
@@ -118,5 +117,28 @@ public class FoodOrderController {
     @GetMapping(path = "/future")
     public Iterable<FoodOrder> getFutureReservations(HttpServletRequest request) {
         return foodOrderService.future(request);
+    }
+
+    /**
+     * Finds all active food orders for the user that sends the Http request.
+     * @param request = the Http request that calls this method.
+     * @return a list of active food orders for this user.
+     */
+    @Secured(USER)
+    @GetMapping(path = "/active")
+    public Iterable<FoodOrder> getActiveReservations(HttpServletRequest request) {
+        return foodOrderService.active(request);
+    }
+
+    /**
+     * Cancels a food order if it was made by the user that sends the Http request.
+     * @param request = the Http request that calls this method.
+     * @param foodOrderId = the id of the target order.
+     * @return an error code.
+     */
+    @Secured(USER)
+    @GetMapping(path = "/cancel/{id}")
+    public int cancelOrder(HttpServletRequest request, @PathVariable(value = "id") int foodOrderId) {
+        return foodOrderService.cancel(request, foodOrderId);
     }
 }
