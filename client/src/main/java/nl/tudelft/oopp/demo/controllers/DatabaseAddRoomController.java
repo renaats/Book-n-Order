@@ -86,7 +86,7 @@ public class DatabaseAddRoomController implements Initializable {
      *                  {@code null} if the resource is not found.
      */
     @Override
-    public void initialize2(URL location, ResourceBundle resources) {
+    public void initialize(URL location, ResourceBundle resources) {
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
 
