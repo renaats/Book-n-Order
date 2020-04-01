@@ -203,7 +203,7 @@ public class RoomReservationService {
      * @param roomId = the id of the room for which reservations are retrieved.
      * @return a list of reservations for this room.
      */
-    public String forRoom(int roomId) {
+    public List<RoomReservation> forRoom(int roomId) {
         List<RoomReservation> roomReservations = new ArrayList<>();
         Optional<Room> optionalRoom = roomRepository.findById(roomId);
 
@@ -217,23 +217,7 @@ public class RoomReservationService {
                 roomReservations.add(roomReservation);
             }
         }
-
-        GsonBuilder gsonBuilder = new GsonBuilder();
-
-        gsonBuilder.setExclusionStrategies(new ExclusionStrategy() {
-            @Override
-            public boolean shouldSkipField(FieldAttributes f) {
-                return f.getName().contains("appUser") || f.getAnnotation(JsonIgnore.class) != null;
-            }
-
-            @Override
-            public boolean shouldSkipClass(Class<?> c) {
-                return c == AppUser.class;
-            }
-        });
-
-        Gson gson = gsonBuilder.create();
-        return gson.toJson(roomReservations);
+        return roomReservations;
     }
 
     /**
