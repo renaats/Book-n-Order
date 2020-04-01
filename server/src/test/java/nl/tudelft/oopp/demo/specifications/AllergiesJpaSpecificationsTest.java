@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
+
 import javax.transaction.Transactional;
 
 import nl.tudelft.oopp.demo.entities.Allergy;

@@ -17,6 +17,7 @@ import com.github.tomakehurst.wiremock.http.Fault;
 
 import nl.tudelft.oopp.demo.errors.ErrorMessages;
 
+import org.eclipse.jetty.server.Server;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -47,11 +48,11 @@ public class ServerCommunicationTest {
         stubFor(post(urlEqualTo("/user/changePassword?password=Password")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(delete(urlEqualTo("/room/delete/1")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(post(urlEqualTo("/room/update?id=1&attribute=a&value=a")).willReturn(aResponse().withStatus(200).withBody("200")));
-        stubFor(post(urlEqualTo("/room/add?name=a&faculty=a&facultySpecific=true&screen=true&projector=true&buildingId=1&capacity=1&plugs=1"))
+        stubFor(post(urlEqualTo("/room/add?name=a&studySpecific=a&screen=true&projector=true&buildingId=1&capacity=1&plugs=1"))
                 .willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(post(urlEqualTo("/building/add?name=a&street=a&houseNumber=1&faculty=faculty"))
                 .willReturn(aResponse().withStatus(200).withBody("200")));
-        stubFor(post(urlEqualTo("/room_reservation/add?roomId=1&userEmail=a&fromTimeMs=1&toTimeMs=2"))
+        stubFor(post(urlEqualTo("/room_reservation/add?roomId=1&fromTimeMs=1&toTimeMs=2"))
                 .willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(get(urlEqualTo("/room_reservation/all")).willReturn(aResponse().withStatus(200).withBody("RoomReservations")));
         stubFor(post(urlEqualTo("/room_reservation/update?id=1&attribute=a&value=b")).willReturn(aResponse().withStatus(200).withBody("200")));
@@ -61,7 +62,7 @@ public class ServerCommunicationTest {
         stubFor(post(urlEqualTo("/dish/add?name=test&menuId=1")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(delete(urlEqualTo("/dish/delete/1")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(delete(urlEqualTo("/food_order/delete/1")).willReturn(aResponse().withStatus(200).withBody("200")));
-        stubFor(post(urlEqualTo("/food_order/add?userEmail=test%40gmail.com&restaurantId=1&deliverLocation=1&deliverTimeMs=1"))
+        stubFor(post(urlEqualTo("/food_order/add?restaurantId=1&deliverLocation=1&deliverTimeMs=1"))
                 .willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(get(urlEqualTo("/food_order/all")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(get(urlEqualTo("/food_order/past")).willReturn(aResponse().withStatus(200).withBody("200")));
@@ -70,9 +71,11 @@ public class ServerCommunicationTest {
         stubFor(delete(urlEqualTo("/menu/delete/1")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(post(urlEqualTo("/food_order/update?id=1&attribute=a&value=a")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(post(urlEqualTo("/food_order/addDish?id=1&name=test")).willReturn(aResponse().withStatus(200).withBody("200")));
+        stubFor(get(urlEqualTo("/food_order/cancel/1")).willReturn(aResponse().withStatus(200).withBody("201")));
         stubFor(post(urlEqualTo("/dish/update?id=1&attribute=a&value=a")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(post(urlEqualTo("/dish/addAllergy?id=1&allergyName=test")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(get(urlEqualTo("/room_reservation/find/10")).willReturn(aResponse().withStatus(200).withBody("Message10")));
+        stubFor(get(urlEqualTo("/room_reservation/cancel/1")).willReturn(aResponse().withStatus(200).withBody("201")));
         stubFor(get(urlEqualTo("/room/filter?query=name:Auditorium")).willReturn(aResponse().withStatus(200).withBody("Message15")));
         stubFor(get(urlEqualTo("/dish/filter?query=name:Tosti")).willReturn(aResponse().withStatus(200).withBody("Message11")));
         stubFor(get(urlEqualTo("/allergy/filter?query=name:Lactose")).willReturn(aResponse().withStatus(200).withBody("Message12")));
@@ -81,6 +84,7 @@ public class ServerCommunicationTest {
         stubFor(get(urlEqualTo("/bike_reservation/all")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(get(urlEqualTo("/bike_reservation/future")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(get(urlEqualTo("/bike_reservation/past")).willReturn(aResponse().withStatus(200).withBody("200")));
+        stubFor(get(urlEqualTo("/bike_reservation/cancel/1")).willReturn(aResponse().withStatus(200).withBody("201")));
     }
 
     /**
@@ -161,7 +165,7 @@ public class ServerCommunicationTest {
      */
     @Test
     public void testSuccessfulAddingFoodOrder() {
-        assertEquals("200", ServerCommunication.addFoodOrder("test@gmail.com", 1, 1, 1));
+        assertEquals("200", ServerCommunication.addFoodOrder(1, 1, 1));
     }
 
     /**
@@ -341,7 +345,7 @@ public class ServerCommunicationTest {
      */
     @Test
     public void testSuccessfulAddRoom() {
-        assertEquals(ErrorMessages.getErrorMessage(200), ServerCommunication.addRoom("a", "a", 1, true, true, true, 1, 1));
+        assertEquals(ErrorMessages.getErrorMessage(200), ServerCommunication.addRoom("a", 1, "a", true, true, 1, 1));
     }
 
     /**
@@ -416,7 +420,7 @@ public class ServerCommunicationTest {
      */
     @Test
     public void testSuccessfulAddRoomReservation() {
-        assertEquals(ErrorMessages.getErrorMessage(200), ServerCommunication.addRoomReservation(1, "a", 1, 2));
+        assertEquals(ErrorMessages.getErrorMessage(200), ServerCommunication.addRoomReservation(1, 1, 2));
     }
 
     /**
@@ -483,6 +487,30 @@ public class ServerCommunicationTest {
     @Test
     public void testSuccessfulChangePassword() {
         assertEquals(ErrorMessages.getErrorMessage(200), ServerCommunication.changeUserPassword("Password"));
+    }
+
+    /**
+     * Tests the response when the cancelRoomReservation request is successful.
+     */
+    @Test
+    public void testCancelRoomReservation() {
+        assertEquals(ErrorMessages.getErrorMessage(201), ServerCommunication.cancelRoomReservation(1));
+    }
+
+    /**
+     * Tests the response when the cancelBikeReservation request is successful.
+     */
+    @Test
+    public void testCancelBikeReservation() {
+        assertEquals(ErrorMessages.getErrorMessage(201), ServerCommunication.cancelBikeReservation(1));
+    }
+
+    /**
+     * Tests the response when the cancelFoodOrder request is successful.
+     */
+    @Test
+    public void testCancelFoodOrder() {
+        assertEquals(ErrorMessages.getErrorMessage(201), ServerCommunication.cancelFoodOrder(1));
     }
 
     /**

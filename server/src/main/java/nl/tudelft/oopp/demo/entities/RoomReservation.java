@@ -1,7 +1,5 @@
 package nl.tudelft.oopp.demo.entities;
 
-import com.google.gson.annotations.Expose;
-
 import java.util.Date;
 import java.util.Objects;
 
@@ -29,7 +27,8 @@ public class RoomReservation {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Expose
+    private boolean active;
+
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn
@@ -40,11 +39,9 @@ public class RoomReservation {
     @JoinColumn
     private AppUser appUser;
 
-    @Expose
     @Temporal(TemporalType.TIMESTAMP)
     private Date fromTime;
 
-    @Expose
     @Temporal(TemporalType.TIMESTAMP)
     private Date toTime;
 
@@ -59,10 +56,15 @@ public class RoomReservation {
         this.appUser = appUser;
         this.fromTime = fromTime;
         this.toTime = toTime;
+        this.active = true;
     }
 
     public RoomReservation() {
+        this.active = true;
+    }
 
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public void setRoom(Room room) {
@@ -83,6 +85,10 @@ public class RoomReservation {
 
     public Integer getId() {
         return id;
+    }
+
+    public boolean isActive() {
+        return active;
     }
 
     public Room getRoom() {
@@ -110,10 +116,10 @@ public class RoomReservation {
             return false;
         }
         RoomReservation that = (RoomReservation) o;
-        return Objects.equals(room, that.room)
+        return active == that.active
+                && Objects.equals(room, that.room)
                 && Objects.equals(appUser, that.appUser)
                 && Objects.equals(fromTime, that.fromTime)
                 && Objects.equals(toTime, that.toTime);
     }
-
 }
