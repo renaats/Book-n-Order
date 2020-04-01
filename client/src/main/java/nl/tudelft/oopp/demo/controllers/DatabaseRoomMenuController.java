@@ -136,7 +136,6 @@ public class DatabaseRoomMenuController implements Initializable {
 
     /**
      * Switches scene to DatabaseAddRooms.fxml
-     *
      * @throws IOException Input will be valid
      */
     public void goToAddRooms() throws IOException {
@@ -144,8 +143,7 @@ public class DatabaseRoomMenuController implements Initializable {
     }
 
     /**
-     * returns to the main menu
-     *
+     * Returns to the main menu
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
     public void mainMenu() throws IOException {

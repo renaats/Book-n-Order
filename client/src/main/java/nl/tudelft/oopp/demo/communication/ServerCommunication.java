@@ -269,7 +269,6 @@ public class ServerCommunication {
 
     /**
      * Retrieves a room by given id.
-     *
      * @param roomId = the id of the room.
      * @return The body of the response from the server.
      */
@@ -280,7 +279,6 @@ public class ServerCommunication {
 
     /**
      * Retrieves a room by given name.
-     *
      * @param name = the name of the room.
      * @return The body of the response from the server.
      */

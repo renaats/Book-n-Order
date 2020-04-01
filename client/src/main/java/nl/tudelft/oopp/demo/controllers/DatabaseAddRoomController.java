@@ -80,13 +80,13 @@ public class DatabaseAddRoomController implements Initializable {
     /**
      * Called to initialize a controller after its root element has been
      * completely processed.
-     *
      * @param location  The location used to resolve relative paths for the root object, or
      *                  {@code null} if the location is not known.
-     * @param resources The resources used to localize the root object, or {@code null} if
+     * @param resources The resources used to localize the root object, or
+     *                  {@code null} if the resource is not found.
      */
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize2(URL location, ResourceBundle resources) {
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
 
