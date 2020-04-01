@@ -6,6 +6,7 @@ import static nl.tudelft.oopp.demo.config.Constants.DISH_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
 import static nl.tudelft.oopp.demo.config.Constants.ID_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.MENU_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.WRONG_CREDENTIALS;
 
 import java.util.HashSet;
 import java.util.List;
@@ -23,6 +24,7 @@ import nl.tudelft.oopp.demo.specifications.DishSpecificationsBuilder;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -72,6 +74,9 @@ public class DishService {
             return ID_NOT_FOUND;
         }
         Dish dish = dishRepository.findById(id).get();
+        if (RestaurantService.noPermissions(SecurityContextHolder.getContext(), dish.getMenu().getRestaurant())) {
+            return WRONG_CREDENTIALS;
+        }
         switch (attribute) {
             case "name":
                 dish.setName(value);
@@ -102,6 +107,9 @@ public class DishService {
             return ID_NOT_FOUND;
         }
         Dish dish = dishRepository.getOne(id);
+        if (RestaurantService.noPermissions(SecurityContextHolder.getContext(), dish.getMenu().getRestaurant())) {
+            return WRONG_CREDENTIALS;
+        }
         Allergy allergy;
         if (!allergyRepository.existsByAllergyName(allergyName)) {
             allergy = new Allergy();
@@ -122,6 +130,9 @@ public class DishService {
     public int delete(int id) {
         if (!dishRepository.existsById(id)) {
             return DISH_NOT_FOUND;
+        }
+        if (RestaurantService.noPermissions(SecurityContextHolder.getContext(), dishRepository.getOne(id).getMenu().getRestaurant())) {
+            return WRONG_CREDENTIALS;
         }
         dishRepository.deleteById(id);
         return EXECUTED;

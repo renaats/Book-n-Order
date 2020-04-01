@@ -54,8 +54,8 @@ public class DishController {
     @Secured({ADMIN, RESTAURANT})
     @PostMapping(path = "/addAllergy")
     @ResponseBody
-    public void addAllergy(@RequestParam int id, @RequestParam String allergyName) {
-        dishService.addAllergy(id, allergyName);
+    public int addAllergy(@RequestParam int id, @RequestParam String allergyName) {
+        return dishService.addAllergy(id, allergyName);
     }
 
     /**

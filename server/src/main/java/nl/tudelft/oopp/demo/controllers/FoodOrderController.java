@@ -71,8 +71,8 @@ public class FoodOrderController {
     @Secured(USER)
     @PostMapping(path = "/addDish")
     @ResponseBody
-    public void addDish(@RequestParam int id, @RequestParam String name) {
-        foodOrderService.addDish(id, name);
+    public int addDish(@RequestParam int id, @RequestParam String name) {
+        return foodOrderService.addDish(id, name);
     }
 
     /**

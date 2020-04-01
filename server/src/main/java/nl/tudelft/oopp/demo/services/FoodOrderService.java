@@ -9,6 +9,7 @@ import static nl.tudelft.oopp.demo.config.Constants.NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.RESERVATION_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.RESTAURANT_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.USER_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.WRONG_CREDENTIALS;
 import static nl.tudelft.oopp.demo.security.SecurityConstants.HEADER_STRING;
 
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ import nl.tudelft.oopp.demo.repositories.RestaurantRepository;
 import nl.tudelft.oopp.demo.repositories.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -107,6 +109,9 @@ public class FoodOrderService {
         if (foodOrderRepository.findById(id).isEmpty()) {
             return RESERVATION_NOT_FOUND;
         }
+        if (RestaurantService.noPermissions(SecurityContextHolder.getContext(), foodOrderRepository.getOne(id).getRestaurant())) {
+            return WRONG_CREDENTIALS;
+        }
         FoodOrder foodOrder = foodOrderRepository.findById(id).get();
         switch (attribute) {
             case "deliverylocation":
@@ -161,6 +166,9 @@ public class FoodOrderService {
     public int delete(int id) {
         if (!foodOrderRepository.existsById(id)) {
             return RESERVATION_NOT_FOUND;
+        }
+        if (RestaurantService.noPermissions(SecurityContextHolder.getContext(), foodOrderRepository.getOne(id).getRestaurant())) {
+            return WRONG_CREDENTIALS;
         }
         foodOrderRepository.deleteById(id);
         return EXECUTED;
