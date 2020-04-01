@@ -7,6 +7,8 @@ import static nl.tudelft.oopp.demo.config.Constants.DUPLICATE_NAME;
 import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
 import static nl.tudelft.oopp.demo.config.Constants.ROOM_NOT_FOUND;
 
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -157,6 +159,15 @@ public class RoomService {
      */
     public Room find(int id) {
         return roomRepository.findById(id).orElse(null);
+    }
+
+    /**
+     * Finds a room with the specified name.
+     * @param name = the room name
+     * @return a room that matches the name
+     */
+    public Room findByName(String name) {
+        return roomRepository.findByName(URLDecoder.decode(name, StandardCharsets.UTF_8));
     }
 
     /**

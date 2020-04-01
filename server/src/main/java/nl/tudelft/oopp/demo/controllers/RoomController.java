@@ -115,6 +115,18 @@ public class RoomController {
     }
 
     /**
+     * Retrieves a room with the specified name.
+     * @param name = the room name.
+     * @return Room that matches the name.
+     */
+    @Secured(USER)
+    @GetMapping(path = "/findName/{roomName}")
+    @ResponseBody
+    public Room findRoomByName(@PathVariable (value = "roomName") String name) {
+        return roomService.findByName(name);
+    }
+
+    /**
      * Retrieves all room reservations for the room with the specified id.
      * @param id = the room id.
      * @return Set of all room reservations for the room that matches the id.
