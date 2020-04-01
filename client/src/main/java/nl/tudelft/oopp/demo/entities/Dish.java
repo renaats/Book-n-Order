@@ -10,6 +10,8 @@ public class Dish {
     private int id;
     private String name;
     private int price;
+    private String description;
+    private String image;
     private Menu menu;
     private Set<Allergy> allergies;
     private Set<FoodOrder> foodOrders;
@@ -45,6 +47,14 @@ public class Dish {
         this.price = price;
     }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     public void setAllergies(Set<Allergy> allergies) {
         this.allergies = allergies;
     }
@@ -63,6 +73,14 @@ public class Dish {
 
     public int getPrice() {
         return price;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getImage() {
+        return image;
     }
 
     public Set<Allergy> getAllergies() {

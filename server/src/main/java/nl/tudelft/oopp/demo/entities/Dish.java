@@ -29,6 +29,8 @@ public class Dish {
     private int id;
     private String name;
     private int price;
+    private String description;
+    private String image;
 
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -47,10 +49,12 @@ public class Dish {
      * @param name = name of the dish.
      * @param menu = menu to which dish is associated.
      */
-    public Dish(String name, Menu menu, int price) {
+    public Dish(String name, Menu menu, int price, String description, String image) {
         this.name = name;
         this.menu = menu;
         this.price = price;
+        this.description = description;
+        this.image = image;
     }
 
     public Dish() {
@@ -67,6 +71,14 @@ public class Dish {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public void setAllergies(Set<Allergy> allergies) {
@@ -89,6 +101,14 @@ public class Dish {
         return price;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
     public Set<Allergy> getAllergies() {
         return allergies;
     }
@@ -109,6 +129,8 @@ public class Dish {
         return Objects.equals(name, dish.name)
                 && Objects.equals(menu, dish.menu)
                 && Objects.equals(price, dish.price)
+                && Objects.equals(description, dish.description)
+                && Objects.equals(image, dish.image)
                 && Objects.equals(allergies, dish.allergies)
                 && Objects.equals(foodOrders, dish.foodOrders);
     }

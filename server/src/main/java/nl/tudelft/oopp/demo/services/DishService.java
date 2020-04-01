@@ -46,9 +46,11 @@ public class DishService {
      * @param name = dish name.
      * @param menuId = menu id.
      * @param price the price of the dish.
+     * @param description the description of the dish.
+     * @param image the image of the dish.
      * @return Error code.
      */
-    public int add(String name, int menuId, int price) {
+    public int add(String name, int menuId, int price, String description, String image) {
         Optional<Menu> optionalMenu = menuRepository.findById(menuId);
         if (optionalMenu.isEmpty()) {
             return MENU_NOT_FOUND;
@@ -58,10 +60,7 @@ public class DishService {
             return WRONG_CREDENTIALS;
         }
 
-        Dish dish = new Dish();
-        dish.setName(name);
-        dish.setPrice(price);
-        dish.setMenu(menu);
+        Dish dish = new Dish(name, menu, price, description, image);
         dish.setAllergies(new HashSet<>());
         dishRepository.save(dish);
         return ADDED;
@@ -97,6 +96,12 @@ public class DishService {
                 break;
             case "price":
                 dish.setPrice(Integer.parseInt(value));
+                break;
+            case "description":
+                dish.setDescription(value);
+                break;
+            case "image":
+                dish.setImage(value);
                 break;
             default:
                 return ATTRIBUTE_NOT_FOUND;
