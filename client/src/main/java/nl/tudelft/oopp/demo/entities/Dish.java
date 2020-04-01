@@ -21,10 +21,12 @@ public class Dish {
      * @param name = name of the dish.
      * @param menu = menu to which dish is associated.
      */
-    public Dish(String name, Menu menu, int price) {
+    public Dish(String name, Menu menu, int price, String description, String image) {
         this.name = name;
         this.menu = menu;
         this.price = price;
+        this.description = description;
+        this.image = image;
     }
 
     public Dish() {
