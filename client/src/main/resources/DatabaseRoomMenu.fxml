@@ -169,7 +169,7 @@
          <Font size="17.0" />
       </font>
    </Text>
-   <ToggleButton fx:id="projectorToggle" layoutX="119.0" layoutY="347.0" mnemonicParsing="false" onAction="#toggleClickProjector" prefHeight="26.0" prefWidth="149.0" stylesheets="@DatabaseAddRooms.css" text="False" textFill="WHITE">
+   <ToggleButton fx:id="projectorToggle" layoutX="119.0" layoutY="347.0" mnemonicParsing="false" onAction="#toggleClickProjector" prefHeight="26.0" prefWidth="149.0" stylesheets="@DatabaseGeneric.css" text="False" textFill="WHITE">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor>
@@ -179,7 +179,7 @@
          <Font size="17.0" />
       </font>
    </Text>
-   <ToggleButton fx:id="screenToggle" layoutX="355.0" layoutY="347.0" mnemonicParsing="false" onAction="#toggleClickScreen" prefHeight="26.0" prefWidth="149.0" stylesheets="@DatabaseAddRooms.css" text="False" textFill="WHITE" AnchorPane.rightAnchor="774.6666666666666">
+   <ToggleButton fx:id="screenToggle" layoutX="355.0" layoutY="347.0" mnemonicParsing="false" onAction="#toggleClickScreen" prefHeight="26.0" prefWidth="149.0" stylesheets="@DatabaseGeneric.css" text="False" textFill="WHITE" AnchorPane.rightAnchor="774.6666666666666">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor>

@@ -7,6 +7,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.github.tomakehurst.wiremock.WireMockServer;
 
 import java.io.IOException;
@@ -50,7 +51,7 @@ class JsonMapperTest {
     }
 
     @Test
-    void buildingMapper() {
+    void buildingMapper() throws JsonProcessingException {
         stubFor(get(urlEqualTo("/building/find/1")).willReturn(aResponse().withStatus(200)
                 .withBody("{\"id\":1,\"name\":\"testffes\",\"street\":\"1\",\"houseNumber\":1}")));
         assertEquals(JsonMapper

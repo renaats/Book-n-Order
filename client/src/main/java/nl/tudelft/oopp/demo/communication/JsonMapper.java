@@ -9,17 +9,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import nl.tudelft.oopp.demo.entities.AppUser;
-import nl.tudelft.oopp.demo.entities.BikeReservation;
-import nl.tudelft.oopp.demo.entities.Building;
-import nl.tudelft.oopp.demo.entities.BuildingHours;
-import nl.tudelft.oopp.demo.entities.Dish;
-import nl.tudelft.oopp.demo.entities.FoodOrder;
-import nl.tudelft.oopp.demo.entities.Menu;
-import nl.tudelft.oopp.demo.entities.Restaurant;
-import nl.tudelft.oopp.demo.entities.RestaurantHours;
-import nl.tudelft.oopp.demo.entities.Room;
-import nl.tudelft.oopp.demo.entities.RoomReservation;
+import javafx.scene.control.Alert;
+import javafx.scene.control.DialogPane;
+import javafx.stage.StageStyle;
+
+import nl.tudelft.oopp.demo.entities.*;
 import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.user.UserInformation;
 
@@ -29,9 +23,9 @@ import nl.tudelft.oopp.demo.user.UserInformation;
 public class JsonMapper {
 
     /**
-     * Current mapper for buildings.
+     * Current mapper for buildings
      * @param buildingJson JSON string representation of a building
-     * @return Building object.
+     * @return Building object
      */
     public static Building buildingMapper(String buildingJson) {
 
@@ -49,19 +43,13 @@ public class JsonMapper {
     /**
      * Maps all building JSONS to a list.
      * @param buildingsJson a JSON string representing a list.
-     * @return A list filled with object Buildings.
+     * @return A list filled with object Buildings
      */
-    public static List<Building> buildingListMapper(String buildingsJson) {
+    public static List<Building> buildingListMapper(String buildingsJson) throws IOException {
 
         ObjectMapper mapper = new ObjectMapper();
 
-        try {
-            // Convert JSON string to Object
-            return mapper.readValue(buildingsJson, new TypeReference<>(){});
-        } catch (Exception e) {
-            CustomAlert.warningAlert(buildingsJson);
-        }
-        return null;
+        return mapper.readValue(buildingsJson, new TypeReference<>(){});
     }
 
     /**
@@ -77,7 +65,14 @@ public class JsonMapper {
             // Convert JSON string to Object
             return mapper.readValue(roomJson, Room.class);
         } catch (Exception e) {
-            CustomAlert.warningAlert(roomJson);
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle(null);
+            alert.setHeaderText(null);
+            alert.setContentText(roomJson);
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(JsonMapper.class.getResource("/alertWarning.css").toExternalForm());
+            alert.showAndWait();
         }
         return null;
     }
@@ -85,25 +80,19 @@ public class JsonMapper {
     /**
      * Maps all room JSONS to a list.
      * @param roomsJson a JSON string representing a list.
-     * @return A list filled with object Buildings.
+     * @return A list filled with object Buildings
      */
     public static List<Room> roomListMapper(String roomsJson) throws IOException {
 
         ObjectMapper mapper = new ObjectMapper();
 
-        try {
-            // Convert JSON string to Object
-            return mapper.readValue(roomsJson, new TypeReference<>(){});
-        } catch (Exception e) {
-            CustomAlert.warningAlert(roomsJson);
-        }
-        return null;
+        return mapper.readValue(roomsJson, new TypeReference<>(){});
     }
 
     /**
-     * Maps a JSON string to an AppUser object.
-     * @param appUserJson JSON representation of a String.
-     * @return AppUser Object.
+     * Maps a JSON string to an AppUser object
+     * @param appUserJson JSON representation of a String
+     * @return AppUser Object
      */
     public static AppUser appUserMapper(String appUserJson) {
 
@@ -113,15 +102,22 @@ public class JsonMapper {
             // Convert JSON string to Object
             return mapper.readValue(appUserJson, AppUser.class);
         } catch (Exception e) {
-            CustomAlert.warningAlert(appUserJson);
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle(null);
+            alert.setHeaderText(null);
+            alert.setContentText(appUserJson);
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(JsonMapper.class.getResource("/alertWarning.css").toExternalForm());
+            alert.showAndWait();
         }
         return null;
     }
 
     /**
-     * Maps a JSON string to an UserInformation object.
-     * @param userInformationJson JSON representation of a String.
-     * @return UserInformation Object.
+     * Maps a JSON string to an UserInformation object
+     * @param userInformationJson JSON representation of a String
+     * @return UserInformation Object
      */
     public static UserInformation userInformationMapper(String userInformationJson) {
 
@@ -131,15 +127,22 @@ public class JsonMapper {
             // Convert JSON string to Object
             return mapper.readValue(userInformationJson, UserInformation.class);
         } catch (Exception e) {
-            CustomAlert.warningAlert(userInformationJson);
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle(null);
+            alert.setHeaderText(null);
+            alert.setContentText(userInformationJson);
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(JsonMapper.class.getResource("/alertWarning.css").toExternalForm());
+            alert.showAndWait();
         }
         return null;
     }
 
     /**
-     * Maps a JSON string to an Restaurant object.
-     * @param restaurantJson JSON representation of a String.
-     * @return Restaurant Object.
+     * Maps a JSON string to an Restaurant object
+     * @param restaurantJson JSON representation of a String
+     * @return Restaurant Object
      */
     public static Restaurant restaurantMapper(String restaurantJson) {
 
@@ -149,7 +152,14 @@ public class JsonMapper {
             // Convert JSON string to Object
             return mapper.readValue(restaurantJson, Restaurant.class);
         } catch (Exception e) {
-            CustomAlert.warningAlert(restaurantJson);
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle(null);
+            alert.setHeaderText(null);
+            alert.setContentText(restaurantJson);
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(JsonMapper.class.getResource("/alertWarning.css").toExternalForm());
+            alert.showAndWait();
         }
         return null;
     }
@@ -157,7 +167,7 @@ public class JsonMapper {
     /**
      * Maps all restaurant JSONS to a list.
      * @param restaurantsJson a JSON string representing a list.
-     * @return A list filled with object Restaurant.
+     * @return A list filled with object Restaurant
      */
     public static List<Restaurant> restaurantListMapper(String restaurantsJson) {
 
@@ -167,15 +177,22 @@ public class JsonMapper {
             // Convert JSON string to Object
             return mapper.readValue(restaurantsJson, new TypeReference<>(){});
         } catch (Exception e) {
-            CustomAlert.warningAlert(restaurantsJson);
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle(null);
+            alert.setHeaderText(null);
+            alert.setContentText(restaurantsJson);
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(JsonMapper.class.getResource("/alertWarning.css").toExternalForm());
+            alert.showAndWait();
         }
         return null;
     }
 
     /**
      * Maps all restaurant hours JSONS to an object.
-     * @param restaurantHoursJson a JSON string.
-     * @return Restaurant hour object.
+     * @param restaurantHoursJson a JSON string
+     * @return Restaurant hour object
      */
     public static RestaurantHours restaurantHoursMapper(String restaurantHoursJson) {
 
@@ -186,15 +203,19 @@ public class JsonMapper {
             // Convert JSON string to Object
             return mapper.readValue(restaurantHoursJson, RestaurantHours.class);
         } catch (Exception e) {
-            CustomAlert.warningAlert(restaurantHoursJson);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText(restaurantHoursJson);
+            alert.showAndWait();
         }
         return null;
     }
 
     /**
      * Maps all building hours JSONS to an object.
-     * @param buildingHourJson a JSON string.
-     * @return building hour object.
+     * @param buildingHourJson a JSON string
+     * @return building hour object
      */
     public static BuildingHours buildingHoursMapper(String buildingHourJson) {
 
@@ -205,7 +226,11 @@ public class JsonMapper {
             // Convert JSON string to Object
             return mapper.readValue(buildingHourJson, BuildingHours.class);
         } catch (Exception e) {
-            CustomAlert.warningAlert(buildingHourJson);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText(buildingHourJson);
+            alert.showAndWait();
         }
         return null;
     }
@@ -224,7 +249,11 @@ public class JsonMapper {
             // Convert JSON string to Object
             return mapper.readValue(roomReservationJson, RoomReservation.class);
         } catch (Exception e) {
-            CustomAlert.warningAlert(roomReservationJson);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText(roomReservationJson);
+            alert.showAndWait();
         }
         return null;
     }
@@ -232,7 +261,7 @@ public class JsonMapper {
     /**
      * Maps all Room Reservation JSONS to a list.
      * @param roomReservationsJson a JSON string representing a list.
-     * @return A list filled with object Room Reservation.
+     * @return A list filled with object Room Reservation
      */
     public static List<RoomReservation> roomReservationsListMapper(String roomReservationsJson) {
 
@@ -243,9 +272,8 @@ public class JsonMapper {
             // Convert JSON string to Object
             return mapper.readValue(roomReservationsJson, new TypeReference<>(){});
         } catch (Exception e) {
-            CustomAlert.warningAlert(roomReservationsJson);
+            return new ArrayList();
         }
-        return null;
     }
 
     /**
@@ -262,7 +290,11 @@ public class JsonMapper {
             // Convert JSON string to Object
             return mapper.readValue(foodOrderJson, FoodOrder.class);
         } catch (Exception e) {
-            CustomAlert.warningAlert(foodOrderJson);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText(foodOrderJson);
+            alert.showAndWait();
         }
         return null;
     }
@@ -281,9 +313,8 @@ public class JsonMapper {
             // Convert JSON string to Object
             return mapper.readValue(foodOrdersJson, new TypeReference<>(){});
         } catch (Exception e) {
-            CustomAlert.warningAlert(foodOrdersJson);
+            return new ArrayList();
         }
-        return null;
     }
 
     /**
@@ -300,7 +331,11 @@ public class JsonMapper {
             // Convert JSON string to Object
             return mapper.readValue(bikeReservationJson, BikeReservation.class);
         } catch (Exception e) {
-            CustomAlert.warningAlert(bikeReservationJson);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText(bikeReservationJson);
+            alert.showAndWait();
         }
         return null;
     }
@@ -308,7 +343,7 @@ public class JsonMapper {
     /**
      * Maps all Bike Reservation JSONS to a list.
      * @param bikeReservationsJson a JSON string representing a list.
-     * @return A list filled with object Bike Reservation.
+     * @return A list filled with object Bike Reservation
      */
     public static List<BikeReservation> bikeReservationsListMapper(String bikeReservationsJson) {
 
@@ -324,38 +359,26 @@ public class JsonMapper {
     }
 
     /**
-     * Maps all dishes JSONS to a list.
-     * @param dishesJson a JSON string representing a list.
-     * @return A list filled with object Dish.
+     * Maps all menu JSONS to a list.
+     * @param menusJson a JSON string representing a list.
+     * @return A list filled with object Menus.
      */
-    public static List<Dish> dishListMapper(String dishesJson) {
+    public static List<Menu> menuListMapper(String menusJson) throws IOException {
 
         ObjectMapper mapper = new ObjectMapper();
 
-        try {
-            // Convert JSON string to Object
-            return mapper.readValue(dishesJson, new TypeReference<>(){});
-        } catch (Exception e) {
-            CustomAlert.warningAlert(dishesJson);
-        }
-        return null;
+        return mapper.readValue(menusJson, new TypeReference<>(){});
     }
 
     /**
-     * Maps all menus JSONS to a list.
-     * @param menusJson a JSON string representing a list.
-     * @return A list filled with object Menu.
+     * Maps all dish JSONS to a list.
+     * @param dishesJson a JSON string representing a list.
+     * @return A list filled with object dishes.
      */
-    public static List<Menu> menuListMapper(String menusJson) {
+    public static List<Dish> dishListMapper(String dishesJson) throws IOException {
 
         ObjectMapper mapper = new ObjectMapper();
 
-        try {
-            // Convert JSON string to Object
-            return mapper.readValue(menusJson, new TypeReference<>(){});
-        } catch (Exception e) {
-            CustomAlert.warningAlert(menusJson);
-        }
-        return null;
+        return mapper.readValue(dishesJson, new TypeReference<>(){});
     }
 }

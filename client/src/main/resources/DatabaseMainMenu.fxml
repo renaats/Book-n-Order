@@ -42,9 +42,9 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </ImageView>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="253.0" layoutY="352.0" onMouseClicked="#databaseRestaurants" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="133.0" fitWidth="150.0" layoutX="253.0" layoutY="369.0" onMouseClicked="#databaseRestaurants" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@images/DatabaseMenuFoodIcon.png" />
+            <Image url="@images/45332.png" />
          </image>
          <cursor>
             <Cursor fx:constant="HAND" />

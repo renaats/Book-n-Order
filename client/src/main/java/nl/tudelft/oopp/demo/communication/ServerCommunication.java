@@ -567,7 +567,6 @@ public class ServerCommunication {
         return communicateAndReturnBodyOfResponse(request);
     }
 
-
     /**
      * Adds a restaurant to the database.
      * @param buildingId the ID of the building where the restaurant is located restaurant.

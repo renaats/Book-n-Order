@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -28,10 +29,14 @@ public class DatabaseAddRestaurants implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        loadDataIntoChoiceBoxes();
+        try {
+            loadDataIntoChoiceBoxes();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    private void loadDataIntoChoiceBoxes() {
+    private void loadDataIntoChoiceBoxes() throws IOException {
         buildings.addAll(JsonMapper.buildingListMapper(ServerCommunication.getBuildings()));
         for (Building building : buildings) {
             buildingsChoiceBox.getItems().add(building.getName());

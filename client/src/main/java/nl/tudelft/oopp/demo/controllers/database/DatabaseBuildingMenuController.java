@@ -74,9 +74,7 @@ public class DatabaseBuildingMenuController implements Initializable {
         colFaculty.setCellValueFactory(new PropertyValueFactory<>("faculty"));
 
         idFieldRead.setDisable(true);
-        if (pageNumber == 0) {
-            pageNumber++;
-        }
+        pageNumber = 1;
 
         listBuildingsButtonClicked();
         tableSelectMethod();
