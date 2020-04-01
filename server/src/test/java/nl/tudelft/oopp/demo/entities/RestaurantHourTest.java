@@ -45,10 +45,10 @@ public class RestaurantHourTest {
         building = new Building("EWI", "Mekelweg", "EWI", 4);
         buildingRepository.save(building);
 
-        restaurant = new Restaurant(building, "Hangout");
+        restaurant = new Restaurant(building, "Hangout", "");
         restaurantRepository.save(restaurant);
 
-        restaurant2 = new Restaurant(building, "Food Station");
+        restaurant2 = new Restaurant(building, "Food Station", "");
         restaurantRepository.save(restaurant2);
 
         restaurantHours = new RestaurantHours(1, restaurant, LocalTime.ofSecondOfDay(1000), LocalTime.ofSecondOfDay(3000));

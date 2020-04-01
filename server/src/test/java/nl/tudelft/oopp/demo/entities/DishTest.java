@@ -51,11 +51,11 @@ public class DishTest {
         menu2 = new Menu("BK menu", restaurant2);
         menuRepository.saveAndFlush(menu2);
 
-        dish = new Dish("Chicken", menu1);
+        dish = new Dish("Chicken", menu1, 300);
         dish.setAllergies(new HashSet<>());
         dishRepository.saveAndFlush(dish);
 
-        dish2 = new Dish("Spicy Chicken", menu2);
+        dish2 = new Dish("Spicy Chicken", menu2, 400);
 
         dishes = new HashSet<>();
         dishes1 = new HashSet<>();
@@ -108,6 +108,15 @@ public class DishTest {
     }
 
     /**
+     * Tests the getter for the price field.
+     */
+    @Test
+    public void testPriceGetter() {
+        dish2 = dishRepository.findAll().get(0);
+        assertEquals(300, dish2.getPrice());
+    }
+
+    /**
      * Tests the the change of the name by using a setter.
      */
     @Test
@@ -125,6 +134,16 @@ public class DishTest {
         assertNotEquals(menu2, dish.getMenu());
         dish.setMenu(menu2);
         assertEquals(menu2, dish.getMenu());
+    }
+
+    /**
+     * Tests the the change of the menu by using a setter.
+     */
+    @Test
+    public void testChangePrice() {
+        assertNotEquals(500, dish.getPrice());
+        dish.setPrice(500);
+        assertEquals(500, dish.getPrice());
     }
 
     /**
