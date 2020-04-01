@@ -17,7 +17,9 @@ public class ErrorMessages {
     private static final String alreadyReservedMessage = "Already reserved at this time slot.";
     private static final String roomNotFoundMessage = "Room not found.";
     private static final String userNotFoundMessage = "User not found.";
+    private static final String wrongUserMessage = "This reservation was not made by this user.";
     private static final String reservationNotFoundMessage = "Reservation not found.";
+    private static final String orderNotFoundMessage = "Order not found.";
     private static final String buildingNotFoundMessage = "Building not found.";
     private static final String nameAlreadyExistsMessage = "Name already exists.";
     private static final String emailAlreadyExistsMessage = "Email already exists.";
@@ -73,6 +75,8 @@ public class ErrorMessages {
                 return notFoundMessage;
             case 412:
                 return preConditionFailedMessage;
+            case 415:
+                return orderNotFoundMessage;
             case 416:
                 return IdNotFoundMessage;
             case 417:
@@ -81,6 +85,8 @@ public class ErrorMessages {
                 return roomNotFoundMessage;
             case 419:
                 return userNotFoundMessage;
+            case 420:
+                return wrongUserMessage;
             case 421:
                 return reservationNotFoundMessage;
             case 422:

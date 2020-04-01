@@ -9,6 +9,7 @@ import java.util.Objects;
 public class RoomReservation {
 
     private Integer id;
+    private boolean active;
     private Room room;
     private AppUser appUser;
     private Date fromTime;
@@ -25,10 +26,15 @@ public class RoomReservation {
         this.appUser = appUser;
         this.fromTime = fromTime;
         this.toTime = toTime;
+        this.active = true;
     }
 
     public RoomReservation() {
+        this.active = true;
+    }
 
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 
     public void setRoom(Room room) {
@@ -47,9 +53,12 @@ public class RoomReservation {
         this.toTime = toTime;
     }
 
-
     public Integer getId() {
         return id;
+    }
+
+    public Boolean getActive() {
+        return active;
     }
 
     public Room getRoom() {
@@ -77,7 +86,8 @@ public class RoomReservation {
             return false;
         }
         RoomReservation that = (RoomReservation) o;
-        return Objects.equals(room, that.room)
+        return active == this.active
+                && Objects.equals(room, that.room)
                 && Objects.equals(appUser, that.appUser)
                 && Objects.equals(fromTime, that.fromTime)
                 && Objects.equals(toTime, that.toTime);
