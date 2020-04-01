@@ -92,7 +92,7 @@ public class FoodOrderTest {
      * Tests the saving and retrieval of an instance of FoodOrder.
      */
     @Test
-    public void saveAndRetrieveFoodOrder() {
+    public void testSaveAndRetrieveFoodOrder() {
         foodOrder2 = foodOrderRepository.findAll().get(0);
         assertEquals(foodOrder, foodOrder2);
     }

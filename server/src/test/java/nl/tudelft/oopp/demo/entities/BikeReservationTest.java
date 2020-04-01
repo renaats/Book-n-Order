@@ -90,7 +90,7 @@ public class BikeReservationTest {
      * Tests the saving and retrieval of an instance of BikeReservation.
      */
     @Test
-    public void saveAndRetrieveBikeReservation() {
+    public void testSaveAndRetrieveBikeReservation() {
         bikeReservation2 = bikeReservationRepository.findAll().get(0);
         assertEquals(bikeReservation, bikeReservation2);
     }

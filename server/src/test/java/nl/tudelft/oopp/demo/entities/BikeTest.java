@@ -60,7 +60,7 @@ public class BikeTest {
      * Tests the saving and retrieval of an instance of Bike.
      */
     @Test
-    public void saveAndRetrieveBike() {
+    public void testSaveAndRetrieveBike() {
         bike2 = bikeRepository.findAll().get(0);
         assertEquals(bike, bike2);
     }

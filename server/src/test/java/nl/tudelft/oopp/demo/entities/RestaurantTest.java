@@ -58,7 +58,7 @@ public class RestaurantTest {
      * Tests the saving and retrieval of an instance of Restaurant.
      */
     @Test
-    public void saveAndRetrieveRestaurant() {
+    public void testSaveAndRetrieveRestaurant() {
         restaurant2 = restaurantRepository.findAll().get(0);
         assertEquals(restaurant, restaurant2);
     }

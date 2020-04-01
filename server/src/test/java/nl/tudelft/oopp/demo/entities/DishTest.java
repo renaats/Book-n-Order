@@ -83,7 +83,7 @@ public class DishTest {
      * Tests the saving and retrieval of an instance of Dish.
      */
     @Test
-    public void saveAndRetrieveDish() {
+    public void testSaveAndRetrieveDish() {
         assertNotEquals(dish, dish2);
         dish2 = dishRepository.findAll().get(0);
         assertEquals(dish, dish2);

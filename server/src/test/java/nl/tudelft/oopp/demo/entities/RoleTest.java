@@ -50,7 +50,7 @@ class RoleTest {
      * Tests the saving and retrieval of an instance of Role.
      */
     @Test
-    public void saveAndRetrieveUser() {
+    public void testSaveAndRetrieveUser() {
         role2 = roleRepository.findAll().get(0);
         assertEquals(role.getName(), role2.getName());
     }
