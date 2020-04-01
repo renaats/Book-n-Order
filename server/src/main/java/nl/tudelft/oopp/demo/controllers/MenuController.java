@@ -45,7 +45,7 @@ public class MenuController {
     }
 
     /**
-     * Updates a specified attribute for some menu.
+     * Updates a given attribute for some menu.
      * @param id menu id.
      * @param attribute the attribute to be updated.
      * @param value the new value of the attribute
@@ -75,9 +75,9 @@ public class MenuController {
      * @return Error code
      */
     @Secured({ADMIN, RESTAURANT})
-    @DeleteMapping(path = "/delete/{menuID}")
+    @DeleteMapping(path = "/delete/{menuId}")
     @ResponseBody
-    public int deleteMenu(@PathVariable(value = "menuID") int id) {
+    public int deleteMenu(@PathVariable(value = "menuId") int id) {
         return menuService.delete(id);
     }
 }

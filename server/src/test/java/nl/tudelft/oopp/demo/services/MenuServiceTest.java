@@ -47,11 +47,18 @@ public class MenuServiceTest {
         public DishService dishService() {
             return new DishService();
         }
+
+        @Bean
+        public RestaurantService restaurantService() {
+            return new RestaurantService();
+        }
     }
 
     @Autowired
     MenuService menuService;
 
+    @Autowired
+    DishService restaurantService;
 
     @Autowired
     DishService dishService;
@@ -188,7 +195,7 @@ public class MenuServiceTest {
      * Tests the changing of a name of an instance.
      */
     @Test
-    public void testChangeName() {
+    public void testUpdateChangeName() {
         menuService.add(menu1.getName(), menu1.getRestaurant().getId());
         int id = menuService.all().get(0).getId();
         menuService.update(id,"name", "new name");
@@ -199,7 +206,7 @@ public class MenuServiceTest {
      * Tests the adding of a dish of an instance.
      */
     @Test
-    public void testAddDish() {
+    public void testUpdateAddDish() {
         menuService.add(menu1.getName(), menu1.getRestaurant().getId());
         dishService.add(dish.getName(),menuService.all().get(0).getId());
         int id = menuService.all().get(0).getId();
@@ -208,10 +215,44 @@ public class MenuServiceTest {
     }
 
     /**
+     * Tests updating an non-existent menu.
+     */
+    @Test
+    public void testUpdateDishNotFound() {
+        menuService.add(menu1.getName(), menu1.getRestaurant().getId());
+        dishService.add(dish.getName(),menuService.all().get(0).getId());
+        int id = menuService.all().get(0).getId();
+        assertEquals(430, menuService.update(id,"dishAdd", "-1"));
+    }
+
+    /**
+     * Tests updating an un-existent menu.
+     */
+    @Test
+    public void testUpdateMenuNotFound() {
+        menuService.add(menu1.getName(), menu1.getRestaurant().getId());
+        dishService.add(dish.getName(),menuService.all().get(0).getId());
+        int id = -1;
+        assertEquals(429, menuService.update(id,"dishAdd", "" + dishService.all().get(0).getId()));
+    }
+
+    /**
+     * Tests the updating of the restaurant of a dish instance.
+     */
+    @Test
+    public void testUpdateRestaurant() {
+        menuService.add(menu1.getName(), menu1.getRestaurant().getId());
+        dishService.add(dish.getName(),menuService.all().get(0).getId());
+        int id = menuService.all().get(0).getId();
+        menuService.update(id,"restaurant", "" + restaurantService.all().get(1).getId());
+        assertEquals(menuService.all().get(0).getRestaurant().getId() ,restaurantService.all().get(1).getId());
+    }
+
+    /**
      * Tests the deleting of a dish of an instance.
      */
     @Test
-    public void testDeleteDish() {
+    public void testUpdateDeleteDish() {
         menuService.add(menu1.getName(), menu1.getRestaurant().getId());
         dishService.add(dish.getName(),menuService.all().get(0).getId());
         int id = menuService.all().get(0).getId();
@@ -225,7 +266,7 @@ public class MenuServiceTest {
      * Tests the deleting of a dish of an instance.
      */
     @Test
-    public void testDeleteAllDish() {
+    public void testUpdateDeleteAllDish() {
         menuService.add(menu1.getName(), menu1.getRestaurant().getId());
         dishService.add(dish.getName(),menuService.all().get(0).getId());
         dishService.add(dish2.getName(),menuService.all().get(0).getId());

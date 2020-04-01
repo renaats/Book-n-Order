@@ -172,7 +172,7 @@ public class AllergyServiceTest {
      * Tests the adding of a dish to an allergy.
      */
     @Test
-    public void testAddDish() {
+    public void testUpdateAddDish() {
         allergyService.add(allergy1.getAllergyName());
         String id = allergyService.all().get(0).getAllergyName();
         assertNull(allergyService.findByAllergyName(id).getDish());
@@ -181,10 +181,43 @@ public class AllergyServiceTest {
     }
 
     /**
+     * Tests the deleting of non-existent a dish of an allergy.
+     */
+    @Test
+    public void testUpdateDeleteDishDishNotFound() {
+        allergyService.add(allergy1.getAllergyName());
+        String id = allergyService.all().get(0).getAllergyName();
+        assertNull(allergyService.findByAllergyName(id).getDish());
+        assertEquals(430, allergyService.update(id, "dishDelete", "-1"));
+    }
+
+    /**
+     * Tests the adding of non-existent a dish to an allergy.
+     */
+    @Test
+    public void testUpdateAddDishDishNotFound() {
+        allergyService.add(allergy1.getAllergyName());
+        String id = allergyService.all().get(0).getAllergyName();
+        assertNull(allergyService.findByAllergyName(id).getDish());
+        assertEquals(430, allergyService.update(id, "dishAdd", "-1"));
+    }
+
+    /**
+     * Tests the updating of a non-existent allergy.
+     */
+    @Test
+    public void testUpdateAllergyNotFound() {
+        allergyService.add(allergy1.getAllergyName());
+        String id = allergyService.all().get(0).getAllergyName();
+        assertNull(allergyService.findByAllergyName(id).getDish());
+        assertEquals(432, allergyService.update("-1", "dishAdd", "" + dishService.all().get(0).getId()));
+    }
+
+    /**
      * Tests the deleting of a dish of an allergy.
      */
     @Test
-    public void testDeleteDish() {
+    public void testUpdateDeleteDish() {
         allergyService.add(allergy1.getAllergyName());
         String id = allergyService.all().get(0).getAllergyName();
         assertNull(allergyService.findByAllergyName(id).getDish());
@@ -198,7 +231,7 @@ public class AllergyServiceTest {
      * Tests the deleting all dishes of an allergy.
      */
     @Test
-    public void testDeleteAllDish() {
+    public void testUpdateDeleteAllDish() {
         allergyService.add(allergy1.getAllergyName());
         String id = allergyService.all().get(0).getAllergyName();
         assertNull(allergyService.findByAllergyName(id).getDish());

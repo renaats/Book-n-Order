@@ -77,7 +77,7 @@ public class Menu {
     }
 
     /**
-     * Deletes a dish from the menu, if the menu doesn't have said dish it does nothing.
+     * Deletes a dish from the menu. If the menu doesn't have said dish it does nothing.
      * @param dish the dish to be deleted
      */
     public void deleteDish(Dish dish) {

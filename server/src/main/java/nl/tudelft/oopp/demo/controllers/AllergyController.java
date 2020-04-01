@@ -69,7 +69,7 @@ public class AllergyController {
     }
 
     /**
-     * Finds an allergy with the specified id.
+     * Finds an allergy with the given id.
      * @param name = the name of the allergy.
      * @return an allergy that matches the id.
      */
@@ -81,8 +81,8 @@ public class AllergyController {
     }
 
     /**
-     * Updates a specified attribute for some allergy.
-     * @param name allergy name (that is what is used as the Id ).
+     * Updates a given attribute for some allergy.
+     * @param name allergy name.
      * @param attribute the attribute to be updated.
      * @param value the new value of the attribute
      * @return Error code

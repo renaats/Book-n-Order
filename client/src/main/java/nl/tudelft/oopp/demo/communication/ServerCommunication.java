@@ -450,7 +450,7 @@ public class ServerCommunication {
     }
 
     /**
-     * Queries the allergies on specific attributes.
+     * Queries the allergies on given attributes.
      * @param query the query parameters.
      * @return A JSON list of allergies matching the query.
      */
@@ -472,7 +472,7 @@ public class ServerCommunication {
     }
 
     /**
-     * Updates a specific attribute of a food order.
+     * Updates a given attribute of a food order.
      * @param id food order id.
      * @param attribute the attribute you want to change.
      * @param value the value of the change.
@@ -641,8 +641,8 @@ public class ServerCommunication {
     }
 
     /**
-     * Updates a give attribute from a menu.
-     * @param id the Id of the menu.
+     * Updates a given attribute from a menu.
+     * @param id the id of the menu.
      * @param attribute the attribute to be updated. Used dishAdd, dishDelete and dishDeleteAll to edit the dishes.
      *                  dishAdd adds the dish with the name of value.
      *                  dishDelete deletes the dish with the name value.
@@ -657,7 +657,7 @@ public class ServerCommunication {
 
     /**
      * Updates a give attribute from a menu.
-     * @param name the name of the allergy (that is used as the ID).
+     * @param name the name of the allergy.
      * @param attribute the attribute to be updated. Used dishAdd, dishDelete and dishDeleteAll to edit the dishes.
      *      *                  dishAdd adds the dish with the name of value.
      *      *                  dishDelete deletes the dish with the name value.

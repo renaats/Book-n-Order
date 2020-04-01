@@ -1,12 +1,5 @@
 package nl.tudelft.oopp.demo.services;
 
-import static nl.tudelft.oopp.demo.config.Constants.ADDED;
-import static nl.tudelft.oopp.demo.config.Constants.ATTRIBUTE_NOT_FOUND;
-import static nl.tudelft.oopp.demo.config.Constants.BUILDING_NOT_FOUND;
-import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
-import static nl.tudelft.oopp.demo.config.Constants.MENU_NOT_FOUND;
-import static nl.tudelft.oopp.demo.config.Constants.RESTAURANT_NOT_FOUND;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -19,6 +12,8 @@ import nl.tudelft.oopp.demo.repositories.RestaurantRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import static nl.tudelft.oopp.demo.config.Constants.*;
 
 /**
  * Supports CRUD operations for the Menu entity.
@@ -85,7 +80,7 @@ public class MenuService {
     }
 
     /**
-     * Updates a specified attribute for some menu.
+     * Updates a given attribute for some menu.
      * @param id the id of the menu.
      * @param attribute the attribute whose value is changed.
      * @param value the new value of the attribute.
@@ -101,7 +96,7 @@ public class MenuService {
                 int restaurantId = Integer.parseInt(value);
                 Optional<Restaurant> optionalRestaurant = restaurantRepository.findById(restaurantId);
                 if (optionalRestaurant.isEmpty()) {
-                    return BUILDING_NOT_FOUND;
+                    return RESERVATION_NOT_FOUND;
                 }
                 Restaurant restaurant = optionalRestaurant.get();
                 menu.setRestaurant(restaurant);
@@ -113,7 +108,7 @@ public class MenuService {
                 int dishId = Integer.parseInt(value);
                 Optional<Dish> optionalDish = dishRepository.findById(dishId);
                 if (optionalDish.isEmpty()) {
-                    return BUILDING_NOT_FOUND;
+                    return DISH_NOT_FOUND;
                 }
                 Dish dish = optionalDish.get();
                 menu.addDish(dish);
@@ -122,7 +117,7 @@ public class MenuService {
                 int dishIdDelete = Integer.parseInt(value);
                 Optional<Dish> optionalDishDelete = dishRepository.findById(dishIdDelete);
                 if (optionalDishDelete.isEmpty()) {
-                    return BUILDING_NOT_FOUND;
+                    return DISH_NOT_FOUND;
                 }
                 Dish dishDelete = optionalDishDelete.get();
                 menu.deleteDish(dishDelete);

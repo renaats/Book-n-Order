@@ -67,7 +67,7 @@ public class AllergyService {
     }
 
     /**
-     * Finds an allergy with the specified id.
+     * Finds an allergy with the given id.
      * @param allergyName = the name of the allergy.
      * @return the allergy that matches the provided id.
      */
@@ -76,8 +76,8 @@ public class AllergyService {
     }
 
     /**
-     * Updates a specified attribute for some allergy.
-     * @param name the id of the allergy (that is used as the ID).
+     * Updates a given attribute for some allergy.
+     * @param name the id of the allergy.
      * @param attribute the attribute whose value is changed.
      * @param value the new value of the attribute.
      * @return String containing the result of your request.
