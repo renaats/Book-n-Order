@@ -2,6 +2,9 @@ package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
 
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
@@ -35,8 +38,8 @@ public class ContactInformationController {
     }
 
     /**
-     * method changes view to main menu
-     * @throws IOException should never throw an exception
+     * Changes current scene to mainMenu.fxml.
+     * @throws IOException input will be valid.
      */
     public void goToMyAccount() throws IOException {
         ApplicationDisplay.changeScene("/myAccountScene.fxml");

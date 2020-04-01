@@ -29,24 +29,24 @@
             <Font name="Calibri" size="11.0" />
         </font>
     </Text>
-    <Text layoutX="544.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TU Delft" textAlignment="CENTER" wrappingWidth="191.47265625" AnchorPane.leftAnchor="544.0" AnchorPane.rightAnchor="544.52734375" AnchorPane.topAnchor="87.203125">
+    <Text layoutX="471.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contact Us" textAlignment="CENTER" wrappingWidth="247.95703887939456" AnchorPane.leftAnchor="471.0" AnchorPane.rightAnchor="561.0429611206055" AnchorPane.topAnchor="123.203125">
         <font>
             <Font size="48.0" />
         </font>
     </Text>
-    <ImageView fitHeight="150.0" fitWidth="140.0" layoutX="474.0" layoutY="213.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="666.0" AnchorPane.topAnchor="213.0">
+    <ImageView fitHeight="109.0" fitWidth="109.0" layoutX="85.0" layoutY="244.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="1086.0" AnchorPane.topAnchor="244.0">
         <Image url="@images/phone.png" />
         <cursor>
             <Cursor fx:constant="HAND" />
         </cursor>
     </ImageView>
-    <ImageView fitHeight="140.0" fitWidth="140.0" layoutX="474.0" layoutY="356.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="474.0" AnchorPane.rightAnchor="666.0" AnchorPane.topAnchor="356.0">
+    <ImageView fitHeight="112.0" fitWidth="109.0" layoutX="85.0" layoutY="353.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="85.0" AnchorPane.rightAnchor="1086.0" AnchorPane.topAnchor="353.0">
         <Image url="@images/mail.png" />
         <cursor>
             <Cursor fx:constant="HAND" />
         </cursor>
     </ImageView>
-    <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="469.0" layoutY="518.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="469.0" AnchorPane.topAnchor="518.0">
+    <ImageView fitHeight="109.0" fitWidth="109.0" layoutX="79.0" layoutY="475.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="79.0" AnchorPane.topAnchor="475.0">
         <Image url="@images/location.png" />
         <cursor>
             <Cursor fx:constant="HAND" />
@@ -58,22 +58,14 @@
             <Cursor fx:constant="HAND" />
         </cursor>
     </ImageView>
-    <ImageView fitHeight="41.0" fitWidth="69.0" layoutX="14.0" layoutY="69.0" onMouseClicked="#goToMyAccount" pickOnBounds="true" preserveRatio="true">
-        <image>
-            <Image url="@images/BackArrow.png" />
-        </image>
-        <cursor>
-            <Cursor fx:constant="HAND" />
-        </cursor>
-    </ImageView>
-    <ImageView fitHeight="41.0" fitWidth="62.0" layoutX="14.0" layoutY="134.0" onMouseClicked="#myPreviousBookings" pickOnBounds="true" preserveRatio="true">
+    <ImageView fitHeight="41.0" fitWidth="62.0" layoutX="14.0" layoutY="72.0" onMouseClicked="#myPreviousBookings" pickOnBounds="true" preserveRatio="true">
         <image>
             <Image url="@images/Previous-booking-icon-png.png" />
         </image>
         <cursor>
             <Cursor fx:constant="HAND" />
         </cursor></ImageView>
-    <ImageView fitHeight="48.0" fitWidth="41.0" layoutX="14.0" layoutY="201.0" onMouseClicked="#myCurrentBookings" pickOnBounds="true" preserveRatio="true">
+    <ImageView fitHeight="48.0" fitWidth="41.0" layoutX="14.0" layoutY="135.0" onMouseClicked="#myCurrentBookings" pickOnBounds="true" preserveRatio="true">
         <image>
             <Image url="@images/CurrentBookingsIcon.png" />
         </image>
@@ -81,19 +73,31 @@
             <Cursor fx:constant="HAND" />
         </cursor>
     </ImageView>
-   <Text layoutX="640.0" layoutY="298.0" strokeType="OUTSIDE" strokeWidth="0.0" text="+3115 2789111" textAlignment="CENTER">
+   <Text layoutX="182.0" layoutY="308.0" strokeType="OUTSIDE" strokeWidth="0.0" text="+3115 2789111" textAlignment="CENTER" wrappingWidth="247.95703887939453">
       <font>
-         <Font size="36.0" />
+         <Font size="24.0" />
       </font>
    </Text>
-   <Text layoutX="640.0" layoutY="440.0" strokeType="OUTSIDE" strokeWidth="0.0" text="info@tudelft.nl" textAlignment="CENTER">
+   <Text layoutX="182.0" layoutY="417.0" strokeType="OUTSIDE" strokeWidth="0.0" text="info@tudelft.nl" textAlignment="CENTER" wrappingWidth="247.95703887939453">
       <font>
-         <Font size="36.0" />
+         <Font size="24.0" />
       </font>
    </Text>
-   <Text layoutX="640.0" layoutY="543.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PO Box 5 2600 AA Delft The Netherlands" textAlignment="CENTER" wrappingWidth="237.51562118530273">
+   <Text layoutX="182.0" layoutY="494.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PO Box 5 &#10;2600 AA Delft &#10;The Netherlands" textAlignment="CENTER" wrappingWidth="247.95703172683716">
       <font>
-         <Font size="36.0" />
+         <Font size="24.0" />
       </font>
    </Text>
+   <Pane layoutX="471.0" layoutY="239.0" prefHeight="372.0" prefWidth="748.0" style="-fx-border-color: #439FDA; -fx-border-width: 5; -fx-background-color: white;">
+      <children>
+         <ImageView fitHeight="432.0" fitWidth="738.0" layoutX="5.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+            <image>
+               <Image url="@images/TUDelft_map.png" />
+            </image>
+         </ImageView>
+      </children>
+   </Pane>
 </AnchorPane>
