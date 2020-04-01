@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/10.0.2-internal" fx:controller="nl.tudelft.oopp.demo.controllers.MyPreviousFoodReservationsController">
+<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" stylesheets="@Table.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.MyPreviousFoodReservationsController">
     <children>
         <ImageView fitHeight="720.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
             <image>
@@ -47,8 +47,9 @@
         </ImageView>
         <TableView layoutX="327.0" layoutY="198.0" prefHeight="380.0" prefWidth="626.0">
             <columns>
-                <TableColumn prefWidth="75.0" text="C1" />
-                <TableColumn prefWidth="75.0" text="C2" />
+                <TableColumn prefWidth="69.33334350585938" text="ID" />
+                <TableColumn prefWidth="381.33331298828125" text="Restaurant" />
+                <TableColumn prefWidth="174.00003051757812" text="Date" />
             </columns>
         </TableView>
         <Text layoutX="409.0" layoutY="146.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Current Food Reservations">
