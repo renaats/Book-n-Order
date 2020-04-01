@@ -61,7 +61,7 @@ public class FoodOrderTest {
         building = new Building("XTUDelft", "Mekelweg", "None", 8);
         buildingRepository.saveAndFlush(building);
 
-        restaurant = new Restaurant(building, "CafeX");
+        restaurant = new Restaurant(building, "CafeX", "");
         restaurantRepository.saveAndFlush(restaurant);
 
         deliveryLocation = new Building("EWI", "Mekelweg", "EWI", 4);

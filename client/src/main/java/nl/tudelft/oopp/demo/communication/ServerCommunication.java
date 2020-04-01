@@ -375,14 +375,17 @@ public class ServerCommunication {
     // -----------------------------------------
 
     /**
-     * Adds a dish to the database
-     * @param name dish name
-     * @param menuId menu id
-     * @return response.body of the server
+     * Adds a dish to the database.
+     * @param name dish name.
+     * @param menuId menu id.
+     * @param price the price of the dish.
+     * @param description the description of the dish.
+     * @param image the image of the dish.
+     * @return response.body of the server.
      */
-    public static String addDish(String name, int menuId) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/dish/add?name=" + URLEncoder.encode(name, StandardCharsets.UTF_8) + "&menuId=" + menuId)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        return communicateAndReturnErrorMessage(request);
+    public static String addDish(String name, int menuId, int price, String description, String image) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/dish/add?name=" + URLEncoder.encode(name, StandardCharsets.UTF_8) + "&menuId=" + menuId + "&price=" + price + "&description=" + description + "&image=" + image)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
     }
 
     /**

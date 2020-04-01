@@ -11,7 +11,7 @@ public class Restaurant {
     private Building building;
 
     private String name;
-
+    private String email;
     private Menu menu;
 
     /**
@@ -20,9 +20,10 @@ public class Restaurant {
      * @param name = name of the restaurant.
      * @param menu = menu of the restaurant.
      */
-    public Restaurant(Building building, String name, Menu menu) {
+    public Restaurant(Building building, String name, String email, Menu menu) {
         this.building = building;
         this.name = name;
+        this.email = email;
         this.menu = menu;
     }
 
@@ -36,6 +37,10 @@ public class Restaurant {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public void setMenu(Menu menu) {
@@ -58,6 +63,10 @@ public class Restaurant {
         return name;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -68,6 +77,7 @@ public class Restaurant {
         }
         Restaurant restaurant = (Restaurant) o;
         return name.equals(restaurant.name)
+                && Objects.equals(email, restaurant.email)
                 && Objects.equals(building, restaurant.building);
     }
 }

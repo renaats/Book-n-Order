@@ -58,7 +58,7 @@ public class ServerCommunicationTest {
         stubFor(delete(urlEqualTo("/room_reservation/delete?id=1")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(get(urlEqualTo("/user/info")).willReturn(aResponse().withStatus(200).withBody("Information")));
         stubFor(post(urlEqualTo("/login")).willReturn(aResponse().withStatus(200).withBody("token")));
-        stubFor(post(urlEqualTo("/dish/add?name=test&menuId=1")).willReturn(aResponse().withStatus(200).withBody("200")));
+        stubFor(post(urlEqualTo("/dish/add?name=test&menuId=1&price=3&description=A&image=B")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(delete(urlEqualTo("/dish/delete/1")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(delete(urlEqualTo("/food_order/delete/1")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(post(urlEqualTo("/food_order/add?userEmail=test%40gmail.com&restaurantId=1&deliverLocation=1&deliverTimeMs=1"))
@@ -129,7 +129,7 @@ public class ServerCommunicationTest {
      */
     @Test
     public void testSuccessfulAddDishes() {
-        assertEquals("Successfully executed.", ServerCommunication.addDish("test", 1));
+        assertEquals("200", ServerCommunication.addDish("test", 1, 3, "A", "B"));
     }
 
     /**
