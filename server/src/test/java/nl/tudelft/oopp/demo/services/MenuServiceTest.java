@@ -244,8 +244,8 @@ public class MenuServiceTest {
         menuService.add(menu1.getName(), menu1.getRestaurant().getId());
         dishService.add(dish.getName(),menuService.all().get(0).getId());
         int id = menuService.all().get(0).getId();
-        menuService.update(id,"restaurant", "" + restaurantService.all().get(1).getId());
-        assertEquals(menuService.all().get(0).getRestaurant().getId() ,restaurantService.all().get(1).getId());
+        menuService.update(id,"restaurant", "" + restaurant1.getId());
+        assertEquals(menuService.findById(id).get().getRestaurant().getId(), restaurant1.getId());
     }
 
     /**
