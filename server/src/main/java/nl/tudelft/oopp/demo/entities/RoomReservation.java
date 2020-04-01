@@ -1,7 +1,10 @@
 package nl.tudelft.oopp.demo.entities;
 
+import com.google.gson.annotations.Expose;
+
 import java.util.Date;
 import java.util.Objects;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,7 +28,8 @@ public class RoomReservation {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    
+
+    @Expose
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn
@@ -36,9 +40,11 @@ public class RoomReservation {
     @JoinColumn
     private AppUser appUser;
 
+    @Expose
     @Temporal(TemporalType.TIMESTAMP)
     private Date fromTime;
 
+    @Expose
     @Temporal(TemporalType.TIMESTAMP)
     private Date toTime;
 

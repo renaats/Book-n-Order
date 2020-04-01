@@ -11,6 +11,12 @@ import static nl.tudelft.oopp.demo.config.Constants.ROOM_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.USER_NOT_FOUND;
 import static nl.tudelft.oopp.demo.security.SecurityConstants.HEADER_STRING;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.gson.ExclusionStrategy;
+import com.google.gson.FieldAttributes;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -190,5 +196,43 @@ public class RoomReservationService {
             }
         }
         return roomReservations;
+    }
+
+    /**
+     * Finds all reservations for a specific room.
+     * @param roomId = the id of the room for which reservations are retrieved.
+     * @return a list of reservations for this room.
+     */
+    public String forRoom(int roomId) {
+        List<RoomReservation> roomReservations = new ArrayList<>();
+        Optional<Room> optionalRoom = roomRepository.findById(roomId);
+
+        if (optionalRoom.isEmpty()) {
+            return null;
+        }
+        Room room = optionalRoom.get();
+
+        for (RoomReservation roomReservation: roomReservationRepository.findAll()) {
+            if (roomReservation.getRoom() == room) {
+                roomReservations.add(roomReservation);
+            }
+        }
+
+        GsonBuilder gsonBuilder = new GsonBuilder();
+
+        gsonBuilder.setExclusionStrategies(new ExclusionStrategy() {
+            @Override
+            public boolean shouldSkipField(FieldAttributes f) {
+                return f.getName().contains("appUser") || f.getAnnotation(JsonIgnore.class) != null;
+            }
+
+            @Override
+            public boolean shouldSkipClass(Class<?> c) {
+                return c == AppUser.class;
+            }
+        });
+
+        Gson gson = gsonBuilder.create();
+        return gson.toJson(roomReservations);
     }
 }

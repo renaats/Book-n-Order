@@ -5,6 +5,7 @@ import static nl.tudelft.oopp.demo.config.Constants.BUILDING_ADMIN;
 import static nl.tudelft.oopp.demo.config.Constants.USER;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.websocket.server.PathParam;
 
 import nl.tudelft.oopp.demo.entities.RoomReservation;
 import nl.tudelft.oopp.demo.services.RoomReservationService;
@@ -14,6 +15,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -109,5 +111,17 @@ public class RoomReservationController {
     @GetMapping(path = "/future")
     public Iterable<RoomReservation> getFutureReservations(HttpServletRequest request) {
         return roomReservationService.future(request);
+    }
+
+    /**
+     * Finds all room reservations for the specified room
+     * @param id = the room id.
+     * @return a list of reservations for this room.
+     */
+    @Secured(USER)
+    @GetMapping(path = "/room/{roomId}")
+    @ResponseBody
+    public String getReservationsForRoom(@PathVariable(value = "roomId") int id) {
+        return roomReservationService.forRoom(id);
     }
 }

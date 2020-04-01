@@ -106,21 +106,29 @@ public class ServerCommunication {
         return communicateAndReturnBodyOfResponse(request);
     }
 
+    /**
+     * Finds a building in the database by name.
+     * @param name String of the name.
+     * @return the body of the response.
+     */
     public static String findBuildingByName(String name) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building/find/" + name)).GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        System.out.println(name);
+        System.out.println(URLEncoder.encode(name, StandardCharsets.UTF_8));
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building/findName/" + URLEncoder.encode(name, StandardCharsets.UTF_8))).GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnBodyOfResponse(request);
     }
 
     /**
-     * Communicates the buildings to add to the database
-     * @param name building name
-     * @param street street name
-     * @param houseNumber house number
-     * @return response body
+     * Communicates the buildings to add to the database.
+     * @param name building name.
+     * @param street street name.
+     * @param houseNumber house number.
+     * @param faculty the faculty of the building if applicable.
+     * @return response body.
      */
-    public static String addBuilding(String name, String street,int houseNumber) {
+    public static String addBuilding(String name, String street, int houseNumber, String faculty) {
         HttpRequest request;
-        request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building/add?name=" + URLEncoder.encode(name, StandardCharsets.UTF_8) + "&street=" + URLEncoder.encode(street, StandardCharsets.UTF_8) + "&houseNumber=" + houseNumber)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building/add?name=" + URLEncoder.encode(name, StandardCharsets.UTF_8) + "&street=" + URLEncoder.encode(street, StandardCharsets.UTF_8) + "&houseNumber=" + houseNumber + "&faculty=" + URLEncoder.encode(faculty, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnErrorMessage(request);
     }
 
@@ -138,12 +146,12 @@ public class ServerCommunication {
     }
 
     /**
-     * Adds building hours to the server
-     * @param buildingId building id
-     * @param date day represented by int
-     * @param startTimeS start time in seconds
-     * @param endTimeS end time in seconds
-     * @return response.body of the server
+     * Adds building hours to the server.
+     * @param buildingId building id.
+     * @param date day represented by int.
+     * @param startTimeS start time in seconds.
+     * @param endTimeS end time in seconds.
+     * @return response.body of the server.
      */
     public static String addBuildingHours(int buildingId, long date, int startTimeS, int endTimeS) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building_hours/add?buildingId=" + buildingId + "&date=" + date + "&startTimeS=" + startTimeS + "&endTimeS=" + endTimeS)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
@@ -162,7 +170,7 @@ public class ServerCommunication {
     /**
      * Retrieve specific building hours for specific day in the database by id.
      * @param buildingId = building id, which is parsed from a text field.
-     * @param day = the date in milliseconds or the day of the week for regular hours represented by long
+     * @param day = the date in milliseconds or the day of the week for regular hours represented by long.
      * @return the body of the response.
      */
     public static String findBuildingHours(int buildingId, long day) {
@@ -197,7 +205,7 @@ public class ServerCommunication {
     /**
      * Removes building hours from the database.
      * @param id = the id of the building.
-     * @param date = the date in milliseconds or the day of the week for regular hours represented by long
+     * @param date = the date in milliseconds or the day of the week for regular hours represented by long.
      * @return the body of the response from the server.
      */
     public static String deleteBuildingHours(int id, long date) {
@@ -765,6 +773,11 @@ public class ServerCommunication {
      */
     public static String getAllFutureBikeReservations() {
         HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/bike_reservation/future")).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    public static String getRoomReservationsForRoom(int roomId) {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/room_reservation/room/" + roomId)).build();
         return communicateAndReturnBodyOfResponse(request);
     }
 }
