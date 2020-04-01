@@ -90,9 +90,7 @@ public class DatabaseAddRoomController implements Initializable {
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
 
-        if (pageNumber == 0) {
-            pageNumber++;
-        }
+        pageNumber = 1;
 
         anchorPane.getChildren().remove(table);
         anchorPane.getChildren().remove(previousPageButton);

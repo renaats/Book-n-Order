@@ -18,6 +18,7 @@ public class Restaurant {
      * Creates a new instance of Restaurant.
      * @param building = building in which restaurant is located.
      * @param name = name of the restaurant.
+     * @param email = email of the restaurant owner
      * @param menu = menu of the restaurant.
      */
     public Restaurant(Building building, String name, String email, Menu menu) {

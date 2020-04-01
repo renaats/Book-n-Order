@@ -432,6 +432,16 @@ public class ServerCommunication {
     }
 
     /**
+     * Finds a menu in the database
+     * @param id the id of the menu
+     * @return response.body of the server
+     */
+    public static String findMenu(int id) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/menu/find/" + id)).GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
      * Queries the allergies on specific attributes.
      * @param query the query parameters
      * @return A JSON list of allergies matching the query
@@ -614,6 +624,15 @@ public class ServerCommunication {
      */
     public static String getDishes() {
         HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/dish/all")).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Retrieves the restaurant owned by the user.
+     * @return the body of the response from the server.
+     */
+    public static String getOwnedRestaurant() {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/restaurant/owned")).build();
         return communicateAndReturnBodyOfResponse(request);
     }
 

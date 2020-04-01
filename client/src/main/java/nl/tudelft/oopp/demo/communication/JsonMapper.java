@@ -41,6 +41,24 @@ public class JsonMapper {
     }
 
     /**
+     * Current mapper for menus
+     * @param menuJson JSON string representation of a menu
+     * @return Menu object
+     */
+    public static Menu menuMapper(String menuJson) {
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        try {
+            // Convert JSON string to Object
+            return mapper.readValue(menuJson, Menu.class);
+        } catch (Exception e) {
+            CustomAlert.warningAlert(menuJson);
+        }
+        return null;
+    }
+
+    /**
      * Maps all building JSONS to a list.
      * @param buildingsJson a JSON string representing a list.
      * @return A list filled with object Buildings

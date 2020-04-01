@@ -6,12 +6,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Dish;
+import nl.tudelft.oopp.demo.entities.Restaurant;
 import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
@@ -48,7 +50,7 @@ public class DatabaseRestaurantMenuController implements Initializable {
     @FXML
     private TextField nameFieldRead;
     @FXML
-    private TextField buildingFieldRead;
+    private TextField locationFieldRead;
     @FXML
     private TextField menuIdFieldRead;
     @FXML
@@ -60,9 +62,9 @@ public class DatabaseRestaurantMenuController implements Initializable {
     @FXML
     private TextField dishPriceFieldRead;
     @FXML
-    private TextField dishDescriptionFieldRead;
+    private TextArea dishDescriptionFieldRead;
     @FXML
-    private TextField selectedTextField;
+    private Text selectedTextField;
     @FXML
     private Text pagesText;
     @FXML
@@ -78,13 +80,9 @@ public class DatabaseRestaurantMenuController implements Initializable {
     @FXML
     private TableView<Dish> allergiesTableAvailable;
     @FXML
-    private TableColumn<Dish, Integer> colDishId;
-    @FXML
     private TableColumn<Dish, String> colDishName;
     @FXML
     private TableColumn<Dish, Integer> colDishPrice;
-    @FXML
-    private ImageView addDishButton;
     @FXML
     private Text addDishText;
 
@@ -115,6 +113,18 @@ public class DatabaseRestaurantMenuController implements Initializable {
 
         pageNumber = 1;
 
+        final Restaurant restaurant = JsonMapper.restaurantMapper(ServerCommunication.getOwnedRestaurant());
+        if (restaurant != null) {
+            idFieldRead.setText(Integer.toString(restaurant.getId()));
+            nameFieldRead.setText(restaurant.getName());
+            locationFieldRead.setText(restaurant.getBuilding().getName());
+            menuIdFieldRead.setText(Integer.toString(restaurant.getMenu().getId()));
+            menuNameFieldRead.setText(restaurant.getMenu().getName());
+        }
+
+        colDishName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colDishPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+
         retrieveAllDishes();
         tableSelectMethod();
     }
@@ -125,6 +135,22 @@ public class DatabaseRestaurantMenuController implements Initializable {
      */
     public void mainMenu() throws IOException {
         ApplicationDisplay.changeScene("/DatabaseMainMenu.fxml");
+    }
+
+    /**
+     * Goes to to add dishes menu
+     * @throws IOException Should never throw the exception
+     */
+    public void goToAddDishes() throws IOException {
+        ApplicationDisplay.changeScene("/DatabaseAddDish.fxml");
+    }
+
+    /**
+     * Goes to to add restaurants menu
+     * @throws IOException Should never throw the exception
+     */
+    public void goToAddRestaurants() throws IOException {
+        ApplicationDisplay.changeScene("/DatabaseAddRestaurants.fxml");
     }
 
     /**
@@ -183,7 +209,7 @@ public class DatabaseRestaurantMenuController implements Initializable {
         dishList.clear();
         List<Dish> dishes;
         try {
-            dishes = new ArrayList<>(Objects.requireNonNull(JsonMapper.dishListMapper(ServerCommunication.getDishes())));
+            dishes = new ArrayList<>(Objects.requireNonNull(JsonMapper.menuMapper(ServerCommunication.findMenu(Integer.parseInt(menuIdFieldRead.getText())))).getDishes());
         } catch (Exception e) {
             // Fakes the table having any entries, so the table shows up properly instead of "No contents".
             dishes = new ArrayList<>();
@@ -242,7 +268,7 @@ public class DatabaseRestaurantMenuController implements Initializable {
                 dishIdFieldRead.setText(Integer.toString(dish.getId()));
                 dishNameFieldRead.setText(dish.getName());
                 dishPriceFieldRead.setText(Integer.toString(dish.getId()));
-//                dishDescriptionFieldRead.setText(dish.getDescription());
+                dishDescriptionFieldRead.setText(dish.getDescription());
             }
 
             for (int i = 0; i < dishList.size(); i++) {

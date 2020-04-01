@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 import nl.tudelft.oopp.demo.communication.JsonMapper;
@@ -23,26 +24,24 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
  */
 public class DatabaseAddDishController implements Initializable {
 
-    final ObservableList<Menu> menus = FXCollections.observableArrayList();
-
     @FXML
     private TextField nameTextField;
     @FXML
-    private ChoiceBox<String> menuChoiceBox;
+    private TextField menuTextField;
+    @FXML
+    private TextField priceTextField;
+    @FXML
+    private TextField imageTextField;
+    @FXML
+    private TextArea descriptionTextArea;
+
+    private int menuId;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        menus.addAll(Objects.requireNonNull(JsonMapper.menuListMapper(ServerCommunication.getMenus())));
-        loadDataToChoiceBoxes();
-        for (Menu menu : menus) {
-            menuChoiceBox.getItems().add(menu.getName());
-        }
-    }
-
-    /**
-     * Loads the restaurants and dishes to the choice boxes
-     */
-    private void loadDataToChoiceBoxes() {
+        menuId = Objects.requireNonNull(JsonMapper.restaurantMapper(ServerCommunication.getOwnedRestaurant())).getMenu().getId();
+        menuTextField.setText(Integer.toString(menuId));
+        menuTextField.setDisable(true);
     }
 
     /**
@@ -54,27 +53,11 @@ public class DatabaseAddDishController implements Initializable {
     }
 
     /**
-     * Goes to add menu view
-     * @throws IOException Should never throw the exception
-     */
-    public void goToAddMenu() throws IOException {
-        ApplicationDisplay.changeScene("/DatabaseAddMenu.fxml");
-    }
-
-    /**
      * Goes to the edit menu view
      * @throws IOException Should never throw the exception
      */
-    public void goToEditMenu() throws IOException {
-        ApplicationDisplay.changeScene("/DatabaseEditMenu.fxml");
-    }
-
-    /**
-     * Goes to the menu for editing restaurants
-     * @throws IOException Should never throw the exception
-     */
-    public void goToRestaurantsMenu() throws IOException {
-        ApplicationDisplay.changeScene("/DatabaseFoodMainMenu.fxml");
+    public void goToRestaurantMenu() throws IOException {
+        ApplicationDisplay.changeScene("/DatabaseRestaurantMenu.fxml");
     }
 
     /**
@@ -83,18 +66,29 @@ public class DatabaseAddDishController implements Initializable {
     public void databaseAddDish() {
         String name = nameTextField.getText();
         if (name.equals("")) {
-            CustomAlert.warningAlert("please input a name");
+            CustomAlert.warningAlert("Name cannot be empty.");
+            return;
         }
-        String menuName = menuChoiceBox.getValue();
-        if (name.equals(null)) {
-            CustomAlert.warningAlert("select a menu");
-        }
-        int menuId = -1;
-        for (Menu value : menus) {
-            if (menuName.equals(value.getName())) {
-                menuId = value.getId();
+        double price = -1.00;
+        try {
+            if (priceTextField.getText().contains(",")) {
+                CustomAlert.warningAlert("Please use a period.");
+                return;
             }
+            price = Integer.parseInt(priceTextField.getText());
+            if (price == -1.00) {
+                CustomAlert.warningAlert("Price cannot be empty.");
+                return;
+            }
+        } catch (NumberFormatException e) {
+            CustomAlert.warningAlert("Price must be a double.");
+            return;
         }
-        CustomAlert.informationAlert(ServerCommunication.addDish(name, menuId));
+        String description = descriptionTextArea.getText();
+        if (description.equals("")) {
+            CustomAlert.warningAlert("Description cannot be empty.");
+        }
+        String image = imageTextField.getText();
+        CustomAlert.informationAlert(ServerCommunication.addDish(name, menuId, (int) price * 100, description, image));
     }
 }
