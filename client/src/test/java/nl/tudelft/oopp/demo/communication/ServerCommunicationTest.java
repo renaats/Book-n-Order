@@ -77,7 +77,7 @@ public class ServerCommunicationTest {
         stubFor(post(urlEqualTo("/dish/addAllergy?id=1&allergyName=test")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(get(urlEqualTo("/room_reservation/find/10")).willReturn(aResponse().withStatus(200).withBody("Message10")));
         stubFor(get(urlEqualTo("/room_reservation/cancel/1")).willReturn(aResponse().withStatus(200).withBody("201")));
-        stubFor(get(urlEqualTo("/room/filter?query=name:Auditorium")).willReturn(aResponse().withStatus(200).withBody("Message15")));
+        stubFor(get(urlEqualTo("/room/filter?query=name%3AAuditorium")).willReturn(aResponse().withStatus(200).withBody("Message15")));
         stubFor(get(urlEqualTo("/dish/filter?query=name:Tosti")).willReturn(aResponse().withStatus(200).withBody("Message11")));
         stubFor(get(urlEqualTo("/allergy/filter?query=name:Lactose")).willReturn(aResponse().withStatus(200).withBody("Message12")));
         stubFor(get(urlEqualTo("/room_reservation/past")).willReturn(aResponse().withStatus(200).withBody("200")));
@@ -230,7 +230,7 @@ public class ServerCommunicationTest {
      */
     @Test
     public void testSuccessfulAddMenu() {
-        assertEquals("Successfully executed.", ServerCommunication.addMenu("test", 1));
+        assertEquals("200", ServerCommunication.addMenu("test", 1));
     }
 
     /**

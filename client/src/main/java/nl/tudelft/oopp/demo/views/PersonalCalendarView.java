@@ -15,6 +15,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.BikeReservation;
@@ -45,7 +46,7 @@ public class PersonalCalendarView extends CalendarView {
         try {
             String roomReservationJson = ServerCommunication.getAllActiveRoomReservations();
             roomReservationList = new ArrayList<>(Objects.requireNonNull(JsonMapper.roomReservationsListMapper(roomReservationJson)));
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | JsonProcessingException e) {
             roomReservationList = new ArrayList<>();
             roomReservationList.add(null);
         }
@@ -74,7 +75,7 @@ public class PersonalCalendarView extends CalendarView {
 
         try {
             foodOrderList = new ArrayList<>(Objects.requireNonNull(JsonMapper.foodOrdersListMapper(ServerCommunication.getAllActiveFoodOrders())));
-        } catch (NullPointerException e) {
+        } catch (Exception e) {
             foodOrderList = new ArrayList<>();
             foodOrderList.add(null);
         }
@@ -104,7 +105,7 @@ public class PersonalCalendarView extends CalendarView {
         try {
             String bikeReservationJson = ServerCommunication.getAllActiveBikeReservations();
             bikeReservationList = new ArrayList<>(Objects.requireNonNull(JsonMapper.bikeReservationsListMapper(bikeReservationJson)));
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | JsonProcessingException e) {
             bikeReservationList = new ArrayList<>();
             bikeReservationList.add(null);
         }
