@@ -303,6 +303,18 @@ public class DishServiceTest {
     }
 
     /**
+     * Tests the search by menu id.
+     */
+    @Test
+    @WithMockUser(username = "restaurant@tudelft.nl", roles = {"USER", "STAFF", "RESTAURANT"})
+    public void testFindByMenuId() {
+        dishService.add(dish.getName(), dish.getMenu().getId(), 300, "Cooked", "123");
+        dishService.add(dish2.getName(), dish2.getMenu().getId(), 400, "Grilled", "234");
+        assertEquals(Collections.singletonList(dish), dishService.findByMenu(dish.getMenu().getId()));
+        assertEquals(Collections.singletonList(dish2), dishService.findByMenu(dish2.getMenu().getId()));
+    }
+
+    /**
      * Tests the searching of a dish by name.
      */
     @Test

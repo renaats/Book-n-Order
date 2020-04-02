@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * Supports the persistence of Dish entities by storing them in the database.
  */
@@ -13,4 +15,6 @@ public interface DishRepository extends JpaRepository<Dish, Integer>, JpaSpecifi
     Dish findByName(String name);
 
     boolean existsByName(String allergyName);
+
+    List<Dish> findAllByMenuId(int menuId);
 }

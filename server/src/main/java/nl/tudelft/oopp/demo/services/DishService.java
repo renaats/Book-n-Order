@@ -184,5 +184,14 @@ public class DishService {
         Specification<Dish> spec = builder.build();
         return dishRepository.findAll(spec);
     }
+
+    /**
+     * Lists all dishes from a specific menu.
+     * @param menuId the id of the menu
+     * @return all dishes from the menu
+     */
+    public List<Dish> findByMenu( int menuId) {
+        return dishRepository.findAllByMenuId(menuId);
+    }
 }
 

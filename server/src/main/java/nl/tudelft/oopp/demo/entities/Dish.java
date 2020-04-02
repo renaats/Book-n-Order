@@ -130,8 +130,6 @@ public class Dish {
                 && Objects.equals(menu, dish.menu)
                 && Objects.equals(price, dish.price)
                 && Objects.equals(description, dish.description)
-                && Objects.equals(image, dish.image)
-                && Objects.equals(allergies, dish.allergies)
-                && Objects.equals(foodOrders, dish.foodOrders);
+                && Objects.equals(image, dish.image);
     }
 }

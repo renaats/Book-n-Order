@@ -109,7 +109,19 @@ public class DishController {
     @Secured(USER)
     @GetMapping(path = "/all")
     @ResponseBody
-    public Iterable<Dish> getAllMenus() {
+    public Iterable<Dish> getAllDishes() {
         return dishService.all();
+    }
+
+    /**
+     * Lists all dishes from a specific menu.
+     * @param menuId the id of the menu
+     * @return all dishes from the menu
+     */
+    @Secured(USER)
+    @GetMapping(path = "/fromMenu/{menuId}")
+    @ResponseBody
+    public Iterable<Dish> getAllDishesFromMenu(@PathVariable(value = "menuId") int menuId) {
+        return dishService.findByMenu(menuId);
     }
 }
