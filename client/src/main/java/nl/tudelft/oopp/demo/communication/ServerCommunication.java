@@ -442,6 +442,16 @@ public class ServerCommunication {
     }
 
     /**
+     * Finds a menu in the database by restaurant id
+     * @param id the id of the restaurant
+     * @return response.body of the server
+     */
+    public static String findMenuByRestaurant(int id) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/menu/findRestaurant/" + id)).GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
      * Queries the allergies on specific attributes.
      * @param query the query parameters
      * @return A JSON list of allergies matching the query
@@ -532,17 +542,6 @@ public class ServerCommunication {
      */
     public static String addMenu(String name, int restaurantId) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/menu/add?name=" + URLEncoder.encode(name, StandardCharsets.UTF_8) + "&restaurantId=" + restaurantId)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        return communicateAndReturnErrorMessage(request);
-    }
-
-    /**
-     * Removes restaurant hours from the database.
-     * @param id = the id of the restaurant.
-     * @param day = the day of the week represented in an int.
-     * @return the body of the response from the server.
-     */
-    public static String deleteRestaurantHours(int id, int day) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant_hours/delete?id=" + id + "&day=" + day)).DELETE().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnErrorMessage(request);
     }
 

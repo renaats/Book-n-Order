@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -39,9 +40,20 @@ public class DatabaseAddDishController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        menuId = Objects.requireNonNull(JsonMapper.restaurantMapper(ServerCommunication.getOwnedRestaurant())).getMenu().getId();
-        menuTextField.setText(Integer.toString(menuId));
-        menuTextField.setDisable(true);
+        Menu menu = null;
+        try {
+            menu = JsonMapper.menuMapper(ServerCommunication.findMenuByRestaurant(JsonMapper.ownRestaurantMapper(ServerCommunication.getOwnedRestaurant()).get(0).getId()));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        if (menu != null) {
+            menuId = menu.getId();
+            menuTextField.setText(menu.getName());
+            menuTextField.setDisable(true);
+            menuTextField.setOpacity(0.75);
+        } else {
+            CustomAlert.errorAlert("Something went wrong. Please contact an administrator.");
+        }
     }
 
     /**
@@ -75,7 +87,7 @@ public class DatabaseAddDishController implements Initializable {
                 CustomAlert.warningAlert("Please use a period.");
                 return;
             }
-            price = Integer.parseInt(priceTextField.getText());
+            price = Double.parseDouble(priceTextField.getText());
             if (price == -1.00) {
                 CustomAlert.warningAlert("Price cannot be empty.");
                 return;

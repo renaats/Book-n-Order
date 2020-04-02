@@ -111,7 +111,7 @@
          <Font size="17.0" />
       </font>
    </Text>
-   <TextField fx:id="nameFieldRead1" layoutX="246.0" layoutY="323.0" prefHeight="26.0" prefWidth="260.0" promptText="Menu name" />
+   <TextField fx:id="menuNameFieldRead" layoutX="246.0" layoutY="323.0" prefHeight="26.0" prefWidth="260.0" promptText="Menu name" />
    <Button fx:id="updateBuildingButton" layoutX="208.0" layoutY="358.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="223.0" style="-fx-background-color: #00a6d6;" text="Update" textFill="WHITE" AnchorPane.leftAnchor="208.0" AnchorPane.rightAnchor="848.6666666666666">
       <cursor>
          <Cursor fx:constant="HAND" />

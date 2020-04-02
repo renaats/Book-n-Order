@@ -2,22 +2,22 @@ package nl.tudelft.oopp.demo.controllers.database;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
-import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Dish;
+import nl.tudelft.oopp.demo.entities.Menu;
 import nl.tudelft.oopp.demo.entities.Restaurant;
 import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
-import javax.swing.text.html.ImageView;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -125,9 +125,9 @@ public class DatabaseRestaurantMenuController implements Initializable {
             idFieldRead.setText(Integer.toString(ownedRestaurants.get(0).getId()));
             nameFieldRead.setText(ownedRestaurants.get(0).getName());
             locationFieldRead.setText(ownedRestaurants.get(0).getBuilding().getName());
-//            Menu menu = ServerCommunication.findMenuByRestaurant(ownedRestaurants.get(0).getId());
-//            menuIdFieldRead.setText(menu.getId()));
-//            menuNameFieldRead.setText(menu.getName());
+            Menu menu = JsonMapper.menuMapper(ServerCommunication.findMenuByRestaurant(ownedRestaurants.get(0).getId()));
+            menuIdFieldRead.setText(Integer.toString(menu.getId()));
+            menuNameFieldRead.setText(menu.getName());
         }
 
         colDishName.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -257,24 +257,6 @@ public class DatabaseRestaurantMenuController implements Initializable {
         }
         dishTableView.setItems(dishList);
     }
-
-//    public void addNewDish() {
-//        double price = 0.00;
-//        String name = dishAddNameField.getText();
-//        if (name.equals("")) {
-//            CustomAlert.warningAlert("Please provide a name.");
-//        }
-//        if (dishAddPriceField.getText().contains(",")) {
-//            CustomAlert.warningAlert("Please use a period.");
-//        }
-//        try {
-//            Double.parseDouble(dishAddPriceField.getText());
-//        } catch (NumberFormatException e) {
-//            CustomAlert.warningAlert("Please use the format '0.00'");
-//        }
-//        String response = ServerCommunication.addDish(name, Integer.parseInt(menuIdFieldRead.getText()));
-//        CustomAlert.informationAlert(response);
-//    }
 
     /**
      * Listener that checks if a row is selected, if so, fill the text fields.

@@ -49,6 +49,7 @@ public class JsonMapper {
 
         ObjectMapper mapper = new ObjectMapper();
 
+        System.out.println(menuJson);
         try {
             // Convert JSON string to Object
             return mapper.readValue(menuJson, Menu.class);
