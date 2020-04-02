@@ -4,6 +4,8 @@ import static nl.tudelft.oopp.demo.config.Constants.ADMIN;
 import static nl.tudelft.oopp.demo.config.Constants.RESTAURANT;
 import static nl.tudelft.oopp.demo.config.Constants.USER;
 
+import javax.servlet.http.HttpServletRequest;
+
 import nl.tudelft.oopp.demo.entities.Restaurant;
 import nl.tudelft.oopp.demo.services.RestaurantService;
 
@@ -35,6 +37,7 @@ public class RestaurantController {
      * Adds a restaurant.
      * @param buildingId = the building, where the restaurant is located
      * @param name = the name of the restaurant
+     * @param email = the email of the restaurant
      * @return Error code
      */
     @Secured({ADMIN, RESTAURANT})
@@ -42,9 +45,10 @@ public class RestaurantController {
     @ResponseBody
     public int addNewRestaurant(
             @RequestParam int buildingId,
-            @RequestParam String name
+            @RequestParam String name,
+            @RequestParam String email
     ) {
-        return restaurantService.add(buildingId, name);
+        return restaurantService.add(buildingId, name, email);
     }
 
     /**
@@ -86,6 +90,17 @@ public class RestaurantController {
     }
 
     /**
+     * Lists all restaurants that the user is an owner of.
+     * @param request = the Http request that calls this method.
+     * @return all restaurant that have this user as an owner.
+     */
+    @Secured({RESTAURANT, ADMIN})
+    @GetMapping(path = "/owned")
+    public Iterable<Restaurant> getOwned(HttpServletRequest request) {
+        return restaurantService.owned(request);
+    }
+
+    /**
      * Finds a restaurant with the specified id.
      * @param id = the restaurant id
      * @return a restaurant that matches the id
@@ -97,4 +112,15 @@ public class RestaurantController {
         return restaurantService.find(id);
     }
 
+    /**
+     * Finds a restaurant with the specified name.
+     * @param name = the restaurant name
+     * @return a restaurant that matches the name
+     */
+    @Secured(USER)
+    @GetMapping(path = "/findName/{name}")
+    @ResponseBody
+    public Restaurant findRestaurantByName(@PathVariable (value = "name") String name) {
+        return restaurantService.find(name);
+    }
 }

@@ -41,7 +41,7 @@ public class RestaurantTest {
         building2 = new Building("EWI2", "Mekelweg2", "EWI", 42);
         buildingRepository.save(building2);
 
-        restaurant = new Restaurant(building, "Hangout");
+        restaurant = new Restaurant(building, "Hangout", "");
         restaurantRepository.save(restaurant);
     }
 

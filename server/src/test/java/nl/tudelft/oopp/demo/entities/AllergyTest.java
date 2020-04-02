@@ -94,7 +94,7 @@ public class AllergyTest {
      */
     @Test
     public void testDishAllergy() {
-        Dish dish = new Dish("Tosti", menu);
+        Dish dish = new Dish("Tosti", menu, 300, "Cooked", "123");
         dish.setAllergies(new HashSet<>());
 
         Set<Allergy> allergySet = new HashSet<>();
