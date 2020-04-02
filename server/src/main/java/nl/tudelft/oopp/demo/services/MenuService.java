@@ -97,4 +97,13 @@ public class MenuService {
     public Menu find(String name) {
         return menuRepository.findByName(URLDecoder.decode(name, StandardCharsets.UTF_8));
     }
+
+    /**
+     * Finds a menu with a certain restaurant id
+     * @param restaurantId restaurant id
+     * @return menu
+     */
+    public Menu findRestaurant(int restaurantId) {
+        return menuRepository.findByRestaurantId(restaurantId);
+    }
 }

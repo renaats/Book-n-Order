@@ -160,6 +160,16 @@ public class MenuServiceTest {
     }
 
     /**
+     * Tests the search by restaurant for an existing object.
+     */
+    @Test
+    @WithMockUser(username = "restaurant@tudelft.nl", roles = {"USER", "STAFF", "RESTAURANT"})
+    public void testFindExistingByRestaurant() {
+        menuService.add(menu1.getName(), menu1.getRestaurant().getId());
+        assertNotNull(menuService.findRestaurant(menu1.getRestaurant().getId()));
+    }
+
+    /**
      * Tests the retrieval of multiple instances.
      */
     @Test

@@ -87,7 +87,19 @@ public class MenuController {
     @Secured(USER)
     @GetMapping(path = "/findName/{name}")
     @ResponseBody
-    public Menu find(@PathVariable(value = "name") String name) {
+    public Menu findName(@PathVariable(value = "name") String name) {
         return menuService.find(name);
+    }
+
+    /**
+     * Finds a menu with a certain restaurant id
+     * @param restaurantId restaurant id
+     * @return menu
+     */
+    @Secured(USER)
+    @GetMapping(path = "/findRestaurant/{restaurantId}")
+    @ResponseBody
+    public Menu findRestaurant(@PathVariable(value = "restaurantId") int restaurantId) {
+        return menuService.findRestaurant(restaurantId);
     }
 }
