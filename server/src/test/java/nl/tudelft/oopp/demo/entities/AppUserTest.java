@@ -50,7 +50,7 @@ public class AppUserTest {
      * Tests the saving and retrieval of an instance of AppUser.
      */
     @Test
-    public void saveAndRetrieveUser() {
+    public void testSaveAndRetrieveUser() {
         appUser2 = userRepository.findAll().get(0);
         assertEquals(appUser, appUser2);
     }

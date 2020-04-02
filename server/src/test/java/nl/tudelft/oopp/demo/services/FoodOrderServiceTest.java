@@ -271,6 +271,7 @@ public class FoodOrderServiceTest {
      * Tests the change of active by using the service.
      */
     @Test
+    @WithMockUser(username = "restaurant@tudelft.nl", roles = {"USER", "STAFF", "RESTAURANT"})
     public void testChangeActive() {
         foodOrderService.add(request, restaurant.getId(), deliverLocation.getId(), deliverTimeMilliseconds);
         int id = foodOrderService.all().get(0).getId();

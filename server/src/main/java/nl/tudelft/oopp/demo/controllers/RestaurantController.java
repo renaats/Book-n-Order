@@ -90,7 +90,7 @@ public class RestaurantController {
     }
 
     /**
-     * Lists all Restaurants that the user is an owner of.
+     * Lists all restaurants that the user is an owner of.
      * @param request = the Http request that calls this method.
      * @return all restaurant that have this user as an owner.
      */

@@ -7,7 +7,6 @@ import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.github.tomakehurst.wiremock.WireMockServer;
 
 import java.io.IOException;
@@ -51,16 +50,16 @@ class JsonMapperTest {
     }
 
     @Test
-    void buildingMapper() throws JsonProcessingException {
+    void testBuildingMapper() {
         stubFor(get(urlEqualTo("/building/find/1")).willReturn(aResponse().withStatus(200)
                 .withBody("{\"id\":1,\"name\":\"testffes\",\"street\":\"1\",\"houseNumber\":1}")));
         assertEquals(JsonMapper
-                        .buildingMapper("{\"id\":1,\"name\":\"testffes\",\"street\":\"1\",\"houseNumber\":1}"),
+                .buildingMapper("{\"id\":1,\"name\":\"testffes\",\"street\":\"1\",\"houseNumber\":1}"),
                 JsonMapper.buildingMapper(ServerCommunication.findBuilding(1)));
     }
 
     @Test
-    void buildingListMapper() throws IOException {
+    void testBuildingListMapper() throws IOException {
         stubFor(get(urlEqualTo("/building/all"))
                 .willReturn(aResponse()
                         .withStatus(200)
@@ -71,66 +70,52 @@ class JsonMapperTest {
         assertEquals(
                 JsonMapper
                         .buildingListMapper("[{\"id\":1,\"name\":\"testffes\",\"street\":\"1\",\"houseNumber\":1},"
-                                + "{\"id\":2,\"name\":\"1\",\"street\":\"1\",\"houseNumber\":1},"
-                                + "{\"id\":3,\"name\":\"1\",\"street\":\"1\",\"houseNumber\":1},"
-                                + "{\"id\":4,\"name\":\"1\",\"street\":\"1\",\"houseNumber\":1}]"),
+                + "{\"id\":2,\"name\":\"1\",\"street\":\"1\",\"houseNumber\":1},"
+                + "{\"id\":3,\"name\":\"1\",\"street\":\"1\",\"houseNumber\":1},"
+                + "{\"id\":4,\"name\":\"1\",\"street\":\"1\",\"houseNumber\":1}]"),
                 JsonMapper.buildingListMapper(ServerCommunication.getBuildings()));
     }
 
     @Test
-    void roomMapper() {
+    void testRoomMapper() {
         stubFor(get(urlEqualTo("/room/find/4"))
                 .willReturn(aResponse()
                         .withStatus(200)
-                        .withBody("{\"id\":113,\"name\":\"test\",\"building\":{\"id\":85"
-                                + ",\"name\":\"de3ded\",\"street\""
-                                + ":\"est\",\"faculty\":\"\",\"houseNumber\""
-                                + ":0},\"studySpecific\":\"Computer Science and Engineering\""
-                                + ",\"projector\":false,\"screen\":true,\"capacity\":555555,\"plugs\""
-                                + ":555,\"status\":\"Closed\"}")));
+                        .withBody("{\"id\":4,\"name\":\"432\",\"building\":{\"id\":1,\"name\":\"11\",\"street\":\"1\",\"houseNumber\":1},\"faculty\":"
+                                + "\"42342\",\"facultySpecific\":true,\"projector\":false,\"screen\":false,\"capacity\":4234,\"plugs\":42342}")));
         assertEquals(
                 JsonMapper
                         .roomMapper(
-                                "{\"id\":113,\"name\":\"test\",\"building\":{\"id\":85"
-                                        + ",\"name\":\"de3ded\",\"street\""
-                                        + ":\"est\",\"faculty\":\"\",\"houseNumber\""
-                                        + ":0},\"studySpecific\":\"Computer Science and Engineering\""
-                                        + ",\"projector\":false,\"screen\":true,\"capacity\":555555,\"plugs\""
-                                        + ":555,\"status\":\"Closed\"}"),
+                                "{\"id\":4,\"name\":\"432\",\"building\":{\"id\":1,\"name\":\"11\",\"street\":\"1\",\"houseNumber\":1},\"faculty\":"
+                                + "\"42342\",\"facultySpecific\":true,\"projector\":false,\"screen\":false,\"capacity\":4234,\"plugs\":42342}"),
                 JsonMapper.roomMapper((ServerCommunication.findRoom(4))));
     }
 
     @Test
-    void roomListMapper() throws IOException {
+    void testRoomListMapper() {
         List<Room> room =
                 new ArrayList<>(Objects
                         .requireNonNull(JsonMapper
-                                .roomListMapper("[{\"id\":113,\"name\":\"test\",\"building\":"
-                                        + "{\"id\":85,\"name\":\"de3ded\",\"street\":\"est\",\"faculty\":\""
-                                        + "\",\"houseNumber\":0},\"studySpecific\":\"Computer Science and Engineering"
-                                        + "\",\"projector\":false,\"screen\":true,\"capacity\":555555"
-                                        + ",\"plugs\":555,\"status\":\"Closed\"},{\"id\":114,\"name\":"
-                                        + "\"test\",\"building\":{\"id\":85,\"name\":\"de3ded\",\"street"
-                                        + "\":\"est\",\"faculty\":\"\",\"houseNumber\":0},\"studySpecific"
-                                        + "\":\"Computer Science and Engineering\",\"projector\":false,\"screen"
-                                        + "\":true,\"capacity\":5,\"plugs\":5,\"status\":\"Maintenance\"}]\n")));
+                                .roomListMapper("[{\"id\":4,\"name\":\"432\","
+                                        + "\"building\":{\"id\":1,\"name\":\"11\",\"street\":\"1\",\"houseNumber\":1},\"faculty\":\"42342\","
+                                        + "\"facultySpecific\":true,\"projector\":false,\"screen\":false,\"capacity\":4234,\"plugs\":42342},"
+                                        + "{\"id\":5,\"name\":\"1\",\"building\":{\"id\":1,\"name\":\"11\",\"street\":\"1\",\"houseNumber\":1},"
+                                        + "\"faculty\":\"1\",\"facultySpecific\":true,\"projector\":false,\"screen\":true,"
+                                        + "\"capacity\":1,\"plugs\":1}]\n")));
         stubFor(get(urlEqualTo("/room/all"))
                 .willReturn(aResponse()
                         .withStatus(200)
-                        .withBody("[{\"id\":113,\"name\":\"test\",\"building\":"
-                                + "{\"id\":85,\"name\":\"de3ded\",\"street\":\"est\",\"faculty\":\""
-                                + "\",\"houseNumber\":0},\"studySpecific\":\"Computer Science and Engineering"
-                                + "\",\"projector\":false,\"screen\":true,\"capacity\":555555"
-                                + ",\"plugs\":555,\"status\":\"Closed\"},{\"id\":114,\"name\":"
-                                + "\"test\",\"building\":{\"id\":85,\"name\":\"de3ded\",\"street"
-                                + "\":\"est\",\"faculty\":\"\",\"houseNumber\":0},\"studySpecific"
-                                + "\":\"Computer Science and Engineering\",\"projector\":false,\"screen"
-                                + "\":true,\"capacity\":5,\"plugs\":5,\"status\":\"Maintenance\"}]\n")));
+                        .withBody("[{\"id\":4,\"name\":\"432\",\"building\":{\"id\":1,\"name\":\"11\",\"street\":\"1\",\"houseNumber\":1}"
+                                + ",\"faculty\":\"42342\",\"facultySpecific\":true,\"projector\":false,\"screen\":false,\"capacity\":4234"
+                                + ","
+                                + "\"plugs\":42342},{\"id\":5,\"name\":\"1\",\"building\":{\"id\":1,\"name\":\"11\",\"street\":\"1\",\"houseNumber\":"
+                                + "1}"
+                                + ",\"faculty\":\"1\",\"facultySpecific\":true,\"projector\":false,\"screen\":true,\"capacity\":1,\"plugs\":1}]\n")));
         assertEquals(room, JsonMapper.roomListMapper(ServerCommunication.getRooms()));
     }
 
     @Test
-    void buildingHoursMapperTest() {
+    void testBuildingHoursMapper() {
         stubFor(get(urlEqualTo("/building_hours/find/1/1"))
                 .willReturn(aResponse()
                         .withStatus(200)
@@ -145,7 +130,7 @@ class JsonMapperTest {
     }
 
     @Test
-    void restaurantHoursMapperTest() {
+    void testRestaurantHoursMapper() {
         stubFor(get(urlEqualTo("/restaurant_hours/find/1/1"))
                 .willReturn(aResponse()
                         .withStatus(200)
@@ -163,14 +148,14 @@ class JsonMapperTest {
     }
 
     @Test
-    void roomReservationMapperTest() {
+    void testRoomReservationMapper() {
         stubFor(get(urlEqualTo("/room_reservation/find/3"))
                 .willReturn(aResponse()
                         .withStatus(200)
-                        .withBody("{\"id\":3,\"room\":{\"id\":113,\"name\":\"test\",\"building\":{\"id\":85,\"name\":\"de3ded\","
-                                + "\"street\":\"est\",\"faculty\":\"\",\"houseNumber\":0},\"studySpecific\":"
-                                + "\"Computer Science and Engineering\",\"projector\":false,\""
-                                + "screen\":true,\"capacity\":555555,\"plugs\":555,\"status\":\"Closed\"},\"appUser"
+                        .withBody("{\"id\":3,\"room\":{\"id\":2,\"name\":\"a\",\"building\":{\"id\":1,\"name\""
+                                + ":\"alto\",\"street\":\"rruga\",\"houseNumber\":24},\""
+                                + "faculty\":\"b\",\"facultySpecific\":true,\"projector\":"
+                                + "true,\"screen\":true,\"capacity\":10,\"plugs\":10},\"appUser"
                                 + "\":{\"email\":\""
                                 + "r.jursevskis@student.tudelft.nl\",\"password\":\"abc\",\"name\":\"Renats\""
                                 + ",\"surname\":\"Jursevskis\",\"faculty\":\"EWI\",\"loggedIn\":true,"
@@ -178,23 +163,21 @@ class JsonMapperTest {
                                 + "id\":1,\"name\":\"ROLE_USER\"}]},\"fromTime\":\"2020-03-19T11:30:00.000+0000\","
                                 + "\"toTime\":\"2020-03-19T12:00:00.000+0000\"}")));
 
-        String json = "{\"id\":3,\"room\":{\"id\":113,\"name\":\"test\",\"building\":{\"id\":85,\"name\":\"de3ded\","
-                + "\"street\":\"est\",\"faculty\":\"\",\"houseNumber\":0},\"studySpecific\":"
-                + "\"Computer Science and Engineering\",\"projector\":false,\""
-                + "screen\":true,\"capacity\":555555,\"plugs\":555,\"status\":\"Closed\"},\"appUser"
-                + "\":{\"email\":\""
+        String json = "{\"id\":3,\"room\":{\"id\":2,\"name\":\"a\",\"building\":{\"id\":1,\"name\":\"alto\",\"street\":"
+                + "\"rruga\",\"houseNumber\":24},\""
+                + "faculty\":\"b\",\"facultySpecific\":true,\"projector\":true,\"screen\":true,\"capacity\":10,\"plugs\":10},"
+                + "\"appUser\":{\"email\":\""
                 + "r.jursevskis@student.tudelft.nl\",\"password\":\"abc\",\"name\":\"Renats\""
-                + ",\"surname\":\"Jursevskis\",\"faculty\":\"EWI\",\"loggedIn\":true,"
-                + "\"confirmationNumber\":183937,\"roles\":[{\"id\":2,\"name\":\"ROLE_ADMIN\"},{\""
-                + "id\":1,\"name\":\"ROLE_USER\"}]},\"fromTime\":\"2020-03-19T11:30:00.000+0000\","
-                + "\"toTime\":\"2020-03-19T12:00:00.000+0000\"}";
+                + ",\"surname\":\"Jursevskis\",\"faculty\":\"EWI\",\"loggedIn\":true,\"confirmationNumber\":183937,\"roles\""
+                + ":[{\"id\":2,\"name\":\"ROLE_ADMIN\"},{\""
+                + "id\":1,\"name\":\"ROLE_USER\"}]},\"fromTime\":\"2020-03-19T11:30:00.000+0000\",\"toTime\":\"2020-03-19T12:00:00.000+0000\"}";
 
         RoomReservation roomReservation = JsonMapper.roomReservationMapper(json);
         assertEquals(roomReservation, JsonMapper.roomReservationMapper(ServerCommunication.findRoomReservation(3)));
     }
 
     @Test
-    void roomReservationListMapperTest() {
+    void testRoomReservationListMapper() {
         stubFor(get(urlEqualTo("/room_reservation/all"))
                 .willReturn(aResponse()
                         .withStatus(200)
@@ -245,7 +228,7 @@ class JsonMapperTest {
     }
 
     @Test
-    void bikeReservationMapperTest() {
+    void testBikeReservationMapper() {
         stubFor(get(urlEqualTo("/bike_reservation/find/5"))
                 .willReturn(aResponse()
                         .withStatus(200)
@@ -280,7 +263,7 @@ class JsonMapperTest {
     }
 
     @Test
-    void bikeReservationListMapperTest() {
+    void testBikeReservationListMapper() {
         stubFor(get(urlEqualTo("/bike_reservation/all"))
                 .willReturn(aResponse()
                         .withStatus(200)
@@ -337,7 +320,7 @@ class JsonMapperTest {
     }
 
     @Test
-    void foodOrderMapperTest() {
+    void testFoodOrderMapper() {
         stubFor(get(urlEqualTo("/food_order/find/4"))
                 .willReturn(aResponse()
                         .withStatus(200)
@@ -369,7 +352,7 @@ class JsonMapperTest {
     }
 
     @Test
-    void foodOrderListMapperTest() {
+    void testFoodOrderListMapper() {
         stubFor(get(urlEqualTo("/food_order/all"))
                 .willReturn(aResponse()
                         .withStatus(200)
