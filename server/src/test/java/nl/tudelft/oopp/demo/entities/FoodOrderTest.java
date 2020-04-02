@@ -56,7 +56,7 @@ public class FoodOrderTest {
         building = new Building("XTUDelft", "Mekelweg", "None", 8);
         buildingRepository.saveAndFlush(building);
 
-        restaurant = new Restaurant(building, "CafeX");
+        restaurant = new Restaurant(building, "CafeX", "");
         restaurantRepository.saveAndFlush(restaurant);
 
         deliveryLocation = new Building("EWI", "Mekelweg", "EWI", 4);
@@ -87,7 +87,7 @@ public class FoodOrderTest {
      * Tests the saving and retrieval of an instance of FoodOrder.
      */
     @Test
-    public void saveAndRetrieveFoodOrder() {
+    public void testSaveAndRetrieveFoodOrder() {
         foodOrder2 = foodOrderRepository.findAll().get(0);
         assertEquals(foodOrder, foodOrder2);
     }

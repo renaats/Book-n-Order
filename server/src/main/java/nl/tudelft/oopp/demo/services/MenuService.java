@@ -7,7 +7,10 @@ import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
 import static nl.tudelft.oopp.demo.config.Constants.MENU_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.RESERVATION_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.RESTAURANT_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.WRONG_CREDENTIALS;
 
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +23,7 @@ import nl.tudelft.oopp.demo.repositories.MenuRepository;
 import nl.tudelft.oopp.demo.repositories.RestaurantRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -49,6 +53,10 @@ public class MenuService {
         }
         Restaurant restaurant = optionalRestaurant.get();
 
+        if (RestaurantService.noPermissions(SecurityContextHolder.getContext(), restaurant)) {
+            return WRONG_CREDENTIALS;
+        }
+
         Menu menu = new Menu();
         menu.setName(name);
         menu.setRestaurant(restaurant);
@@ -64,6 +72,9 @@ public class MenuService {
     public int delete(int id) {
         if (!menuRepository.existsById(id)) {
             return MENU_NOT_FOUND;
+        }
+        if (RestaurantService.noPermissions(SecurityContextHolder.getContext(), menuRepository.getOne(id).getRestaurant())) {
+            return WRONG_CREDENTIALS;
         }
         menuRepository.deleteById(id);
         return EXECUTED;
@@ -147,5 +158,14 @@ public class MenuService {
 
     public Optional<Menu> findById(int id) {
         return menuRepository.findById(id);
+    }
+    
+    /**
+     * Finds a menu with a certain name
+     * @param name menu name
+     * @return menu
+     */
+    public Menu find(String name) {
+        return menuRepository.findByName(URLDecoder.decode(name, StandardCharsets.UTF_8));
     }
 }

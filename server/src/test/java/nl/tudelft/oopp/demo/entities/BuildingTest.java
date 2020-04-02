@@ -60,7 +60,7 @@ public class BuildingTest {
      * Tests the saving and retrieval of an instance of Bike.
      */
     @Test
-    public void saveAndRetrieveBuilding() {
+    public void testSaveAndRetrieveBuilding() {
         assertNotEquals(building, building2);
         building2 = buildingRepository.findAll().get(0);
         assertEquals(building, building2);

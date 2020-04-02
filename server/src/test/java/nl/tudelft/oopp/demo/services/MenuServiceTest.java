@@ -30,6 +30,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.test.context.support.WithMockUser;
 
 /**
  * Tests the Menu service.
@@ -90,16 +91,16 @@ public class MenuServiceTest {
         building2 = new Building("EWI2", "Mekelweg2", "EWI", 42);
         buildingRepository.save(building2);
 
-        restaurant1 = new Restaurant(building, "Hangout");
+        restaurant1 = new Restaurant(building, "Hangout", "restaurant@tudelft.nl");
         restaurantRepository.save(restaurant1);
 
-        restaurant2 = new Restaurant(building2, "Food station");
+        restaurant2 = new Restaurant(building2, "Food station", "restaurant@tudelft.nl");
         restaurantRepository.save(restaurant2);
 
-        dish = new Dish("Chicken", menu1);
+        dish = new Dish("Chicken", menu1, 300, "Cooked", "123");
         dishRepository.save(dish);
 
-        dish2 = new Dish("Spicy Chicken", menu2);
+        dish2 = new Dish("Spicy Chicken", menu2, 400, "Grilled", "234");
         dishRepository.save(dish2);
 
         dishes = new HashSet<>();
@@ -123,7 +124,11 @@ public class MenuServiceTest {
         assertNotNull(menuService);
     }
 
+    /**
+     * Tests the creation of a valid instance of Menu.
+     */
     @Test
+    @WithMockUser(username = "restaurant@tudelft.nl", roles = {"USER", "STAFF", "RESTAURANT"})
     public void testCreate() {
         assertEquals(ADDED, menuService.add(menu1.getName(), menu1.getRestaurant().getId()));
         menuService.all().get(0).setDishes(dishes);
@@ -150,6 +155,7 @@ public class MenuServiceTest {
      * Tests the search for an existing object.
      */
     @Test
+    @WithMockUser(username = "restaurant@tudelft.nl", roles = {"USER", "STAFF", "RESTAURANT"})
     public void testFindExisting() {
         menuService.add(menu1.getName(), menu1.getRestaurant().getId());
         int id = menuService.all().get(0).getId();
@@ -157,9 +163,20 @@ public class MenuServiceTest {
     }
 
     /**
+     * Tests the search by name for an existing object.
+     */
+    @Test
+    @WithMockUser(username = "restaurant@tudelft.nl", roles = {"USER", "STAFF", "RESTAURANT"})
+    public void testFindExistingByName() {
+        menuService.add(menu1.getName(), menu1.getRestaurant().getId());
+        assertNotNull(menuService.find(menu1.getName()));
+    }
+
+    /**
      * Tests the retrieval of multiple instances.
      */
     @Test
+    @WithMockUser(username = "restaurant@tudelft.nl", roles = {"USER", "STAFF", "RESTAURANT"})
     public void testMultipleInstances() {
         menuService.add(menu1.getName(), menu1.getRestaurant().getId());
         menuService.all().get(0).setDishes(dishes);
@@ -175,6 +192,7 @@ public class MenuServiceTest {
      * Tests the deletion of an instance.
      */
     @Test
+    @WithMockUser(username = "restaurant@tudelft.nl", roles = {"USER", "STAFF", "RESTAURANT"})
     public void testDelete() {
         menuService.add(menu1.getName(), menu1.getRestaurant().getId());
         menuService.add(menu2.getName(), menu2.getRestaurant().getId());

@@ -50,16 +50,16 @@ public class MenuTest {
      */
     @BeforeEach
     public void setup() {
-        restaurant1 = new Restaurant(building, "KFC");
+        restaurant1 = new Restaurant(building, "KFC", "");
         restaurantRepository.saveAndFlush(restaurant1);
 
-        restaurant2 = new Restaurant(building, "Burger King");
+        restaurant2 = new Restaurant(building, "Burger King", "");
         restaurantRepository.saveAndFlush(restaurant2);
 
-        dish = new Dish("Chicken", menu1);
+        dish = new Dish("Chicken", menu1, 300, "Cooked", "123");
         dishRepository.saveAndFlush(dish);
 
-        dish2 = new Dish("Spicy Chicken", menu2);
+        dish2 = new Dish("Spicy Chicken", menu2, 400, "Grilled", "234");
         dishRepository.saveAndFlush(dish2);
 
         dishes = new HashSet<>();
@@ -88,7 +88,7 @@ public class MenuTest {
      * Tests the saving and retrieval of an instance of Menu.
      */
     @Test
-    public void saveAndRetrieveMenu() {
+    public void testSaveAndRetrieveMenu() {
         assertNotEquals(menu1, menu2);
         menu2 = menuRepository.findAll().get(0);
         assertEquals(menu1, menu2);

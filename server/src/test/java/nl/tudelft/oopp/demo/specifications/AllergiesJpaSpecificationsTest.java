@@ -29,7 +29,7 @@ public class AllergiesJpaSpecificationsTest {
      * Initializes variables before each test.
      */
     @BeforeEach
-    public void init() {
+    public void setup() {
         allergy = new Allergy();
         allergy.setAllergyName("Nuts");
         allergyRepository.save(allergy);
@@ -43,7 +43,7 @@ public class AllergiesJpaSpecificationsTest {
      * Tests querying on a name of the allergy.
      */
     @Test
-    public void nameSearchTest() {
+    public void testNameSearch() {
         AllergySpecification spec = new AllergySpecification(new SearchCriteria("allergyName", ":", "Nuts"));
         List<Allergy> allergies = allergyRepository.findAll(spec);
         assertEquals(1, allergies.size());
@@ -54,7 +54,7 @@ public class AllergiesJpaSpecificationsTest {
      * Tests querying on two specifications.
      */
     @Test
-    public void compoundSearch() {
+    public void testCompoundSearch() {
         AllergySpecification spec = new AllergySpecification(new SearchCriteria("allergyName", ":", "Nuts"));
         AllergySpecification spec2 = new AllergySpecification(new SearchCriteria("allergyName", ":", "Lactose"));
         List<Allergy> allergies = allergyRepository.findAll(spec.or(spec2));
@@ -66,7 +66,7 @@ public class AllergiesJpaSpecificationsTest {
      * Tests querying on a nonexistent allergy name.
      */
     @Test
-    public void nonexistentAllergySearch() {
+    public void testNonexistentAllergySearch() {
         AllergySpecification spec = new AllergySpecification(new SearchCriteria("allergyName", ":", "Gluten"));
         assertNotNull(spec);
         List<Allergy> allergies = allergyRepository.findAll(spec);

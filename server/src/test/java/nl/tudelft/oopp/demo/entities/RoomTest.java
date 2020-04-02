@@ -59,7 +59,7 @@ public class RoomTest {
      * Tests the saving and retrieval of an instance of Room.
      */
     @Test
-    public void saveAndRetrieveRoom() {
+    public void testSaveAndRetrieveRoom() {
         room2 = roomRepository.findAll().get(0);
         assertEquals(room, room2);
     }
