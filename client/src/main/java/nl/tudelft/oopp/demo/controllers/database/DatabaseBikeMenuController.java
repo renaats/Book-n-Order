@@ -1,24 +1,5 @@
 package nl.tudelft.oopp.demo.controllers.database;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Text;
-import nl.tudelft.oopp.demo.communication.JsonMapper;
-import nl.tudelft.oopp.demo.communication.ServerCommunication;
-import nl.tudelft.oopp.demo.entities.Room;
-import nl.tudelft.oopp.demo.errors.CustomAlert;
-import nl.tudelft.oopp.demo.views.ApplicationDisplay;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -26,91 +7,89 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
+
+import nl.tudelft.oopp.demo.communication.JsonMapper;
+import nl.tudelft.oopp.demo.communication.ServerCommunication;
+import nl.tudelft.oopp.demo.entities.Bike;
+import nl.tudelft.oopp.demo.errors.CustomAlert;
+import nl.tudelft.oopp.demo.views.ApplicationDisplay;
+
 /**
  * Loads the correct content into the FXML objects that need to display server information and
  * controls all the user inputs made through the GUI in the "DatabaseBikeMenu.fxml" file
  */
 public class DatabaseBikeMenuController implements Initializable {
 
-    private final ObservableList<Room> roomResult = FXCollections.observableArrayList();
-    private final ObservableList<String> studyList = FXCollections.observableArrayList();
-    private final ObservableList<String> statusList = FXCollections.observableArrayList();
+    private final ObservableList<Bike> bikeResult = FXCollections.observableArrayList();
 
     @FXML
-    private TableView<Room> table;
+    private TableView<Bike> table;
     @FXML
     private Text pagesText;
     @FXML
-    private ToggleButton projectorToggle;
+    private ToggleButton availableToggle;
     @FXML
-    private ToggleButton screenToggle;
+    private TableColumn<Bike, Integer> colId;
     @FXML
-    private TableColumn<Room, String> colName;
+    private TableColumn<Bike, String> colBuilding;
     @FXML
-    private TableColumn<Room, String> colBuilding;
-    @FXML
-    private TableColumn<Room, Integer> colStudy;
-    @FXML
-    private TableColumn<Room, Integer> colStatus;
+    private TableColumn<Bike, Boolean> colAvailable;
     @FXML
     private AnchorPane anchorPane;
     @FXML
     private TextField idFieldRead;
     @FXML
-    private TextField nameFieldRead;
-    @FXML
     private TextField buildingFieldRead;
     @FXML
-    private TextField capacityReadField;
-    @FXML
-    private TextField plugsReadField;
-    @FXML
-    private TextField roomFindTextField;
-    @FXML
-    private ChoiceBox<String> studyChoiceBox;
-    @FXML
-    private ChoiceBox<String> statusChoiceBox;
+    private TextField bikeFindTextField;
 
     private int pageNumber;
     private double totalPages;
     private Button deleteButton;
-    private boolean projectorToggleFlag;
-    private boolean screenToggleFlag;
+    private boolean availableToggleFlag;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colId.setCellValueFactory(new PropertyValueFactory<>("Id"));
         colBuilding.setCellValueFactory(new PropertyValueFactory<>("getBuildingName"));
-        colStudy.setCellValueFactory(new PropertyValueFactory<>("studySpecific"));
-        colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
-
+        colAvailable.setCellValueFactory(new PropertyValueFactory<>("available"));
         if (pageNumber == 0) {
             pageNumber++;
         }
 
         idFieldRead.setDisable(true);
         buildingFieldRead.setDisable(true);
-        retrieveAllRooms();
+        retrieveAllBikes();
         tableSelectMethod();
-        loadStatusChoiceBox();
-        loadStudySpecificChoiceBox();
     }
 
     /**
-     * Handles clicking of the List Rooms button.
+     * Handles clicking of the Find all button.
      */
-    public void retrieveAllRooms() {
-        roomResult.clear();
-        List<Room> rooms;
+    public void retrieveAllBikes() {
+        bikeResult.clear();
+        List<Bike> bikes;
         try {
-            rooms = new ArrayList<>(Objects.requireNonNull(JsonMapper.roomListMapper(ServerCommunication.getRooms())));
+            bikes = new ArrayList<>(Objects.requireNonNull(JsonMapper.bikeListMapper(ServerCommunication.getBikes())));
         } catch (Exception e) {
             // Fakes the table having any entries, so the table shows up properly instead of "No contents".
-            rooms = new ArrayList<>();
-            rooms.add(null);
+            bikes = new ArrayList<>();
+            bikes.add(null);
         }
 
-        totalPages = Math.ceil(rooms.size() / 15.0);
+        totalPages = Math.ceil(bikes.size() / 15.0);
 
         if (totalPages < pageNumber) {
             pageNumber--;
@@ -118,22 +97,22 @@ public class DatabaseBikeMenuController implements Initializable {
 
         pagesText.setText(pageNumber + " / " + (int) totalPages + " pages");
 
-        if (rooms.size() > 16) {
+        if (bikes.size() > 16) {
             for (int i = 1; i < 16; i++) {
                 try {
-                    roomResult.add(rooms.get((i - 15) + pageNumber * 15));
+                    bikeResult.add(bikes.get((i - 15) + pageNumber * 15));
                 } catch (IndexOutOfBoundsException e) {
                     break;
                 }
             }
         } else {
-            roomResult.addAll(rooms);
+            bikeResult.addAll(bikes);
         }
-        table.setItems(roomResult);
+        table.setItems(bikeResult);
     }
 
     /**
-     * Switches scene to DatabaseAddRooms.fxml
+     * Switches scene to DatabaseAddBikes.fxml
      * @throws IOException Input will be valid
      */
     public void goToAddBikes() throws IOException {
@@ -154,7 +133,7 @@ public class DatabaseBikeMenuController implements Initializable {
     public void nextPage() {
         if (pageNumber < (int) totalPages) {
             pageNumber++;
-            retrieveAllRooms();
+            retrieveAllBikes();
         }
     }
 
@@ -165,7 +144,7 @@ public class DatabaseBikeMenuController implements Initializable {
         if (pageNumber > 1) {
             pageNumber--;
         }
-        retrieveAllRooms();
+        retrieveAllBikes();
     }
 
     /**
@@ -173,23 +152,16 @@ public class DatabaseBikeMenuController implements Initializable {
      */
     public void findBike() {
         try {
-            int id = Integer.parseInt(roomFindTextField.getText());
-            Room room = JsonMapper.roomMapper(ServerCommunication.findRoom(id));
-            if (room != null) {
-                roomResult.clear();
-                roomResult.add(room);
-                table.setItems(roomResult);
+            int id = Integer.parseInt(bikeFindTextField.getText());
+            Bike bike = JsonMapper.bikeMapper(ServerCommunication.findBike(id));
+            if (bike != null) {
+                bikeResult.clear();
+                bikeResult.add(bike);
+                table.setItems(bikeResult);
                 pagesText.setText("1 / 1 pages");
             }
         } catch (Exception e) {
-            String name = roomFindTextField.getText();
-            Room room = JsonMapper.roomMapper(ServerCommunication.findRoomByName(name));
-            if (room != null) {
-                roomResult.clear();
-                roomResult.add(room);
-                table.setItems(roomResult);
-                pagesText.setText("1 / 1 pages");
-            }
+            CustomAlert.errorAlert("No selection detected.");
         }
     }
 
@@ -200,59 +172,27 @@ public class DatabaseBikeMenuController implements Initializable {
         int id;
         try {
             id = Integer.parseInt(idFieldRead.getText());
-            Room room = JsonMapper.roomMapper(ServerCommunication.findRoom(id));
-            assert room != null;
-            if (!room.getName().equals(nameFieldRead.getText())) {
-                String response = ServerCommunication.updateRoom(id, "name", nameFieldRead.getText());
-                if (response.equals("Name already exists.")) {
-                    CustomAlert.warningAlert("Name already exists.");
-                    return;
-                }
-            }
-            if (!room.getStudySpecific().equals(studyChoiceBox.getValue())) {
-                ServerCommunication.updateRoom(id, "studyspecific", studyChoiceBox.getValue());
-            }
-            if (!(room.getStatus().equals(statusChoiceBox.getValue()))) {
-                ServerCommunication.updateRoom(id, "status", statusChoiceBox.getValue());
-            }
-            if (!(room.hasProjector() == Boolean.parseBoolean(projectorToggle.getText()))) {
-                ServerCommunication.updateRoom(id, "projector", projectorToggle.getText().toLowerCase());
-            }
-            if (!(room.hasScreen() == Boolean.parseBoolean(screenToggle.getText()))) {
-                ServerCommunication.updateRoom(id, "screen", screenToggle.getText().toLowerCase());
-            }
-            try {
-                if (!(room.getCapacity() == Integer.parseInt(capacityReadField.getText()))) {
-                    ServerCommunication.updateRoom(id, "capacity", capacityReadField.getText());
-                }
-            } catch (NumberFormatException e) {
-                CustomAlert.warningAlert("Capacity has to be an integer.");
-                return;
-            }
-            try {
-                if (!(room.getPlugs() == Integer.parseInt(plugsReadField.getText()))) {
-                    ServerCommunication.updateRoom(id, "plugs", plugsReadField.getText());
-                }
-            } catch (NumberFormatException e) {
-                CustomAlert.warningAlert("Plugs has to be an integer.");
-                return;
+            Bike bike = JsonMapper.bikeMapper(ServerCommunication.findBike(id));
+            assert bike != null;
+            if (!(bike.isAvailable() == Boolean.parseBoolean(availableToggle.getText()))) {
+                ServerCommunication.updateBike(id, "available", availableToggle.getText().toLowerCase());
             }
         } catch (Exception e) {
             CustomAlert.warningAlert("No selection detected.");
             return;
         }
         CustomAlert.informationAlert("Successfully Executed.");
-        retrieveAllRooms();
+        retrieveAllBikes();
     }
 
     /**
-     * Handles clicking of the Remove Room button.
+     * Handles clicking of the Remove Bike button.
      */
     public void deleteBike() {
         try {
             int id = Integer.parseInt(idFieldRead.getText());
-            CustomAlert.informationAlert(ServerCommunication.deleteRoom(id));
-            roomResult.removeIf(r -> r.getId() == id);
+            CustomAlert.informationAlert(ServerCommunication.deleteBike(id));
+            bikeResult.removeIf(r -> r.getId() == id);
         } catch (Exception e) {
             CustomAlert.warningAlert("No selection detected.");
         }
@@ -262,27 +202,13 @@ public class DatabaseBikeMenuController implements Initializable {
      * Makes sure the button toggles from false to true every time.
      */
     @FXML
-    private void toggleClickProjector() {
-        if (projectorToggleFlag) {
-            projectorToggle.setText("False");
-            projectorToggleFlag = false;
+    private void toggleClickAvailable() {
+        if (availableToggleFlag) {
+            availableToggle.setText("false");
+            availableToggleFlag = false;
         } else {
-            projectorToggle.setText("True");
-            projectorToggleFlag = true;
-        }
-    }
-
-    /**
-     * Makes sure the button toggles from false to true every time.
-     */
-    @FXML
-    private void toggleClickScreen() {
-        if (screenToggleFlag) {
-            screenToggle.setText("false");
-            screenToggleFlag = false;
-        } else {
-            screenToggle.setText("true");
-            screenToggleFlag = true;
+            availableToggle.setText("true");
+            availableToggleFlag = true;
         }
     }
 
@@ -293,30 +219,20 @@ public class DatabaseBikeMenuController implements Initializable {
         table.getSelectionModel().selectedItemProperty().addListener((obs) -> {
             anchorPane.getChildren().remove(deleteButton);
 
-            final Room room = table.getSelectionModel().getSelectedItem();
-            if (room != null) {
-                idFieldRead.setText(Integer.toString(room.getId()));
-                nameFieldRead.setText(room.getName());
-                buildingFieldRead.setText(room.getBuilding().getName());
-                studyChoiceBox.setValue(room.getStudySpecific());
-                statusChoiceBox.setValue(room.getStatus());
-                screenToggle.setText(Boolean.toString(room.hasScreen()));
-                plugsReadField.setText(Integer.toString(room.getPlugs()));
-                capacityReadField.setText(Integer.toString(room.getCapacity()));
-                if (!screenToggleFlag == room.hasScreen()) {
-                    screenToggleFlag = !screenToggleFlag;
-                    screenToggle.setSelected(screenToggleFlag);
-                }
-                projectorToggle.setText(Boolean.toString(room.hasProjector()));
-                if (!projectorToggleFlag == room.hasProjector()) {
-                    projectorToggleFlag = !projectorToggleFlag;
-                    projectorToggle.setSelected(projectorToggleFlag);
+            final Bike bike = table.getSelectionModel().getSelectedItem();
+            if (bike != null) {
+                idFieldRead.setText(Integer.toString(bike.getId()));
+                buildingFieldRead.setText(bike.getLocation().getName());
+                availableToggle.setText(Boolean.toString(bike.isAvailable()));
+                if (!availableToggleFlag == bike.isAvailable()) {
+                    availableToggleFlag = !availableToggleFlag;
+                    availableToggle.setSelected(availableToggleFlag);
                 }
             }
 
-            for (int i = 0; i < roomResult.size(); i++) {
-                assert room != null;
-                if (roomResult.get(i).getId().equals(room.getId())) {
+            for (int i = 0; i < bikeResult.size(); i++) {
+                assert bike != null;
+                if (bikeResult.get(i).getId() == bike.getId()) {
                     deleteButton = new Button("Delete");
                     deleteButton.setLayoutX(1120);
                     deleteButton.setLayoutY(168 + (24 * (i + 1)));
@@ -324,37 +240,19 @@ public class DatabaseBikeMenuController implements Initializable {
                     deleteButton.setStyle("-fx-background-color:  #CC5653; -fx-font-size:10; -fx-text-fill: white");
                     deleteButton.setMinHeight(20);
                     deleteButton.setOnAction(event -> {
-                        for (int i1 = 0; i1 < roomResult.size(); i1++) {
-                            if (roomResult.get(i1).getId().equals(room.getId())) {
-                                roomResult.remove(roomResult.get(i1));
+                        for (int i1 = 0; i1 < bikeResult.size(); i1++) {
+                            if (bikeResult.get(i1).getId() == bike.getId()) {
+                                bikeResult.remove(bikeResult.get(i1));
                                 anchorPane.getChildren().remove(deleteButton);
                             }
                         }
-                        String response = ServerCommunication.deleteRoom(room.getId());
-                        retrieveAllRooms();
+                        String response = ServerCommunication.deleteBike(bike.getId());
+                        retrieveAllBikes();
                         CustomAlert.informationAlert(response);
                     });
                     anchorPane.getChildren().add(deleteButton);
                 }
             }
         });
-    }
-
-    private void loadStudySpecificChoiceBox() {
-        studyList.clear();
-        String a = "";
-        String b = "Computer Science and Engineering";
-        studyList.addAll(a, b);
-        studyChoiceBox.getItems().addAll(studyList);
-    }
-
-    private void loadStatusChoiceBox() {
-        statusList.clear();
-        String a = "Open";
-        String b = "Closed";
-        String c = "Staff-Only";
-        String d = "Maintenance";
-        statusList.addAll(a, b, c, d);
-        statusChoiceBox.getItems().addAll(statusList);
     }
 }

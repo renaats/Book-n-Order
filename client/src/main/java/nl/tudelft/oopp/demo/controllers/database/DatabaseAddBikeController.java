@@ -1,25 +1,30 @@
 package nl.tudelft.oopp.demo.controllers.database;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Text;
-import nl.tudelft.oopp.demo.communication.JsonMapper;
-import nl.tudelft.oopp.demo.communication.ServerCommunication;
-import nl.tudelft.oopp.demo.entities.Building;
-import nl.tudelft.oopp.demo.errors.CustomAlert;
-import nl.tudelft.oopp.demo.views.ApplicationDisplay;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
+
+import nl.tudelft.oopp.demo.communication.JsonMapper;
+import nl.tudelft.oopp.demo.communication.ServerCommunication;
+import nl.tudelft.oopp.demo.entities.Building;
+import nl.tudelft.oopp.demo.errors.CustomAlert;
+import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
  * Loads the correct content into the FXML objects that need to display server information and
@@ -117,7 +122,7 @@ public class DatabaseAddBikeController implements Initializable {
     }
 
     /**
-     * Adds a room to the database
+     * Adds a bike to the database
      */
     public void databaseAddBike() {
         int buildingId = -1;
@@ -161,9 +166,9 @@ public class DatabaseAddBikeController implements Initializable {
 
     /**
      * When the menu item edit is clicked it take you to the DatabaseBikeMenu.fxml view
-     * @throws IOException the input will always be correct, so it should never throw and exception.
+     * @throws IOException the input will always be correct, so it should never throw an exception.
      */
-    public void goToRoomMenu() throws IOException {
+    public void goToBikeMenu() throws IOException {
         ApplicationDisplay.changeScene("/DatabaseBikeMenu.fxml");
     }
 

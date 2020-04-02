@@ -246,7 +246,7 @@ public class ServerCommunication {
      * @param projector does the room have a projector
      * @param capacity capacity of the room in people
      * @param plugs amount of available plugs
-     * @return body response
+     * @return error message
      */
     public static String addRoom(String name,
                                  int buildingId, String studySpecific,
@@ -846,10 +846,59 @@ public class ServerCommunication {
     // Bike related Server Communication Methods
     // -----------------------------------------
 
+    /**
+     * Communicates addBike to the database
+     * @param buildingId building id
+     * @param available is the bike available
+     * @return error message
+     */
     public static String addBike(int buildingId, boolean available) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/bike/add?buildingId=" + buildingId + "&available=" + available)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnErrorMessage(request);
     }
+
+    /**
+     * Retrieves a JSON string representation of all bikes from the server.
+     * @return the body of the response from the server.
+     */
+    public static String getBikes() {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/bike/all")).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Retrieves a bike by given id.
+     * @param bikeId = the id of the room.
+     * @return The body of the response from the server.
+     */
+    public static String findBike(int bikeId) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/bike/find/" + bikeId)).GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Updates a given attribute of a bike.
+     * @param id = the id of the bike.
+     * @param attribute = The attribute whose value is to be changed.
+     * @param changeValue = New value.
+     * @return the body of the response from the server.
+     */
+    public static String updateBike(int id, String attribute, String changeValue) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/bike/update?id=" + id + "&attribute=" + attribute + "&value="
+                + URLEncoder.encode(changeValue, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnErrorMessage(request);
+    }
+
+    /**
+     * Removes a bike from the database.
+     * @param id = the id of the bike.
+     * @return the body of the response from the server.
+     */
+    public static String deleteBike(int id) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/bike/delete/" + id)).DELETE().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnErrorMessage(request);
+    }
+
     /**
      * gets all bike reservations from the database
      * @return response.body of the server

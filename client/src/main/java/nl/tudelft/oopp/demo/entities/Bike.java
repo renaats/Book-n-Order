@@ -2,6 +2,9 @@ package nl.tudelft.oopp.demo.entities;
 
 import java.util.Objects;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 /**
  * Manages the Bike object that is retrieved from the server
  */
@@ -38,6 +41,15 @@ public class Bike {
 
     public Building getLocation() {
         return location;
+    }
+
+    /**
+     * Makes the table list the building name instead of the building object
+     * @return String property, a property recognized by the tables.
+     */
+    public StringProperty getBuildingNameProperty() {
+        String name = getLocation().getName();
+        return new SimpleStringProperty(name);
     }
 
     public boolean isAvailable() {

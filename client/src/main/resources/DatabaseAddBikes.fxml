@@ -19,7 +19,7 @@
     <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="258.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="576.0" AnchorPane.leftAnchor="258.0" AnchorPane.rightAnchor="902.0" AnchorPane.topAnchor="120.0">
         <Image url="@images/booknorderlogo.png" />
     </ImageView>
-    <ImageView fx:id="goToRoomMenuButton" fitHeight="57.0" fitWidth="26.0" layoutX="546.0" layoutY="164.0" onMouseClicked="#goToRoomMenu" pickOnBounds="true" preserveRatio="true">
+    <ImageView fx:id="goToBikeMenuButton" fitHeight="57.0" fitWidth="26.0" layoutX="546.0" layoutY="164.0" onMouseClicked="#goToBikeMenu" pickOnBounds="true" preserveRatio="true">
         <image>
             <Image url="@images/bikeIconFinalWithCircle.png" />
         </image>
@@ -63,7 +63,7 @@
             <Cursor fx:constant="HAND" />
         </cursor>
     </ImageView>
-    <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="111.0" layoutY="119.0" onMouseClicked="#goToRoomMenu" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="66.0">
+    <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="111.0" layoutY="119.0" onMouseClicked="#goToBikeMenu" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="66.0">
         <image>
             <Image url="@images/EditIcon.png" />
         </image>
