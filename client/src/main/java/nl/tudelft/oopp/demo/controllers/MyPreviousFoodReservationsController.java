@@ -110,6 +110,13 @@ public class MyPreviousFoodReservationsController implements Initializable {
         if (table.getSelectionModel().getSelectedItem().getFeedback()) {
             CustomAlert.warningAlert("You have already given feedback, but it has now been overwritten");
         }
-        CustomAlert.informationAlert(ServerCommunication.addFoodFeedback(table.getSelectionModel().getSelectedItem().getRestaurant(), true));
+        CustomAlert.informationAlert(ServerCommunication.addFoodFeedback(table.getSelectionModel().getSelectedItem().getRestaurant().getId(), true));
+    }
+
+    public void thumbsDown() {
+        if (table.getSelectionModel().getSelectedItem().getFeedback()) {
+            CustomAlert.warningAlert("You have already given feedback, but it has now been overwritten");
+        }
+        CustomAlert.informationAlert(ServerCommunication.addFoodFeedback(table.getSelectionModel().getSelectedItem().getRestaurant().getId(), false));
     }
 }

@@ -61,11 +61,17 @@
       <ImageView fitHeight="73.0" fitWidth="81.0" layoutX="151.0" layoutY="272.0" onMouseClicked="#thumbsUp" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/thumbs_Up.png" />
-         </image></ImageView>
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></ImageView>
       <ImageView fitHeight="73.0" fitWidth="73.0" layoutX="146.0" layoutY="388.0" onMouseClicked="#thumbsDown" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/thumbs_Down.png" />
          </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </ImageView>
     </children>
 </AnchorPane>
