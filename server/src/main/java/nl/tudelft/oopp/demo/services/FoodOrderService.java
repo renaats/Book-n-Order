@@ -1,5 +1,7 @@
 package nl.tudelft.oopp.demo.services;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -141,6 +143,21 @@ public class FoodOrderService {
      */
     public List<FoodOrder> all() {
         return foodOrderRepository.findAll();
+    }
+
+    /**
+     * Lists all food orders with date past the current date.
+     * @return Iterable of all food orders with date past the current date.
+     */
+    public List<FoodOrder> past() {
+        List<FoodOrder> foodOrders = foodOrderRepository.findAll();
+        Date date = new Date(); //This creates a date with the current time
+        for (int i = 0; i < foodOrders.size(); i++) {
+            if (!(foodOrders.get(i).getDate().after(date))) {
+                foodOrders.remove(foodOrders.get(i));
+            }
+        }
+        return foodOrders;
     }
 
     /**

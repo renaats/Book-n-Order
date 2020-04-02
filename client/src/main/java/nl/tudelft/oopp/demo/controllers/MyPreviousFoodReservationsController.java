@@ -14,11 +14,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.FoodOrder;
+import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 
@@ -102,5 +104,12 @@ public class MyPreviousFoodReservationsController implements Initializable {
      */
     public void goToMyCurrentReservations() throws IOException {
         ApplicationDisplay.changeScene("/myPreviousBookings.fxml");
+    }
+
+    public void thumbsUp() {
+        if (table.getSelectionModel().getSelectedItem().getFeedback()) {
+            CustomAlert.warningAlert("You have already given feedback, but it has now been overwritten");
+        }
+        CustomAlert.informationAlert(ServerCommunication.addFoodFeedback(table.getSelectionModel().getSelectedItem().getRestaurant(), true));
     }
 }

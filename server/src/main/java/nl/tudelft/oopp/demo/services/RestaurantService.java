@@ -74,6 +74,15 @@ public class RestaurantService {
         return 201;
     }
 
+    public int addFeedback(int id, boolean feedback) {
+        if (restaurantRepository.findById(id).isEmpty()) {
+        return 428;
+        }
+        Restaurant restaurant = restaurantRepository.findById(id).get();
+        restaurant.addFeedback(feedback);
+        return 201;
+    }
+
     /**
      * Deletes a restaurant.
      * @param id = the id of the restaurant

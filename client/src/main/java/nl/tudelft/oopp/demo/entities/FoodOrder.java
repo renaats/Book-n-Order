@@ -13,6 +13,7 @@ public class FoodOrder {
     private Building deliveryLocation;
     private Date deliveryTime;
     private Boolean feedback;
+    private Date date;
 
     /** Creates a new instance of FoodOrder.
      * @param restaurant the restaurant at which the food order is placed.
@@ -20,11 +21,12 @@ public class FoodOrder {
      * @param deliveryLocation location of building where food needs to be delivered to/will be picked up from.
      * @param deliveryTime time at which food needs to be delivered.
      */
-    public FoodOrder(Restaurant restaurant, AppUser appUser, Building deliveryLocation, Date deliveryTime) {
+    public FoodOrder(Restaurant restaurant, AppUser appUser, Building deliveryLocation, Date deliveryTime, Date date) {
         this.restaurant = restaurant;
         this.appUser = appUser;
         this.deliveryLocation = deliveryLocation;
         this.deliveryTime = deliveryTime;
+        this.date = date;
     }
 
     public FoodOrder() {
@@ -70,6 +72,14 @@ public class FoodOrder {
     }
 
     public Boolean getFeedback() { return feedback; }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate() {
+        this.date = date;
+    }
 
     @Override
     public boolean equals(Object o) {

@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 import nl.tudelft.oopp.demo.authentication.AuthenticationKey;
+import nl.tudelft.oopp.demo.entities.Restaurant;
 import nl.tudelft.oopp.demo.errors.ErrorMessages;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
@@ -623,8 +624,14 @@ public class ServerCommunication {
      * @return the error message corresponding to the server's response.
      */
     public static String updateRestaurantHours(int id, String attribute, String changeValue) {
-        HttpRequest request;
-        request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant_hours/update?id=" + id + "&attribute=" + attribute + "&value=" + URLEncoder.encode(changeValue, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        HttpRequest request =  HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant_hours/update?id=" + id + "&attribute=" + attribute + "&value=" + URLEncoder.encode(changeValue, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        HttpResponse<String> response;
+        return communicateAndReturnErrorMessage(request);
+    }
+
+
+    public static String addFoodFeedback(int restaurantId, boolean feedback) {
+        HttpRequest request =  HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant/addFeedback?id=" + restaurantId + "&feedback=" + feedback)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         HttpResponse<String> response;
         return communicateAndReturnErrorMessage(request);
     }

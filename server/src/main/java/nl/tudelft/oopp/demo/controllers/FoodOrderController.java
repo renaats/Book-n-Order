@@ -76,6 +76,17 @@ public class FoodOrderController {
      * @return Iterable of all food orders.
      */
     @Secured("ROLE_USER")
+    @GetMapping(path = "/past")
+    @ResponseBody
+    public Iterable<FoodOrder> getPastFoodOrders() {
+        return foodOrderService.past();
+    }
+
+    /**
+     * Lists all food orders.
+     * @return Iterable of all food orders.
+     */
+    @Secured("ROLE_USER")
     @GetMapping(path = "/all")
     @ResponseBody
     public Iterable<FoodOrder> getAllFoodOrders() {

@@ -46,6 +46,9 @@ public class FoodOrder {
     @Temporal(TemporalType.TIMESTAMP)
     private Date deliveryTime;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date date;
+
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn
     private Boolean feedback;
@@ -61,6 +64,7 @@ public class FoodOrder {
         this.appUser = appUser;
         this.deliveryLocation = deliveryLocation;
         this.deliveryTime = deliveryTime;
+        this.date = new Date();
     }
 
     public FoodOrder() {
@@ -106,6 +110,14 @@ public class FoodOrder {
     }
 
     public Boolean getFeedback() { return feedback; }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate() {
+        this.date = date;
+    }
 
     @Override
     public boolean equals(Object o) {
