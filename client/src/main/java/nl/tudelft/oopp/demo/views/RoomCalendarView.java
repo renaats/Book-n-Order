@@ -2,6 +2,7 @@ package nl.tudelft.oopp.demo.views;
 
 import com.calendarfx.model.Calendar;
 import com.calendarfx.model.Calendar.Style;
+import com.calendarfx.model.CalendarEvent;
 import com.calendarfx.model.CalendarSource;
 import com.calendarfx.model.Entry;
 import com.calendarfx.view.CalendarView;
@@ -26,9 +27,10 @@ public class RoomCalendarView extends CalendarView {
 
     private Room room;
     private AppUser user;
+    private String fromTime;
     
-    Calendar unavailableSpots = new Calendar("Unavailable Spots");
-    Calendar myReservations = new Calendar("My Reservations");
+    public Calendar unavailableSpots = new Calendar("Unavailable Spots");
+    public Calendar myReservations = new Calendar("My Reservations");
 
     /**
      * Constuctor for the Personal Calendar View
@@ -46,7 +48,7 @@ public class RoomCalendarView extends CalendarView {
                 new ArrayList<>(Objects.requireNonNull(JsonMapper.roomReservationsListMapper(ServerCommunication.getRoomReservations())));
         for (RoomReservation reservation : roomReservationList) {
             if (reservation.getRoom().equals(this.room)) {
-                Entry<RoomReservation> bookedEntry = new Entry<>("This slot is Reserved/Unavailable");
+                Entry<RoomReservation> bookedEntry = new Entry<>("Reservation #" + reservation.getId());
 
                 LocalTime startTime = convertToLocalTime(reservation.getFromTime());
                 LocalTime endTime = convertToLocalTime(reservation.getToTime());
@@ -56,12 +58,9 @@ public class RoomCalendarView extends CalendarView {
                 bookedEntry.setInterval(date);
                 bookedEntry.setInterval(startTime, endTime);
 
-                if (reservation.getAppUser().equals(this.user)) {
-                    bookedEntry.setTitle("Reservation #" + reservation.getId());
-                    myReservations.addEntry(bookedEntry);
-                } else {
-                    unavailableSpots.addEntry(bookedEntry);
-                }
+                bookedEntry.setTitle("Reservation #" + reservation.getId());
+                myReservations.addEntry(bookedEntry);
+
             }
         }
     }
@@ -79,10 +78,23 @@ public class RoomCalendarView extends CalendarView {
         this.getCalendarSources().add(myCalendarSource);
     }
 
-    public Date convertToDate(LocalTime time, LocalDate date) {
-        LocalDateTime dateTime = LocalDateTime.of(date, time);
-        return Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant());
-    }
+//    public void entryHandler(CalendarEvent e) {
+//        Entry<RoomReservation> entry = (Entry<RoomReservation>) e.getEntry();
+//
+//        Date start = convertToDate(entry.getStartTime(), entry.getStartDate());
+//        Date end = convertToDate(entry.getEndTime(), entry.getStartDate());
+//
+//        if (e.isEntryAdded()) {
+//            this.fromTime = entry.getStartTime().toString();
+//
+//        } else if (e.isEntryRemoved()) {
+//
+//                this.
+//        } else {
+//                //ServerCommunication.updateRoomReservation(reservationId, old value, new);
+//            }
+//        }
+//    }
 
     public LocalTime convertToLocalTime(Date date) {
         Instant instant1 = Instant.ofEpochMilli(date.getTime());

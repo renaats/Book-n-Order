@@ -31,10 +31,9 @@
                   <Font size="26.0" />
                </font>
             </Text>
-            <TextField fx:id="capacity" promptText="Room Name..." />
-            <TextField fx:id="nOfPlugs" promptText="From..." />
-            <TextField fx:id="nOfPlugs1" promptText="Until..." />
-            <Button fx:id="submitButton" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" style="-fx-background-color: #00a6d6;" text="Add Reservation" textAlignment="CENTER" textFill="WHITE">
+            <TextField fx:id="fromTime" promptText="From..." />
+            <TextField fx:id="untilTime" promptText="Until..." />
+            <Button fx:id="reserveSlot" maxHeight="25.0" onAction="#addReservation" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" style="-fx-background-color: #00a6d6;" text="Add Reservation" textAlignment="CENTER" textFill="WHITE">
                <VBox.margin>
                   <Insets left="35.0" />
                </VBox.margin>
@@ -56,7 +55,7 @@
                   <Font size="26.0" />
                </font>
             </Text>
-            <SubScene fx:id="calendarContainer" height="415.0" width="677.0">
+            <SubScene fx:id="calendarContainer" height="444.0" width="677.0">
               <root>
                 <Region />
               </root>
@@ -68,7 +67,7 @@
             <Font name="Calibri" size="11.0" />
          </font>
       </Text>
-      <ImageView fx:id="homeIcon" fitHeight="41.0" onMouseClicked="#mainMenu" fitWidth="44.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="homeIcon" fitHeight="41.0" fitWidth="44.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#mainMenu" pickOnBounds="true" preserveRatio="true">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -76,7 +75,7 @@
             <Image url="@images/HomeIconTransparent.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="41.0" fitWidth="69.0" onMouseClicked="#goToRoomBook" layoutX="14.0" layoutY="67.0"  pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="41.0" fitWidth="69.0" layoutX="14.0" layoutY="67.0" onMouseClicked="#goToRoomBook" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/BackArrow.png" />
          </image>
