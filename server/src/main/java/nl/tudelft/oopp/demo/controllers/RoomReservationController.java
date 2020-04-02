@@ -5,7 +5,6 @@ import static nl.tudelft.oopp.demo.config.Constants.BUILDING_ADMIN;
 import static nl.tudelft.oopp.demo.config.Constants.USER;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.websocket.server.PathParam;
 
 import nl.tudelft.oopp.demo.entities.RoomReservation;
 import nl.tudelft.oopp.demo.services.RoomReservationService;
@@ -36,21 +35,20 @@ public class RoomReservationController {
 
     /**
      * Adds a room reservation.
+     * @param request = the Http request that calls this method.
      * @param roomId = the id of the room associated to the reservation.
-     * @param userEmail = the email of the user associated to the reservation.
      * @param fromTimeMs = the starting time of the reservation.
      * @param toTimeMs = the ending time of the reservation.
      * @return Error code
      */
     @Secured(USER)
     @PostMapping(path = "/add") // Map ONLY POST Requests
-    @ResponseBody
     public int addNewRoomReservation(
-            @RequestParam String userEmail,
+            HttpServletRequest request,
             @RequestParam int roomId,
             @RequestParam long fromTimeMs,
             @RequestParam long toTimeMs) {
-        return roomReservationService.add(roomId, userEmail, fromTimeMs, toTimeMs);
+        return roomReservationService.add(request, roomId, fromTimeMs, toTimeMs);
     }
 
     /**
@@ -93,7 +91,7 @@ public class RoomReservationController {
 
     /**
      * Finds all past room reservations for the user that sends the Http request.
-     * @param request = the Http request that calls this method
+     * @param request = the Http request that calls this method.
      * @return a list of past room reservations for this user.
      */
     @Secured(USER)
@@ -104,7 +102,7 @@ public class RoomReservationController {
 
     /**
      * Finds all future room reservations for the user that sends the Http request.
-     * @param request = the Http request that calls this method
+     * @param request = the Http request that calls this method.
      * @return a list of future room reservations for this user.
      */
     @Secured(USER)
@@ -114,14 +112,25 @@ public class RoomReservationController {
     }
 
     /**
-     * Finds all room reservations for the specified room
-     * @param id = the room id.
-     * @return a list of reservations for this room.
+     * Finds all active room reservations for the user that sends the Http request.
+     * @param request = the Http request that calls this method.
+     * @return a list of active room reservations for this user.
      */
     @Secured(USER)
-    @GetMapping(path = "/room/{roomId}")
-    @ResponseBody
-    public String getReservationsForRoom(@PathVariable(value = "roomId") int id) {
-        return roomReservationService.forRoom(id);
+    @GetMapping(path = "/active")
+    public Iterable<RoomReservation> getActiveReservations(HttpServletRequest request) {
+        return roomReservationService.active(request);
+    }
+
+    /**
+     * Cancels a room reservation if it was made by the user that sends the Http request.
+     * @param request = the Http request that calls this method.
+     * @param roomReservationId = the id of the target reservation.
+     * @return an error code.
+     */
+    @Secured(USER)
+    @GetMapping(path = "/cancel/{id}")
+    public int cancelReservation(HttpServletRequest request, @PathVariable(value = "id") int roomReservationId) {
+        return roomReservationService.cancel(request, roomReservationId);
     }
 }

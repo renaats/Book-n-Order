@@ -11,14 +11,11 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import nl.tudelft.oopp.demo.entities.AppUser;
-import nl.tudelft.oopp.demo.entities.Building;
-import nl.tudelft.oopp.demo.entities.Room;
-import nl.tudelft.oopp.demo.entities.RoomReservation;
 import nl.tudelft.oopp.demo.repositories.BuildingRepository;
 import nl.tudelft.oopp.demo.repositories.RoomRepository;
 import nl.tudelft.oopp.demo.repositories.RoomReservationRepository;
 import nl.tudelft.oopp.demo.repositories.UserRepository;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -56,7 +53,7 @@ public class RoomReservationTest {
         building = new Building("EWI", "Mekelweg", "EWI", 4);
         buildingRepository.saveAndFlush(building);
 
-        room = new Room("Ampere", building, "EWI", false, true, true, 300, 250);
+        room = new Room("Ampere", building, "CSE", true, true, 300, 250);
         room.setRoomReservations(new HashSet<>());
         roomRepository.saveAndFlush(room);
 
@@ -118,9 +115,18 @@ public class RoomReservationTest {
      * Tests the getter for the toTime field.
      */
     @Test
-    public void testGetters() {
+    public void testToTimeGetter() {
         roomReservation2 = roomReservationRepository.findAll().get(0);
         assertEquals(new Date(11000000000L), roomReservation2.getToTime());
+    }
+
+    /**
+     * Tests the getter for the active field.
+     */
+    @Test
+    public void testActiveGetter() {
+        roomReservation2 = roomReservationRepository.findAll().get(0);
+        assertTrue(roomReservation2.isActive());
     }
 
     /**
@@ -165,6 +171,17 @@ public class RoomReservationTest {
         assertNull(roomReservation2.getToTime());
         roomReservation2.setToTime(new Date(11000000000L));
         assertEquals(new Date(11000000000L), roomReservation2.getToTime());
+    }
+
+    /**
+     * Tests the change of active by using a setter.
+     */
+    @Test
+    public void testChangeActive() {
+        roomReservation2 = new RoomReservation();
+        assertTrue(roomReservation2.isActive());
+        roomReservation2.setActive(false);
+        assertFalse(roomReservation2.isActive());
     }
 
     /**

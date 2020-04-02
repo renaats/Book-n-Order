@@ -2,6 +2,7 @@ package nl.tudelft.oopp.demo.entities;
 
 import java.time.LocalTime;
 import java.util.Objects;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

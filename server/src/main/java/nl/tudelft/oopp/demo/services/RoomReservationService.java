@@ -9,13 +9,8 @@ import static nl.tudelft.oopp.demo.config.Constants.NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.RESERVATION_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.ROOM_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.USER_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.WRONG_USER;
 import static nl.tudelft.oopp.demo.security.SecurityConstants.HEADER_STRING;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.google.gson.ExclusionStrategy;
-import com.google.gson.FieldAttributes;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -52,34 +47,30 @@ public class RoomReservationService {
 
     /**
      * Adds a room reservation.
+     * @param request = the Http request that calls this method.
      * @param roomId = the id of the room associated to the reservation.
-     * @param userEmail = the email of the user associated to the reservation.
      * @param fromTimeMs = the starting time of the reservation.
      * @param toTimeMs = the ending time of the reservation.
      * @return String containing the result of your request.
      */
-    public int add(int roomId, String userEmail, long fromTimeMs, long toTimeMs) {
+    public int add(HttpServletRequest request, int roomId, long fromTimeMs, long toTimeMs) {
         Optional<Room> optionalRoom = roomRepository.findById(roomId);
         if (optionalRoom.isEmpty()) {
             return ID_NOT_FOUND;
         }
         Room room = optionalRoom.get();
 
-        Optional<AppUser> optionalUser = userRepository.findById(userEmail);
-        if (optionalUser.isEmpty()) {
+        String token = request.getHeader(HEADER_STRING);
+        AppUser appUser = UserService.getAppUser(token, userRepository);
+        if (appUser == null) {
             return NOT_FOUND;
         }
-        AppUser appUser = optionalUser.get();
 
         if (room.hasRoomReservationBetween(new Date(fromTimeMs), new Date(toTimeMs))) {
             return ALREADY_RESERVED;
         }
 
-        RoomReservation roomReservation = new RoomReservation();
-        roomReservation.setRoom(room);
-        roomReservation.setAppUser(appUser);
-        roomReservation.setFromTime(new Date(fromTimeMs));
-        roomReservation.setToTime(new Date(toTimeMs));
+        RoomReservation roomReservation = new RoomReservation(room, appUser, new Date(fromTimeMs), new Date(toTimeMs));
         roomReservationRepository.save(roomReservation);
         return ADDED;
     }
@@ -121,6 +112,9 @@ public class RoomReservationService {
                 AppUser appUser = optionalUser.get();
                 roomReservation.setAppUser(appUser);
                 break;
+            case "active":
+                roomReservation.setActive(Boolean.parseBoolean(value));
+                break;
             default:
                 return ATTRIBUTE_NOT_FOUND;
         }
@@ -160,7 +154,7 @@ public class RoomReservationService {
 
     /**
      * Finds all past room reservations for the user that sends the Http request.
-     * @param request = the Http request that calls this method
+     * @param request = the Http request that calls this method.
      * @return a list of past room reservations for this user.
      */
     public List<RoomReservation> past(HttpServletRequest request) {
@@ -171,7 +165,7 @@ public class RoomReservationService {
             return roomReservations;
         }
         for (RoomReservation roomReservation: roomReservationRepository.findAll()) {
-            if (roomReservation.getAppUser() == appUser && roomReservation.getToTime().before(new Date())) {
+            if (roomReservation.getAppUser() == appUser && (!roomReservation.getToTime().after(new Date())) || !roomReservation.isActive()) {
                 roomReservations.add(roomReservation);
             }
         }
@@ -180,7 +174,7 @@ public class RoomReservationService {
 
     /**
      * Finds all future room reservations for the user that sends the Http request.
-     * @param request = the Http request that calls this method
+     * @param request = the Http request that calls this method.
      * @return a list of future room reservations for this user.
      */
     public List<RoomReservation> future(HttpServletRequest request) {
@@ -191,7 +185,7 @@ public class RoomReservationService {
             return roomReservations;
         }
         for (RoomReservation roomReservation: roomReservationRepository.findAll()) {
-            if (roomReservation.getAppUser() == appUser && roomReservation.getToTime().after(new Date())) {
+            if (roomReservation.getAppUser() == appUser && roomReservation.getToTime().after(new Date()) && roomReservation.isActive()) {
                 roomReservations.add(roomReservation);
             }
         }
@@ -199,40 +193,43 @@ public class RoomReservationService {
     }
 
     /**
-     * Finds all reservations for a specific room.
-     * @param roomId = the id of the room for which reservations are retrieved.
-     * @return a list of reservations for this room.
+     * Finds all active room reservations for the user that sends the Http request.
+     * @param request = the Http request that calls this method.
+     * @return a list of active room reservations for this user.
      */
-    public String forRoom(int roomId) {
+    public List<RoomReservation> active(HttpServletRequest request) {
         List<RoomReservation> roomReservations = new ArrayList<>();
-        Optional<Room> optionalRoom = roomRepository.findById(roomId);
-
-        if (optionalRoom.isEmpty()) {
-            return null;
+        String token = request.getHeader(HEADER_STRING);
+        AppUser appUser = UserService.getAppUser(token, userRepository);
+        if (appUser == null) {
+            return roomReservations;
         }
-        Room room = optionalRoom.get();
-
         for (RoomReservation roomReservation: roomReservationRepository.findAll()) {
-            if (roomReservation.getRoom() == room) {
+            if (roomReservation.getAppUser() == appUser && roomReservation.isActive()) {
                 roomReservations.add(roomReservation);
             }
         }
+        return roomReservations;
+    }
 
-        GsonBuilder gsonBuilder = new GsonBuilder();
-
-        gsonBuilder.setExclusionStrategies(new ExclusionStrategy() {
-            @Override
-            public boolean shouldSkipField(FieldAttributes f) {
-                return f.getName().contains("appUser") || f.getAnnotation(JsonIgnore.class) != null;
-            }
-
-            @Override
-            public boolean shouldSkipClass(Class<?> c) {
-                return c == AppUser.class;
-            }
-        });
-
-        Gson gson = gsonBuilder.create();
-        return gson.toJson(roomReservations);
+    /**
+     * Cancels a room reservation if it was made by the user that sends the Http request.
+     * @param request = the Http request that calls this method.
+     * @param roomReservationId = the id of the target reservation.
+     * @return an error code.
+     */
+    public int cancel(HttpServletRequest request, int roomReservationId) {
+        String token = request.getHeader(HEADER_STRING);
+        AppUser appUser = UserService.getAppUser(token, userRepository);
+        if (roomReservationRepository.findById(roomReservationId).isEmpty()) {
+            return RESERVATION_NOT_FOUND;
+        }
+        RoomReservation roomReservation = roomReservationRepository.findById(roomReservationId).get();
+        if (!roomReservation.getAppUser().equals(appUser)) {
+            return WRONG_USER;
+        }
+        roomReservation.setActive(false);
+        roomReservationRepository.save(roomReservation);
+        return EXECUTED;
     }
 }
