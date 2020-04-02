@@ -846,6 +846,10 @@ public class ServerCommunication {
     // Bike related Server Communication Methods
     // -----------------------------------------
 
+    public static String addBike(int buildingId, boolean available) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/bike/add?buildingId=" + buildingId + "&available=" + available)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnErrorMessage(request);
+    }
     /**
      * gets all bike reservations from the database
      * @return response.body of the server

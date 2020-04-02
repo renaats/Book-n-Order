@@ -1,17 +1,9 @@
 package nl.tudelft.oopp.demo.controllers.database;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.ResourceBundle;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
@@ -21,18 +13,24 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
-
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.ResourceBundle;
+
 /**
  * Loads the correct content into the FXML objects that need to display server information and
- * controls all the user inputs made through the GUI in the "DatabaseRoomMenu.fxml" file
+ * controls all the user inputs made through the GUI in the "DatabaseBikeMenu.fxml" file
  */
-public class DatabaseRoomMenuController implements Initializable {
+public class DatabaseBikeMenuController implements Initializable {
 
     private final ObservableList<Room> roomResult = FXCollections.observableArrayList();
     private final ObservableList<String> studyList = FXCollections.observableArrayList();
@@ -138,8 +136,8 @@ public class DatabaseRoomMenuController implements Initializable {
      * Switches scene to DatabaseAddRooms.fxml
      * @throws IOException Input will be valid
      */
-    public void goToAddRooms() throws IOException {
-        ApplicationDisplay.changeScene("/DatabaseAddRooms.fxml");
+    public void goToAddBikes() throws IOException {
+        ApplicationDisplay.changeScene("/DatabaseAddBikes.fxml");
     }
 
     /**
@@ -171,9 +169,9 @@ public class DatabaseRoomMenuController implements Initializable {
     }
 
     /**
-     * Takes care of finding a room by name or ID.
+     * Takes care of finding a bike by ID.
      */
-    public void findRoom() {
+    public void findBike() {
         try {
             int id = Integer.parseInt(roomFindTextField.getText());
             Room room = JsonMapper.roomMapper(ServerCommunication.findRoom(id));
@@ -196,9 +194,9 @@ public class DatabaseRoomMenuController implements Initializable {
     }
 
     /**
-     * Updates a room directly from the fields.
+     * Updates a bike directly from the fields.
      */
-    public void updateRoom() {
+    public void updateBike() {
         int id;
         try {
             id = Integer.parseInt(idFieldRead.getText());
@@ -250,7 +248,7 @@ public class DatabaseRoomMenuController implements Initializable {
     /**
      * Handles clicking of the Remove Room button.
      */
-    public void deleteRoom() {
+    public void deleteBike() {
         try {
             int id = Integer.parseInt(idFieldRead.getText());
             CustomAlert.informationAlert(ServerCommunication.deleteRoom(id));
