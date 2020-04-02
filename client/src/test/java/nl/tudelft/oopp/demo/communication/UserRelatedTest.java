@@ -60,6 +60,33 @@ class UserRelatedTest {
     }
 
     /**
+     * Tests the response when the validate request is successful.
+     */
+    @Test
+    public void testSuccessfulValidateUser() {
+        stubFor(post(urlEqualTo("/user/validate?sixDigitCode=123456")).willReturn(aResponse().withStatus(200).withBody("200")));
+        assertEquals(ErrorMessages.getErrorMessage(200), UserRelated.validateUser(123456));
+    }
+
+    /**
+     * Tests the response when the getAccountActivation request is successful.
+     */
+    @Test
+    public void testSuccessfulGetAccountActivation() {
+        stubFor(get(urlEqualTo("/user/activated")).willReturn(aResponse().withStatus(200).withBody("true")));
+        assertTrue(UserRelated.getAccountActivation());
+    }
+
+    /**
+     * Tests the response when the getAccountActivation request is unsuccessful.
+     */
+    @Test
+    public void testUnsuccessfulGetAccountActivation() {
+        stubFor(get(urlEqualTo("/user/activated")).willReturn(aResponse().withFault(Fault.CONNECTION_RESET_BY_PEER).withBody("true")));
+        assertFalse(UserRelated.getAccountActivation());
+    }
+
+    /**
      * Tests the response when the getUser request is successful.
      */
     @Test
@@ -143,6 +170,15 @@ class UserRelatedTest {
     @Test
     public void testSuccessfulChangePassword() {
         assertEquals(ErrorMessages.getErrorMessage(200), UserRelated.changeUserPassword("Password"));
+    }
+
+    /**
+     * Tests the response when the logoutUser request is successful.
+     */
+    @Test
+    public void testSuccessfulSendRecoveryPassword() {
+        stubFor(post(urlEqualTo("/user/recoverPassword?email=test@tudelft.nl")).willReturn(aResponse().withStatus(200).withBody("200")));
+        assertEquals(ErrorMessages.getErrorMessage(200), UserRelated.sendRecoveryPassword("test@tudelft.nl"));
     }
 
     /**

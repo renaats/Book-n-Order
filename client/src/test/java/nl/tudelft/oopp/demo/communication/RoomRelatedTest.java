@@ -40,6 +40,7 @@ class RoomRelatedTest {
         stubFor(get(urlEqualTo("/room/filter?query=name:Auditorium")).willReturn(aResponse().withStatus(200).withBody("Message15")));
         stubFor(get(urlEqualTo("/room_reservation/past")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(get(urlEqualTo("/room_reservation/future")).willReturn(aResponse().withStatus(200).withBody("200")));
+        stubFor(get(urlEqualTo("/room_reservation/active")).willReturn(aResponse().withStatus(200).withBody("Message4")));
     }
 
     /**
@@ -48,6 +49,14 @@ class RoomRelatedTest {
     @Test
     public void testSuccessfulGetAllFutureRoomReservations() {
         assertEquals("200", RoomRelated.getAllFutureRoomReservations());
+    }
+
+    /**
+     * Tests getting all active room reservations from the server.
+     */
+    @Test
+    public void testSuccessfulGetAllActiveRoomReservations() {
+        assertEquals("Message4", RoomRelated.getAllActiveRoomReservations());
     }
 
     /**

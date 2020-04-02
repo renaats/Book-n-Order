@@ -28,6 +28,7 @@ class BikeRelatedTest {
         stubFor(get(urlEqualTo("/bike_reservation/future")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(get(urlEqualTo("/bike_reservation/past")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(get(urlEqualTo("/bike_reservation/cancel/1")).willReturn(aResponse().withStatus(200).withBody("201")));
+        stubFor(get(urlEqualTo("/bike_reservation/active")).willReturn(aResponse().withStatus(200).withBody("Message")));
     }
 
     /**
@@ -60,6 +61,14 @@ class BikeRelatedTest {
     @Test
     public void testCancelBikeReservation() {
         assertEquals(ErrorMessages.getErrorMessage(201), BikeRelated.cancelBikeReservation(1));
+    }
+
+    /**
+     * Tests the response when the testGetAllActiveBikeReservations request is successful.
+     */
+    @Test
+    public void testGetAllActiveBikeReservations() {
+        assertEquals("Message", BikeRelated.getAllActiveBikeReservations());
     }
 
     /**

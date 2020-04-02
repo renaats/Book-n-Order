@@ -29,7 +29,7 @@ class DishRelatedTest {
         stubFor(delete(urlEqualTo("/food_order/delete/1")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(post(urlEqualTo("/food_order/add?restaurantId=1&deliverLocation=1&deliverTimeMs=1"))
                 .willReturn(aResponse().withStatus(200).withBody("200")));
-        stubFor(get(urlEqualTo("/food_order/all")).willReturn(aResponse().withStatus(200).withBody("200")));
+        stubFor(get(urlEqualTo("/food_order/all")).willReturn(aResponse().withStatus(200).withBody("Message3")));
         stubFor(get(urlEqualTo("/food_order/past")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(get(urlEqualTo("/food_order/future")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(post(urlEqualTo("/menu/add?name=test&restaurantId=1")).willReturn(aResponse().withStatus(200).withBody("200")));
@@ -41,6 +41,13 @@ class DishRelatedTest {
         stubFor(post(urlEqualTo("/dish/addAllergy?id=1&allergyName=test")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(get(urlEqualTo("/dish/filter?query=name:Tosti")).willReturn(aResponse().withStatus(200).withBody("Message11")));
         stubFor(get(urlEqualTo("/allergy/filter?query=name:Lactose")).willReturn(aResponse().withStatus(200).withBody("Message12")));
+        stubFor(get(urlEqualTo("/food_order/active")).willReturn(aResponse().withStatus(200).withBody("200")));
+        stubFor(delete(urlEqualTo("/restaurant_hours/delete?id=1&day=1")).willReturn(aResponse().withStatus(200).withBody("200")));
+        stubFor(delete(urlEqualTo("/restaurant_hours/delete?id=1&date=1")).willReturn(aResponse().withStatus(200).withBody("200")));
+        stubFor(post(urlEqualTo("/restaurant_hours/add?restaurantId=1&date=1&startTimeS=1&endTimeS=2")).willReturn(aResponse().withStatus(200).withBody("200")));
+        stubFor(get(urlEqualTo("/restaurant_hours/all")).willReturn(aResponse().withStatus(200).withBody("200")));
+        stubFor(get(urlEqualTo("/restaurant_hours/find/1/1")).willReturn(aResponse().withStatus(200).withBody("200")));
+        stubFor(post(urlEqualTo("/restaurant_hours/update?id=1&attribute=attribute&value=value")).willReturn(aResponse().withStatus(200).withBody("200")));
     }
 
     /**
@@ -48,7 +55,7 @@ class DishRelatedTest {
      */
     @Test
     public void testSuccessfulAddDishes() {
-        assertEquals("200", DishRelated.addDish("test", 1));
+        assertEquals(ErrorMessages.getErrorMessage(200), DishRelated.addDish("test", 1));
     }
 
     /**
@@ -64,7 +71,7 @@ class DishRelatedTest {
      */
     @Test
     public void testSuccessfulAddAllergyToDish() {
-        assertEquals("200", DishRelated.addAllergyToDish("test", 1));
+        assertEquals(ErrorMessages.getErrorMessage(200), DishRelated.addAllergyToDish("test", 1));
     }
 
     /**
@@ -112,7 +119,15 @@ class DishRelatedTest {
      */
     @Test
     public void testSuccessfulGetAllFoodOrders() {
-        assertEquals("200", DishRelated.getAllFoodOrders());
+        assertEquals("Message3", DishRelated.getAllFoodOrders());
+    }
+
+    /**
+     * Tests getting all active food orders from the server.
+     */
+    @Test
+    public void testSuccessfulGetAllActiveFoodOrders() {
+        assertEquals("200", DishRelated.getAllActiveFoodOrders());
     }
 
     /**
@@ -169,6 +184,54 @@ class DishRelatedTest {
     @Test
     public void testCancelFoodOrder() {
         assertEquals(ErrorMessages.getErrorMessage(201), DishRelated.cancelFoodOrder(1));
+    }
+
+    /**
+     * Tests deleting restaurant hours by day from the server.
+     */
+    @Test
+    public void testSuccessfulDeleteRestaurantHoursByDay() {
+        assertEquals(ErrorMessages.getErrorMessage(200), DishRelated.deleteRestaurantHours(1, 1));
+    }
+
+    /**
+     * Tests deleting restaurant hours by date from the server.
+     */
+    @Test
+    public void testSuccessfulDeleteRestaurantHoursByDate() {
+        assertEquals(ErrorMessages.getErrorMessage(200), DishRelated.deleteRestaurantHours(1, 1L));
+    }
+
+    /**
+     * Tests adding restaurant hours to the database.
+     */
+    @Test
+    public void testSuccessfulAddRestaurantHours() {
+        assertEquals("200", DishRelated.addRestaurantHours(1, 1L, 1, 2));
+    }
+
+    /**
+     * Tests getting all restaurant hours from the server.
+     */
+    @Test
+    public void testGetRestaurantHours() {
+        assertEquals("200", DishRelated.getRestaurantHours());
+    }
+
+    /**
+     * Tests retrieving specific restaurant opening hours for specific day in the database by id.
+     */
+    @Test
+    public void testFindRestaurantHours() {
+        assertEquals("200", DishRelated.findRestaurantHours(1,1));
+    }
+
+    /**
+     * Tests updating a given attribute of restaurant hours.
+     */
+    @Test
+    public void testUpdateRestaurantHours() {
+        assertEquals(ErrorMessages.getErrorMessage(200), DishRelated.updateRestaurantHours(1,"attribute","value"));
     }
 
     /**

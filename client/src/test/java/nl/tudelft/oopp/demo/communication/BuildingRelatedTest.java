@@ -30,6 +30,13 @@ class BuildingRelatedTest {
         stubFor(post(urlEqualTo("/building/update?id=1&attribute=a&value=a")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(post(urlEqualTo("/building/add?name=a&street=a&houseNumber=1&faculty=faculty"))
                 .willReturn(aResponse().withStatus(200).withBody("200")));
+        stubFor(get(urlEqualTo("/building/findName/name")).willReturn(aResponse().withStatus(200).withBody("Message")));
+        stubFor(post(urlEqualTo("/building_hours/add?buildingId=1&date=1&startTimeS=1&endTimeS=2")).willReturn(aResponse().withStatus(200).withBody("200")));
+        stubFor(get(urlEqualTo("/building_hours/all")).willReturn(aResponse().withStatus(200).withBody("Message3")));
+        stubFor(get(urlEqualTo("/building_hours/find/1/1")).willReturn(aResponse().withStatus(200).withBody("Message5")));
+        stubFor(post(urlEqualTo("/building_hours/update?id=1&attribute=attribute&value=value")).willReturn(aResponse().withStatus(200).withBody("200")));
+        stubFor(delete(urlEqualTo("/building_hours/delete?id=1&day=1")).willReturn(aResponse().withStatus(200).withBody("200")));
+        stubFor(delete(urlEqualTo("/building_hours/delete?id=1&date=1")).willReturn(aResponse().withStatus(200).withBody("200")));
     }
 
     /**
@@ -70,6 +77,62 @@ class BuildingRelatedTest {
     @Test
     public void testSuccessfulAddBuilding() {
         assertEquals(ErrorMessages.getErrorMessage(200), BuildingRelated.addBuilding("a", "a", 1, "faculty"));
+    }
+
+    /**
+     * Tests the response when the findBuildingByName request is successful.
+     */
+    @Test
+    public void testSuccessfulFindBuildingByName() {
+        assertEquals("Message", BuildingRelated.findBuildingByName("name"));
+    }
+
+    /**
+     * Tests the response when the addBuildingHours request is successful.
+     */
+    @Test
+    public void testSuccessfulAddBuildingHours() {
+        assertEquals(ErrorMessages.getErrorMessage(200), BuildingRelated.addBuildingHours(1, 1L, 1, 2));
+    }
+
+    /**
+     * Tests the response when the getBuildingHours request is successful.
+     */
+    @Test
+    public void testSuccessfulGetBuildingHours() {
+        assertEquals("Message3", BuildingRelated.getBuildingHours());
+    }
+
+    /**
+     * Tests the response when the findBuildingHours request is successful.
+     */
+    @Test
+    public void testSuccessfulFindBuildingHours() {
+        assertEquals("Message5", BuildingRelated.findBuildingHours(1,1));
+    }
+
+    /**
+     * Tests the response when the updateBuildingHours request is successful.
+     */
+    @Test
+    public void testSuccessfulUpdateBuildingHours() {
+        assertEquals(ErrorMessages.getErrorMessage(200), BuildingRelated.updateBuildingHours(1,"attribute", "value"));
+    }
+
+    /**
+     * Tests the response when the deleteBuildingHours by day request is successful.
+     */
+    @Test
+    public void testSuccessfulDeleteBuildingHoursByDay() {
+        assertEquals(ErrorMessages.getErrorMessage(200), BuildingRelated.deleteBuildingHours(1, 1));
+    }
+
+    /**
+     * Tests the response when the deleteBuildingHours by date request is successful.
+     */
+    @Test
+    public void testSuccessfulDeleteBuildingHoursByDate() {
+        assertEquals(ErrorMessages.getErrorMessage(200), BuildingRelated.deleteBuildingHours(1, 1L));
     }
 
     /**

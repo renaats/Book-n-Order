@@ -21,22 +21,22 @@ public class DishRelated {
      * Adds a dish to the database.
      * @param name dish name.
      * @param menuId menu id.
-     * @return the body of the response from the server.
+     * @return the error message corresponding to the server's response.
      */
     public static String addDish(String name, int menuId) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/dish/add?name=" + URLEncoder.encode(name, StandardCharsets.UTF_8) + "&menuId=" + menuId)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        return communicateAndReturnBodyOfResponse(request);
+        return communicateAndReturnErrorMessage(request);
     }
 
     /**
      * Add an allergy to a dish.
      * @param name allergy name.
      * @param id dish id.
-     * @return the body of the response from the server.
+     * @return the error message corresponding to the server's response.
      */
     public static String addAllergyToDish(String name, int id) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/dish/addAllergy?id=" + id + "&allergyName=" + URLEncoder.encode(name, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        return communicateAndReturnBodyOfResponse(request);
+        return communicateAndReturnErrorMessage(request);
     }
 
     /**
@@ -256,9 +256,7 @@ public class DishRelated {
      * @return the error message corresponding to the server's response.
      */
     public static String updateRestaurantHours(int id, String attribute, String changeValue) {
-        HttpRequest request;
-        request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant_hours/update?id=" + id + "&attribute=" + attribute + "&value=" + URLEncoder.encode(changeValue, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        HttpResponse<String> response;
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant_hours/update?id=" + id + "&attribute=" + attribute + "&value=" + URLEncoder.encode(changeValue, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnErrorMessage(request);
     }
 }
