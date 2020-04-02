@@ -29,18 +29,18 @@
             <Font name="Calibri" size="11.0" />
         </font>
     </Text>
-    <Text layoutX="471.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contact Us" textAlignment="CENTER" wrappingWidth="247.95703887939456" AnchorPane.leftAnchor="471.0" AnchorPane.rightAnchor="561.0429611206055" AnchorPane.topAnchor="123.203125">
+    <Text layoutX="516.0" layoutY="112.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contact Us" textAlignment="CENTER" wrappingWidth="247.95703887939456" AnchorPane.leftAnchor="516.0" AnchorPane.rightAnchor="516.0429611206055" AnchorPane.topAnchor="60.203125">
         <font>
             <Font size="48.0" />
         </font>
     </Text>
-    <ImageView fitHeight="109.0" fitWidth="109.0" layoutX="84.0" layoutY="263.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="1087.0" AnchorPane.topAnchor="263.0">
+    <ImageView fitHeight="96.0" fitWidth="98.0" layoutX="84.0" layoutY="263.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="1088.0" AnchorPane.topAnchor="263.0">
         <Image url="@images/phone.png" />
     </ImageView>
-    <ImageView fitHeight="112.0" fitWidth="109.0" layoutX="84.0" layoutY="372.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="84.0" AnchorPane.rightAnchor="1087.0" AnchorPane.topAnchor="372.0">
+    <ImageView fitHeight="116.0" fitWidth="96.0" layoutX="97.0" layoutY="372.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="97.0" AnchorPane.rightAnchor="1087.0" AnchorPane.topAnchor="372.0">
         <Image url="@images/mail.png" />
     </ImageView>
-    <ImageView fitHeight="109.0" fitWidth="109.0" layoutX="83.0" layoutY="481.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="83.0" AnchorPane.topAnchor="481.0">
+    <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="97.0" layoutY="481.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="97.0" AnchorPane.topAnchor="481.0">
         <Image url="@images/location.png" />
     </ImageView>
     <ImageView fitHeight="41.0" fitWidth="44.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#mainMenu" pickOnBounds="true" preserveRatio="true">
@@ -66,17 +66,17 @@
     </ImageView>
    <Text layoutX="182.0" layoutY="327.0" strokeType="OUTSIDE" strokeWidth="0.0" text="+3115 2789111" textAlignment="CENTER" wrappingWidth="247.95703887939453">
       <font>
-         <Font size="24.0" />
+         <Font size="22.0" />
       </font>
    </Text>
-   <Text layoutX="182.0" layoutY="436.0" strokeType="OUTSIDE" strokeWidth="0.0" text="info@tudelft.nl" textAlignment="CENTER" wrappingWidth="247.95703887939453">
+   <Text layoutX="194.0" layoutY="429.0" strokeType="OUTSIDE" strokeWidth="0.0" text="info@tudelft.nl" textAlignment="CENTER" wrappingWidth="247.95703887939453">
       <font>
-         <Font size="24.0" />
+         <Font size="22.0" />
       </font>
    </Text>
-   <Text layoutX="182.0" layoutY="507.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PO Box 5 &#10;2600 AA Delft &#10;The Netherlands" textAlignment="CENTER" wrappingWidth="247.95703172683716">
+   <Text layoutX="182.0" layoutY="505.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PO Box 5 &#10;2600 AA Delft &#10;The Netherlands" textAlignment="CENTER" wrappingWidth="247.95703172683716">
       <font>
-         <Font size="24.0" />
+         <Font size="22.0" />
       </font>
    </Text>
    <Pane layoutX="471.0" layoutY="239.0" prefHeight="372.0" prefWidth="748.0" style="-fx-border-color: #439FDA; -fx-border-width: 5; -fx-background-color: white;">
