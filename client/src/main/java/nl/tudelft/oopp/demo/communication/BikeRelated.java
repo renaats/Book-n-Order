@@ -1,12 +1,12 @@
 package nl.tudelft.oopp.demo.communication;
 
-import nl.tudelft.oopp.demo.authentication.AuthenticationKey;
+import static nl.tudelft.oopp.demo.communication.ServerCommunication.communicateAndReturnBodyOfResponse;
+import static nl.tudelft.oopp.demo.communication.ServerCommunication.communicateAndReturnErrorMessage;
 
 import java.net.URI;
 import java.net.http.HttpRequest;
 
-import static nl.tudelft.oopp.demo.communication.ServerCommunication.communicateAndReturnBodyOfResponse;
-import static nl.tudelft.oopp.demo.communication.ServerCommunication.communicateAndReturnErrorMessage;
+import nl.tudelft.oopp.demo.authentication.AuthenticationKey;
 
 /**
  * Controls all client to server communication related to the bike entity

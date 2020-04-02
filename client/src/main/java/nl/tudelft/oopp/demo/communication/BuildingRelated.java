@@ -1,14 +1,14 @@
 package nl.tudelft.oopp.demo.communication;
 
-import nl.tudelft.oopp.demo.authentication.AuthenticationKey;
+import static nl.tudelft.oopp.demo.communication.ServerCommunication.communicateAndReturnBodyOfResponse;
+import static nl.tudelft.oopp.demo.communication.ServerCommunication.communicateAndReturnErrorMessage;
 
 import java.net.URI;
 import java.net.URLEncoder;
 import java.net.http.HttpRequest;
 import java.nio.charset.StandardCharsets;
 
-import static nl.tudelft.oopp.demo.communication.ServerCommunication.communicateAndReturnBodyOfResponse;
-import static nl.tudelft.oopp.demo.communication.ServerCommunication.communicateAndReturnErrorMessage;
+import nl.tudelft.oopp.demo.authentication.AuthenticationKey;
 
 /**
  * Controls all client to server communication related to the building entity

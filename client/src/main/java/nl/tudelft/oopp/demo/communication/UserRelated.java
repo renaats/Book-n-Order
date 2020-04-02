@@ -1,8 +1,7 @@
 package nl.tudelft.oopp.demo.communication;
 
-import nl.tudelft.oopp.demo.authentication.AuthenticationKey;
-import nl.tudelft.oopp.demo.errors.ErrorMessages;
-import nl.tudelft.oopp.demo.views.ApplicationDisplay;
+import static nl.tudelft.oopp.demo.communication.ServerCommunication.communicateAndReturnBodyOfResponse;
+import static nl.tudelft.oopp.demo.communication.ServerCommunication.communicateAndReturnErrorMessage;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -18,8 +17,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import static nl.tudelft.oopp.demo.communication.ServerCommunication.communicateAndReturnBodyOfResponse;
-import static nl.tudelft.oopp.demo.communication.ServerCommunication.communicateAndReturnErrorMessage;
+import nl.tudelft.oopp.demo.authentication.AuthenticationKey;
+import nl.tudelft.oopp.demo.errors.ErrorMessages;
+import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
  * Controls all client to server communication related to the user entity
