@@ -281,12 +281,17 @@ public class JsonMapper {
      * @param roomReservationsJson a JSON string representing a list.
      * @return A list filled with object Room Reservation
      */
-    public static List<RoomReservation> roomReservationsListMapper(String roomReservationsJson) throws JsonProcessingException {
+    public static List<RoomReservation> roomReservationsListMapper(String roomReservationsJson) {
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
 
-        return mapper.readValue(roomReservationsJson, new TypeReference<>(){});
+        try {
+            // Convert JSON string to Object
+            return mapper.readValue(roomReservationsJson, new TypeReference<>(){});
+        } catch (Exception e) {
+            return new ArrayList();
+        }
     }
 
     /**
@@ -317,12 +322,17 @@ public class JsonMapper {
      * @param foodOrdersJson a JSON string representing a list.
      * @return A list filled with object Food Order
      */
-    public static List<FoodOrder> foodOrdersListMapper(String foodOrdersJson) throws JsonProcessingException {
+    public static List<FoodOrder> foodOrdersListMapper(String foodOrdersJson) {
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
 
-        return mapper.readValue(foodOrdersJson, new TypeReference<>(){});
+        try {
+            // Convert JSON string to Object
+            return mapper.readValue(foodOrdersJson, new TypeReference<>(){});
+        } catch (Exception e) {
+            return new ArrayList();
+        }
     }
 
     /**
@@ -353,12 +363,17 @@ public class JsonMapper {
      * @param bikeReservationsJson a JSON string representing a list.
      * @return A list filled with object Bike Reservation
      */
-    public static List<BikeReservation> bikeReservationsListMapper(String bikeReservationsJson) throws JsonProcessingException {
+    public static List<BikeReservation> bikeReservationsListMapper(String bikeReservationsJson) {
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
 
-        return mapper.readValue(bikeReservationsJson, new TypeReference<>(){});
+        try {
+            // Convert JSON string to Object
+            return mapper.readValue(bikeReservationsJson, new TypeReference<>(){});
+        } catch (Exception e) {
+            return new ArrayList();
+        }
     }
 
     /**
