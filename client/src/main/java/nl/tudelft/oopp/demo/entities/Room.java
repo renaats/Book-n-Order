@@ -18,8 +18,6 @@ public class Room {
     private String name;
 
     private Building building;
-
-    private String faculty;
     private String studySpecific;
     private String status;
     private boolean projector;
@@ -33,25 +31,15 @@ public class Room {
      * Creates a new instance of Room.
      * @param name = name of the room.
      * @param building = building in which room is situated.
-     * @param faculty = name of the faculty.
-     * @param studySpecific = whether the room is faculty specific.
+     * @param studySpecific = whether the room is study specific.
      * @param projector = whether the room has a projector.
      * @param screen = whether the room has a screen.
      * @param capacity = number of people who can sit in the room.
      * @param plugs = number of plugs in the room.
      */
-    public Room(String name,
-                Building building,
-                String faculty,
-                String studySpecific,
-                boolean projector,
-                boolean screen,
-                int capacity,
-                int plugs,
-                String status) {
+    public Room(String name, Building building, String studySpecific, boolean projector, boolean screen, int capacity, int plugs, String status) {
         this.name = name;
         this.building = building;
-        this.faculty = faculty;
         this.studySpecific = studySpecific;
         this.projector = projector;
         this.screen = screen;
@@ -70,10 +58,6 @@ public class Room {
 
     public void setBuilding(Building building) {
         this.building = building;
-    }
-
-    public void setFaculty(String faculty) {
-        this.faculty = faculty;
     }
 
     public void setProjector(boolean projector) {
@@ -133,15 +117,11 @@ public class Room {
         return new SimpleStringProperty(name);
     }
 
-    public String getFaculty() {
-        return faculty;
-    }
-
-    public boolean hasProjector() {
+    public boolean isProjector() {
         return projector;
     }
 
-    public boolean hasScreen() {
+    public boolean isScreen() {
         return screen;
     }
 
@@ -195,7 +175,6 @@ public class Room {
                 && Objects.equals(id, room.id)
                 && Objects.equals(name, room.name)
                 && Objects.equals(building, room.building)
-                && Objects.equals(faculty, room.faculty)
                 && Objects.equals(studySpecific, room.studySpecific)
                 && Objects.equals(status, room.status)
                 && Objects.equals(roomReservations, room.roomReservations);

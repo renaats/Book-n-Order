@@ -217,10 +217,10 @@ public class DatabaseRoomMenuController implements Initializable {
             if (!(room.getStatus().equals(statusChoiceBox.getValue()))) {
                 ServerCommunication.updateRoom(id, "status", statusChoiceBox.getValue());
             }
-            if (!(room.hasProjector() == Boolean.parseBoolean(projectorToggle.getText()))) {
+            if (!(room.isProjector() == Boolean.parseBoolean(projectorToggle.getText()))) {
                 ServerCommunication.updateRoom(id, "projector", projectorToggle.getText().toLowerCase());
             }
-            if (!(room.hasScreen() == Boolean.parseBoolean(screenToggle.getText()))) {
+            if (!(room.isScreen() == Boolean.parseBoolean(screenToggle.getText()))) {
                 ServerCommunication.updateRoom(id, "screen", screenToggle.getText().toLowerCase());
             }
             try {
@@ -302,15 +302,15 @@ public class DatabaseRoomMenuController implements Initializable {
                 buildingFieldRead.setText(room.getBuilding().getName());
                 studyChoiceBox.setValue(room.getStudySpecific());
                 statusChoiceBox.setValue(room.getStatus());
-                screenToggle.setText(Boolean.toString(room.hasScreen()));
+                screenToggle.setText(Boolean.toString(room.isScreen()));
                 plugsReadField.setText(Integer.toString(room.getPlugs()));
                 capacityReadField.setText(Integer.toString(room.getCapacity()));
-                if (!screenToggleFlag == room.hasScreen()) {
+                if (!screenToggleFlag == room.isScreen()) {
                     screenToggleFlag = !screenToggleFlag;
                     screenToggle.setSelected(screenToggleFlag);
                 }
-                projectorToggle.setText(Boolean.toString(room.hasProjector()));
-                if (!projectorToggleFlag == room.hasProjector()) {
+                projectorToggle.setText(Boolean.toString(room.isProjector()));
+                if (!projectorToggleFlag == room.isProjector()) {
                     projectorToggleFlag = !projectorToggleFlag;
                     projectorToggle.setSelected(projectorToggleFlag);
                 }
