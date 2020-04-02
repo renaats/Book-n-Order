@@ -19,8 +19,7 @@ public class Room {
 
     private Building building;
 
-    private String faculty;
-    private boolean facultySpecific;
+    private String studySpecific;
     private boolean projector;
     private boolean screen;
     private int capacity;
@@ -33,17 +32,15 @@ public class Room {
      * @param name = name of the room.
      * @param building = building in which room is situated.
      * @param faculty = name of the faculty.
-     * @param facultySpecific = whether the room is faculty specific.
      * @param projector = whether the room has a projector.
      * @param screen = whether the room has a screen.
      * @param capacity = number of people who can sit in the room.
      * @param plugs = number of plugs in the room.
      */
-    public Room(String name, Building building, String faculty, boolean facultySpecific, boolean projector, boolean screen, int capacity, int plugs) {
+    public Room(String name, Building building, String faculty, String studySpecific ,boolean projector, boolean screen, int capacity, int plugs) {
         this.name = name;
         this.building = building;
-        this.faculty = faculty;
-        this.facultySpecific = facultySpecific;
+        this.studySpecific = studySpecific;
         this.projector = projector;
         this.screen = screen;
         this.capacity = capacity;

@@ -36,7 +36,9 @@ public class RoomCalendarView extends CalendarView {
      * Constuctor for the Personal Calendar View
      */
     public RoomCalendarView() {
+
         displayCalendars();
+        loadRoomReservations();
     }
 
 
@@ -44,11 +46,18 @@ public class RoomCalendarView extends CalendarView {
      * Methods that loads room reservations of personal user
      */
     public void loadRoomReservations() {
-        List<RoomReservation> roomReservationList =
-                new ArrayList<>(Objects.requireNonNull(JsonMapper.roomReservationsListMapper(ServerCommunication.getRoomReservations())));
+        List<RoomReservation> roomReservationList;
+        try {
+            String roomReservationJson = ServerCommunication.getAllActiveRoomReservations();
+            roomReservationList = new ArrayList<>(Objects.requireNonNull(JsonMapper.roomReservationsListMapper(roomReservationJson)));
+        } catch (NullPointerException e) {
+            roomReservationList = new ArrayList<>();
+            roomReservationList.add(null);
+        }
+
         for (RoomReservation reservation : roomReservationList) {
-            if (reservation.getRoom().equals(this.room)) {
-                Entry<RoomReservation> bookedEntry = new Entry<>("Reservation #" + reservation.getId());
+            if (reservation != null) {
+                Entry<RoomReservation> bookedEntry = new Entry<>("Booking of Room: " + reservation.getRoom().getName());
 
                 LocalTime startTime = convertToLocalTime(reservation.getFromTime());
                 LocalTime endTime = convertToLocalTime(reservation.getToTime());
@@ -57,13 +66,11 @@ public class RoomCalendarView extends CalendarView {
                 bookedEntry.setLocation(reservation.getRoom().getBuilding().getName());
                 bookedEntry.setInterval(date);
                 bookedEntry.setInterval(startTime, endTime);
-
-                bookedEntry.setTitle("Reservation #" + reservation.getId());
                 myReservations.addEntry(bookedEntry);
-
             }
         }
     }
+
 
     /**
      * Method that displays the different calendars.

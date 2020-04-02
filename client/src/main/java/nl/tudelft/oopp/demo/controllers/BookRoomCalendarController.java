@@ -1,6 +1,5 @@
 package nl.tudelft.oopp.demo.controllers;
 
-import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
@@ -10,6 +9,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import com.calendarfx.model.CalendarEvent;
@@ -44,8 +44,9 @@ public class BookRoomCalendarController implements Initializable {
 
     public void showCal() {
 
-        calendarContainer.setRoot(calendarView.getWeekPage());
+        calendarContainer.setRoot(calendarView);
         calendarView.setLayout(DateControl.Layout.SWIMLANE);
+        calendarView.loadRoomReservations();
         EventHandler<CalendarEvent> handler = e -> entryHandler(e);
         calendarView.myReservations.addEventHandler(handler);
     }
@@ -67,37 +68,36 @@ public class BookRoomCalendarController implements Initializable {
     }
 
     private void entryHandler (CalendarEvent e) {
-        Entry<RoomReservation> newEntry = (Entry<RoomReservation>) e.getEntry();
 
-        Date start = convertToDate(newEntry.getStartTime(), newEntry.getStartDate());
-        Date end = convertToDate(newEntry.getEndTime(), newEntry.getStartDate());
+        Entry<RoomReservation> event = (Entry<RoomReservation>) e.getEntry();
+        Date start = convertToDate(event.getStartTime(), event.getStartDate());
+        Date end = convertToDate(event.getEndTime(), event.getStartDate());
 
         if (e.isEntryAdded()) {
             fromTime.setText(start.toString());
             untilTime.setText(end.toString());
-            System.out.println(start.toString());
         } else if (e.isEntryRemoved()) {
-            System.out.println("entry removed");
             fromTime.setText("");
             untilTime.setText("");
-            System.out.println(start.toString());
+        } else {
+            fromTime.setText(start.toString());
+            untilTime.setText(end.toString());
         }
     }
 
     public void addReservation() {
         String dateFrom = fromTime.getText();
         String dateUntil = untilTime.getText();
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-ddThh:mm:ss.000+0000");
+        SimpleDateFormat format = new SimpleDateFormat("EE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
 
         try {
             Date from = format.parse(dateFrom);
             Date until = format.parse(dateUntil);
             long milliseconds1 = from.getTime();
             long milliseconds2 = until.getTime();
-            ServerCommunication.addRoomReservation(this.room.getId(), milliseconds1, milliseconds2);
+            ServerCommunication.addRoomReservation(2, milliseconds1, milliseconds2);
         } catch (ParseException e) {
             e.printStackTrace();
-
         }
     }
 
