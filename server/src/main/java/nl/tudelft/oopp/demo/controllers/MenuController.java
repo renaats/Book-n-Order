@@ -47,15 +47,14 @@ public class MenuController {
     /**
      * Updates a given attribute for some menu.
      * @param id menu id.
-     * @param attribute the attribute to be updated.
      * @param value the new value of the attribute
      * @return Error code
      */
     @Secured({ADMIN, RESTAURANT})
     @PostMapping(path = "/update")
     @ResponseBody
-    public int updateMenu(@RequestParam int id, @RequestParam String attribute, @RequestParam String value) {
-        return menuService.update(id, attribute, value);
+    public int updateMenu(@RequestParam int id, @RequestParam String value) {
+        return menuService.update(id,value);
     }
 
     /**
