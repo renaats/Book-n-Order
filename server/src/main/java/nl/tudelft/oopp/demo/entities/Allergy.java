@@ -77,7 +77,7 @@ public class Allergy {
     }
 
     /**
-     * Deletes a dish from the set of dishes the the allergy has, if the allergy doesn't have the given dish it should do nothing.
+     * Deletes a dish from the set of dishes the allergy has, if the allergy doesn't have the given dish it should do nothing.
      * @param dish the dish to be deleted.
      */
     public void deleteDish(Dish dish) {

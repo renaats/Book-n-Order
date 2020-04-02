@@ -656,7 +656,7 @@ public class ServerCommunication {
     }
 
     /**
-     * Updates a give attribute from a menu.
+     * Updates a given attribute from a allergy.
      * @param name the name of the allergy.
      * @param attribute the attribute to be updated. Used dishAdd, dishDelete and dishDeleteAll to edit the dishes.
      *      *                  dishAdd adds the dish with the name of value.
