@@ -188,6 +188,7 @@ public class RoomService {
      * @return list of rooms that match the query
      */
     public List<Room> search(String search) {
+        search = URLDecoder.decode(search, StandardCharsets.UTF_8);
         RoomSpecificationsBuilder builder = new RoomSpecificationsBuilder();
         Pattern pattern = Pattern.compile("(\\w+?)([:<>])(\\w+?),");
         Matcher matcher = pattern.matcher(search + ",");
