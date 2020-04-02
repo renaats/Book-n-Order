@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@DatabaseGeneric.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.database.DatabaseAddRestaurants">
+<AnchorPane fx:id="anchorPane" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@DatabaseGeneric.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.database.DatabaseAddRestaurants">
 
     <ImageView fitHeight="720.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
         <image>
@@ -64,13 +64,13 @@
         <Font size="17.0" />
     </font>
 </Text>
-    <TextField fx:id="nameTextField" layoutX="617.0" layoutY="223.0" promptText="Restaurant name" AnchorPane.leftAnchor="617.0" AnchorPane.topAnchor="223.0" />
-   <Text layoutX="488.0" layoutY="267.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location:" AnchorPane.leftAnchor="488.0" AnchorPane.topAnchor="248.0">
+    <TextField fx:id="restaurantNameTextField" layoutX="617.0" layoutY="223.0" promptText="Restaurant name" AnchorPane.leftAnchor="617.0" AnchorPane.rightAnchor="514.2" AnchorPane.topAnchor="223.0" />
+   <Text layoutX="488.0" layoutY="270.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location:" AnchorPane.leftAnchor="488.0" AnchorPane.topAnchor="251.6552734375">
       <font>
          <Font size="17.0" />
       </font>
    </Text>
-    <Button layoutX="524.0" layoutY="347.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#databaseAddRoom" style="-fx-background-color: #00a6d6;" text="Add" textFill="WHITE">
+    <Button layoutX="524.0" layoutY="314.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#addRestaurant" style="-fx-background-color: #00a6d6;" text="Add" textFill="WHITE" AnchorPane.leftAnchor="524.0" AnchorPane.rightAnchor="556.0">
         <cursor>
             <Cursor fx:constant="HAND" />
         </cursor>
@@ -80,15 +80,9 @@
          <Font size="17.0" />
       </font>
    </Text>
-   <TextField fx:id="nameTextField1" layoutX="617.0" layoutY="252.0" promptText="Building name" AnchorPane.leftAnchor="617.0" AnchorPane.topAnchor="252.0" />
-   <Text layoutX="486.0" layoutY="330.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Menu:" AnchorPane.leftAnchor="488.0">
-      <font>
-         <Font size="17.0" />
-      </font>
-   </Text>
-   <TextField fx:id="nameTextField11" layoutX="617.0" layoutY="281.0" promptText="Restaurant owner's email" AnchorPane.topAnchor="281.0" />
-   <TextField fx:id="nameTextField111" layoutX="617.0" layoutY="311.0" promptText="Menu name" />
-   <ImageView fx:id="goToBuildingMenuButton1" fitHeight="26.0" fitWidth="41.0" layoutX="549.0" layoutY="163.0" onMouseClicked="#goToRestaurantsMenu" pickOnBounds="true" preserveRatio="true">
+   <TextField fx:id="buildingNameTextField" layoutX="617.0" layoutY="252.0" promptText="Building name" AnchorPane.leftAnchor="617.0" AnchorPane.topAnchor="252.0" />
+   <TextField fx:id="emailTextField" layoutX="617.0" layoutY="281.0" promptText="Restaurant owner's email" AnchorPane.topAnchor="281.0" />
+   <ImageView fitHeight="26.0" fitWidth="41.0" layoutX="549.0" layoutY="163.0" onMouseClicked="#goToRestaurantMenu" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@images/45332.png" />
       </image>
@@ -108,50 +102,21 @@
          </ImageView>
       </graphic>
    </ToggleButton>
-   <TableView fx:id="buildingTable" layoutX="869.0" layoutY="225.0" prefHeight="203.0" prefWidth="200.0" stylesheets="@table.css">
+   <TableView fx:id="buildingTable" layoutX="867.0" layoutY="192.0" prefHeight="203.0" prefWidth="200.0" stylesheets="@table.css">
       <columns>
          <TableColumn fx:id="colBuildingId" prefWidth="41.3333740234375" resizable="false" text="ID" />
          <TableColumn fx:id="colBuildingName" prefWidth="155.0" resizable="false" text="Name" />
       </columns>
    </TableView>
-   <Button fx:id="nextBuildingPageButton" layoutX="1006.0" layoutY="429.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#nextPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&gt;&gt;" textFill="WHITE">
+   <Button fx:id="nextBuildingPageButton" layoutX="1004.0" layoutY="396.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#nextBuildingPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&gt;&gt;" textFill="WHITE">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor>
    </Button>
-   <Button fx:id="previousBuildingPageButton" layoutX="897.0" layoutY="428.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#previousPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&lt;&lt;" textFill="WHITE">
+   <Button fx:id="previousBuildingPageButton" layoutX="895.0" layoutY="395.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#previousBuildingPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&lt;&lt;" textFill="WHITE">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor>
    </Button>
-   <Text fx:id="pagesText" layoutX="942.0" layoutY="447.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0 / pages" />
-   <ToggleButton fx:id="menuTableToggle" layoutX="768.0" layoutY="310.0" mnemonicParsing="false" onAction="#toggleClickMenuTable" prefHeight="25.0" prefWidth="67.0" selected="true" text="Show">
-      <graphic>
-         <ImageView fitHeight="17.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-               <Image url="@images/RestaurantMenuIcon.png" />
-            </image>
-            <cursor>
-               <Cursor fx:constant="DEFAULT" />
-            </cursor>
-         </ImageView>
-      </graphic>
-   </ToggleButton>
-   <TableView fx:id="menuTable" layoutX="869.0" layoutY="225.0" prefHeight="203.0" prefWidth="200.0" stylesheets="@table.css">
-      <columns>
-         <TableColumn fx:id="colMenuId" prefWidth="41.3333740234375" resizable="false" text="ID" />
-         <TableColumn fx:id="colMenuName" prefWidth="155.0" resizable="false" text="Name" />
-      </columns>
-   </TableView>
-   <Button fx:id="nextMenuPageButton" layoutX="1006.0" layoutY="429.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#nextPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&gt;&gt;" textFill="WHITE">
-      <cursor>
-         <Cursor fx:constant="HAND" />
-      </cursor>
-   </Button>
-   <Button fx:id="previousMenuPageButton" layoutX="897.0" layoutY="428.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#previousPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&lt;&lt;" textFill="WHITE">
-      <cursor>
-         <Cursor fx:constant="HAND" />
-      </cursor>
-   </Button>
-   <Text fx:id="pagesText1" layoutX="942.0" layoutY="447.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0 / pages" />
+   <Text fx:id="buildingPagesText" layoutX="940.0" layoutY="414.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0 / pages" />
 </AnchorPane>

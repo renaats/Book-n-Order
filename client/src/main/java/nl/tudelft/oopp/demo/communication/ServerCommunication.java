@@ -586,8 +586,8 @@ public class ServerCommunication {
      * @param name the name of the restaurant.
      * @return the body of the response from the server.
      */
-    public static String addRestaurant(int buildingId, String name) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant/add?buildingId=" + buildingId + "&name=" + URLEncoder.encode(name, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+    public static String addRestaurant(int buildingId, String name, String email) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant/add?buildingId=" + buildingId + "&name=" + URLEncoder.encode(name, StandardCharsets.UTF_8) + "&email=" + URLEncoder.encode(email, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnErrorMessage(request);
     }
 
@@ -615,6 +615,16 @@ public class ServerCommunication {
      */
     public static String getRestaurants() {
         HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/restaurant/all")).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Retrieves a restaurant by given name.
+     * @param name = the name of the restaurant.
+     * @return The body of the response from the server.
+     */
+    public static String findRestaurantByName(String name) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant/findName/" + URLEncoder.encode(name, StandardCharsets.UTF_8))).GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnBodyOfResponse(request);
     }
 

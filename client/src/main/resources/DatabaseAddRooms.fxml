@@ -34,7 +34,7 @@
          <Cursor fx:constant="HAND" />
       </cursor>
     </ImageView>
-    <Text layoutX="578.0" layoutY="185.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rooms" AnchorPane.leftAnchor="578.0">
+    <Text layoutX="578.0" layoutY="185.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rooms" AnchorPane.leftAnchor="578.0" AnchorPane.topAnchor="156.943359375">
         <font>
             <Font size="26.0" />
         </font>
@@ -79,7 +79,7 @@
             <Font size="17.0" />
         </font>
     </Text>
-    <TextField fx:id="nameTextField" layoutX="617.0" layoutY="221.0" promptText="Room name" AnchorPane.leftAnchor="617.0" AnchorPane.topAnchor="221.0" />
+    <TextField fx:id="nameTextField" layoutX="617.0" layoutY="221.0" promptText="Room name" AnchorPane.leftAnchor="617.0" AnchorPane.rightAnchor="514.2" AnchorPane.topAnchor="221.0" />
     <TextField fx:id="buildingIdTextField" layoutX="617.0" layoutY="249.0" promptText="Building ID or Name" AnchorPane.leftAnchor="617.0" AnchorPane.rightAnchor="514.3333333333334" AnchorPane.topAnchor="249.0" />
     <ToggleButton fx:id="screenToggle" layoutX="617.0" layoutY="340.0" mnemonicParsing="false" onAction="#toggleClickScreen" prefHeight="26.0" prefWidth="149.0" text="False" textFill="WHITE" AnchorPane.leftAnchor="617.0" AnchorPane.rightAnchor="514.3333333333334" AnchorPane.topAnchor="340.0">
       <cursor>

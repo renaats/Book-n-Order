@@ -179,6 +179,7 @@ public class DatabaseAddRoomController implements Initializable {
         int capacity = -1;
         int plugs = -1;
         boolean buildingFound = false;
+
         try {
             buildingId = Integer.parseInt(buildingIdTextField.getText());
         } catch (NumberFormatException e) {
@@ -186,7 +187,7 @@ public class DatabaseAddRoomController implements Initializable {
             if (!buildingIdTextField.getText().equals("")) {
                 building = JsonMapper.buildingMapper(ServerCommunication.findBuildingByName(buildingIdTextField.getText()));
             } else {
-                CustomAlert.warningAlert("Building cannot be empty.");
+                CustomAlert.warningAlert("Please provide a building.");
                 return;
             }
             if (building == null) {
@@ -198,12 +199,10 @@ public class DatabaseAddRoomController implements Initializable {
             }
         }
 
-        String name = null;
-        if (nameTextField.getText().equals("")) {
+        String name = nameTextField.getText();
+        if (name.equals("")) {
             CustomAlert.warningAlert("Name cannot be empty.");
             return;
-        } else {
-            name = nameTextField.getText();
         }
 
         try {
@@ -279,7 +278,7 @@ public class DatabaseAddRoomController implements Initializable {
         pagesText.setText(pageNumber + " / " + (int) totalPages + " pages");
 
         if (buildings.size() > 7) {
-            for (int i = 1; i < 8; i++) {
+            for (int i = 0; i < 7; i++) {
                 try {
                     buildingResult.add(buildings.get((i - 7) + pageNumber * 7));
                 } catch (IndexOutOfBoundsException e) {

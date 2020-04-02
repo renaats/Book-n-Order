@@ -113,13 +113,21 @@ public class DatabaseRestaurantMenuController implements Initializable {
 
         pageNumber = 1;
 
-        final Restaurant restaurant = JsonMapper.restaurantMapper(ServerCommunication.getOwnedRestaurant());
-        if (restaurant != null) {
-            idFieldRead.setText(Integer.toString(restaurant.getId()));
-            nameFieldRead.setText(restaurant.getName());
-            locationFieldRead.setText(restaurant.getBuilding().getName());
-            menuIdFieldRead.setText(Integer.toString(restaurant.getMenu().getId()));
-            menuNameFieldRead.setText(restaurant.getMenu().getName());
+        List<Restaurant> ownedRestaurants = null;
+        try {
+            ownedRestaurants = JsonMapper.ownRestaurantMapper(ServerCommunication.getOwnedRestaurant());
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Intentially left blank
+        }
+
+        if (ownedRestaurants.get(0) != null) {
+            idFieldRead.setText(Integer.toString(ownedRestaurants.get(0).getId()));
+            nameFieldRead.setText(ownedRestaurants.get(0).getName());
+            locationFieldRead.setText(ownedRestaurants.get(0).getBuilding().getName());
+//            Menu menu = ServerCommunication.findMenuByRestaurant(ownedRestaurants.get(0).getId());
+//            menuIdFieldRead.setText(menu.getId()));
+//            menuNameFieldRead.setText(menu.getName());
         }
 
         colDishName.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -131,6 +139,7 @@ public class DatabaseRestaurantMenuController implements Initializable {
 
     /**
      * Returns to the main database menu
+     *
      * @throws IOException Should never throw the exception
      */
     public void mainMenu() throws IOException {
@@ -139,6 +148,7 @@ public class DatabaseRestaurantMenuController implements Initializable {
 
     /**
      * Goes to to add dishes menu
+     *
      * @throws IOException Should never throw the exception
      */
     public void goToAddDishes() throws IOException {
@@ -147,10 +157,20 @@ public class DatabaseRestaurantMenuController implements Initializable {
 
     /**
      * Goes to to add restaurants menu
+     *
      * @throws IOException Should never throw the exception
      */
     public void goToAddRestaurants() throws IOException {
         ApplicationDisplay.changeScene("/DatabaseAddRestaurants.fxml");
+    }
+
+    /**
+     * Goes to to add 'menu' menu
+     *
+     * @throws IOException Should never throw the exception
+     */
+    public void goToAddMenu() throws IOException {
+        ApplicationDisplay.changeScene("/DatabaseAddMenu.fxml");
     }
 
     /**
@@ -232,7 +252,7 @@ public class DatabaseRestaurantMenuController implements Initializable {
                     break;
                 }
             }
-        }  else {
+        } else {
             dishList.addAll(dishes);
         }
         dishTableView.setItems(dishList);
@@ -276,7 +296,7 @@ public class DatabaseRestaurantMenuController implements Initializable {
                 if (dishList.get(i).getId() == (dish.getId())) {
                     deleteButton = new Button("Delete");
                     deleteButton.setLayoutX(505);
-                    deleteButton.setLayoutY(434 + (24  * (i + 1)));
+                    deleteButton.setLayoutY(434 + (24 * (i + 1)));
                     deleteButton.setMinWidth(60);
                     deleteButton.setStyle("-fx-background-color:  #CC5653; -fx-font-size:10; -fx-text-fill: white");
                     deleteButton.setMinHeight(20);

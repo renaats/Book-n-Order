@@ -2,18 +2,23 @@ package nl.tudelft.oopp.demo.controllers.database;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
-import nl.tudelft.oopp.demo.entities.Dish;
+import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Restaurant;
 import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
@@ -23,28 +28,47 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
  */
 public class DatabaseAddMenuController implements Initializable {
 
-    final ObservableList<Restaurant> restaurants = FXCollections.observableArrayList();
-    final ObservableList<Dish> dishes = FXCollections.observableArrayList();
+    private final ObservableList<Restaurant> restaurantResult = FXCollections.observableArrayList();
 
     @FXML
     private TextField nameTextField;
     @FXML
     private ChoiceBox<String> restaurantChoiceBox;
+    @FXML
+    private Text pagesText;
+    @FXML
+    private TextField restaurantNameTextField;
+    @FXML
+    private ToggleButton tableToggle;
+    @FXML
+    private TableView<Restaurant> table;
+    @FXML
+    private Button nextPageButton;
+    @FXML
+    private Button previousPageButton;
+    @FXML
+    private AnchorPane anchorPane;
+    @FXML
+    private TableColumn<Restaurant, Integer> colId;
+    @FXML
+    private TableColumn<Restaurant, String> colName;
+
+    private boolean tableToggleFlag;
+    private int pageNumber;
+    private double totalPages;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        restaurants.addAll(JsonMapper.restaurantListMapper(ServerCommunication.getRestaurants()));
-        loadDataToChoiceBoxes();
-        for (Restaurant restaurant : restaurants) {
-            restaurantChoiceBox.getItems().add(restaurant.getName());
-        }
+        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
 
-    }
+        anchorPane.getChildren().remove(table);
+        anchorPane.getChildren().remove(nextPageButton);
+        anchorPane.getChildren().remove(previousPageButton);
+        anchorPane.getChildren().remove(pagesText);
 
-    /**
-     * Loads the restaurants and dishes to the choice boxes.
-     */
-    private void loadDataToChoiceBoxes() {
+        retrieveAllRestaurants();
+        tableSelectMethod();
     }
 
     /**
@@ -56,47 +80,136 @@ public class DatabaseAddMenuController implements Initializable {
     }
 
     /**
-     * Goes to add menu view.
-     * @throws IOException Should never throw the exception.
-     */
-    public void goToAddMenu() throws IOException {
-        ApplicationDisplay.changeScene("/DatabaseAddMenu.fxml");
-    }
-
-    /**
-     * Goes to the edit menu view.
-     * @throws IOException Should never throw the exception.
-     */
-    public void goToEditMenu() throws IOException {
-        ApplicationDisplay.changeScene("/DatabaseEditMenu.fxml");
-    }
-
-    /**
      * Goes to the menu for editing restaurants.
      * @throws IOException Should never throw the exception.
      */
     public void goToRestaurantsMenu() throws IOException {
-        ApplicationDisplay.changeScene("/DatabaseFoodMainMenu.fxml");
+        ApplicationDisplay.changeScene("/DatabaseRestaurantMenu.fxml");
     }
 
     /**
      * Adds a menu to the database when the add menu button is clicked.
      */
     public void databaseAddMenu() {
+        boolean restaurantFound = false;
+        int restaurantId = -1;
         String name = nameTextField.getText();
         if (name.equals("")) {
-            CustomAlert.warningAlert("please input a name");
+            CustomAlert.warningAlert("Please provide a name.");
+            return;
         }
-        String restaurantName = restaurantChoiceBox.getValue();
-        if (name.equals(null)) {
-            CustomAlert.warningAlert("select a menu");
-        }
-        int id = -1;
-        for (Restaurant value : restaurants) {
-            if (restaurantName.equals(value.getName())) {
-                id = value.getId();
+        try {
+            restaurantId = Integer.parseInt(restaurantNameTextField.getText());
+        } catch (NumberFormatException e) {
+            Restaurant restaurant = null;
+            if (!restaurantNameTextField.getText().equals("")) {
+                restaurant = JsonMapper.restaurantMapper(ServerCommunication.findRestaurantByName(restaurantNameTextField.getText()));
+            } else {
+                CustomAlert.warningAlert("Please provide a restaurant.");
+                return;
+            }
+            if (restaurant == null) {
+                CustomAlert.errorAlert("Restaurant not found.");
+                return;
+            } else {
+                restaurantId = restaurant.getId();
+                restaurantFound = true;
             }
         }
-        CustomAlert.informationAlert(ServerCommunication.addMenu(name, id));
+        String response = ServerCommunication.addMenu(name, restaurantId);
+        if (response.equals("Successfully added!") && restaurantFound) {
+            CustomAlert.informationAlert(response);
+        } else if (restaurantFound) {
+            CustomAlert.errorAlert(response);
+        }
+    }
+
+    /**
+     * Handles retrieving all menus and loads them into the table.
+     */
+    public void retrieveAllRestaurants() {
+        restaurantResult.clear();
+        List<Restaurant> restaurants;
+        try {
+            restaurants = new ArrayList<>(Objects.requireNonNull(JsonMapper.restaurantListMapper(ServerCommunication.getRestaurants())));
+        } catch (Exception e) {
+            // Fakes the table having any entries, so the table shows up properly instead of "No contents".
+            restaurants = new ArrayList<>();
+            restaurants.add(null);
+        }
+
+        totalPages = Math.ceil(restaurants.size() / 7.0);
+
+        if (totalPages < pageNumber) {
+            pageNumber--;
+        }
+
+        pagesText.setText(pageNumber + " / " + (int) totalPages + " pages");
+
+        if (restaurants.size() > 7) {
+            for (int i = 0; i < 7; i++) {
+                try {
+                    restaurantResult.add(restaurants.get((i - 7) + pageNumber * 7));
+                } catch (IndexOutOfBoundsException e) {
+                    break;
+                }
+            }
+        }  else {
+            restaurantResult.addAll(restaurants);
+        }
+        table.setItems(restaurantResult);
+    }
+
+    /**
+     * Makes sure the button toggles from false to true every time.
+     */
+    @FXML
+    private void toggleClickMenuTable() {
+        if (tableToggleFlag) {
+            tableToggle.setText("Show");
+            anchorPane.getChildren().remove(table);
+            anchorPane.getChildren().remove(previousPageButton);
+            anchorPane.getChildren().remove(nextPageButton);
+            anchorPane.getChildren().remove(pagesText);
+        } else {
+            tableToggle.setText(" Hide");
+            anchorPane.getChildren().add(table);
+            anchorPane.getChildren().add(previousPageButton);
+            anchorPane.getChildren().add(nextPageButton);
+            anchorPane.getChildren().add(pagesText);
+        }
+        tableToggleFlag = !tableToggleFlag;
+    }
+
+    /**
+     * Listener that checks if a row is selected, if so, fill the text fields.
+     */
+    public void tableSelectMethod() {
+        table.getSelectionModel().selectedItemProperty().addListener((obs) -> {
+            final Restaurant restaurant = table.getSelectionModel().getSelectedItem();
+            if (restaurant != null) {
+                restaurantNameTextField.setText(restaurant.getName());
+            }
+        });
+    }
+
+    /**
+     * Handles the clicking to the next restaurants page.
+     */
+    public void nextPage() {
+        if (pageNumber < (int) totalPages) {
+            pageNumber++;
+            retrieveAllRestaurants();
+        }
+    }
+
+    /**
+     * Handles the clicking to the previous restaurants page
+     */
+    public void previousPage() {
+        if (pageNumber > 1) {
+            pageNumber--;
+        }
+        retrieveAllRestaurants();
     }
 }

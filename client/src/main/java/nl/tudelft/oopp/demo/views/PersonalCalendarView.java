@@ -15,6 +15,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.BikeReservation;
@@ -47,7 +48,7 @@ public class PersonalCalendarView extends CalendarView {
         try {
             String roomReservationJson = ServerCommunication.getAllPreviousRoomReservations();
             roomReservationList = new ArrayList<>(Objects.requireNonNull(JsonMapper.roomReservationsListMapper(roomReservationJson)));
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | JsonProcessingException e) {
             roomReservationList = new ArrayList<>();
             roomReservationList.add(null);
         }
@@ -55,7 +56,7 @@ public class PersonalCalendarView extends CalendarView {
         try {
             String roomReservationJson = ServerCommunication.getAllFutureRoomReservations();
             roomReservationList1 = new ArrayList<>(Objects.requireNonNull(JsonMapper.roomReservationsListMapper(roomReservationJson)));
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | JsonProcessingException e) {
             roomReservationList1 = new ArrayList<>();
             roomReservationList1.add(null);
         }
@@ -87,14 +88,14 @@ public class PersonalCalendarView extends CalendarView {
 
         try {
             foodOrderList = new ArrayList<>(Objects.requireNonNull(JsonMapper.foodOrdersListMapper(ServerCommunication.getAllPreviousFoodOrders())));
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | JsonProcessingException e) {
             foodOrderList = new ArrayList<>();
             foodOrderList.add(null);
         }
 
         try {
             foodOrderList1 = new ArrayList<>(Objects.requireNonNull(JsonMapper.foodOrdersListMapper(ServerCommunication.getAllFutureFoodOrders())));
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | JsonProcessingException e) {
             foodOrderList1 = new ArrayList<>();
             foodOrderList1.add(null);
         }
@@ -126,7 +127,7 @@ public class PersonalCalendarView extends CalendarView {
         try {
             String bikeReservationJson = ServerCommunication.getAllPreviousBikeReservations();
             bikeReservationList = new ArrayList<>(Objects.requireNonNull(JsonMapper.bikeReservationsListMapper(bikeReservationJson)));
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | JsonProcessingException e) {
             bikeReservationList = new ArrayList<>();
             bikeReservationList.add(null);
         }
@@ -134,7 +135,7 @@ public class PersonalCalendarView extends CalendarView {
         try {
             String bikeReservationJson = ServerCommunication.getAllFutureBikeReservations();
             bikeReservationList1 = new ArrayList<>(Objects.requireNonNull(JsonMapper.bikeReservationsListMapper(bikeReservationJson)));
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | JsonProcessingException e) {
             bikeReservationList1 = new ArrayList<>();
             bikeReservationList1.add(null);
         }
