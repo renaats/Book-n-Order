@@ -38,10 +38,10 @@ public class DishesJpaSpecificationsTest {
         menu = new Menu();
         menuRepository.save(menu);
 
-        dish1 = new Dish("Tosti", menu);
+        dish1 = new Dish("Tosti", menu, 300, "Cooked", "123");
         dishRepository.save(dish1);
 
-        dish2 = new Dish("Doner Kebab", menu);
+        dish2 = new Dish("Doner Kebab", menu, 400, "Grilled", "234");
         dishRepository.save(dish2);
     }
 

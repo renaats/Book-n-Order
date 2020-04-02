@@ -52,8 +52,7 @@ public class RoomReservationTest {
     public void setup() {
         building = new Building("EWI", "Mekelweg", "EWI", 4);
         buildingRepository.saveAndFlush(building);
-
-        room = new Room("Ampere", building, "CSE", true, true, 300, 250);
+        room = new Room("Ampere", building, "CSE", true, true, 300, 250, "OPEN");
         room.setRoomReservations(new HashSet<>());
         roomRepository.saveAndFlush(room);
 

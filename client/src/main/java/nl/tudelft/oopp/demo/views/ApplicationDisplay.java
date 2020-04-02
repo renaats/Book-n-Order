@@ -26,7 +26,7 @@ public class ApplicationDisplay extends Application {
     public void start(Stage primaryStage) throws IOException {
         ApplicationDisplay.primaryStage = primaryStage;
         FXMLLoader loader = new FXMLLoader();
-        URL xmlUrl = getClass().getResource("/login-screen.fxml");
+        URL xmlUrl = getClass().getResource("/loginScreen.fxml");
         loader.setLocation(xmlUrl);
         Parent root = loader.load();
         primaryStage.setScene(new Scene(root));

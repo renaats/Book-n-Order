@@ -7,6 +7,7 @@ import static nl.tudelft.oopp.demo.config.Constants.USER;
 import java.util.List;
 
 import nl.tudelft.oopp.demo.entities.Dish;
+import nl.tudelft.oopp.demo.entities.Menu;
 import nl.tudelft.oopp.demo.services.DishService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,13 +38,17 @@ public class DishController {
      * Adds a dish.
      * @param name dish name.
      * @param menuId menu id.
+     * @param price the price of the dish.
+     * @param description the description of the dish.
+     * @param image the image of the dish.
      * @return Error code.
      */
     @Secured({ADMIN, RESTAURANT})
     @PostMapping(path = "/add")
     @ResponseBody
-    public int addNewDish(@RequestParam String name, @RequestParam int menuId) {
-        return dishService.add(name, menuId);
+    public int addNewDish(@RequestParam String name, @RequestParam int menuId, @RequestParam int price,
+                          @RequestParam String description, @RequestParam String image) {
+        return dishService.add(name, menuId, price, description, image);
     }
 
     /**
@@ -54,8 +59,8 @@ public class DishController {
     @Secured({ADMIN, RESTAURANT})
     @PostMapping(path = "/addAllergy")
     @ResponseBody
-    public void addAllergy(@RequestParam int id, @RequestParam String allergyName) {
-        dishService.addAllergy(id, allergyName);
+    public int addAllergy(@RequestParam int id, @RequestParam String allergyName) {
+        return dishService.addAllergy(id, allergyName);
     }
 
     /**
@@ -95,5 +100,28 @@ public class DishController {
     @ResponseBody
     public List<Dish> search(@RequestParam String query) {
         return dishService.search(query);
+    }
+
+    /**
+     * Lists all dishes.
+     * @return all dishes
+     */
+    @Secured(USER)
+    @GetMapping(path = "/all")
+    @ResponseBody
+    public Iterable<Dish> getAllDishes() {
+        return dishService.all();
+    }
+
+    /**
+     * Lists all dishes from a specific menu.
+     * @param menuId the id of the menu
+     * @return all dishes from the menu
+     */
+    @Secured(USER)
+    @GetMapping(path = "/fromMenu/{menuId}")
+    @ResponseBody
+    public Iterable<Dish> getAllDishesFromMenu(@PathVariable(value = "menuId") int menuId) {
+        return dishService.findByMenu(menuId);
     }
 }

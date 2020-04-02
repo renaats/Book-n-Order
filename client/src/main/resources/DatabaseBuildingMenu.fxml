@@ -12,11 +12,12 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.DatabaseBuildingMenuController">
+<AnchorPane fx:id="anchorPane" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.database.DatabaseBuildingMenuController">
    <ImageView fitWidth="1280.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@images/mainMenuBackground.jpg" />
-      </image></ImageView>
+      </image>
+   </ImageView>
    <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="63.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="63.0" AnchorPane.topAnchor="12.0">
       <image>
          <Image url="@images/TuDelftLogoFinal.png" />
@@ -25,7 +26,7 @@
    <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="258.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="576.0" AnchorPane.leftAnchor="258.0" AnchorPane.rightAnchor="902.0" AnchorPane.topAnchor="120.0">
       <Image url="@images/booknorderlogo.png" />
    </ImageView>
-   <ImageView fitHeight="41.0" fitWidth="44.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#mainMenu" pickOnBounds="true" preserveRatio="true">
+   <ImageView fitHeight="41.0" fitWidth="44.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#mainMenu" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0">
       <Image url="@images/HomeIconTransparent.png" />
       <cursor>
          <Cursor fx:constant="HAND" />
@@ -43,10 +44,10 @@
    </Text>
    <TableView fx:id="table" layoutX="634.0" layoutY="179.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="386.0" prefWidth="562.0" stylesheets="@table.css">
       <columns>
-         <TableColumn fx:id="colName" maxWidth="129.0" prefWidth="129.0" resizable="false" text="Name" />
-         <TableColumn fx:id="colStreet" maxWidth="129.0" prefWidth="129.0" resizable="false" text="Street" />
-         <TableColumn fx:id="colHouseNumber" maxWidth="129.0" minWidth="129.0" prefWidth="129.0" resizable="false" text="House Number" />
-         <TableColumn fx:id="colFaculty" maxWidth="170.4000244140625" prefWidth="170.4000244140625" resizable="false" text="Faculty" />
+         <TableColumn fx:id="colName" editable="false" maxWidth="129.0" prefWidth="129.0" resizable="false" sortable="false" text="Name" />
+         <TableColumn fx:id="colStreet" editable="false" maxWidth="129.0" prefWidth="129.0" resizable="false" sortable="false" text="Street" />
+         <TableColumn fx:id="colHouseNumber" editable="false" maxWidth="129.0" minWidth="129.0" prefWidth="129.0" resizable="false" sortable="false" text="House Number" />
+         <TableColumn fx:id="colFaculty" editable="false" maxWidth="170.4000244140625" prefWidth="170.4000244140625" resizable="false" sortable="false" text="Faculty" />
       </columns>
    </TableView>
    <TextField fx:id="idFieldRead" layoutX="118.0" layoutY="210.0" prefHeight="25.0" prefWidth="56.0" promptText="ID" AnchorPane.leftAnchor="118.0" AnchorPane.topAnchor="216.0" />
@@ -77,33 +78,35 @@
          <Font size="17.0" />
       </font>
    </Text>
-   <Text layoutX="188.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" AnchorPane.topAnchor="216.6552734375">
+   <Text layoutX="188.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" AnchorPane.leftAnchor="188.0" AnchorPane.topAnchor="216.6552734375">
       <font>
          <Font size="17.0" />
       </font>
    </Text>
-   <TextField fx:id="nameFieldRead" layoutX="258.0" layoutY="210.0" prefHeight="25.0" prefWidth="256.0" promptText="Name" AnchorPane.leftAnchor="246.0" AnchorPane.topAnchor="216.0" />
-   <Text layoutX="52.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Street:" AnchorPane.leftAnchor="54.0">
+   <TextField fx:id="nameFieldRead" layoutX="258.0" layoutY="210.0" prefHeight="25.0" prefWidth="256.0" promptText="Name" AnchorPane.leftAnchor="246.0" AnchorPane.rightAnchor="778.6666666666667" AnchorPane.topAnchor="216.0" />
+   <Text layoutX="52.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Street:" AnchorPane.leftAnchor="54.0" AnchorPane.topAnchor="249.6552734375">
       <font>
          <Font size="17.0" />
       </font>
    </Text>
    <TextField fx:id="streetFieldRead" layoutX="118.0" layoutY="249.0" prefHeight="25.0" prefWidth="309.0" promptText="Street" AnchorPane.leftAnchor="118.0" AnchorPane.topAnchor="249.0" />
-   <TextField fx:id="houseNumberFieldRead" layoutX="441.0" layoutY="249.0" prefHeight="25.0" prefWidth="68.0" promptText="Number" AnchorPane.leftAnchor="433.33333333333326" AnchorPane.topAnchor="249.0" />
-   <Text layoutX="51.0" layoutY="301.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Faculty:" AnchorPane.leftAnchor="54.0">
+   <TextField fx:id="houseNumberFieldRead" layoutX="441.0" layoutY="249.0" prefHeight="25.0" prefWidth="68.0" promptText="Number" AnchorPane.leftAnchor="433.33333333333326" AnchorPane.rightAnchor="778.6666666666667" AnchorPane.topAnchor="249.0" />
+   <Text layoutX="51.0" layoutY="301.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Faculty:" AnchorPane.leftAnchor="54.0" AnchorPane.topAnchor="282.6552734375">
       <font>
          <Font size="17.0" />
       </font>
    </Text>
    <TextField fx:id="buildingFindTextField" layoutX="118.0" layoutY="389.0" prefHeight="25.0" prefWidth="309.0" promptText="Name or ID of building" AnchorPane.leftAnchor="118.0" AnchorPane.topAnchor="389.0" />
-   <Button fx:id="confirmFindByIdButton" layoutX="434.0" layoutY="389.0" mnemonicParsing="false" onAction="#findBuilding" prefHeight="26.0" prefWidth="68.0" style="-fx-background-color: #00a6d6;" text="Find" textFill="WHITE" AnchorPane.topAnchor="389.0">
+   <Button fx:id="confirmFindByIdButton" layoutX="432.0" layoutY="389.0" mnemonicParsing="false" onAction="#findBuilding" prefHeight="26.0" prefWidth="68.0" style="-fx-background-color: #00a6d6;" text="Find" textFill="WHITE" AnchorPane.leftAnchor="433.33333333333326" AnchorPane.rightAnchor="778.0" AnchorPane.topAnchor="389.0">
       <cursor>
          <Cursor fx:constant="HAND" />
-      </cursor></Button>
+      </cursor>
+   </Button>
    <Button fx:id="buildingFindAllButton" layoutX="197.0" layoutY="426.0" mnemonicParsing="false" onAction="#listBuildingsButtonClicked" prefHeight="26.0" prefWidth="223.0" style="-fx-background-color: #00a6d6;" text="Find all" textFill="WHITE">
       <cursor>
          <Cursor fx:constant="HAND" />
-      </cursor></Button>
+      </cursor>
+   </Button>
    <Text layoutX="54.0" layoutY="374.056640625" strokeType="OUTSIDE" strokeWidth="0.0" text="Searching" AnchorPane.leftAnchor="54.0" AnchorPane.topAnchor="346.0">
       <font>
          <Font size="26.0" />
@@ -117,7 +120,8 @@
    <Button fx:id="updateBuildingButton" layoutX="197.0" layoutY="314.0" mnemonicParsing="false" onAction="#updateBuilding" prefHeight="26.0" prefWidth="223.0" style="-fx-background-color: #00a6d6;" text="Update" textFill="WHITE">
       <cursor>
          <Cursor fx:constant="HAND" />
-      </cursor></Button>
+      </cursor>
+   </Button>
    <Button fx:id="nextPageButton" layoutX="956.0" layoutY="573.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#nextPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&gt;&gt;" textFill="WHITE">
       <cursor>
          <Cursor fx:constant="HAND" />
@@ -129,7 +133,7 @@
       </cursor>
    </Button>
    <Text fx:id="pagesText" layoutX="890.0" layoutY="590.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0 / pages" />
-   <Button layoutX="434.0" layoutY="314.0" maxHeight="26.0" maxWidth="68.0" minHeight="20.0" minWidth="60.0" mnemonicParsing="false" onAction="#deleteBuilding" prefHeight="26.0" prefWidth="68.0" style="-fx-background-color: #CC5653;" text="Delete" textFill="WHITE">
+   <Button layoutX="431.0" layoutY="314.0" maxHeight="26.0" maxWidth="68.0" minHeight="20.0" minWidth="60.0" mnemonicParsing="false" onAction="#deleteBuilding" prefHeight="26.0" prefWidth="68.0" style="-fx-background-color: #CC5653;" text="Delete" textFill="WHITE" AnchorPane.leftAnchor="433.33333333333326" AnchorPane.rightAnchor="778.0">
       <font>
          <Font size="10.0" />
       </font>
@@ -137,8 +141,8 @@
          <Cursor fx:constant="HAND" />
       </cursor>
    </Button>
-   <ChoiceBox fx:id="facultyChoiceBox" layoutX="117.0" layoutY="282.0" prefHeight="25.0" prefWidth="383.0" />
-   <ImageView fitHeight="26.0" fitWidth="20.0" layoutX="157.0" layoutY="185.0" onMouseClicked="#goToAddBuildings" pickOnBounds="true" preserveRatio="true">
+   <ChoiceBox fx:id="facultyChoiceBox" layoutX="117.0" layoutY="282.0" prefHeight="25.0" prefWidth="383.0" AnchorPane.rightAnchor="778.0" />
+   <ImageView fitHeight="26.0" fitWidth="20.0" layoutX="157.0" layoutY="185.0" onMouseClicked="#goToAddBuildings" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="157.0" AnchorPane.topAnchor="185.0">
       <image>
          <Image url="@images/ko7djzvdIPehWkkQYeDHv7ZYArEETK3uclcEy1WmrEHakj5qfn1nysOSyuNxsI2FsTJGcKNFdQ-9TIGRXV3le_sG-lyGg6Lu2OpiVNdwOZw_Fw16XYOh.png" />
       </image>
@@ -146,6 +150,6 @@
          <Cursor fx:constant="HAND" />
       </cursor>
    </ImageView>
-   <Text layoutX="181.0" layoutY="199.0" onMouseClicked="#goToAddBuildings" strokeType="OUTSIDE" strokeWidth="0.0" text="Add" />
+   <Text layoutX="181.0" layoutY="199.0" onMouseClicked="#goToAddBuildings" strokeType="OUTSIDE" strokeWidth="0.0" text="Add" AnchorPane.leftAnchor="181.0" AnchorPane.topAnchor="186.0" />
 
-</AnchorPane>
+      </AnchorPane>

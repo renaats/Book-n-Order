@@ -43,7 +43,7 @@ public class RoomTest {
         building = new Building("EWI", "Mekelweg", "EWI", 4);
         buildingRepository.save(building);
 
-        room = new Room("Ampere", building, "CSE", true, true, 300, 250);
+        room = new Room("Ampere", building, "CSE", true, true, 300, 250, "Closed");
 
         roomRepository.save(room);
     }
@@ -130,6 +130,15 @@ public class RoomTest {
     }
 
     /**
+     * Tests the getter for the status field.
+     */
+    @Test
+    public void testStatusGetter() {
+        room2 = roomRepository.findAll().get(0);
+        assertEquals("Closed", room2.getStatus());
+    }
+
+    /**
      * Tests the the change of the name by using a setter.
      */
     @Test
@@ -199,6 +208,16 @@ public class RoomTest {
         Set<RoomReservation> roomReservationSet = new HashSet<>();
         room.setRoomReservations(roomReservationSet);
         assertEquals(300, room.getPlugs());
+    }
+
+    /**
+     * Tests the the change of the status by using a setter.
+     */
+    @Test
+    public void testChangeStatus() {
+        assertNotEquals("Open", room.getStatus());
+        room.setStatus("Open");
+        assertEquals("Open", room.getStatus());
     }
 
     /**

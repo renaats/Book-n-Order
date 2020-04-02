@@ -6,11 +6,10 @@ import static nl.tudelft.oopp.demo.config.Constants.BUILDING_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
 import static nl.tudelft.oopp.demo.config.Constants.ID_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.NOT_FOUND;
-import static nl.tudelft.oopp.demo.config.Constants.ORDER_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.RESERVATION_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.RESTAURANT_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.USER_NOT_FOUND;
-import static nl.tudelft.oopp.demo.config.Constants.WRONG_USER;
+import static nl.tudelft.oopp.demo.config.Constants.WRONG_CREDENTIALS;
 import static nl.tudelft.oopp.demo.security.SecurityConstants.HEADER_STRING;
 
 import java.util.ArrayList;
@@ -34,6 +33,7 @@ import nl.tudelft.oopp.demo.repositories.RestaurantRepository;
 import nl.tudelft.oopp.demo.repositories.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -63,24 +63,24 @@ public class FoodOrderService {
 
     /**
      * Adds a foodOrder.
-     * @param request = the Http request that calls this method.
      * @param restaurantId = the id of the restaurant associated to the food order.
+     * @param userEmail = the email of the user associated to the food order.
      * @param deliverLocation = the building where the food order needs to be delivered.
      * @param deliverTimeMs = the deliver time of the food order in milliseconds (Java Date).
      * @return String containing the result of your request.
      */
-    public int add(HttpServletRequest request, int restaurantId, int deliverLocation, long deliverTimeMs) {
+    public int add(int restaurantId, String userEmail, int deliverLocation, long deliverTimeMs) {
         Optional<Restaurant> optionalRestaurant = restaurantRepository.findById(restaurantId);
         if (optionalRestaurant.isEmpty()) {
             return RESTAURANT_NOT_FOUND;
         }
         Restaurant restaurant = optionalRestaurant.get();
 
-        String token = request.getHeader(HEADER_STRING);
-        AppUser appUser = UserService.getAppUser(token, userRepository);
-        if (appUser == null) {
+        Optional<AppUser> optionalUser = userRepository.findById(userEmail);
+        if (optionalUser.isEmpty()) {
             return NOT_FOUND;
         }
+        AppUser appUser = optionalUser.get();
 
         Optional<Building> optionalDeliveryLocation = buildingRepository.findById(deliverLocation);
         if (optionalDeliveryLocation.isEmpty()) {
@@ -109,6 +109,9 @@ public class FoodOrderService {
         if (foodOrderRepository.findById(id).isEmpty()) {
             return RESERVATION_NOT_FOUND;
         }
+        if (RestaurantService.noPermissions(SecurityContextHolder.getContext(), foodOrderRepository.getOne(id).getRestaurant())) {
+            return WRONG_CREDENTIALS;
+        }
         FoodOrder foodOrder = foodOrderRepository.findById(id).get();
         switch (attribute) {
             case "deliverylocation":
@@ -131,9 +134,6 @@ public class FoodOrderService {
                 AppUser appUser = optionalUser.get();
                 foodOrder.setAppUser(appUser);
                 break;
-            case "active":
-                foodOrder.setActive(Boolean.parseBoolean(value));
-                break;
             default:
                 return ATTRIBUTE_NOT_FOUND;
         }
@@ -146,19 +146,11 @@ public class FoodOrderService {
      * @param id = the id of the food order.
      * @param dishName = the name of the dish.
      */
-    public int addDish(HttpServletRequest request, int id, String dishName) {
+    public int addDish(int id, String dishName) {
         if (!foodOrderRepository.existsById(id)) {
             return ID_NOT_FOUND;
         }
-        String token = request.getHeader(HEADER_STRING);
-        AppUser appUser = UserService.getAppUser(token, userRepository);
-        if (appUser == null) {
-            return NOT_FOUND;
-        }
         FoodOrder foodOrder = foodOrderRepository.getOne(id);
-        if (!appUser.equals(foodOrder.getAppUser())) {
-            return WRONG_USER;
-        }
         Dish dish;
         dish = dishRepository.findByName(dishName);
         foodOrder.addDish(dish);
@@ -174,6 +166,9 @@ public class FoodOrderService {
     public int delete(int id) {
         if (!foodOrderRepository.existsById(id)) {
             return RESERVATION_NOT_FOUND;
+        }
+        if (RestaurantService.noPermissions(SecurityContextHolder.getContext(), foodOrderRepository.getOne(id).getRestaurant())) {
+            return WRONG_CREDENTIALS;
         }
         foodOrderRepository.deleteById(id);
         return EXECUTED;
@@ -209,7 +204,7 @@ public class FoodOrderService {
             return foodOrders;
         }
         for (FoodOrder foodOrder: foodOrderRepository.findAll()) {
-            if (foodOrder.getAppUser() == appUser && (!foodOrder.getDeliveryTime().after(new Date()) || !foodOrder.isActive())) {
+            if (foodOrder.getAppUser() == appUser && foodOrder.getDeliveryTime().before(new Date())) {
                 foodOrders.add(foodOrder);
             }
         }
@@ -229,51 +224,10 @@ public class FoodOrderService {
             return foodOrders;
         }
         for (FoodOrder foodOrder: foodOrderRepository.findAll()) {
-            if (foodOrder.getAppUser() == appUser && foodOrder.getDeliveryTime().after(new Date()) && foodOrder.isActive()) {
+            if (foodOrder.getAppUser() == appUser && foodOrder.getDeliveryTime().after(new Date())) {
                 foodOrders.add(foodOrder);
             }
         }
         return foodOrders;
-    }
-
-    /**
-     * Finds all active food orders for the user that sends the Http request.
-     * @param request = the Http request that calls this method.
-     * @return a list of active food orders for this user.
-     */
-    public List<FoodOrder> active(HttpServletRequest request) {
-        List<FoodOrder> foodOrders = new ArrayList<>();
-        String token = request.getHeader(HEADER_STRING);
-        AppUser appUser = UserService.getAppUser(token, userRepository);
-        if (appUser == null) {
-            return foodOrders;
-        }
-        for (FoodOrder foodOrder: foodOrderRepository.findAll()) {
-            if (foodOrder.getAppUser() == appUser && foodOrder.isActive()) {
-                foodOrders.add(foodOrder);
-            }
-        }
-        return foodOrders;
-    }
-
-    /**
-     * Cancels a food order if it was made by the user that sends the Http request.
-     * @param request = the Http request that calls this method.
-     * @param foodOrderId = the id of the target order.
-     * @return an error code.
-     */
-    public int cancel(HttpServletRequest request, int foodOrderId) {
-        String token = request.getHeader(HEADER_STRING);
-        AppUser appUser = UserService.getAppUser(token, userRepository);
-        if (foodOrderRepository.findById(foodOrderId).isEmpty()) {
-            return ORDER_NOT_FOUND;
-        }
-        FoodOrder foodOrder = foodOrderRepository.findById(foodOrderId).get();
-        if (!foodOrder.getAppUser().equals(appUser)) {
-            return WRONG_USER;
-        }
-        foodOrder.setActive(false);
-        foodOrderRepository.save(foodOrder);
-        return EXECUTED;
     }
 }

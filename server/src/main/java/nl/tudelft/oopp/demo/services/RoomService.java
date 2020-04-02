@@ -7,6 +7,8 @@ import static nl.tudelft.oopp.demo.config.Constants.DUPLICATE_NAME;
 import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
 import static nl.tudelft.oopp.demo.config.Constants.ROOM_NOT_FOUND;
 
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -45,6 +47,7 @@ public class RoomService {
      * @param projector = boolean representing the availability of a projector.
      * @param capacity = the number of people this room fits.
      * @param plugs = the number of plugs in this room.
+     * @param status = the status of the room.
      * @return Error code
      */
     public int add(String name,
@@ -53,7 +56,8 @@ public class RoomService {
                    boolean projector,
                    int buildingId,
                    int capacity,
-                   int plugs) {
+                   int plugs,
+                   String status) {
         Optional<Building> optionalBuilding = buildingRepository.findById(buildingId);
         if (optionalBuilding.isEmpty()) {
             return BUILDING_NOT_FOUND;
@@ -71,6 +75,7 @@ public class RoomService {
         room.setProjector(projector);
         room.setCapacity(capacity);
         room.setPlugs(plugs);
+        room.setStatus(status);
         roomRepository.save(room);
         return ADDED;
     }
@@ -113,11 +118,14 @@ public class RoomService {
                 Building building = optionalBuilding.get();
                 room.setBuilding(building);
                 break;
-            case "amountofpeople":
+            case "capacity":
                 room.setCapacity(Integer.parseInt(value));
                 break;
             case "plugs":
                 room.setPlugs(Integer.parseInt(value));
+                break;
+            case "status":
+                room.setStatus(value);
                 break;
             default:
                 return ATTRIBUTE_NOT_FOUND;
@@ -154,6 +162,15 @@ public class RoomService {
      */
     public Room find(int id) {
         return roomRepository.findById(id).orElse(null);
+    }
+
+    /**
+     * Finds a room with the specified name.
+     * @param name = the room name
+     * @return a room that matches the name
+     */
+    public Room findByName(String name) {
+        return roomRepository.findByName(URLDecoder.decode(name, StandardCharsets.UTF_8));
     }
 
     /**

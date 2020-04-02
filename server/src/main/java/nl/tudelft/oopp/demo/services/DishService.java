@@ -6,6 +6,7 @@ import static nl.tudelft.oopp.demo.config.Constants.DISH_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
 import static nl.tudelft.oopp.demo.config.Constants.ID_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.MENU_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.WRONG_CREDENTIALS;
 
 import java.util.HashSet;
 import java.util.List;
@@ -23,6 +24,7 @@ import nl.tudelft.oopp.demo.specifications.DishSpecificationsBuilder;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -43,18 +45,22 @@ public class DishService {
      * Adds a dish.
      * @param name = dish name.
      * @param menuId = menu id.
+     * @param price the price of the dish.
+     * @param description the description of the dish.
+     * @param image the image of the dish.
      * @return Error code.
      */
-    public int add(String name, int menuId) {
+    public int add(String name, int menuId, int price, String description, String image) {
         Optional<Menu> optionalMenu = menuRepository.findById(menuId);
         if (optionalMenu.isEmpty()) {
             return MENU_NOT_FOUND;
         }
         Menu menu = optionalMenu.get();
+        if (RestaurantService.noPermissions(SecurityContextHolder.getContext(), menu.getRestaurant())) {
+            return WRONG_CREDENTIALS;
+        }
 
-        Dish dish = new Dish();
-        dish.setName(name);
-        dish.setMenu(menu);
+        Dish dish = new Dish(name, menu, price, description, image);
         dish.setAllergies(new HashSet<>());
         dishRepository.save(dish);
         return ADDED;
@@ -72,6 +78,9 @@ public class DishService {
             return ID_NOT_FOUND;
         }
         Dish dish = dishRepository.findById(id).get();
+        if (RestaurantService.noPermissions(SecurityContextHolder.getContext(), dish.getMenu().getRestaurant())) {
+            return WRONG_CREDENTIALS;
+        }
         switch (attribute) {
             case "name":
                 dish.setName(value);
@@ -84,6 +93,15 @@ public class DishService {
                 }
                 Menu menu = optionalMenu.get();
                 dish.setMenu(menu);
+                break;
+            case "price":
+                dish.setPrice(Integer.parseInt(value));
+                break;
+            case "description":
+                dish.setDescription(value);
+                break;
+            case "image":
+                dish.setImage(value);
                 break;
             default:
                 return ATTRIBUTE_NOT_FOUND;
@@ -102,6 +120,9 @@ public class DishService {
             return ID_NOT_FOUND;
         }
         Dish dish = dishRepository.getOne(id);
+        if (RestaurantService.noPermissions(SecurityContextHolder.getContext(), dish.getMenu().getRestaurant())) {
+            return WRONG_CREDENTIALS;
+        }
         Allergy allergy;
         if (!allergyRepository.existsByAllergyName(allergyName)) {
             allergy = new Allergy();
@@ -122,6 +143,9 @@ public class DishService {
     public int delete(int id) {
         if (!dishRepository.existsById(id)) {
             return DISH_NOT_FOUND;
+        }
+        if (RestaurantService.noPermissions(SecurityContextHolder.getContext(), dishRepository.getOne(id).getMenu().getRestaurant())) {
+            return WRONG_CREDENTIALS;
         }
         dishRepository.deleteById(id);
         return EXECUTED;
@@ -159,6 +183,15 @@ public class DishService {
 
         Specification<Dish> spec = builder.build();
         return dishRepository.findAll(spec);
+    }
+
+    /**
+     * Lists all dishes from a specific menu.
+     * @param menuId the id of the menu
+     * @return all dishes from the menu
+     */
+    public List<Dish> findByMenu( int menuId) {
+        return dishRepository.findAllByMenuId(menuId);
     }
 }
 

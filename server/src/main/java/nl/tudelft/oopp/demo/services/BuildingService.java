@@ -8,6 +8,8 @@ import static nl.tudelft.oopp.demo.config.Constants.HAS_ROOMS;
 import static nl.tudelft.oopp.demo.config.Constants.ID_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.NOT_FOUND;
 
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -122,7 +124,7 @@ public class BuildingService {
      * @return a building that matches the name
      */
     public Building find(String name) {
-        return buildingRepository.findByName(name);
+        return buildingRepository.findByName(URLDecoder.decode(name, StandardCharsets.UTF_8));
     }
 
     /**

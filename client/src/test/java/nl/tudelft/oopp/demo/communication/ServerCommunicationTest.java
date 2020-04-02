@@ -48,7 +48,7 @@ public class ServerCommunicationTest {
         stubFor(post(urlEqualTo("/user/changePassword?password=Password")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(delete(urlEqualTo("/room/delete/1")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(post(urlEqualTo("/room/update?id=1&attribute=a&value=a")).willReturn(aResponse().withStatus(200).withBody("200")));
-        stubFor(post(urlEqualTo("/room/add?name=a&studySpecific=a&screen=true&projector=true&buildingId=1&capacity=1&plugs=1"))
+        stubFor(post(urlEqualTo("/room/add?name=a&studySpecific=a&screen=true&projector=true&buildingId=1&capacity=1&plugs=1&status=A"))
                 .willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(post(urlEqualTo("/building/add?name=a&street=a&houseNumber=1&faculty=faculty"))
                 .willReturn(aResponse().withStatus(200).withBody("200")));
@@ -60,7 +60,7 @@ public class ServerCommunicationTest {
         stubFor(get(urlEqualTo("/room_reservation/room/2")).willReturn(aResponse().withStatus(200).withBody("Message6")));
         stubFor(get(urlEqualTo("/user/info")).willReturn(aResponse().withStatus(200).withBody("Information")));
         stubFor(post(urlEqualTo("/login")).willReturn(aResponse().withStatus(200).withBody("token")));
-        stubFor(post(urlEqualTo("/dish/add?name=test&menuId=1")).willReturn(aResponse().withStatus(200).withBody("200")));
+        stubFor(post(urlEqualTo("/dish/add?name=test&menuId=1&price=3&description=A&image=B")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(delete(urlEqualTo("/dish/delete/1")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(delete(urlEqualTo("/food_order/delete/1")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(post(urlEqualTo("/food_order/add?restaurantId=1&deliverLocation=1&deliverTimeMs=1"))
@@ -142,7 +142,7 @@ public class ServerCommunicationTest {
      */
     @Test
     public void testSuccessfulAddDishes() {
-        assertEquals("200", ServerCommunication.addDish("test", 1));
+        assertEquals("200", ServerCommunication.addDish("test", 1, 3, "A", "B"));
     }
 
     /**
@@ -230,7 +230,7 @@ public class ServerCommunicationTest {
      */
     @Test
     public void testSuccessfulAddMenu() {
-        assertEquals("200", ServerCommunication.addMenu("test", 1));
+        assertEquals("Successfully executed.", ServerCommunication.addMenu("test", 1));
     }
 
     /**
@@ -354,7 +354,7 @@ public class ServerCommunicationTest {
      */
     @Test
     public void testSuccessfulAddRoom() {
-        assertEquals(ErrorMessages.getErrorMessage(200), ServerCommunication.addRoom("a", 1, "a", true, true, 1, 1));
+        assertEquals(ErrorMessages.getErrorMessage(200), ServerCommunication.addRoom("a", 1, "a", true, true, 1, 1, "A"));
     }
 
     /**
@@ -445,7 +445,7 @@ public class ServerCommunicationTest {
      */
     @Test
     public void testSuccessfulUpdateRoomReservation() {
-        assertEquals(ErrorMessages.getErrorMessage(200), ServerCommunication.updateRoomReservation(1, "a","b"));
+        assertEquals(ErrorMessages.getErrorMessage(200), ServerCommunication.updateRoomReservation(1, "a", "b"));
     }
 
     /**

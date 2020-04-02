@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.generic.LoginController">
+      <ImageView cache="true" cacheHint="QUALITY" depthTest="DISABLE" fitHeight="800.0" fitWidth="1280.0" opacity="0.5" pickOnBounds="true">
+         <Image url="@../../../../images/tudelft.jpeg" />
+         </ImageView>
+      <Pane layoutX="167.0" layoutY="300.0" opacity="0.75" prefHeight="180.0" prefWidth="500.0" style="-fx-border-color: #439FDA; -fx-border-width: 5; -fx-background-color: white;" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="167.0" AnchorPane.rightAnchor="167.0" />
+      <Text fill="#439fd9" layoutX="357.0" layoutY="204.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" AnchorPane.bottomAnchor="250.0" AnchorPane.leftAnchor="200.0">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </Text>
+      <TextField fx:id="usernameField" layoutX="150.0" layoutY="336.0" AnchorPane.bottomAnchor="220.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" />
+      <Text fill="#439fd9" layoutX="367.0" layoutY="214.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" AnchorPane.bottomAnchor="190.0" AnchorPane.leftAnchor="200.0">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </Text>
+      <PasswordField fx:id="passwordField" layoutX="200.0" layoutY="408.0" prefHeight="26.0" prefWidth="400.0" AnchorPane.bottomAnchor="160.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" />
+      <ImageView fitHeight="190.0" fitWidth="275.0" layoutX="30.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <Image url="@../../../../images/tudelft_logo.png" />
+      </ImageView>
+      <Button fx:id="login_button" layoutX="200.0" layoutY="622.0" mnemonicParsing="false" onAction="#loginButton" style="-fx-background-color: #439fd9;" text="Login" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </Button>
+      <Button fx:id="register_button" layoutX="1113.0" layoutY="76.0" mnemonicParsing="false" onAction="#registrationScene" prefHeight="38.0" prefWidth="90.0" style="-fx-background-color: #439fd9;" text="Register" textAlignment="CENTER" textFill="WHITE" AnchorPane.rightAnchor="77.0" AnchorPane.topAnchor="76.0">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </Button>
+      <Text layoutX="516.0" layoutY="393.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book 'n Order" AnchorPane.bottomAnchor="318.509765625" AnchorPane.leftAnchor="516.0" AnchorPane.rightAnchor="516.9921875">
+         <font>
+            <Font name="DejaVu Sans ExtraLight" size="36.0" />
+         </font>
+      </Text>
+   <Hyperlink layoutX="980.0" layoutY="563.0" onAction="#forgotPassword" text="Forgot Password?" />
+</AnchorPane>
