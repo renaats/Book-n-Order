@@ -8,11 +8,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.List;
 
+import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Restaurant;
 import nl.tudelft.oopp.demo.entities.Room;
+import nl.tudelft.oopp.demo.entities.FoodOrder;
+import nl.tudelft.oopp.demo.errors.CustomAlert;
+
 
 public class JsonMapper {
 
@@ -173,6 +177,25 @@ public class JsonMapper {
             alert.setHeaderText(null);
             alert.setContentText(restaurantsJson);
             alert.showAndWait();
+        }
+        return null;
+    }
+
+    /**
+     * Maps all food orders JSONS to a list.
+     * @param allFoodOrdersJson a JSON string representing a list.
+     * @return A list filled with object Food orders.n
+     */
+    public static List<FoodOrder> foodOrderList(String allFoodOrdersJson) {
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        try {
+            // Convert JSON string to Object
+            return mapper.readValue(allFoodOrdersJson, new TypeReference<>() {
+            });
+        } catch (Exception e) {
+            CustomAlert.warningAlert(allFoodOrdersJson);
         }
         return null;
     }

@@ -1,5 +1,8 @@
 package nl.tudelft.oopp.demo.entities;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 import java.util.Date;
 import java.util.Objects;
 
@@ -81,5 +84,33 @@ public class FoodOrder {
                 && Objects.equals(appUser, that.appUser)
                 && Objects.equals(deliveryLocation, that.deliveryLocation)
                 && Objects.equals(deliveryTime, that.deliveryTime);
+    }
+
+    /**
+     * Makes the table list the building name instead of the building object
+     * @return String property, a property recognized by the tables.
+     */
+    public StringProperty getBuildingNameProperty() {
+        String name = getDeliveryLocation().getName();
+        return new SimpleStringProperty(name);
+    }
+
+    /**
+     * Makes the table list the restaurant name instead of the restaurant object
+     * @return String property, a property recognized by the tables.
+     */
+    public StringProperty getRestaurantNameProperty() {
+        String name = getRestaurant().getName();
+        return new SimpleStringProperty(name);
+    }
+
+    /**
+     * Makes the table list the date day instead of the date object
+     * @return String property, a property recognized by the tables.
+     */
+    public StringProperty getDateProperty() {
+        int day = getDeliveryTime().getDay();
+        String dateString = ""+day;
+        return new SimpleStringProperty(dateString);
     }
 }

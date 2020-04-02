@@ -111,7 +111,7 @@ public class DatabaseAddRoomController {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Room adder");
         alert.setHeaderText(null);
-        alert.setContentText(ServerCommunication.addRoom(name, faculty, buildingId, facultySpecific, screen, projector, capacity, plugs));
+        //alert.setContentText(ServerCommunication.addRoom(name, faculty, buildingId, facultySpecific, screen, projector, capacity, plugs));
         alert.showAndWait();
     }
 

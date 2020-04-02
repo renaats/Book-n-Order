@@ -57,7 +57,7 @@ public class DatabaseAddBuildingController {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Building adder");
         alert.setHeaderText(null);
-        alert.setContentText(ServerCommunication.addBuilding(name, street, houseNumber));
+        //alert.setContentText(ServerCommunication.addBuilding(name, street, houseNumber));
         alert.showAndWait();
     }
 
