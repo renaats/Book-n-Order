@@ -229,8 +229,9 @@ public class DatabaseRestaurantMenuController implements Initializable {
         dishList.clear();
         List<Dish> dishes;
         try {
-            dishes = new ArrayList<>(Objects.requireNonNull(JsonMapper.menuMapper(ServerCommunication.findMenu(Integer.parseInt(menuIdFieldRead.getText())))).getDishes());
+            dishes = new ArrayList<>(Objects.requireNonNull(JsonMapper.dishListMapper(ServerCommunication.findDishesByMenu(Integer.parseInt(menuIdFieldRead.getText())))));
         } catch (Exception e) {
+            e.printStackTrace();
             // Fakes the table having any entries, so the table shows up properly instead of "No contents".
             dishes = new ArrayList<>();
             dishes.add(null);

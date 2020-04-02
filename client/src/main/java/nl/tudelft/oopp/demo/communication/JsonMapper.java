@@ -379,7 +379,7 @@ public class JsonMapper {
      * @return A list filled with object dishes.
      */
     public static List<Dish> dishListMapper(String dishesJson) throws JsonProcessingException {
-
+        System.out.println(dishesJson);
         ObjectMapper mapper = new ObjectMapper();
 
         return mapper.readValue(dishesJson, new TypeReference<>(){});

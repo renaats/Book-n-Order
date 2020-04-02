@@ -452,6 +452,16 @@ public class ServerCommunication {
     }
 
     /**
+     * Finds all dishes in the database by menu id
+     * @param id the id of the menu
+     * @return response.body of the server
+     */
+    public static String findDishesByMenu(int id) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/dish/fromMenu/" + id)).GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
      * Queries the allergies on specific attributes.
      * @param query the query parameters
      * @return A JSON list of allergies matching the query
