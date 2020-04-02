@@ -100,10 +100,6 @@ public class AllergyServiceTest {
         menuService.add(menu.getName(), restaurantService.all().get(0).getId());
         dish = new Dish("dish", menu, 1, "pasta", "NA");
         dishService.add(dish.getName(), menuService.all().get(0).getId(), 1, "pasta", "NA");
-        System.out.println("\n" + "\n" + "\n" + buildingService.all() + "\n" + "\n" + "\n");
-        System.out.println("\n" + "\n" + "\n" + restaurantService.all() + "\n" + "\n" + "\n");
-        System.out.println("\n" + "\n" + "\n" + menuService.all() + "\n" + "\n" + "\n");
-        System.out.println("\n" + "\n" + "\n" + dishService.all() + "\n" + "\n" + "\n");
     }
 
     /**
