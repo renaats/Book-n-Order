@@ -16,6 +16,7 @@ import com.calendarfx.model.CalendarEvent;
 import com.calendarfx.model.Entry;
 import com.calendarfx.view.DateControl;
 import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.SubScene;
@@ -32,7 +33,7 @@ import nl.tudelft.oopp.demo.views.RoomCalendarView;
 
 public class BookRoomCalendarController implements Initializable {
 
-    private Room room = null;
+    private int roomId;
     private RoomCalendarView calendarView = new RoomCalendarView();
 
     @FXML
@@ -82,6 +83,7 @@ public class BookRoomCalendarController implements Initializable {
     private void entryHandler (CalendarEvent e) {
 
         Entry<RoomReservation> event = (Entry<RoomReservation>) e.getEntry();
+
         Date start = convertToDate(event.getStartTime(), event.getStartDate());
         Date end = convertToDate(event.getEndTime(), event.getStartDate());
 
@@ -119,8 +121,14 @@ public class BookRoomCalendarController implements Initializable {
                 alert.setContentText("Slot is already booked. Please make sure you do not overlay another reservation entry.");
                 alert.showAndWait();
             }
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Successfully Added!");
+            alert.setHeaderText(null);
+            alert.setContentText(ErrorMessages.getErrorMessage(200));
+            alert.showAndWait();
+            ApplicationDisplay.changeScene("/bookRoom.fxml");
 
-        } catch (ParseException e) {
+        } catch (ParseException | IOException e) {
             e.printStackTrace();
         }
     }
