@@ -45,18 +45,11 @@ public class JsonMapper {
      * @param menuJson JSON string representation of a menu
      * @return Menu object
      */
-    public static Menu menuMapper(String menuJson) {
+    public static Menu menuMapper(String menuJson) throws JsonProcessingException {
 
         ObjectMapper mapper = new ObjectMapper();
 
-        System.out.println(menuJson);
-        try {
-            // Convert JSON string to Object
-            return mapper.readValue(menuJson, Menu.class);
-        } catch (Exception e) {
-            CustomAlert.warningAlert(menuJson);
-        }
-        return null;
+        return mapper.readValue(menuJson, Menu.class);
     }
 
     /**
@@ -379,7 +372,6 @@ public class JsonMapper {
      * @return A list filled with object dishes.
      */
     public static List<Dish> dishListMapper(String dishesJson) throws JsonProcessingException {
-        System.out.println(dishesJson);
         ObjectMapper mapper = new ObjectMapper();
 
         return mapper.readValue(dishesJson, new TypeReference<>(){});

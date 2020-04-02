@@ -1,5 +1,6 @@
 package nl.tudelft.oopp.demo.controllers.database;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -82,7 +83,7 @@ public class DatabaseRestaurantMenuController implements Initializable {
     @FXML
     private TableColumn<Dish, String> colDishName;
     @FXML
-    private TableColumn<Dish, Integer> colDishPrice;
+    private TableColumn<Dish, Double> colDishPrice;
     @FXML
     private Text addDishText;
 
@@ -125,13 +126,18 @@ public class DatabaseRestaurantMenuController implements Initializable {
             idFieldRead.setText(Integer.toString(ownedRestaurants.get(0).getId()));
             nameFieldRead.setText(ownedRestaurants.get(0).getName());
             locationFieldRead.setText(ownedRestaurants.get(0).getBuilding().getName());
-            Menu menu = JsonMapper.menuMapper(ServerCommunication.findMenuByRestaurant(ownedRestaurants.get(0).getId()));
-            menuIdFieldRead.setText(Integer.toString(menu.getId()));
-            menuNameFieldRead.setText(menu.getName());
+            Menu menu = null;
+            try {
+                menu = JsonMapper.menuMapper(ServerCommunication.findMenuByRestaurant(ownedRestaurants.get(0).getId()));
+                menuIdFieldRead.setText(Integer.toString(menu.getId()));
+                menuNameFieldRead.setText(menu.getName());
+            } catch (JsonProcessingException e) {
+                // Intentionally left blank
+            }
         }
 
         colDishName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        colDishPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+        colDishPrice.setCellValueFactory(new PropertyValueFactory<>("priceInEuros"));
 
         retrieveAllDishes();
         tableSelectMethod();
@@ -231,13 +237,12 @@ public class DatabaseRestaurantMenuController implements Initializable {
         try {
             dishes = new ArrayList<>(Objects.requireNonNull(JsonMapper.dishListMapper(ServerCommunication.findDishesByMenu(Integer.parseInt(menuIdFieldRead.getText())))));
         } catch (Exception e) {
-            e.printStackTrace();
             // Fakes the table having any entries, so the table shows up properly instead of "No contents".
             dishes = new ArrayList<>();
             dishes.add(null);
         }
 
-        totalPages = Math.ceil(dishes.size() / 15.0);
+        totalPages = Math.ceil(dishes.size() / 7.0);
 
         if (totalPages < pageNumber) {
             pageNumber--;
@@ -245,10 +250,10 @@ public class DatabaseRestaurantMenuController implements Initializable {
 
         pagesText.setText(pageNumber + " / " + (int) totalPages + " pages");
 
-        if (dishes.size() > 15) {
-            for (int i = 1; i < 16; i++) {
+        if (dishes.size() > 7) {
+            for (int i = 0; i < 7; i++) {
                 try {
-                    dishList.add(dishes.get((i - 15) + pageNumber * 15));
+                    dishList.add(dishes.get((i - 7) + pageNumber * 7));
                 } catch (IndexOutOfBoundsException e) {
                     break;
                 }
@@ -270,7 +275,7 @@ public class DatabaseRestaurantMenuController implements Initializable {
             if (dish != null) {
                 dishIdFieldRead.setText(Integer.toString(dish.getId()));
                 dishNameFieldRead.setText(dish.getName());
-                dishPriceFieldRead.setText(Integer.toString(dish.getId()));
+                dishPriceFieldRead.setText(Double.toString((double) dish.getPrice() / 100));
                 dishDescriptionFieldRead.setText(dish.getDescription());
             }
 
@@ -278,8 +283,8 @@ public class DatabaseRestaurantMenuController implements Initializable {
                 assert dish != null;
                 if (dishList.get(i).getId() == (dish.getId())) {
                     deleteButton = new Button("Delete");
-                    deleteButton.setLayoutX(505);
-                    deleteButton.setLayoutY(434 + (24 * (i + 1)));
+                    deleteButton.setLayoutX(1062);
+                    deleteButton.setLayoutY(221 + (24 * (i + 1)));
                     deleteButton.setMinWidth(60);
                     deleteButton.setStyle("-fx-background-color:  #CC5653; -fx-font-size:10; -fx-text-fill: white");
                     deleteButton.setMinHeight(20);
@@ -298,5 +303,62 @@ public class DatabaseRestaurantMenuController implements Initializable {
                 }
             }
         });
+    }
+
+    public void updateMenu() {
+        String name = menuNameFieldRead.getText();
+        if (name.equals("")) {
+            CustomAlert.warningAlert("Please provide a name.");
+        }
+//        ServerCommunication.updateMenuName(Integer.parseInt(menuIdFieldRead.getText()), name);
+    }
+
+    public void deleteMenu() {
+        int menuId = Integer.parseInt(menuIdFieldRead.getText());
+        if (ServerCommunication.findDishesByMenu(menuId).equals("Not found.")) {
+            CustomAlert.informationAlert(ServerCommunication.deleteMenu(menuId));
+            menuIdFieldRead.clear();
+            menuNameFieldRead.clear();
+        } else {
+            CustomAlert.warningAlert("Please delete all dishes first.");
+        }
+    }
+
+    public void updateDish() {
+        int dishId = Integer.parseInt(dishIdFieldRead.getText());
+        try {
+            String name = dishNameFieldRead.getText();
+            String description = dishDescriptionFieldRead.getText();
+            double price = -1;
+            if (name.equals("")) {
+                CustomAlert.warningAlert("Please provide a name.");
+                return;
+            } else {
+                ServerCommunication.updateDish(dishId, "name", name);
+            }
+            try {
+                price = Double.parseDouble(dishPriceFieldRead.getText());
+            } catch (NumberFormatException e) {
+                CustomAlert.warningAlert("Price requires a number.");
+                return;
+            }
+            if (price == -1) {
+                CustomAlert.warningAlert("Please provide a price.");
+                return;
+            } else {
+                ServerCommunication.updateDish(dishId, "price", Integer.toString((int) (price * 100)));
+            }
+            if (description.equals("")) {
+                CustomAlert.warningAlert("Please provide a description.");
+                return;
+            } else {
+                ServerCommunication.updateDish(dishId, "description", description);
+            }
+        } catch (Exception e) {
+            CustomAlert.warningAlert("No selection detected.");
+            return;
+        }
+        CustomAlert.informationAlert("Successfully executed.");
+        retrieveAllDishes();
     }
 }

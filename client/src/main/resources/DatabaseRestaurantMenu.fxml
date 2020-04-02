@@ -74,7 +74,7 @@
    <TextField fx:id="nameFieldRead" layoutX="246.0" layoutY="214.0" prefHeight="26.0" prefWidth="260.0" promptText="Restaurant name" />
    <TableView fx:id="dishTableView" layoutX="667.0" layoutY="220.0" prefHeight="206.0" prefWidth="388.0" stylesheets="@table.css">
       <columns>
-         <TableColumn fx:id="colDishName" editable="false" prefWidth="283.2000732421875" resizable="false" sortable="false" text="Dish">
+         <TableColumn fx:id="colDishName" editable="false" prefWidth="320.0" resizable="false" sortable="false" text="Dish">
             <graphic>
                <ImageView fitHeight="17.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
                   <image>
@@ -86,7 +86,7 @@
                </ImageView>
             </graphic>
          </TableColumn>
-         <TableColumn fx:id="colDishPrice" editable="false" maxWidth="101.2000732421875" minWidth="0.0" prefWidth="101.2000732421875" resizable="false" sortable="false" text="Price (€)" />
+         <TableColumn fx:id="colDishPrice" editable="false" maxWidth="101.2000732421875" minWidth="0.0" prefWidth="65.5999755859375" resizable="false" sortable="false" text="Price (€)" />
       </columns>
    </TableView>
    <Button fx:id="nextPageButton" layoutX="898.0" layoutY="430.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#nextPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&gt;&gt;" textFill="WHITE">
@@ -112,12 +112,12 @@
       </font>
    </Text>
    <TextField fx:id="menuNameFieldRead" layoutX="246.0" layoutY="323.0" prefHeight="26.0" prefWidth="260.0" promptText="Menu name" />
-   <Button fx:id="updateBuildingButton" layoutX="208.0" layoutY="358.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="223.0" style="-fx-background-color: #00a6d6;" text="Update" textFill="WHITE" AnchorPane.leftAnchor="208.0" AnchorPane.rightAnchor="848.6666666666666">
+   <Button fx:id="updateMenuButton" layoutX="208.0" layoutY="358.0" mnemonicParsing="false" onAction="#updateMenu" prefHeight="26.0" prefWidth="223.0" style="-fx-background-color: #00a6d6;" text="Update" textFill="WHITE" AnchorPane.leftAnchor="208.0" AnchorPane.rightAnchor="848.6666666666666">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor>
    </Button>
-   <Button layoutX="437.0" layoutY="358.0" maxHeight="26.0" maxWidth="68.0" minHeight="20.0" minWidth="60.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="68.0" style="-fx-background-color: #CC5653;" text="Delete" textFill="WHITE" AnchorPane.rightAnchor="775.0">
+   <Button layoutX="437.0" layoutY="358.0" maxHeight="26.0" maxWidth="68.0" minHeight="20.0" minWidth="60.0" mnemonicParsing="false" onAction="#deleteMenu" prefHeight="26.0" prefWidth="68.0" style="-fx-background-color: #CC5653;" text="Delete" textFill="WHITE" AnchorPane.rightAnchor="775.0">
       <font>
          <Font size="10.0" />
       </font>
@@ -138,8 +138,8 @@
          <Cursor fx:constant="DEFAULT" />
       </cursor>
    </ImageView>
-   <TextField fx:id="dishPriceFieldRead" editable="false" layoutX="118.0" layoutY="452.0" prefHeight="25.0" prefWidth="56.0" promptText="Price" />
-   <Button layoutX="208.0" layoutY="590.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="223.0" style="-fx-background-color: #00a6d6;" text="Update" textFill="WHITE">
+   <TextField fx:id="dishPriceFieldRead" layoutX="118.0" layoutY="452.0" prefHeight="25.0" prefWidth="56.0" promptText="Price" />
+   <Button layoutX="208.0" layoutY="590.0" mnemonicParsing="false" onAction="#updateDish" prefHeight="26.0" prefWidth="223.0" style="-fx-background-color: #00a6d6;" text="Update" textFill="WHITE">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor>

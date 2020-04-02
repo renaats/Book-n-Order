@@ -74,6 +74,10 @@ public class Dish {
         return price;
     }
 
+    public double getPriceInEuros() {
+        return (double) Math.round(price * 100) / 10000;
+    }
+
     public String getDescription() {
         return description;
     }

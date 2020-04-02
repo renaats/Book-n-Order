@@ -99,6 +99,7 @@ public class DatabaseAddDishController implements Initializable {
         String description = descriptionTextArea.getText();
         if (description.equals("")) {
             CustomAlert.warningAlert("Description cannot be empty.");
+            return;
         }
         String image = imageTextField.getText();
         CustomAlert.informationAlert(ServerCommunication.addDish(name, menuId, (int) price * 100, description, image));
