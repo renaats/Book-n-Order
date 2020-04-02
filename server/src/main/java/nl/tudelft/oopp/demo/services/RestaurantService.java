@@ -78,7 +78,15 @@ public class RestaurantService {
         restaurantRepository.save(restaurant);
         return ADDED;
     }
-
+    
+    public int addFeedback(int id, boolean feedback) {
+        if (restaurantRepository.findById(id).isEmpty()) {
+            return 428;
+        }
+        Restaurant restaurant = restaurantRepository.findById(id).get();
+        restaurant.addFeedback(feedback);
+        return 201;
+    }
     /**
      * Updates a specified attribute for some restaurant.
      * @param id = the id of the restaurant
