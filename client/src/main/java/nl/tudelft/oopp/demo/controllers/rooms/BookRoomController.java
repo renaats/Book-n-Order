@@ -1,15 +1,26 @@
 package nl.tudelft.oopp.demo.controllers.rooms;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.ResourceBundle;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
 
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
+import nl.tudelft.oopp.demo.communication.JsonMapper;
+import nl.tudelft.oopp.demo.communication.ServerCommunication;
+import nl.tudelft.oopp.demo.entities.Building;
+import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
@@ -17,102 +28,73 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
  * Loads the correct content into the FXML objects that need to display server information and
  * controls all the user inputs made through the GUI in the "bookRoom.fxml" file
  */
-public class BookRoomController {
-
-    public static class Search {
-        private final boolean screen;
-        private final boolean beamer;
-        private final int capacity;
-        private final String building;
-        private final int nuOfPlugs;
-
-        /**
-         * constructor for the search object
-         * @param screen is there a screen
-         * @param beamer is there a beamer
-         * @param capacity the capacity of the room
-         * @param building what building is it in
-         * @param nuOfPlugs number of plug
-         */
-        public Search(boolean screen, boolean beamer, int capacity, String building, int nuOfPlugs) {
-            this.screen = screen;
-            this.beamer = beamer;
-            this.building = building;
-            this.capacity = capacity;
-            this.nuOfPlugs = nuOfPlugs;
-        }
-
-    }
+public class BookRoomController implements Initializable {
+    private final ObservableList<Room> roomResult = FXCollections.observableArrayList();
+    private final ObservableList<String> buildingNameList = FXCollections.observableArrayList();
 
     @FXML
     private CheckBox screen;
     @FXML
     private CheckBox beamer;
     @FXML
-    private ChoiceBox<String> building;
+    private TextField capacityFrom;
     @FXML
-    private Button submitButton;
+    private TextField capacityTo;
     @FXML
-    private TextField capacity;
-    private TextField nuOfPlugs;
-    private TextArea rooms;
+    private TextField plugsFrom;
+    @FXML
+    private TextField plugsTo;
+    @FXML
+    private TextField name;
+    @FXML
+    private Text pagesText;
+    @FXML
+    private TableView<Room> table;
+    @FXML
+    private TableColumn<Room, String> colName;
+    @FXML
+    private TableColumn<Room, Building> colBuilding;
+    @FXML
+    private TableColumn<Room, Boolean> colBeamer;
+    @FXML
+    private TableColumn<Room, Boolean> colScreen;
+    @FXML
+    private TableColumn<Room, Integer> colCapacity;
+    @FXML
+    private TableColumn<Room, Integer> colPlugs;
+    @FXML
+    private ChoiceBox<String> buildingChoiceBox;
 
-    /**
-     * applies the selected filters
-     * @return returns an object of search with the proper properties
-     */
-    public Search applyFilters() {
-        if (building.getValue() == null) {
-            CustomAlert.warningAlert("Please select a building.");
-            return null;
+    private int pageNumber;
+    private double totalPages;
+
+    private Room selectedRoom;
+    private List<Room> rooms;
+
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colBuilding.setCellValueFactory(new PropertyValueFactory<>("getBuildingName"));
+        colBeamer.setCellValueFactory(new PropertyValueFactory<>("projector"));
+        colScreen.setCellValueFactory(new PropertyValueFactory<>("screen"));
+        colCapacity.setCellValueFactory(new PropertyValueFactory<>("capacity"));
+        colPlugs.setCellValueFactory(new PropertyValueFactory<>("plugs"));
+
+        if (pageNumber == 0) {
+            pageNumber++;
         }
-        if (capacity.getCharacters() == null) {
-            CustomAlert.warningAlert("Please select a capacity.");
-            return null;
-        }
-        if (nuOfPlugs.getCharacters() == null) {
-            CustomAlert.warningAlert("Please select the amount of plugs.");
-            return null;
-        }
-        boolean isScreen = false;
-        boolean isBeamer = false;
-        if (screen.isSelected()) {
-            isScreen = true;
-        }
-        if (beamer.isSelected()) {
-            isBeamer = true;
-        }
-        int intCapacity;
-        String stringCapacity = (String) capacity.getCharacters();
-        intCapacity = Integer.parseInt(stringCapacity);
-        int intPlugs;
-        String stringPlugs = (String) nuOfPlugs.getCharacters();
-        intPlugs = Integer.parseInt(stringPlugs);
-        return new Search(isScreen, isBeamer, intCapacity, building.getValue(), intPlugs);
+
+        applyFilters();
+        loadBuildingChoiceBox();
     }
 
     /**
-     * return to the reservations menu when the back arrow button is clicked.
-     * @throws IOException the input will always be the same, so it should never throw an IO exception
-     */
-    public void goToMainMenuReservations() throws IOException {
-        ApplicationDisplay.changeScene("/mainMenuReservations.fxml");
-    }
-    /**
-     * return to the reservations menu when the back arrow button is clicked.
-     * @throws IOException the input will always be the same, so it should never throw an IO exception
-     */
-
-    public void goToRoomConfirmation() throws IOException {
-        ApplicationDisplay.changeScene("/RoomConfirmation.fxml");
-    }
-
-    /**
-     * Changes to myCurrentBookings.fxml.
+     * Changes to mainMenuReservations.fxml.
      * @throws IOException input will not be wrong, hence we throw.
      */
-    public void myCurrentBookings() throws IOException {
-        ApplicationDisplay.changeScene("/myCurrentBookings.fxml");
+    public void mainMenu() throws IOException {
+        ApplicationDisplay.changeScene("/mainMenu.fxml");
     }
 
     /**
@@ -124,11 +106,150 @@ public class BookRoomController {
     }
 
     /**
-     * Changes to mainMenuReservations.fxml.
+     * Changes to myCurrentBookings.fxml.
      * @throws IOException input will not be wrong, hence we throw.
      */
-    public void mainMenu() throws IOException {
-        ApplicationDisplay.changeScene("/mainMenu.fxml");
+    public void myCurrentBookings() throws IOException {
+        ApplicationDisplay.changeScene("/myCurrentBookings.fxml");
     }
 
+    /**
+     * return to the reservations menu when the back arrow button is clicked.
+     * @throws IOException the input will always be the same, so it should never throw an IO exception
+     */
+    public void goToMainMenuReservations() throws IOException {
+        ApplicationDisplay.changeScene("/mainMenuReservations.fxml");
+    }
+
+    /**
+     * return to the reservations menu when the back arrow button is clicked.
+     * @throws IOException the input will always be the same, so it should never throw an IO exception
+     */
+    public void goToRoomConfirmation() throws IOException {
+        //ServerCommunication.addRoomReservation(selectedRoom.getId());
+        ApplicationDisplay.changeScene("/RoomConfirmation.fxml");
+    }
+
+    /**
+     * Handles clicking the list button.
+     */
+    public void listRoomsButtonClicked(String filterString) {
+        try {
+            rooms = new ArrayList<>(Objects.requireNonNull(JsonMapper.roomListMapper(ServerCommunication.filterRooms(filterString))));
+        } catch (Exception e) {
+            // Fakes the table having any entries, so the table shows up properly instead of "No contents".
+            rooms = new ArrayList<>();
+            rooms.add(null);
+        }
+        calculatePages();
+        tableSelectMethod();
+    }
+
+    public void calculatePages() {
+        roomResult.clear();
+        totalPages = Math.ceil(rooms.size() / 15.0);
+
+        if (totalPages < pageNumber) {
+            pageNumber--;
+        }
+
+        pagesText.setText(pageNumber + " / " + (int) totalPages + " pages");
+
+        if (rooms.size() > 15) {
+            for (int i = 0; i < 15; i++) {
+                try {
+                    roomResult.add(rooms.get((i - 15) + pageNumber * 15));
+                } catch (IndexOutOfBoundsException e) {
+                    break;
+                }
+            }
+        }  else {
+            roomResult.addAll(rooms);
+        }
+        table.setItems(roomResult);
+    }
+
+    /**
+     * Handles the clicking to the next table page.
+     */
+    public void nextPage() {
+        if (pageNumber < (int) totalPages) {
+            pageNumber++;
+            calculatePages();
+        }
+    }
+
+    /**
+     * Handles the clicking to the previous page
+     */
+    public void previousPage() {
+        if (pageNumber > 1) {
+            pageNumber--;
+        }
+        calculatePages();
+    }
+
+    /**
+     * Listener that checks if a row is selected, if so, fill the text fields.
+     */
+    public void tableSelectMethod() {
+        table.getSelectionModel().selectedItemProperty().addListener((obs) -> {
+            selectedRoom = table.getSelectionModel().getSelectedItem();
+        });
+    }
+
+    /**
+     * Applies the selected filters
+     */
+    public void applyFilters() {
+        String filterString = "";
+        if (buildingChoiceBox.getValue() != null) {
+            try {
+                filterString += ",building:" + JsonMapper.buildingMapper(ServerCommunication.findBuildingByName(buildingChoiceBox.getValue())).getId();
+            } catch (Exception e) {
+                CustomAlert.errorAlert("Building not found!");
+            }
+        }
+        if (screen.isSelected()) {
+            filterString += ",screen:true";
+        }
+        if (beamer.isSelected()) {
+            filterString += ",projector:true";
+        }
+        if (!capacityFrom.getText().equals("")) {
+            filterString += ",capacity>" + capacityFrom.getText();
+        }
+        if (!capacityTo.getText().equals("")) {
+            filterString += ",capacity<" + capacityTo.getText();
+        }
+        if (!plugsFrom.getText().equals("")) {
+            filterString += ",plugs>" + plugsFrom.getText();
+        }
+        if (!plugsTo.getText().equals("")) {
+            filterString += ",plugs<" + plugsTo.getText();
+        }
+        if (!name.getText().equals("")) {
+            filterString += ",name:" + name.getText();
+        }
+        if (filterString.equals("")) {
+            filterString = ",";
+        }
+        listRoomsButtonClicked(filterString.substring(1));
+    }
+
+    /**
+     * Takes care of the options for the updateChoiceBox in the GUI
+     */
+    private void loadBuildingChoiceBox() {
+        buildingNameList.clear();
+        try {
+            for (Building building: Objects.requireNonNull(JsonMapper.buildingListMapper(ServerCommunication.getBuildings()))) {
+                buildingNameList.add(building.getName());
+            }
+        } catch (Exception ignored) {
+
+        }
+        buildingNameList.add(null);
+        buildingChoiceBox.getItems().addAll(buildingNameList);
+    }
 }
