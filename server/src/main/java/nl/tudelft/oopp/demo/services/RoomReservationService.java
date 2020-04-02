@@ -203,7 +203,7 @@ public class RoomReservationService {
      * @param roomId = the id of the room for which reservations are retrieved.
      * @return a list of reservations for this room.
      */
-    public List<RoomReservation> forRoom(int roomId) {
+    public List<RoomReservation> findForRoom(int roomId) {
         List<RoomReservation> roomReservations = new ArrayList<>();
         Optional<Room> optionalRoom = roomRepository.findById(roomId);
 

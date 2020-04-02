@@ -29,13 +29,17 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
 import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.Role;
+import nl.tudelft.oopp.demo.entities.Room;
+import nl.tudelft.oopp.demo.entities.RoomReservation;
 import nl.tudelft.oopp.demo.events.OnRegistrationSuccessEvent;
 import nl.tudelft.oopp.demo.repositories.RoleRepository;
+import nl.tudelft.oopp.demo.repositories.RoomReservationRepository;
 import nl.tudelft.oopp.demo.repositories.UserRepository;
 
 import org.apache.commons.text.RandomStringGenerator;
@@ -64,7 +68,8 @@ public class UserService {
     private ApplicationEventPublisher eventPublisher;
     @Autowired
     private MailSender mailSender;
-    
+    @Autowired
+    private RoomReservationRepository roomReservationRepository;
 
     /**
      * Finds the appUser for some Http request token.
@@ -403,5 +408,21 @@ public class UserService {
         appUser.setLoggedIn(false);
         userRepository.save(appUser);
         return EXECUTED;
+    }
+
+    /**
+     * Find User for a specific Reservation
+     * @param id of room reservation
+     * @return AppUser that has the reservation
+     */
+    public AppUser findForReservation(int id) {
+        AppUser user = new AppUser();
+        Optional<RoomReservation> optionalRoomReservation = roomReservationRepository.findById(id);
+
+        if (optionalRoomReservation.isEmpty()) {
+            return null;
+        }
+        RoomReservation roomReservation = optionalRoomReservation.get();
+        return roomReservation.getAppUser();
     }
 }

@@ -1,8 +1,5 @@
 package nl.tudelft.oopp.demo.controllers;
 
-import static nl.tudelft.oopp.demo.config.Constants.ADMIN;
-import static nl.tudelft.oopp.demo.config.Constants.USER;
-
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 
@@ -21,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import static nl.tudelft.oopp.demo.config.Constants.*;
 
 /**
  * Creates server side endpoints and routes requests to the UserService.
@@ -190,5 +189,16 @@ public class UserController {
     @PostMapping(path = "/changePassword")
     public int changePassword(HttpServletRequest request, @RequestParam String password) {
         return userService.changePassword(request, password);
+    }
+
+    /**
+     * Finds user for a specific reservation.
+     * @param roomReservationId
+     * @return an error code corresponding to the outcome of the request
+     */
+    @Secured({ADMIN, BUILDING_ADMIN})
+    @PostMapping(path = "/reservation")
+    public AppUser changePassword(@RequestParam int roomReservationId) {
+        return userService.findForReservation(roomReservationId);
     }
 }
