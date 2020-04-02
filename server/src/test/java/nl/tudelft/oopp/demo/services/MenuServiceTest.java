@@ -87,6 +87,7 @@ public class MenuServiceTest {
      * Sets up the entities and saves them via a service before executing every test.
      */
     @BeforeEach
+    @WithMockUser(username = "restaurant@tudelft.nl", roles = {"USER", "STAFF", "RESTAURANT", "ADMIN"})
     public void setup() {
         building2 = new Building("EWI2", "Mekelweg2", "EWI", 42);
         buildingRepository.save(building2);
@@ -213,6 +214,7 @@ public class MenuServiceTest {
      * Tests the changing of a name of an instance.
      */
     @Test
+    @WithMockUser(username = "restaurant@tudelft.nl", roles = {"ADMIN", "STAFF", "RESTAURANT"})
     public void testUpdateChangeName() {
         menuService.add(menu1.getName(), menu1.getRestaurant().getId());
         int id = menuService.all().get(0).getId();
@@ -224,9 +226,10 @@ public class MenuServiceTest {
      * Tests the adding of a dish of an instance.
      */
     @Test
+    @WithMockUser(username = "restaurant@tudelft.nl", roles = {"ADMIN", "STAFF", "RESTAURANT"})
     public void testUpdateAddDish() {
         menuService.add(menu1.getName(), menu1.getRestaurant().getId());
-        dishService.add(dish.getName(),menuService.all().get(0).getId());
+        dishService.add(dish.getName(),menuService.all().get(0).getId(), 1, "pasta", "NA");
         int id = menuService.all().get(0).getId();
         menuService.update(id,"dishAdd", "" + dishService.all().get(0).getId());
         assertTrue(menuService.all().get(0).getDishes().contains(dishService.all().get(0)));
@@ -236,9 +239,10 @@ public class MenuServiceTest {
      * Tests updating an non-existent menu.
      */
     @Test
+    @WithMockUser(username = "restaurant@tudelft.nl", roles = {"ADMIN", "STAFF", "RESTAURANT"})
     public void testUpdateDishNotFound() {
         menuService.add(menu1.getName(), menu1.getRestaurant().getId());
-        dishService.add(dish.getName(),menuService.all().get(0).getId());
+        dishService.add(dish.getName(),menuService.all().get(0).getId(), 1, "pasta", "NA");
         int id = menuService.all().get(0).getId();
         assertEquals(430, menuService.update(id,"dishAdd", "-1"));
     }
@@ -247,9 +251,10 @@ public class MenuServiceTest {
      * Tests updating an un-existent menu.
      */
     @Test
+    @WithMockUser(username = "restaurant@tudelft.nl", roles = {"ADMIN", "STAFF", "RESTAURANT"})
     public void testUpdateMenuNotFound() {
         menuService.add(menu1.getName(), menu1.getRestaurant().getId());
-        dishService.add(dish.getName(),menuService.all().get(0).getId());
+        dishService.add(dish.getName(),menuService.all().get(0).getId(), 1, "pasta", "NA");
         int id = -1;
         assertEquals(429, menuService.update(id,"dishAdd", "" + dishService.all().get(0).getId()));
     }
@@ -258,9 +263,10 @@ public class MenuServiceTest {
      * Tests the updating of the restaurant of a dish instance.
      */
     @Test
+    @WithMockUser(username = "restaurant@tudelft.nl", roles = {"ADMIN", "STAFF", "RESTAURANT"})
     public void testUpdateRestaurant() {
         menuService.add(menu1.getName(), menu1.getRestaurant().getId());
-        dishService.add(dish.getName(),menuService.all().get(0).getId());
+        dishService.add(dish.getName(),menuService.all().get(0).getId(), 1, "pasta", "NA");
         int id = menuService.all().get(0).getId();
         menuService.update(id,"restaurant", "" + restaurant1.getId());
         assertEquals(menuService.findById(id).get().getRestaurant().getId(), restaurant1.getId());
@@ -270,9 +276,10 @@ public class MenuServiceTest {
      * Tests the deleting of a dish of an instance.
      */
     @Test
+    @WithMockUser(username = "restaurant@tudelft.nl", roles = {"ADMIN", "STAFF", "RESTAURANT"})
     public void testUpdateDeleteDish() {
         menuService.add(menu1.getName(), menu1.getRestaurant().getId());
-        dishService.add(dish.getName(),menuService.all().get(0).getId());
+        dishService.add(dish.getName(),menuService.all().get(0).getId(), 1, "pasta", "NA");
         int id = menuService.all().get(0).getId();
         menuService.update(id,"dishAdd", "" + dishService.all().get(0).getId());
         assertTrue(menuService.all().get(0).getDishes().contains(dishService.all().get(0)));
@@ -284,10 +291,11 @@ public class MenuServiceTest {
      * Tests the deleting of a dish of an instance.
      */
     @Test
+    @WithMockUser(username = "restaurant@tudelft.nl", roles = {"ADMIN", "STAFF", "RESTAURANT"})
     public void testUpdateDeleteAllDish() {
         menuService.add(menu1.getName(), menu1.getRestaurant().getId());
-        dishService.add(dish.getName(),menuService.all().get(0).getId());
-        dishService.add(dish2.getName(),menuService.all().get(0).getId());
+        dishService.add(dish.getName(),menuService.all().get(0).getId(), 1, "pasta", "NA");
+        dishService.add(dish2.getName(),menuService.all().get(0).getId(), 1, "pasta", "NA");
         int id = menuService.all().get(0).getId();
         menuService.update(id,"dishAdd", "" + dishService.all().get(0).getId());
         assertTrue(menuService.all().get(0).getDishes().contains(dishService.all().get(0)));

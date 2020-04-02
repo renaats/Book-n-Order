@@ -98,6 +98,15 @@ public class MenuService {
     }
 
     /**
+     * Finds a menu with a certain name
+     * @param name menu name
+     * @return menu
+     */
+    public Menu find(String name) {
+        return menuRepository.findByName(URLDecoder.decode(name, StandardCharsets.UTF_8));
+    }
+
+    /**
      * Updates a given attribute for some menu.
      * @param id the id of the menu.
      * @param attribute the attribute whose value is changed.
@@ -159,13 +168,5 @@ public class MenuService {
     public Optional<Menu> findById(int id) {
         return menuRepository.findById(id);
     }
-    
-    /**
-     * Finds a menu with a certain name
-     * @param name menu name
-     * @return menu
-     */
-    public Menu find(String name) {
-        return menuRepository.findByName(URLDecoder.decode(name, StandardCharsets.UTF_8));
-    }
+
 }
