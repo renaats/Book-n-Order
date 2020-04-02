@@ -68,7 +68,7 @@ public class RestaurantHourTest {
      * Tests the saving and retrieval of an instance of RestaurantHours.
      */
     @Test
-    public void saveAndRetrieveBuildingHours() {
+    public void testSaveAndRetrieveBuildingHours() {
         restaurantHours2 = restaurantHourRepository.findByRestaurant_IdAndDay(restaurant.getId(), 1);
         assertEquals(restaurantHours, restaurantHours2);
     }

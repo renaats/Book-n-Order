@@ -5,7 +5,9 @@ import static com.github.tomakehurst.wiremock.client.WireMock.configureFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.github.tomakehurst.wiremock.WireMockServer;
@@ -51,7 +53,7 @@ class JsonMapperTest {
     }
 
     @Test
-    void buildingMapper() throws JsonProcessingException {
+    void testBuildingMapper() {
         stubFor(get(urlEqualTo("/building/find/1")).willReturn(aResponse().withStatus(200)
                 .withBody("{\"id\":1,\"name\":\"testffes\",\"street\":\"1\",\"houseNumber\":1}")));
         assertEquals(JsonMapper
@@ -60,7 +62,7 @@ class JsonMapperTest {
     }
 
     @Test
-    void buildingListMapper() throws IOException {
+    void testBuildingListMapper() throws IOException {
         stubFor(get(urlEqualTo("/building/all"))
                 .willReturn(aResponse()
                         .withStatus(200)
@@ -78,7 +80,7 @@ class JsonMapperTest {
     }
 
     @Test
-    void roomMapper() {
+    void testRoomMapper() {
         stubFor(get(urlEqualTo("/room/find/4"))
                 .willReturn(aResponse()
                         .withStatus(200)
@@ -101,7 +103,7 @@ class JsonMapperTest {
     }
 
     @Test
-    void roomListMapper() throws IOException {
+    void testRoomListMapper() throws IOException {
         List<Room> room =
                 new ArrayList<>(Objects
                         .requireNonNull(JsonMapper
@@ -130,7 +132,7 @@ class JsonMapperTest {
     }
 
     @Test
-    void buildingHoursMapperTest() {
+    void testBuildingHoursMapper() {
         stubFor(get(urlEqualTo("/building_hours/find/1/1"))
                 .willReturn(aResponse()
                         .withStatus(200)
@@ -145,7 +147,7 @@ class JsonMapperTest {
     }
 
     @Test
-    void restaurantHoursMapperTest() {
+    void testRestaurantHoursMapper() {
         stubFor(get(urlEqualTo("/restaurant_hours/find/1/1"))
                 .willReturn(aResponse()
                         .withStatus(200)
@@ -163,7 +165,7 @@ class JsonMapperTest {
     }
 
     @Test
-    void roomReservationMapperTest() {
+    void testRoomReservationMapper() {
         stubFor(get(urlEqualTo("/room_reservation/find/3"))
                 .willReturn(aResponse()
                         .withStatus(200)
@@ -194,13 +196,13 @@ class JsonMapperTest {
     }
 
     @Test
-    void roomReservationListMapperTest() {
+    void testRoomReservationListMapper() {
         stubFor(get(urlEqualTo("/room_reservation/all"))
                 .willReturn(aResponse()
                         .withStatus(200)
                         .withBody("[{\"id\":3,\"room\":{\"id\":2,\"name\":\"a\",\"building\":{"
                                 + "\"id\":1,\"name\":\"alto\",\"street\":\"rruga\",\"houseNumber\":24},"
-                                + "\"faculty\":\"b\",\"facultySpecific\":true,\"projector\":true,\"screen"
+                                + "\"projector\":true,\"screen"
                                 + "\":true,\"capacity\":10,\"plugs\":10},\"appUser\":{\"email\""
                                 + ":\"r.jursevskis@student.tudelft.nl\",\"password\":"
                                 + "\"$2a$10$gJ1P7tWDAlgq4VBlCBjK.uKgZPw0tKxG/NMSiGDfNtxKcEDJEIRVC\","
@@ -210,7 +212,7 @@ class JsonMapperTest {
                                 + "},{\"id\":1,\"name\":\"ROLE_USER\"}]},\"fromTime\":\"2020-03-19T11:30:00.000+0000\","
                                 + "\"toTime\":\"2020-03-19T12:00:00.000+0000\"},{\"id\":4,\"room\""
                                 + ":{\"id\":2,\"name\":\"a\",\"building\":{\"id\":1,\"name\":\"alto\",\"street\":\"rruga\","
-                                + "\"houseNumber\":24},\"faculty\":\"b\",\"facultySpecific\":true,"
+                                + "\"houseNumber\":24},"
                                 + "\"projector\":true,\"screen\":true,\"capacity\":10,\"plugs\":10},\"appUser\":{\"email\":"
                                 + "\"r.jursevskis@student.tudelft.nl\",\"password\":"
                                 + "\"$2a$10$gJ1P7tWDAlgq4VBlCBjK.uKgZPw0tKxG/NMSiGDfNtxKcEDJEIRVC\",\"name\":\"Renats\","
@@ -219,33 +221,39 @@ class JsonMapperTest {
                                 + "\"name\":\"ROLE_USER\"}]},\"fromTime\":\"1970-01-01T00:00:00.100+0000"
                                 + "\",\"toTime\":\"1970-01-01T00:00:00.200+0000\"}]")));
 
-        String json = "[{\"id\":3,\"room\":{\"id\":2,\"name\":\"a\",\"building\":{\"id\":1,\"name\":"
-                + "\"alto\",\"street\":\"rruga\",\"houseNumber\":24},"
-                + "\"faculty\":\"b\",\"facultySpecific\":true,\"projector\":true,\"screen\":true,\"capacity"
-                + "\":10,\"plugs\":10},\"appUser\":{\"email\""
-                + ":\"r.jursevskis@student.tudelft.nl\",\"password\":\"$2a$10$gJ1P7tWDAlgq4VBlCBjK.uKgZPw0tKxG/NMSiGDfNtxKcEDJEIRVC\","
+        String json = "[{\"id\":3,\"room\":{\"id\":2,\"name\":\"a\",\"building\":{"
+                + "\"id\":1,\"name\":\"alto\",\"street\":\"rruga\",\"houseNumber\":24},"
+                + "\"projector\":true,\"screen"
+                + "\":true,\"capacity\":10,\"plugs\":10},\"appUser\":{\"email\""
+                + ":\"r.jursevskis@student.tudelft.nl\",\"password\":"
+                + "\"$2a$10$gJ1P7tWDAlgq4VBlCBjK.uKgZPw0tKxG/NMSiGDfNtxKcEDJEIRVC\","
                 + "\"name\":\"Renats"
-                + "\",\"surname\":\"Jursevskis\",\"faculty\":\"EWI\",\"loggedIn\":true,\"confirmationNumber\":934789,\"roles\""
-                + ":[{\"id\":2,\"name\":\"ROLE_ADMIN\""
-                + "},{\"id\":1,\"name\":\"ROLE_USER\"}]},\"fromTime\":\"2020-03-19T11:30:00.000+0000\",\"toTime\":"
-                + "\"2020-03-19T12:00:00.000+0000\"},{\"id\":4,\"room\""
-                + ":{\"id\":2,\"name\":\"a\",\"building\":{\"id\":1,\"name\":\"alto\",\"street\":\"rruga\",\"houseNumber\":24},\"faculty\":\"b\",\""
-                + "facultySpecific\":true,"
+                + "\",\"surname\":\"Jursevskis\",\"faculty\":\"EWI\","
+                + "\"loggedIn\":true,\"confirmationNumber\":934789,\"roles\":[{\"id\":2,\"name\":\"ROLE_ADMIN\""
+                + "},{\"id\":1,\"name\":\"ROLE_USER\"}]},\"fromTime\":\"2020-03-19T11:30:00.000+0000\","
+                + "\"toTime\":\"2020-03-19T12:00:00.000+0000\"},{\"id\":4,\"room\""
+                + ":{\"id\":2,\"name\":\"a\",\"building\":{\"id\":1,\"name\":\"alto\",\"street\":\"rruga\","
+                + "\"houseNumber\":24},"
                 + "\"projector\":true,\"screen\":true,\"capacity\":10,\"plugs\":10},\"appUser\":{\"email\":"
                 + "\"r.jursevskis@student.tudelft.nl\",\"password\":"
-                + "\"$2a$10$gJ1P7tWDAlgq4VBlCBjK.uKgZPw0tKxG/NMSiGDfNtxKcEDJEIRVC\",\"name\":\"Renats\",\"surname\":\"Jursevskis\",\"faculty\":"
-                + "\"EWI\",\"loggedIn\":true,"
-                + "\"confirmationNumber\":934789,\"roles\":[{\"id\":2,\"name\":\"ROLE_ADMIN\"},{\"id\":1,\"name\":\"ROLE_USER\"}]},\"fromTime\":"
-                + "\"1970-01-01T00:00:00.100+0000"
+                + "\"$2a$10$gJ1P7tWDAlgq4VBlCBjK.uKgZPw0tKxG/NMSiGDfNtxKcEDJEIRVC\",\"name\":\"Renats\","
+                + "\"surname\":\"Jursevskis\",\"faculty\":\"EWI\",\"loggedIn\":true,"
+                + "\"confirmationNumber\":934789,\"roles\":[{\"id\":2,\"name\":\"ROLE_ADMIN\"},{\"id\":1,"
+                + "\"name\":\"ROLE_USER\"}]},\"fromTime\":\"1970-01-01T00:00:00.100+0000"
                 + "\",\"toTime\":\"1970-01-01T00:00:00.200+0000\"}]";
 
-        List<RoomReservation> roomReservations = JsonMapper.roomReservationsListMapper(json);
-
-        assertEquals(roomReservations, JsonMapper.roomReservationsListMapper(ServerCommunication.getRoomReservations()));
+        List<RoomReservation> roomReservations = null;
+        try {
+            roomReservations = JsonMapper.roomReservationsListMapper(json);
+            assertEquals(roomReservations, JsonMapper.roomReservationsListMapper(ServerCommunication.getRoomReservations()));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            fail();
+        }
     }
 
     @Test
-    void bikeReservationMapperTest() {
+    void testBikeReservationMapper() {
         stubFor(get(urlEqualTo("/bike_reservation/find/5"))
                 .willReturn(aResponse()
                         .withStatus(200)
@@ -280,7 +288,7 @@ class JsonMapperTest {
     }
 
     @Test
-    void bikeReservationListMapperTest() {
+    void testBikeReservationListMapper() {
         stubFor(get(urlEqualTo("/bike_reservation/all"))
                 .willReturn(aResponse()
                         .withStatus(200)
@@ -316,28 +324,34 @@ class JsonMapperTest {
                 + "\"houseNumber\":50},\"fromTime\":\"2020-03-19T14:00:00.000+0000\""
                 + ",\"toTime\":\"2020-03-19T19:00:00.000+0000\"}]";
 
-        List<BikeReservation> bikeReservations = JsonMapper.bikeReservationsListMapper(json);
+        List<BikeReservation> bikeReservations = null;
+        try {
+            bikeReservations = JsonMapper.bikeReservationsListMapper(json);
+            assertEquals(bikeReservations, JsonMapper.bikeReservationsListMapper("[{\"id\":5,\"bike\":{"
+                    + "\"id\":2,\"location\":{\"id\":1,\"name\":\"delia\",\"street\":\"bulevardi\""
+                    + ",\"houseNumber\":50},\"available\":true},\"appUser\":{\"email\":\"a.delia@student.tudelft.nl\",\""
+                    + "password\":\"$2a$10$egMmgdg/NvIsUxyl1bj4luOF/4xU1/6xAkD0b20WRrzocoTrCDNjy\",\"name\":\"Alto\",\"surname"
+                    + "\":\"Delia\",\"faculty\":\"EWI\",\"loggedIn\":true,\"confirmationNumber\":466328,\"roles\":[{\"id\":1,\""
+                    + "name\":\"ROLE_USER\"},{\"id\":2,\"name\":\"ROLE_ADMIN\"}]},\"fromBuilding\":{\"id\":1,\"name\":\"delia\","
+                    + "\"street\":\"bulevardi\",\"houseNumber\":50},\"toBuilding\":{\"id\":4,\"name\":\"alto\",\"street\":\"rruga"
+                    + "\",\"houseNumber\":50},\"fromTime\":\"2020-03-19T14:00:00.000+0000\",\"toTime\":\"2020-03-19T19:00:00.000+0000"
+                    + "\"},{\"id\":7,\"bike\":{\"id\":3,\"location\":{\"id\":1,\"name\":\"delia\",\"street\":\"bulevardi\",\"houseNumber"
+                    + "\":50},\"available\":true},\"appUser\":{\"email\":\"a.delia@student.tudelft.nl\",\"password\":\""
+                    + "$2a$10$egMmgdg/NvIsUxyl1bj4luOF/4xU1/6xAkD0b20WRrzocoTrCDNjy\",\"name\":\"Alto\",\"surname\":\"Delia\",\"faculty"
+                    + "\":\"EWI\",\"loggedIn\":true,\"confirmationNumber\":466328,\"roles\":[{\"id\":1,\"name\":\"ROLE_USER\"},{\"id\":2,"
+                    + "\"name\":\"ROLE_ADMIN\"}]},\"fromBuilding\":{\"id\":4,\"name\":\"alto\",\"street\":\"rruga\",\"houseNumber\":50},"
+                    + "\"toBuilding\":{\"id\":1,\"name\":\"delia\",\"street\":\"bulevardi\",\"houseNumber\""
+                    + ":50},\"fromTime\":\"2020-03-19T14:00:00.000+0000\""
+                    + ",\"toTime\":\"2020-03-19T19:00:00.000+0000\"}]"));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            fail();
+        }
 
-        assertEquals(bikeReservations, JsonMapper.bikeReservationsListMapper("[{\"id\":5,\"bike\":{"
-                + "\"id\":2,\"location\":{\"id\":1,\"name\":\"delia\",\"street\":\"bulevardi\""
-                + ",\"houseNumber\":50},\"available\":true},\"appUser\":{\"email\":\"a.delia@student.tudelft.nl\",\""
-                + "password\":\"$2a$10$egMmgdg/NvIsUxyl1bj4luOF/4xU1/6xAkD0b20WRrzocoTrCDNjy\",\"name\":\"Alto\",\"surname"
-                + "\":\"Delia\",\"faculty\":\"EWI\",\"loggedIn\":true,\"confirmationNumber\":466328,\"roles\":[{\"id\":1,\""
-                + "name\":\"ROLE_USER\"},{\"id\":2,\"name\":\"ROLE_ADMIN\"}]},\"fromBuilding\":{\"id\":1,\"name\":\"delia\","
-                + "\"street\":\"bulevardi\",\"houseNumber\":50},\"toBuilding\":{\"id\":4,\"name\":\"alto\",\"street\":\"rruga"
-                + "\",\"houseNumber\":50},\"fromTime\":\"2020-03-19T14:00:00.000+0000\",\"toTime\":\"2020-03-19T19:00:00.000+0000"
-                + "\"},{\"id\":7,\"bike\":{\"id\":3,\"location\":{\"id\":1,\"name\":\"delia\",\"street\":\"bulevardi\",\"houseNumber"
-                + "\":50},\"available\":true},\"appUser\":{\"email\":\"a.delia@student.tudelft.nl\",\"password\":\""
-                + "$2a$10$egMmgdg/NvIsUxyl1bj4luOF/4xU1/6xAkD0b20WRrzocoTrCDNjy\",\"name\":\"Alto\",\"surname\":\"Delia\",\"faculty"
-                + "\":\"EWI\",\"loggedIn\":true,\"confirmationNumber\":466328,\"roles\":[{\"id\":1,\"name\":\"ROLE_USER\"},{\"id\":2,"
-                + "\"name\":\"ROLE_ADMIN\"}]},\"fromBuilding\":{\"id\":4,\"name\":\"alto\",\"street\":\"rruga\",\"houseNumber\":50},"
-                + "\"toBuilding\":{\"id\":1,\"name\":\"delia\",\"street\":\"bulevardi\",\"houseNumber\""
-                + ":50},\"fromTime\":\"2020-03-19T14:00:00.000+0000\""
-                + ",\"toTime\":\"2020-03-19T19:00:00.000+0000\"}]"));
     }
 
     @Test
-    void foodOrderMapperTest() {
+    void testFoodOrderMapper() {
         stubFor(get(urlEqualTo("/food_order/find/4"))
                 .willReturn(aResponse()
                         .withStatus(200)
@@ -369,7 +383,7 @@ class JsonMapperTest {
     }
 
     @Test
-    void foodOrderListMapperTest() {
+    void testFoodOrderListMapper() {
         stubFor(get(urlEqualTo("/food_order/all"))
                 .willReturn(aResponse()
                         .withStatus(200)
@@ -402,21 +416,26 @@ class JsonMapperTest {
                 + "alto\",\"street\":\"rruga\",\"houseNumber\":24},\"deliveryTime\":\"1970-01-01T00:00:00.100+0000\",\"menu\""
                 + ":null,\"dishes\":[]}]";
 
-        List<FoodOrder> foodOrders = JsonMapper.foodOrdersListMapper(json);
-
-        assertEquals(foodOrders, JsonMapper.foodOrdersListMapper("[{\"id\":4,\"restaurant\":{\"id\":2,\"building\""
-                + ":{\"id\":1,\"name\":\"alto\",\"street\":\"rruga\""
-                + ",\"houseNumber\":24},\"name\":\"Ad\",\"menu\":null},\"appUser\":{\"email\":\"a.delia@student.tudelft.nl"
-                + "\",\"password\":\"$2a$10$x9OlEoG2tU62ASvF5mDrYurry8qijsQ/oZgRIGlvHeTxpC6.NgAsW\",\"name\":\"Alto\",\""
-                + "surname\":\"Delia\",\"faculty\":\"EWI\",\"loggedIn\":true,\"confirmationNumber\":33712,\"roles\":[{\"id\""
-                + ":2,\"name\":\"ROLE_ADMIN\"},{\"id\":1,\"name\":\"ROLE_USER\"}]},\"deliveryLocation\":{\"id\":1,\"name\":\""
-                + "alto\",\"street\":\"rruga\",\"houseNumber\":24},\"deliveryTime\":\"1970-01-01T00:00:00.100+0000\",\"menu\""
-                + ":null,\"dishes\":[]},{\"id\":5,\"restaurant\":{\"id\":2,\"building\":{\"id\":1,\"name\":\"alto\",\"street\":\"rruga\""
-                + ",\"houseNumber\":24},\"name\":\"Ad\",\"menu\":null},\"appUser\":{\"email\":\"a.delia@student.tudelft.nl"
-                + "\",\"password\":\"$2a$10$x9OlEoG2tU62ASvF5mDrYurry8qijsQ/oZgRIGlvHeTxpC6.NgAsW\",\"name\":\"Alto\",\""
-                + "surname\":\"Delia\",\"faculty\":\"EWI\",\"loggedIn\":true,\"confirmationNumber\":33712,\"roles\":[{\"id\""
-                + ":2,\"name\":\"ROLE_ADMIN\"},{\"id\":1,\"name\":\"ROLE_USER\"}]},\"deliveryLocation\":{\"id\":1,\"name\":\""
-                + "alto\",\"street\":\"rruga\",\"houseNumber\":24},\"deliveryTime\":\"1970-01-01T00:00:00.100+0000\",\"menu\""
-                + ":null,\"dishes\":[]}]"));
+        List<FoodOrder> foodOrders = null;
+        try {
+            foodOrders = JsonMapper.foodOrdersListMapper(json);
+            assertEquals(foodOrders, JsonMapper.foodOrdersListMapper("[{\"id\":4,\"restaurant\":{\"id\":2,\"building\""
+                    + ":{\"id\":1,\"name\":\"alto\",\"street\":\"rruga\""
+                    + ",\"houseNumber\":24},\"name\":\"Ad\",\"menu\":null},\"appUser\":{\"email\":\"a.delia@student.tudelft.nl"
+                    + "\",\"password\":\"$2a$10$x9OlEoG2tU62ASvF5mDrYurry8qijsQ/oZgRIGlvHeTxpC6.NgAsW\",\"name\":\"Alto\",\""
+                    + "surname\":\"Delia\",\"faculty\":\"EWI\",\"loggedIn\":true,\"confirmationNumber\":33712,\"roles\":[{\"id\""
+                    + ":2,\"name\":\"ROLE_ADMIN\"},{\"id\":1,\"name\":\"ROLE_USER\"}]},\"deliveryLocation\":{\"id\":1,\"name\":\""
+                    + "alto\",\"street\":\"rruga\",\"houseNumber\":24},\"deliveryTime\":\"1970-01-01T00:00:00.100+0000\",\"menu\""
+                    + ":null,\"dishes\":[]},{\"id\":5,\"restaurant\":{\"id\":2,\"building\":{\"id\":1,\"name\":\"alto\",\"street\":\"rruga\""
+                    + ",\"houseNumber\":24},\"name\":\"Ad\",\"menu\":null},\"appUser\":{\"email\":\"a.delia@student.tudelft.nl"
+                    + "\",\"password\":\"$2a$10$x9OlEoG2tU62ASvF5mDrYurry8qijsQ/oZgRIGlvHeTxpC6.NgAsW\",\"name\":\"Alto\",\""
+                    + "surname\":\"Delia\",\"faculty\":\"EWI\",\"loggedIn\":true,\"confirmationNumber\":33712,\"roles\":[{\"id\""
+                    + ":2,\"name\":\"ROLE_ADMIN\"},{\"id\":1,\"name\":\"ROLE_USER\"}]},\"deliveryLocation\":{\"id\":1,\"name\":\""
+                    + "alto\",\"street\":\"rruga\",\"houseNumber\":24},\"deliveryTime\":\"1970-01-01T00:00:00.100+0000\",\"menu\""
+                    + ":null,\"dishes\":[]}]"));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            fail();
+        }
     }
 }

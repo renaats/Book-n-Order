@@ -89,7 +89,7 @@ public class MenuTest {
      * Tests the saving and retrieval of an instance of Menu.
      */
     @Test
-    public void saveAndRetrieveMenu() {
+    public void testSaveAndRetrieveMenu() {
         assertNotEquals(menu1, menu2);
         menu2 = menuRepository.findAll().get(0);
         assertEquals(menu1, menu2);

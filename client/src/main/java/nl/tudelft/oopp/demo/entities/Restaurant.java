@@ -11,7 +11,6 @@ import java.util.Set;
  * Contains Menu as a foreign key.
  */
 public class Restaurant {
-
     private int id;
     private Building building;
     private String name;

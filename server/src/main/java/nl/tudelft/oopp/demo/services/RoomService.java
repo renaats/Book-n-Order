@@ -95,6 +95,9 @@ public class RoomService {
 
         switch (attribute) {
             case "name":
+                if (room.getBuilding().hasRoomWithName(value)) {
+                    return DUPLICATE_NAME;
+                }
                 room.setName(value);
                 break;
             case "studyspecific":
