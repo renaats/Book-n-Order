@@ -64,12 +64,15 @@ public class BookRoomController implements Initializable {
     private TableColumn<Room, Integer> colPlugs;
     @FXML
     private ChoiceBox<String> buildingChoiceBox;
+    @FXML
+    private AnchorPane anchorPane;
 
     private int pageNumber;
     private double totalPages;
 
     private Room selectedRoom;
     private List<Room> rooms;
+    private Button reserveButton;
 
 
     @Override
@@ -126,7 +129,6 @@ public class BookRoomController implements Initializable {
      * @throws IOException the input will always be the same, so it should never throw an IO exception
      */
     public void goToRoomConfirmation() throws IOException {
-        //ServerCommunication.addRoomReservation(selectedRoom.getId());
         ApplicationDisplay.changeScene("/RoomConfirmation.fxml");
     }
 
@@ -194,7 +196,29 @@ public class BookRoomController implements Initializable {
      */
     public void tableSelectMethod() {
         table.getSelectionModel().selectedItemProperty().addListener((obs) -> {
-            selectedRoom = table.getSelectionModel().getSelectedItem();
+            anchorPane.getChildren().remove(reserveButton);
+
+            final Room room = table.getSelectionModel().getSelectedItem();
+
+            for (int i = 0; i < roomResult.size(); i++) {
+                assert room != null;
+                if (roomResult.get(i).getId().equals(room.getId())) {
+                    reserveButton = new Button("Reserve");
+                    reserveButton.setLayoutX(1180);
+                    reserveButton.setLayoutY(186 + (24  * (i + 1)));
+                    reserveButton.setMinWidth(75);
+                    reserveButton.setStyle("-fx-background-color:  #46cc00; -fx-font-size:10; -fx-text-fill: white; -fx-font:12 system;");
+                    reserveButton.setMaxHeight(24);
+                    reserveButton.setOnAction(event -> {
+                        try {
+                            goToRoomConfirmation();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    });
+                    anchorPane.getChildren().add(reserveButton);
+                }
+            }
         });
     }
 
