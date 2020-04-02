@@ -14,19 +14,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
-import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.FoodOrder;
 import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 
 public class MyPreviousFoodReservationsController implements Initializable {
-
-    final List<FoodOrder> foodOrders = JsonMapper.foodOrderList(ServerCommunication.getAllFoodOrders());
 
     private final ObservableList<FoodOrder> foodOrderResult = FXCollections.observableArrayList();
 
@@ -61,7 +57,7 @@ public class MyPreviousFoodReservationsController implements Initializable {
         foodOrderResult.clear();
         List<FoodOrder> foodOrders;
         try {
-            foodOrders = new ArrayList<>(Objects.requireNonNull(JsonMapper.foodOrderList((ServerCommunication.getAllPreviousFoodOrders()))));
+            foodOrders = new ArrayList<>(Objects.requireNonNull(JsonMapper.foodOrderList((ServerCommunication.getAllFoodOrders()))));
         } catch (Exception e) {
             // Fakes the table having any entries, so the table shows up properly instead of "No contents".
             foodOrders = new ArrayList<>();

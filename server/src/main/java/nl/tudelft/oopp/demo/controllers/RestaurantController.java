@@ -64,6 +64,18 @@ public class RestaurantController {
     }
 
     /**
+     * Adds a review to a restaurant.
+     * @param id = the id of the restaurant
+     * @return Error code
+     */
+    @Secured("ROLE_USER")
+    @GetMapping(path = "/feedback")
+    @ResponseBody
+    public int restaurantFeedback(@RequestParam int id) {
+        return restaurantService.getFeedback(id);
+    }
+
+    /**
      * Updates a specified attribute for some restaurant.
      * @param id = the id of the restaurant
      * @param attribute = the attribute that is changed
