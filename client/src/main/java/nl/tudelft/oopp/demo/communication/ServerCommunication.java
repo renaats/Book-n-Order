@@ -632,6 +632,23 @@ public class ServerCommunication {
         return communicateAndReturnErrorMessage(request);
     }
 
+    /**
+     * Adds the user feedback for the restaurant.
+     * @param restaurantId the id of the restaurant.
+     * @param feedback if the feedback is positive (true), if it's negative (false).
+     * @return
+     */
+    public static String addFoodFeedback(int restaurantId, boolean feedback) {
+        HttpRequest request =  HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant/addFeedback?id=" + restaurantId + "&feedback=" + feedback)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        HttpResponse<String> response;
+        return communicateAndReturnErrorMessage(request);
+    }
+
+    public static String getFeedback(int id) {
+        HttpRequest request =  HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant/feedback?id=" + id)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return  (request.toString());
+    }
+
     // -----------------------------------------
     // User related Server Communication Methods
     // -----------------------------------------

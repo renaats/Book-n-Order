@@ -182,4 +182,13 @@ public class RestaurantService {
     public Restaurant find(String name) {
         return restaurantRepository.findByName(URLDecoder.decode(name, StandardCharsets.UTF_8));
     }
+
+    /**
+     * Gets the feedbackCounter of the restaurant with the given id.
+     * @param id the id of the restaurant.
+     * @return the value of feedbackCounter.
+     */
+    public int getFeedback(int id) {
+        return restaurantRepository.findById(id).get().getFeedbackCounter();
+    }
 }

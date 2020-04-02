@@ -21,6 +21,7 @@ import nl.tudelft.oopp.demo.entities.Restaurant;
 import nl.tudelft.oopp.demo.entities.RestaurantHours;
 import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.entities.RoomReservation;
+import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.user.UserInformation;
 
 /**
@@ -382,5 +383,24 @@ public class JsonMapper {
         } catch (Exception e) {
             return new ArrayList();
         }
+    }
+    
+    /**
+     * Maps all food orders JSONS to a list.
+     * @param allFoodOrdersJson a JSON string representing a list.
+     * @return A list filled with object Food orders.n
+     */
+    public static List<FoodOrder> foodOrderList(String allFoodOrdersJson) {
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        try {
+            // Convert JSON string to Object
+            return mapper.readValue(allFoodOrdersJson, new TypeReference<>() {
+            });
+        } catch (Exception e) {
+            CustomAlert.warningAlert(allFoodOrdersJson);
+        }
+        return null;
     }
 }

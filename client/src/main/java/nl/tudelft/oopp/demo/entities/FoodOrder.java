@@ -16,6 +16,7 @@ public class FoodOrder {
     private Building deliveryLocation;
     private Date deliveryTime;
     private Set<Dish> dishes;
+    private boolean feedback;
 
     /** Creates a new instance of FoodOrder.
      * @param restaurant the restaurant at which the food order is placed.
@@ -30,6 +31,7 @@ public class FoodOrder {
         this.deliveryTime = deliveryTime;
         this.menu = menu;
         this.active = true;
+        this.feedback = true;
     }
 
     public FoodOrder() {
@@ -111,5 +113,9 @@ public class FoodOrder {
                 && Objects.equals(deliveryTime, that.deliveryTime)
                 && Objects.equals(menu, that.menu)
                 && Objects.equals(dishes, that.dishes);
+    }
+
+    public boolean getFeedback() {
+        return this.feedback;
     }
 }

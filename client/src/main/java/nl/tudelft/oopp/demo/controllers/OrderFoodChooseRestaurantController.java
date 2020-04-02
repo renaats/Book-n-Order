@@ -51,4 +51,10 @@ public class OrderFoodChooseRestaurantController {
     public void mainMenu(MouseEvent mouseEvent) throws IOException {
         ApplicationDisplay.changeScene("/mainMenu.fxml");
     }
+
+    public void applyFilters(ActionEvent actionEvent) {
+    }
+
+    public void restaurantChosen(ActionEvent actionEvent) {
+    }
 }
