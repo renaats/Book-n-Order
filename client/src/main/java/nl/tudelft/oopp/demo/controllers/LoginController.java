@@ -6,7 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
-import nl.tudelft.oopp.demo.communication.ServerCommunication;
+import nl.tudelft.oopp.demo.communication.UserRelated;
 import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
@@ -46,14 +46,14 @@ public class LoginController {
         }
 
         // NEED TO BE DELETED BEFORE PRODUCTION! ONLY USED FOR END-TO-END TESTING!
-        ServerCommunication.addUser("staff@tudelft.nl", "Staff", "AlsoStaff", "EWI", "1234");
-        ServerCommunication.addUser("admin@tudelft.nl", "Admin", "AlsoAdmin", "None", "1234");
-        ServerCommunication.addUser("building_admin@tudelft.nl", "BuildingAdmin", "AlsoBuildingAdmin", "None", "1234");
-        ServerCommunication.addUser("bike_admin@tudelft.nl", "BikeAdmin", "AlsoBikeAdmin", "None", "1234");
-        ServerCommunication.addUser("restaurant@tudelft.nl", "Restaurant", "AlsoRestaurant", "None", "1234");
+        UserRelated.addUser("staff@tudelft.nl", "Staff", "AlsoStaff", "EWI", "1234");
+        UserRelated.addUser("admin@tudelft.nl", "Admin", "AlsoAdmin", "None", "1234");
+        UserRelated.addUser("building_admin@tudelft.nl", "BuildingAdmin", "AlsoBuildingAdmin", "None", "1234");
+        UserRelated.addUser("bike_admin@tudelft.nl", "BikeAdmin", "AlsoBikeAdmin", "None", "1234");
+        UserRelated.addUser("restaurant@tudelft.nl", "Restaurant", "AlsoRestaurant", "None", "1234");
         // NEED TO BE DELETED BEFORE PRODUCTION! ONLY USED FOR END-TO-END TESTING!
 
-        String message = ServerCommunication.loginUser(username, password);
+        String message = UserRelated.loginUser(username, password);
         if (message.equals("Login and/or password is incorrect.")) {
             CustomAlert.errorAlert(message);
         }

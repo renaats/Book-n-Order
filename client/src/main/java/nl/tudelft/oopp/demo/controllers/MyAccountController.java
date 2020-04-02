@@ -13,7 +13,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 import nl.tudelft.oopp.demo.communication.JsonMapper;
-import nl.tudelft.oopp.demo.communication.ServerCommunication;
+import nl.tudelft.oopp.demo.communication.UserRelated;
 import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.user.UserInformation;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
@@ -37,7 +37,7 @@ public class MyAccountController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        UserInformation userInformation = JsonMapper.userInformationMapper(ServerCommunication.getOwnUserInformation());
+        UserInformation userInformation = JsonMapper.userInformationMapper(UserRelated.getOwnUserInformation());
         fullNameLabel.setText(userInformation.getName() + " " + userInformation.getSurname());
         emailLabel.setText(userInformation.getEmail());
         facultyLabel.setText(userInformation.getFaculty());
@@ -45,7 +45,7 @@ public class MyAccountController implements Initializable {
 
         boolean showAdminButton = false;
         try {
-            showAdminButton = ServerCommunication.getAdminButtonPermission();
+            showAdminButton = UserRelated.getAdminButtonPermission();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -93,7 +93,7 @@ public class MyAccountController implements Initializable {
      * @throws IOException input is valid hence we throw.
      */
     public void logoutUser() throws IOException {
-        ServerCommunication.logoutUser();
+        UserRelated.logoutUser();
         CustomAlert.informationAlert("Logged out!");
         ApplicationDisplay.changeScene("/login-screen.fxml");
     }

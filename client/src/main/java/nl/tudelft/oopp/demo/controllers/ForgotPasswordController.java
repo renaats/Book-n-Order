@@ -4,7 +4,7 @@ import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
-import nl.tudelft.oopp.demo.communication.ServerCommunication;
+import nl.tudelft.oopp.demo.communication.UserRelated;
 import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
@@ -29,6 +29,6 @@ public class ForgotPasswordController {
      */
     public void sendEmail() {
         String email = emailField.getText();
-        CustomAlert.informationAlert(ServerCommunication.sendRecoveryPassword(email));
+        CustomAlert.informationAlert(UserRelated.sendRecoveryPassword(email));
     }
 }
