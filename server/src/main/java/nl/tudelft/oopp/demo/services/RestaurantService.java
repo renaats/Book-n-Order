@@ -154,6 +154,10 @@ public class RestaurantService {
         if (appUser == null) {
             return null;
         }
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        if (securityContext.getAuthentication().getAuthorities().contains(new SimpleGrantedAuthority(ADMIN))) {
+            return restaurantRepository.findAll();
+        }
         return restaurantRepository.findAllByEmail(appUser.getEmail());
     }
 

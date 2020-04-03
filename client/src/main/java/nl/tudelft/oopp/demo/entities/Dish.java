@@ -1,5 +1,6 @@
 package nl.tudelft.oopp.demo.entities;
 
+import java.text.DecimalFormat;
 import java.util.Objects;
 import java.util.Set;
 
@@ -17,6 +18,7 @@ public class Dish {
     private Menu menu;
     private Set<Allergy> allergies;
     private Set<FoodOrder> foodOrders;
+    private int amount = 0;
 
     /**
      * Creates a new instance of Dish.
@@ -62,6 +64,10 @@ public class Dish {
         allergies.add(allergy);
     }
 
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
     public int getId() {
         return id;
     }
@@ -74,8 +80,8 @@ public class Dish {
         return price;
     }
 
-    public double getPriceInEuros() {
-        return (double) Math.round(price * 100) / 10000;
+    public String getPriceInEuros() {
+        return new DecimalFormat("##.00").format((double) Math.round(price * 100) / 10000);
     }
 
     public String getDescription() {
@@ -92,6 +98,10 @@ public class Dish {
 
     public Menu getMenu() {
         return menu;
+    }
+
+    public int getAmount() {
+        return amount;
     }
 
     @Override

@@ -4,6 +4,9 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 /**
  * Represents a restaurant. Holds all necessary information about the restaurant that is then stored in the database.
  * Is uniquely identified by its id.
@@ -68,6 +71,15 @@ public class Restaurant {
 
     public Menu getMenu() {
         return menu;
+    }
+
+    /**
+     * Makes the table list the building name instead of the building object
+     * @return String property, a property recognized by the tables.
+     */
+    public StringProperty getBuildingNameProperty() {
+        String name = getBuilding().getName();
+        return new SimpleStringProperty(name);
     }
 
     @Override

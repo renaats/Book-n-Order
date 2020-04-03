@@ -19,7 +19,7 @@ public class RoomSpecification implements Specification<Room> {
     private BuildingService buildingService;
 
     public RoomSpecification(SearchCriteria criteria) {
-        buildingService = ServiceHelper.get();
+        buildingService = ServiceHelper.getBuilding();
         this.criteria = criteria;
     }
 

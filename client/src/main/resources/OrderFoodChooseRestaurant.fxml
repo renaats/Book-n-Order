@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -11,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.restaurants.OrderFoodChooseRestaurantController">
+<AnchorPane fx:id="anchorPane" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.restaurants.OrderFoodChooseRestaurantController">
 
     <ImageView fitHeight="720.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
         <Image url="@images/Living-Campus-1-1280x600-c-center.jpg" />
@@ -34,14 +35,14 @@
             <Font name="Calibri" size="11.0" />
         </font>
     </Text>
-    <TextField fx:id="restaurantName" layoutX="171.0" layoutY="161.0" promptText="Name of the restaurant" />
+    <TextField fx:id="restaurantName" layoutX="152.0" layoutY="190.0" promptText="Name of the restaurant" />
     <ImageView fitHeight="41.0" fitWidth="44.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#mainMenu" pickOnBounds="true" preserveRatio="true">
         <Image url="@images/HomeIconTransparent.png" />
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor>
     </ImageView>
-    <TableView fx:id="restaurantTable" layoutX="63.0" layoutY="246.0" prefHeight="384.0" prefWidth="301.0" stylesheets="@table.css">
+    <TableView fx:id="restaurantTable" layoutX="75.0" layoutY="320.0" prefHeight="264.0" prefWidth="302.0" stylesheets="@table.css">
         <columns>
             <TableColumn fx:id="colRestaurantName" prefWidth="153.0" text="Restaurant" />
          <TableColumn fx:id="colRestaurantBuilding" prefWidth="147.0" text="Building" />
@@ -55,20 +56,60 @@
          <Cursor fx:constant="HAND" />
       </cursor>
     </ImageView>
-   <TableView fx:id="dishTable" layoutX="516.0" layoutY="246.0" prefHeight="384.0" prefWidth="247.0" stylesheets="@table.css">
+   <TableView fx:id="dishTable" layoutX="528.0" layoutY="320.0" prefHeight="264.0" prefWidth="248.0" stylesheets="@table.css">
       <columns>
          <TableColumn fx:id="colDishName" prefWidth="166.0" text="Dish" />
-         <TableColumn fx:id="colDishPrice" text="Price" />
+         <TableColumn fx:id="colDishPrice" text="Price (€)" />
       </columns>
    </TableView>
-   <Text layoutX="130.0" layoutY="178.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" textAlignment="RIGHT" />
-   <Text layoutX="120.0" layoutY="213.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Building:" textAlignment="RIGHT" />
-   <ChoiceBox fx:id="buildingChoiceBox" layoutX="171.0" layoutY="196.0" prefWidth="150.0" />
-   <TableView fx:id="foodOrderTable" layoutX="967.0" layoutY="246.0" prefHeight="384.0" prefWidth="227.0" stylesheets="@table.css">
+   <Text layoutX="110.0" layoutY="207.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" textAlignment="RIGHT" />
+   <Text layoutX="98.0" layoutY="239.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Building:" textAlignment="RIGHT" />
+   <ChoiceBox fx:id="buildingChoiceBox" layoutX="151.0" layoutY="222.0" prefWidth="150.0" />
+   <TableView fx:id="orderTable" layoutX="979.0" layoutY="320.0" prefHeight="264.0" prefWidth="227.0" stylesheets="@table.css">
      <columns>
        <TableColumn fx:id="colOrderDishName" prefWidth="94.0" text="Dish" />
        <TableColumn fx:id="colOrderPrice" prefWidth="76.0" text="Price" />
          <TableColumn fx:id="colOrderAmount" prefWidth="55.0" text="Amount" />
      </columns>
    </TableView>
+   <Button fx:id="nextPageRestaurantButton" layoutX="261.0" layoutY="604.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#nextRestaurantPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&gt;&gt;" textFill="WHITE">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
+   <Button fx:id="previousPageRestaurantButton" layoutX="152.0" layoutY="604.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#previousRestaurantPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&lt;&lt;" textFill="WHITE">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
+   <Text fx:id="pagesTextRestaurant" layoutX="195.0" layoutY="621.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0 / pages" />
+   <Button fx:id="submitRestaurantButton" layoutX="126.0" layoutY="268.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#applyRestaurantFilters" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: #00a6d6;" text="Search" textFill="WHITE" />
+   <Button fx:id="nextPageDishButton" layoutX="689.0" layoutY="604.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#nextDishPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&gt;&gt;" textFill="WHITE">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
+   <Button fx:id="previousPageDishButton" layoutX="580.0" layoutY="604.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#previousDishPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&lt;&lt;" textFill="WHITE">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
+   <Text fx:id="pagesTextDish" layoutX="623.0" layoutY="621.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0 / pages" />
+   <Text layoutX="531.0" layoutY="207.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" textAlignment="RIGHT" />
+   <TextField fx:id="dishName" layoutX="573.0" layoutY="190.0" promptText="Name of the dish" />
+   <Button fx:id="submitDishButton" layoutX="548.0" layoutY="268.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#applyDishFilters" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: #00a6d6;" text="Search" textFill="WHITE" />
+   <Text layoutX="536.0" layoutY="239.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Price:" textAlignment="RIGHT" />
+   <TextField fx:id="fromPrice" layoutX="573.0" layoutY="222.0" prefHeight="25.0" prefWidth="41.0" promptText="From" />
+   <TextField fx:id="toPrice" layoutX="627.0" layoutY="222.0" prefHeight="25.0" prefWidth="41.0" promptText="To" />
+   <Button fx:id="nextPageOrderButton" layoutX="1129.0" layoutY="604.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#nextOrderPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&gt;&gt;" textFill="WHITE">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
+   <Button fx:id="previousPageOrderButton" layoutX="1020.0" layoutY="604.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#previousOrderPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&lt;&lt;" textFill="WHITE">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
+   <Text fx:id="pagesTextOrder" layoutX="1063.0" layoutY="621.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0 / pages" />
 </AnchorPane>

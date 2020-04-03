@@ -447,7 +447,7 @@ public class ServerCommunication {
      * @return A JSON list of rooms matching the query.
      */
     public static String filterDishes(String query) {
-        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/dish/filter?query=" + query)).build();
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/dish/filter?query=" + URLEncoder.encode(query, StandardCharsets.UTF_8))).build();
         return communicateAndReturnBodyOfResponse(request);
     }
     

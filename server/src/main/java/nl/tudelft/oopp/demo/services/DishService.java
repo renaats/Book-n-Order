@@ -8,6 +8,8 @@ import static nl.tudelft.oopp.demo.config.Constants.ID_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.MENU_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.WRONG_CREDENTIALS;
 
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -174,6 +176,7 @@ public class DishService {
      * @return list of dishes that match the query
      */
     public List<Dish> search(String search) {
+        search = URLDecoder.decode(search, StandardCharsets.UTF_8);
         DishSpecificationsBuilder builder = new DishSpecificationsBuilder();
         Pattern pattern = Pattern.compile("(\\w+?)([:<>])(\\w+?),");
         Matcher matcher = pattern.matcher(search + ",");
