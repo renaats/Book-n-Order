@@ -63,15 +63,17 @@ public class RoomCalendarView extends CalendarView {
     public void loadRoomReservations() {
         List<RoomReservation> roomReservationList;
         try {
-            String roomReservationJson = ServerCommunication.getAllActiveRoomReservations();
+            String roomReservationJson = ServerCommunication.findReservationForRoom(roomId);
+            System.out.println(roomReservationJson);
             roomReservationList = new ArrayList<>(Objects.requireNonNull(JsonMapper.roomReservationsListMapper(roomReservationJson)));
         } catch (NullPointerException e) {
+            System.out.println("Exception thrown");
             roomReservationList = new ArrayList<>();
             roomReservationList.add(null);
         }
 
         for (RoomReservation reservation : roomReservationList) {
-            if (reservation != null && reservation.getRoom().getId() == this.roomId) {
+            if (reservation != null) {
                 Entry<RoomReservation> bookedEntry = new Entry<>("Booking of Room: " + reservation.getRoom().getName());
                 LocalTime startTime = convertToLocalTime(reservation.getFromTime());
                 LocalTime endTime = convertToLocalTime(reservation.getToTime());
