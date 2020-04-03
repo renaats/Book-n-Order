@@ -6,56 +6,56 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
  * Loads the correct content into the FXML objects that need to display server information and
- * controls all the user inputs made through the GUI in the "myCurrentBookings.fxml" file
+ * controls all the user inputs made through the GUI in the "MyCurrentBookings.fxml" file
  */
 public class MyCurrentBookingsController {
 
     /**
-     * Changes current scene to myCurrentBookings.fxml.
+     * Changes current scene to MyCurrentBookings.fxml.
      * @throws IOException input will be valid.
      */
     public void myCurrentBookings() throws IOException {
-        ApplicationDisplay.changeScene("/myCurrentBookings.fxml");
+        ApplicationDisplay.changeScene("/MyCurrentBookings.fxml");
     }
 
     /**
-     * Changes current scene to myPreviousBookings.fxml.
+     * Changes current scene to MyPreviousBookings.fxml.
      * @throws IOException input will be valid.
      */
     public void myPreviousBookings() throws IOException {
-        ApplicationDisplay.changeScene("/myPreviousBookings.fxml");
+        ApplicationDisplay.changeScene("/MyPreviousBookings.fxml");
     }
 
     /**
-     * Changes current scene to myCurrentBikeReservations.fxml.
+     * Changes current scene to MyCurrentBikeReservations.fxml.
      * @throws IOException input will be valid.
      */
     public void myCurrentBikeReservations() throws IOException {
-        ApplicationDisplay.changeScene("/myCurrentBikeReservations.fxml");
+        ApplicationDisplay.changeScene("/MyCurrentBikeReservations.fxml");
     }
 
     /**
-     * Changes current scene to myCurrentRoomBookings.fxml.
+     * Changes current scene to MyCurrentRoomReservations.fxml.
      * @throws IOException input will be valid.
      */
     public void myCurrentRoomBookings() throws IOException {
-        ApplicationDisplay.changeScene("/myCurrentRoomReservations.fxml");
+        ApplicationDisplay.changeScene("/MyCurrentRoomReservations.fxml");
     }
 
     /**
-     * Changes current scene to myCurrentFoodOrders.fxml.
+     * Changes current scene to MyCurrentFoodReservations.fxml.
      * @throws IOException input will be valid.
      */
     public void myCurrentFoodOrders() throws IOException {
-        ApplicationDisplay.changeScene("/myCurrentFoodReservations.fxml");
+        ApplicationDisplay.changeScene("/MyCurrentFoodReservations.fxml");
     }
 
     /**
-     * Changes current scene to mainMenu.fxml.
+     * Changes current scene to MainMenu.fxml.
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
     public void mainMenu() throws IOException {
-        ApplicationDisplay.changeScene("/mainMenu.fxml");
+        ApplicationDisplay.changeScene("/MainMenu.fxml");
     }
 
     /**
@@ -63,6 +63,6 @@ public class MyCurrentBookingsController {
      * @throws IOException should never throw an exception
      */
     public void goToMyAccount() throws IOException {
-        ApplicationDisplay.changeScene("/myAccountScene.fxml");
+        ApplicationDisplay.changeScene("/AccountScene.fxml");
     }
 }

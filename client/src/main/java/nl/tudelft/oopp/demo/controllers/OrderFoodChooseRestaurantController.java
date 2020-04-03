@@ -31,7 +31,7 @@ public class OrderFoodChooseRestaurantController {
      * @throws IOException the input is always the same, so it should never throw an exception
      */
     public void goToMainMenuReservations(MouseEvent mouseEvent) throws IOException {
-        ApplicationDisplay.changeScene("/mainMenuReservations.fxml");
+        ApplicationDisplay.changeScene("/MainMenuReservations.fxml");
     }
 
     /**
@@ -44,11 +44,11 @@ public class OrderFoodChooseRestaurantController {
     }
     /**
      * Goes back to the main reservations menu when the home icon is clicked
-     * @param mouseEvent the event is the clicking of the home icon in mainMenu.fxml
+     * @param mouseEvent the event is the clicking of the home icon in MainMenu.fxml
      * @throws IOException the input is always the same, so it should never throw an exception
      */
 
     public void mainMenu(MouseEvent mouseEvent) throws IOException {
-        ApplicationDisplay.changeScene("/mainMenu.fxml");
+        ApplicationDisplay.changeScene("/MainMenu.fxml");
     }
 }

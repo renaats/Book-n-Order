@@ -742,7 +742,7 @@ public class ServerCommunication {
                         if (!getAccountActivation()) {
                             ApplicationDisplay.changeScene("/ConfirmationSixDigits.fxml");
                         } else {
-                            ApplicationDisplay.changeScene("/mainMenu.fxml");
+                            ApplicationDisplay.changeScene("/MainMenu.fxml");
                         }
                         return ErrorMessages.getErrorMessage(200);
                     }

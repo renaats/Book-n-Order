@@ -12,7 +12,7 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
  * Loads the correct content into the FXML objects that need to display server information and
- * controls all the user inputs made through the GUI in the "login-screen.fxml" file
+ * controls all the user inputs made through the GUI in the "LoginScreen.fxml" file
  */
 public class LoginController {
 
@@ -22,11 +22,11 @@ public class LoginController {
     private TextField passwordField;
 
     /**
-     * Changes current to mainMenu.fxml.
+     * Changes current to MainMenu.fxml.
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
     public void mainMenu() throws IOException {
-        ApplicationDisplay.changeScene("/mainMenu.fxml");
+        ApplicationDisplay.changeScene("/MainMenu.fxml");
     }
 
     /**
@@ -65,7 +65,7 @@ public class LoginController {
      * @throws IOException User input will be valid, no need to check this, thus we throw.
      */
     public void registrationScene(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/registrationScreen.fxml");
+        ApplicationDisplay.changeScene("/RegistrationScreen.fxml");
     }
 
     /**

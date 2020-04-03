@@ -11,7 +11,7 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
  * Loads the correct content into the FXML objects that need to display server information and
- * controls all the user inputs made through the GUI in the "changePassword.fxml" file
+ * controls all the user inputs made through the GUI in the "ChangePassword.fxml" file
  */
 public class ChangePasswordController {
 
@@ -21,11 +21,11 @@ public class ChangePasswordController {
     private PasswordField newPassword1;
 
     /**
-     * Returns to the "myAccount" scene when the back arrow is pressed
+     * Returns to the user's "Account" scene when the back arrow is pressed
      * @throws IOException this method should never throw an exception
      */
-    public void goToMyAccountScene() throws IOException {
-        ApplicationDisplay.changeScene("/myAccountScene.fxml");
+    public void goToAccountScene() throws IOException {
+        ApplicationDisplay.changeScene("/AccountScene.fxml");
     }
 
     /**
@@ -39,7 +39,7 @@ public class ChangePasswordController {
         if (password1.equals(password2)) {
             String response = ServerCommunication.changeUserPassword(password1);
             CustomAlert.informationAlert(response);
-            ApplicationDisplay.changeScene("/login-screen.fxml");
+            ApplicationDisplay.changeScene("/LoginScreen.fxml");
         } else {
             CustomAlert.errorAlert("Passwords do not match.");
         }

@@ -59,20 +59,20 @@ public class RegistrationController implements Initializable {
     }
 
     /**
-     * Changes to mainMenuReservations.fxml.
+     * Changes to MainMenuReservations.fxml.
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
     public void mainMenu() throws IOException {
-        ApplicationDisplay.changeScene("/mainMenuReservations.fxml");
+        ApplicationDisplay.changeScene("/MainMenuReservations.fxml");
     }
 
     /**
-     * Changes to login-screen.fxml
+     * Changes to LoginScreen.fxml
      * @param actionEvent actionEvent parameter
      * @throws IOException User input will be valid, no need to check this, thus we throw.
      */
     public void loginScene(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/login-screen.fxml");
+        ApplicationDisplay.changeScene("/LoginScreen.fxml");
     }
 
     private void loadData() {

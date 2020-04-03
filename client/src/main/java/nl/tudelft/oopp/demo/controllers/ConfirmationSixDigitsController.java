@@ -26,7 +26,7 @@ public class ConfirmationSixDigitsController {
             int code = Integer.parseInt(sixDigitCode.getText());
             String response =  ServerCommunication.validateUser(code);
             if (response.equals("Successfully executed.")) {
-                ApplicationDisplay.changeScene("/mainMenu.fxml");
+                ApplicationDisplay.changeScene("/MainMenu.fxml");
             } else {
                 CustomAlert.warningAlert(response);
             }
@@ -41,7 +41,7 @@ public class ConfirmationSixDigitsController {
      */
     public void goToLoginScreen() throws IOException {
         AuthenticationKey.setBearerKey(null);
-        ApplicationDisplay.changeScene("/login-screen.fxml");
+        ApplicationDisplay.changeScene("/LoginScreen.fxml");
     }
 }
 
