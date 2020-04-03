@@ -1,6 +1,7 @@
 package nl.tudelft.oopp.demo.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -148,10 +149,20 @@ public class FoodOrderTest {
     }
 
     /**
+     * Test adding feedback to a restaurant.
+     */
+    @Test
+    public void testAddFeedback() {
+        assertNotEquals(true, foodOrder.isFeedbackGiven());
+        foodOrder.setFeedbackGiven(true);
+        assertEquals(true, foodOrder.isFeedbackGiven());
+    }
+
+    /**
      * Tests the setting of the foodOrders for an appUser.
      */
     @Test
-    public void testSetBikeReservations() {
+    public void testSetFoodOrders() {
         Set<FoodOrder> foodOrders = new HashSet<>();
         foodOrders.add(foodOrder);
         appUser.setFoodOrder(foodOrders);

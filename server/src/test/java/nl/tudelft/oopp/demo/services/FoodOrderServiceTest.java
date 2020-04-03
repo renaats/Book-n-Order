@@ -434,4 +434,14 @@ public class FoodOrderServiceTest {
         MockHttpServletRequest request = new MockHttpServletRequest();
         assertEquals(WRONG_USER, foodOrderService.cancel(request, foodOrderService.all().get(0).getId()));
     }
+
+    /**
+     * Tests the adding of feedback.
+     */
+    @Test
+    public void testAddFeedback() {
+        foodOrderService.add(request, restaurant.getId(), deliverLocation.getId(), deliverTimeMilliseconds2);
+        foodOrderService.addFeedback(foodOrderService.all().get(0).getId(), true);
+        assertTrue(foodOrderService.all().get(0).isFeedbackGiven());
+    }
 }

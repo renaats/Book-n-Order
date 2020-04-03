@@ -89,14 +89,10 @@ public class RestaurantService {
         if (restaurantRepository.findById(id).isEmpty()) {
             return 428;
         }
-
         Restaurant restaurant = restaurantRepository.findById(id).get();
-        if (noPermissions(SecurityContextHolder.getContext(), restaurant)) {
-            return WRONG_CREDENTIALS;
-        }
         restaurant.addFeedback(feedback);
         restaurantRepository.save(restaurant);
-        return 201;
+        return EXECUTED;
     }
 
     /**

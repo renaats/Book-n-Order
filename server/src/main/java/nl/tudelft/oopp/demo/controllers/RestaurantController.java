@@ -58,7 +58,7 @@ public class RestaurantController {
      * @param feedback the feedback of the user.
      * @return Error code.
      */
-    @Secured({ADMIN, RESTAURANT})
+    @Secured({USER})
     @PostMapping(path = "/addFeedback") // Map ONLY POST Requests
     @ResponseBody
     public int addNewRestaurant(
@@ -66,18 +66,6 @@ public class RestaurantController {
             @RequestParam boolean feedback
     ) {
         return restaurantService.addFeedback(id,feedback);
-    }
-
-    /**
-     * Adds a review to a restaurant.
-     * @param id = the id of the restaurant
-     * @return Error code
-     */
-    @Secured("ROLE_USER")
-    @GetMapping(path = "/addFeedback")
-    @ResponseBody
-    public int addFeedBackToRestaurant(@RequestParam int id, @RequestParam boolean feedback) {
-        return restaurantService.addFeedback(id, feedback);
     }
 
     /**

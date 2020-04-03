@@ -86,6 +86,9 @@ public class ServerCommunicationTest {
         stubFor(get(urlEqualTo("/bike_reservation/future")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(get(urlEqualTo("/bike_reservation/past")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(get(urlEqualTo("/bike_reservation/cancel/1")).willReturn(aResponse().withStatus(200).withBody("201")));
+        stubFor(post(urlEqualTo("/food_order/addFeedback?id=1&feedback=true")).willReturn(aResponse().withStatus(200).withBody("201")));
+        stubFor(post(urlEqualTo("/restaurant/addFeedback?id=1&feedback=true")).willReturn(aResponse().withStatus(200).withBody("201")));
+
     }
 
     /**
@@ -512,6 +515,22 @@ public class ServerCommunicationTest {
     @Test
     public void testCancelFoodOrder() {
         assertEquals(ErrorMessages.getErrorMessage(201), ServerCommunication.cancelFoodOrder(1));
+    }
+
+    /**
+     * Tests the adding of feedback to a food order
+     */
+    @Test
+    public void testAddFeedbackFoodOrder() {
+        assertEquals(ErrorMessages.getErrorMessage(201), ServerCommunication.addFeedbackFoodOrder(1,true));
+    }
+
+    /**
+     * Tests the adding of feedback to a food order
+     */
+    @Test
+    public void testAddFoodFeedbackRestaurant() {
+        assertEquals(ErrorMessages.getErrorMessage(201), ServerCommunication.addFeedbackFoodOrder(1,true));
     }
 
     /**
