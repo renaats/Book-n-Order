@@ -36,8 +36,11 @@ import java.util.Set;
 
 import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.Role;
+import nl.tudelft.oopp.demo.entities.Room;
+import nl.tudelft.oopp.demo.entities.RoomReservation;
 import nl.tudelft.oopp.demo.repositories.RoleRepository;
 
+import nl.tudelft.oopp.demo.repositories.RoomRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -62,15 +65,39 @@ class UserServiceTest {
         }
     }
 
+    @TestConfiguration
+    static class RoomReservationServiceTestConfiguration {
+        @Bean
+        public RoomReservationService roomReservationService() {
+            return new RoomReservationService();
+        }
+    }
+
+    @TestConfiguration
+    static class RoomServiceTestConfiguration {
+        @Bean
+        public RoomService roomService() {
+            return new RoomService();
+        }
+    }
+
     @Autowired
     UserService userService;
 
     @Autowired
     RoleRepository roleRepository;
 
+    @Autowired
+    RoomRepository roomRepository;
+
+    @Autowired
+    RoomReservationService roomReservationService;
+
     AppUser appUser;
     AppUser appUser2;
     Role role;
+    MockHttpServletRequest request;
+    Room room;
     Set<Role> roleSet;
 
     /**
@@ -97,6 +124,22 @@ class UserServiceTest {
         appUser2.setSurname("Surname");
         appUser2.setFaculty("IO");
         appUser2.setRoles(roleSet);
+
+        room = new Room();
+        room.setName("Ampere");
+        room.setStudySpecific("CSE");
+        room.setScreen(true);
+        room.setProjector(true);
+        room.setPlugs(250);
+        room.setCapacity(300);
+        roomRepository.save(room);
+
+        request = new MockHttpServletRequest();
+        String token = JWT.create()
+                .withSubject(appUser.getEmail())
+                .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                .sign(HMAC512(SECRET.getBytes()));
+        request.addHeader(HEADER_STRING, token);
     }
 
     /**
@@ -391,6 +434,27 @@ class UserServiceTest {
         userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty());
         MockHttpServletRequest request = new MockHttpServletRequest();
         assertFalse(userService.isAdmin(request));
+    }
+
+    /**
+     * Test the retrieving of a user for a specific reservation.
+     */
+    @Test
+    public void testGetUserWithReservation() {
+        userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty());
+        roomReservationService.add(request, room.getId(), 300000000000000L, 500000000000000L);
+        int id = roomReservationService.all().get(0).getId();
+        assertEquals(userService.all().get(0), userService.findForReservation(id));
+    }
+
+    /**
+     * Test the retrieving of a user for a non existent reservation.
+     */
+    @Test
+    public void testGetUserForNonExistentReservation() {
+        userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty());
+        roomReservationService.add(request, room.getId(), 300000000000000L, 500000000000000L);
+        assertNull(userService.findForReservation(-1));
     }
 
     /**

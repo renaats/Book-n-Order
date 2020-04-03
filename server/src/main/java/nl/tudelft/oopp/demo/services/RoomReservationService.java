@@ -12,6 +12,12 @@ import static nl.tudelft.oopp.demo.config.Constants.USER_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.WRONG_USER;
 import static nl.tudelft.oopp.demo.security.SecurityConstants.HEADER_STRING;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.gson.ExclusionStrategy;
+import com.google.gson.FieldAttributes;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -193,6 +199,28 @@ public class RoomReservationService {
     }
 
     /**
+     * Finds all reservations for a specific room.
+     * @param roomId = the id of the room for which reservations are retrieved.
+     * @return a list of reservations for this room.
+     */
+    public List<RoomReservation> findForRoom(int roomId) {
+        List<RoomReservation> roomReservations = new ArrayList<>();
+        Optional<Room> optionalRoom = roomRepository.findById(roomId);
+
+        if (optionalRoom.isEmpty()) {
+            return null;
+        }
+        Room room = optionalRoom.get();
+
+        for (RoomReservation roomReservation : roomReservationRepository.findAll()) {
+            if (roomReservation.getRoom() == room && roomReservation.isActive()) {
+                roomReservations.add(roomReservation);
+            }
+        }
+        return roomReservations;
+    }
+
+    /**
      * Finds all active room reservations for the user that sends the Http request.
      * @param request = the Http request that calls this method.
      * @return a list of active room reservations for this user.
@@ -212,8 +240,7 @@ public class RoomReservationService {
         return roomReservations;
     }
 
-    /**
-     * Cancels a room reservation if it was made by the user that sends the Http request.
+    /** Cancels a room reservation if it was made by the user that sends the Http request.
      * @param request = the Http request that calls this method.
      * @param roomReservationId = the id of the target reservation.
      * @return an error code.

@@ -60,7 +60,8 @@ public class ServerCommunicationTest {
         stubFor(get(urlEqualTo("/room_reservation/room/2")).willReturn(aResponse().withStatus(200).withBody("Message6")));
         stubFor(get(urlEqualTo("/user/info")).willReturn(aResponse().withStatus(200).withBody("Information")));
         stubFor(post(urlEqualTo("/login")).willReturn(aResponse().withStatus(200).withBody("token")));
-        stubFor(post(urlEqualTo("/dish/add?name=test&menuId=1&price=3&description=A&image=B")).willReturn(aResponse().withStatus(200).withBody("200")));
+        stubFor(post(urlEqualTo("/dish/add?name=test&menuId=1&price=3&description=A&image=B"))
+                .willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(delete(urlEqualTo("/dish/delete/1")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(delete(urlEqualTo("/food_order/delete/1")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(post(urlEqualTo("/food_order/add?restaurantId=1&deliverLocation=1&deliverTimeMs=1"))
@@ -86,6 +87,8 @@ public class ServerCommunicationTest {
         stubFor(get(urlEqualTo("/bike_reservation/future")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(get(urlEqualTo("/bike_reservation/past")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(get(urlEqualTo("/bike_reservation/cancel/1")).willReturn(aResponse().withStatus(200).withBody("201")));
+        stubFor(get(urlEqualTo("/room_reservation/room/1")).willReturn(aResponse().withStatus(200).withBody("Message50")));
+        stubFor(get(urlEqualTo("/user/reservation/1")).willReturn(aResponse().withStatus(200).withBody("Message51")));
     }
 
     /**
@@ -520,6 +523,16 @@ public class ServerCommunicationTest {
     @Test
     public void testCancelFoodOrder() {
         assertEquals(ErrorMessages.getErrorMessage(201), ServerCommunication.cancelFoodOrder(1));
+    }
+
+    @Test
+    public void testFindReservationForRoom() {
+        assertEquals("Message50", ServerCommunication.findReservationForRoom(1));
+    }
+
+    @Test
+    public void testGetUserForReservation() {
+        assertEquals("Message51", ServerCommunication.findUserForReservation(1));
     }
 
     /**
