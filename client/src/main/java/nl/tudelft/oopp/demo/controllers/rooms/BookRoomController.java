@@ -80,7 +80,6 @@ public class BookRoomController implements Initializable {
     private List<Room> rooms;
     private Button reserveButton;
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
