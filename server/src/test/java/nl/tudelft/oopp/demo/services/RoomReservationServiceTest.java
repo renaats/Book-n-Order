@@ -397,7 +397,7 @@ class RoomReservationServiceTest {
     public void testGetReservationForSpecificRoom() {
         roomReservationService.add(request2, room2.getId(), 5000000, 10000000);
         ArrayList<RoomReservation> roomReservationList = (ArrayList<RoomReservation>) roomReservationService.all();
-        assertEquals(roomReservationList , roomReservationService.findForRoom(room2.getId()));
+        assertEquals(roomReservationList, roomReservationService.findForRoom(room2.getId()));
     }
 
     /**
@@ -408,7 +408,7 @@ class RoomReservationServiceTest {
         roomReservationService.add(request2, room2.getId(), 5000000, 10000000);
         roomReservationService.all().get(0).setActive(false);
         int id = roomReservationService.all().get(0).getRoom().getId();
-        assertEquals(new ArrayList<>() , roomReservationService.findForRoom(id));
+        assertEquals(new ArrayList<>(), roomReservationService.findForRoom(id));
     }
 
     /**

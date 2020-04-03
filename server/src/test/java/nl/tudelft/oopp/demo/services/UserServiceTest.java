@@ -442,7 +442,7 @@ class UserServiceTest {
     @Test
     public void testGetUserWithReservation() {
         userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty());
-        roomReservationService.add(request, room.getId() , 300000000000000L, 500000000000000L);
+        roomReservationService.add(request, room.getId(), 300000000000000L, 500000000000000L);
         int id = roomReservationService.all().get(0).getId();
         assertEquals(userService.all().get(0), userService.findForReservation(id));
     }
@@ -453,7 +453,7 @@ class UserServiceTest {
     @Test
     public void testGetUserForNonExistentReservation() {
         userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty());
-        roomReservationService.add(request, room.getId() , 300000000000000L, 500000000000000L);
+        roomReservationService.add(request, room.getId(), 300000000000000L, 500000000000000L);
         assertNull(userService.findForReservation(-1));
     }
 
