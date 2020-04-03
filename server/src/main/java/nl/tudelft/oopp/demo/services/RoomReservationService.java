@@ -259,4 +259,20 @@ public class RoomReservationService {
         roomReservationRepository.save(roomReservation);
         return EXECUTED;
     }
+
+    /**
+     * Find User for a specific Reservation.
+     * @param id of room reservation.
+     * @return AppUser that has the reservation.
+     */
+    public AppUser findForReservation(int id) {
+        Optional<RoomReservation> optionalRoomReservation = roomReservationRepository.findById(id);
+
+        if (optionalRoomReservation.isEmpty()) {
+            return null;
+        }
+        RoomReservation roomReservation = optionalRoomReservation.get();
+
+        return roomReservation.getAppUser();
+    }
 }

@@ -1,7 +1,6 @@
 package nl.tudelft.oopp.demo.controllers;
 
 import static nl.tudelft.oopp.demo.config.Constants.ADMIN;
-import static nl.tudelft.oopp.demo.config.Constants.BUILDING_ADMIN;
 import static nl.tudelft.oopp.demo.config.Constants.USER;
 
 import java.net.URLDecoder;
@@ -17,7 +16,6 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -192,16 +190,5 @@ public class UserController {
     @PostMapping(path = "/changePassword")
     public int changePassword(HttpServletRequest request, @RequestParam String password) {
         return userService.changePassword(request, password);
-    }
-
-    /**
-     * Finds user for a specific reservation.
-     * @param id = id of reservation for which we retrieve user.
-     * @return a user that corresponds to this reservation.
-     */
-    @Secured({ADMIN, BUILDING_ADMIN})
-    @GetMapping(path = "/reservation/{id}")
-    public AppUser findForReservation(@PathVariable int id) {
-        return userService.findForReservation(id);
     }
 }
