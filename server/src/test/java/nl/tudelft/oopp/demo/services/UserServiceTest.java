@@ -393,6 +393,12 @@ class UserServiceTest {
         assertFalse(userService.isAdmin(request));
     }
 
+//    @Test
+//    public void testUserWithReservation() {
+//        userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty());
+//        roomReservationService.
+//    }
+
     /**
      * Test the recoverPassword method.
      */

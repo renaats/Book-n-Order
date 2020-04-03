@@ -416,13 +416,13 @@ public class UserService {
      * @return AppUser that has the reservation
      */
     public AppUser findForReservation(int id) {
-        AppUser user = new AppUser();
         Optional<RoomReservation> optionalRoomReservation = roomReservationRepository.findById(id);
 
         if (optionalRoomReservation.isEmpty()) {
             return null;
         }
         RoomReservation roomReservation = optionalRoomReservation.get();
+
         return roomReservation.getAppUser();
     }
 }

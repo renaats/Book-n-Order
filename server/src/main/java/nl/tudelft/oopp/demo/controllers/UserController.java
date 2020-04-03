@@ -11,13 +11,7 @@ import nl.tudelft.oopp.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import static nl.tudelft.oopp.demo.config.Constants.*;
 
@@ -193,12 +187,12 @@ public class UserController {
 
     /**
      * Finds user for a specific reservation.
-     * @param roomReservationId
-     * @return an error code corresponding to the outcome of the request
+     * @param roomReservationId reservation for which we retreive user.
+     * @return a user that corresponds to this reservation.
      */
     @Secured({ADMIN, BUILDING_ADMIN})
-    @PostMapping(path = "/reservation")
-    public AppUser changePassword(@RequestParam int roomReservationId) {
+    @PostMapping(path = "/reservation/{roomReservationId}")
+    public AppUser findForReservation(@PathVariable int roomReservationId) {
         return userService.findForReservation(roomReservationId);
     }
 }
