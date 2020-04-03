@@ -4,6 +4,7 @@ import com.calendarfx.model.Calendar;
 import com.calendarfx.model.CalendarSource;
 import com.calendarfx.model.Entry;
 import com.calendarfx.view.CalendarView;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -15,7 +16,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.BikeReservation;

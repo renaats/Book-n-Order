@@ -13,7 +13,18 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.DialogPane;
 import javafx.stage.StageStyle;
 
-import nl.tudelft.oopp.demo.entities.*;
+import nl.tudelft.oopp.demo.entities.AppUser;
+import nl.tudelft.oopp.demo.entities.Bike;
+import nl.tudelft.oopp.demo.entities.BikeReservation;
+import nl.tudelft.oopp.demo.entities.Building;
+import nl.tudelft.oopp.demo.entities.BuildingHours;
+import nl.tudelft.oopp.demo.entities.Dish;
+import nl.tudelft.oopp.demo.entities.FoodOrder;
+import nl.tudelft.oopp.demo.entities.Menu;
+import nl.tudelft.oopp.demo.entities.Restaurant;
+import nl.tudelft.oopp.demo.entities.RestaurantHours;
+import nl.tudelft.oopp.demo.entities.Room;
+import nl.tudelft.oopp.demo.entities.RoomReservation;
 import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.user.UserInformation;
 
@@ -92,7 +103,7 @@ public class JsonMapper {
     /**
      * Maps all room JSONS to a list.
      * @param roomsJson a JSON string representing a list.
-     * @return A list filled with object Buildings
+     * @return A list filled with object room
      */
     public static List<Room> roomListMapper(String roomsJson) throws JsonProcessingException {
 
@@ -316,6 +327,43 @@ public class JsonMapper {
         mapper.registerModule(new JavaTimeModule());
 
         return mapper.readValue(foodOrdersJson, new TypeReference<>(){});
+    }
+
+    /**
+     * Maps JSON to Bike entity.
+     * @param bikeJson JSON representation of a bike.
+     * @return Bike entity.
+     */
+    public static Bike bikeMapper(String bikeJson) {
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        try {
+            // Convert JSON string to Object
+            return mapper.readValue(bikeJson, Bike.class);
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle(null);
+            alert.setHeaderText(null);
+            alert.setContentText(bikeJson);
+            alert.initStyle(StageStyle.UNDECORATED);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(JsonMapper.class.getResource("/alertWarning.css").toExternalForm());
+            alert.showAndWait();
+        }
+        return null;
+    }
+
+    /**
+     * Maps all room JSONS to a list.
+     * @param bikesJson a JSON string representing a list.
+     * @return A list filled with object bike
+     */
+    public static List<Bike> bikeListMapper(String bikesJson) throws JsonProcessingException {
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        return mapper.readValue(bikesJson, new TypeReference<>(){});
     }
 
     /**

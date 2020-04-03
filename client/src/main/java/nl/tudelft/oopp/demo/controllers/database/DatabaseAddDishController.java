@@ -1,11 +1,12 @@
 package nl.tudelft.oopp.demo.controllers.database;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -42,7 +43,8 @@ public class DatabaseAddDishController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         Menu menu = null;
         try {
-            menu = JsonMapper.menuMapper(ServerCommunication.findMenuByRestaurant(JsonMapper.ownRestaurantMapper(ServerCommunication.getOwnedRestaurant()).get(0).getId()));
+            menu = JsonMapper.menuMapper(ServerCommunication.findMenuByRestaurant(
+                    JsonMapper.ownRestaurantMapper(ServerCommunication.getOwnedRestaurant()).get(0).getId()));
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }

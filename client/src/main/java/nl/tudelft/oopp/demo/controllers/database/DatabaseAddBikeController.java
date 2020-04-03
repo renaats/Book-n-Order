@@ -1,6 +1,5 @@
 package nl.tudelft.oopp.demo.controllers.database;
 
-import java.awt.image.BandCombineOp;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -12,9 +11,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -22,6 +19,7 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.Building;
@@ -30,22 +28,14 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
  * Loads the correct content into the FXML objects that need to display server information and
- * controls all the user inputs made through the GUI in the "DatabaseAddRooms.fxml" file
+ * controls all the user inputs made through the GUI in the "DatabaseAddBikes.fxml" file
  */
-public class DatabaseAddRoomController implements Initializable {
+public class DatabaseAddBikeController implements Initializable {
 
-    private final ObservableList<String> studyList = FXCollections.observableArrayList();
     private final ObservableList<Building> buildingResult = FXCollections.observableArrayList();
-    private final ObservableList<String> statusList = FXCollections.observableArrayList();
 
     @FXML
-    private ChoiceBox<String> studySpecificChoiceBox;
-    @FXML
-    private ChoiceBox<String> statusChoiceBox;
-    @FXML
-    private ToggleButton screenToggle;
-    @FXML
-    private ToggleButton projectorToggle;
+    private ToggleButton availableToggle;
     @FXML
     private ToggleButton buildingsTableToggle;
     @FXML
@@ -57,10 +47,6 @@ public class DatabaseAddRoomController implements Initializable {
     @FXML
     private TextField buildingIdTextField;
     @FXML
-    private TextField capacityTextField;
-    @FXML
-    private TextField plugsTextField;
-    @FXML
     private Text pagesText;
     @FXML
     private TableView<Building> table;
@@ -71,8 +57,7 @@ public class DatabaseAddRoomController implements Initializable {
     @FXML
     private TableColumn<Building, String> colName;
 
-    private boolean screenToggleFlag;
-    private boolean projectorToggleFlag;
+    private boolean availableToggleFlag;
     private boolean buildingsTableToggleFlag;
     private int pageNumber;
     private double totalPages;
@@ -97,57 +82,22 @@ public class DatabaseAddRoomController implements Initializable {
         anchorPane.getChildren().remove(nextPageButton);
         anchorPane.getChildren().remove(pagesText);
 
-        loadStudySpecificChoiceBox();
-        loadStatusChoiceBox();
         retrieveAllBuildings();
         tableSelectMethod();
     }
 
-    private void loadStatusChoiceBox() {
-        statusList.clear();
-        String a = "Open";
-        String b = "Closed";
-        String c = "Staff-Only";
-        String d = "Maintenance";
-        statusList.addAll(a, b, c, d);
-        statusChoiceBox.getItems().addAll(statusList);
-        statusChoiceBox.setValue(a);
-    }
-
-    private void loadStudySpecificChoiceBox() {
-        studyList.clear();
-        String a = "";
-        String b = "Computer Science and Engineering";
-        studyList.addAll(a, b);
-        studySpecificChoiceBox.getItems().addAll(studyList);
-        studySpecificChoiceBox.setValue(a);
-    }
-
     /**
      * Makes sure the button toggles from false to true every time.
      */
     @FXML
-    private void toggleClickProjector() {
-        if (projectorToggleFlag) {
-            projectorToggle.setText("false");
-        } else {
-            projectorToggle.setText("true");
-        }
-        projectorToggleFlag = !projectorToggleFlag;
-    }
-
-    /**
-     * Makes sure the button toggles from false to true every time.
-     */
-    @FXML
-    private void toggleClickScreen() {
-        if (screenToggleFlag) {
-            screenToggle.setText("false");
+    private void toggleClickAvailable() {
+        if (availableToggleFlag) {
+            availableToggle.setText("false");
 
         } else {
-            screenToggle.setText("true");
+            availableToggle.setText("true");
         }
-        screenToggleFlag = !screenToggleFlag;
+        availableToggleFlag = !availableToggleFlag;
     }
 
     /**
@@ -172,12 +122,10 @@ public class DatabaseAddRoomController implements Initializable {
     }
 
     /**
-     * Adds a room to the database
+     * Adds a bike to the database
      */
-    public void databaseAddRoom() {
+    public void databaseAddBike() {
         int buildingId = -1;
-        int capacity = -1;
-        int plugs = -1;
         boolean buildingFound = false;
 
         try {
@@ -199,39 +147,8 @@ public class DatabaseAddRoomController implements Initializable {
             }
         }
 
-        String name = nameTextField.getText();
-        if (name.equals("")) {
-            CustomAlert.warningAlert("Name cannot be empty.");
-            return;
-        }
-
-        try {
-            capacity = Integer.parseInt(capacityTextField.getText());
-            if (capacity == -1) {
-                CustomAlert.warningAlert("Capacity cannot be empty.");
-                return;
-            }
-        } catch (NumberFormatException e) {
-            CustomAlert.warningAlert("Capacity requires an integer.");
-            return;
-        }
-
-        try {
-            plugs = Integer.parseInt(plugsTextField.getText());
-            if (plugs == -1) {
-                CustomAlert.warningAlert("Plugs cannot be empty.");
-                return;
-            }
-        } catch (NumberFormatException e) {
-            CustomAlert.warningAlert("Plugs requires an integer.");
-            return;
-        }
-
-        String status = statusChoiceBox.getValue();
-        String studySpecific = studySpecificChoiceBox.getValue();
-        boolean screen = Boolean.parseBoolean(screenToggle.getText());
-        boolean projector = Boolean.parseBoolean(projectorToggle.getText());
-        String response = ServerCommunication.addRoom(name, buildingId, studySpecific, screen, projector, capacity, plugs, status);
+        boolean available = Boolean.parseBoolean(availableToggle.getText());
+        String response = ServerCommunication.addBike(buildingId, available);
         if (response.equals("Successfully added!") && buildingFound) {
             CustomAlert.informationAlert(response);
         } else if (buildingFound) {
@@ -248,11 +165,11 @@ public class DatabaseAddRoomController implements Initializable {
     }
 
     /**
-     * When the menu item edit is clicked it take you to the DatabaseRoomMenu.fxml view
-     * @throws IOException the input will always be correct, so it should never throw and exception.
+     * When the menu item edit is clicked it take you to the DatabaseBikeMenu.fxml view
+     * @throws IOException the input will always be correct, so it should never throw an exception.
      */
-    public void goToRoomMenu() throws IOException {
-        ApplicationDisplay.changeScene("/DatabaseRoomMenu.fxml");
+    public void goToBikeMenu() throws IOException {
+        ApplicationDisplay.changeScene("/DatabaseBikeMenu.fxml");
     }
 
     /**
