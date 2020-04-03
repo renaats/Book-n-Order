@@ -10,6 +10,7 @@ public class Allergy {
     private int id;
     private String allergyName;
     private Set<Dish> dishes;
+    private Set<Dish> dish;
 
     /**
      * Creates a new instance of Allergy.
@@ -27,12 +28,20 @@ public class Allergy {
         this.dishes = dishes;
     }
 
+    public void setDish(Set<Dish> dish) {
+        this.dish = dish;
+    }
+
     public void setAllergyName(String allergyName) {
         this.allergyName = allergyName;
     }
 
     public int getId() {
         return id;
+    }
+
+    public Set<Dish> getDishes() {
+        return dishes;
     }
 
     public Set<Dish> getDish() {

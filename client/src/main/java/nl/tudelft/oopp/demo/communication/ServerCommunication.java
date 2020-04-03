@@ -502,7 +502,7 @@ public class ServerCommunication {
     }
 
     public static String getAllergiesFromDish(int dishId) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/allergies/fromDish/" + dishId)).GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/allergy/dish/" + dishId)).GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnBodyOfResponse(request);
     }
 
