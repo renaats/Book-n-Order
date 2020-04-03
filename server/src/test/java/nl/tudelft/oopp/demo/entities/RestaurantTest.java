@@ -41,7 +41,7 @@ public class RestaurantTest {
         building2 = new Building("EWI2", "Mekelweg2", "EWI", 42);
         buildingRepository.save(building2);
 
-        restaurant = new Restaurant(building, "Hangout");
+        restaurant = new Restaurant(building, "Hangout", "");
         restaurantRepository.save(restaurant);
     }
 
@@ -58,7 +58,7 @@ public class RestaurantTest {
      * Tests the saving and retrieval of an instance of Restaurant.
      */
     @Test
-    public void saveAndRetrieveRestaurant() {
+    public void testSaveAndRetrieveRestaurant() {
         restaurant2 = restaurantRepository.findAll().get(0);
         assertEquals(restaurant, restaurant2);
     }

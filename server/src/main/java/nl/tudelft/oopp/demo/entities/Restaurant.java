@@ -35,8 +35,8 @@ public class Restaurant {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn
     private Building building;
-
     private String name;
+    private String email;
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn
@@ -47,9 +47,10 @@ public class Restaurant {
      * @param building = building in which restaurant is located.
      * @param name = name of the restaurant.
      */
-    public Restaurant(Building building, String name) {
+    public Restaurant(Building building, String name, String email) {
         this.building = building;
         this.name = name;
+        this.email = email;
     }
 
     public Restaurant() {
@@ -68,6 +69,10 @@ public class Restaurant {
         this.name = name;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public void setMenu(Menu menu) {
         this.menu = menu;
     }
@@ -84,6 +89,10 @@ public class Restaurant {
         return name;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
     public Menu getMenu() {
         return menu;
     }
@@ -98,6 +107,7 @@ public class Restaurant {
         }
         Restaurant restaurant = (Restaurant) o;
         return name.equals(restaurant.name)
+                && Objects.equals(email, restaurant.email)
                 && Objects.equals(building, restaurant.building);
     }
 }

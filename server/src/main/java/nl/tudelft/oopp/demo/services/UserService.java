@@ -72,6 +72,24 @@ public class UserService {
     private RoomReservationRepository roomReservationRepository;
 
     /**
+     * Automatically assigns some role to a user, sets their account as activated. Should not be used in production!
+     * @param appUser = the user that is assigned the role.
+     * @param roleName = the name of the new role.
+     * @return an error code corresponding to the outcome of the request.
+     */
+    private int assign(AppUser appUser, String roleName) {
+        if (!roleRepository.existsByName(roleName)) {
+            Role role = new Role();
+            role.setName(roleName);
+            roleRepository.save(role);
+        }
+        appUser.setConfirmationNumber(-1);
+        appUser.addRole(roleRepository.findByName(roleName));
+        userRepository.save(appUser);
+        return ADDED;
+    }
+
+    /**
      * Finds the appUser for some Http request token.
      * @param token = the token received in the request.
      * @param userRepository = the userRepository where all user information is stored.
@@ -141,12 +159,7 @@ public class UserService {
         if (userRepository.existsById(email)) {
             return DUPLICATE_EMAIL;
         }
-        AppUser appUser = new AppUser();
-        appUser.setEmail(email);
-        appUser.setPassword(bcryptPasswordEncoder.encode(password));
-        appUser.setName(name);
-        appUser.setSurname(surname);
-        appUser.setFaculty(faculty);
+        AppUser appUser = new AppUser(email, bcryptPasswordEncoder.encode(password), name, surname, faculty);
         appUser.setRoles(new HashSet<>());
         if (!roleRepository.existsByName(USER)) {
             Role role = new Role();
@@ -165,53 +178,19 @@ public class UserService {
 
         // NEED TO BE DELETED BEFORE PRODUCTION! ONLY USED FOR END-TO-END TESTING!
         if (appUser.getEmail().equals("staff@tudelft.nl")) {
-            appUser.setConfirmationNumber(-1);
-            userRepository.save(appUser);
-            return ADDED;
+            return assign(appUser, STAFF);
         }
         if (appUser.getEmail().equals("admin@tudelft.nl")) {
-            if (!roleRepository.existsByName(ADMIN)) {
-                Role role = new Role();
-                role.setName(ADMIN);
-                roleRepository.save(role);
-            }
-            appUser.setConfirmationNumber(-1);
-            appUser.addRole(roleRepository.findByName(ADMIN));
-            userRepository.save(appUser);
-            return ADDED;
+            return assign(appUser, ADMIN);
         }
         if (appUser.getEmail().equals("building_admin@tudelft.nl")) {
-            if (!roleRepository.existsByName(BUILDING_ADMIN)) {
-                Role role = new Role();
-                role.setName(BUILDING_ADMIN);
-                roleRepository.save(role);
-            }
-            appUser.setConfirmationNumber(-1);
-            appUser.addRole(roleRepository.findByName(BUILDING_ADMIN));
-            userRepository.save(appUser);
-            return ADDED;
+            return assign(appUser, BUILDING_ADMIN);
         }
         if (appUser.getEmail().equals("bike_admin@tudelft.nl")) {
-            if (!roleRepository.existsByName(BIKE_ADMIN)) {
-                Role role = new Role();
-                role.setName(BIKE_ADMIN);
-                roleRepository.save(role);
-            }
-            appUser.setConfirmationNumber(-1);
-            appUser.addRole(roleRepository.findByName(BIKE_ADMIN));
-            userRepository.save(appUser);
-            return ADDED;
+            return assign(appUser, BIKE_ADMIN);
         }
         if (appUser.getEmail().equals("restaurant@tudelft.nl")) {
-            if (!roleRepository.existsByName(RESTAURANT)) {
-                Role role = new Role();
-                role.setName(RESTAURANT);
-                roleRepository.save(role);
-            }
-            appUser.setConfirmationNumber(-1);
-            appUser.addRole(roleRepository.findByName(RESTAURANT));
-            userRepository.save(appUser);
-            return ADDED;
+            return assign(appUser, RESTAURANT);
         }
         // NEED TO BE DELETED BEFORE PRODUCTION! ONLY USED FOR END-TO-END TESTING!
 

@@ -34,14 +34,14 @@ public class DishesJpaSpecificationsTest {
      * Initializes variables before each test.
      */
     @BeforeEach
-    public void init() {
+    public void setup() {
         menu = new Menu();
         menuRepository.save(menu);
 
-        dish1 = new Dish("Tosti", menu);
+        dish1 = new Dish("Tosti", menu, 300, "Cooked", "123");
         dishRepository.save(dish1);
 
-        dish2 = new Dish("Doner Kebab", menu);
+        dish2 = new Dish("Doner Kebab", menu, 400, "Grilled", "234");
         dishRepository.save(dish2);
     }
 
@@ -49,7 +49,7 @@ public class DishesJpaSpecificationsTest {
      * Tests querying on a name of the dish.
      */
     @Test
-    public void nameSearchTest() {
+    public void testNameSearch() {
         DishSpecification spec = new DishSpecification(new SearchCriteria("name", ":", "Tosti"));
         List<Dish> results = dishRepository.findAll(spec);
         assertThat(dish1, in(results));
@@ -60,7 +60,7 @@ public class DishesJpaSpecificationsTest {
      * Tests querying on two specifications.
      */
     @Test
-    public void compoundSearch() {
+    public void testCompoundSearch() {
         DishSpecification spec = new DishSpecification(new SearchCriteria("name", ":", "Tosti"));
         DishSpecification spec2 = new DishSpecification(new SearchCriteria("name", ":","Doner Kebab"));
         List<Dish> results = dishRepository.findAll(spec.or(spec2));
@@ -72,7 +72,7 @@ public class DishesJpaSpecificationsTest {
      * Tests querying on a nonexistent dish name.
      */
     @Test
-    public void nonexistentDishSearch() {
+    public void testNonexistentDishSearch() {
         DishSpecification spec = new DishSpecification(new SearchCriteria("name", ":", "Vla"));
         List<Dish> results = dishRepository.findAll(spec);
         assertEquals(0, results.size());

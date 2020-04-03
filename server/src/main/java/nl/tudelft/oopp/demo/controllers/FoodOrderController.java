@@ -69,8 +69,9 @@ public class FoodOrderController {
      */
     @Secured(USER)
     @PostMapping(path = "/addDish")
-    public void addDish(HttpServletRequest request, @RequestParam int id, @RequestParam String name) {
-        foodOrderService.addDish(request, id, name);
+    public int addDish(HttpServletRequest request, @RequestParam int id, @RequestParam String name) {
+        return foodOrderService.addDish(request, id, name);
+
     }
 
     /**

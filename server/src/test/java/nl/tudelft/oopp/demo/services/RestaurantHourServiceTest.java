@@ -93,15 +93,15 @@ public class RestaurantHourServiceTest {
     public void setup() {
         building = new Building("EWI", "Mekelweg", "EWI", 4);
 
-        restaurant = new Restaurant(building, "Food Station");
+        restaurant = new Restaurant(building, "Food Station", "");
 
-        restaurant2 = new Restaurant(building, "Hangout");
+        restaurant2 = new Restaurant(building, "Hangout", "");
 
         buildingService.add("EWI", "Mekelweg", "EWI", 4);
         building = buildingService.find("EWI");
 
-        restaurantService.add(building.getId(), "Food Station");
-        restaurantService.add(building.getId(), "Hangout");
+        restaurantService.add(building.getId(), "Food Station", "");
+        restaurantService.add(building.getId(), "Hangout", "");
 
         restaurant = restaurantService.find("Food Station");
         restaurant2 = restaurantService.find("Hangout");
