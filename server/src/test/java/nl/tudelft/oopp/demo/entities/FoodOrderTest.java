@@ -170,6 +170,16 @@ public class FoodOrderTest {
     }
 
     /**
+     * Test adding feedback to a restaurant.
+     */
+    @Test
+    public void testAddFeedback() {
+        assertNotEquals(true, foodOrder.isFeedbackGiven());
+        foodOrder.setFeedbackGiven(true);
+        assertEquals(true, foodOrder.isFeedbackGiven());
+    }
+
+    /**
      * Tests the setting of the foodOrders for an appUser.
      */
     @Test

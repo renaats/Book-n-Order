@@ -71,7 +71,7 @@ public class FoodOrderController {
      * @param id = the id of the food order.
      * @return String containing the result of your request.
      */
-    @Secured({USER, RESTAURANT})
+    @Secured({USER})
     @PostMapping(path = "/addFeedback")
     @ResponseBody
     public int addFeedback(@RequestParam int id, @RequestParam boolean feedback) {

@@ -437,6 +437,16 @@ public class FoodOrderServiceTest {
     }
 
     /**
+     * Tests the adding of feedback.
+     */
+    @Test
+    public void testAddFeedback() {
+        foodOrderService.add(request, restaurant.getId(), deliverLocation.getId(), deliverTimeMilliseconds2);
+        foodOrderService.addFeedback(foodOrderService.all().get(0).getId(), true);
+        assertTrue(foodOrderService.all().get(0).isFeedbackGiven());
+    }
+
+    /**
      * Tests the retrieval of past food orders for the restaurant that sends the request.
      */
     @Test
