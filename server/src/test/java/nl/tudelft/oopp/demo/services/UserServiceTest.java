@@ -68,6 +68,9 @@ class UserServiceTest {
     @Autowired
     RoleRepository roleRepository;
 
+    @Autowired
+    RoomReservationService roomReservationService;
+
     AppUser appUser;
     AppUser appUser2;
     Role role;
@@ -393,11 +396,14 @@ class UserServiceTest {
         assertFalse(userService.isAdmin(request));
     }
 
-//    @Test
-//    public void testUserWithReservation() {
-//        userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty());
-//        roomReservationService.
-//    }
+    @Test
+    public void testUserWithReservation() {
+        userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty());
+        MockHttpServletRequest request2 = new MockHttpServletRequest();
+        roomReservationService.add(request2, 5, 300000000000000L, 500000000000000L);
+        roomReservationService.all().get(0).setAppUser(userService.all().get(0));
+        assertEquals(userService.all().get(0), userService.findForReservation(roomReservationService.all().get(0).getId()));
+    }
 
     /**
      * Test the recoverPassword method.
