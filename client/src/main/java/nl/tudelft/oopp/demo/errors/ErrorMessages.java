@@ -19,6 +19,7 @@ public class ErrorMessages {
     private static final String userNotFoundMessage = "User not found.";
     private static final String wrongUserMessage = "This reservation was not made by this user.";
     private static final String reservationNotFoundMessage = "Reservation not found.";
+    private static final String allBikesReservedMessage = "No bikes available.";
     private static final String orderNotFoundMessage = "Order not found.";
     private static final String buildingNotFoundMessage = "Building not found.";
     private static final String nameAlreadyExistsMessage = "Name already exists.";
@@ -75,6 +76,8 @@ public class ErrorMessages {
                 return notFoundMessage;
             case 412:
                 return preConditionFailedMessage;
+            case 414:
+                return allBikesReservedMessage;
             case 415:
                 return orderNotFoundMessage;
             case 416:

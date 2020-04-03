@@ -12,11 +12,17 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
 
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.Building;
@@ -117,7 +123,7 @@ public class BookRoomController implements Initializable {
     }
 
     /**
-     * return to the reservations menu when the back arrow button is clicked.
+     * Return to the reservations menu when the back arrow button is clicked.
      * @throws IOException the input will always be the same, so it should never throw an IO exception
      */
     public void goToMainMenuReservations() throws IOException {
@@ -125,7 +131,7 @@ public class BookRoomController implements Initializable {
     }
 
     /**
-     * return to the reservations menu when the back arrow button is clicked.
+     * Go to the room confirmation screen when the reserve button is clicked.
      * @throws IOException the input will always be the same, so it should never throw an IO exception
      */
     public void goToRoomConfirmation() throws IOException {
@@ -147,6 +153,9 @@ public class BookRoomController implements Initializable {
         tableSelectMethod();
     }
 
+    /**
+     * Calculates the amount of pages necessary to display all the entries.
+     */
     public void calculatePages() {
         roomResult.clear();
         totalPages = Math.ceil(rooms.size() / 15.0);
@@ -229,7 +238,8 @@ public class BookRoomController implements Initializable {
         String filterString = "";
         if (buildingChoiceBox.getValue() != null) {
             try {
-                filterString += ",building:" + JsonMapper.buildingMapper(ServerCommunication.findBuildingByName(buildingChoiceBox.getValue())).getId();
+                filterString += ",building:";
+                filterString += JsonMapper.buildingMapper(ServerCommunication.findBuildingByName(buildingChoiceBox.getValue())).getId();
             } catch (Exception e) {
                 CustomAlert.errorAlert("Building not found!");
             }
@@ -262,7 +272,7 @@ public class BookRoomController implements Initializable {
     }
 
     /**
-     * Takes care of the options for the updateChoiceBox in the GUI
+     * Takes care of the options for the buildingChoiceBox in the GUI
      */
     private void loadBuildingChoiceBox() {
         buildingNameList.clear();
@@ -270,10 +280,10 @@ public class BookRoomController implements Initializable {
             for (Building building: Objects.requireNonNull(JsonMapper.buildingListMapper(ServerCommunication.getBuildings()))) {
                 buildingNameList.add(building.getName());
             }
-        } catch (Exception ignored) {
-
+            buildingNameList.add(null);
+        } catch (Exception e) {
+            buildingNameList.add(null);
         }
-        buildingNameList.add(null);
         buildingChoiceBox.getItems().addAll(buildingNameList);
     }
 }

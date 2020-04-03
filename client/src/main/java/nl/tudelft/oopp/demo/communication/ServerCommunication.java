@@ -894,6 +894,15 @@ public class ServerCommunication {
     // -----------------------------------------
 
     /**
+     * Adds a new bike reservation.
+     * @return the error message corresponding to the server's response.
+     */
+    public static String addBikeReservation(int fromBuildingId, int toBuildingId, long fromTimeMs, long toTimeMs) {
+        HttpRequest request = HttpRequest.newBuilder().POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/bike_reservation/add/?fromBuilding=" + fromBuildingId + "&toBuilding=" + toBuildingId + "&fromTimeMs=" + fromTimeMs + "&toTimeMs=" + toTimeMs)).build();
+        return communicateAndReturnErrorMessage(request);
+    }
+
+    /**
      * gets all bike reservations from the database.
      * @return the body of the response from the server.
      */

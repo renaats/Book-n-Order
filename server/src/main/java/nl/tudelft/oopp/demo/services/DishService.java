@@ -190,7 +190,7 @@ public class DishService {
      * @param menuId the id of the menu
      * @return all dishes from the menu
      */
-    public List<Dish> findByMenu( int menuId) {
+    public List<Dish> findByMenu(int menuId) {
         return dishRepository.findAllByMenuId(menuId);
     }
 }

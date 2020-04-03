@@ -2,14 +2,24 @@ package nl.tudelft.oopp.demo.controllers.bikes;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.ZoneId;
+import java.util.Date;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 
+import javafx.scene.control.DatePicker;
+import nl.tudelft.oopp.demo.communication.JsonMapper;
+import nl.tudelft.oopp.demo.communication.ServerCommunication;
+import nl.tudelft.oopp.demo.entities.Building;
+import nl.tudelft.oopp.demo.errors.CustomAlert;
+import nl.tudelft.oopp.demo.errors.ErrorMessages;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
@@ -17,33 +27,92 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
  * controls all the user inputs made through the GUI in the "bikeReservations.fxml" file
  */
 public class BikeReservationController implements Initializable {
-    final ObservableList<String> listTime = FXCollections.observableArrayList();
-    final ObservableList<String> listMinutes = FXCollections.observableArrayList();
+    private final ObservableList<String> listHours = FXCollections.observableArrayList();
+    private final ObservableList<String> listMinutes = FXCollections.observableArrayList();
+    private final ObservableList<String> buildingNameList = FXCollections.observableArrayList();
 
+    @FXML
+    private DatePicker pickUpDate;
     @FXML
     private ComboBox<String> pickUpTimeH;
     @FXML
     private ComboBox<String> pickUpTimeMin;
     @FXML
+    private ChoiceBox<String> pickUpLocation;
+    @FXML
+    private DatePicker dropOffDate;
+    @FXML
     private ComboBox<String> dropOffTimeH;
     @FXML
     private ComboBox<String> dropOffTimeMin;
+    @FXML
+    private ChoiceBox<String> dropOffLocation;
 
+    /**
+     * Changes to mainMenuReservations.fxml.
+     * @throws IOException input will not be wrong, hence we throw.
+     */
     public void mainMenu() throws IOException {
         ApplicationDisplay.changeScene("/mainMenu.fxml");
     }
 
-    public void bikeConfirmation() throws IOException {
-        ApplicationDisplay.changeScene("/bikeConfirmation.fxml");
+    /**
+     * Return to the reservations menu when the back arrow button is clicked.
+     * @throws IOException the input will always be the same, so it should never throw an IO exception
+     */
+    public void goToMainMenuReservations() throws IOException {
+        ApplicationDisplay.changeScene("/mainMenuReservations.fxml");
+    }
+
+    /**
+     * Go to the confirmation screen when the reserve button is clicked.
+     */
+    public void bikeConfirmation() {
+        if (pickUpDate.getValue() == null) {
+            CustomAlert.warningAlert("Pick up date is required.");
+        } else if (pickUpTimeH.getValue() == null || pickUpTimeMin.getValue() == null) {
+            CustomAlert.warningAlert("Pick up time is required.");
+        } else if (pickUpLocation.getValue() == null) {
+            CustomAlert.warningAlert("Pick up location is required.");
+        } else if (dropOffDate.getValue() == null) {
+            CustomAlert.warningAlert("Drop off date is required.");
+        } else if (dropOffTimeH.getValue() == null || dropOffTimeMin.getValue() == null) {
+            CustomAlert.warningAlert("Drop off time is required.");
+        } else if (dropOffLocation.getValue() == null) {
+            CustomAlert.warningAlert("Drop off location is required.");
+        } else {
+            long fromDateLong = Date.from(pickUpDate.getValue().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()).getTime()
+                    + Long.parseLong(pickUpTimeH.getValue()) * 3600000 + Long.parseLong(pickUpTimeMin.getValue()) * 60000;
+            long toDateLong = Date.from(dropOffDate.getValue().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()).getTime()
+                    + Long.parseLong(dropOffTimeH.getValue()) * 3600000 + Long.parseLong(dropOffTimeMin.getValue()) * 60000;
+            if (fromDateLong > toDateLong) {
+                CustomAlert.warningAlert("Pick up time must be before the drop off time.");
+                return;
+            }
+            try {
+                int fromBuildingId = JsonMapper.buildingMapper(ServerCommunication.findBuildingByName(pickUpLocation.getValue())).getId();
+                int toBuildingId = JsonMapper.buildingMapper(ServerCommunication.findBuildingByName(dropOffLocation.getValue())).getId();
+                String response = ServerCommunication.addBikeReservation(fromBuildingId, toBuildingId, fromDateLong, toDateLong);
+                if (response.equals(ErrorMessages.getErrorMessage(201))) {
+                    CustomAlert.informationAlert(response);
+                    ApplicationDisplay.changeScene("/bikeConfirmation.fxml");
+                    return;
+                }
+                CustomAlert.errorAlert(response);
+            } catch (Exception e) {
+                CustomAlert.errorAlert("Something went wrong.");
+            }
+        }
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         loadData();
+        loadLocationChoiceBox();
     }
 
     private void loadData() {
-        listTime.clear();
+        listHours.clear();
         listMinutes.clear();
         for (int i = 0;i <= 45; i = i + 15) {
             if (i == 0) {
@@ -54,22 +123,31 @@ public class BikeReservationController implements Initializable {
         }
         for (int i = 0; i <= 23; i++) {
             if (i < 10) {
-                listTime.add("0" + i);
+                listHours.add("0" + i);
             } else {
-                listTime.add("" + i);
+                listHours.add("" + i);
             }
         }
-        pickUpTimeH.getItems().addAll(listTime);
-        dropOffTimeH.getItems().addAll(listTime);
+        pickUpTimeH.getItems().addAll(listHours);
+        dropOffTimeH.getItems().addAll(listHours);
         pickUpTimeMin.getItems().addAll(listMinutes);
         dropOffTimeMin.getItems().addAll(listMinutes);
     }
 
     /**
-     * return to the reservations menu when the back arrow button is clicked.
-     * @throws IOException the input will always be the same, so it should never throw an IO exception
+     * Takes care of the options for the locationChoiceBox in the GUI
      */
-    public void goToMainMenuReservations() throws IOException {
-        ApplicationDisplay.changeScene("/mainMenuReservations.fxml");
+    private void loadLocationChoiceBox() {
+        buildingNameList.clear();
+        try {
+            for (Building building: Objects.requireNonNull(JsonMapper.buildingListMapper(ServerCommunication.getBuildings()))) {
+                buildingNameList.add(building.getName());
+            }
+            buildingNameList.add(null);
+        } catch (Exception e) {
+            buildingNameList.add(null);
+        }
+        pickUpLocation.getItems().addAll(buildingNameList);
+        dropOffLocation.getItems().addAll(buildingNameList);
     }
 }
