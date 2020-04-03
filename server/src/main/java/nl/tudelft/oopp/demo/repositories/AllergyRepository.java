@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * Supports the persistence of Allergy entities by storing them in the database.
  */
@@ -15,4 +17,6 @@ public interface AllergyRepository extends JpaRepository<Allergy, String>, JpaSp
     void deleteByAllergyName(String allergyName);
 
     boolean existsByAllergyName(String allergyName);
+
+    List<Allergy> findAllByDishesId(int dishId);
 }
