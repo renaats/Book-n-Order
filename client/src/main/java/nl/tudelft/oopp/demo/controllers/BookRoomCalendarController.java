@@ -63,7 +63,6 @@ public class BookRoomCalendarController implements Initializable {
         calendarContainer.setRoot(calendarView);
         EventHandler<CalendarEvent> handler = e -> entryHandler(e);
         calendarView.getCalendars().get(0).addEventHandler(handler);
-        System.out.println(this.roomId + " in show cal");
         calendarView.loadRoomReservations();
     }
 
@@ -114,18 +113,14 @@ public class BookRoomCalendarController implements Initializable {
         String dateFrom = fromTime.getText();
         String dateUntil = untilTime.getText();
         SimpleDateFormat format = new SimpleDateFormat("EE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
-
+        System.out.println(this.roomId);
         try {
             Date from = format.parse(dateFrom);
             Date until = format.parse(dateUntil);
             long milliseconds1 = from.getTime();
             long milliseconds2 = until.getTime();
 
-            if (fromTime.getText().equals("") || untilTime.getText().equals("")) {
-                reserveSlot.disarm();
-            }
-
-            if(ServerCommunication.addRoomReservation(getRoomId(), milliseconds1, milliseconds2).equals(ErrorMessages.getErrorMessage(308))) {
+            if(ServerCommunication.addRoomReservation(SelectedRoom.getSelectedRoom(), milliseconds1, milliseconds2).equals(ErrorMessages.getErrorMessage(308))) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Error");
                 alert.setHeaderText(null);
