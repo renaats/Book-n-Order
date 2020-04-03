@@ -1,12 +1,15 @@
 package nl.tudelft.oopp.demo.entities;
 
-import java.text.SimpleDateFormat;
-import javafx.beans.property.*;
-
-import java.awt.*;
 import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
+
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.LongProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleLongProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 /**
  * Manages the FoodOrder object that is retrieved from the server
@@ -20,6 +23,7 @@ public class FoodOrder {
     private Building deliveryLocation;
     private Date deliveryTime;
     private boolean feedback;
+    private boolean feedbackGiven;
     private Set<DishOrder> dishOrders;
 
     /** Creates a new instance of FoodOrder.
@@ -78,12 +82,25 @@ public class FoodOrder {
      * Makes the table list the score of the restaurant.
      * @return String property, a property recognized by the tables.
      */
-    public IntegerProperty getRestaurantFeedbackProperty() {
-        int feedback = getRestaurant().getFeedbackCounter();
-        return new SimpleIntegerProperty(feedback);
+    public StringProperty getYourFeedbackProperty() {
+        if (this.isFeedbackGiven()) {
+            if (getFeedback()) {
+                return new SimpleStringProperty("Thumbs Up");
+            } else {
+                return new SimpleStringProperty("Thumbs Down");
+            }
+        } else {
+            return new SimpleStringProperty("No Feedback");
+        }
     }
 
+    public void setFeedbackGiven(boolean feedbackGiven) {
+        this.feedbackGiven = feedbackGiven;
+    }
 
+    public boolean isFeedbackGiven() {
+        return feedbackGiven;
+    }
 
     public FoodOrder() {
         this.active = true;
@@ -184,5 +201,9 @@ public class FoodOrder {
 
     public boolean getFeedback() {
         return this.feedback;
+    }
+
+    public void setFeedback(boolean b) {
+        this.feedback = b;
     }
 }

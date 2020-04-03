@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
@@ -15,6 +14,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
+
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.FoodOrder;
@@ -45,18 +45,13 @@ public class MyPreviousFoodReservationsController implements Initializable {
     @FXML
     public TableColumn<FoodOrder,Boolean> colYourFeedback;
 
-    private int pageNumber;
-    private double totalPages;
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colRestaurant.setCellValueFactory(new PropertyValueFactory<>("getRestaurantName"));
         colDeliveryLoc.setCellValueFactory(new PropertyValueFactory<>("getDeliveryLocationName"));
         colDate.setCellValueFactory(new PropertyValueFactory<>("getDeliveryDay"));
         colTime.setCellValueFactory(new PropertyValueFactory<>("getDeliveryTime"));
-        colFeedback.setCellValueFactory(new PropertyValueFactory<>("getRestaurantFeedback"));
-        colYourFeedback.setCellValueFactory(new PropertyValueFactory<>("feedback"));
+        colYourFeedback.setCellValueFactory(new PropertyValueFactory<>("getYourFeedback"));
         loadDataIntoTable();
     }
 
@@ -71,29 +66,22 @@ public class MyPreviousFoodReservationsController implements Initializable {
             String json = ServerCommunication.getAllFoodOrders();
             List<FoodOrder> foodOrders1 = JsonMapper.foodOrdersListMapper(json);
             foodOrders = new ArrayList<>(foodOrders1);
+            for (int i = 0; i < foodOrders.size(); i++) {
+                if (!(foodOrders.get(i).getAppUser().getEmail()
+                        .equals(JsonMapper.appUserMapper(ServerCommunication.getOwnUserInformation()).getEmail()))) {
+                    foodOrders.remove(foodOrders.get(i));
+                }
+            }
         } catch (Exception e) {
             // Fakes the table having any entries, so the table shows up properly instead of "No contents".
             foodOrders = new ArrayList<>();
             foodOrders.add(null);
         }
 
-        totalPages = Math.ceil(foodOrders.size() / 15.0);
-
-        if (totalPages < pageNumber) {
-            pageNumber--;
-        }
-
-        pagesText.setText(pageNumber + " / " + (int) totalPages + " pages");
-
-        if (foodOrders.size() > 16) {
-            for (int i = 1; i < 16; i++) {
-                try {
-                    foodOrderResult.add(foodOrders.get((i - 15) + pageNumber * 15));
-                } catch (IndexOutOfBoundsException e) {
-                    break;
-                }
-            }
-        }  else {
+        if (foodOrders.size() > 10) {
+            foodOrders = foodOrders.subList(0, 15);
+            foodOrderResult.addAll(foodOrders);
+        } else {
             foodOrderResult.addAll(foodOrders);
         }
         table.setItems(foodOrderResult);
@@ -115,19 +103,61 @@ public class MyPreviousFoodReservationsController implements Initializable {
         ApplicationDisplay.changeScene("/myPreviousBookings.fxml");
     }
 
+    /**
+     * Adds a positive review to the restaurant the order came from
+     */
     public void thumbsUp() {
-        if (table.getSelectionModel().getSelectedItem().getFeedback()) {
-            CustomAlert.warningAlert("You have already given feedback, but it has now been overwritten");
+        try {
+            if (table.getSelectionModel().getSelectedItem().isFeedbackGiven()) {
+                CustomAlert.warningAlert("You have already given feedback");
+                return;
+            }
+            String response1 =
+                    ServerCommunication.addFeedbackFoodOrder(table.getSelectionModel().getSelectedItem().getId(), true);
+            String response2 =
+                    ServerCommunication.addFoodFeedbackRestaurant(table.getSelectionModel().getSelectedItem().getRestaurant().getId(), true);
+            if (!(response1.equals("Successfully executed."))) {
+                CustomAlert.informationAlert(response1);
+                return;
+            }
+            if (!(response2.equals("Successfully added!"))) {
+                CustomAlert.informationAlert(response1);
+                return;
+            }
+            CustomAlert.informationAlert("Feedback has been received");
+            loadDataIntoTable();
+
+        } catch (NullPointerException e) {
+            CustomAlert.warningAlert("Select an order to rate");
         }
-        CustomAlert.informationAlert(ServerCommunication.addFoodFeedback(table.getSelectionModel().getSelectedItem().getRestaurant().getId(), true));
-        loadDataIntoTable();
     }
 
+    /**
+     * Adds a negative review to the restaurant the order came from
+     */
     public void thumbsDown() {
-        if (table.getSelectionModel().getSelectedItem().getFeedback()) {
-            CustomAlert.warningAlert("You have already given feedback, but it has now been overwritten");
+        try {
+            if (table.getSelectionModel().getSelectedItem().isFeedbackGiven()) {
+                CustomAlert.warningAlert("You have already given feedback");
+                return;
+            }
+            String response1 =
+                    ServerCommunication.addFeedbackFoodOrder(table.getSelectionModel().getSelectedItem().getId(), false);
+            String response2 =
+                    ServerCommunication.addFoodFeedbackRestaurant(table.getSelectionModel().getSelectedItem().getRestaurant().getId(), false);
+            if (!(response1.equals("Successfully executed."))) {
+                CustomAlert.informationAlert(response1);
+                return;
+            }
+            if (!(response2.equals("Successfully added!"))) {
+                CustomAlert.informationAlert(response1);
+                return;
+            }
+            CustomAlert.informationAlert("Feedback has been received");
+            loadDataIntoTable();
+
+        } catch (NullPointerException e) {
+            CustomAlert.warningAlert("Select an order to rate");
         }
-        CustomAlert.informationAlert(ServerCommunication.addFoodFeedback(table.getSelectionModel().getSelectedItem().getRestaurant().getId(), false));
-        loadDataIntoTable();
     }
 }

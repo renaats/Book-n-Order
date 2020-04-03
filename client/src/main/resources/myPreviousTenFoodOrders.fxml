@@ -18,7 +18,6 @@
                 <Image url="@images/TuDelftLogoFinal.png" />
             </image>
         </ImageView>
-        <Text fx:id="pagesText" layoutX="890.0" layoutY="590.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0 / pages" />
         <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="258.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="576.0" AnchorPane.leftAnchor="258.0" AnchorPane.rightAnchor="902.0" AnchorPane.topAnchor="120.0">
             <Image url="@images/booknorderlogo.png" />
         </ImageView>
@@ -46,30 +45,28 @@
                 <Cursor fx:constant="HAND" />
             </cursor>
         </ImageView>
-        <TableView fx:id="table" layoutX="327.0" layoutY="198.0" prefHeight="380.0" prefWidth="906.0">
+        <TableView fx:id="table" layoutX="338.0" layoutY="193.0" prefHeight="408.0" prefWidth="906.0">
             <columns>
-                <TableColumn fx:id="colId" prefWidth="49.0" text="ID" />
                 <TableColumn fx:id="colRestaurant" prefWidth="285.6666564941406" text="Restaurant" />
-                <TableColumn fx:id="colDeliveryLoc" prefWidth="174.0" text="Delivery Location" />
-                <TableColumn fx:id="colDate" prefWidth="76.0" text="Date" />
-                <TableColumn fx:id="colTime" prefWidth="106.0" text="Time" />
-                <TableColumn fx:id="colFeedback" prefWidth="106.0" text="General Feedback" />
-                <TableColumn fx:id="colYourFeedback" prefWidth="106.0" text="Your Feedback" />
+                <TableColumn fx:id="colDeliveryLoc" prefWidth="257.0" text="Delivery Location" />
+                <TableColumn fx:id="colDate" prefWidth="104.3333740234375" text="Date" />
+                <TableColumn fx:id="colTime" prefWidth="120.333251953125" text="Time" />
+                <TableColumn fx:id="colYourFeedback" prefWidth="137.6666259765625" text="Your Feedback" />
             </columns>
         </TableView>
-        <Text layoutX="409.0" layoutY="146.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Current Food Reservations">
+        <Text layoutX="572.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Previous Food Orders">
             <font>
                 <Font size="33.0" />
             </font>
         </Text>
-        <ImageView fitHeight="73.0" fitWidth="81.0" layoutX="146.0" layoutY="270.0" onMouseClicked="#thumbsUp" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="73.0" fitWidth="81.0" layoutX="151.0" layoutY="360.0" onMouseClicked="#thumbsUp" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@images/Thumbs_Up.png" />
             </image>
             <cursor>
                 <Cursor fx:constant="HAND" />
             </cursor></ImageView>
-        <ImageView fitHeight="73.0" fitWidth="73.0" layoutX="146.0" layoutY="388.0" onMouseClicked="#thumbsDown" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="73.0" fitWidth="73.0" layoutX="151.0" layoutY="445.0" onMouseClicked="#thumbsDown" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@images/thumbs_Down.png" />
             </image>
@@ -77,5 +74,10 @@
                 <Cursor fx:constant="HAND" />
             </cursor>
         </ImageView>
+      <Text layoutX="71.0" layoutY="321.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rate Your Experience&#10;With that order:" textAlignment="CENTER">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
     </children>
 </AnchorPane>

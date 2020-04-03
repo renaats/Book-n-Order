@@ -24,8 +24,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 /**
  * Creates server side endpoints and routes requests to the FoodOrderService.
  * Maps all requests that start with "/food_order".
@@ -65,6 +63,19 @@ public class FoodOrderController {
     @ResponseBody
     public int updateAttribute(@RequestParam int id, @RequestParam String attribute, @RequestParam String value) {
         return foodOrderService.update(id, attribute, value);
+    }
+
+
+    /**
+     * Updates a specified attribute for some food order.
+     * @param id = the id of the food order.
+     * @return String containing the result of your request.
+     */
+    @Secured({USER, RESTAURANT})
+    @PostMapping(path = "/addFeedback")
+    @ResponseBody
+    public int addFeedback(@RequestParam int id, @RequestParam boolean feedback) {
+        return foodOrderService.addFeedback(id, feedback);
     }
 
     /**

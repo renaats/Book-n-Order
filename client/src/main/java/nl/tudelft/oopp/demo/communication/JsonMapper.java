@@ -424,7 +424,7 @@ public class JsonMapper {
     /**
      * Maps all food orders JSONS to a list.
      * @param allFoodOrdersJson a JSON string representing a list.
-     * @return A list filled with object Food orders.n
+     * @return A list filled with object Food orders.
      */
     public static List<FoodOrder> foodOrderList(String allFoodOrdersJson) {
 
