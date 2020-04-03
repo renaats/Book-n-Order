@@ -25,22 +25,37 @@ import nl.tudelft.oopp.demo.entities.RoomReservation;
 
 public class RoomCalendarView extends CalendarView {
 
-    private Room room;
-    private AppUser user;
-    private String fromTime;
-    
+    private int roomId;
+
     public Calendar unavailableSpots = new Calendar("Unavailable Spots");
-    public Calendar myReservations = new Calendar("My Reservations");
 
     /**
      * Constuctor for the Personal Calendar View
      */
-    public RoomCalendarView() {
-
+    public RoomCalendarView(int roomId) {
+        this.roomId = roomId;
         displayCalendars();
-        loadRoomReservations();
     }
 
+    public void setRoomId(int roomId) {
+        this.roomId = roomId;
+    }
+
+    public int getRoomId() {
+        return this.roomId;
+    }
+
+    /**
+     * Method that displays the different calendars.
+     */
+    public void displayCalendars() {
+        unavailableSpots.setStyle(Calendar.Style.STYLE5);
+        unavailableSpots.setReadOnly(true);
+
+        CalendarSource myCalendarSource = new CalendarSource("My Calendars");
+        myCalendarSource.getCalendars().addAll(unavailableSpots);
+        this.getCalendarSources().add(myCalendarSource);
+    }
 
     /**
      * Methods that loads room reservations of personal user
@@ -56,9 +71,8 @@ public class RoomCalendarView extends CalendarView {
         }
 
         for (RoomReservation reservation : roomReservationList) {
-            if (reservation != null) {
+            if (reservation != null && reservation.getRoom().getId() == this.roomId) {
                 Entry<RoomReservation> bookedEntry = new Entry<>("Booking of Room: " + reservation.getRoom().getName());
-
                 LocalTime startTime = convertToLocalTime(reservation.getFromTime());
                 LocalTime endTime = convertToLocalTime(reservation.getToTime());
                 LocalDate date = convertToLocalDate(reservation.getFromTime());
@@ -66,42 +80,10 @@ public class RoomCalendarView extends CalendarView {
                 bookedEntry.setLocation(reservation.getRoom().getBuilding().getName());
                 bookedEntry.setInterval(date);
                 bookedEntry.setInterval(startTime, endTime);
-                myReservations.addEntry(bookedEntry);
+                unavailableSpots.addEntry(bookedEntry);
             }
         }
     }
-
-
-    /**
-     * Method that displays the different calendars.
-     */
-    public void displayCalendars() {
-        unavailableSpots.setStyle(Calendar.Style.STYLE5);
-        myReservations.setStyle(Calendar.Style.STYLE4);
-        unavailableSpots.setReadOnly(true);
-
-        CalendarSource myCalendarSource = new CalendarSource("My Calendars");
-        myCalendarSource.getCalendars().addAll(myReservations, unavailableSpots);
-        this.getCalendarSources().add(myCalendarSource);
-    }
-
-//    public void entryHandler(CalendarEvent e) {
-//        Entry<RoomReservation> entry = (Entry<RoomReservation>) e.getEntry();
-//
-//        Date start = convertToDate(entry.getStartTime(), entry.getStartDate());
-//        Date end = convertToDate(entry.getEndTime(), entry.getStartDate());
-//
-//        if (e.isEntryAdded()) {
-//            this.fromTime = entry.getStartTime().toString();
-//
-//        } else if (e.isEntryRemoved()) {
-//
-//                this.
-//        } else {
-//                //ServerCommunication.updateRoomReservation(reservationId, old value, new);
-//            }
-//        }
-//    }
 
     public LocalTime convertToLocalTime(Date date) {
         Instant instant1 = Instant.ofEpochMilli(date.getTime());

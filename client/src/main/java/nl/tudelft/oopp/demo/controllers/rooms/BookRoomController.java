@@ -11,7 +11,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -19,6 +22,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
+import nl.tudelft.oopp.demo.controllers.BookRoomCalendarController;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.errors.CustomAlert;
@@ -128,8 +132,24 @@ public class BookRoomController implements Initializable {
      * return to the reservations menu when the back arrow button is clicked.
      * @throws IOException the input will always be the same, so it should never throw an IO exception
      */
-    public void goToRoomConfirmation() throws IOException {
-        ApplicationDisplay.changeScene("/RoomConfirmation.fxml");
+    public void goToRoomCalendar() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/book_room_Calendar.fxml"));
+        Parent root = loader.load();
+
+        ApplicationDisplay.getPrimaryStage().setScene(new Scene(root));
+
+        BookRoomCalendarController bookRoomCalendarController = loader.getController();
+        System.out.println(this.selectedRoom.getId() + " in goToRoomCalendar");
+        bookRoomCalendarController.setRoomId(this.selectedRoom.getId());
+    }
+
+    public void setSelectedRoom(Room selectedRoom) {
+        this.selectedRoom = selectedRoom;
+    }
+
+    public Room getSelectedRoom() {
+        return this.selectedRoom;
     }
 
     /**
@@ -211,8 +231,10 @@ public class BookRoomController implements Initializable {
                     reserveButton.setMaxHeight(24);
                     reserveButton.setOnAction(event -> {
                         try {
-                            goToRoomConfirmation();
-                        } catch (IOException e) {
+                            setSelectedRoom(room);
+                            System.out.println(room.getId() + "in tableSetMethod");
+                            goToRoomCalendar();
+                        } catch (IOException | IllegalStateException e) {
                             e.printStackTrace();
                         }
                     });

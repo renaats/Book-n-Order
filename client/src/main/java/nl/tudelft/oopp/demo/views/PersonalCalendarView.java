@@ -46,7 +46,7 @@ public class PersonalCalendarView extends CalendarView {
         try {
             String roomReservationJson = ServerCommunication.getAllActiveRoomReservations();
             roomReservationList = new ArrayList<>(Objects.requireNonNull(JsonMapper.roomReservationsListMapper(roomReservationJson)));
-        } catch (NullPointerException | JsonProcessingException e) {
+        } catch (NullPointerException e) {
             roomReservationList = new ArrayList<>();
             roomReservationList.add(null);
         }
@@ -105,7 +105,7 @@ public class PersonalCalendarView extends CalendarView {
         try {
             String bikeReservationJson = ServerCommunication.getAllActiveBikeReservations();
             bikeReservationList = new ArrayList<>(Objects.requireNonNull(JsonMapper.bikeReservationsListMapper(bikeReservationJson)));
-        } catch (NullPointerException | JsonProcessingException e) {
+        } catch (NullPointerException e) {
             bikeReservationList = new ArrayList<>();
             bikeReservationList.add(null);
         }

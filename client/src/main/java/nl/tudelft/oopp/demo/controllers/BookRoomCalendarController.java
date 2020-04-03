@@ -4,13 +4,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneId;
-import java.util.Date;
-import java.util.Locale;
-import java.util.ResourceBundle;
+import java.time.*;
+import java.util.*;
 
 import com.calendarfx.model.CalendarEvent;
 import com.calendarfx.model.Entry;
@@ -24,6 +19,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
 
+import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.entities.RoomReservation;
@@ -34,34 +30,44 @@ import nl.tudelft.oopp.demo.views.RoomCalendarView;
 public class BookRoomCalendarController implements Initializable {
 
     private int roomId;
-    private RoomCalendarView calendarView = new RoomCalendarView();
+    private RoomCalendarView calendarView = new RoomCalendarView(getRoomId());
 
+    @FXML
+    Button reserveSlot;
     @FXML
     SubScene calendarContainer;
     @FXML
     TextField fromTime;
-
-    public void disableFromTime() {
-        fromTime.setDisable(true);
-    }
-
     @FXML
     TextField untilTime;
 
-    public void disableUntilTime() {
-        untilTime.setDisable(true);
+    public BookRoomCalendarController() {
     }
 
-    @FXML
-    Button reserveSlot;
+    public void setRoomId(int roomId) {
+        this.roomId = roomId;
+    }
+
+    public int getRoomId() {
+        return this.roomId;
+    }
 
     public void showCal() {
         disableFromTime();
         disableUntilTime();
         calendarContainer.setRoot(calendarView);
-        calendarView.setLayout(DateControl.Layout.SWIMLANE);
         EventHandler<CalendarEvent> handler = e -> entryHandler(e);
-        calendarView.myReservations.addEventHandler(handler);
+        calendarView.getCalendars().get(0).addEventHandler(handler);
+        System.out.println(this.roomId + " in show cal");
+        calendarView.loadRoomReservations();
+    }
+
+    public void disableFromTime() {
+        fromTime.setDisable(true);
+    }
+
+    public void disableUntilTime() {
+        untilTime.setDisable(true);
     }
 
     /**
@@ -114,20 +120,20 @@ public class BookRoomCalendarController implements Initializable {
                 reserveSlot.disarm();
             }
 
-            if(ServerCommunication.addRoomReservation(2, milliseconds1, milliseconds2).equals(ErrorMessages.getErrorMessage(308))) {
+            if(ServerCommunication.addRoomReservation(getRoomId(), milliseconds1, milliseconds2).equals(ErrorMessages.getErrorMessage(308))) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Error");
                 alert.setHeaderText(null);
                 alert.setContentText("Slot is already booked. Please make sure you do not overlay another reservation entry.");
                 alert.showAndWait();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Successfully Added!");
+                alert.setHeaderText(null);
+                alert.setContentText(ErrorMessages.getErrorMessage(200));
+                alert.showAndWait();
+                ApplicationDisplay.changeScene("/bookRoom.fxml");
             }
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Successfully Added!");
-            alert.setHeaderText(null);
-            alert.setContentText(ErrorMessages.getErrorMessage(200));
-            alert.showAndWait();
-            ApplicationDisplay.changeScene("/bookRoom.fxml");
-
         } catch (ParseException | IOException e) {
             e.printStackTrace();
         }
@@ -136,6 +142,16 @@ public class BookRoomCalendarController implements Initializable {
     public Date convertToDate(LocalTime time, LocalDate date) {
         LocalDateTime dateTime = LocalDateTime.of(date, time);
         return Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant());
+    }
+
+    public LocalTime convertToLocalTime(Date date) {
+        Instant instant1 = Instant.ofEpochMilli(date.getTime());
+        return LocalDateTime.ofInstant(instant1, ZoneId.systemDefault()).toLocalTime();
+    }
+
+    public LocalDate convertToLocalDate(Date date) {
+        Instant instant1 = Instant.ofEpochMilli(date.getTime());
+        return LocalDateTime.ofInstant(instant1, ZoneId.systemDefault()).toLocalDate();
     }
 
     @Override
