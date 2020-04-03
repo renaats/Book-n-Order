@@ -213,7 +213,7 @@ public class RoomReservationService {
         Room room = optionalRoom.get();
 
         for (RoomReservation roomReservation : roomReservationRepository.findAll()) {
-            if (roomReservation.getRoom() == room) {
+            if (roomReservation.getRoom() == room && roomReservation.isActive()) {
                 roomReservations.add(roomReservation);
             }
         }

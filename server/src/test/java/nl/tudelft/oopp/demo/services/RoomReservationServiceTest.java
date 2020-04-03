@@ -391,6 +391,47 @@ class RoomReservationServiceTest {
     }
 
     /**
+     * Tests the retrieval of room reservations for a room with room reservations.
+     */
+    @Test
+    public void testGetReservationForSpecificRoom() {
+        roomReservationService.add(request2, room2.getId(), 5000000, 10000000);
+        ArrayList<RoomReservation> roomReservationList = (ArrayList<RoomReservation>) roomReservationService.all();
+        assertEquals(roomReservationList , roomReservationService.findForRoom(room2.getId()));
+    }
+
+    /**
+     * Tests the retrieval of room reservations for a room with room reservations but not active.
+     */
+    @Test
+    public void testGetNonActiveReservationForSpecificRoom() {
+        roomReservationService.add(request2, room2.getId(), 5000000, 10000000);
+        roomReservationService.all().get(0).setActive(false);
+        int id = roomReservationService.all().get(0).getRoom().getId();
+        assertEquals(new ArrayList<>() , roomReservationService.findForRoom(id));
+    }
+
+    /**
+     * Tests the retrieval of room reservations for a room without room reservations.
+     */
+    @Test
+    public void testGetReservationForSpecificRoomWithoutReservations() {
+        roomReservationService.add(request2, room2.getId(), 5000000, 10000000);
+        roomService.add("Ampere", "CSE", true, true, 1, 200, 200);
+        int id = roomService.all().get(0).getId();
+        assertEquals(new ArrayList<>(), roomReservationService.findForRoom(id));
+    }
+
+    /**
+     * Tests the retrieval of room reservations for a non-existing room.
+     */
+    @Test
+    public void testGetReservationForNonExistentRoom() {
+        roomReservationService.add(request2, room2.getId(), 5000000, 10000000);
+        assertNull(roomReservationService.findForRoom(-5));
+    }
+
+    /**
      * Tests the retrieval of active room reservations for the user that sends the request.
      */
     @Test

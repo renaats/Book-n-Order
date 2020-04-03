@@ -123,6 +123,17 @@ public class RoomReservationController {
     }
 
     /**
+     * Finds all active reservations for a specific room.
+     * @param id = the id of room the reservations are retreived for.
+     * @return a list all active room reservations for this room.
+     */
+    @Secured(USER)
+    @GetMapping(path = "/room/{id}")
+    public Iterable<RoomReservation> getReservationForRoom(@PathVariable(value = "id") int id) {
+        return roomReservationService.findForRoom(id);
+    }
+
+    /**
      * Cancels a room reservation if it was made by the user that sends the Http request.
      * @param request = the Http request that calls this method.
      * @param roomReservationId = the id of the target reservation.
