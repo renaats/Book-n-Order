@@ -428,7 +428,7 @@ class RoomReservationServiceTest {
     @Test
     public void testGetReservationForNonExistentRoom() {
         roomReservationService.add(request2, room2.getId(), 5000000, 10000000);
-        assertNull(roomReservationService.findForRoom(-5));
+        assertEquals(new ArrayList<>(), roomReservationService.findForRoom(-5));
     }
 
     /**

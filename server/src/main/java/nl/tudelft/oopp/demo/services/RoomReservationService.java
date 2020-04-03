@@ -208,7 +208,7 @@ public class RoomReservationService {
         Optional<Room> optionalRoom = roomRepository.findById(roomId);
 
         if (optionalRoom.isEmpty()) {
-            return null;
+            return new ArrayList<>();
         }
         Room room = optionalRoom.get();
 
