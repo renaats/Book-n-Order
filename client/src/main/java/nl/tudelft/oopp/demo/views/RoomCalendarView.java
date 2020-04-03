@@ -64,10 +64,8 @@ public class RoomCalendarView extends CalendarView {
         List<RoomReservation> roomReservationList;
         try {
             String roomReservationJson = ServerCommunication.findReservationForRoom(roomId);
-            System.out.println(roomReservationJson);
             roomReservationList = new ArrayList<>(Objects.requireNonNull(JsonMapper.roomReservationsListMapper(roomReservationJson)));
         } catch (NullPointerException e) {
-            System.out.println("Exception thrown");
             roomReservationList = new ArrayList<>();
             roomReservationList.add(null);
         }

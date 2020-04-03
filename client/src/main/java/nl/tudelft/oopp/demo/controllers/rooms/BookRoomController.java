@@ -15,8 +15,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
 
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
@@ -161,6 +166,9 @@ public class BookRoomController implements Initializable {
         tableSelectMethod();
     }
 
+    /**
+     * Calculates the number of pages.
+     */
     public void calculatePages() {
         roomResult.clear();
         totalPages = Math.ceil(rooms.size() / 15.0);
@@ -245,7 +253,8 @@ public class BookRoomController implements Initializable {
         String filterString = "";
         if (buildingChoiceBox.getValue() != null) {
             try {
-                filterString += ",building:" + JsonMapper.buildingMapper(ServerCommunication.findBuildingByName(buildingChoiceBox.getValue())).getId();
+                filterString += ",building:"
+                       + JsonMapper.buildingMapper(ServerCommunication.findBuildingByName(buildingChoiceBox.getValue())).getId();
             } catch (Exception e) {
                 CustomAlert.errorAlert("Building not found!");
             }
@@ -287,7 +296,7 @@ public class BookRoomController implements Initializable {
                 buildingNameList.add(building.getName());
             }
         } catch (Exception ignored) {
-
+            ignored.printStackTrace();
         }
         buildingNameList.add(null);
         buildingChoiceBox.getItems().addAll(buildingNameList);

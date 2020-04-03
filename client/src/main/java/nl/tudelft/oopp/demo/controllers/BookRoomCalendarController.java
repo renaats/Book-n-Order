@@ -1,23 +1,28 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import com.calendarfx.model.CalendarEvent;
+import com.calendarfx.model.Entry;
+
 import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.*;
-import java.util.*;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.util.Date;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
-import com.calendarfx.model.CalendarEvent;
-import com.calendarfx.model.Entry;
-import com.calendarfx.view.DateControl;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.SubScene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
@@ -55,22 +60,22 @@ public class BookRoomCalendarController implements Initializable {
         return this.roomId;
     }
 
+    /**
+     * Renders calendar view with all already existing reservations.
+     */
     public void showCal() {
-        System.out.println(SelectedRoom.getSelectedRoom());
         calendarView   = new RoomCalendarView(SelectedRoom.getSelectedRoom());
-        disableFromTime();
-        disableUntilTime();
         calendarContainer.setRoot(calendarView);
         EventHandler<CalendarEvent> handler = e -> entryHandler(e);
         calendarView.getCalendars().get(0).addEventHandler(handler);
         calendarView.loadRoomReservations();
     }
 
-    public void disableFromTime() {
+    /**
+     * Makes text fields read only.
+     */
+    public void disableFields() {
         fromTime.setDisable(true);
-    }
-
-    public void disableUntilTime() {
         untilTime.setDisable(true);
     }
 
@@ -90,7 +95,7 @@ public class BookRoomCalendarController implements Initializable {
         ApplicationDisplay.changeScene("/bookRoom.fxml");
     }
 
-    private void entryHandler (CalendarEvent e) {
+    private void entryHandler(CalendarEvent e) {
 
         Entry<RoomReservation> event = (Entry<RoomReservation>) e.getEntry();
 
@@ -109,6 +114,9 @@ public class BookRoomCalendarController implements Initializable {
         }
     }
 
+    /**
+     * Handles communicating the new entry to the server.
+     */
     public void addReservation() {
         String dateFrom = fromTime.getText();
         String dateUntil = untilTime.getText();
@@ -120,7 +128,8 @@ public class BookRoomCalendarController implements Initializable {
             long milliseconds1 = from.getTime();
             long milliseconds2 = until.getTime();
 
-            if(ServerCommunication.addRoomReservation(SelectedRoom.getSelectedRoom(), milliseconds1, milliseconds2).equals(ErrorMessages.getErrorMessage(308))) {
+            if (ServerCommunication.addRoomReservation(SelectedRoom.getSelectedRoom(), milliseconds1, milliseconds2)
+                    .equals(ErrorMessages.getErrorMessage(308))) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Error");
                 alert.setHeaderText(null);
@@ -139,16 +148,32 @@ public class BookRoomCalendarController implements Initializable {
         }
     }
 
+    /**
+     * Converts LocalTime and LocalDate into Date object.
+     * @param time = the hour, minute and seconds of the slot.
+     * @param date = the date of the slot.
+     * @return Date object that holds both components time and date.
+     */
     public Date convertToDate(LocalTime time, LocalDate date) {
         LocalDateTime dateTime = LocalDateTime.of(date, time);
         return Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant());
     }
 
+    /**
+     * Extracts time in Date object and converts it into LocalTime object.
+     * @param date = the full date of the slot.
+     * @return LocalTime object that holds the time component of date input.
+     */
     public LocalTime convertToLocalTime(Date date) {
         Instant instant1 = Instant.ofEpochMilli(date.getTime());
         return LocalDateTime.ofInstant(instant1, ZoneId.systemDefault()).toLocalTime();
     }
 
+    /**
+     * Extracts date in Date object and converts it into LocalDate object.
+     * @param date = the full date of the slot.
+     * @return LocalDate object that holds the date component of date input.
+     */
     public LocalDate convertToLocalDate(Date date) {
         Instant instant1 = Instant.ofEpochMilli(date.getTime());
         return LocalDateTime.ofInstant(instant1, ZoneId.systemDefault()).toLocalDate();
@@ -159,5 +184,6 @@ public class BookRoomCalendarController implements Initializable {
         this.location = location;
         resourceBundle = resources;
         showCal();
+        disableFields();
     }
 }
