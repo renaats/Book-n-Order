@@ -14,7 +14,7 @@ import nl.tudelft.oopp.demo.authentication.AuthenticationKey;
  * Controls all client to server communication related to the building entity
  * Sends the appropriate HTTP request depending on the method
  */
-public class BuildingRelated {
+public class BuildingServerCommunication {
 
     /**
      * Retrieves all buildings from the server.
@@ -103,7 +103,7 @@ public class BuildingRelated {
     }
 
     /**
-     * Retrieve specific building hours for specific day in the database by id.
+     * Retrieve specific building hours for a specific day in the database by id.
      * @param buildingId = building id, which is parsed from a text field.
      * @param day = the date in milliseconds or the day of the week for regular hours represented by long.
      * @return the body of the response.

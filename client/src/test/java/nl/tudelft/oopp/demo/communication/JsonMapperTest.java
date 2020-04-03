@@ -56,7 +56,7 @@ class JsonMapperTest {
                 .withBody("{\"id\":1,\"name\":\"testffes\",\"street\":\"1\",\"houseNumber\":1}")));
         assertEquals(JsonMapper
                 .buildingMapper("{\"id\":1,\"name\":\"testffes\",\"street\":\"1\",\"houseNumber\":1}"),
-                JsonMapper.buildingMapper(BuildingRelated.findBuilding(1)));
+                JsonMapper.buildingMapper(BuildingServerCommunication.findBuilding(1)));
     }
 
     @Test
@@ -74,7 +74,7 @@ class JsonMapperTest {
                 + "{\"id\":2,\"name\":\"1\",\"street\":\"1\",\"houseNumber\":1},"
                 + "{\"id\":3,\"name\":\"1\",\"street\":\"1\",\"houseNumber\":1},"
                 + "{\"id\":4,\"name\":\"1\",\"street\":\"1\",\"houseNumber\":1}]"),
-                JsonMapper.buildingListMapper(BuildingRelated.getBuildings()));
+                JsonMapper.buildingListMapper(BuildingServerCommunication.getBuildings()));
     }
 
     @Test
@@ -89,7 +89,7 @@ class JsonMapperTest {
                         .roomMapper(
                                 "{\"id\":4,\"name\":\"432\",\"building\":{\"id\":1,\"name\":\"11\",\"street\":\"1\",\"houseNumber\":1},\"faculty\":"
                                 + "\"42342\",\"facultySpecific\":true,\"projector\":false,\"screen\":false,\"capacity\":4234,\"plugs\":42342}"),
-                JsonMapper.roomMapper((RoomRelated.findRoom(4))));
+                JsonMapper.roomMapper((RoomServerCommunication.findRoom(4))));
     }
 
     @Test
@@ -112,7 +112,7 @@ class JsonMapperTest {
                                 + "\"plugs\":42342},{\"id\":5,\"name\":\"1\",\"building\":{\"id\":1,\"name\":\"11\",\"street\":\"1\",\"houseNumber\":"
                                 + "1}"
                                 + ",\"faculty\":\"1\",\"facultySpecific\":true,\"projector\":false,\"screen\":true,\"capacity\":1,\"plugs\":1}]\n")));
-        assertEquals(room, JsonMapper.roomListMapper(RoomRelated.getRooms()));
+        assertEquals(room, JsonMapper.roomListMapper(RoomServerCommunication.getRooms()));
     }
 
     @Test
@@ -127,7 +127,7 @@ class JsonMapperTest {
 
         BuildingHours buildingHours = JsonMapper.buildingHoursMapper(json);
 
-        assertEquals(buildingHours, JsonMapper.buildingHoursMapper(BuildingRelated.findBuildingHours(1, 1)));
+        assertEquals(buildingHours, JsonMapper.buildingHoursMapper(BuildingServerCommunication.findBuildingHours(1, 1)));
     }
 
     @Test
@@ -145,7 +145,7 @@ class JsonMapperTest {
 
         RestaurantHours restaurantHours = JsonMapper.restaurantHoursMapper(json);
 
-        assertEquals(restaurantHours, JsonMapper.restaurantHoursMapper(DishRelated.findRestaurantHours(1, 1)));
+        assertEquals(restaurantHours, JsonMapper.restaurantHoursMapper(DishServerCommunication.findRestaurantHours(1, 1)));
     }
 
     @Test
@@ -174,7 +174,7 @@ class JsonMapperTest {
                 + "id\":1,\"name\":\"ROLE_USER\"}]},\"fromTime\":\"2020-03-19T11:30:00.000+0000\",\"toTime\":\"2020-03-19T12:00:00.000+0000\"}";
 
         RoomReservation roomReservation = JsonMapper.roomReservationMapper(json);
-        assertEquals(roomReservation, JsonMapper.roomReservationMapper(RoomRelated.findRoomReservation(3)));
+        assertEquals(roomReservation, JsonMapper.roomReservationMapper(RoomServerCommunication.findRoomReservation(3)));
     }
 
     @Test
@@ -225,7 +225,7 @@ class JsonMapperTest {
 
         List<RoomReservation> roomReservations = JsonMapper.roomReservationsListMapper(json);
 
-        assertEquals(roomReservations, JsonMapper.roomReservationsListMapper(RoomRelated.getRoomReservations()));
+        assertEquals(roomReservations, JsonMapper.roomReservationsListMapper(RoomServerCommunication.getRoomReservations()));
     }
 
     @Test

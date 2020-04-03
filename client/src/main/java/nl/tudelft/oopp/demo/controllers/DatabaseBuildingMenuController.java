@@ -20,7 +20,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
-import nl.tudelft.oopp.demo.communication.BuildingRelated;
+import nl.tudelft.oopp.demo.communication.BuildingServerCommunication;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.errors.CustomAlert;
@@ -106,7 +106,7 @@ public class DatabaseBuildingMenuController implements Initializable {
         buildingResult.clear();
         List<Building> buildings;
         try {
-            buildings = new ArrayList<>(Objects.requireNonNull(JsonMapper.buildingListMapper(BuildingRelated.getBuildings())));
+            buildings = new ArrayList<>(Objects.requireNonNull(JsonMapper.buildingListMapper(BuildingServerCommunication.getBuildings())));
         } catch (Exception e) {
             // Fakes the table having any entries, so the table shows up properly instead of "No contents".
             buildings = new ArrayList<>();
@@ -186,7 +186,7 @@ public class DatabaseBuildingMenuController implements Initializable {
                                 anchorPane.getChildren().remove(deleteButton);
                             }
                         }
-                        String response = BuildingRelated.deleteBuilding(building.getId());
+                        String response = BuildingServerCommunication.deleteBuilding(building.getId());
                         listBuildingsButtonClicked();
                         CustomAlert.informationAlert(response);
                     });
@@ -202,7 +202,7 @@ public class DatabaseBuildingMenuController implements Initializable {
     public void findBuilding() {
         try {
             int id = Integer.parseInt(buildingFindTextField.getText());
-            Building building = JsonMapper.buildingMapper(BuildingRelated.findBuilding(id));
+            Building building = JsonMapper.buildingMapper(BuildingServerCommunication.findBuilding(id));
             if (building != null) {
                 buildingResult.clear();
                 buildingResult.add(building);
@@ -212,7 +212,7 @@ public class DatabaseBuildingMenuController implements Initializable {
         } catch (Exception e) {
             String name = buildingFindTextField.getText();
             System.out.println(name);
-            Building building = JsonMapper.buildingMapper(BuildingRelated.findBuildingByName(name));
+            Building building = JsonMapper.buildingMapper(BuildingServerCommunication.findBuildingByName(name));
             if (building != null) {
                 buildingResult.clear();
                 buildingResult.add(building);
@@ -230,28 +230,28 @@ public class DatabaseBuildingMenuController implements Initializable {
         boolean passes = true;
         try {
             id = Integer.parseInt(idFieldRead.getText());
-            Building building = JsonMapper.buildingMapper(BuildingRelated.findBuilding(id));
+            Building building = JsonMapper.buildingMapper(BuildingServerCommunication.findBuilding(id));
             assert building != null;
             if (!building.getName().equals(nameFieldRead.getText())) {
-                String response = BuildingRelated.updateBuilding(id, "name", nameFieldRead.getText());
+                String response = BuildingServerCommunication.updateBuilding(id, "name", nameFieldRead.getText());
                 if (response.equals("Name already exists.")) {
                     passes = false;
                     CustomAlert.warningAlert("Name already exists.");
                 }
             }
             if (!building.getStreet().equals(streetFieldRead.getText())) {
-                BuildingRelated.updateBuilding(id, "street", streetFieldRead.getText());
+                BuildingServerCommunication.updateBuilding(id, "street", streetFieldRead.getText());
             }
             try {
                 if (!(building.getHouseNumber() == Integer.parseInt(houseNumberFieldRead.getText()))) {
-                    BuildingRelated.updateBuilding(id, "houseNumber", houseNumberFieldRead.getText());
+                    BuildingServerCommunication.updateBuilding(id, "houseNumber", houseNumberFieldRead.getText());
                 }
             } catch (NumberFormatException e) {
                 CustomAlert.warningAlert("Cannot parse house number.");
                 passes = false;
             }
             if ((building.getFaculty() == null) || !building.getFaculty().equals(facultyChoiceBox.getValue())) {
-                BuildingRelated.updateBuilding(id, "faculty", facultyChoiceBox.getValue());
+                BuildingServerCommunication.updateBuilding(id, "faculty", facultyChoiceBox.getValue());
             }
         } catch (NumberFormatException e) {
             CustomAlert.warningAlert("No selection detected.");
@@ -269,7 +269,7 @@ public class DatabaseBuildingMenuController implements Initializable {
     public void deleteBuilding() {
         try {
             int id = Integer.parseInt(idFieldRead.getText());
-            BuildingRelated.deleteBuilding(id);
+            BuildingServerCommunication.deleteBuilding(id);
             buildingResult.removeIf(b -> b.getId() == id);
         } catch (Exception e) {
             CustomAlert.warningAlert("No selection detected.");

@@ -12,7 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 
-import nl.tudelft.oopp.demo.communication.UserRelated;
+import nl.tudelft.oopp.demo.communication.UserServerCommunication;
 import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
@@ -49,7 +49,7 @@ public class RegistrationController implements Initializable {
             String surname = surnameField.getText();
             String faculty = facultyChoiceBox.getValue().replaceAll(" ", "");
             if (password.equals(password2)) {
-                CustomAlert.informationAlert(UserRelated.addUser(email, name, surname, faculty, password));
+                CustomAlert.informationAlert(UserServerCommunication.addUser(email, name, surname, faculty, password));
             } else {
                 CustomAlert.errorAlert("Passwords do not match.");
             }

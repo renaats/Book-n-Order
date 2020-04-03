@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests the BuildingRelated class by using a mock server to simulate client to server communication.
  */
-class BuildingRelatedTest {
+class BuildingServerCommunicationTest {
     public WireMockServer wireMockServer;
 
     /**
@@ -53,7 +53,7 @@ class BuildingRelatedTest {
      */
     @Test
     public void testSuccessfulGetBuildings() {
-        assertEquals("Message2", BuildingRelated.getBuildings());
+        assertEquals("Message2", BuildingServerCommunication.getBuildings());
     }
 
     /**
@@ -61,7 +61,7 @@ class BuildingRelatedTest {
      */
     @Test
     public void testSuccessfulDeleteBuilding() {
-        assertEquals(ErrorMessages.getErrorMessage(200), BuildingRelated.deleteBuilding(1));
+        assertEquals(ErrorMessages.getErrorMessage(200), BuildingServerCommunication.deleteBuilding(1));
     }
 
     /**
@@ -69,7 +69,7 @@ class BuildingRelatedTest {
      */
     @Test
     public void testSuccessfulFindBuilding() {
-        assertEquals("Message4", BuildingRelated.findBuilding(1));
+        assertEquals("Message4", BuildingServerCommunication.findBuilding(1));
     }
 
     /**
@@ -77,7 +77,7 @@ class BuildingRelatedTest {
      */
     @Test
     public void testSuccessfulUpdateBuilding() {
-        assertEquals(ErrorMessages.getErrorMessage(200), BuildingRelated.updateBuilding(1, "a", "a"));
+        assertEquals(ErrorMessages.getErrorMessage(200), BuildingServerCommunication.updateBuilding(1, "a", "a"));
     }
 
     /**
@@ -85,7 +85,7 @@ class BuildingRelatedTest {
      */
     @Test
     public void testSuccessfulAddBuilding() {
-        assertEquals(ErrorMessages.getErrorMessage(200), BuildingRelated.addBuilding("a", "a", 1, "faculty"));
+        assertEquals(ErrorMessages.getErrorMessage(200), BuildingServerCommunication.addBuilding("a", "a", 1, "faculty"));
     }
 
     /**
@@ -93,7 +93,7 @@ class BuildingRelatedTest {
      */
     @Test
     public void testSuccessfulFindBuildingByName() {
-        assertEquals("Message", BuildingRelated.findBuildingByName("name"));
+        assertEquals("Message", BuildingServerCommunication.findBuildingByName("name"));
     }
 
     /**
@@ -101,7 +101,7 @@ class BuildingRelatedTest {
      */
     @Test
     public void testSuccessfulAddBuildingHours() {
-        assertEquals(ErrorMessages.getErrorMessage(200), BuildingRelated.addBuildingHours(1, 1L, 1, 2));
+        assertEquals(ErrorMessages.getErrorMessage(200), BuildingServerCommunication.addBuildingHours(1, 1L, 1, 2));
     }
 
     /**
@@ -109,7 +109,7 @@ class BuildingRelatedTest {
      */
     @Test
     public void testSuccessfulGetBuildingHours() {
-        assertEquals("Message3", BuildingRelated.getBuildingHours());
+        assertEquals("Message3", BuildingServerCommunication.getBuildingHours());
     }
 
     /**
@@ -117,7 +117,7 @@ class BuildingRelatedTest {
      */
     @Test
     public void testSuccessfulFindBuildingHours() {
-        assertEquals("Message5", BuildingRelated.findBuildingHours(1,1));
+        assertEquals("Message5", BuildingServerCommunication.findBuildingHours(1,1));
     }
 
     /**
@@ -125,7 +125,7 @@ class BuildingRelatedTest {
      */
     @Test
     public void testSuccessfulUpdateBuildingHours() {
-        assertEquals(ErrorMessages.getErrorMessage(200), BuildingRelated.updateBuildingHours(1,"attribute", "value"));
+        assertEquals(ErrorMessages.getErrorMessage(200), BuildingServerCommunication.updateBuildingHours(1,"attribute", "value"));
     }
 
     /**
@@ -133,7 +133,7 @@ class BuildingRelatedTest {
      */
     @Test
     public void testSuccessfulDeleteBuildingHoursByDay() {
-        assertEquals(ErrorMessages.getErrorMessage(200), BuildingRelated.deleteBuildingHours(1, 1));
+        assertEquals(ErrorMessages.getErrorMessage(200), BuildingServerCommunication.deleteBuildingHours(1, 1));
     }
 
     /**
@@ -141,7 +141,7 @@ class BuildingRelatedTest {
      */
     @Test
     public void testSuccessfulDeleteBuildingHoursByDate() {
-        assertEquals(ErrorMessages.getErrorMessage(200), BuildingRelated.deleteBuildingHours(1, 1L));
+        assertEquals(ErrorMessages.getErrorMessage(200), BuildingServerCommunication.deleteBuildingHours(1, 1L));
     }
 
     /**

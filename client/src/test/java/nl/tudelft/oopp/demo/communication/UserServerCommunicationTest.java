@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests the UserRelated class by using a mock server to simulate client to server communication.
  */
-class UserRelatedTest {
+class UserServerCommunicationTest {
     public WireMockServer wireMockServer;
 
     /**
@@ -48,7 +48,7 @@ class UserRelatedTest {
     @Test
     public void testServerNotResponding() {
         stubFor(get(urlEqualTo("/user")).willReturn(aResponse().withFault(Fault.CONNECTION_RESET_BY_PEER)));
-        assertEquals("Communication with server failed", UserRelated.getUser());
+        assertEquals("Communication with server failed", UserServerCommunication.getUser());
     }
 
     /**
@@ -57,7 +57,7 @@ class UserRelatedTest {
     @Test
     public void testEmptyUser() {
         stubFor(get(urlEqualTo("/user")).willReturn(aResponse().withStatus(200).withBody("[]")));
-        assertEquals(ErrorMessages.getErrorMessage(404), UserRelated.getUser());
+        assertEquals(ErrorMessages.getErrorMessage(404), UserServerCommunication.getUser());
     }
 
     /**
@@ -66,7 +66,7 @@ class UserRelatedTest {
     @Test
     public void testUnauthorizedGetUser() {
         stubFor(get(urlEqualTo("/user")).willReturn(aResponse().withStatus(403).withBody("")));
-        assertEquals(ErrorMessages.getErrorMessage(401), UserRelated.getUser());
+        assertEquals(ErrorMessages.getErrorMessage(401), UserServerCommunication.getUser());
     }
 
     /**
@@ -75,7 +75,7 @@ class UserRelatedTest {
     @Test
     public void testSuccessfulValidateUser() {
         stubFor(post(urlEqualTo("/user/validate?sixDigitCode=123456")).willReturn(aResponse().withStatus(200).withBody("200")));
-        assertEquals(ErrorMessages.getErrorMessage(200), UserRelated.validateUser(123456));
+        assertEquals(ErrorMessages.getErrorMessage(200), UserServerCommunication.validateUser(123456));
     }
 
     /**
@@ -84,7 +84,7 @@ class UserRelatedTest {
     @Test
     public void testSuccessfulGetAccountActivation() {
         stubFor(get(urlEqualTo("/user/activated")).willReturn(aResponse().withStatus(200).withBody("true")));
-        assertTrue(UserRelated.getAccountActivation());
+        assertTrue(UserServerCommunication.getAccountActivation());
     }
 
     /**
@@ -93,7 +93,7 @@ class UserRelatedTest {
     @Test
     public void testUnsuccessfulGetAccountActivation() {
         stubFor(get(urlEqualTo("/user/activated")).willReturn(aResponse().withFault(Fault.CONNECTION_RESET_BY_PEER).withBody("true")));
-        assertFalse(UserRelated.getAccountActivation());
+        assertFalse(UserServerCommunication.getAccountActivation());
     }
 
     /**
@@ -102,7 +102,7 @@ class UserRelatedTest {
     @Test
     public void testSuccessfulGetUser() {
         stubFor(get(urlEqualTo("/user")).willReturn(aResponse().withStatus(200).withBody("Message1")));
-        assertEquals("Message1", UserRelated.getUser());
+        assertEquals("Message1", UserServerCommunication.getUser());
     }
 
     /**
@@ -110,7 +110,7 @@ class UserRelatedTest {
      */
     @Test
     public void testSuccessfulAddUser() {
-        assertEquals(ErrorMessages.getErrorMessage(200), UserRelated.addUser("a", "a", "a", "a", "a"));
+        assertEquals(ErrorMessages.getErrorMessage(200), UserServerCommunication.addUser("a", "a", "a", "a", "a"));
     }
 
     /**
@@ -119,7 +119,7 @@ class UserRelatedTest {
     @Test
     public void testSuccessfulLogoutUser() {
         stubFor(post(urlEqualTo("/user/logout")).willReturn(aResponse().withStatus(200).withBody("200")));
-        assertEquals(ErrorMessages.getErrorMessage(200), UserRelated.logoutUser());
+        assertEquals(ErrorMessages.getErrorMessage(200), UserServerCommunication.logoutUser());
     }
 
     /**
@@ -128,7 +128,7 @@ class UserRelatedTest {
     @Test
     public void testUnsuccessfulLogoutUser() {
         stubFor(post(urlEqualTo("/user/logout")).willReturn(aResponse().withFault(Fault.CONNECTION_RESET_BY_PEER).withBody("200")));
-        assertEquals("Communication with server failed", UserRelated.logoutUser());
+        assertEquals("Communication with server failed", UserServerCommunication.logoutUser());
     }
 
     /**
@@ -137,7 +137,7 @@ class UserRelatedTest {
     @Test
     public void testUnauthorizedLogoutUser() {
         stubFor(post(urlEqualTo("/user/logout")).willReturn(aResponse().withStatus(403).withBody("200")));
-        assertEquals(ErrorMessages.getErrorMessage(401), UserRelated.logoutUser());
+        assertEquals(ErrorMessages.getErrorMessage(401), UserServerCommunication.logoutUser());
     }
 
     /**
@@ -145,7 +145,7 @@ class UserRelatedTest {
      */
     @Test
     public void testSuccessfulGetOwnUserInformation() {
-        assertEquals("Information", UserRelated.getOwnUserInformation());
+        assertEquals("Information", UserServerCommunication.getOwnUserInformation());
     }
 
     /**
@@ -154,7 +154,7 @@ class UserRelatedTest {
     @Test
     public void testSuccessfulGetAdminButtonPermission() {
         stubFor(get(urlEqualTo("/user/admin")).willReturn(aResponse().withStatus(200).withBody("true")));
-        assertTrue(UserRelated.getAdminButtonPermission());
+        assertTrue(UserServerCommunication.getAdminButtonPermission());
     }
 
     /**
@@ -163,7 +163,7 @@ class UserRelatedTest {
     @Test
     public void testUnsuccessfulGetAdminButtonPermission() {
         stubFor(get(urlEqualTo("/user/admin")).willReturn(aResponse().withFault(Fault.CONNECTION_RESET_BY_PEER).withBody("true")));
-        assertFalse(UserRelated.getAdminButtonPermission());
+        assertFalse(UserServerCommunication.getAdminButtonPermission());
     }
 
     /**
@@ -171,7 +171,7 @@ class UserRelatedTest {
      */
     @Test
     public void testSuccessfulLoginUser() {
-        assertEquals(ErrorMessages.getErrorMessage(311), UserRelated.loginUser("a", "b"));
+        assertEquals(ErrorMessages.getErrorMessage(311), UserServerCommunication.loginUser("a", "b"));
     }
 
     /**
@@ -179,7 +179,7 @@ class UserRelatedTest {
      */
     @Test
     public void testSuccessfulChangePassword() {
-        assertEquals(ErrorMessages.getErrorMessage(200), UserRelated.changeUserPassword("Password"));
+        assertEquals(ErrorMessages.getErrorMessage(200), UserServerCommunication.changeUserPassword("Password"));
     }
 
     /**
@@ -188,7 +188,7 @@ class UserRelatedTest {
     @Test
     public void testSuccessfulSendRecoveryPassword() {
         stubFor(post(urlEqualTo("/user/recoverPassword?email=test@tudelft.nl")).willReturn(aResponse().withStatus(200).withBody("200")));
-        assertEquals(ErrorMessages.getErrorMessage(200), UserRelated.sendRecoveryPassword("test@tudelft.nl"));
+        assertEquals(ErrorMessages.getErrorMessage(200), UserServerCommunication.sendRecoveryPassword("test@tudelft.nl"));
     }
 
     /**

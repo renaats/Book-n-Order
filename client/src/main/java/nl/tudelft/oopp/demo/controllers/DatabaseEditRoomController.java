@@ -20,7 +20,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import nl.tudelft.oopp.demo.communication.JsonMapper;
-import nl.tudelft.oopp.demo.communication.RoomRelated;
+import nl.tudelft.oopp.demo.communication.RoomServerCommunication;
 import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
@@ -86,7 +86,7 @@ public class DatabaseEditRoomController implements Initializable {
     public void roomFindById() {
         try {
             int id = Integer.parseInt(roomFindByIdTextField.getText());
-            Room room = JsonMapper.roomMapper(RoomRelated.findRoom(id));
+            Room room = JsonMapper.roomMapper(RoomServerCommunication.findRoom(id));
             roomResult.clear();
             roomResult.add(room);
             table.setItems(roomResult);
@@ -99,7 +99,7 @@ public class DatabaseEditRoomController implements Initializable {
      * Handles clicking of the List Rooms button.
      */
     public void roomBuildingsButtonClicked() {
-        List<Room> rooms = new ArrayList<>(Objects.requireNonNull(JsonMapper.roomListMapper(RoomRelated.getRooms())));
+        List<Room> rooms = new ArrayList<>(Objects.requireNonNull(JsonMapper.roomListMapper(RoomServerCommunication.getRooms())));
         roomResult.clear();
         roomResult.addAll(rooms);
         table.setItems(roomResult);
@@ -116,7 +116,7 @@ public class DatabaseEditRoomController implements Initializable {
             int id = Integer.parseInt(roomFindByIdTextField.getText());
             String attribute = updateChoiceBox.getValue().replaceAll(" ", "").toLowerCase();
             String changeValue = roomChangeToField.getText();
-            CustomAlert.informationAlert(RoomRelated.updateRoom(id, attribute, changeValue));
+            CustomAlert.informationAlert(RoomServerCommunication.updateRoom(id, attribute, changeValue));
             roomResult.clear();
             roomBuildingsButtonClicked();
         } catch (Exception e) {
@@ -178,7 +178,7 @@ public class DatabaseEditRoomController implements Initializable {
      */
     public void deleteRoomButtonClicked() {
         int id = Integer.parseInt(roomDeleteByIdTextField.getText());
-        CustomAlert.informationAlert(RoomRelated.deleteRoom(id));
+        CustomAlert.informationAlert(RoomServerCommunication.deleteRoom(id));
         roomResult.removeIf(room -> room.getId() == id);
     }
 
@@ -201,7 +201,7 @@ public class DatabaseEditRoomController implements Initializable {
         try {
             Room room = table.getSelectionModel().getSelectedItem();
             roomResult.removeIf(r -> r.getId().equals(room.getId()));
-            CustomAlert.informationAlert(RoomRelated.deleteRoom(room.getId()));
+            CustomAlert.informationAlert(RoomServerCommunication.deleteRoom(room.getId()));
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             CustomAlert.warningAlert("Missing argument.");

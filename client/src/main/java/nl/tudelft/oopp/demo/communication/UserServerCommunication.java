@@ -25,7 +25,7 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
  * Controls all client to server communication related to the user entity
  * Sends the appropriate HTTP request depending on the method
  */
-public class UserRelated {
+public class UserServerCommunication {
     private static final HttpClient client = HttpClient.newBuilder().build();
 
     /**

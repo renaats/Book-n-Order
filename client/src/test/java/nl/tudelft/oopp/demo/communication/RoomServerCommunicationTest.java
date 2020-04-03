@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests the RoomRelated class by using a mock server to simulate client to server communication.
  */
-class RoomRelatedTest {
+class RoomServerCommunicationTest {
     public WireMockServer wireMockServer;
 
     /**
@@ -57,7 +57,7 @@ class RoomRelatedTest {
      */
     @Test
     public void testSuccessfulGetAllFutureRoomReservations() {
-        assertEquals("200", RoomRelated.getAllFutureRoomReservations());
+        assertEquals("200", RoomServerCommunication.getAllFutureRoomReservations());
     }
 
     /**
@@ -65,7 +65,7 @@ class RoomRelatedTest {
      */
     @Test
     public void testSuccessfulGetAllActiveRoomReservations() {
-        assertEquals("Message4", RoomRelated.getAllActiveRoomReservations());
+        assertEquals("Message4", RoomServerCommunication.getAllActiveRoomReservations());
     }
 
     /**
@@ -73,7 +73,7 @@ class RoomRelatedTest {
      */
     @Test
     public void testSuccessfulGetAllPastRoomReservations() {
-        assertEquals("200", RoomRelated.getAllPreviousRoomReservations());
+        assertEquals("200", RoomServerCommunication.getAllPreviousRoomReservations());
     }
 
     /**
@@ -81,7 +81,7 @@ class RoomRelatedTest {
      */
     @Test
     public void testSuccessfulGetRooms() {
-        assertEquals("Message3", RoomRelated.getRooms());
+        assertEquals("Message3", RoomServerCommunication.getRooms());
     }
 
     /**
@@ -89,7 +89,7 @@ class RoomRelatedTest {
      */
     @Test
     public void testSuccessfulFindRoom() {
-        assertEquals("Message5", RoomRelated.findRoom(1));
+        assertEquals("Message5", RoomServerCommunication.findRoom(1));
     }
 
     /**
@@ -97,7 +97,7 @@ class RoomRelatedTest {
      */
     @Test
     public void testSuccessfulDeleteRoom() {
-        assertEquals(ErrorMessages.getErrorMessage(200), RoomRelated.deleteRoom(1));
+        assertEquals(ErrorMessages.getErrorMessage(200), RoomServerCommunication.deleteRoom(1));
     }
 
     /**
@@ -105,7 +105,7 @@ class RoomRelatedTest {
      */
     @Test
     public void testSuccessfulUpdateRoom() {
-        assertEquals(ErrorMessages.getErrorMessage(200), RoomRelated.updateRoom(1, "a", "a"));
+        assertEquals(ErrorMessages.getErrorMessage(200), RoomServerCommunication.updateRoom(1, "a", "a"));
     }
 
     /**
@@ -113,7 +113,7 @@ class RoomRelatedTest {
      */
     @Test
     public void testSuccessfulAddRoom() {
-        assertEquals(ErrorMessages.getErrorMessage(200), RoomRelated.addRoom("a", 1, "a", true, true, 1, 1));
+        assertEquals(ErrorMessages.getErrorMessage(200), RoomServerCommunication.addRoom("a", 1, "a", true, true, 1, 1));
     }
 
     /**
@@ -121,7 +121,7 @@ class RoomRelatedTest {
      */
     @Test
     public void testSuccessfulFilterRooms() {
-        assertEquals("Message15", RoomRelated.filterRooms("name:Auditorium"));
+        assertEquals("Message15", RoomServerCommunication.filterRooms("name:Auditorium"));
     }
 
     /**
@@ -129,7 +129,7 @@ class RoomRelatedTest {
      */
     @Test
     public void testSuccessfulFindRoomReservation() {
-        assertEquals("Message10", RoomRelated.findRoomReservation(10));
+        assertEquals("Message10", RoomServerCommunication.findRoomReservation(10));
     }
 
     /**
@@ -137,7 +137,7 @@ class RoomRelatedTest {
      */
     @Test
     public void testSuccessfulAddRoomReservation() {
-        assertEquals(ErrorMessages.getErrorMessage(200), RoomRelated.addRoomReservation(1, 1, 2));
+        assertEquals(ErrorMessages.getErrorMessage(200), RoomServerCommunication.addRoomReservation(1, 1, 2));
     }
 
     /**
@@ -145,7 +145,7 @@ class RoomRelatedTest {
      */
     @Test
     public void testSuccessfulGetRoomReservations() {
-        assertEquals("RoomReservations", RoomRelated.getRoomReservations());
+        assertEquals("RoomReservations", RoomServerCommunication.getRoomReservations());
     }
 
     /**
@@ -153,7 +153,7 @@ class RoomRelatedTest {
      */
     @Test
     public void testSuccessfulUpdateRoomReservation() {
-        assertEquals(ErrorMessages.getErrorMessage(200), RoomRelated.updateRoomReservation(1, "a","b"));
+        assertEquals(ErrorMessages.getErrorMessage(200), RoomServerCommunication.updateRoomReservation(1, "a","b"));
     }
 
     /**
@@ -161,7 +161,7 @@ class RoomRelatedTest {
      */
     @Test
     public void testSuccessfulDeleteRoomReservation() {
-        assertEquals(ErrorMessages.getErrorMessage(200), RoomRelated.deleteRoomReservation(1));
+        assertEquals(ErrorMessages.getErrorMessage(200), RoomServerCommunication.deleteRoomReservation(1));
     }
 
     /**
@@ -169,7 +169,7 @@ class RoomRelatedTest {
      */
     @Test
     public void testCancelRoomReservation() {
-        assertEquals(ErrorMessages.getErrorMessage(201), RoomRelated.cancelRoomReservation(1));
+        assertEquals(ErrorMessages.getErrorMessage(201), RoomServerCommunication.cancelRoomReservation(1));
     }
 
     /**

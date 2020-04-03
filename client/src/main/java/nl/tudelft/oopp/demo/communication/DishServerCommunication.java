@@ -6,7 +6,6 @@ import static nl.tudelft.oopp.demo.communication.ServerCommunication.communicate
 import java.net.URI;
 import java.net.URLEncoder;
 import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 
 import nl.tudelft.oopp.demo.authentication.AuthenticationKey;
@@ -15,7 +14,7 @@ import nl.tudelft.oopp.demo.authentication.AuthenticationKey;
  * Controls all client to server communication related to the dish entity
  * Sends the appropriate HTTP request depending on the method
  */
-public class DishRelated {
+public class DishServerCommunication {
 
     /**
      * Adds a dish to the database.
@@ -136,7 +135,7 @@ public class DishRelated {
     }
 
     /**
-     * Finds all past food orders for the user that sends the request.
+     * Finds all previous food orders for the user that sends the request.
      * @return the body of the response from the server.
      */
     public static String getAllPreviousFoodOrders() {

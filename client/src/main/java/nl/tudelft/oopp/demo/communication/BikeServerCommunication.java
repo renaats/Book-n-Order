@@ -12,7 +12,7 @@ import nl.tudelft.oopp.demo.authentication.AuthenticationKey;
  * Controls all client to server communication related to the bike entity
  * Sends the appropriate HTTP request depending on the method
  */
-public class BikeRelated {
+public class BikeServerCommunication {
 
     /**
      * gets all bike reservations from the database.
@@ -24,7 +24,7 @@ public class BikeRelated {
     }
 
     /**
-     * Finds all past bike reservations for the user that sends the request.
+     * Finds all previous bike reservations for the user that sends the request.
      * @return the body of the response from the server.
      */
     public static String getAllPreviousBikeReservations() {

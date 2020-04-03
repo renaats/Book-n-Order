@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests the BikeRelated class by using a mock server to simulate client to server communication.
  */
-class BikeRelatedTest {
+class BikeServerCommunicationTest {
     public WireMockServer wireMockServer;
 
     /**
@@ -43,7 +43,7 @@ class BikeRelatedTest {
      */
     @Test
     public void testSuccessfulGetAllBikeReservations() {
-        assertEquals("200", BikeRelated.getAllBikeReservations());
+        assertEquals("200", BikeServerCommunication.getAllBikeReservations());
     }
 
     /**
@@ -51,7 +51,7 @@ class BikeRelatedTest {
      */
     @Test
     public void testSuccessfulGetAllFutureBikeReservations() {
-        assertEquals("200", BikeRelated.getAllFutureBikeReservations());
+        assertEquals("200", BikeServerCommunication.getAllFutureBikeReservations());
     }
 
     /**
@@ -59,7 +59,7 @@ class BikeRelatedTest {
      */
     @Test
     public void testSuccessfulGetAllPastBikeReservations() {
-        assertEquals("200", BikeRelated.getAllPreviousBikeReservations());
+        assertEquals("200", BikeServerCommunication.getAllPreviousBikeReservations());
     }
 
     /**
@@ -67,7 +67,7 @@ class BikeRelatedTest {
      */
     @Test
     public void testCancelBikeReservation() {
-        assertEquals(ErrorMessages.getErrorMessage(201), BikeRelated.cancelBikeReservation(1));
+        assertEquals(ErrorMessages.getErrorMessage(201), BikeServerCommunication.cancelBikeReservation(1));
     }
 
     /**
@@ -75,7 +75,7 @@ class BikeRelatedTest {
      */
     @Test
     public void testGetAllActiveBikeReservations() {
-        assertEquals("Message", BikeRelated.getAllActiveBikeReservations());
+        assertEquals("Message", BikeServerCommunication.getAllActiveBikeReservations());
     }
 
     /**

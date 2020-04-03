@@ -14,7 +14,7 @@ import nl.tudelft.oopp.demo.authentication.AuthenticationKey;
  * Controls all client to server communication related to the room entity
  * Sends the appropriate HTTP request depending on the method
  */
-public class RoomRelated {
+public class RoomServerCommunication {
 
     /**
      * Retrieves a JSON string representation of all rooms from the server.

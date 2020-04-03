@@ -7,7 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 
-import nl.tudelft.oopp.demo.communication.RoomRelated;
+import nl.tudelft.oopp.demo.communication.RoomServerCommunication;
 import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
@@ -107,7 +107,7 @@ public class DatabaseAddRoomController {
         boolean projector = Boolean.parseBoolean(projectorToggle.getText());
         int capacity = Integer.parseInt(capacityTextField.getText());
         int plugs = Integer.parseInt(plugsTextField.getText());
-        String response = RoomRelated.addRoom(name, buildingId, studySpecific, screen, projector, capacity, plugs);
+        String response = RoomServerCommunication.addRoom(name, buildingId, studySpecific, screen, projector, capacity, plugs);
         if (response.equals("Successfully added!")) {
             CustomAlert.informationAlert(response);
         } else {
