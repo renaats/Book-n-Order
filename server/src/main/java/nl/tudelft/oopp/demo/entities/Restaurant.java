@@ -108,8 +108,8 @@ public class Restaurant {
     }
 
     /**
-     * When the feedback is positive it adds 1 to the feedback counter score, when it's negative it subtracts one
-     * @param feedback if the feedback is positive or negative
+     * When the feedback is positive it adds 1 to the feedback counter score, when it's negative it subtracts one.
+     * @param feedback if the feedback is positive or negative.
      */
     public void addFeedback(Boolean feedback) {
         if (feedback) {
@@ -118,6 +118,7 @@ public class Restaurant {
             this.feedbackCounter = this.feedbackCounter - 1;
         }
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

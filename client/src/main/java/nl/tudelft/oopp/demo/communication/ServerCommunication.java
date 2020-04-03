@@ -636,14 +636,29 @@ public class ServerCommunication {
      * Adds the user feedback for the restaurant.
      * @param restaurantId the id of the restaurant.
      * @param feedback if the feedback is positive (true), if it's negative (false).
-     * @return
+     * @return the message corresponding to the server's response.
      */
-    public static String addFoodFeedback(int restaurantId, boolean feedback) {
+    public static String addFoodFeedbackRestaurant(int restaurantId, boolean feedback) {
         HttpRequest request =  HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant/addFeedback?id=" + restaurantId + "&feedback=" + feedback)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         HttpResponse<String> response;
         return communicateAndReturnErrorMessage(request);
     }
 
+    /**
+     * Sends a request to the server to add some feedback to a food order.
+     * @param foodOrderId the id of the food order.
+     * @param feedback if the feedback is positive true if the feedback is negative false.
+     * @return the error message corresponding to the server's response.
+     */
+    public static String addFeedbackFoodOrder(int foodOrderId, boolean feedback) {
+        HttpRequest request =  HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/food_order/addFeedback?id=" + foodOrderId + "&feedback=" + feedback)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnErrorMessage(request);
+    }
+
+    /**
+     * Sends a request to the server to retrieve the feedback of the given restaurant.
+     * @param id the restaurant id the id of the food order.
+     */
     public static String getFeedback(int id) {
         HttpRequest request =  HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant/feedback?id=" + id)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return  (request.toString());
