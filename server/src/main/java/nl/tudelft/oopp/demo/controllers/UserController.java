@@ -196,12 +196,12 @@ public class UserController {
 
     /**
      * Finds user for a specific reservation.
-     * @param roomReservationId reservation for which we retreive user.
+     * @param id = id of reservation for which we retrieve user.
      * @return a user that corresponds to this reservation.
      */
     @Secured({ADMIN, BUILDING_ADMIN})
-    @PostMapping(path = "/reservation/{roomReservationId}")
-    public AppUser findForReservation(@PathVariable int roomReservationId) {
-        return userService.findForReservation(roomReservationId);
+    @GetMapping(path = "/reservation/{id}")
+    public AppUser findForReservation(@PathVariable int id) {
+        return userService.findForReservation(id);
     }
 }
