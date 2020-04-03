@@ -2,6 +2,7 @@ package nl.tudelft.oopp.demo.controllers.restaurants;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -10,13 +11,10 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -26,6 +24,7 @@ import javafx.scene.text.Text;
 
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
+import nl.tudelft.oopp.demo.entities.Allergy;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Dish;
 import nl.tudelft.oopp.demo.entities.Restaurant;
@@ -39,10 +38,12 @@ public class OrderFoodChooseRestaurantController implements Initializable {
     private final ObservableList<Restaurant> restaurantResult = FXCollections.observableArrayList();
     private final ObservableList<Dish> dishResult = FXCollections.observableArrayList();
     private final ObservableList<Dish> orderResult = FXCollections.observableArrayList();
+    private final ObservableList<Allergy> allergyResult = FXCollections.observableArrayList();
     private final ObservableList<String> buildingNameList = FXCollections.observableArrayList();
     List<Restaurant> restaurants;
     List<Dish> dishes;
     List<Dish> orders;
+    List<Allergy> allergies;
 
     @FXML
     public TableView<Restaurant> restaurantTable;
@@ -50,6 +51,8 @@ public class OrderFoodChooseRestaurantController implements Initializable {
     public TableView<Dish> dishTable;
     @FXML
     public TableView<Dish> orderTable;
+    @FXML
+    public TableView<Allergy> allergyTable;
     @FXML
     public TableColumn<Restaurant, String> colRestaurantName;
     @FXML
@@ -64,6 +67,8 @@ public class OrderFoodChooseRestaurantController implements Initializable {
     public TableColumn<Dish, String> colOrderPrice;
     @FXML
     public TableColumn<Dish, Integer> colOrderAmount;
+    @FXML
+    public TableColumn<Allergy, String> colAllergy;
     @FXML
     public ChoiceBox<String> buildingChoiceBox;
     @FXML
@@ -81,7 +86,17 @@ public class OrderFoodChooseRestaurantController implements Initializable {
     @FXML
     private Text pagesTextOrder;
     @FXML
+    private Text pagesTextAllergy;
+    @FXML
     private AnchorPane anchorPane;
+    @FXML
+    private Text totalCost;
+    @FXML
+    private Button viewAllergyButton;
+    @FXML
+    private Button nextPageAllergyButton;
+    @FXML
+    private Button previousPageAllergyButton;
 
     private int restaurantPageNumber;
     private double totalRestaurantPages;
@@ -89,13 +104,16 @@ public class OrderFoodChooseRestaurantController implements Initializable {
     private double totalDishPages;
     private int orderPageNumber;
     private double totalOrderPages;
+    private int allergyPageNumber;
+    private double totalAllergyPages;
     private Button addButton;
+    private Button removeButton;
     private ImageView imageView;
     private Image image;
     private Text description;
     private Restaurant selectedRestaurant;
     private Dish selectedDish;
-
+    int price;
 
     /**
      * Goes back to the main reservations menu when the back arrow button is clicked
@@ -133,6 +151,12 @@ public class OrderFoodChooseRestaurantController implements Initializable {
         colOrderDishName.setCellValueFactory(new PropertyValueFactory<>("name"));
         colOrderPrice.setCellValueFactory(new PropertyValueFactory<>("priceInEuros"));
         colOrderAmount.setCellValueFactory(new PropertyValueFactory<>("amount"));
+        colAllergy.setCellValueFactory(new PropertyValueFactory<>("allergyName"));
+
+        restaurantTable.setPlaceholder(new Label(""));
+        dishTable.setPlaceholder(new Label(""));
+        orderTable.setPlaceholder(new Label(""));
+        allergyTable.setPlaceholder(new Label(""));
 
         orders = new ArrayList<>();
 
@@ -145,11 +169,36 @@ public class OrderFoodChooseRestaurantController implements Initializable {
         if (orderPageNumber == 0) {
             orderPageNumber++;
         }
+        if (allergyPageNumber == 0) {
+            allergyPageNumber++;
+        }
+        price = 0;
 
         applyRestaurantFilters();
         loadBuildingChoiceBox();
         restaurantTableSelectMethod();
+        applyDishFilters();
+        orderTableSelectMethod();
+        calculateOrderPages();
     }
+
+    /**
+     * Takes care of the options for the buildingChoiceBox in the GUI
+     */
+    private void loadBuildingChoiceBox() {
+        buildingNameList.clear();
+        try {
+            for (Building building: Objects.requireNonNull(JsonMapper.buildingListMapper(ServerCommunication.getBuildings()))) {
+                buildingNameList.add(building.getName());
+            }
+            buildingNameList.add(null);
+        } catch (Exception e) {
+            buildingNameList.add(null);
+        }
+        buildingChoiceBox.getItems().addAll(buildingNameList);
+    }
+
+    // RESTAURANTS
 
     public void loadRestaurants(String name, String buildingName) {
         try {
@@ -170,9 +219,7 @@ public class OrderFoodChooseRestaurantController implements Initializable {
                 restaurants = newRestaurants;
             }
         } catch (Exception e) {
-            // Fakes the table having any entries, so the table shows up properly instead of "No contents".
             restaurants = new ArrayList<>();
-            restaurants.add(null);
         }
         calculateRestaurantPages();
     }
@@ -241,6 +288,8 @@ public class OrderFoodChooseRestaurantController implements Initializable {
         });
     }
 
+    // DISHES
+
     /**
      * Listener that checks if a row is selected, if so, fill the text fields.
      */
@@ -248,12 +297,13 @@ public class OrderFoodChooseRestaurantController implements Initializable {
         dishTable.getSelectionModel().selectedItemProperty().addListener((obs) -> {
             selectedDish = dishTable.getSelectionModel().getSelectedItem();
             anchorPane.getChildren().remove(addButton);
+            anchorPane.getChildren().remove(removeButton);
 
             for (int i = 0; i < dishResult.size(); i++) {
                 assert selectedDish != null;
                 if (dishResult.get(i).getId() == selectedDish.getId()) {
                     addButton = new Button("Add");
-                    addButton.setLayoutX(775);
+                    addButton.setLayoutX(640);
                     addButton.setLayoutY(320 + (24  * (i + 1)));
                     addButton.setMinWidth(50);
                     addButton.setStyle("-fx-background-color:  #46cc00; -fx-font-size:10; -fx-text-fill: white; -fx-font:12 system;");
@@ -274,7 +324,6 @@ public class OrderFoodChooseRestaurantController implements Initializable {
                     JsonMapper.dishListMapper(ServerCommunication.filterDishes(filterString))));
         } catch (Exception e) {
             dishes = new ArrayList<>();
-            dishes.add(null);
         }
         calculateDishPages();
     }
@@ -339,24 +388,28 @@ public class OrderFoodChooseRestaurantController implements Initializable {
     }
 
     public void displayDescriptionAndImage() {
-        anchorPane.getChildren().remove(imageView);
-        image = new Image(selectedDish.getImage());
-        imageView = new ImageView(image);
-        imageView.setLayoutX(993);
-        imageView.setLayoutY(57);
-        imageView.setFitHeight(300);
-        imageView.setFitWidth(300);
-        anchorPane.getChildren().add(imageView);
+        try {
+            anchorPane.getChildren().remove(description);
+            description = new Text(selectedDish.getDescription());
+            description.setLayoutX(705);
+            description.setLayoutY(544);
+            description.setWrappingWidth(200);
+            anchorPane.getChildren().add(description);
 
-        anchorPane.getChildren().remove(description);
-        description = new Text();
-        description.setText(selectedDish.getDescription());
-        description.setLayoutX(993);
-        description.setLayoutY(57);
-        anchorPane.getChildren().add(description);
+            anchorPane.getChildren().remove(imageView);
+            image = new Image(selectedDish.getImage());
+            imageView = new ImageView(image);
+            imageView.setLayoutX(705);
+            imageView.setLayoutY(320);
+            imageView.setFitHeight(200);
+            imageView.setFitWidth(200);
+            anchorPane.getChildren().add(imageView);
+        } catch (Exception e) {
+            anchorPane.getChildren().remove(imageView);
+        }
     }
 
-    //================= ORDER:
+    // ORDERS
 
     public void addToOrder() {
         if (orders.contains(selectedDish)) {
@@ -365,6 +418,23 @@ public class OrderFoodChooseRestaurantController implements Initializable {
             selectedDish.setAmount(1);
             orders.add(selectedDish);
         }
+        price += selectedDish.getPrice();
+        totalCost.setText("Total Cost: " + new DecimalFormat("#0.00").format((double) Math.round(price * 100) / 10000) + "\u20AC");
+        calculateOrderPages();
+    }
+
+    public void removeFromOrder() {
+        if (orders.contains(selectedDish)) {
+            selectedDish.setAmount(selectedDish.getAmount() - 1);
+            price -= selectedDish.getPrice();
+        }
+        if (selectedDish.getAmount() == 0) {
+            orders.remove(selectedDish);
+            selectedDish = null;
+            anchorPane.getChildren().remove(removeButton);
+            anchorPane.getChildren().remove(addButton);
+        }
+        totalCost.setText("Total Cost: " + new DecimalFormat("#0.00").format((double) Math.round(price * 100) / 10000) + "\u20AC");
         calculateOrderPages();
     }
 
@@ -410,18 +480,117 @@ public class OrderFoodChooseRestaurantController implements Initializable {
     }
 
     /**
-     * Takes care of the options for the buildingChoiceBox in the GUI
+     * Listener that checks if a row is selected, if so, fill the text fields.
      */
-    private void loadBuildingChoiceBox() {
-        buildingNameList.clear();
-        try {
-            for (Building building: Objects.requireNonNull(JsonMapper.buildingListMapper(ServerCommunication.getBuildings()))) {
-                buildingNameList.add(building.getName());
+    public void orderTableSelectMethod() {
+        orderTable.getSelectionModel().selectedItemProperty().addListener((obs) -> {
+            if (orderTable.getSelectionModel().getSelectedItem() != null || !orders.contains(selectedDish)) {
+                anchorPane.getChildren().remove(removeButton);
+                selectedDish = orderTable.getSelectionModel().getSelectedItem();
             }
-            buildingNameList.add(null);
+            for (int i = 0; i < orderResult.size(); i++) {
+                if (selectedDish != null && orderResult.get(i).getId() == selectedDish.getId()) {
+                    removeButton = new Button("Remove");
+                    removeButton.setLayoutX(920);
+                    removeButton.setLayoutY(320 + (24  * (i + 1)));
+                    removeButton.setMinWidth(50);
+                    removeButton.setStyle("-fx-background-color:  #cc3c1f; -fx-font-size:10; -fx-text-fill: white; -fx-font:12 system;");
+                    removeButton.setMaxHeight(24);
+                    removeButton.setOnAction(event -> {
+                        removeFromOrder();
+                    });
+                    anchorPane.getChildren().add(removeButton);
+                }
+            }
+
+            anchorPane.getChildren().remove(addButton);
+            for (int i = 0; i < dishResult.size(); i++) {
+                if (selectedDish != null && dishResult.get(i).getId() == selectedDish.getId()) {
+                    addButton = new Button("Add");
+                    addButton.setLayoutX(640);
+                    addButton.setLayoutY(320 + (24  * (i + 1)));
+                    addButton.setMinWidth(50);
+                    addButton.setStyle("-fx-background-color:  #46cc00; -fx-font-size:10; -fx-text-fill: white; -fx-font:12 system;");
+                    addButton.setMaxHeight(24);
+                    addButton.setOnAction(event -> {
+                        addToOrder();
+                    });
+                    anchorPane.getChildren().add(addButton);
+                }
+            }
+            displayDescriptionAndImage();
+        });
+    }
+
+    // ALLERGIES
+
+    public void viewAllergy() {
+        imageView.setVisible(false);
+        description.setVisible(false);
+        allergyTable.setVisible(true);
+        previousPageAllergyButton.setVisible(true);
+        nextPageAllergyButton.setVisible(true);
+        viewAllergyButton.setText("View Information");
+        viewAllergyButton.setOnAction(event -> viewInfo());
+    }
+
+    public void viewInfo() {
+        imageView.setVisible(true);
+        description.setVisible(true);
+        allergyTable.setVisible(false);
+        previousPageAllergyButton.setVisible(false);
+        nextPageAllergyButton.setVisible(false);
+        viewAllergyButton.setText("View Allergies");
+        viewAllergyButton.setOnAction(event -> viewAllergy());
+    }
+
+    public void loadAllergies() {
+        try {
+            allergies = JsonMapper.allergiesListMapper(ServerCommunication.getAllergiesFromDish(selectedDish.getId()));
         } catch (Exception e) {
-            buildingNameList.add(null);
+            allergies = new ArrayList<>();
         }
-        buildingChoiceBox.getItems().addAll(buildingNameList);
+        calculateAllergyPages();
+    }
+
+    public void calculateAllergyPages() {
+        allergyResult.clear();
+        totalAllergyPages = Math.ceil(allergies.size() / 10.0);
+        if (totalAllergyPages < allergyPageNumber) {
+            allergyPageNumber--;
+        }
+        pagesTextAllergy.setText(allergyPageNumber + " / " + (int) totalAllergyPages + " pages");
+        if (allergies.size() > 10) {
+            for (int i = 0; i < 10; i++) {
+                try {
+                    allergyResult.add(allergies.get((i - 10) + allergyPageNumber * 10));
+                } catch (IndexOutOfBoundsException e) {
+                    break;
+                }
+            }
+        }  else {
+            allergyResult.addAll(allergies);
+        }
+        allergyTable.setItems(allergyResult);
+    }
+
+    /**
+     * Handles the clicking to the next table page.
+     */
+    public void nextAllergyPage() {
+        if (allergyPageNumber < (int) totalAllergyPages) {
+            allergyPageNumber++;
+            calculateAllergyPages();
+        }
+    }
+
+    /**
+     * Handles the clicking to the previous page
+     */
+    public void previousAllergyPage() {
+        if (allergyPageNumber > 1) {
+            allergyPageNumber--;
+        }
+        calculateAllergyPages();
     }
 }
