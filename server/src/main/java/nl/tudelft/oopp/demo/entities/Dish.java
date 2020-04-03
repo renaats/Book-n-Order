@@ -89,6 +89,10 @@ public class Dish {
         allergies.add(allergy);
     }
 
+    public void removeAllergy(Allergy allergy) {
+        allergies.remove(allergy);
+    }
+
     public int getId() {
         return id;
     }
