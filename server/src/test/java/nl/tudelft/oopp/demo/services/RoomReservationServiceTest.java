@@ -481,7 +481,6 @@ class RoomReservationServiceTest {
         assertEquals(WRONG_USER, roomReservationService.cancel(request2, roomReservationService.all().get(0).getId()));
     }
 
-
     /**
      * Test the retrieving of a user for a specific reservation.
      */

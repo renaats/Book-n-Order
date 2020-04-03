@@ -27,7 +27,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.auth0.jwt.JWT;
 
-import java.io.UnsupportedEncodingException;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
@@ -36,8 +35,6 @@ import java.util.Set;
 
 import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.Role;
-import nl.tudelft.oopp.demo.entities.Room;
-import nl.tudelft.oopp.demo.entities.RoomReservation;
 import nl.tudelft.oopp.demo.repositories.RoleRepository;
 
 import nl.tudelft.oopp.demo.repositories.RoomRepository;
@@ -70,9 +67,6 @@ class UserServiceTest {
 
     @Autowired
     RoleRepository roleRepository;
-
-    @Autowired
-    RoomRepository roomRepository;
 
     AppUser appUser;
     AppUser appUser2;
