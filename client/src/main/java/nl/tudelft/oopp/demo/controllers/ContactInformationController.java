@@ -39,6 +39,6 @@ public class ContactInformationController {
      * @throws IOException input will be valid.
      */
     public void goToMyAccount() throws IOException {
-        ApplicationDisplay.changeScene("/AccountScene.fxml");
+        ApplicationDisplay.changeScene("/MyAccountScene.fxml");
     }
 }

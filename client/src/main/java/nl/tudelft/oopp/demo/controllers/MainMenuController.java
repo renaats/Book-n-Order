@@ -24,7 +24,7 @@ public class MainMenuController {
      * @throws IOException when it fails
      */
     public void goToProfile() throws IOException {
-        ApplicationDisplay.changeScene("/AccountScene.fxml");
+        ApplicationDisplay.changeScene("/MyAccountScene.fxml");
     }
 
     /**

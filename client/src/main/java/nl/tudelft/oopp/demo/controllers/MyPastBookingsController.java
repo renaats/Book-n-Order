@@ -63,6 +63,6 @@ public class MyPastBookingsController {
      * @throws IOException should never be thrown
      */
     public void goToMyAccount() throws IOException {
-        ApplicationDisplay.changeScene("/AccountScene.fxml");
+        ApplicationDisplay.changeScene("/MyAccountScene.fxml");
     }
 }

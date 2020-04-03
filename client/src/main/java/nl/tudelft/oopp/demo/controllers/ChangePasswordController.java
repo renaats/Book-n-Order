@@ -25,7 +25,7 @@ public class ChangePasswordController {
      * @throws IOException this method should never throw an exception
      */
     public void goToAccountScene() throws IOException {
-        ApplicationDisplay.changeScene("/AccountScene.fxml");
+        ApplicationDisplay.changeScene("/MyAccountScene.fxml");
     }
 
     /**

@@ -92,7 +92,7 @@ public class DatabaseAddRoomController {
     }
 
     public void myAccountScene() throws IOException {
-        ApplicationDisplay.changeScene("/AccountScene.fxml");
+        ApplicationDisplay.changeScene("/MyAccountScene.fxml");
     }
 
     /**
