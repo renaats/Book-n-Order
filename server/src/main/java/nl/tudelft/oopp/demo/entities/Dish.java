@@ -37,6 +37,7 @@ public class Dish {
     @JoinColumn
     private Menu menu;
 
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Allergy> allergies;
 

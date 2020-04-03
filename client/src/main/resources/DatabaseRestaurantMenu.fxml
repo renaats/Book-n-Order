@@ -65,14 +65,14 @@
       </font>
    </Text>
    <TextField fx:id="locationFieldRead" layoutX="118.0" layoutY="248.0" prefHeight="26.0" prefWidth="390.0" promptText="Location" AnchorPane.leftAnchor="118.0" AnchorPane.rightAnchor="774.0" AnchorPane.topAnchor="248.0" />
-   <TextField fx:id="idFieldRead" disable="true" editable="false" layoutX="118.0" layoutY="214.0" opacity="0.75" prefHeight="25.0" prefWidth="56.0" promptText="ID" AnchorPane.topAnchor="214.0" />
+   <TextField fx:id="idFieldRead" layoutX="118.0" layoutY="214.0" prefHeight="25.0" prefWidth="56.0" promptText="ID" AnchorPane.topAnchor="214.0" />
    <Text layoutX="183.0" layoutY="233.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:">
       <font>
          <Font size="17.0" />
       </font>
    </Text>
    <TextField fx:id="nameFieldRead" layoutX="246.0" layoutY="214.0" prefHeight="26.0" prefWidth="260.0" promptText="Restaurant name" />
-   <TableView fx:id="dishTableView" layoutX="667.0" layoutY="220.0" prefHeight="206.0" prefWidth="388.0" stylesheets="@table.css">
+   <TableView fx:id="dishTableView" layoutX="667.0" layoutY="220.0" maxHeight="195.0" prefHeight="195.0" prefWidth="388.0" stylesheets="@table.css">
       <columns>
          <TableColumn fx:id="colDishName" editable="false" prefWidth="320.0" resizable="false" sortable="false" text="Dish">
             <graphic>
@@ -89,23 +89,23 @@
          <TableColumn fx:id="colDishPrice" editable="false" maxWidth="101.2000732421875" minWidth="0.0" prefWidth="65.5999755859375" resizable="false" sortable="false" text="Price (€)" />
       </columns>
    </TableView>
-   <Button fx:id="nextPageButton" layoutX="898.0" layoutY="430.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#nextPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&gt;&gt;" textFill="WHITE">
+   <Button fx:id="nextPageButton" layoutX="898.0" layoutY="417.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#nextPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&gt;&gt;" textFill="WHITE">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor>
    </Button>
-   <Button fx:id="previousPageButton" layoutX="789.0" layoutY="430.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#previousPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&lt;&lt;" textFill="WHITE">
+   <Button fx:id="previousPageButton" layoutX="789.0" layoutY="417.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#previousPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&lt;&lt;" textFill="WHITE">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor>
    </Button>
-   <Text fx:id="pagesText" layoutX="836.0" layoutY="448.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0 / pages" />
+   <Text fx:id="pagesText" layoutX="836.0" layoutY="435.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0 / pages" />
    <Text layoutX="50.0" layoutY="343.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID:" AnchorPane.leftAnchor="50.0">
       <font>
          <Font size="17.0" />
       </font>
    </Text>
-   <TextField fx:id="menuIdFieldRead" disable="true" editable="false" layoutX="118.0" layoutY="324.0" opacity="0.75" prefHeight="25.0" prefWidth="56.0" promptText="ID" />
+   <TextField fx:id="menuIdFieldRead" layoutX="118.0" layoutY="324.0" prefHeight="25.0" prefWidth="56.0" promptText="ID" />
    <Text layoutX="183.0" layoutY="342.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:">
       <font>
          <Font size="17.0" />
@@ -117,7 +117,7 @@
          <Cursor fx:constant="HAND" />
       </cursor>
    </Button>
-   <Button layoutX="437.0" layoutY="358.0" maxHeight="26.0" maxWidth="68.0" minHeight="20.0" minWidth="60.0" mnemonicParsing="false" onAction="#deleteMenu" prefHeight="26.0" prefWidth="68.0" style="-fx-background-color: #CC5653;" text="Delete" textFill="WHITE" AnchorPane.rightAnchor="775.0">
+   <Button fx:id="menuDeleteButton" layoutX="437.0" layoutY="358.0" maxHeight="26.0" maxWidth="68.0" minHeight="20.0" minWidth="60.0" mnemonicParsing="false" onAction="#deleteMenu" prefHeight="26.0" prefWidth="68.0" style="-fx-background-color: #CC5653;" text="Delete" textFill="WHITE" AnchorPane.rightAnchor="775.0">
       <font>
          <Font size="10.0" />
       </font>
@@ -162,7 +162,7 @@
          <Font size="17.0" />
       </font>
    </Text>
-   <TextField fx:id="dishIdFieldRead" disable="true" editable="false" layoutX="118.0" layoutY="419.0" opacity="0.75" prefHeight="25.0" prefWidth="56.0" promptText="ID" />
+   <TextField fx:id="dishIdFieldRead" layoutX="118.0" layoutY="419.0" prefHeight="25.0" prefWidth="56.0" promptText="ID" />
    <Text layoutX="183.0" layoutY="438.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:">
       <font>
          <Font size="17.0" />
@@ -202,7 +202,7 @@
       </cursor>
    </ImageView>
    <Text layoutX="146.0" layoutY="314.0" onMouseClicked="#goToAddMenu" strokeType="OUTSIDE" strokeWidth="0.0" text="Add" AnchorPane.leftAnchor="146.0" />
-   <ImageView fitHeight="21.0" fitWidth="19.0" layoutX="180.0" layoutY="186.0" onMouseClicked="#goToAddRestaurants" pickOnBounds="true" preserveRatio="true">
+   <ImageView fx:id="restaurantAddImage" fitHeight="21.0" fitWidth="19.0" layoutX="180.0" layoutY="186.0" onMouseClicked="#goToAddRestaurants" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@images/ko7djzvdIPehWkkQYeDHv7ZYArEETK3uclcEy1WmrEHakj5qfn1nysOSyuNxsI2FsTJGcKNFdQ-9TIGRXV3le_sG-lyGg6Lu2OpiVNdwOZw_Fw16XYOh.png" />
       </image>
@@ -210,7 +210,7 @@
          <Cursor fx:constant="HAND" />
       </cursor>
    </ImageView>
-   <Text layoutX="201.0" layoutY="200.0" onMouseClicked="#goToAddRestaurants" strokeType="OUTSIDE" strokeWidth="0.0" text="Add" />
+   <Text fx:id="restaurantAddText" layoutX="201.0" layoutY="200.0" onMouseClicked="#goToAddRestaurants" strokeType="OUTSIDE" strokeWidth="0.0" text="Add" />
    <ToggleButton fx:id="allergiesToggleButton" layoutX="119.0" layoutY="590.0" mnemonicParsing="false" onAction="#toggleAllergiesMenu" prefHeight="25.0" prefWidth="83.0" selected="true" stylesheets="@DatabaseGeneric.css" text="Edit">
       <graphic>
          <ImageView fitHeight="17.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
@@ -231,9 +231,9 @@
          <Cursor fx:constant="HAND" />
       </cursor>
    </Button>
-   <TableView fx:id="allergiesTableCurrent" layoutX="749.0" layoutY="487.0" prefHeight="133.0" prefWidth="223.0" stylesheets="@table.css">
+   <TableView fx:id="allergiesTableCurrent" layoutX="747.0" layoutY="461.0" prefHeight="147.0" prefWidth="223.0" stylesheets="@table.css">
       <columns>
-         <TableColumn fx:id="colDishName11" editable="false" prefWidth="220.00001525878906" resizable="false" sortable="false" text="Name">
+         <TableColumn fx:id="colAllergyName" editable="false" prefWidth="220.00001525878906" resizable="false" sortable="false" text="Name">
             <graphic>
                <ImageView fitHeight="17.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
                   <image>
@@ -247,18 +247,18 @@
          </TableColumn>
       </columns>
    </TableView>
-   <Button fx:id="nextPageButtonAllergiesSelected" layoutX="896.0" layoutY="630.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#nextPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&gt;&gt;" textFill="WHITE" AnchorPane.bottomAnchor="64.0">
+   <Button fx:id="nextPageButtonAllergiesSelected" layoutX="897.0" layoutY="615.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#nextAllergyPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&gt;&gt;" textFill="WHITE" AnchorPane.bottomAnchor="78.60000000000002">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor>
    </Button>
-   <Button fx:id="previousPageButtonAllergiesSelected" layoutX="790.0" layoutY="630.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#previousPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&lt;&lt;" textFill="WHITE" AnchorPane.bottomAnchor="64.0">
+   <Button fx:id="previousPageButtonAllergiesSelected" layoutX="791.0" layoutY="615.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#previousAllergyPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&lt;&lt;" textFill="WHITE" AnchorPane.bottomAnchor="78.60000000000002">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor>
    </Button>
-   <Text fx:id="pagesTextAllergiesCurrent" layoutX="833.0" layoutY="647.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0 / pages" AnchorPane.bottomAnchor="69.0" />
-   <ImageView fx:id="showAddAllergiesButton" fitHeight="16.0" fitWidth="19.0" layoutX="919.0" layoutY="493.0" onMouseClicked="#showAddAllergies" pickOnBounds="true" preserveRatio="true">
+   <Text fx:id="pagesTextAllergiesCurrent" layoutX="834.0" layoutY="632.9148437499995" strokeType="OUTSIDE" strokeWidth="0.0" text="0 / pages" AnchorPane.bottomAnchor="84.07343750000052" />
+   <ImageView fx:id="showAddAllergiesButton" fitHeight="16.0" fitWidth="19.0" layoutX="919.0" layoutY="466.0" onMouseClicked="#showAddAllergies" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@images/ko7djzvdIPehWkkQYeDHv7ZYArEETK3uclcEy1WmrEHakj5qfn1nysOSyuNxsI2FsTJGcKNFdQ-9TIGRXV3le_sG-lyGg6Lu2OpiVNdwOZw_Fw16XYOh.png" />
       </image>
@@ -266,10 +266,10 @@
          <Cursor fx:constant="HAND" />
       </cursor>
    </ImageView>
-   <Text fx:id="showAddAllergiesText" layoutX="937.0" layoutY="505.0" onMouseClicked="#showAddAllergies" strokeType="OUTSIDE" strokeWidth="0.0" text="Add" />
-   <TextField fx:id="allergyNameTextField" layoutX="787.0" layoutY="660.0" promptText="Allergy name" />
-   <Button fx:id="allergyAddButton" layoutX="842.0" layoutY="689.0" mnemonicParsing="false" onAction="#addAllergy" style="-fx-background-color: #00a6d6;" text="Add" />
-   <ImageView fx:id="allergyImage" fitHeight="26.0" fitWidth="26.0" layoutX="756.0" layoutY="660.0" pickOnBounds="true" preserveRatio="true">
+   <Text fx:id="showAddAllergiesText" layoutX="937.0" layoutY="478.0" onMouseClicked="#showAddAllergies" strokeType="OUTSIDE" strokeWidth="0.0" text="Add" />
+   <TextField fx:id="allergyNameTextField" layoutX="788.0" layoutY="647.0" promptText="Allergy name" />
+   <Button fx:id="allergyAddButton" layoutX="843.0" layoutY="676.0" mnemonicParsing="false" onAction="#addAllergy" style="-fx-background-color: #00a6d6;" text="Add" />
+   <ImageView fx:id="allergyImage" fitHeight="26.0" fitWidth="26.0" layoutX="757.0" layoutY="647.0" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@images/allergiesicon.png" />
       </image>
@@ -277,4 +277,51 @@
          <Cursor fx:constant="DEFAULT" />
       </cursor>
    </ImageView>
+   <ToggleButton fx:id="restaurantToggleButton" layoutX="421.0" layoutY="178.0" mnemonicParsing="false" onAction="#toggleRestaurantList" prefHeight="25.0" prefWidth="83.0" selected="true" stylesheets="@DatabaseGeneric.css" text="Select">
+      <graphic>
+         <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@images/45332.png" />
+            </image>
+            <cursor>
+               <Cursor fx:constant="DEFAULT" />
+            </cursor>
+         </ImageView>
+      </graphic>
+   </ToggleButton>
+   <TableView fx:id="restaurantTable" layoutX="513.0" layoutY="179.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="179.0" prefWidth="145.0" stylesheets="@table.css">
+      <columns>
+         <TableColumn fx:id="colOwnedRestaurants" editable="false" maxWidth="143.0" prefWidth="143.0" resizable="false" sortable="false" text="Owned Restaurants">
+            <graphic>
+               <ImageView fitHeight="17.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@images/45332.png" />
+                  </image>
+                  <cursor>
+                     <Cursor fx:constant="DEFAULT" />
+                  </cursor>
+               </ImageView>
+            </graphic>
+         </TableColumn>
+      </columns>
+   </TableView>
+   <Button fx:id="restaurantNextPageButton" layoutX="622.0" layoutY="358.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#nextRestaurantPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&gt;&gt;" textFill="WHITE">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
+   <Button fx:id="restaurantPreviousPageButton" layoutX="513.0" layoutY="358.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#previousRestaurantPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&lt;&lt;" textFill="WHITE">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
+   <Text fx:id="restaurantPagesText" layoutX="560.0" layoutY="376.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0 / pages" />
+   <Button fx:id="deleteRestaurantButton" layoutX="437.0" layoutY="278.0" maxHeight="26.0" maxWidth="68.0" minHeight="20.0" minWidth="60.0" mnemonicParsing="false" onAction="#deleteRestaurant" prefHeight="26.0" prefWidth="68.0" style="-fx-background-color: #CC5653;" text="Delete" textFill="WHITE">
+      <font>
+         <Font size="10.0" />
+      </font>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
 </AnchorPane>
