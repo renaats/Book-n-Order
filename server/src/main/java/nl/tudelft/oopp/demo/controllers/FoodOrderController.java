@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * Creates server side endpoints and routes requests to the FoodOrderService.
  * Maps all requests that start with "/food_order".
@@ -105,7 +107,7 @@ public class FoodOrderController {
     @Secured({ADMIN, RESTAURANT})
     @GetMapping(path = "/all")
     @ResponseBody
-    public Iterable<FoodOrder> getAllFoodOrders() {
+    public List<FoodOrder> getAllFoodOrders() {
         return foodOrderService.all();
     }
 

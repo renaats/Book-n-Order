@@ -35,7 +35,15 @@ public class MyPreviousFoodReservationsController implements Initializable {
     @FXML
     private TableColumn<FoodOrder, String> colRestaurant;
     @FXML
+    private TableColumn<FoodOrder, Integer> colDeliveryLoc;
+    @FXML
     private TableColumn<FoodOrder, Integer> colDate;
+    @FXML
+    private TableColumn<FoodOrder,Long> colTime;
+    @FXML
+    public TableColumn<FoodOrder,Integer> colFeedback;
+    @FXML
+    public TableColumn<FoodOrder,Boolean> colYourFeedback;
 
     private int pageNumber;
     private double totalPages;
@@ -44,8 +52,11 @@ public class MyPreviousFoodReservationsController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colRestaurant.setCellValueFactory(new PropertyValueFactory<>("getRestaurantName"));
-        colDate.setCellValueFactory(new PropertyValueFactory<>("getBuildingName"));
-        colDate.setCellValueFactory(new PropertyValueFactory<>("getDate"));
+        colDeliveryLoc.setCellValueFactory(new PropertyValueFactory<>("getDeliveryLocationName"));
+        colDate.setCellValueFactory(new PropertyValueFactory<>("getDeliveryDay"));
+        colTime.setCellValueFactory(new PropertyValueFactory<>("getDeliveryTime"));
+        colFeedback.setCellValueFactory(new PropertyValueFactory<>("getRestaurantFeedback"));
+        colYourFeedback.setCellValueFactory(new PropertyValueFactory<>("feedback"));
         loadDataIntoTable();
     }
 
@@ -57,7 +68,9 @@ public class MyPreviousFoodReservationsController implements Initializable {
         foodOrderResult.clear();
         List<FoodOrder> foodOrders;
         try {
-            foodOrders = new ArrayList<>(Objects.requireNonNull(JsonMapper.foodOrderList((ServerCommunication.getAllFoodOrders()))));
+            String json = ServerCommunication.getAllFoodOrders();
+            List<FoodOrder> foodOrders1 = JsonMapper.foodOrdersListMapper(json);
+            foodOrders = new ArrayList<>(foodOrders1);
         } catch (Exception e) {
             // Fakes the table having any entries, so the table shows up properly instead of "No contents".
             foodOrders = new ArrayList<>();
@@ -107,6 +120,7 @@ public class MyPreviousFoodReservationsController implements Initializable {
             CustomAlert.warningAlert("You have already given feedback, but it has now been overwritten");
         }
         CustomAlert.informationAlert(ServerCommunication.addFoodFeedback(table.getSelectionModel().getSelectedItem().getRestaurant().getId(), true));
+        loadDataIntoTable();
     }
 
     public void thumbsDown() {
@@ -114,5 +128,6 @@ public class MyPreviousFoodReservationsController implements Initializable {
             CustomAlert.warningAlert("You have already given feedback, but it has now been overwritten");
         }
         CustomAlert.informationAlert(ServerCommunication.addFoodFeedback(table.getSelectionModel().getSelectedItem().getRestaurant().getId(), false));
+        loadDataIntoTable();
     }
 }

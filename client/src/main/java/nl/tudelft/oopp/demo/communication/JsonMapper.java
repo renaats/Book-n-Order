@@ -404,6 +404,24 @@ public class JsonMapper {
     }
     
     /**
+     * Maps a JSON string to an Restaurant object
+     * @param foodOrderJson JSON representation of a String
+     * @return Restaurant Object
+     */
+    public static FoodOrder foodOrderMapper(String foodOrderJson) {
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        try {
+            // Convert JSON string to Object
+            return mapper.readValue(foodOrderJson, FoodOrder.class);
+        } catch (Exception e) {
+            CustomAlert.warningAlert(foodOrderJson);
+        }
+        return null;
+    }
+
+    /**
      * Maps all food orders JSONS to a list.
      * @param allFoodOrdersJson a JSON string representing a list.
      * @return A list filled with object Food orders.n
@@ -411,10 +429,11 @@ public class JsonMapper {
     public static List<FoodOrder> foodOrderList(String allFoodOrdersJson) {
 
         ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
 
         try {
             // Convert JSON string to Object
-            return mapper.readValue(allFoodOrdersJson, new TypeReference<>() {
+            return mapper.readValue(allFoodOrdersJson, new TypeReference<List<FoodOrder>>() {
             });
         } catch (Exception e) {
             CustomAlert.warningAlert(allFoodOrdersJson);

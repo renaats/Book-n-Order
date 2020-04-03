@@ -1,6 +1,9 @@
 package nl.tudelft.oopp.demo.entities;
 
 import java.text.SimpleDateFormat;
+import javafx.beans.property.*;
+
+import java.awt.*;
 import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
@@ -34,6 +37,53 @@ public class FoodOrder {
         this.active = true;
         this.feedback = true;
     }
+
+    /**
+     * Makes the table list the restaurant name instead of the restaurant object
+     * @return String property, a property recognized by the tables.
+     */
+    public StringProperty getRestaurantNameProperty() {
+        String name = getRestaurant().getName();
+        return new SimpleStringProperty(name);
+    }
+
+    /**
+     * Makes the table list the Delivery Location name instead of the Delivery Location object
+     * @return String property, a property recognized by the tables.
+     */
+    public StringProperty getDeliveryLocationNameProperty() {
+        String name = getDeliveryLocation().getName();
+        return new SimpleStringProperty(name);
+    }
+
+    /**
+     * Makes the table list the Delivery day instead of the Delivery Time object
+     * @return String property, a property recognized by the tables.
+     */
+    public IntegerProperty getDeliveryDayProperty() {
+        int day = getDeliveryTime().getDay();
+        return new SimpleIntegerProperty(day);
+    }
+
+    /**
+     * Makes the table list the Delivery day instead of the Delivery Time object
+     * @return String property, a property recognized by the tables.
+     */
+    public LongProperty getDeliveryTimeProperty() {
+        long time = getDeliveryTime().getTime();
+        return new SimpleLongProperty(time);
+    }
+
+    /**
+     * Makes the table list the score of the restaurant.
+     * @return String property, a property recognized by the tables.
+     */
+    public IntegerProperty getRestaurantFeedbackProperty() {
+        int feedback = getRestaurant().getFeedbackCounter();
+        return new SimpleIntegerProperty(feedback);
+    }
+
+
 
     public FoodOrder() {
         this.active = true;
