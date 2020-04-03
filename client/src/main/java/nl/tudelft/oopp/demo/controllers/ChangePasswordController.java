@@ -24,7 +24,7 @@ public class ChangePasswordController {
      * Returns to the user's "Account" scene when the back arrow is pressed
      * @throws IOException this method should never throw an exception
      */
-    public void goToAccountScene() throws IOException {
+    public void goToMyAccountScene() throws IOException {
         ApplicationDisplay.changeScene("/MyAccountScene.fxml");
     }
 
