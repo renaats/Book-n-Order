@@ -383,10 +383,20 @@ public class ServerCommunication {
     /**
      * Finds reservations for a specific room.
      * @param id = id of the room.
-     * @return the error message corresponding to the server's response.
+     * @return the body of the response from the server.
      */
     public static String findReservationForRoom(int id) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room_reservation/room/" + id)).GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Finds user for a specific room reservation.
+     * @param id = id of the room reservation.
+     * @return the body of the response from the server.
+     */
+    public static String findUserForReservation(int id) {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/room_reservation/user/" + id)).build();
         return communicateAndReturnBodyOfResponse(request);
     }
 
@@ -789,11 +799,6 @@ public class ServerCommunication {
      */
     public static String getUser() {
         HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/user")).build();
-        return communicateAndReturnBodyOfResponse(request);
-    }
-
-    public static String findUserForReservation(int id) {
-        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/user/reservation/" + id)).build();
         return communicateAndReturnBodyOfResponse(request);
     }
 
