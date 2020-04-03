@@ -25,6 +25,7 @@ import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.controllers.BookRoomCalendarController;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Room;
+import nl.tudelft.oopp.demo.entities.SelectedRoom;
 import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
@@ -133,15 +134,12 @@ public class BookRoomController implements Initializable {
      * @throws IOException the input will always be the same, so it should never throw an IO exception
      */
     public void goToRoomCalendar() throws IOException {
+        SelectedRoom.setSelectedRoom(selectedRoom.getId());
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/book_room_Calendar.fxml"));
         Parent root = loader.load();
 
         ApplicationDisplay.getPrimaryStage().setScene(new Scene(root));
-
-        BookRoomCalendarController bookRoomCalendarController = loader.getController();
-        System.out.println(this.selectedRoom.getId() + " in goToRoomCalendar");
-        bookRoomCalendarController.setRoomId(this.selectedRoom.getId());
     }
 
     public void setSelectedRoom(Room selectedRoom) {

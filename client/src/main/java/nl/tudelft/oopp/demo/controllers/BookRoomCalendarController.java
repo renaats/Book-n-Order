@@ -23,6 +23,7 @@ import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.entities.RoomReservation;
+import nl.tudelft.oopp.demo.entities.SelectedRoom;
 import nl.tudelft.oopp.demo.errors.ErrorMessages;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 import nl.tudelft.oopp.demo.views.RoomCalendarView;
@@ -31,6 +32,8 @@ public class BookRoomCalendarController implements Initializable {
 
     private int roomId;
     private RoomCalendarView calendarView;
+    URL location;
+    ResourceBundle resourceBundle;
 
     @FXML
     Button reserveSlot;
@@ -46,8 +49,6 @@ public class BookRoomCalendarController implements Initializable {
 
     public void setRoomId(int roomId) {
         this.roomId = roomId;
-        calendarView = new RoomCalendarView(getRoomId());
-        showCal();
     }
 
     public int getRoomId() {
@@ -55,6 +56,8 @@ public class BookRoomCalendarController implements Initializable {
     }
 
     public void showCal() {
+        System.out.println(SelectedRoom.getSelectedRoom());
+        calendarView   = new RoomCalendarView(SelectedRoom.getSelectedRoom());
         disableFromTime();
         disableUntilTime();
         calendarContainer.setRoot(calendarView);
@@ -158,6 +161,8 @@ public class BookRoomCalendarController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        this.location = location;
+        resourceBundle = resources;
         showCal();
     }
 }
