@@ -32,10 +32,15 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import javafx.scene.image.ImageView;
+
+import nl.tudelft.oopp.demo.entities.Allergy;
 
 public class DatabaseRestaurantMenuController implements Initializable {
 
     private final ObservableList<Dish> dishList = FXCollections.observableArrayList();
+    private final ObservableList<Allergy> allergySelectedList = FXCollections.observableArrayList();
+    private final ObservableList<String> allergyAvailableList = FXCollections.observableArrayList();
 
     @FXML
     private Button previousPageButton;
@@ -45,10 +50,6 @@ public class DatabaseRestaurantMenuController implements Initializable {
     private Button previousPageButtonAllergiesSelected;
     @FXML
     private Button nextPageButtonAllergiesSelected;
-    @FXML
-    private Button previousPageButtonAllergiesAvailable;
-    @FXML
-    private Button nextPageButtonAllergiesAvailable;
     @FXML
     private Button addNewDishButton;
     @FXML
@@ -70,9 +71,17 @@ public class DatabaseRestaurantMenuController implements Initializable {
     @FXML
     private TextField dishPriceFieldRead;
     @FXML
-    private TextArea dishDescriptionFieldRead;
+    private TextField allergyNameTextField;
     @FXML
-    private Text selectedTextField;
+    private ImageView allergyImage;
+    @FXML
+    private Text showAddAllergiesText;
+    @FXML
+    private ImageView showAddAllergiesButton;
+    @FXML
+    private Button allergyAddButton;
+    @FXML
+    private TextArea dishDescriptionFieldRead;
     @FXML
     private Text pagesText;
     @FXML
@@ -84,19 +93,17 @@ public class DatabaseRestaurantMenuController implements Initializable {
     @FXML
     private TableView<Dish> dishTableView;
     @FXML
-    private TableView<Dish> allergiesTableCurrent;
-    @FXML
-    private TableView<Dish> allergiesTableAvailable;
+    private TableView<Allergy> allergiesTableCurrent;
     @FXML
     private TableColumn<Dish, String> colDishName;
     @FXML
     private TableColumn<Dish, Double> colDishPrice;
-    @FXML
-    private Text addDishText;
 
     private Boolean allergiesTableFlag;
     private int pageNumber;
     private double totalPages;
+    private int allergySelectedPageNumber;
+    private int allergyAvailablePageNumber;
 
     /**
      * Called to initialize a controller after its root element has been
@@ -114,12 +121,15 @@ public class DatabaseRestaurantMenuController implements Initializable {
         anchorPane.getChildren().remove(nextPageButtonAllergiesSelected);
         anchorPane.getChildren().remove(pagesTextAllergiesCurrent);
         anchorPane.getChildren().remove(allergiesTableCurrent);
-        anchorPane.getChildren().remove(allergiesTableAvailable);
-        anchorPane.getChildren().remove(previousPageButtonAllergiesAvailable);
-        anchorPane.getChildren().remove(nextPageButtonAllergiesAvailable);
-        anchorPane.getChildren().remove(selectedTextField);
+        anchorPane.getChildren().remove(allergyAddButton);
+        anchorPane.getChildren().remove(allergyImage);
+        anchorPane.getChildren().remove(allergyNameTextField);
+        anchorPane.getChildren().remove(showAddAllergiesText);
+        anchorPane.getChildren().remove(showAddAllergiesButton);
 
         pageNumber = 1;
+        allergySelectedPageNumber = 1;
+        allergyAvailablePageNumber = 1;
 
         List<Restaurant> ownedRestaurants = null;
         try {
@@ -197,24 +207,20 @@ public class DatabaseRestaurantMenuController implements Initializable {
             anchorPane.getChildren().add(nextPageButtonAllergiesSelected);
             anchorPane.getChildren().add(pagesTextAllergiesCurrent);
             anchorPane.getChildren().add(allergiesTableCurrent);
-            anchorPane.getChildren().add(allergiesTableAvailable);
-            anchorPane.getChildren().add(previousPageButtonAllergiesAvailable);
-            anchorPane.getChildren().add(nextPageButtonAllergiesAvailable);
-            anchorPane.getChildren().add(selectedTextField);
+            anchorPane.getChildren().add(showAddAllergiesText);
+            anchorPane.getChildren().add(showAddAllergiesButton);
+            retrieveAllSelectedAllergies();
         } else {
             allergiesToggleButton.setText("Close");
             anchorPane.getChildren().remove(previousPageButtonAllergiesSelected);
             anchorPane.getChildren().remove(nextPageButtonAllergiesSelected);
             anchorPane.getChildren().remove(pagesTextAllergiesCurrent);
             anchorPane.getChildren().remove(allergiesTableCurrent);
-            anchorPane.getChildren().remove(allergiesTableAvailable);
-            anchorPane.getChildren().remove(previousPageButtonAllergiesAvailable);
-            anchorPane.getChildren().remove(nextPageButtonAllergiesAvailable);
-            anchorPane.getChildren().remove(selectedTextField);
+            anchorPane.getChildren().remove(showAddAllergiesText);
+            anchorPane.getChildren().remove(showAddAllergiesButton);
         }
         allergiesTableFlag = !allergiesTableFlag;
     }
-
     /**
      * Handles the clicking to the next table page.
      */
@@ -270,6 +276,42 @@ public class DatabaseRestaurantMenuController implements Initializable {
             dishList.addAll(dishes);
         }
         dishTableView.setItems(dishList);
+    }
+
+    /**
+     * Handles clicking the list button.
+     */
+    public void retrieveAllSelectedAllergies() {
+        allergySelectedList.clear();
+        List<Allergy> allergies;
+        try {
+            allergies = new ArrayList<>(JsonMapper.allergiesListMapper(ServerCommunication.getAllergiesFromDish(Integer.parseInt(dishIdFieldRead.getText()))));
+        } catch (Exception e) {
+            // Fakes the table having any entries, so the table shows up properly instead of "No contents".
+            allergies = new ArrayList<>();
+            allergies.add(null);
+        }
+
+        double totalAllergySelectedPages = Math.ceil(allergies.size() / 7.0);
+
+        if (totalAllergySelectedPages < allergySelectedPageNumber) {
+            allergySelectedPageNumber--;
+        }
+
+        pagesTextAllergiesCurrent.setText(allergySelectedPageNumber + " / " + (int) totalAllergySelectedPages + " pages");
+
+        if (allergies.size() > 7) {
+            for (int i = 0; i < 7; i++) {
+                try {
+                    allergySelectedList.add(allergies.get((i - 7) + allergySelectedPageNumber * 7));
+                } catch (IndexOutOfBoundsException e) {
+                    break;
+                }
+            }
+        } else {
+            allergySelectedList.addAll(allergies);
+        }
+        allergiesTableCurrent.setItems(allergySelectedList);
     }
 
     /**
@@ -335,31 +377,32 @@ public class DatabaseRestaurantMenuController implements Initializable {
     public void updateDish() {
         int dishId = Integer.parseInt(dishIdFieldRead.getText());
         try {
-            String name = dishNameFieldRead.getText();
-            String description = dishDescriptionFieldRead.getText();
+
             double price = -1;
-            if (name.equals("")) {
+            if (dishNameFieldRead.getText().isEmpty()) {
                 CustomAlert.warningAlert("Please provide a name.");
                 return;
             } else {
+                String name = dishNameFieldRead.getText();
                 ServerCommunication.updateDish(dishId, "name", name);
             }
-            try {
-                price = Double.parseDouble(dishPriceFieldRead.getText());
-            } catch (NumberFormatException e) {
-                CustomAlert.warningAlert("Price requires a number.");
-                return;
-            }
-            if (price == -1) {
+            if (dishPriceFieldRead.getText().isEmpty()) {
                 CustomAlert.warningAlert("Please provide a price.");
                 return;
             } else {
-                ServerCommunication.updateDish(dishId, "price", Integer.toString((int) (price * 100)));
+                try {
+                    price = Double.parseDouble(dishPriceFieldRead.getText());
+                    ServerCommunication.updateDish(dishId, "price", Integer.toString((int) (price * 100)));
+                } catch (NumberFormatException e) {
+                    CustomAlert.warningAlert("Price requires a number.");
+                    return;
+                }
             }
-            if (description.equals("")) {
+            if (dishDescriptionFieldRead.getText().isEmpty()) {
                 CustomAlert.warningAlert("Please provide a description.");
                 return;
             } else {
+                String description = dishDescriptionFieldRead.getText();
                 ServerCommunication.updateDish(dishId, "description", description);
             }
         } catch (Exception e) {
@@ -368,5 +411,23 @@ public class DatabaseRestaurantMenuController implements Initializable {
         }
         CustomAlert.informationAlert("Successfully executed.");
         retrieveAllDishes();
+    }
+
+    public void showAddAllergies() {
+        anchorPane.getChildren().add(allergyImage);
+        anchorPane.getChildren().add(allergyNameTextField);
+        anchorPane.getChildren().add(allergyAddButton);
+    }
+
+    public void addAllergy() {
+        if (allergyNameTextField.getText().isEmpty()) {
+            CustomAlert.warningAlert("Please provide an allergy name.");
+        } else {
+            String name = allergyNameTextField.getText();
+            CustomAlert.informationAlert(ServerCommunication.addAllergyToDish(name, Integer.parseInt(dishIdFieldRead.getText())));
+            anchorPane.getChildren().remove(allergyImage);
+            anchorPane.getChildren().remove(allergyNameTextField);
+            anchorPane.getChildren().remove(allergyAddButton);
+        }
     }
 }

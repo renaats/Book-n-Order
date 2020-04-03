@@ -470,7 +470,12 @@ public class ServerCommunication {
         HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/allergy/filter?query=" + query)).build();
         return communicateAndReturnBodyOfResponse(request);
     }
-    
+
+    public static String getAllergiesFromDish(int dishId) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/allergies/fromDish/" + dishId)).GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
     /**
      * Adds a food order to the database
      * @param email user email

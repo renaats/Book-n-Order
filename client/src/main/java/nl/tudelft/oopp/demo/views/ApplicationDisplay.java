@@ -1,7 +1,5 @@
 package nl.tudelft.oopp.demo.views;
 
-import com.calendarfx.view.CalendarView;
-
 import java.io.IOException;
 import java.net.URL;
 
