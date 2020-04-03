@@ -30,7 +30,7 @@ import nl.tudelft.oopp.demo.views.RoomCalendarView;
 public class BookRoomCalendarController implements Initializable {
 
     private int roomId;
-    private RoomCalendarView calendarView = new RoomCalendarView(getRoomId());
+    private RoomCalendarView calendarView;
 
     @FXML
     Button reserveSlot;
@@ -46,6 +46,8 @@ public class BookRoomCalendarController implements Initializable {
 
     public void setRoomId(int roomId) {
         this.roomId = roomId;
+        calendarView = new RoomCalendarView(getRoomId());
+        showCal();
     }
 
     public int getRoomId() {
