@@ -219,6 +219,7 @@ public class DatabaseRestaurantMenuController implements Initializable {
         }
         allergiesTableFlag = !allergiesTableFlag;
     }
+
     /**
      * Handles the clicking to the next table page.
      */

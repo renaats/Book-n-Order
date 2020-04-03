@@ -238,7 +238,6 @@ public class ServerCommunication {
     }
 
     /**
-<<<<<<< HEAD
      * Communicates addRoom to the database.
      * @param name room name.
      * @param buildingId building ID.
@@ -248,17 +247,6 @@ public class ServerCommunication {
      * @param capacity capacity of the room in people.
      * @param plugs amount of available plugs.
      * @return the error message corresponding to the server's response.
-=======
-     * Communicates addRoom to the database
-     * @param name room name
-     * @param buildingId building ID
-     * @param studySpecific is it specific for a faculty
-     * @param screen does the room have a screen
-     * @param projector does the room have a projector
-     * @param capacity capacity of the room in people
-     * @param plugs amount of available plugs
-     * @return error message
->>>>>>> 171-Redesign_CRUD_menus_GUI
      */
     public static String addRoom(String name,
                                  int buildingId, String studySpecific,
@@ -948,8 +936,7 @@ public class ServerCommunication {
      * @return the body of the response from the server.
      */
     public static String updateBike(int id, String attribute, String changeValue) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/bike/update?id=" + id + "&attribute=" + attribute + "&value="
-                + URLEncoder.encode(changeValue, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/bike/update?id=" + id + "&attribute=" + attribute + "&value=" + URLEncoder.encode(changeValue, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnErrorMessage(request);
     }
 

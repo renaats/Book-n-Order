@@ -1,11 +1,12 @@
 package nl.tudelft.oopp.demo.repositories;
 
+import java.util.List;
+
 import nl.tudelft.oopp.demo.entities.Allergy;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 /**
  * Supports the persistence of Allergy entities by storing them in the database.

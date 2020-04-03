@@ -65,6 +65,14 @@ public class RoomServiceTest {
         }
     }
 
+    @TestConfiguration
+    static class MenuServiceTestConfiguration {
+        @Bean
+        public MenuService menuService() {
+            return new MenuService();
+        }
+    }
+
     @Autowired
     RoomService roomService;
 
@@ -331,6 +339,17 @@ public class RoomServiceTest {
     @Test
     public void testDeleteIllegal() {
         assertEquals(ROOM_NOT_FOUND, roomService.delete(0));
+    }
+
+    /**
+     * Tests the finding of a room by name.
+     */
+    @Test
+    public void testFindByName() {
+        roomService.add("Ampere", "CSE", true, true, building.getId(), 200, 200, "Open");
+        roomService.add("Boole", "CSE2", true, true, building2.getId(), 200, 200, "Closed");
+        Room newRoom = roomService.findByName("Ampere");
+        assertEquals(room, newRoom);
     }
 
     /**
