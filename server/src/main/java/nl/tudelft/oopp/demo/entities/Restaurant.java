@@ -37,6 +37,7 @@ public class Restaurant {
     private Building building;
     private String name;
     private String email;
+
     private int feedbackCounter;
 
     @OneToOne(fetch = FetchType.EAGER)
@@ -112,9 +113,9 @@ public class Restaurant {
      */
     public void addFeedback(Boolean feedback) {
         if (feedback) {
-            this.feedbackCounter++;
+            this.feedbackCounter = this.feedbackCounter + 1;
         } else {
-            this.feedbackCounter--;
+            this.feedbackCounter = this.feedbackCounter - 1;
         }
     }
     @Override

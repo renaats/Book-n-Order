@@ -42,6 +42,11 @@ public class FoodOrder {
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn
+    private Menu menu;
+
+    @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn
     private AppUser appUser;
 
     @ManyToOne
@@ -55,19 +60,22 @@ public class FoodOrder {
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Dish> dishes;
 
+    private boolean feedback;
+
     /** Creates a new instance of FoodOrder.
      * @param restaurant the restaurant at which the food order is placed.
      * @param appUser user who placed the food order.
      * @param deliveryLocation location of building where food needs to be delivered to/will be picked up from.
      * @param deliveryTime time at which food needs to be delivered.
      */
-    public FoodOrder(Restaurant restaurant, AppUser appUser, Building deliveryLocation, Date deliveryTime) {
+    public FoodOrder(Restaurant restaurant, AppUser appUser, Building deliveryLocation, Date deliveryTime, Menu menu) {
         this.restaurant = restaurant;
         this.appUser = appUser;
         this.deliveryLocation = deliveryLocation;
         this.deliveryTime = deliveryTime;
+        this.menu = menu;
         this.active = true;
-        dishes = new HashSet<>();
+        this.dishes = new HashSet<>();
     }
 
     public FoodOrder() {
@@ -128,6 +136,22 @@ public class FoodOrder {
 
     public Set<Dish> getDishes() {
         return dishes;
+    }
+
+    public Menu getMenu() {
+        return menu;
+    }
+
+    public void setMenu(Menu menu) {
+        this.menu = menu;
+    }
+
+    public boolean isFeedback() {
+        return feedback;
+    }
+
+    public void setFeedback(boolean feedback) {
+        this.feedback = feedback;
     }
 
     @Override

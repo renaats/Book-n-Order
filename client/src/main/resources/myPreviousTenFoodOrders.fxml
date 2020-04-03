@@ -46,11 +46,15 @@
                 <Cursor fx:constant="HAND" />
             </cursor>
         </ImageView>
-        <TableView fx:id="table" layoutX="327.0" layoutY="198.0" prefHeight="380.0" prefWidth="626.0">
+        <TableView fx:id="table" layoutX="327.0" layoutY="198.0" prefHeight="380.0" prefWidth="906.0">
             <columns>
-                <TableColumn fx:id="colId" prefWidth="69.33334350585938" text="ID" />
-                <TableColumn fx:id="colRestaurant" prefWidth="381.33331298828125" text="Restaurant" />
-                <TableColumn fx:id="colDate" prefWidth="174.00003051757812" text="Date" />
+                <TableColumn fx:id="colId" prefWidth="49.0" text="ID" />
+                <TableColumn fx:id="colRestaurant" prefWidth="285.6666564941406" text="Restaurant" />
+                <TableColumn fx:id="colDeliveryLoc" prefWidth="174.0" text="Delivery Location" />
+                <TableColumn fx:id="colDate" prefWidth="76.0" text="Date" />
+                <TableColumn fx:id="colTime" prefWidth="106.0" text="Time" />
+                <TableColumn fx:id="colFeedback" prefWidth="106.0" text="General Feedback" />
+                <TableColumn fx:id="colYourFeedback" prefWidth="106.0" text="Your Feedback" />
             </columns>
         </TableView>
         <Text layoutX="409.0" layoutY="146.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Current Food Reservations">
@@ -58,9 +62,9 @@
                 <Font size="33.0" />
             </font>
         </Text>
-        <ImageView fitHeight="73.0" fitWidth="81.0" layoutX="151.0" layoutY="272.0" onMouseClicked="#thumbsUp" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="73.0" fitWidth="81.0" layoutX="146.0" layoutY="270.0" onMouseClicked="#thumbsUp" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@images/thumbs_Up.png" />
+                <Image url="@images/Thumbs_Up.png" />
             </image>
             <cursor>
                 <Cursor fx:constant="HAND" />
