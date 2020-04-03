@@ -282,6 +282,20 @@ public class DishServiceTest {
     }
 
     /**
+     * Tests the removal of an allergy from a dish.
+     */
+    @Test
+    @WithMockUser(username = "restaurant@tudelft.nl", roles = {"USER", "STAFF", "RESTAURANT"})
+    public void testRemoveAllergy() {
+        dishService.add("Tosti", menu1.getId(), 300, "Cooked", "123");
+        dish = dishService.all().get(0);
+        dishService.addAllergy(dish.getId(), "Nuts");
+        dishService.addAllergy(dish.getId(), "Lactose");
+        dishService.removeAllergy(dish.getId(), "Nuts");
+        assertEquals(Collections.singletonList(allergy), allergyService.findAllByDishId(dish.getId()));
+    }
+
+    /**
      * Tests the retrieval of allergies to a dish.
      */
     @Test

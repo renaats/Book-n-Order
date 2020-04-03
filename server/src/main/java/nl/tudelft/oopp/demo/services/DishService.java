@@ -6,6 +6,7 @@ import static nl.tudelft.oopp.demo.config.Constants.DISH_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
 import static nl.tudelft.oopp.demo.config.Constants.ID_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.MENU_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.WRONG_CREDENTIALS;
 
 import java.net.URLDecoder;
@@ -135,6 +136,29 @@ public class DishService {
         dish.addAllergy(allergy);
         dishRepository.save(dish);
         return ADDED;
+    }
+
+    /**
+     * Removes an allergy from a dish.
+     * @param id = the id of the dish.
+     * @param allergyName = the name of the allergy.
+     */
+    public int removeAllergy(int id, String allergyName) {
+        if (!dishRepository.existsById(id)) {
+            return ID_NOT_FOUND;
+        }
+        Dish dish = dishRepository.getOne(id);
+        if (RestaurantService.noPermissions(SecurityContextHolder.getContext(), dish.getMenu().getRestaurant())) {
+            return WRONG_CREDENTIALS;
+        }
+        Allergy allergy;
+        if (!allergyRepository.existsByAllergyName(allergyName)) {
+            return NOT_FOUND;
+        }
+        allergy = allergyRepository.findByAllergyName(allergyName);
+        dish.removeAllergy(allergy);
+        dishRepository.save(dish);
+        return EXECUTED;
     }
 
     /**

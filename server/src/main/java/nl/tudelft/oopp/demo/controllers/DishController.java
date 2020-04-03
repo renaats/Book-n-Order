@@ -64,6 +64,18 @@ public class DishController {
     }
 
     /**
+     * Remove an allergy from a dish.
+     * @param id = the id of the dish.
+     * @param allergyName = the name of the allergy.
+     */
+    @Secured({ADMIN, RESTAURANT})
+    @PostMapping(path = "/removeAllergy")
+    @ResponseBody
+    public int removeAllergy(@RequestParam int id, @RequestParam String allergyName) {
+        return dishService.removeAllergy(id, allergyName);
+    }
+
+    /**
      * Updates a specified attribute for a dish.
      * @param id = the id of the food order.
      * @param attribute = the attribute whose value is changed.
