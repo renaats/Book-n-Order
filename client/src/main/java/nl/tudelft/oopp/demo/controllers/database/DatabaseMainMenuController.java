@@ -25,4 +25,8 @@ public class DatabaseMainMenuController {
     public void databaseRestaurants() throws  IOException {
         ApplicationDisplay.changeScene("/DatabaseRestaurantMenu.fxml");
     }
+
+    public void databaseBikes() throws IOException {
+        ApplicationDisplay.changeScene("/DatabaseBikeMenu.fxml");
+    }
 }

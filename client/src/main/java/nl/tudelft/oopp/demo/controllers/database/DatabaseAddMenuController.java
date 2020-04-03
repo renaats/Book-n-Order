@@ -72,6 +72,8 @@ public class DatabaseAddMenuController implements Initializable {
         anchorPane.getChildren().remove(previousPageButton);
         anchorPane.getChildren().remove(pagesText);
 
+        pageNumber = 1;
+
         retrieveAllRestaurants();
         tableSelectMethod();
     }

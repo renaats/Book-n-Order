@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -51,6 +52,11 @@ public class DishServiceTest {
         public MenuService menuService() {
             return new MenuService();
         }
+
+        @Bean
+        public AllergyService allergyService() {
+            return new AllergyService();
+        }
     }
 
     @Autowired
@@ -58,6 +64,9 @@ public class DishServiceTest {
 
     @Autowired
     MenuService menuService;
+
+    @Autowired
+    AllergyService allergyService;
 
     @Autowired
     MenuRepository menuRepository;
@@ -270,6 +279,23 @@ public class DishServiceTest {
         }
         assertEquals(allergy1, "Lactose");
         assertEquals(allergy2,"Nuts");
+    }
+
+    /**
+     * Tests the retrieval of allergies to a dish.
+     */
+    @Test
+    @WithMockUser(username = "restaurant@tudelft.nl", roles = {"USER", "STAFF", "RESTAURANT"})
+    public void testGetAllergies() {
+        dishService.add("Tosti", menu1.getId(), 300, "Cooked", "123");
+        dish = dishService.all().get(0);
+        dishService.addAllergy(dish.getId(), "Nuts");
+        dishService.addAllergy(dish.getId(), "Lactose");
+        List<Allergy> allergies = new LinkedList<>();
+        allergies.add(allergy);
+        Allergy allergy2 = new Allergy("Nuts");
+        allergies.add(allergy2);
+        assertEquals(allergies, allergyService.findAllByDishId(dish.getId()));
     }
 
     /**
