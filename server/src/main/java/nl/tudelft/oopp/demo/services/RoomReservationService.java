@@ -208,7 +208,7 @@ public class RoomReservationService {
         Optional<Room> optionalRoom = roomRepository.findById(roomId);
 
         if (optionalRoom.isEmpty()) {
-            return null;
+            return new ArrayList<>();
         }
         Room room = optionalRoom.get();
 
@@ -258,5 +258,21 @@ public class RoomReservationService {
         roomReservation.setActive(false);
         roomReservationRepository.save(roomReservation);
         return EXECUTED;
+    }
+
+    /**
+     * Find User for a specific Reservation.
+     * @param id of room reservation.
+     * @return AppUser that has the reservation.
+     */
+    public AppUser findForReservation(int id) {
+        Optional<RoomReservation> optionalRoomReservation = roomReservationRepository.findById(id);
+
+        if (optionalRoomReservation.isEmpty()) {
+            return null;
+        }
+        RoomReservation roomReservation = optionalRoomReservation.get();
+
+        return roomReservation.getAppUser();
     }
 }

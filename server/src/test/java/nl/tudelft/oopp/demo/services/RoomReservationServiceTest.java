@@ -428,7 +428,7 @@ class RoomReservationServiceTest {
     @Test
     public void testGetReservationForNonExistentRoom() {
         roomReservationService.add(request2, room2.getId(), 5000000, 10000000);
-        assertNull(roomReservationService.findForRoom(-5));
+        assertEquals(new ArrayList<>(), roomReservationService.findForRoom(-5));
     }
 
     /**
@@ -479,5 +479,24 @@ class RoomReservationServiceTest {
         roomReservationService.add(request2, room2.getId(), 300000000000000L, 500000000000000L);
         MockHttpServletRequest request2 = new MockHttpServletRequest();
         assertEquals(WRONG_USER, roomReservationService.cancel(request2, roomReservationService.all().get(0).getId()));
+    }
+
+    /**
+     * Test the retrieving of a user for a specific reservation.
+     */
+    @Test
+    public void testGetUserWithReservation() {
+        roomReservationService.add(request, room.getId(), 300000000000000L, 500000000000000L);
+        int id = roomReservationService.all().get(0).getId();
+        assertEquals(roomReservationService.all().get(0).getAppUser(), roomReservationService.findForReservation(id));
+    }
+
+    /**
+     * Test the retrieving of a user for a non existent reservation.
+     */
+    @Test
+    public void testGetUserForNonExistentReservation() {
+        roomReservationService.add(request, room.getId(), 300000000000000L, 500000000000000L);
+        assertNull(roomReservationService.findForReservation(-1));
     }
 }

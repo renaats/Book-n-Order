@@ -88,7 +88,7 @@ public class ServerCommunicationTest {
         stubFor(get(urlEqualTo("/bike_reservation/past")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(get(urlEqualTo("/bike_reservation/cancel/1")).willReturn(aResponse().withStatus(200).withBody("201")));
         stubFor(get(urlEqualTo("/room_reservation/room/1")).willReturn(aResponse().withStatus(200).withBody("Message50")));
-        stubFor(get(urlEqualTo("/user/reservation/1")).willReturn(aResponse().withStatus(200).withBody("Message51")));
+        stubFor(get(urlEqualTo("/room_reservation/user/1")).willReturn(aResponse().withStatus(200).withBody("Message51")));
     }
 
     /**
