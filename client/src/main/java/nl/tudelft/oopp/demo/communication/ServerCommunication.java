@@ -380,6 +380,16 @@ public class ServerCommunication {
         return communicateAndReturnErrorMessage(request);
     }
 
+    /**
+     * Finds reservations for a specific room.
+     * @param id = id of the room.
+     * @return the error message corresponding to the server's response.
+     */
+    public static String findReservationForRoom(int id) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room_reservation/room/" + id)).GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
     // -----------------------------------------
     // Food related Server Communication Methods
     // -----------------------------------------
@@ -776,6 +786,11 @@ public class ServerCommunication {
      */
     public static String getUser() {
         HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/user")).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    public static String findUserForReservation(int id) {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/user/reservation/" + id)).build();
         return communicateAndReturnBodyOfResponse(request);
     }
 

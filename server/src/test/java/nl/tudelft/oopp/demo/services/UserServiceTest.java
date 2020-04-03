@@ -436,6 +436,9 @@ class UserServiceTest {
         assertFalse(userService.isAdmin(request));
     }
 
+    /**
+     * Test the retrieving of a user for a specific reservation.
+     */
     @Test
     public void testGetUserWithReservation() {
         userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty());
@@ -444,6 +447,9 @@ class UserServiceTest {
         assertEquals(userService.all().get(0), userService.findForReservation(id));
     }
 
+    /**
+     * Test the retrieving of a user for a non existent reservation.
+     */
     @Test
     public void testGetUserForNonExistentReservation() {
         userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty());
