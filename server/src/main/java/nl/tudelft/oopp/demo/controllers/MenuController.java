@@ -67,4 +67,27 @@ public class MenuController {
         return menuService.all();
     }
 
+    /**
+     * Finds a menu with a certain id
+     * @param id menu id
+     * @return menu
+     */
+    @Secured(USER)
+    @GetMapping(path = "/find/{id}")
+    @ResponseBody
+    public Menu find(@PathVariable(value = "id") int id) {
+        return menuService.find(id);
+    }
+
+    /**
+     * Finds a menu with a certain name
+     * @param name menu name
+     * @return menu
+     */
+    @Secured(USER)
+    @GetMapping(path = "/findName/{name}")
+    @ResponseBody
+    public Menu find(@PathVariable(value = "name") String name) {
+        return menuService.find(name);
+    }
 }

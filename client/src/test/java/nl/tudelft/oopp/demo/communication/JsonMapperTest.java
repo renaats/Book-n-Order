@@ -51,7 +51,7 @@ class JsonMapperTest {
     }
 
     @Test
-    void buildingMapper() {
+    void testBuildingMapper() {
         stubFor(get(urlEqualTo("/building/find/1")).willReturn(aResponse().withStatus(200)
                 .withBody("{\"id\":1,\"name\":\"testffes\",\"street\":\"1\",\"houseNumber\":1}")));
         assertEquals(JsonMapper
@@ -60,7 +60,7 @@ class JsonMapperTest {
     }
 
     @Test
-    void buildingListMapper() throws IOException {
+    void testBuildingListMapper() throws IOException {
         stubFor(get(urlEqualTo("/building/all"))
                 .willReturn(aResponse()
                         .withStatus(200)
@@ -78,7 +78,7 @@ class JsonMapperTest {
     }
 
     @Test
-    void roomMapper() {
+    void testRoomMapper() {
         stubFor(get(urlEqualTo("/room/find/4"))
                 .willReturn(aResponse()
                         .withStatus(200)
@@ -93,7 +93,7 @@ class JsonMapperTest {
     }
 
     @Test
-    void roomListMapper() {
+    void testRoomListMapper() {
         List<Room> room =
                 new ArrayList<>(Objects
                         .requireNonNull(JsonMapper
@@ -116,7 +116,7 @@ class JsonMapperTest {
     }
 
     @Test
-    void buildingHoursMapperTest() {
+    void testBuildingHoursMapper() {
         stubFor(get(urlEqualTo("/building_hours/find/1/1"))
                 .willReturn(aResponse()
                         .withStatus(200)
@@ -131,7 +131,7 @@ class JsonMapperTest {
     }
 
     @Test
-    void restaurantHoursMapperTest() {
+    void testRestaurantHoursMapper() {
         stubFor(get(urlEqualTo("/restaurant_hours/find/1/1"))
                 .willReturn(aResponse()
                         .withStatus(200)
@@ -149,7 +149,7 @@ class JsonMapperTest {
     }
 
     @Test
-    void roomReservationMapperTest() {
+    void testRoomReservationMapper() {
         stubFor(get(urlEqualTo("/room_reservation/find/3"))
                 .willReturn(aResponse()
                         .withStatus(200)
@@ -178,7 +178,7 @@ class JsonMapperTest {
     }
 
     @Test
-    void roomReservationListMapperTest() {
+    void testRoomReservationListMapper() {
         stubFor(get(urlEqualTo("/room_reservation/all"))
                 .willReturn(aResponse()
                         .withStatus(200)
@@ -229,7 +229,7 @@ class JsonMapperTest {
     }
 
     @Test
-    void bikeReservationMapperTest() {
+    void testBikeReservationMapper() {
         stubFor(get(urlEqualTo("/bike_reservation/find/5"))
                 .willReturn(aResponse()
                         .withStatus(200)
@@ -264,7 +264,7 @@ class JsonMapperTest {
     }
 
     @Test
-    void bikeReservationListMapperTest() {
+    void testBikeReservationListMapper() {
         stubFor(get(urlEqualTo("/bike_reservation/all"))
                 .willReturn(aResponse()
                         .withStatus(200)
@@ -321,7 +321,7 @@ class JsonMapperTest {
     }
 
     @Test
-    void foodOrderMapperTest() {
+    void testFoodOrderMapper() {
         stubFor(get(urlEqualTo("/food_order/find/4"))
                 .willReturn(aResponse()
                         .withStatus(200)
@@ -353,7 +353,7 @@ class JsonMapperTest {
     }
 
     @Test
-    void foodOrderListMapperTest() {
+    void testFoodOrderListMapper() {
         stubFor(get(urlEqualTo("/food_order/all"))
                 .willReturn(aResponse()
                         .withStatus(200)

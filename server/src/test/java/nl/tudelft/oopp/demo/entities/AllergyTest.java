@@ -59,7 +59,7 @@ public class AllergyTest {
      * Tests the saving and retrieval of an instance of Allergy.
      */
     @Test
-    public void saveAndRetrieveAllergy() {
+    public void testSaveAndRetrieveAllergy() {
         allergy2 = allergyRepository.findAll().get(0);
         assertEquals(allergy1.getAllergyName(), allergy2.getAllergyName());
     }
@@ -94,7 +94,7 @@ public class AllergyTest {
      */
     @Test
     public void testDishAllergy() {
-        Dish dish = new Dish("Tosti", menu);
+        Dish dish = new Dish("Tosti", menu, 300, "Cooked", "123");
         dish.setAllergies(new HashSet<>());
 
         Set<Allergy> allergySet = new HashSet<>();

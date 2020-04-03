@@ -60,7 +60,7 @@ public class BuildingHourTest {
      * Tests the saving and retrieval of an instance of BuildingHours.
      */
     @Test
-    public void saveAndRetrieveBuildingHours() {
+    public void testSaveAndRetrieveBuildingHours() {
         buildingHours2 = buildingHourRepository.findByBuilding_IdAndDay(building.getId(), 1);
         assertEquals(buildingHours, buildingHours2);
     }

@@ -25,7 +25,6 @@ public class MainMenuController {
      * Handles the clicking of the Profile icon.
      * @throws IOException when it fails
      */
-
     public void goToProfile() throws IOException {
         ApplicationDisplay.changeScene("/myAccountScene.fxml");
     }
@@ -38,4 +37,11 @@ public class MainMenuController {
         ApplicationDisplay.changeScene("/MainMenuReservations.fxml");
     }
 
+    /**
+     * Handles the clicking of the Contact info button.
+     * @throws IOException when it fails
+     */
+    public void goToContactInformation() throws IOException {
+        ApplicationDisplay.changeScene("/ContactInformation.fxml");
+    }
 }

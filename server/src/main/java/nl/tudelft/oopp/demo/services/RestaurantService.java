@@ -1,20 +1,32 @@
 package nl.tudelft.oopp.demo.services;
 
 import static nl.tudelft.oopp.demo.config.Constants.ADDED;
+import static nl.tudelft.oopp.demo.config.Constants.ADMIN;
 import static nl.tudelft.oopp.demo.config.Constants.ATTRIBUTE_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.BUILDING_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
 import static nl.tudelft.oopp.demo.config.Constants.RESTAURANT_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.WRONG_CREDENTIALS;
+import static nl.tudelft.oopp.demo.security.SecurityConstants.HEADER_STRING;
 
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
+
+import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Restaurant;
 import nl.tudelft.oopp.demo.repositories.BuildingRepository;
 import nl.tudelft.oopp.demo.repositories.RestaurantRepository;
+import nl.tudelft.oopp.demo.repositories.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -28,14 +40,32 @@ public class RestaurantService {
     private BuildingRepository buildingRepository;
     @Autowired
     private RestaurantRepository restaurantRepository;
+    @Autowired
+    private UserRepository userRepository;
+
+    /**
+     * Determines if this user can edit the restaurant's properties.
+     * @param securityContext = the SecurityContext of the request.
+     * @param restaurant = the restaurant that is modified.
+     * @return a boolean representing whether the user should be able to edit the properties.
+     */
+    public static boolean noPermissions(SecurityContext securityContext, Restaurant restaurant) {
+        if (restaurant == null) {
+            return true;
+        }
+        return securityContext.getAuthentication() == null
+                || (!securityContext.getAuthentication().getAuthorities().contains(new SimpleGrantedAuthority(ADMIN))
+                && !restaurant.getEmail().equals(securityContext.getAuthentication().getName()));
+    }
 
     /**
      * Adds a restaurant.
      * @param buildingId = the building, where the restaurant is located
      * @param name = the name of the restaurant
+     * @param email = the email of the restaurant
      * @return String to see if your request passed
      */
-    public int add(int buildingId, String name) {
+    public int add(int buildingId, String name, String email) {
         Optional<Building> optionalBuilding = buildingRepository.findById(buildingId);
         if (optionalBuilding.isEmpty()) {
             return BUILDING_NOT_FOUND;
@@ -44,6 +74,7 @@ public class RestaurantService {
         Restaurant restaurant = new Restaurant();
         restaurant.setBuilding(optionalBuilding.get());
         restaurant.setName(name);
+        restaurant.setEmail(email);
         restaurantRepository.save(restaurant);
         return ADDED;
     }
@@ -61,6 +92,10 @@ public class RestaurantService {
         }
         Restaurant restaurant = restaurantRepository.findById(id).get();
 
+        if (noPermissions(SecurityContextHolder.getContext(), restaurant)) {
+            return WRONG_CREDENTIALS;
+        }
+
         switch (attribute) {
             case "name":
                 restaurant.setName(value);
@@ -73,6 +108,9 @@ public class RestaurantService {
                 }
                 Building building = optionalBuilding.get();
                 restaurant.setBuilding(building);
+                break;
+            case "email":
+                restaurant.setEmail(value);
                 break;
             default:
                 return ATTRIBUTE_NOT_FOUND;
@@ -90,6 +128,9 @@ public class RestaurantService {
         if (!restaurantRepository.existsById(id)) {
             return RESTAURANT_NOT_FOUND;
         }
+        if (noPermissions(SecurityContextHolder.getContext(), restaurantRepository.getOne(id))) {
+            return WRONG_CREDENTIALS;
+        }
         restaurantRepository.deleteById(id);
         return EXECUTED;
     }
@@ -100,6 +141,20 @@ public class RestaurantService {
      */
     public List<Restaurant> all() {
         return restaurantRepository.findAll();
+    }
+
+    /**
+     * Lists all accounts that the user is an owner of.
+     * @param request = the Http request that calls this method.
+     * @return all restaurant that have this user as an owner.
+     */
+    public List<Restaurant> owned(HttpServletRequest request) {
+        String token = request.getHeader(HEADER_STRING);
+        AppUser appUser = UserService.getAppUser(token, userRepository);
+        if (appUser == null) {
+            return null;
+        }
+        return restaurantRepository.findAllByEmail(appUser.getEmail());
     }
 
     /**
@@ -117,6 +172,6 @@ public class RestaurantService {
      * @return a restaurant that matches the name
      */
     public Restaurant find(String name) {
-        return restaurantRepository.findByName(name);
+        return restaurantRepository.findByName(URLDecoder.decode(name, StandardCharsets.UTF_8));
     }
 }
