@@ -148,10 +148,6 @@ public class BookRoomController implements Initializable {
         this.selectedRoom = selectedRoom;
     }
 
-    public Room getSelectedRoom() {
-        return this.selectedRoom;
-    }
-
     /**
      * Handles clicking the list button.
      */
