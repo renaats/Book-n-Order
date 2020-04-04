@@ -6,11 +6,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.MyPreviousRoomReservationsController">
+<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" stylesheets="@table.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.MyPreviousRoomReservationsController">
     <children>
-        <ImageView fitHeight="720.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitWidth="1280.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@images/Book_Room.jpg" />
+                <Image url="@images/DatabaseRoomBackground.jpg" />
             </image>
         </ImageView>
         <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="63.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
@@ -45,13 +45,14 @@
                 <Cursor fx:constant="HAND" />
             </cursor>
         </ImageView>
-        <TableView layoutX="327.0" layoutY="198.0" prefHeight="380.0" prefWidth="626.0">
+        <TableView fx:id="table" layoutX="163.0" layoutY="191.0" prefHeight="408.0" prefWidth="908.0">
             <columns>
-                <TableColumn prefWidth="75.0" text="C1" />
-                <TableColumn prefWidth="75.0" text="C2" />
+                <TableColumn fx:id="colRoom" prefWidth="400" text="From (Location)" />
+                <TableColumn fx:id="colFromTime" prefWidth="269.3333740234375" text="From (Time)" />
+                <TableColumn fx:id="colToTime" prefWidth="235.33331298828125" text="To (Time)" />
             </columns>
         </TableView>
-        <Text layoutX="409.0" layoutY="146.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Previous Room Reservations">
+        <Text layoutX="451.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Bike Reservations">
             <font>
                 <Font size="33.0" />
             </font>

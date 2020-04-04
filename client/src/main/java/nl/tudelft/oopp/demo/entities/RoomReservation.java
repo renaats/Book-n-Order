@@ -3,6 +3,9 @@ package nl.tudelft.oopp.demo.entities;
 import java.util.Date;
 import java.util.Objects;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 /**
  * Manages the RoomReservation object that is retrieved from the server
  */
@@ -75,6 +78,35 @@ public class RoomReservation {
 
     public Date getToTime() {
         return toTime;
+    }
+
+    /**
+     * Makes the table list the from time instead of the from time object
+     * @return String property, a property recognized by the tables.
+     */
+    public StringProperty getRoomNameProperty() {
+        String room = getRoom().getName();
+        return new SimpleStringProperty(room);
+    }
+
+    /**
+     * Makes the table list the from time instead of the from time object
+     * @return String property, a property recognized by the tables.
+     */
+    public StringProperty getToTimeProperty() {
+        String day = "" + getFromTime().getDay();
+        String time = "" + getFromTime().getTime();
+        return new SimpleStringProperty("Day: " + day + " At " + time);
+    }
+
+    /**
+     * Makes the table list the from time instead of the from time object
+     * @return String property, a property recognized by the tables.
+     */
+    public StringProperty getFromTimeProperty() {
+        String day = "" + getFromTime().getDay();
+        String time = "" + getFromTime().getTime();
+        return new SimpleStringProperty("Day: " + day + " At " + time);
     }
 
     @Override
