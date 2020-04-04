@@ -7,10 +7,6 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import java.util.List;
 
-import javafx.scene.control.Alert;
-import javafx.scene.control.DialogPane;
-import javafx.stage.StageStyle;
-
 import nl.tudelft.oopp.demo.entities.Allergy;
 import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.Bike;
@@ -113,7 +109,13 @@ public class JsonMapper {
 
         ObjectMapper mapper = new ObjectMapper();
 
-        return mapper.readValue(roomsJson, new TypeReference<>(){});
+        try {
+            // Convert JSON string to Object
+            return mapper.readValue(roomsJson, new TypeReference<>(){});
+        } catch (Exception e) {
+            CustomAlert.warningAlert(roomsJson);
+        }
+        return null;
     }
 
     /**
@@ -190,7 +192,13 @@ public class JsonMapper {
 
         ObjectMapper mapper = new ObjectMapper();
 
-        return mapper.readValue(restaurantsJson, new TypeReference<>(){});
+        try {
+            // Convert JSON string to Object
+            return mapper.readValue(restaurantsJson, new TypeReference<>(){});
+        } catch (Exception e) {
+            CustomAlert.warningAlert(restaurantsJson);
+        }
+        return null;
     }
 
     /**

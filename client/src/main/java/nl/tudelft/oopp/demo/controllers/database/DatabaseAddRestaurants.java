@@ -20,6 +20,8 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import nl.tudelft.oopp.demo.communication.BuildingServerCommunication;
+import nl.tudelft.oopp.demo.communication.DishServerCommunication;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.Building;
@@ -91,7 +93,7 @@ public class DatabaseAddRestaurants implements Initializable {
         buildingResult.clear();
         List<Building> buildings;
         try {
-            buildings = new ArrayList<>(Objects.requireNonNull(JsonMapper.buildingListMapper(ServerCommunication.getBuildings())));
+            buildings = new ArrayList<>(Objects.requireNonNull(JsonMapper.buildingListMapper(BuildingServerCommunication.getBuildings())));
         } catch (Exception e) {
             // Fakes the table having any entries, so the table shows up properly instead of "No contents".
             buildings = new ArrayList<>();
@@ -199,7 +201,7 @@ public class DatabaseAddRestaurants implements Initializable {
             } catch (NumberFormatException e) {
                 Building building = null;
                 if (!buildingNameTextField.getText().equals("")) {
-                    building = JsonMapper.buildingMapper(ServerCommunication.findBuildingByName(buildingNameTextField.getText()));
+                    building = JsonMapper.buildingMapper(BuildingServerCommunication.findBuildingByName(buildingNameTextField.getText()));
                 } else {
                     CustomAlert.warningAlert("Please provide a building.");
                     return;
@@ -219,7 +221,7 @@ public class DatabaseAddRestaurants implements Initializable {
                 return;
             }
 
-            String response = ServerCommunication.addRestaurant(buildingId, restaurantName, ownerEmail);
+            String response = DishServerCommunication.addRestaurant(buildingId, restaurantName, ownerEmail);
             if (response.equals("Successfully added!") && buildingFound) {
                 CustomAlert.informationAlert(response);
             } else if (buildingFound) {

@@ -20,6 +20,6 @@ public class BikeReservationConfirmationController {
      * @throws IOException the input is always the same, so it should not throw an IOException
      */
     public void mainMenu() throws IOException {
-        ApplicationDisplay.changeScene("/mainMenu.fxml");
+        ApplicationDisplay.changeScene("/MainMenu.fxml");
     }
 }

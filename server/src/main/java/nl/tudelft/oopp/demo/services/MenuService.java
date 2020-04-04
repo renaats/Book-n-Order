@@ -121,6 +121,5 @@ public class MenuService {
         menu.setName(name);
         menuRepository.save(menu);
         return EXECUTED;
-
     }
 }

@@ -26,8 +26,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
+import nl.tudelft.oopp.demo.communication.BuildingServerCommunication;
+import nl.tudelft.oopp.demo.communication.DishServerCommunication;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
-import nl.tudelft.oopp.demo.communication.ServerCommunication;
+import nl.tudelft.oopp.demo.communication.UserServerCommunication;
 import nl.tudelft.oopp.demo.entities.Allergy;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Dish;
@@ -146,7 +148,7 @@ public class DatabaseRestaurantMenuController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if (!ServerCommunication.isUserAdmin()) {
+        if (!UserServerCommunication.isUserAdmin()) {
             anchorPane.getChildren().remove(restaurantAddImage);
             anchorPane.getChildren().remove(restaurantAddText);
             anchorPane.getChildren().remove(menuAddImage);
@@ -356,7 +358,7 @@ public class DatabaseRestaurantMenuController implements Initializable {
         List<Dish> dishes = new ArrayList<>();
         try {
             dishes = new ArrayList<>(Objects.requireNonNull(
-                    JsonMapper.dishListMapper(ServerCommunication.findDishesByMenu(Integer.parseInt(menuIdFieldRead.getText())))));
+                    JsonMapper.dishListMapper(DishServerCommunication.findDishesByMenu(Integer.parseInt(menuIdFieldRead.getText())))));
         } catch (Exception e) {
             dishTableView.setPlaceholder(new Label(""));
         }
@@ -394,12 +396,12 @@ public class DatabaseRestaurantMenuController implements Initializable {
         ownedRestaurants.clear();
         List<Restaurant> restaurants = new ArrayList<>();
         try {
-            if (ServerCommunication.getAdminButtonPermission()) {
+            if (UserServerCommunication.getAdminButtonPermission()) {
                 restaurants = new ArrayList<>(Objects.requireNonNull(
-                        JsonMapper.restaurantListMapper(ServerCommunication.getRestaurants())));
+                        JsonMapper.restaurantListMapper(DishServerCommunication.getRestaurants())));
             } else {
                 restaurants = new ArrayList<>(Objects.requireNonNull(
-                        JsonMapper.restaurantListMapper(ServerCommunication.getOwnedRestaurants())));
+                        JsonMapper.restaurantListMapper(DishServerCommunication.getOwnedRestaurants())));
             }
         } catch (Exception e) {
             restaurantTable.setPlaceholder(new Label(""));
@@ -438,7 +440,7 @@ public class DatabaseRestaurantMenuController implements Initializable {
         allergySelectedList.clear();
         List<Allergy> allergies = new ArrayList<>();
         try {
-            allergies = JsonMapper.allergiesListMapper(ServerCommunication.getAllergiesFromDish(Integer.parseInt(dishIdFieldRead.getText())));
+            allergies = JsonMapper.allergiesListMapper(DishServerCommunication.getAllergiesFromDish(Integer.parseInt(dishIdFieldRead.getText())));
         } catch (Exception e) {
             allergiesTableCurrent.setPlaceholder(new Label(""));
         }
@@ -509,7 +511,7 @@ public class DatabaseRestaurantMenuController implements Initializable {
                                 anchorPane.getChildren().remove(deleteButton);
                             }
                         }
-                        String response = ServerCommunication.deleteDish(dish.getId());
+                        String response = DishServerCommunication.deleteDish(dish.getId());
                         retrieveAllDishes();
                         CustomAlert.informationAlert(response);
                     });
@@ -532,7 +534,7 @@ public class DatabaseRestaurantMenuController implements Initializable {
                 ownerTextField.setText(restaurant.getEmail());
                 Menu menu = null;
                 try {
-                    menu = JsonMapper.menuMapper(ServerCommunication.findMenuByRestaurant(restaurant.getId()));
+                    menu = JsonMapper.menuMapper(DishServerCommunication.findMenuByRestaurant(restaurant.getId()));
                 } catch (JsonProcessingException e) {
                     // intentionally left blank
                 }
@@ -574,7 +576,7 @@ public class DatabaseRestaurantMenuController implements Initializable {
                                 anchorPane.getChildren().remove(deleteButtonAllergies);
                             }
                         }
-                        String response = ServerCommunication.deleteAllergyFromDish(
+                        String response = DishServerCommunication.deleteAllergyFromDish(
                                 Integer.parseInt(dishIdFieldRead.getText()), allergy.getAllergyName());
                         retrieveAllAllergies();
                         CustomAlert.informationAlert(response);
@@ -593,7 +595,7 @@ public class DatabaseRestaurantMenuController implements Initializable {
         if (name.equals("")) {
             CustomAlert.warningAlert("Please provide a name.");
         }
-        CustomAlert.informationAlert(ServerCommunication.updateMenuName(Integer.parseInt(menuIdFieldRead.getText()), name));
+        CustomAlert.informationAlert(DishServerCommunication.updateMenuName(Integer.parseInt(menuIdFieldRead.getText()), name));
     }
 
     /**
@@ -613,7 +615,7 @@ public class DatabaseRestaurantMenuController implements Initializable {
         } catch (NumberFormatException e) {
             Building building = null;
             if (!locationFieldRead.getText().equals("")) {
-                building = JsonMapper.buildingMapper(ServerCommunication.findBuildingByName(locationFieldRead.getText()));
+                building = JsonMapper.buildingMapper(BuildingServerCommunication.findBuildingByName(locationFieldRead.getText()));
             } else {
                 CustomAlert.warningAlert("Please provide a building.");
                 return;
@@ -632,19 +634,19 @@ public class DatabaseRestaurantMenuController implements Initializable {
                 CustomAlert.warningAlert("Please provide a name.");
                 return;
             } else {
-                ServerCommunication.updateRestaurant(Integer.parseInt(idFieldRead.getText()), "name", nameFieldRead.getText());
+                DishServerCommunication.updateRestaurant(Integer.parseInt(idFieldRead.getText()), "name", nameFieldRead.getText());
             }
             if (locationFieldRead.getText().isEmpty()) {
                 CustomAlert.warningAlert("Please provide a building.");
                 return;
             } else {
-                ServerCommunication.updateRestaurant(Integer.parseInt(idFieldRead.getText()), "building", Integer.toString(buildingId));
+                DishServerCommunication.updateRestaurant(Integer.parseInt(idFieldRead.getText()), "building", Integer.toString(buildingId));
             }
             if (ownerTextField.getText().isEmpty()) {
                 CustomAlert.warningAlert("Please provide a owner.");
                 return;
             } else {
-                ServerCommunication.updateRestaurant(Integer.parseInt(idFieldRead.getText()), "email", ownerTextField.getText());
+                DishServerCommunication.updateRestaurant(Integer.parseInt(idFieldRead.getText()), "email", ownerTextField.getText());
             }
         } else {
             CustomAlert.warningAlert("Building not found.");
@@ -659,8 +661,8 @@ public class DatabaseRestaurantMenuController implements Initializable {
      */
     public void deleteMenu() {
         int menuId = Integer.parseInt(menuIdFieldRead.getText());
-        if (ServerCommunication.findDishesByMenu(menuId).equals("Not found.")) {
-            CustomAlert.informationAlert(ServerCommunication.deleteMenu(menuId));
+        if (DishServerCommunication.findDishesByMenu(menuId).equals("Not found.")) {
+            CustomAlert.informationAlert(DishServerCommunication.deleteMenu(menuId));
             menuIdFieldRead.clear();
             menuNameFieldRead.clear();
         } else {
@@ -681,7 +683,7 @@ public class DatabaseRestaurantMenuController implements Initializable {
                 return;
             } else {
                 String name = dishNameFieldRead.getText();
-                ServerCommunication.updateDish(dishId, "name", name);
+                DishServerCommunication.updateDish(dishId, "name", name);
             }
             if (dishPriceFieldRead.getText().isEmpty()) {
                 CustomAlert.warningAlert("Please provide a price.");
@@ -689,21 +691,21 @@ public class DatabaseRestaurantMenuController implements Initializable {
             } else {
                 try {
                     price = Double.parseDouble(dishPriceFieldRead.getText());
-                    ServerCommunication.updateDish(dishId, "price", Integer.toString((int) (price * 100)));
+                    DishServerCommunication.updateDish(dishId, "price", Integer.toString((int) (price * 100)));
                 } catch (NumberFormatException e) {
                     CustomAlert.warningAlert("Price requires a number.");
                     return;
                 }
             }
 
-            ServerCommunication.updateDish(dishId, "image", dishImageTextField.getText());
+            DishServerCommunication.updateDish(dishId, "image", dishImageTextField.getText());
 
             if (dishDescriptionFieldRead.getText().isEmpty()) {
                 CustomAlert.warningAlert("Please provide a description.");
                 return;
             } else {
                 String description = dishDescriptionFieldRead.getText();
-                ServerCommunication.updateDish(dishId, "description", description);
+                DishServerCommunication.updateDish(dishId, "description", description);
             }
         } catch (Exception e) {
             CustomAlert.warningAlert("No selection detected.");
@@ -739,7 +741,7 @@ public class DatabaseRestaurantMenuController implements Initializable {
             if (menuIdFieldRead.getText().isEmpty()) {
                 CustomAlert.warningAlert("No dish selection detected.");
             } else {
-                CustomAlert.informationAlert(ServerCommunication.addAllergyToDish(name, Integer.parseInt(dishIdFieldRead.getText())));
+                CustomAlert.informationAlert(DishServerCommunication.addAllergyToDish(name, Integer.parseInt(dishIdFieldRead.getText())));
                 anchorPane.getChildren().remove(allergyImage);
                 anchorPane.getChildren().remove(allergyNameTextField);
                 anchorPane.getChildren().remove(allergyAddButton);
@@ -755,7 +757,7 @@ public class DatabaseRestaurantMenuController implements Initializable {
         if (idFieldRead.getText().isEmpty()) {
             CustomAlert.warningAlert("No selection detected.");
         } else {
-            CustomAlert.informationAlert(ServerCommunication.deleteRestaurant(Integer.parseInt(idFieldRead.getText())));
+            CustomAlert.informationAlert(DishServerCommunication.deleteRestaurant(Integer.parseInt(idFieldRead.getText())));
             retrieveOwnedRestaurants();
         }
     }

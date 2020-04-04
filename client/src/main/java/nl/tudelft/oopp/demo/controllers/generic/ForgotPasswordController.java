@@ -4,7 +4,7 @@ import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
-import nl.tudelft.oopp.demo.communication.ServerCommunication;
+import nl.tudelft.oopp.demo.communication.UserServerCommunication;
 import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
@@ -21,7 +21,7 @@ public class ForgotPasswordController {
      * @throws IOException the input is always the same so there should not be an exception
      */
     public void loginScene() throws IOException {
-        ApplicationDisplay.changeScene("/loginScreen.fxml");
+        ApplicationDisplay.changeScene("/LoginScreen.fxml");
     }
 
     /**
@@ -29,6 +29,6 @@ public class ForgotPasswordController {
      */
     public void sendEmail() {
         String email = emailField.getText();
-        CustomAlert.informationAlert(ServerCommunication.sendRecoveryPassword(email));
+        CustomAlert.informationAlert(UserServerCommunication.sendRecoveryPassword(email));
     }
 }

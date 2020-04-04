@@ -20,6 +20,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
+import nl.tudelft.oopp.demo.communication.BikeServerCommunication;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.Bike;
@@ -82,7 +83,7 @@ public class DatabaseBikeMenuController implements Initializable {
         bikeResult.clear();
         List<Bike> bikes;
         try {
-            bikes = new ArrayList<>(Objects.requireNonNull(JsonMapper.bikeListMapper(ServerCommunication.getBikes())));
+            bikes = new ArrayList<>(Objects.requireNonNull(JsonMapper.bikeListMapper(BikeServerCommunication.getBikes())));
         } catch (Exception e) {
             // Fakes the table having any entries, so the table shows up properly instead of "No contents".
             bikes = new ArrayList<>();
@@ -153,7 +154,7 @@ public class DatabaseBikeMenuController implements Initializable {
     public void findBike() {
         try {
             int id = Integer.parseInt(bikeFindTextField.getText());
-            Bike bike = JsonMapper.bikeMapper(ServerCommunication.findBike(id));
+            Bike bike = JsonMapper.bikeMapper(BikeServerCommunication.findBike(id));
             if (bike != null) {
                 bikeResult.clear();
                 bikeResult.add(bike);
@@ -172,10 +173,10 @@ public class DatabaseBikeMenuController implements Initializable {
         int id;
         try {
             id = Integer.parseInt(idFieldRead.getText());
-            Bike bike = JsonMapper.bikeMapper(ServerCommunication.findBike(id));
+            Bike bike = JsonMapper.bikeMapper(BikeServerCommunication.findBike(id));
             assert bike != null;
             if (!(bike.isAvailable() == Boolean.parseBoolean(availableToggle.getText()))) {
-                ServerCommunication.updateBike(id, "available", availableToggle.getText().toLowerCase());
+                BikeServerCommunication.updateBike(id, "available", availableToggle.getText().toLowerCase());
             }
         } catch (Exception e) {
             CustomAlert.warningAlert("No selection detected.");
@@ -191,7 +192,7 @@ public class DatabaseBikeMenuController implements Initializable {
     public void deleteBike() {
         try {
             int id = Integer.parseInt(idFieldRead.getText());
-            CustomAlert.informationAlert(ServerCommunication.deleteBike(id));
+            CustomAlert.informationAlert(BikeServerCommunication.deleteBike(id));
             bikeResult.removeIf(r -> r.getId() == id);
         } catch (Exception e) {
             CustomAlert.warningAlert("No selection detected.");
@@ -246,7 +247,7 @@ public class DatabaseBikeMenuController implements Initializable {
                                 anchorPane.getChildren().remove(deleteButton);
                             }
                         }
-                        String response = ServerCommunication.deleteBike(bike.getId());
+                        String response = BikeServerCommunication.deleteBike(bike.getId());
                         retrieveAllBikes();
                         CustomAlert.informationAlert(response);
                     });

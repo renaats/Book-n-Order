@@ -22,6 +22,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
+import nl.tudelft.oopp.demo.communication.DishServerCommunication;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.Restaurant;
@@ -110,7 +111,7 @@ public class DatabaseAddMenuController implements Initializable {
         } catch (NumberFormatException e) {
             Restaurant restaurant = null;
             if (!restaurantNameTextField.getText().equals("")) {
-                restaurant = JsonMapper.restaurantMapper(ServerCommunication.findRestaurantByName(restaurantNameTextField.getText()));
+                restaurant = JsonMapper.restaurantMapper(DishServerCommunication.findRestaurantByName(restaurantNameTextField.getText()));
             } else {
                 CustomAlert.warningAlert("Please provide a restaurant.");
                 return;
@@ -123,7 +124,7 @@ public class DatabaseAddMenuController implements Initializable {
                 restaurantFound = true;
             }
         }
-        String response = ServerCommunication.addMenu(name, restaurantId);
+        String response = DishServerCommunication.addMenu(name, restaurantId);
         if (response.equals("Successfully added!") && restaurantFound) {
             CustomAlert.informationAlert(response);
         } else if (restaurantFound) {
@@ -138,7 +139,7 @@ public class DatabaseAddMenuController implements Initializable {
         restaurantResult.clear();
         List<Restaurant> restaurants;
         try {
-            restaurants = new ArrayList<>(Objects.requireNonNull(JsonMapper.restaurantListMapper(ServerCommunication.getRestaurants())));
+            restaurants = new ArrayList<>(Objects.requireNonNull(JsonMapper.restaurantListMapper(DishServerCommunication.getRestaurants())));
         } catch (Exception e) {
             // Fakes the table having any entries, so the table shows up properly instead of "No contents".
             restaurants = new ArrayList<>();

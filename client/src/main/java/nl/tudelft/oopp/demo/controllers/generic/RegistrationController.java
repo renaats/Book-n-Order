@@ -12,7 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 
-import nl.tudelft.oopp.demo.communication.ServerCommunication;
+import nl.tudelft.oopp.demo.communication.UserServerCommunication;
 import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
@@ -38,7 +38,7 @@ public class RegistrationController implements Initializable {
     private TextField surnameField;
 
     /**
-     * Register button that communicates all the fields to ServerCommunication class.
+     * Register button that communicates all the fields to UserRelated class.
      */
     public void registerButton() {
         try {
@@ -49,7 +49,7 @@ public class RegistrationController implements Initializable {
             String surname = surnameField.getText();
             String faculty = facultyChoiceBox.getValue().replaceAll(" ", "");
             if (password.equals(password2)) {
-                CustomAlert.informationAlert(ServerCommunication.addUser(email, name, surname, faculty, password));
+                CustomAlert.informationAlert(UserServerCommunication.addUser(email, name, surname, faculty, password));
             } else {
                 CustomAlert.errorAlert("Passwords do not match.");
             }
@@ -59,20 +59,20 @@ public class RegistrationController implements Initializable {
     }
 
     /**
-     * Changes to mainMenuReservations.fxml.
+     * Changes to MainMenuReservations.fxml.
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
     public void mainMenu() throws IOException {
-        ApplicationDisplay.changeScene("/mainMenuReservations.fxml");
+        ApplicationDisplay.changeScene("/MainMenuReservations.fxml");
     }
 
     /**
-     * Changes to loginScreen.fxml
+     * Changes to LoginScreen.fxml
      * @param actionEvent actionEvent parameter
      * @throws IOException User input will be valid, no need to check this, thus we throw.
      */
     public void loginScene(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/loginScreen.fxml");
+        ApplicationDisplay.changeScene("/LoginScreen.fxml");
     }
 
     private void loadData() {

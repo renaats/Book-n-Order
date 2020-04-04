@@ -15,7 +15,7 @@ public class DatabaseMainMenuController {
     }
 
     public void mainMenu() throws IOException {
-        ApplicationDisplay.changeScene("/mainMenu.fxml");
+        ApplicationDisplay.changeScene("/MainMenu.fxml");
     }
 
     public void databaseRooms() throws IOException {

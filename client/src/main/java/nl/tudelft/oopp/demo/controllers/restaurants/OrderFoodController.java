@@ -18,6 +18,8 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 
+import nl.tudelft.oopp.demo.communication.BuildingServerCommunication;
+import nl.tudelft.oopp.demo.communication.DishServerCommunication;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.Building;
@@ -64,7 +66,7 @@ public class OrderFoodController implements Initializable {
     private void loadBuildingChoiceBox() {
         buildingNameList.clear();
         try {
-            for (Building building: Objects.requireNonNull(JsonMapper.buildingListMapper(ServerCommunication.getBuildings()))) {
+            for (Building building: Objects.requireNonNull(JsonMapper.buildingListMapper(BuildingServerCommunication.getBuildings()))) {
                 buildingNameList.add(building.getName());
             }
             buildingNameList.add(null);
@@ -142,12 +144,12 @@ public class OrderFoodController implements Initializable {
                 } else {
                     int buildingId = 0;
                     if (buildingChoiceBox.getValue() != null) {
-                        buildingId = JsonMapper.buildingMapper(ServerCommunication.findBuildingByName(buildingChoiceBox.getValue())).getId();
+                        buildingId = JsonMapper.buildingMapper(BuildingServerCommunication.findBuildingByName(buildingChoiceBox.getValue())).getId();
                     }
-                    String response = ServerCommunication.addFoodOrder(restaurant.getId(), buildingId, dateLong);
+                    String response = DishServerCommunication.addFoodOrder(restaurant.getId(), buildingId, dateLong);
                     int foodOrderId = Integer.parseInt(response) - 1000;
                     for (Dish dish: dishes) {
-                        ServerCommunication.addDishToFoodOrder(foodOrderId, dish.getName(), dish.getAmount());
+                        DishServerCommunication.addDishToFoodOrder(foodOrderId, dish.getName(), dish.getAmount());
                     }
                     ApplicationDisplay.changeScene("/FoodConfirmation.fxml");
                 }

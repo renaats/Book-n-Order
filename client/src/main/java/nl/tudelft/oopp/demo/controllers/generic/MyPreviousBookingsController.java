@@ -7,19 +7,19 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 public class MyPreviousBookingsController {
 
     /**
-     * Changes current scene to myCurrentBookings.fxml.
+     * Changes current scene to MyCurrentBookings.fxml.
      * @throws IOException will not be wrong.
      */
     public void myCurrentBookings() throws IOException {
-        ApplicationDisplay.changeScene("/myCurrentBookings.fxml");
+        ApplicationDisplay.changeScene("/MyCurrentBookings.fxml");
     }
 
     /**
-     * Changes current scene to myPreviousBookings.fxml.
+     * Changes current scene to MyPreviousBookings.fxml.
      * @throws IOException input will not be invalid.
      */
     public void myPreviousBookings() throws IOException {
-        ApplicationDisplay.changeScene("/myPreviousBookings.fxml");
+        ApplicationDisplay.changeScene("/MyPreviousBookings.fxml");
     }
 
     /**
@@ -27,6 +27,6 @@ public class MyPreviousBookingsController {
      * @throws IOException the method will never throw an exception
      */
     public void mainMenu() throws IOException {
-        ApplicationDisplay.changeScene("/mainMenuReservations.fxml");
+        ApplicationDisplay.changeScene("/MainMenuReservations.fxml");
     }
 }

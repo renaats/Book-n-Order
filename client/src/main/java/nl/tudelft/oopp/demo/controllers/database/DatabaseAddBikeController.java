@@ -20,6 +20,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
+import nl.tudelft.oopp.demo.communication.BikeServerCommunication;
+import nl.tudelft.oopp.demo.communication.BuildingServerCommunication;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.Building;
@@ -133,7 +135,7 @@ public class DatabaseAddBikeController implements Initializable {
         } catch (NumberFormatException e) {
             Building building = null;
             if (!buildingIdTextField.getText().equals("")) {
-                building = JsonMapper.buildingMapper(ServerCommunication.findBuildingByName(buildingIdTextField.getText()));
+                building = JsonMapper.buildingMapper(BuildingServerCommunication.findBuildingByName(buildingIdTextField.getText()));
             } else {
                 CustomAlert.warningAlert("Please provide a building.");
                 return;
@@ -148,7 +150,7 @@ public class DatabaseAddBikeController implements Initializable {
         }
 
         boolean available = Boolean.parseBoolean(availableToggle.getText());
-        String response = ServerCommunication.addBike(buildingId, available);
+        String response = BikeServerCommunication.addBike(buildingId, available);
         if (response.equals("Successfully added!") && buildingFound) {
             CustomAlert.informationAlert(response);
         } else if (buildingFound) {
@@ -179,7 +181,7 @@ public class DatabaseAddBikeController implements Initializable {
         buildingResult.clear();
         List<Building> buildings;
         try {
-            buildings = new ArrayList<>(Objects.requireNonNull(JsonMapper.buildingListMapper(ServerCommunication.getBuildings())));
+            buildings = new ArrayList<>(Objects.requireNonNull(JsonMapper.buildingListMapper(BuildingServerCommunication.getBuildings())));
         } catch (Exception e) {
             // Fakes the table having any entries, so the table shows up properly instead of "No contents".
             buildings = new ArrayList<>();

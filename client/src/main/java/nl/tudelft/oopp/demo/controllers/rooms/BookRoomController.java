@@ -23,7 +23,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
+import nl.tudelft.oopp.demo.communication.BuildingServerCommunication;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
+import nl.tudelft.oopp.demo.communication.RoomServerCommunication;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Room;
@@ -127,7 +129,7 @@ public class BookRoomController implements Initializable {
      */
     public void retrieveAllBuildings() {
         try {
-            buildings = new ArrayList<>(Objects.requireNonNull(JsonMapper.buildingListMapper(ServerCommunication.getBuildings())));
+            buildings = new ArrayList<>(Objects.requireNonNull(JsonMapper.buildingListMapper(BuildingServerCommunication.getBuildings())));
         } catch (Exception e) {
             // Fakes the table having any entries, so the table shows up properly instead of "No contents".
             buildings = new ArrayList<>();
@@ -213,7 +215,7 @@ public class BookRoomController implements Initializable {
      */
     public void listRoomsButtonClicked(String filterString) {
         try {
-            rooms = new ArrayList<>(Objects.requireNonNull(JsonMapper.roomListMapper(ServerCommunication.filterRooms(filterString))));
+            rooms = new ArrayList<>(Objects.requireNonNull(JsonMapper.roomListMapper(RoomServerCommunication.filterRooms(filterString))));
         } catch (Exception e) {
             // Fakes the table having any entries, so the table shows up properly instead of "No contents".
             rooms = new ArrayList<>();
@@ -363,7 +365,7 @@ public class BookRoomController implements Initializable {
         if (!buildingNameTextField.getText().isEmpty()) {
             try {
                 filterString += ",building:";
-                filterString += JsonMapper.buildingMapper(ServerCommunication.findBuildingByName(buildingNameTextField.getText())).getId();
+                filterString += JsonMapper.buildingMapper(BuildingServerCommunication.findBuildingByName(buildingNameTextField.getText())).getId();
             } catch (Exception e) {
                 CustomAlert.errorAlert("Building not found!");
             }

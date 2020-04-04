@@ -24,6 +24,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
+import nl.tudelft.oopp.demo.communication.BuildingServerCommunication;
+import nl.tudelft.oopp.demo.communication.DishServerCommunication;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.Allergy;
@@ -238,7 +240,7 @@ public class OrderFoodChooseRestaurantController implements Initializable {
     private void loadBuildingChoiceBox() {
         buildingNameList.clear();
         try {
-            for (Building building: Objects.requireNonNull(JsonMapper.buildingListMapper(ServerCommunication.getBuildings()))) {
+            for (Building building: Objects.requireNonNull(JsonMapper.buildingListMapper(BuildingServerCommunication.getBuildings()))) {
                 buildingNameList.add(building.getName());
             }
             buildingNameList.add(null);
@@ -259,10 +261,10 @@ public class OrderFoodChooseRestaurantController implements Initializable {
         try {
             if (name != null) {
                 restaurants = new ArrayList<>(
-                        Objects.requireNonNull(JsonMapper.restaurantListMapper(ServerCommunication.findRestaurantByName(name))));
+                        Objects.requireNonNull(JsonMapper.restaurantListMapper(DishServerCommunication.findRestaurantByName(name))));
             } else {
                 restaurants = new ArrayList<>(
-                        Objects.requireNonNull(JsonMapper.restaurantListMapper(ServerCommunication.getRestaurants())));
+                        Objects.requireNonNull(JsonMapper.restaurantListMapper(DishServerCommunication.getRestaurants())));
             }
             if (buildingName != null) {
                 List<Restaurant> newRestaurants = new ArrayList<>();
@@ -363,7 +365,7 @@ public class OrderFoodChooseRestaurantController implements Initializable {
             orders.clear();
             price = 0;
             calculateOrderPages();
-            totalCost.setText("Total Cost: " + new DecimalFormat("#0.00").format((double) Math.round(price * 100) / 10000) + "\\u20ac\\");
+            totalCost.setText("Total Cost: " + new DecimalFormat("#0.00").format((double) Math.round(price * 100) / 10000) + "\u20ac"); // Unicode = €
             selectedDish = null;
             loadAllergies();
             selectedRestaurant = restaurantTable.getSelectionModel().getSelectedItem();
@@ -415,14 +417,14 @@ public class OrderFoodChooseRestaurantController implements Initializable {
     private void loadDishes(String filterString) {
         try {
             dishes = new ArrayList<>(Objects.requireNonNull(
-                    JsonMapper.dishListMapper(ServerCommunication.filterDishes(filterString))));
+                    JsonMapper.dishListMapper(DishServerCommunication.filterDishes(filterString))));
             if (selectedDiets != null && !selectedDiets.isEmpty()) {
                 List<Dish> filteredDishes = new ArrayList<>();
                 for (Dish dish: dishes) {
                     boolean isValid = true;
                     List<Allergy> dishAllergies;
                     try {
-                        dishAllergies = JsonMapper.allergiesListMapper(ServerCommunication.getAllergiesFromDish(dish.getId()));
+                        dishAllergies = JsonMapper.allergiesListMapper(DishServerCommunication.getAllergiesFromDish(dish.getId()));
                     } catch (Exception e) {
                         dishAllergies = new ArrayList<>();
                     }
@@ -498,7 +500,7 @@ public class OrderFoodChooseRestaurantController implements Initializable {
      */
     public void applyDishFilters() {
         try {
-            String filterString = "menu:" + JsonMapper.menuMapper(ServerCommunication.findMenuByRestaurant(selectedRestaurant.getId())).getId();
+            String filterString = "menu:" + JsonMapper.menuMapper(DishServerCommunication.findMenuByRestaurant(selectedRestaurant.getId())).getId();
             if (!fromPrice.getText().equals("")) {
                 long filterPrice = Math.round((Double.parseDouble(fromPrice.getText())) * 100);
                 filterString += ",price>" + filterPrice;
@@ -554,7 +556,7 @@ public class OrderFoodChooseRestaurantController implements Initializable {
             orders.add(selectedDish);
         }
         price += selectedDish.getPrice();
-        totalCost.setText("Total Cost: " + new DecimalFormat("#0.00").format((double) Math.round(price * 100) / 10000) + "\\u20ac\\");
+        totalCost.setText("Total Cost: " + new DecimalFormat("#0.00").format((double) Math.round(price * 100) / 10000) + "\u20ac"); // Unicode = €
         calculateOrderPages();
     }
 
@@ -572,7 +574,7 @@ public class OrderFoodChooseRestaurantController implements Initializable {
             anchorPane.getChildren().remove(removeButton);
             anchorPane.getChildren().remove(addButton);
         }
-        totalCost.setText("Total Cost: " + new DecimalFormat("#0.00").format((double) Math.round(price * 100) / 10000) + "\\u20ac\\");
+        totalCost.setText("Total Cost: " + new DecimalFormat("#0.00").format((double) Math.round(price * 100) / 10000) + "\u20ac"); // Unicode = €
         calculateOrderPages();
     }
 
@@ -710,7 +712,7 @@ public class OrderFoodChooseRestaurantController implements Initializable {
      */
     public void loadAllergies() {
         try {
-            allergies = JsonMapper.allergiesListMapper(ServerCommunication.getAllergiesFromDish(selectedDish.getId()));
+            allergies = JsonMapper.allergiesListMapper(DishServerCommunication.getAllergiesFromDish(selectedDish.getId()));
         } catch (Exception e) {
             allergies = new ArrayList<>();
         }
@@ -943,7 +945,7 @@ public class OrderFoodChooseRestaurantController implements Initializable {
      */
     public void displayCurrentAllergies() {
         try {
-            currentAllergies = JsonMapper.allergiesListMapper(ServerCommunication.filterAllergies(""));
+            currentAllergies = JsonMapper.allergiesListMapper(DishServerCommunication.filterAllergies(""));
         } catch (Exception e) {
             currentAllergies = new ArrayList<>();
         }

@@ -3,14 +3,13 @@ package nl.tudelft.oopp.demo.controllers.generic;
 import java.io.IOException;
 
 import nl.tudelft.oopp.demo.communication.JsonMapper;
-import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.user.UserInformation;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 import nl.tudelft.oopp.demo.views.PersonalCalendarView;
 
 /**
  * Loads the correct content into the FXML objects that need to display server information and
- * controls all the user inputs made through the GUI in the "mainMenuReservations.fxml" file
+ * controls all the user inputs made through the GUI in the "MainMenuReservations.fxml" file
  */
 public class MainMenuReservationsController {
 
@@ -19,15 +18,15 @@ public class MainMenuReservationsController {
      * @throws IOException when it fails
      */
     public void rentBike() throws IOException {
-        ApplicationDisplay.changeScene("/bikeReservations.fxml");
+        ApplicationDisplay.changeScene("/BikeReservations.fxml");
     }
 
     /**
-     * Changes to bookRoom.fxml.
+     * Changes to BookRoom.fxml.
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
     public void bookRoom() throws IOException {
-        ApplicationDisplay.changeScene("/bookRoom.fxml");
+        ApplicationDisplay.changeScene("/BookRoom.fxml");
     }
 
     /** Handles clicking the food button.
@@ -38,12 +37,12 @@ public class MainMenuReservationsController {
     }
     
     /**
-     * Changes to myPreviousBookings.fxml.
+     * Changes to MyPreviousBookings.fxml.
      * @throws IOException input will not be wrong, hence we throw.
      */
 
     public void myPreviousBookings() throws IOException {
-        ApplicationDisplay.changeScene("/myPreviousBookings.fxml");
+        ApplicationDisplay.changeScene("/MyPreviousBookings.fxml");
     }
 
     /**
@@ -51,7 +50,7 @@ public class MainMenuReservationsController {
      * @throws IOException this method should never throw an exception
      */
     public void mainMenu() throws IOException {
-        ApplicationDisplay.changeScene("/mainMenu.fxml");
+        ApplicationDisplay.changeScene("/MainMenu.fxml");
     }
 
     /**
@@ -59,7 +58,7 @@ public class MainMenuReservationsController {
      * @throws IOException this method should never throw an exception
      */
     public void bookRoomIcon() throws IOException {
-        ApplicationDisplay.changeScene("/bookRoom.fxml");
+        ApplicationDisplay.changeScene("/BookRoom.fxml");
     }
 
     /**
@@ -75,7 +74,7 @@ public class MainMenuReservationsController {
      * @throws IOException this method should never throw an exception
      */
     public void rentBikeIcon() throws IOException {
-        ApplicationDisplay.changeScene("/bikeReservations.fxml");
+        ApplicationDisplay.changeScene("/BikeReservations.fxml");
     }
 
     /**

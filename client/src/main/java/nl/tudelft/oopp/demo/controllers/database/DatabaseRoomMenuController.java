@@ -23,6 +23,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
 import nl.tudelft.oopp.demo.communication.JsonMapper;
+import nl.tudelft.oopp.demo.communication.RoomServerCommunication;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.errors.CustomAlert;
@@ -105,7 +106,7 @@ public class DatabaseRoomMenuController implements Initializable {
         roomResult.clear();
         List<Room> rooms;
         try {
-            rooms = new ArrayList<>(Objects.requireNonNull(JsonMapper.roomListMapper(ServerCommunication.getRooms())));
+            rooms = new ArrayList<>(Objects.requireNonNull(JsonMapper.roomListMapper(RoomServerCommunication.getRooms())));
         } catch (Exception e) {
             // Fakes the table having any entries, so the table shows up properly instead of "No contents".
             rooms = new ArrayList<>();
@@ -176,7 +177,7 @@ public class DatabaseRoomMenuController implements Initializable {
     public void findRoom() {
         try {
             int id = Integer.parseInt(roomFindTextField.getText());
-            Room room = JsonMapper.roomMapper(ServerCommunication.findRoom(id));
+            Room room = JsonMapper.roomMapper(RoomServerCommunication.findRoom(id));
             if (room != null) {
                 roomResult.clear();
                 roomResult.add(room);
@@ -185,7 +186,7 @@ public class DatabaseRoomMenuController implements Initializable {
             }
         } catch (Exception e) {
             String name = roomFindTextField.getText();
-            Room room = JsonMapper.roomMapper(ServerCommunication.findRoomByName(name));
+            Room room = JsonMapper.roomMapper(RoomServerCommunication.findRoomByName(name));
             if (room != null) {
                 roomResult.clear();
                 roomResult.add(room);
@@ -202,30 +203,30 @@ public class DatabaseRoomMenuController implements Initializable {
         int id;
         try {
             id = Integer.parseInt(idFieldRead.getText());
-            Room room = JsonMapper.roomMapper(ServerCommunication.findRoom(id));
+            Room room = JsonMapper.roomMapper(RoomServerCommunication.findRoom(id));
             assert room != null;
             if (!room.getName().equals(nameFieldRead.getText())) {
-                String response = ServerCommunication.updateRoom(id, "name", nameFieldRead.getText());
+                String response = RoomServerCommunication.updateRoom(id, "name", nameFieldRead.getText());
                 if (response.equals("Name already exists.")) {
                     CustomAlert.warningAlert("Name already exists.");
                     return;
                 }
             }
             if (!room.getStudySpecific().equals(studyChoiceBox.getValue())) {
-                ServerCommunication.updateRoom(id, "studyspecific", studyChoiceBox.getValue());
+                RoomServerCommunication.updateRoom(id, "studyspecific", studyChoiceBox.getValue());
             }
             if (!(room.getStatus().equals(statusChoiceBox.getValue()))) {
-                ServerCommunication.updateRoom(id, "status", statusChoiceBox.getValue());
+                RoomServerCommunication.updateRoom(id, "status", statusChoiceBox.getValue());
             }
             if (!(room.isProjector() == Boolean.parseBoolean(projectorToggle.getText()))) {
-                ServerCommunication.updateRoom(id, "projector", projectorToggle.getText().toLowerCase());
+                RoomServerCommunication.updateRoom(id, "projector", projectorToggle.getText().toLowerCase());
             }
             if (!(room.isScreen() == Boolean.parseBoolean(screenToggle.getText()))) {
-                ServerCommunication.updateRoom(id, "screen", screenToggle.getText().toLowerCase());
+                RoomServerCommunication.updateRoom(id, "screen", screenToggle.getText().toLowerCase());
             }
             try {
                 if (!(room.getCapacity() == Integer.parseInt(capacityReadField.getText()))) {
-                    ServerCommunication.updateRoom(id, "capacity", capacityReadField.getText());
+                    RoomServerCommunication.updateRoom(id, "capacity", capacityReadField.getText());
                 }
             } catch (NumberFormatException e) {
                 CustomAlert.warningAlert("Capacity has to be an integer.");
@@ -233,7 +234,7 @@ public class DatabaseRoomMenuController implements Initializable {
             }
             try {
                 if (!(room.getPlugs() == Integer.parseInt(plugsReadField.getText()))) {
-                    ServerCommunication.updateRoom(id, "plugs", plugsReadField.getText());
+                    RoomServerCommunication.updateRoom(id, "plugs", plugsReadField.getText());
                 }
             } catch (NumberFormatException e) {
                 CustomAlert.warningAlert("Plugs has to be an integer.");
@@ -253,7 +254,7 @@ public class DatabaseRoomMenuController implements Initializable {
     public void deleteRoom() {
         try {
             int id = Integer.parseInt(idFieldRead.getText());
-            CustomAlert.informationAlert(ServerCommunication.deleteRoom(id));
+            CustomAlert.informationAlert(RoomServerCommunication.deleteRoom(id));
             roomResult.removeIf(r -> r.getId() == id);
         } catch (Exception e) {
             CustomAlert.warningAlert("No selection detected.");
@@ -332,7 +333,7 @@ public class DatabaseRoomMenuController implements Initializable {
                                 anchorPane.getChildren().remove(deleteButton);
                             }
                         }
-                        String response = ServerCommunication.deleteRoom(room.getId());
+                        String response = RoomServerCommunication.deleteRoom(room.getId());
                         retrieveAllRooms();
                         CustomAlert.informationAlert(response);
                     });

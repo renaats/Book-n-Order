@@ -56,9 +56,8 @@ class JsonMapperTest {
     void testBuildingMapper() {
         stubFor(get(urlEqualTo("/building/find/1")).willReturn(aResponse().withStatus(200)
                 .withBody("{\"id\":1,\"name\":\"testffes\",\"street\":\"1\",\"houseNumber\":1}")));
-        assertEquals(JsonMapper
-                        .buildingMapper("{\"id\":1,\"name\":\"testffes\",\"street\":\"1\",\"houseNumber\":1}"),
-                JsonMapper.buildingMapper(ServerCommunication.findBuilding(1)));
+        assertEquals(JsonMapper.buildingMapper("{\"id\":1,\"name\":\"testffes\",\"street\":\"1\",\"houseNumber\":1}"),
+                JsonMapper.buildingMapper(BuildingServerCommunication.findBuilding(1)));
     }
 
     @Test
@@ -73,10 +72,10 @@ class JsonMapperTest {
         assertEquals(
                 JsonMapper
                         .buildingListMapper("[{\"id\":1,\"name\":\"testffes\",\"street\":\"1\",\"houseNumber\":1},"
-                                + "{\"id\":2,\"name\":\"1\",\"street\":\"1\",\"houseNumber\":1},"
-                                + "{\"id\":3,\"name\":\"1\",\"street\":\"1\",\"houseNumber\":1},"
-                                + "{\"id\":4,\"name\":\"1\",\"street\":\"1\",\"houseNumber\":1}]"),
-                JsonMapper.buildingListMapper(ServerCommunication.getBuildings()));
+                + "{\"id\":2,\"name\":\"1\",\"street\":\"1\",\"houseNumber\":1},"
+                + "{\"id\":3,\"name\":\"1\",\"street\":\"1\",\"houseNumber\":1},"
+                + "{\"id\":4,\"name\":\"1\",\"street\":\"1\",\"houseNumber\":1}]"),
+                JsonMapper.buildingListMapper(BuildingServerCommunication.getBuildings()));
     }
 
     @Test
@@ -99,7 +98,7 @@ class JsonMapperTest {
                                         + ":0},\"studySpecific\":\"Computer Science and Engineering\""
                                         + ",\"projector\":false,\"screen\":true,\"capacity\":555555,\"plugs\""
                                         + ":555,\"status\":\"Closed\"}"),
-                JsonMapper.roomMapper((ServerCommunication.findRoom(4))));
+                JsonMapper.roomMapper((RoomServerCommunication.findRoom(4))));
     }
 
     @Test
@@ -128,7 +127,7 @@ class JsonMapperTest {
                                 + "\":\"est\",\"faculty\":\"\",\"houseNumber\":0},\"studySpecific"
                                 + "\":\"Computer Science and Engineering\",\"projector\":false,\"screen"
                                 + "\":true,\"capacity\":5,\"plugs\":5,\"status\":\"Maintenance\"}]\n")));
-        assertEquals(room, JsonMapper.roomListMapper(ServerCommunication.getRooms()));
+        assertEquals(room, JsonMapper.roomListMapper(RoomServerCommunication.getRooms()));
     }
 
     @Test
@@ -143,7 +142,7 @@ class JsonMapperTest {
 
         BuildingHours buildingHours = JsonMapper.buildingHoursMapper(json);
 
-        assertEquals(buildingHours, JsonMapper.buildingHoursMapper(ServerCommunication.findBuildingHours(1, 1)));
+        assertEquals(buildingHours, JsonMapper.buildingHoursMapper(BuildingServerCommunication.findBuildingHours(1, 1)));
     }
 
     @Test
@@ -161,7 +160,7 @@ class JsonMapperTest {
 
         RestaurantHours restaurantHours = JsonMapper.restaurantHoursMapper(json);
 
-        assertEquals(restaurantHours, JsonMapper.restaurantHoursMapper(ServerCommunication.findRestaurantHours(1, 1)));
+        assertEquals(restaurantHours, JsonMapper.restaurantHoursMapper(DishServerCommunication.findRestaurantHours(1, 1)));
     }
 
     @Test
@@ -192,7 +191,7 @@ class JsonMapperTest {
                 + "\"toTime\":\"2020-03-19T12:00:00.000+0000\"}";
 
         RoomReservation roomReservation = JsonMapper.roomReservationMapper(json);
-        assertEquals(roomReservation, JsonMapper.roomReservationMapper(ServerCommunication.findRoomReservation(3)));
+        assertEquals(roomReservation, JsonMapper.roomReservationMapper(RoomServerCommunication.findRoomReservation(3)));
     }
 
     @Test
@@ -242,12 +241,10 @@ class JsonMapperTest {
                 + "\"name\":\"ROLE_USER\"}]},\"fromTime\":\"1970-01-01T00:00:00.100+0000"
                 + "\",\"toTime\":\"1970-01-01T00:00:00.200+0000\"}]";
 
-        List<RoomReservation> roomReservations = null;
         try {
-            roomReservations = JsonMapper.roomReservationsListMapper(json);
-            assertEquals(roomReservations, JsonMapper.roomReservationsListMapper(ServerCommunication.getRoomReservations()));
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
+            List<RoomReservation> roomReservations = JsonMapper.roomReservationsListMapper(json);
+            assertEquals(roomReservations, JsonMapper.roomReservationsListMapper(RoomServerCommunication.getRoomReservations()));
+        } catch (Exception e) {
             fail();
         }
     }

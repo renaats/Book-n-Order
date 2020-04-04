@@ -15,6 +15,6 @@ public class FoodReservationConfirmationController {
      * @throws IOException the input is always the same, so it should not throw and exception
      */
     public void mainMenu() throws IOException {
-        ApplicationDisplay.changeScene("/mainMenu.fxml");
+        ApplicationDisplay.changeScene("/MainMenu.fxml");
     }
 }

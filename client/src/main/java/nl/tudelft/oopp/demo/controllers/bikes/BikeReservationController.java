@@ -15,6 +15,8 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 
 import javafx.scene.control.DatePicker;
+import nl.tudelft.oopp.demo.communication.BikeServerCommunication;
+import nl.tudelft.oopp.demo.communication.BuildingServerCommunication;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.Building;
@@ -90,9 +92,9 @@ public class BikeReservationController implements Initializable {
                 return;
             }
             try {
-                int fromBuildingId = JsonMapper.buildingMapper(ServerCommunication.findBuildingByName(pickUpLocation.getValue())).getId();
-                int toBuildingId = JsonMapper.buildingMapper(ServerCommunication.findBuildingByName(dropOffLocation.getValue())).getId();
-                String response = ServerCommunication.addBikeReservation(fromBuildingId, toBuildingId, fromDateLong, toDateLong);
+                int fromBuildingId = JsonMapper.buildingMapper(BuildingServerCommunication.findBuildingByName(pickUpLocation.getValue())).getId();
+                int toBuildingId = JsonMapper.buildingMapper(BuildingServerCommunication.findBuildingByName(dropOffLocation.getValue())).getId();
+                String response = BikeServerCommunication.addBikeReservation(fromBuildingId, toBuildingId, fromDateLong, toDateLong);
                 if (response.equals(ErrorMessages.getErrorMessage(201))) {
                     CustomAlert.informationAlert(response);
                     ApplicationDisplay.changeScene("/bikeConfirmation.fxml");
@@ -140,7 +142,7 @@ public class BikeReservationController implements Initializable {
     private void loadLocationChoiceBox() {
         buildingNameList.clear();
         try {
-            for (Building building: Objects.requireNonNull(JsonMapper.buildingListMapper(ServerCommunication.getBuildings()))) {
+            for (Building building: Objects.requireNonNull(JsonMapper.buildingListMapper(BuildingServerCommunication.getBuildings()))) {
                 buildingNameList.add(building.getName());
             }
             buildingNameList.add(null);
