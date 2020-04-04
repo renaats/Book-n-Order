@@ -134,7 +134,7 @@ public class ServerCommunicationTest {
      */
     @Test
     public void testSuccessfulAddDishes() {
-        assertEquals("200", ServerCommunication.addDish("test", 1, 3, "A", "B"));
+        assertEquals("Successfully executed.", ServerCommunication.addDish("test", 1, 3, "A", "B"));
     }
 
     /**
@@ -142,7 +142,7 @@ public class ServerCommunicationTest {
      */
     @Test
     public void testSuccessfulUpdatingDish() {
-        assertEquals("200", ServerCommunication.updateDish(1, "a", "a"));
+        assertEquals("Successfully executed.", ServerCommunication.updateDish(1, "a", "a"));
     }
 
     /**
@@ -150,7 +150,7 @@ public class ServerCommunicationTest {
      */
     @Test
     public void testSuccessfulAddAllergyToDish() {
-        assertEquals("200", ServerCommunication.addAllergyToDish("test", 1));
+        assertEquals("Successfully executed.", ServerCommunication.addAllergyToDish("test", 1));
     }
 
     /**
@@ -158,7 +158,7 @@ public class ServerCommunicationTest {
      */
     @Test
     public void testSuccessfulDeleteDishes() {
-        assertEquals("200", ServerCommunication.deleteDish(1));
+        assertEquals("Successfully executed.", ServerCommunication.deleteDish(1));
     }
 
     /**
@@ -174,7 +174,7 @@ public class ServerCommunicationTest {
      */
     @Test
     public void testSuccessfulUpdatingFoodOrder() {
-        assertEquals("200", ServerCommunication.updateFoodOrder(1, "a", "a"));
+        assertEquals("Successfully executed.", ServerCommunication.updateFoodOrder(1, "a", "a"));
     }
 
     /**
@@ -182,7 +182,7 @@ public class ServerCommunicationTest {
      */
     @Test
     public void testSuccessfulAddDishToFoodOrder() {
-        assertEquals("200", ServerCommunication.addDishToFoodOrder(1, "test", 1));
+        assertEquals("Successfully executed.", ServerCommunication.addDishToFoodOrder(1, "test", 1));
     }
 
     /**
@@ -190,7 +190,7 @@ public class ServerCommunicationTest {
      */
     @Test
     public void testSuccessfulDeletingFoodOrder() {
-        assertEquals("200", ServerCommunication.deleteFoodOrder(1));
+        assertEquals("Successfully executed.", ServerCommunication.deleteFoodOrder(1));
     }
 
     /**
@@ -222,7 +222,7 @@ public class ServerCommunicationTest {
      */
     @Test
     public void testSuccessfulAddMenu() {
-        assertEquals("200", ServerCommunication.addMenu("test", 1));
+        assertEquals("Successfully executed.", ServerCommunication.addMenu("test", 1));
     }
 
     /**
@@ -230,7 +230,7 @@ public class ServerCommunicationTest {
      */
     @Test
     public void testSuccessfulDeleteMenu() {
-        assertEquals("200", ServerCommunication.deleteMenu(1));
+        assertEquals("Successfully executed.", ServerCommunication.deleteMenu(1));
     }
 
     /**
