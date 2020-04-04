@@ -654,21 +654,6 @@ public class ServerCommunication {
         return communicateAndReturnErrorMessage(request);
     }
 
-    /**
-     * Updates a given attribute from a allergy.
-     * @param name the name of the allergy.
-     * @param attribute the attribute to be updated. Used dishAdd, dishDelete and dishDeleteAll to edit the dishes.
-     *      *                  dishAdd adds the dish with the name of value.
-     *      *                  dishDelete deletes the dish with the name value.
-     *      *                  dishDeleteAll deletes all dishes of the allergy.
-     * @param value the new value of the attribute.
-     * @return
-     */
-    public static String updateAllergy(String name, String attribute, String value) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/allergy/update?id=" + URLEncoder.encode(name, StandardCharsets.UTF_8) + "&attribute=" + URLEncoder.encode(attribute, StandardCharsets.UTF_8) + "&value=" + URLEncoder.encode(value, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        return communicateAndReturnErrorMessage(request);
-    }
-
     // -----------------------------------------
     // User related Server Communication Methods
     // -----------------------------------------

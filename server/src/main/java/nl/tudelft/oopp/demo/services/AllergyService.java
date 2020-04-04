@@ -75,46 +75,6 @@ public class AllergyService {
         return allergyRepository.findByAllergyName(allergyName);
     }
 
-    /**
-     * Updates a given attribute for some allergy.
-     * @param name the id of the allergy.
-     * @param attribute the attribute whose value is changed.
-     * @param value the new value of the attribute.
-     * @return String containing the result of your request.
-     */
-    public int update(String name, String attribute, String value) {
-        if (allergyRepository.findById(name).isEmpty()) {
-            return ALLERGY_NOT_FOUND;
-        }
-        Allergy allergy = allergyRepository.findById(name).get();
-        switch (attribute) {
-            case "dishAdd":
-                int dishId = Integer.parseInt(value);
-                Optional<Dish> optionalDish = dishRepository.findById(dishId);
-                if (optionalDish.isEmpty()) {
-                    return DISH_NOT_FOUND;
-                }
-                Dish dish = optionalDish.get();
-                allergy.addDish(dish);
-                break;
-            case "dishDelete":
-                int dishIdDelete = Integer.parseInt(value);
-                Optional<Dish> optionalDishDelete = dishRepository.findById(dishIdDelete);
-                if (optionalDishDelete.isEmpty()) {
-                    return DISH_NOT_FOUND;
-                }
-                Dish dishDelete = optionalDishDelete.get();
-                allergy.deleteDish(dishDelete);
-                break;
-            case "dishDeleteAll":
-                allergy.deleteAllDish();
-                break;
-            default:
-                return ATTRIBUTE_NOT_FOUND;
-        }
-        allergyRepository.save(allergy);
-        return EXECUTED;
-    }
     
     /**
      * Queries the allergy repository based on input.

@@ -80,19 +80,6 @@ public class AllergyController {
         return allergyService.findByAllergyName(name);
     }
 
-    /**
-     * Updates a given attribute for some allergy.
-     * @param name allergy name.
-     * @param attribute the attribute to be updated.
-     * @param value the new value of the attribute
-     * @return Error code
-     */
-    @Secured({ADMIN, RESTAURANT})
-    @PostMapping(path = "/update")
-    @ResponseBody
-    public int updateAllergy(@RequestParam String name, @RequestParam String attribute, @RequestParam String value) {
-        return allergyService.update(name, attribute, value);
-    }
     
     /**
      * Allows for a multi-parameter Allergy search in a AllergyRepository.
