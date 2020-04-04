@@ -183,6 +183,18 @@ public class RestaurantServiceTest {
     }
 
     /**
+     * Tests the change of the email by using the service.
+     */
+    @Test
+    @WithMockUser(username = "restaurant@tudelft.nl")
+    public void testGetFeedback() {
+        restaurantService.add(restaurant.getBuilding().getId(), restaurant.getName(), "restaurant@tudelft.nl");
+        int id = restaurantService.all().get(0).getId();
+        restaurantService.addFeedback(id, true);
+        assertEquals(1, restaurantService.find(id).getFeedbackCounter());
+    }
+
+    /**
      * Tests the change of the email by admins by using the service.
      */
     @Test

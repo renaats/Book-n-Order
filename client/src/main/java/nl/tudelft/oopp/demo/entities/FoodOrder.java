@@ -23,8 +23,8 @@ public class FoodOrder {
     private Building deliveryLocation;
     private Date deliveryTime;
     private boolean feedback;
-    private boolean feedbackGiven;
     private Set<DishOrder> dishOrders;
+    private boolean feedbackHasBeenGiven;
 
     /** Creates a new instance of FoodOrder.
      * @param restaurant the restaurant at which the food order is placed.
@@ -83,7 +83,7 @@ public class FoodOrder {
      * @return String property, a property recognized by the tables.
      */
     public StringProperty getYourFeedbackProperty() {
-        if (this.isFeedbackGiven()) {
+        if (this.isFeedbackHasBeenGiven()) {
             if (getFeedback()) {
                 return new SimpleStringProperty("Thumbs Up");
             } else {
@@ -94,12 +94,12 @@ public class FoodOrder {
         }
     }
 
-    public void setFeedbackGiven(boolean feedbackGiven) {
-        this.feedbackGiven = feedbackGiven;
+    public void setFeedbackHasBeenGiven(boolean feedbackGiven) {
+        this.feedbackHasBeenGiven = feedbackGiven;
     }
 
-    public boolean isFeedbackGiven() {
-        return feedbackGiven;
+    public boolean isFeedbackHasBeenGiven() {
+        return feedbackHasBeenGiven;
     }
 
     public FoodOrder() {

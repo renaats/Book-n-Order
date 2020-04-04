@@ -98,7 +98,7 @@ public class RestaurantTest {
      */
     @Test
     public void testAddFeedback() {
-        assertNotEquals(1, restaurant.getFeedbackCounter());
+        assertEquals(0, restaurant.getFeedbackCounter());
         restaurant.addFeedback(true);
         assertEquals(1, restaurant.getFeedbackCounter());
     }

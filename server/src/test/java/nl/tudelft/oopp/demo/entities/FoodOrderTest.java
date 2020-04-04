@@ -1,11 +1,5 @@
 package nl.tudelft.oopp.demo.entities;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNotSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -23,6 +17,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Tests the FoodOrder entity.
@@ -48,6 +44,7 @@ public class FoodOrderTest {
     Building deliveryLocation;
     AppUser appUser;
     Menu menu;
+    Menu menu2;
 
     /**
      * Sets up the entities and saves them in the repository before executing every test.
@@ -112,6 +109,24 @@ public class FoodOrderTest {
     }
 
     /**
+     * Tests the getter for the menu field.
+     */
+    @Test
+    public void testGetMenu() {
+        assertEquals(menuRepository.findAll().get(0), foodOrder.getMenu());
+    }
+
+    /**
+     * Tests the setter for the menu field.
+     */
+    @Test
+    public void testSetMenu() {
+        assertEquals(menuRepository.findAll().get(0), foodOrder.getMenu());
+        foodOrder.setMenu(menu2);
+        assertEquals(menu2, foodOrder.getMenu());
+    }
+
+    /**
      * Tests the getter for the deliveryLocation field.
      */
     @Test
@@ -170,13 +185,32 @@ public class FoodOrderTest {
     }
 
     /**
+     * Test the setter for feedback.
+     */
+    @Test
+    public void testSetFeedback() {
+        assertNotEquals(true, foodOrder.isFeedback());
+        foodOrder.setFeedback(true);
+        assertEquals(true, foodOrder.isFeedback());
+    }
+
+    /**
+     * Test the getter for feedback.
+     */
+    @Test
+    public void testIsFeedback() {
+        foodOrder.setFeedback(false);
+        assertEquals(false, foodOrder.isFeedbackHasBeenGiven());
+    }
+
+    /**
      * Test adding feedback to a restaurant.
      */
     @Test
     public void testAddFeedback() {
-        assertNotEquals(true, foodOrder.isFeedbackGiven());
-        foodOrder.setFeedbackGiven(true);
-        assertEquals(true, foodOrder.isFeedbackGiven());
+        assertNotEquals(true, foodOrder.isFeedbackHasBeenGiven());
+        foodOrder.setFeedbackHasBeenGiven(true);
+        assertEquals(true, foodOrder.isFeedbackHasBeenGiven());
     }
 
     /**

@@ -102,7 +102,7 @@ public class MyPreviousFoodReservationsController implements Initializable {
      */
     public void thumbsUp() {
         try {
-            if (table.getSelectionModel().getSelectedItem().isFeedbackGiven()) {
+            if (table.getSelectionModel().getSelectedItem().isFeedbackHasBeenGiven()) {
                 CustomAlert.warningAlert("You have already given feedback");
                 return;
             }
@@ -131,7 +131,7 @@ public class MyPreviousFoodReservationsController implements Initializable {
      */
     public void thumbsDown() {
         try {
-            if (table.getSelectionModel().getSelectedItem().isFeedbackGiven()) {
+            if (table.getSelectionModel().getSelectedItem().isFeedbackHasBeenGiven()) {
                 CustomAlert.warningAlert("You have already given feedback");
                 return;
             }

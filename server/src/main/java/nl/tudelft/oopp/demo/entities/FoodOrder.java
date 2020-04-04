@@ -64,7 +64,7 @@ public class FoodOrder {
     private Set<DishOrder> dishOrders = new HashSet<>();
 
     private boolean feedback;
-    private boolean feedbackGiven;
+    private boolean feedbackHasBeenGiven;
 
     /** Creates a new instance of FoodOrder.
      * @param restaurant the restaurant at which the food order is placed.
@@ -80,7 +80,7 @@ public class FoodOrder {
         this.menu = menu;
         this.active = true;
         this.dishOrders = new HashSet<>();
-        this.feedbackGiven = false;
+        this.feedbackHasBeenGiven = false;
     }
 
     public FoodOrder() {
@@ -147,12 +147,12 @@ public class FoodOrder {
         return menu;
     }
 
-    public void setFeedbackGiven(boolean feedbackGiven) {
-        this.feedbackGiven = feedbackGiven;
+    public void setFeedbackHasBeenGiven(boolean feedbackHasBeenGiven) {
+        this.feedbackHasBeenGiven = feedbackHasBeenGiven;
     }
 
-    public boolean isFeedbackGiven() {
-        return feedbackGiven;
+    public boolean isFeedbackHasBeenGiven() {
+        return feedbackHasBeenGiven;
     }
 
     public void setMenu(Menu menu) {
