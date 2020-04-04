@@ -71,7 +71,7 @@ public class ServerCommunicationTest {
         stubFor(post(urlEqualTo("/menu/add?name=test&restaurantId=1")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(delete(urlEqualTo("/menu/delete/1")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(post(urlEqualTo("/food_order/update?id=1&attribute=a&value=a")).willReturn(aResponse().withStatus(200).withBody("200")));
-        stubFor(post(urlEqualTo("/food_order/addDish?id=1&name=test")).willReturn(aResponse().withStatus(200).withBody("200")));
+        stubFor(post(urlEqualTo("/food_order/addDishOrder?id=1&name=test&amount=1")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(get(urlEqualTo("/food_order/cancel/1")).willReturn(aResponse().withStatus(200).withBody("201")));
         stubFor(post(urlEqualTo("/dish/update?id=1&attribute=a&value=a")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(post(urlEqualTo("/dish/addAllergy?id=1&allergyName=test")).willReturn(aResponse().withStatus(200).withBody("200")));
@@ -166,7 +166,7 @@ public class ServerCommunicationTest {
      */
     @Test
     public void testSuccessfulAddingFoodOrder() {
-        assertEquals("200", ServerCommunication.addFoodOrder(1, 1, 1));
+        assertEquals(ErrorMessages.getErrorMessage(200), ServerCommunication.addFoodOrder(1, 1, 1));
     }
 
     /**
@@ -182,7 +182,7 @@ public class ServerCommunicationTest {
      */
     @Test
     public void testSuccessfulAddDishToFoodOrder() {
-        assertEquals("200", ServerCommunication.addDishToFoodOrder(1, "test"));
+        assertEquals("200", ServerCommunication.addDishToFoodOrder(1, "test", 1));
     }
 
     /**
