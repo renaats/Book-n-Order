@@ -15,7 +15,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-import nl.tudelft.oopp.demo.communication.*;
+import nl.tudelft.oopp.demo.communication.BikeServerCommunication;
+import nl.tudelft.oopp.demo.communication.DishServerCommunication;
+import nl.tudelft.oopp.demo.communication.JsonMapper;
+import nl.tudelft.oopp.demo.communication.RoomServerCommunication;
 import nl.tudelft.oopp.demo.entities.BikeReservation;
 import nl.tudelft.oopp.demo.entities.FoodOrder;
 import nl.tudelft.oopp.demo.entities.RoomReservation;
@@ -72,7 +75,8 @@ public class PersonalCalendarView extends CalendarView {
         List<FoodOrder> foodOrderList;
 
         try {
-            foodOrderList = new ArrayList<>(Objects.requireNonNull(JsonMapper.foodOrdersListMapper(DishServerCommunication.getAllActiveFoodOrders())));
+            foodOrderList = new ArrayList<>(Objects.requireNonNull(
+                    JsonMapper.foodOrdersListMapper(DishServerCommunication.getAllActiveFoodOrders())));
         } catch (NullPointerException e) {
             foodOrderList = new ArrayList<>();
             foodOrderList.add(null);

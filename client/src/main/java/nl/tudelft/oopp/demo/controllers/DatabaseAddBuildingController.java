@@ -12,7 +12,6 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 
 import nl.tudelft.oopp.demo.communication.BuildingServerCommunication;
-import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 

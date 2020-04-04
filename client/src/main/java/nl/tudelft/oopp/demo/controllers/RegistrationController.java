@@ -12,7 +12,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 
-import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.communication.UserServerCommunication;
 import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
@@ -39,7 +38,7 @@ public class RegistrationController implements Initializable {
     private TextField surnameField;
 
     /**
-     * Register button that communicates all the fields to ServerCommunication class.
+     * Register button that communicates all the fields to UserRelated class.
      */
     public void registerButton() {
         try {

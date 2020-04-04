@@ -8,7 +8,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 
 import nl.tudelft.oopp.demo.communication.RoomServerCommunication;
-import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
