@@ -14,7 +14,7 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
  * Loads the correct content into the FXML objects that need to display server information and
- * controls all the user inputs made through the GUI in the "bikeReservations.fxml" file
+ * controls all the user inputs made through the GUI in the "BikeReservations.fxml" file
  */
 public class BikeReservationController implements Initializable {
     final ObservableList<String> listTime = FXCollections.observableArrayList();
@@ -30,11 +30,11 @@ public class BikeReservationController implements Initializable {
     private ComboBox<String> dropOffTimeMin;
 
     public void mainMenu() throws IOException {
-        ApplicationDisplay.changeScene("/mainMenu.fxml");
+        ApplicationDisplay.changeScene("/MainMenu.fxml");
     }
 
     public void bikeConfirmation() throws IOException {
-        ApplicationDisplay.changeScene("/bikeConfirmation.fxml");
+        ApplicationDisplay.changeScene("/BikeConfirmation.fxml");
     }
 
     @Override
@@ -70,6 +70,6 @@ public class BikeReservationController implements Initializable {
      * @throws IOException the input will always be the same, so it should never throw an IO exception
      */
     public void goToMainMenuReservations() throws IOException {
-        ApplicationDisplay.changeScene("/mainMenuReservations.fxml");
+        ApplicationDisplay.changeScene("/MainMenuReservations.fxml");
     }
 }

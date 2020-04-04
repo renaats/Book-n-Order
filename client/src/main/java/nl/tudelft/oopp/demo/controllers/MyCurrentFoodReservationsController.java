@@ -94,6 +94,6 @@ public class MyCurrentFoodReservationsController implements Initializable {
      * @throws IOException should never be thrown as the input is always the same
      */
     public void goToMyCurrentReservations() throws IOException {
-        ApplicationDisplay.changeScene("/myCurrentBookings.fxml");
+        ApplicationDisplay.changeScene("/MyCurrentBookings.fxml");
     }
 }

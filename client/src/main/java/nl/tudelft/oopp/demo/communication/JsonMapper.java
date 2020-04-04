@@ -47,7 +47,7 @@ public class JsonMapper {
             alert.setContentText(buildingJson);
             alert.initStyle(StageStyle.UNDECORATED);
             DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(JsonMapper.class.getResource("/alertWarning.css").toExternalForm());
+            dialogPane.getStylesheets().add(JsonMapper.class.getResource("/AlertWarning.css").toExternalForm());
             alert.showAndWait();
         }
         return null;
@@ -84,7 +84,7 @@ public class JsonMapper {
             alert.setContentText(roomJson);
             alert.initStyle(StageStyle.UNDECORATED);
             DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(JsonMapper.class.getResource("/alertWarning.css").toExternalForm());
+            dialogPane.getStylesheets().add(JsonMapper.class.getResource("/AlertWarning.css").toExternalForm());
             alert.showAndWait();
         }
         return null;
@@ -109,7 +109,7 @@ public class JsonMapper {
             alert.setContentText(roomsJson);
             alert.initStyle(StageStyle.UNDECORATED);
             DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(JsonMapper.class.getResource("/alertWarning.css").toExternalForm());
+            dialogPane.getStylesheets().add(JsonMapper.class.getResource("/AlertWarning.css").toExternalForm());
             alert.showAndWait();
         }
         return null;
@@ -134,7 +134,7 @@ public class JsonMapper {
             alert.setContentText(appUserJson);
             alert.initStyle(StageStyle.UNDECORATED);
             DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(JsonMapper.class.getResource("/alertWarning.css").toExternalForm());
+            dialogPane.getStylesheets().add(JsonMapper.class.getResource("/AlertWarning.css").toExternalForm());
             alert.showAndWait();
         }
         return null;
@@ -159,7 +159,7 @@ public class JsonMapper {
             alert.setContentText(userInformationJson);
             alert.initStyle(StageStyle.UNDECORATED);
             DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(JsonMapper.class.getResource("/alertWarning.css").toExternalForm());
+            dialogPane.getStylesheets().add(JsonMapper.class.getResource("/AlertWarning.css").toExternalForm());
             alert.showAndWait();
         }
         return null;
@@ -184,7 +184,7 @@ public class JsonMapper {
             alert.setContentText(restaurantJson);
             alert.initStyle(StageStyle.UNDECORATED);
             DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(JsonMapper.class.getResource("/alertWarning.css").toExternalForm());
+            dialogPane.getStylesheets().add(JsonMapper.class.getResource("/AlertWarning.css").toExternalForm());
             alert.showAndWait();
         }
         return null;
@@ -209,7 +209,7 @@ public class JsonMapper {
             alert.setContentText(restaurantsJson);
             alert.initStyle(StageStyle.UNDECORATED);
             DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(JsonMapper.class.getResource("/alertWarning.css").toExternalForm());
+            dialogPane.getStylesheets().add(JsonMapper.class.getResource("/AlertWarning.css").toExternalForm());
             alert.showAndWait();
         }
         return null;

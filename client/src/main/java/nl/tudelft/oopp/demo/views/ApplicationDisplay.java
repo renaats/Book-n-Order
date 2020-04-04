@@ -7,7 +7,6 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
@@ -25,7 +24,7 @@ public class ApplicationDisplay extends Application {
     public void start(Stage primaryStage) throws IOException {
         ApplicationDisplay.primaryStage = primaryStage;
         FXMLLoader loader = new FXMLLoader();
-        URL xmlUrl = getClass().getResource("/login-screen.fxml");
+        URL xmlUrl = getClass().getResource("/LoginScreen.fxml");
         loader.setLocation(xmlUrl);
         Parent root = loader.load();
         primaryStage.setScene(new Scene(root));

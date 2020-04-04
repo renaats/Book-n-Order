@@ -2,9 +2,6 @@ package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
 
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
@@ -14,34 +11,34 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 public class ContactInformationController {
 
     /**
-     * Changes current scene to myCurrentBookings.fxml.
+     * Changes current scene to MyCurrentBookings.fxml.
      * @throws IOException input will be valid.
      */
     public void myCurrentBookings() throws IOException {
-        ApplicationDisplay.changeScene("/myCurrentBookings.fxml");
+        ApplicationDisplay.changeScene("/MyCurrentBookings.fxml");
     }
 
     /**
-     * Changes current scene to myPreviousBookings.fxml.
+     * Changes current scene to MyPreviousBookings.fxml.
      * @throws IOException input will be valid.
      */
     public void myPreviousBookings() throws IOException {
-        ApplicationDisplay.changeScene("/myPreviousBookings.fxml");
+        ApplicationDisplay.changeScene("/MyPreviousBookings.fxml");
     }
 
     /**
-     * Changes current scene to mainMenu.fxml.
+     * Changes current scene to MainMenu.fxml.
      * @throws IOException again, all input will be valid. No need to check this, thus we throw.
      */
     public void mainMenu() throws IOException {
-        ApplicationDisplay.changeScene("/mainMenu.fxml");
+        ApplicationDisplay.changeScene("/MainMenu.fxml");
     }
 
     /**
-     * Changes current scene to mainMenu.fxml.
+     * Changes current scene to MainMenu.fxml.
      * @throws IOException input will be valid.
      */
     public void goToMyAccount() throws IOException {
-        ApplicationDisplay.changeScene("/myAccountScene.fxml");
+        ApplicationDisplay.changeScene("/MyAccountScene.fxml");
     }
 }
