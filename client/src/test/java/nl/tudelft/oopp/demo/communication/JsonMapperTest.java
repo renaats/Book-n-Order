@@ -83,12 +83,12 @@ class JsonMapperTest {
                 .willReturn(aResponse()
                         .withStatus(200)
                         .withBody("{\"id\":4,\"name\":\"432\",\"building\":{\"id\":1,\"name\":\"11\",\"street\":\"1\",\"houseNumber\":1},\"faculty\":"
-                                + "\"42342\",\"facultySpecific\":true,\"projector\":false,\"screen\":false,\"capacity\":4234,\"plugs\":42342}")));
+                                + "\"42342\",\"studySpecific\":true,\"projector\":false,\"screen\":false,\"capacity\":4234,\"plugs\":42342}")));
         assertEquals(
                 JsonMapper
                         .roomMapper(
                                 "{\"id\":4,\"name\":\"432\",\"building\":{\"id\":1,\"name\":\"11\",\"street\":\"1\",\"houseNumber\":1},\"faculty\":"
-                                + "\"42342\",\"facultySpecific\":true,\"projector\":false,\"screen\":false,\"capacity\":4234,\"plugs\":42342}"),
+                                + "\"42342\",\"studySpecific\":true,\"projector\":false,\"screen\":false,\"capacity\":4234,\"plugs\":42342}"),
                 JsonMapper.roomMapper((RoomServerCommunication.findRoom(4))));
     }
 
@@ -99,19 +99,19 @@ class JsonMapperTest {
                         .requireNonNull(JsonMapper
                                 .roomListMapper("[{\"id\":4,\"name\":\"432\","
                                         + "\"building\":{\"id\":1,\"name\":\"11\",\"street\":\"1\",\"houseNumber\":1},\"faculty\":\"42342\","
-                                        + "\"facultySpecific\":true,\"projector\":false,\"screen\":false,\"capacity\":4234,\"plugs\":42342},"
+                                        + "\"studySpecific\":true,\"projector\":false,\"screen\":false,\"capacity\":4234,\"plugs\":42342},"
                                         + "{\"id\":5,\"name\":\"1\",\"building\":{\"id\":1,\"name\":\"11\",\"street\":\"1\",\"houseNumber\":1},"
-                                        + "\"faculty\":\"1\",\"facultySpecific\":true,\"projector\":false,\"screen\":true,"
+                                        + "\"faculty\":\"1\",\"studySpecific\":true,\"projector\":false,\"screen\":true,"
                                         + "\"capacity\":1,\"plugs\":1}]\n")));
         stubFor(get(urlEqualTo("/room/all"))
                 .willReturn(aResponse()
                         .withStatus(200)
                         .withBody("[{\"id\":4,\"name\":\"432\",\"building\":{\"id\":1,\"name\":\"11\",\"street\":\"1\",\"houseNumber\":1}"
-                                + ",\"faculty\":\"42342\",\"facultySpecific\":true,\"projector\":false,\"screen\":false,\"capacity\":4234"
+                                + ",\"faculty\":\"42342\",\"studySpecific\":true,\"projector\":false,\"screen\":false,\"capacity\":4234"
                                 + ","
                                 + "\"plugs\":42342},{\"id\":5,\"name\":\"1\",\"building\":{\"id\":1,\"name\":\"11\",\"street\":\"1\",\"houseNumber\":"
                                 + "1}"
-                                + ",\"faculty\":\"1\",\"facultySpecific\":true,\"projector\":false,\"screen\":true,\"capacity\":1,\"plugs\":1}]\n")));
+                                + ",\"faculty\":\"1\",\"studySpecific\":true,\"projector\":false,\"screen\":true,\"capacity\":1,\"plugs\":1}]\n")));
         assertEquals(room, JsonMapper.roomListMapper(RoomServerCommunication.getRooms()));
     }
 
@@ -155,7 +155,7 @@ class JsonMapperTest {
                         .withStatus(200)
                         .withBody("{\"id\":3,\"room\":{\"id\":2,\"name\":\"a\",\"building\":{\"id\":1,\"name\""
                                 + ":\"alto\",\"street\":\"rruga\",\"houseNumber\":24},\""
-                                + "faculty\":\"b\",\"facultySpecific\":true,\"projector\":"
+                                + "faculty\":\"b\",\"studySpecific\":true,\"projector\":"
                                 + "true,\"screen\":true,\"capacity\":10,\"plugs\":10},\"appUser"
                                 + "\":{\"email\":\""
                                 + "r.jursevskis@student.tudelft.nl\",\"password\":\"abc\",\"name\":\"Renats\""
@@ -166,7 +166,7 @@ class JsonMapperTest {
 
         String json = "{\"id\":3,\"room\":{\"id\":2,\"name\":\"a\",\"building\":{\"id\":1,\"name\":\"alto\",\"street\":"
                 + "\"rruga\",\"houseNumber\":24},\""
-                + "faculty\":\"b\",\"facultySpecific\":true,\"projector\":true,\"screen\":true,\"capacity\":10,\"plugs\":10},"
+                + "faculty\":\"b\",\"studySpecific\":true,\"projector\":true,\"screen\":true,\"capacity\":10,\"plugs\":10},"
                 + "\"appUser\":{\"email\":\""
                 + "r.jursevskis@student.tudelft.nl\",\"password\":\"abc\",\"name\":\"Renats\""
                 + ",\"surname\":\"Jursevskis\",\"faculty\":\"EWI\",\"loggedIn\":true,\"confirmationNumber\":183937,\"roles\""
@@ -184,7 +184,7 @@ class JsonMapperTest {
                         .withStatus(200)
                         .withBody("[{\"id\":3,\"room\":{\"id\":2,\"name\":\"a\",\"building\":{"
                                 + "\"id\":1,\"name\":\"alto\",\"street\":\"rruga\",\"houseNumber\":24},"
-                                + "\"faculty\":\"b\",\"facultySpecific\":true,\"projector\":true,\"screen"
+                                + "\"faculty\":\"b\",\"studySpecific\":true,\"projector\":true,\"screen"
                                 + "\":true,\"capacity\":10,\"plugs\":10},\"appUser\":{\"email\""
                                 + ":\"r.jursevskis@student.tudelft.nl\",\"password\":"
                                 + "\"$2a$10$gJ1P7tWDAlgq4VBlCBjK.uKgZPw0tKxG/NMSiGDfNtxKcEDJEIRVC\","
@@ -194,7 +194,7 @@ class JsonMapperTest {
                                 + "},{\"id\":1,\"name\":\"ROLE_USER\"}]},\"fromTime\":\"2020-03-19T11:30:00.000+0000\","
                                 + "\"toTime\":\"2020-03-19T12:00:00.000+0000\"},{\"id\":4,\"room\""
                                 + ":{\"id\":2,\"name\":\"a\",\"building\":{\"id\":1,\"name\":\"alto\",\"street\":\"rruga\","
-                                + "\"houseNumber\":24},\"faculty\":\"b\",\"facultySpecific\":true,"
+                                + "\"houseNumber\":24},\"faculty\":\"b\",\"studySpecific\":true,"
                                 + "\"projector\":true,\"screen\":true,\"capacity\":10,\"plugs\":10},\"appUser\":{\"email\":"
                                 + "\"r.jursevskis@student.tudelft.nl\",\"password\":"
                                 + "\"$2a$10$gJ1P7tWDAlgq4VBlCBjK.uKgZPw0tKxG/NMSiGDfNtxKcEDJEIRVC\",\"name\":\"Renats\","
@@ -205,7 +205,7 @@ class JsonMapperTest {
 
         String json = "[{\"id\":3,\"room\":{\"id\":2,\"name\":\"a\",\"building\":{\"id\":1,\"name\":"
                 + "\"alto\",\"street\":\"rruga\",\"houseNumber\":24},"
-                + "\"faculty\":\"b\",\"facultySpecific\":true,\"projector\":true,\"screen\":true,\"capacity"
+                + "\"faculty\":\"b\",\"studySpecific\":true,\"projector\":true,\"screen\":true,\"capacity"
                 + "\":10,\"plugs\":10},\"appUser\":{\"email\""
                 + ":\"r.jursevskis@student.tudelft.nl\",\"password\":\"$2a$10$gJ1P7tWDAlgq4VBlCBjK.uKgZPw0tKxG/NMSiGDfNtxKcEDJEIRVC\","
                 + "\"name\":\"Renats"
@@ -214,7 +214,7 @@ class JsonMapperTest {
                 + "},{\"id\":1,\"name\":\"ROLE_USER\"}]},\"fromTime\":\"2020-03-19T11:30:00.000+0000\",\"toTime\":"
                 + "\"2020-03-19T12:00:00.000+0000\"},{\"id\":4,\"room\""
                 + ":{\"id\":2,\"name\":\"a\",\"building\":{\"id\":1,\"name\":\"alto\",\"street\":\"rruga\",\"houseNumber\":24},\"faculty\":\"b\",\""
-                + "facultySpecific\":true,"
+                + "studySpecific\":true,"
                 + "\"projector\":true,\"screen\":true,\"capacity\":10,\"plugs\":10},\"appUser\":{\"email\":"
                 + "\"r.jursevskis@student.tudelft.nl\",\"password\":"
                 + "\"$2a$10$gJ1P7tWDAlgq4VBlCBjK.uKgZPw0tKxG/NMSiGDfNtxKcEDJEIRVC\",\"name\":\"Renats\",\"surname\":\"Jursevskis\",\"faculty\":"
