@@ -85,7 +85,7 @@ public class MyPreviousBikeReservationsController implements Initializable {
      * @throws IOException should never be thrown as the input is always the same
      */
     public void mainMenu() throws IOException {
-        ApplicationDisplay.changeScene("/mainMenu.fxml");
+        ApplicationDisplay.changeScene("/MainMenu.fxml");
     }
 
     /**
