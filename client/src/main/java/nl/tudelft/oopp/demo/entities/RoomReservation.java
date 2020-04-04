@@ -1,5 +1,7 @@
 package nl.tudelft.oopp.demo.entities;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
@@ -94,9 +96,9 @@ public class RoomReservation {
      * @return String property, a property recognized by the tables.
      */
     public StringProperty getToTimeProperty() {
-        String day = "" + getFromTime().getDay();
-        String time = "" + getFromTime().getTime();
-        return new SimpleStringProperty("Day: " + day + " At " + time);
+        Date time = getToTime();
+        DateFormat df = new SimpleDateFormat("dd MMMMM yyyy HH:mm");
+        return new SimpleStringProperty(df.format(time));
     }
 
     /**
@@ -104,9 +106,9 @@ public class RoomReservation {
      * @return String property, a property recognized by the tables.
      */
     public StringProperty getFromTimeProperty() {
-        String day = "" + getFromTime().getDay();
-        String time = "" + getFromTime().getTime();
-        return new SimpleStringProperty("Day: " + day + " At " + time);
+        Date time = getFromTime();
+        DateFormat df = new SimpleDateFormat("dd MMMMM yyyy HH:mm");
+        return new SimpleStringProperty(df.format(time));
     }
 
     @Override
