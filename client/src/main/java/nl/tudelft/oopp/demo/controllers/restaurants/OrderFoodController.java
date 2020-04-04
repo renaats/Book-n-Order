@@ -2,6 +2,10 @@ package nl.tudelft.oopp.demo.controllers.restaurants;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.ZoneId;
+import java.util.Date;
+import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
@@ -10,9 +14,16 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 
+import nl.tudelft.oopp.demo.communication.JsonMapper;
+import nl.tudelft.oopp.demo.communication.ServerCommunication;
+import nl.tudelft.oopp.demo.entities.Building;
+import nl.tudelft.oopp.demo.entities.Dish;
+import nl.tudelft.oopp.demo.entities.Restaurant;
+import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
@@ -20,18 +31,47 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
  * controls all the user inputs made through the GUI in the "OrderFoodPickDate.fxml" file
  */
 public class OrderFoodController implements Initializable {
-
     final ObservableList<String> listTime = FXCollections.observableArrayList();
     final ObservableList<String> listMinutes = FXCollections.observableArrayList();
+    private final ObservableList<String> buildingNameList = FXCollections.observableArrayList();
+    List<Dish> dishes;
+    Restaurant restaurant;
 
     @FXML
     public ComboBox<String> pickUpTimeMin;
+    @FXML
     public ComboBox<String> pickUpTimeH;
+    @FXML
+    public ComboBox<String> buildingChoiceBox;
+    @FXML
+    public DatePicker orderFoodDate;
     public Label explanationOfTheRestaurantText;
+
+    public OrderFoodController(List<Dish> dishes, Restaurant restaurant) {
+        this.dishes = dishes;
+        this.restaurant = restaurant;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         loadData();
+        loadBuildingChoiceBox();
+    }
+
+    /**
+     * Takes care of the options for the buildingChoiceBox in the GUI
+     */
+    private void loadBuildingChoiceBox() {
+        buildingNameList.clear();
+        try {
+            for (Building building: Objects.requireNonNull(JsonMapper.buildingListMapper(ServerCommunication.getBuildings()))) {
+                buildingNameList.add(building.getName());
+            }
+            buildingNameList.add(null);
+        } catch (Exception e) {
+            buildingNameList.add(null);
+        }
+        buildingChoiceBox.getItems().addAll(buildingNameList);
     }
 
     /**
@@ -68,28 +108,53 @@ public class OrderFoodController implements Initializable {
 
     /**
      * Changes to mainMenuReservations.fxml.
-     *
      * @throws IOException input will not be wrong, hence we throw.
      */
-    public void mainMenu(ActionEvent actionEvent) throws IOException {
+    public void mainMenu() throws IOException {
         ApplicationDisplay.changeScene("/mainMenu.fxml");
     }
 
     /**
      * return to the reservations menu when the back arrow button is clicked.
-     * @param mouseEvent The event tis the clicking of the arrow button
      * @throws IOException the input will always be the same, so it should never throw an IO exception
      */
-    public void goToMainMenuReservations(MouseEvent mouseEvent) throws IOException {
+    public void goToMainMenuReservations() throws IOException {
         ApplicationDisplay.changeScene("/mainMenuReservations.fxml");
     }
 
     /**
      * Changes to orderFoodConfirmation.fxml.
-     *
      * @throws IOException input will not be wrong, hence we throw.
      */
-    public void goToFoodOrderConfirmation(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/FoodConfirmation.fxml");
+    public void goToFoodOrderConfirmation() throws IOException {
+        if (orderFoodDate.getValue() == null) {
+            CustomAlert.warningAlert("Choose a date.");
+        } else if (pickUpTimeH.getValue() == null || pickUpTimeMin.getValue() == null) {
+            CustomAlert.warningAlert("Choose a time.");
+        } else {
+            try {
+                long dateLong = Date.from(orderFoodDate.getValue().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()).getTime()
+                        + Long.parseLong(pickUpTimeH.getValue()) * 3600000 + Long.parseLong(pickUpTimeMin.getValue()) * 60000;
+                if (Date.from(orderFoodDate.getValue().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()).getTime() < new Date().getTime()) {
+                    CustomAlert.warningAlert("The pick up date cannot be in the past.");
+                } else if (dateLong <= new Date().getTime()) {
+                    CustomAlert.warningAlert("The pick up time cannot be in the past.");
+                } else {
+                    int buildingId = 0;
+                    if (buildingChoiceBox.getValue() != null) {
+                        buildingId = JsonMapper.buildingMapper(ServerCommunication.findBuildingByName(buildingChoiceBox.getValue())).getId();
+                    }
+                    String response = ServerCommunication.addFoodOrder(restaurant.getId(), buildingId, dateLong);
+                    int foodOrderId = Integer.parseInt(response) - 1000;
+                    for (Dish dish: dishes) {
+                        ServerCommunication.addDishToFoodOrder(foodOrderId, dish.getName(), dish.getAmount());
+                    }
+                    ApplicationDisplay.changeScene("/FoodConfirmation.fxml");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                CustomAlert.errorAlert("Something went wrong.");
+            }
+        }
     }
 }

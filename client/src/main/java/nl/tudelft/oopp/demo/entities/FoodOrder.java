@@ -15,7 +15,7 @@ public class FoodOrder {
     private AppUser appUser;
     private Building deliveryLocation;
     private Date deliveryTime;
-    private Set<Dish> dishes;
+    private Set<DishOrder> dishOrders;
 
     /** Creates a new instance of FoodOrder.
      * @param restaurant the restaurant at which the food order is placed.
@@ -60,8 +60,8 @@ public class FoodOrder {
         this.menu = menu;
     }
 
-    public void setDishes(Set<Dish> dishes) {
-        this.dishes = dishes;
+    public void setDishOrders(Set<DishOrder> dishOrders) {
+        this.dishOrders = dishOrders;
     }
 
     public Integer getId() {
@@ -92,8 +92,8 @@ public class FoodOrder {
         return menu;
     }
 
-    public Set<Dish> getDishes() {
-        return dishes;
+    public Set<DishOrder> getDishOrders() {
+        return dishOrders;
     }
 
     @Override
@@ -110,6 +110,6 @@ public class FoodOrder {
                 && Objects.equals(deliveryLocation, that.deliveryLocation)
                 && Objects.equals(deliveryTime, that.deliveryTime)
                 && Objects.equals(menu, that.menu)
-                && Objects.equals(dishes, that.dishes);
+                && Objects.equals(dishOrders, that.dishOrders);
     }
 }

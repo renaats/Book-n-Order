@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -42,8 +43,8 @@ public class Dish {
     private Set<Allergy> allergies;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "dishes", fetch = FetchType.EAGER)
-    private Set<FoodOrder> foodOrders;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "dish")
+    private Set<DishOrder> dishOrders;
 
     /**
      * Creates a new instance of Dish.

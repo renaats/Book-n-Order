@@ -44,6 +44,9 @@ public class ServerCommunication {
         if (response.statusCode() == 403) {
             return ErrorMessages.getErrorMessage(401);
         }
+        if (Integer.parseInt(response.body()) >= 1000) {
+            return response.body();
+        }
         return ErrorMessages.getErrorMessage(Integer.parseInt(response.body()));
     }
 
@@ -503,7 +506,7 @@ public class ServerCommunication {
      */
     public static String addFoodOrder(int restaurantId, int deliverLocation, long deliverTimeMs) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/food_order/add?restaurantId=" + restaurantId + "&deliverLocation=" + deliverLocation + "&deliverTimeMs=" + deliverTimeMs)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        return communicateAndReturnBodyOfResponse(request);
+        return communicateAndReturnErrorMessage(request);
     }
 
     /**
@@ -524,8 +527,8 @@ public class ServerCommunication {
      * @param name the name of the dish you want to add.
      * @return the body of the response from the server.
      */
-    public static String addDishToFoodOrder(int id, String name) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/food_order/addDish?id=" + id + "&name=" + URLEncoder.encode(name, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+    public static String addDishToFoodOrder(int id, String name, int amount) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/food_order/addDishOrder?id=" + id + "&name=" + URLEncoder.encode(name, StandardCharsets.UTF_8) + "&amount=" + amount)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnBodyOfResponse(request);
     }
 

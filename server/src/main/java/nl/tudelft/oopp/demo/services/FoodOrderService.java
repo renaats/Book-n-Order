@@ -25,9 +25,11 @@ import javax.servlet.http.HttpServletRequest;
 import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Dish;
+import nl.tudelft.oopp.demo.entities.DishOrder;
 import nl.tudelft.oopp.demo.entities.FoodOrder;
 import nl.tudelft.oopp.demo.entities.Restaurant;
 import nl.tudelft.oopp.demo.repositories.BuildingRepository;
+import nl.tudelft.oopp.demo.repositories.DishOrderRepository;
 import nl.tudelft.oopp.demo.repositories.DishRepository;
 import nl.tudelft.oopp.demo.repositories.FoodOrderRepository;
 import nl.tudelft.oopp.demo.repositories.MenuRepository;
@@ -63,6 +65,9 @@ public class FoodOrderService {
     @Autowired
     private DishRepository dishRepository;
 
+    @Autowired
+    private DishOrderRepository dishOrderRepository;
+
     /**
      * Adds a foodOrder.
      * @param request = the Http request that calls this method.
@@ -76,7 +81,6 @@ public class FoodOrderService {
         if (optionalRestaurant.isEmpty()) {
             return RESTAURANT_NOT_FOUND;
         }
-        Restaurant restaurant = optionalRestaurant.get();
 
         String token = request.getHeader(HEADER_STRING);
         AppUser appUser = UserService.getAppUser(token, userRepository);
@@ -85,19 +89,23 @@ public class FoodOrderService {
         }
 
         Optional<Building> optionalDeliveryLocation = buildingRepository.findById(deliverLocation);
-        if (optionalDeliveryLocation.isEmpty()) {
+        if (optionalDeliveryLocation.isEmpty() && deliverLocation != 0) {
             return BUILDING_NOT_FOUND;
         }
-        Building deliveryLocation = optionalDeliveryLocation.get();
+        Building deliveryLocation = null;
+        if (deliverLocation != 0) {
+            deliveryLocation = optionalDeliveryLocation.get();
+        }
+        Restaurant restaurant = optionalRestaurant.get();
 
         FoodOrder foodOrder = new FoodOrder();
         foodOrder.setRestaurant(restaurant);
         foodOrder.setAppUser(appUser);
         foodOrder.setDeliveryLocation(deliveryLocation);
         foodOrder.setDeliveryTime(new Date(deliverTimeMs));
-        foodOrder.setDishes(new HashSet<>());
+        foodOrder.setDishOrders(new HashSet<>());
         foodOrderRepository.save(foodOrder);
-        return ADDED;
+        return foodOrder.getId() + 1000;
     }
 
     /**
@@ -147,11 +155,11 @@ public class FoodOrderService {
     }
 
     /**
-     * Adds a dish to food order.
+     * Adds a dishOrder to food order.
      * @param id = the id of the food order.
      * @param dishName = the name of the dish.
      */
-    public int addDish(HttpServletRequest request, int id, String dishName) {
+    public int addDishOrder(HttpServletRequest request, int id, String dishName, int amount) {
         if (!foodOrderRepository.existsById(id)) {
             return ID_NOT_FOUND;
         }
@@ -164,11 +172,32 @@ public class FoodOrderService {
         if (!appUser.equals(foodOrder.getAppUser())) {
             return WRONG_USER;
         }
-        Dish dish;
-        dish = dishRepository.findByName(dishName);
-        foodOrder.addDish(dish);
-        foodOrderRepository.save(foodOrder);
+        if (!dishRepository.existsByName(dishName)) {
+            return NOT_FOUND;
+        }
+        Dish dish = dishRepository.findByName(dishName);
+        dishOrderRepository.save(new DishOrder(dish, foodOrder, amount));
         return ADDED;
+    }
+
+    /**
+     * Gets all DishOrders for a food order.
+     * @param id = the id of the food order.
+     */
+    public List<DishOrder> getDishOrders(HttpServletRequest request, int id) {
+        if (!foodOrderRepository.existsById(id)) {
+            return null;
+        }
+        String token = request.getHeader(HEADER_STRING);
+        AppUser appUser = UserService.getAppUser(token, userRepository);
+        if (appUser == null) {
+            return null;
+        }
+        FoodOrder foodOrder = foodOrderRepository.getOne(id);
+        if (!appUser.equals(foodOrder.getAppUser())) {
+            return null;
+        }
+        return dishOrderRepository.findAllByFoodOrderId(id);
     }
 
     /**

@@ -1,16 +1,16 @@
 package nl.tudelft.oopp.demo.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Set;
 
 import nl.tudelft.oopp.demo.repositories.BuildingRepository;
+import nl.tudelft.oopp.demo.repositories.DishOrderRepository;
+import nl.tudelft.oopp.demo.repositories.DishRepository;
 import nl.tudelft.oopp.demo.repositories.FoodOrderRepository;
 import nl.tudelft.oopp.demo.repositories.MenuRepository;
 import nl.tudelft.oopp.demo.repositories.RestaurantRepository;
@@ -25,11 +25,11 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
- * Tests the FoodOrder entity.
+ * Tests the DishOrder entity.
  */
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
-public class FoodOrderTest {
+public class DishOrderTest {
     @Autowired
     private FoodOrderRepository foodOrderRepository;
     @Autowired
@@ -40,14 +40,20 @@ public class FoodOrderTest {
     private BuildingRepository buildingRepository;
     @Autowired
     private MenuRepository menuRepository;
+    @Autowired
+    private DishOrderRepository dishOrderRepository;
+    @Autowired
+    private DishRepository dishRepository;
 
     FoodOrder foodOrder;
-    FoodOrder foodOrder2;
     Restaurant restaurant;
     Building building;
     Building deliveryLocation;
     AppUser appUser;
     Menu menu;
+    DishOrder dishOrder;
+    DishOrder dishOrder2;
+    Dish dish;
 
     /**
      * Sets up the entities and saves them in the repository before executing every test.
@@ -74,6 +80,12 @@ public class FoodOrderTest {
                 buildingRepository.findAll().get(1), new Date(11000000000L));
         foodOrderRepository.saveAndFlush(foodOrder);
         foodOrder = foodOrderRepository.findAll().get(0);
+
+        dish = new Dish("Food", menuRepository.findAll().get(0), 100, "123", "123");
+        dishRepository.save(dish);
+
+        dishOrder = new DishOrder(dish, foodOrder, 2);
+        dishOrderRepository.save(dishOrder);
     }
 
     /**
@@ -81,7 +93,7 @@ public class FoodOrderTest {
      */
     @Test
     public void testConstructor() {
-        assertNotNull(foodOrder);
+        assertNotNull(dishOrder);
     }
 
     /**
@@ -89,95 +101,72 @@ public class FoodOrderTest {
      */
     @Test
     public void testSaveAndRetrieveFoodOrder() {
-        foodOrder2 = foodOrderRepository.findAll().get(0);
-        assertEquals(foodOrder, foodOrder2);
+        dishOrder2 = dishOrderRepository.findAll().get(0);
+        assertEquals(dishOrder, dishOrder2);
     }
 
     /**
-     * Tests the getter for the appUser field.
+     * Tests the getter for the foodOrder field.
      */
     @Test
-    public void testGetAppUser() {
-        foodOrder2 = foodOrderRepository.findAll().get(0);
-        assertEquals(foodOrder.getAppUser(), foodOrder2.getAppUser());
+    public void testGetFoodOrder() {
+        assertEquals(foodOrder, dishOrder.getFoodOrder());
     }
 
     /**
-     * Tests the getter for the restaurant field.
+     * Tests the getter for the dish field.
      */
     @Test
-    public void testGetRestaurant() {
-        foodOrder2 = foodOrderRepository.findAll().get(0);
-        assertEquals(foodOrder.getRestaurant(), foodOrder2.getRestaurant());
+    public void testGetDish() {
+        assertEquals(dish, dishOrder.getDish());
     }
 
     /**
-     * Tests the getter for the deliveryLocation field.
+     * Tests the getter for the amount field.
      */
     @Test
     public void testGetDeliveryLocation() {
-        foodOrder2 = foodOrderRepository.findAll().get(0);
-        assertEquals(foodOrder.getDeliveryLocation(), foodOrder2.getDeliveryLocation());
+        assertEquals(2, dishOrder.getAmount());
     }
 
     /**
-     * Tests the getter for the deliveryTime field.
+     * Tests the equals method for 2 equal dish orders.
      */
     @Test
-    public void testGetDeliveryTime() {
-        foodOrder2 = foodOrderRepository.findAll().get(0);
-        assertEquals(foodOrder.getDeliveryTime(), foodOrder2.getDeliveryTime());
+    public void testEqualDishOrder() {
+        dishOrder2 = new DishOrder(dish, foodOrder, 2);
+        assertEquals(dishOrder, dishOrder2);
+        assertNotSame(dishOrder, dishOrder2);
     }
 
     /**
-     * Tests the getter for the active field.
+     * Tests the setting of the foodOrder for a dishOrder.
      */
     @Test
-    public void testGetActive() {
-        foodOrder2 = foodOrderRepository.findAll().get(0);
-        assertTrue(foodOrder2.isActive());
+    public void testSetFoodOrder() {
+        assertEquals(foodOrder, dishOrder.getFoodOrder());
+        dishOrder.setFoodOrder(null);
+        assertNull(dishOrder.getFoodOrder());
     }
 
     /**
-     * Tests the getter for the DishOrders.
+     * Tests the setting of the dish for a dishOrder.
      */
     @Test
-    public void testGetDishOrder() {
-        foodOrder = foodOrderRepository.findAll().get(0);
-        foodOrder.setDishOrders(new HashSet<>());
-        assertNotNull(foodOrder.getDishOrders());
+    public void testSetDish() {
+        assertEquals(dish, dishOrder.getDish());
+        dishOrder.setDish(null);
+        assertNull(dishOrder.getDish());
     }
 
     /**
-     * Tests the addition of a DishOrders.
+     * Tests the setting of the amount for a dishOrder.
      */
     @Test
-    public void testAddDishOrder() {
-        foodOrder = foodOrderRepository.findAll().get(0);
-        foodOrder.setDishOrders(new HashSet<>());
-        foodOrder.addDishOrder(new DishOrder());
-        assertNotEquals(new HashSet<>(), foodOrder.getDishOrders());
-    }
-
-    /**
-     * Tests the equals method for 2 equal food orders.
-     */
-    @Test
-    public void testEqualFoodOrder() {
-        foodOrder2 = new FoodOrder(restaurant, appUser, deliveryLocation, new Date(11000000000L));
-        assertEquals(foodOrder, foodOrder2);
-        assertNotSame(foodOrder, foodOrder2);
-    }
-
-    /**
-     * Tests the setting of the foodOrders for an appUser.
-     */
-    @Test
-    public void testSetFoodOrders() {
-        Set<FoodOrder> foodOrders = new HashSet<>();
-        foodOrders.add(foodOrder);
-        appUser.setFoodOrder(foodOrders);
-        assertEquals(foodOrders, appUser.getFoodOrders());
+    public void testSetAmount() {
+        assertEquals(2, dishOrder.getAmount());
+        dishOrder.setAmount(3);
+        assertEquals(3, dishOrder.getAmount());
     }
 
     /**
@@ -185,6 +174,8 @@ public class FoodOrderTest {
      */
     @AfterEach
     public void cleanup() {
+        dishOrderRepository.deleteAll();
+        dishRepository.deleteAll();
         foodOrderRepository.deleteAll();
         restaurantRepository.deleteAll();
         userRepository.deleteAll();

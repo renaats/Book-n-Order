@@ -3,13 +3,21 @@ package nl.tudelft.oopp.demo.controllers.restaurants;
 import java.io.IOException;
 import java.net.URL;
 import java.text.DecimalFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -159,7 +167,7 @@ public class OrderFoodChooseRestaurantController implements Initializable {
      * @throws IOException the input is always the same, so it should never throw an exception.
      */
     public void goToOrderFood() throws IOException {
-        ApplicationDisplay.changeScene("/OrderFoodPickDate.fxml");
+        ApplicationDisplay.changeSceneWithVariables("/OrderFoodPickDate.fxml", orders, selectedRestaurant);
     }
 
     /**
@@ -333,10 +341,18 @@ public class OrderFoodChooseRestaurantController implements Initializable {
             orderTable.getSelectionModel().clearSelection();
             dishTable.getSelectionModel().clearSelection();
             allergyTable.getSelectionModel().clearSelection();
+            selectedDietTable.getSelectionModel().clearSelection();
+            allDietTable.getSelectionModel().clearSelection();
             anchorPane.getChildren().remove(addButton);
             anchorPane.getChildren().remove(removeButton);
             anchorPane.getChildren().remove(imageView);
             anchorPane.getChildren().remove(description);
+            anchorPane.getChildren().remove(removeDietButton);
+            anchorPane.getChildren().remove(selectDietButton);
+            orders.clear();
+            price = 0;
+            calculateOrderPages();
+            totalCost.setText("Total Cost: " + new DecimalFormat("#0.00").format((double) Math.round(price * 100) / 10000) + "\u20AC");
             selectedDish = null;
             loadAllergies();
             selectedRestaurant = restaurantTable.getSelectionModel().getSelectedItem();
@@ -357,9 +373,13 @@ public class OrderFoodChooseRestaurantController implements Initializable {
             orderTable.getSelectionModel().clearSelection();
             restaurantTable.getSelectionModel().clearSelection();
             allergyTable.getSelectionModel().clearSelection();
+            selectedDietTable.getSelectionModel().clearSelection();
+            allDietTable.getSelectionModel().clearSelection();
             selectedDish = dishTable.getSelectionModel().getSelectedItem();
             anchorPane.getChildren().remove(addButton);
             anchorPane.getChildren().remove(removeButton);
+            anchorPane.getChildren().remove(selectDietButton);
+            anchorPane.getChildren().remove(removeDietButton);
 
             for (int i = 0; i < dishResult.size(); i++) {
                 assert selectedDish != null;
@@ -410,7 +430,6 @@ public class OrderFoodChooseRestaurantController implements Initializable {
                 dishes = filteredDishes;
             }
         } catch (Exception e) {
-            e.printStackTrace();
             dishes = new ArrayList<>();
         }
         calculateDishPages();
@@ -464,10 +483,12 @@ public class OrderFoodChooseRestaurantController implements Initializable {
         try {
             String filterString = "menu:" + JsonMapper.menuMapper(ServerCommunication.findMenuByRestaurant(selectedRestaurant.getId())).getId();
             if (!fromPrice.getText().equals("")) {
-                filterString += ",price>" + fromPrice.getText();
+                long filterPrice = Math.round((Double.parseDouble(fromPrice.getText())) * 100);
+                filterString += ",price>" + filterPrice;
             }
             if (!toPrice.getText().equals("")) {
-                filterString += ",price<" + toPrice.getText();
+                long filterPrice = Math.round((Double.parseDouble(toPrice.getText())) * 100);
+                filterString += ",price<" + filterPrice;
             }
             if (!dishName.getText().equals("")) {
                 filterString += ",name:" + dishName.getText();
@@ -773,6 +794,8 @@ public class OrderFoodChooseRestaurantController implements Initializable {
         nextPageSelectedDietButton.setVisible(false);
         previousPageSelectedDietButton.setVisible(false);
         pagesTextSelectedDiet.setVisible(false);
+        anchorPane.getChildren().remove(selectDietButton);
+        anchorPane.getChildren().remove(removeDietButton);
     }
 
     public void calculateAllDietPages() {
@@ -887,7 +910,6 @@ public class OrderFoodChooseRestaurantController implements Initializable {
             orderTable.getSelectionModel().clearSelection();
             allergyTable.getSelectionModel().clearSelection();
             selectedDietTable.getSelectionModel().clearSelection();
-            selectedDish = null;
             selectedAllergy = allDietTable.getSelectionModel().getSelectedItem();
 
             anchorPane.getChildren().remove(selectDietButton);
@@ -918,7 +940,6 @@ public class OrderFoodChooseRestaurantController implements Initializable {
             orderTable.getSelectionModel().clearSelection();
             allergyTable.getSelectionModel().clearSelection();
             allDietTable.getSelectionModel().clearSelection();
-            selectedDish = null;
             if (selectedDietTable.getSelectionModel().getSelectedItem() != null || !selectedDiets.contains(selectedAllergy) || !anchorPane.getChildren().contains(removeDietButton)) {
                 anchorPane.getChildren().remove(removeDietButton);
                 selectedAllergy = selectedDietTable.getSelectionModel().getSelectedItem();

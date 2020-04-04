@@ -63,14 +63,14 @@ public class FoodOrderController {
     }
 
     /**
-     * Adds a dish to a food order.
+     * Adds a dishOrder to a food order.
      * @param id = the id of the food order.
      * @param name = the name of the dish.
      */
     @Secured(USER)
-    @PostMapping(path = "/addDish")
-    public int addDish(HttpServletRequest request, @RequestParam int id, @RequestParam String name) {
-        return foodOrderService.addDish(request, id, name);
+    @PostMapping(path = "/addDishOrder")
+    public int addDishOrder(HttpServletRequest request, @RequestParam int id, @RequestParam String name, @RequestParam int amount) {
+        return foodOrderService.addDishOrder(request, id, name, amount);
 
     }
 

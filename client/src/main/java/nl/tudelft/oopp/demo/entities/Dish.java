@@ -17,7 +17,7 @@ public class Dish {
     private String image;
     private Menu menu;
     private Set<Allergy> allergies;
-    private Set<FoodOrder> foodOrders;
+    private Set<DishOrder> dishOrders;
     private int amount = 0;
 
     /**
@@ -119,6 +119,6 @@ public class Dish {
                 && Objects.equals(description, dish.description)
                 && Objects.equals(image, dish.image)
                 && Objects.equals(allergies, dish.allergies)
-                && Objects.equals(foodOrders, dish.foodOrders);
+                && Objects.equals(dishOrders, dish.dishOrders);
     }
 }
