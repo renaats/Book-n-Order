@@ -61,10 +61,12 @@ class DishServerCommunicationTest {
                 .willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(post(urlEqualTo("/food_order/addFeedback?id=1&feedback=true")).willReturn(aResponse().withStatus(200).withBody("201")));
         stubFor(post(urlEqualTo("/restaurant/addFeedback?id=1&feedback=true")).willReturn(aResponse().withStatus(200).withBody("201")));
-        stubFor(post(urlEqualTo("/restaurant_hours/add?restaurantId=1&date=1&startTimeS=1&endTimeS=2")).willReturn(aResponse().withStatus(200).withBody("200")));
+        stubFor(post(urlEqualTo("/restaurant_hours/add?restaurantId=1&date=1&startTimeS=1&endTimeS=2"))
+                .willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(get(urlEqualTo("/restaurant_hours/all")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(get(urlEqualTo("/restaurant_hours/find/1/1")).willReturn(aResponse().withStatus(200).withBody("200")));
-        stubFor(post(urlEqualTo("/restaurant_hours/update?id=1&attribute=attribute&value=value")).willReturn(aResponse().withStatus(200).withBody("200")));
+        stubFor(post(urlEqualTo("/restaurant_hours/update?id=1&attribute=attribute&value=value"))
+                .willReturn(aResponse().withStatus(200).withBody("200")));
     }
 
     /**
