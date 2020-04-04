@@ -3,21 +3,16 @@ package nl.tudelft.oopp.demo.controllers.restaurants;
 import java.io.IOException;
 import java.net.URL;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
@@ -38,11 +33,15 @@ public class OrderFoodChooseRestaurantController implements Initializable {
     private final ObservableList<Dish> dishResult = FXCollections.observableArrayList();
     private final ObservableList<Dish> orderResult = FXCollections.observableArrayList();
     private final ObservableList<Allergy> allergyResult = FXCollections.observableArrayList();
+    private final ObservableList<Allergy> allDietResult = FXCollections.observableArrayList();
+    private final ObservableList<Allergy> selectedDietResult = FXCollections.observableArrayList();
     private final ObservableList<String> buildingNameList = FXCollections.observableArrayList();
     List<Restaurant> restaurants;
     List<Dish> dishes;
     List<Dish> orders;
     List<Allergy> allergies;
+    List<Allergy> currentAllergies;
+    List<Allergy> selectedDiets;
 
     @FXML
     public TableView<Restaurant> restaurantTable;
@@ -52,6 +51,10 @@ public class OrderFoodChooseRestaurantController implements Initializable {
     public TableView<Dish> orderTable;
     @FXML
     public TableView<Allergy> allergyTable;
+    @FXML
+    public TableView<Allergy> allDietTable;
+    @FXML
+    public TableView<Allergy> selectedDietTable;
     @FXML
     public TableColumn<Restaurant, String> colRestaurantName;
     @FXML
@@ -68,6 +71,10 @@ public class OrderFoodChooseRestaurantController implements Initializable {
     public TableColumn<Dish, Integer> colOrderAmount;
     @FXML
     public TableColumn<Allergy, String> colAllergy;
+    @FXML
+    public TableColumn<Allergy, String> colAllDiet;
+    @FXML
+    public TableColumn<Allergy, String> colSelectedDiet;
     @FXML
     public ChoiceBox<String> buildingChoiceBox;
     @FXML
@@ -87,6 +94,10 @@ public class OrderFoodChooseRestaurantController implements Initializable {
     @FXML
     private Text pagesTextAllergy;
     @FXML
+    private Text pagesTextAllDiet;
+    @FXML
+    private Text pagesTextSelectedDiet;
+    @FXML
     private AnchorPane anchorPane;
     @FXML
     private Text totalCost;
@@ -96,6 +107,20 @@ public class OrderFoodChooseRestaurantController implements Initializable {
     private Button nextPageAllergyButton;
     @FXML
     private Button previousPageAllergyButton;
+    @FXML
+    private Button nextPageOrderButton;
+    @FXML
+    private Button previousPageOrderButton;
+    @FXML
+    private Button nextPageAllDietButton;
+    @FXML
+    private Button previousPageAllDietButton;
+    @FXML
+    private Button nextPageSelectedDietButton;
+    @FXML
+    private Button previousPageSelectedDietButton;
+    @FXML
+    private Button filterDietsButton;
 
     private int restaurantPageNumber;
     private double totalRestaurantPages;
@@ -105,39 +130,43 @@ public class OrderFoodChooseRestaurantController implements Initializable {
     private double totalOrderPages;
     private int allergyPageNumber;
     private double totalAllergyPages;
+    private int allDietPageNumber;
+    private double totalAllDietPages;
+    private int selectedDietPageNumber;
+    private double totalSelectedDietPages;
     private Button addButton;
     private Button removeButton;
+    private Button removeDietButton;
+    private Button selectDietButton;
     private ImageView imageView;
     private Image image;
     private Text description;
     private Restaurant selectedRestaurant;
     private Dish selectedDish;
+    private Allergy selectedAllergy;
     int price;
 
     /**
      * Goes back to the main reservations menu when the back arrow button is clicked
-     * @param mouseEvent the event is the clicking of the home icon in OrderFoodChooseRestaurant.fxml
      * @throws IOException the input is always the same, so it should never throw an exception
      */
-    public void goToMainMenuReservations(MouseEvent mouseEvent) throws IOException {
+    public void goToMainMenuReservations() throws IOException {
         ApplicationDisplay.changeScene("/mainMenuReservations.fxml");
     }
 
     /**
      * Changes the view to the orderFood view
-     * @param actionEvent the event is the clicking of the "place order" button in OrderFoodChooseRestaurant.fxml
      * @throws IOException the input is always the same, so it should never throw an exception.
      */
-    public void goToOrderFood(ActionEvent actionEvent) throws IOException {
+    public void goToOrderFood() throws IOException {
         ApplicationDisplay.changeScene("/OrderFoodPickDate.fxml");
     }
+
     /**
      * Goes back to the main reservations menu when the home icon is clicked
-     * @param mouseEvent the event is the clicking of the home icon in mainMenu.fxml
      * @throws IOException the input is always the same, so it should never throw an exception
      */
-
-    public void mainMenu(MouseEvent mouseEvent) throws IOException {
+    public void mainMenu() throws IOException {
         ApplicationDisplay.changeScene("/mainMenu.fxml");
     }
 
@@ -151,11 +180,15 @@ public class OrderFoodChooseRestaurantController implements Initializable {
         colOrderPrice.setCellValueFactory(new PropertyValueFactory<>("priceInEuros"));
         colOrderAmount.setCellValueFactory(new PropertyValueFactory<>("amount"));
         colAllergy.setCellValueFactory(new PropertyValueFactory<>("allergyName"));
+        colAllDiet.setCellValueFactory(new PropertyValueFactory<>("allergyName"));
+        colSelectedDiet.setCellValueFactory(new PropertyValueFactory<>("allergyName"));
 
         restaurantTable.setPlaceholder(new Label(""));
         dishTable.setPlaceholder(new Label(""));
         orderTable.setPlaceholder(new Label(""));
         allergyTable.setPlaceholder(new Label(""));
+        allDietTable.setPlaceholder(new Label(""));
+        selectedDietTable.setPlaceholder(new Label(""));
 
         orders = new ArrayList<>();
 
@@ -171,6 +204,12 @@ public class OrderFoodChooseRestaurantController implements Initializable {
         if (allergyPageNumber == 0) {
             allergyPageNumber++;
         }
+        if (allDietPageNumber == 0) {
+            allDietPageNumber++;
+        }
+        if (selectedDietPageNumber == 0) {
+            selectedDietPageNumber++;
+        }
         price = 0;
 
         applyRestaurantFilters();
@@ -180,6 +219,9 @@ public class OrderFoodChooseRestaurantController implements Initializable {
         calculateOrderPages();
         dishTableSelectMethod();
         orderTableSelectMethod();
+        displayCurrentAllergies();
+        displayRemovedAllergies();
+        addAllergyTableListeners();
     }
 
     /**
@@ -343,7 +385,32 @@ public class OrderFoodChooseRestaurantController implements Initializable {
         try {
             dishes = new ArrayList<>(Objects.requireNonNull(
                     JsonMapper.dishListMapper(ServerCommunication.filterDishes(filterString))));
+            if (selectedDiets != null && !selectedDiets.isEmpty()) {
+                List<Dish> filteredDishes = new ArrayList<>();
+                for (Dish dish: dishes) {
+                    boolean isValid = true;
+                    List<Allergy> dishAllergies;
+                    try {
+                        dishAllergies = JsonMapper.allergiesListMapper(ServerCommunication.getAllergiesFromDish(dish.getId()));
+                    } catch (Exception e) {
+                        dishAllergies = new ArrayList<>();
+                    }
+                    if (dishAllergies != null) {
+                        for (Allergy allergy: selectedDiets) {
+                            if (!dishAllergies.contains(allergy)) {
+                                isValid = false;
+                                break;
+                            }
+                        }
+                        if (isValid) {
+                            filteredDishes.add(dish);
+                        }
+                    }
+                }
+                dishes = filteredDishes;
+            }
         } catch (Exception e) {
+            e.printStackTrace();
             dishes = new ArrayList<>();
         }
         calculateDishPages();
@@ -418,7 +485,7 @@ public class OrderFoodChooseRestaurantController implements Initializable {
             description.setLayoutX(705);
             description.setLayoutY(544);
             description.setWrappingWidth(200);
-            description.setVisible(!allergyTable.isVisible());
+            description.setVisible(!allergyTable.isVisible() && orderTable.isVisible());
             anchorPane.getChildren().add(description);
 
             anchorPane.getChildren().remove(imageView);
@@ -428,7 +495,7 @@ public class OrderFoodChooseRestaurantController implements Initializable {
             imageView.setLayoutY(320);
             imageView.setFitHeight(200);
             imageView.setFitWidth(200);
-            imageView.setVisible(!allergyTable.isVisible());
+            imageView.setVisible(!allergyTable.isVisible() && orderTable.isVisible());
             anchorPane.getChildren().add(imageView);
         } catch (Exception e) {
             anchorPane.getChildren().remove(imageView);
@@ -633,5 +700,281 @@ public class OrderFoodChooseRestaurantController implements Initializable {
             allergyPageNumber--;
         }
         calculateAllergyPages();
+    }
+
+    public void filterDiets() {
+        if (addButton != null) {
+            addButton.setVisible(false);
+        }
+        if (removeButton != null) {
+            removeButton.setVisible(false);
+        }
+        orderTable.setVisible(false);
+        pagesTextOrder.setVisible(false);
+        previousPageOrderButton.setVisible(false);
+        nextPageOrderButton.setVisible(false);
+        if (imageView != null) {
+            imageView.setVisible(false);
+        }
+        if (description != null) {
+            description.setVisible(false);
+        }
+        allergyTable.setVisible(false);
+        previousPageAllergyButton.setVisible(false);
+        nextPageAllergyButton.setVisible(false);
+        pagesTextAllergy.setVisible(false);
+        viewAllergyButton.setVisible(false);
+        filterDietsButton.setText("View Information");
+        filterDietsButton.setOnAction(event -> viewDishes());
+
+        allDietTable.setVisible(true);
+        nextPageAllDietButton.setVisible(true);
+        previousPageAllDietButton.setVisible(true);
+        pagesTextAllDiet.setVisible(true);
+        selectedDietTable.setVisible(true);
+        nextPageSelectedDietButton.setVisible(true);
+        previousPageSelectedDietButton.setVisible(true);
+        pagesTextSelectedDiet.setVisible(true);
+    }
+
+
+    public void viewDishes() {
+        if (addButton != null) {
+            addButton.setVisible(true);
+        }
+        if (removeButton != null) {
+            removeButton.setVisible(true);
+        }
+        orderTable.setVisible(true);
+        pagesTextOrder.setVisible(true);
+        previousPageOrderButton.setVisible(true);
+        nextPageOrderButton.setVisible(true);
+        if (imageView != null) {
+            imageView.setVisible(true);
+        }
+        if (description != null) {
+            description.setVisible(true);
+        }
+        allergyTable.setVisible(false);
+        previousPageAllergyButton.setVisible(false);
+        nextPageAllergyButton.setVisible(false);
+        pagesTextAllergy.setVisible(false);
+        viewAllergyButton.setVisible(true);
+        viewAllergyButton.setText("View Allergies");
+        viewAllergyButton.setOnAction(event -> viewAllergy());
+        filterDietsButton.setText("Filter Diets");
+        filterDietsButton.setOnAction(event -> filterDiets());
+
+        allDietTable.setVisible(false);
+        nextPageAllDietButton.setVisible(false);
+        previousPageAllDietButton.setVisible(false);
+        pagesTextAllDiet.setVisible(false);
+        selectedDietTable.setVisible(false);
+        nextPageSelectedDietButton.setVisible(false);
+        previousPageSelectedDietButton.setVisible(false);
+        pagesTextSelectedDiet.setVisible(false);
+    }
+
+    public void calculateAllDietPages() {
+        allDietResult.clear();
+        totalAllDietPages = Math.ceil(currentAllergies.size() / 5.0);
+        if (totalAllDietPages < allDietPageNumber) {
+            allDietPageNumber--;
+        }
+        if (totalAllDietPages > 0) {
+            allDietPageNumber = Math.max(allDietPageNumber, 1);
+        }
+        pagesTextAllDiet.setText(allDietPageNumber + " / " + (int) totalAllDietPages + " pages");
+        if (currentAllergies.size() > 5) {
+            for (int i = 0; i < 5; i++) {
+                try {
+                    allDietResult.add(currentAllergies.get((i - 5) + allDietPageNumber * 5));
+                } catch (IndexOutOfBoundsException e) {
+                    break;
+                }
+            }
+        }  else {
+            allDietResult.addAll(currentAllergies);
+        }
+        allDietTable.setItems(allDietResult);
+    }
+
+    /**
+     * Handles the clicking to the next table page.
+     */
+    public void nextAllDietPage() {
+        if (allDietPageNumber < (int) totalAllDietPages) {
+            allDietPageNumber++;
+            calculateAllDietPages();
+        }
+    }
+
+    /**
+     * Handles the clicking to the previous page
+     */
+    public void previousAllDietPage() {
+        if (allDietPageNumber > 1) {
+            allDietPageNumber--;
+        }
+        calculateAllDietPages();
+    }
+
+    public void calculateSelectedDietPages() {
+        selectedDietResult.clear();
+        totalSelectedDietPages = Math.ceil(selectedDiets.size() / 5.0);
+        if (totalSelectedDietPages < selectedDietPageNumber) {
+            selectedDietPageNumber--;
+        }
+        if (totalSelectedDietPages > 0) {
+            selectedDietPageNumber = Math.max(selectedDietPageNumber, 1);
+        }
+        pagesTextSelectedDiet.setText(selectedDietPageNumber + " / " + (int) totalSelectedDietPages + " pages");
+        if (selectedDiets.size() > 5) {
+            for (int i = 0; i < 5; i++) {
+                try {
+                    selectedDietResult.add(selectedDiets.get((i - 5) + selectedDietPageNumber * 5));
+                } catch (IndexOutOfBoundsException e) {
+                    break;
+                }
+            }
+        }  else {
+            selectedDietResult.addAll(selectedDiets);
+        }
+        selectedDietTable.setItems(selectedDietResult);
+    }
+
+    /**
+     * Handles the clicking to the next table page.
+     */
+    public void nextSelectedDietPage() {
+        if (selectedDietPageNumber < (int) totalSelectedDietPages) {
+            selectedDietPageNumber++;
+            calculateSelectedDietPages();
+        }
+    }
+
+    /**
+     * Handles the clicking to the previous page
+     */
+    public void previousSelectedDietPage() {
+        if (selectedDietPageNumber > 1) {
+            selectedDietPageNumber--;
+        }
+        calculateSelectedDietPages();
+    }
+
+    public void displayCurrentAllergies() {
+        try {
+            currentAllergies = JsonMapper.allergiesListMapper(ServerCommunication.filterAllergies(""));
+        } catch (Exception e) {
+            currentAllergies = new ArrayList<>();
+        }
+        calculateAllDietPages();
+    }
+
+    public void displayRemovedAllergies() {
+        selectedDiets = new ArrayList<>();
+        calculateSelectedDietPages();
+    }
+
+    public void addAllergyTableListeners() {
+        allDietTable.getSelectionModel().selectedItemProperty().addListener((obs) -> {
+            if (allDietTable.getSelectionModel().getSelectedItem() == null) {
+                return;
+            }
+            restaurantTable.getSelectionModel().clearSelection();
+            dishTable.getSelectionModel().clearSelection();
+            orderTable.getSelectionModel().clearSelection();
+            allergyTable.getSelectionModel().clearSelection();
+            selectedDietTable.getSelectionModel().clearSelection();
+            selectedDish = null;
+            selectedAllergy = allDietTable.getSelectionModel().getSelectedItem();
+
+            anchorPane.getChildren().remove(selectDietButton);
+            anchorPane.getChildren().remove(removeDietButton);
+            for (int i = 0; i < allDietResult.size(); i++) {
+                assert selectedAllergy != null;
+                if (allDietResult.get(i).getAllergyName().equals(selectedAllergy.getAllergyName())) {
+                    selectDietButton = new Button("Add");
+                    selectDietButton.setLayoutX(654);
+                    selectDietButton.setLayoutY(93 + (24  * (i + 1)));
+                    selectDietButton.setMinWidth(50);
+                    selectDietButton.setStyle("-fx-background-color:  #46cc00; -fx-font-size:10; -fx-text-fill: white; -fx-font:12 system;");
+                    selectDietButton.setMaxHeight(24);
+                    selectDietButton.setOnAction(event -> {
+                        selectDiet();
+                    });
+                    anchorPane.getChildren().add(selectDietButton);
+                }
+            }
+        });
+
+        selectedDietTable.getSelectionModel().selectedItemProperty().addListener((obs) -> {
+            if (selectedDietTable.getSelectionModel().getSelectedItem() == null) {
+                return;
+            }
+            restaurantTable.getSelectionModel().clearSelection();
+            dishTable.getSelectionModel().clearSelection();
+            orderTable.getSelectionModel().clearSelection();
+            allergyTable.getSelectionModel().clearSelection();
+            allDietTable.getSelectionModel().clearSelection();
+            selectedDish = null;
+            if (selectedDietTable.getSelectionModel().getSelectedItem() != null || !selectedDiets.contains(selectedAllergy) || !anchorPane.getChildren().contains(removeDietButton)) {
+                anchorPane.getChildren().remove(removeDietButton);
+                selectedAllergy = selectedDietTable.getSelectionModel().getSelectedItem();
+            }
+            for (int i = 0; i < selectedDietResult.size(); i++) {
+                assert selectedAllergy != null;
+                if (selectedDietResult.get(i).getAllergyName().equals(selectedAllergy.getAllergyName())) {
+                    removeDietButton = new Button("Remove");
+                    removeDietButton.setLayoutX(933);
+                    removeDietButton.setLayoutY(93 + (24  * (i + 1)));
+                    removeDietButton.setMinWidth(50);
+                    removeDietButton.setStyle("-fx-background-color:  #cc3c1f; -fx-font-size:10; -fx-text-fill: white; -fx-font:12 system;");
+                    removeDietButton.setMaxHeight(24);
+                    removeDietButton.setOnAction(event -> {
+                        addAllergy();
+                    });
+                    anchorPane.getChildren().add(removeDietButton);
+                }
+            }
+
+            anchorPane.getChildren().remove(selectDietButton);
+            for (int i = 0; i < allDietResult.size(); i++) {
+                assert selectedAllergy != null;
+                if (allDietResult.get(i).getAllergyName().equals(selectedAllergy.getAllergyName())) {
+                    selectDietButton = new Button("Add");
+                    selectDietButton.setLayoutX(654);
+                    selectDietButton.setLayoutY(93 + (24  * (i + 1)));
+                    selectDietButton.setMinWidth(50);
+                    selectDietButton.setStyle("-fx-background-color:  #46cc00; -fx-font-size:10; -fx-text-fill: white; -fx-font:12 system;");
+                    selectDietButton.setMaxHeight(24);
+                    selectDietButton.setOnAction(event -> {
+                        selectDiet();
+                    });
+                    anchorPane.getChildren().add(selectDietButton);
+                }
+            }
+        });
+    }
+
+    public void selectDiet() {
+        anchorPane.getChildren().remove(removeDietButton);
+        anchorPane.getChildren().remove(selectDietButton);
+        selectedDiets.add(selectedAllergy);
+        currentAllergies.remove(selectedAllergy);
+        calculateAllDietPages();
+        calculateSelectedDietPages();
+        applyDishFilters();
+    }
+
+    public void addAllergy() {
+        anchorPane.getChildren().remove(removeDietButton);
+        anchorPane.getChildren().remove(selectDietButton);
+        currentAllergies.add(selectedAllergy);
+        selectedDiets.remove(selectedAllergy);
+        calculateAllDietPages();
+        calculateSelectedDietPages();
+        applyDishFilters();
     }
 }

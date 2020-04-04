@@ -139,4 +139,37 @@
    </Button>
    <Text fx:id="pagesTextAllergy" layoutX="779.0" layoutY="612.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0 / pages" visible="false" />
    <Button fx:id="viewAllergyButton" layoutX="704.0" layoutY="268.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#viewAllergy" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: #00a6d6;" text="View Allergies" textFill="WHITE" />
+   <Button fx:id="filterDietsButton" layoutX="412.0" layoutY="153.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#filterDiets" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: #00a6d6;" text="Filter Diets" textFill="WHITE" />
+   <TableView fx:id="allDietTable" layoutX="704.0" layoutY="93.0" prefHeight="160.0" prefWidth="200.0" stylesheets="@table.css" visible="false">
+     <columns>
+       <TableColumn fx:id="colAllDiet" editable="false" prefWidth="198.0" sortable="false" text="All Diets" />
+     </columns>
+   </TableView>
+   <TableView fx:id="selectedDietTable" layoutX="992.0" layoutY="93.0" prefHeight="160.0" prefWidth="200.0" stylesheets="@table.css" visible="false">
+      <columns>
+         <TableColumn fx:id="colSelectedDiet" editable="false" prefWidth="198.0" sortable="false" text="Selected Diets" />
+      </columns>
+   </TableView>
+   <Button fx:id="nextPageAllDietButton" layoutX="840.0" layoutY="54.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#nextAllDietPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&gt;&gt;" textFill="WHITE" visible="false">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
+   <Button fx:id="previousPageAllDietButton" layoutX="731.0" layoutY="54.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#previousAllDietPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&lt;&lt;" textFill="WHITE" visible="false">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
+   <Text fx:id="pagesTextAllDiet" layoutX="774.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0 / pages" visible="false" />
+   <Button fx:id="nextPageSelectedDietButton" layoutX="1123.0" layoutY="54.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#nextSelectedDietPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&gt;&gt;" textFill="WHITE" visible="false">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
+   <Button fx:id="previousPageSelectedDietButton" layoutX="1014.0" layoutY="54.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#previousSelectedDietPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&lt;&lt;" textFill="WHITE" visible="false">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
+   <Text fx:id="pagesTextSelectedDiet" layoutX="1057.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0 / pages" visible="false" />
 </AnchorPane>
