@@ -325,6 +325,20 @@ public class UserService {
     }
 
     /**
+     * Retrieves a boolean value representing whether the user has the admin role.
+     * @param request = the Http request that calls this method.
+     * @return a boolean value representing whether the user has an admin role.
+     */
+    public boolean hasAdminRole(HttpServletRequest request) {
+        String token = request.getHeader(HEADER_STRING);
+        AppUser appUser = getAppUser(token, userRepository);
+        if (appUser == null) {
+            return false;
+        }
+        return appUser.getRoles().contains(roleRepository.findByName(ADMIN));
+    }
+
+    /**
      * Sends an email with the new password to the user.
      * @param email User's email
      * @return  error code corresponding to the actions taken

@@ -432,6 +432,11 @@ public class ServerCommunication {
         return communicateAndReturnBodyOfResponse(request);
     }
 
+    public static String deleteAllergyFromDish(int id, String allergyName) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/dish/removeAllergy?id=" + id + "&allergyName=" + URLEncoder.encode(allergyName, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
     /**
      * Queries the dishes on specific attributes.
      * @param query the query parameters.
@@ -632,12 +637,22 @@ public class ServerCommunication {
     }
 
     /**
+     * Deletes a restaurant from the database.
+     * @param id the id of the restaurant.
+     * @return response.body of the server.
+     */
+    public static String deleteRestaurant(int id) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant/delete/" + id)).DELETE().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
      * Adds restaurant hours to the database.
      * @param restaurantId restaurant id.
      * @param date day represented by int.
      * @param startTimeS start time in seconds.
      * @param endTimeS end time in seconds.
-     * @return the body of the response from the server.
+     * @return response.body of the server.
      */
     public static String addRestaurantHours(int restaurantId, long date, int startTimeS, int endTimeS) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant_hours/add?restaurantId=" + restaurantId + "&date=" + date + "&startTimeS=" + startTimeS + "&endTimeS=" + endTimeS)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
@@ -705,7 +720,7 @@ public class ServerCommunication {
      * Retrieves the restaurant owned by the user.
      * @return the body of the response from the server.
      */
-    public static String getOwnedRestaurant() {
+    public static String getOwnedRestaurants() {
         HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/restaurant/owned")).build();
         return communicateAndReturnBodyOfResponse(request);
     }
@@ -1005,6 +1020,11 @@ public class ServerCommunication {
      */
     public static String cancelBikeReservation(int id) {
         HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/bike_reservation/cancel/" + id)).build();
+        return communicateAndReturnErrorMessage(request);
+    }
+
+    public static String updateMenuName(int menuId, String name) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/menu/changeName?menuId=" + menuId + "&name=" + name)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnErrorMessage(request);
     }
 }

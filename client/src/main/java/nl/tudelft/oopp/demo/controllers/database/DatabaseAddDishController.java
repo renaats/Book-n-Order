@@ -40,7 +40,7 @@ public class DatabaseAddDishController implements Initializable {
         Menu menu = null;
         try {
             menu = JsonMapper.menuMapper(ServerCommunication.findMenuByRestaurant(
-                    JsonMapper.ownRestaurantMapper(ServerCommunication.getOwnedRestaurant()).get(0).getId()));
+                    JsonMapper.ownRestaurantMapper(ServerCommunication.getOwnedRestaurants()).get(0).getId()));
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }

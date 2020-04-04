@@ -102,4 +102,16 @@ public class MenuController {
     public Menu findRestaurant(@PathVariable(value = "restaurantId") int restaurantId) {
         return menuService.findRestaurant(restaurantId);
     }
+
+    /**
+     * Changes a menu's name
+     * @param menuId menu id
+     * @return Error code
+     */
+    @Secured(USER)
+    @PostMapping(path = "/changeName")
+    @ResponseBody
+    public int changeMenuName(@RequestParam String name, @RequestParam int menuId) {
+        return menuService.changeMenuName(menuId, name);
+    }
 }

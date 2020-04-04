@@ -4,7 +4,9 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
- * Manages the Allergy object that is retrieved from the server.
+ * Represents an allergy. Holds all necessary information about the allergy that is then stored in the database.
+ * Is uniquely identified by its id.
+ * Contains Dish as a foreign key.
  */
 public class Allergy {
     private int id;
@@ -45,7 +47,7 @@ public class Allergy {
     }
 
     public Set<Dish> getDish() {
-        return dishes;
+        return dish;
     }
 
     public String getAllergyName() {

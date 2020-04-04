@@ -170,6 +170,17 @@ public class UserController {
     }
 
     /**
+     * Retrieves a boolean value representing whether the user has the admin role.
+     * @param request = the Http request that calls this method.
+     * @return a boolean value representing whether the user has an admin role.
+     */
+    @Secured(USER)
+    @GetMapping(path = "/adminRole")
+    public boolean hasAdminRole(HttpServletRequest request) {
+        return userService.hasAdminRole(request);
+    }
+
+    /**
      * Retrieves a boolean value representing whether the user account is activated.
      * @param request = the Http request that calls this method.
      * @return a boolean value representing the status of the account's activation
