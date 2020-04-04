@@ -28,7 +28,7 @@ You can run the application from the IDE. To run the server side of the applicat
 
 For testing the GUI functionalities: upon running the 'MainApp', you will be shown a log in screen. To be able to log in, you must register. In order to register, you must have a TU Delft email account. Once you have an account, you can log in, and enter the application. For testing admin account functionalities, you must log in with an admin account. For details, please contact one of our group members.
 
-## How to contribute to it
+## How to contribute to the project
 Pull requests are always welcome. However, before making changes, please open an issue to discuss your suggested changes. 
 
 Update the tests accordingly.
