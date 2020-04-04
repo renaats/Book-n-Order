@@ -104,7 +104,7 @@ public class DatabaseEditRoomController implements Initializable {
         List<Room> rooms = null;
         try {
             rooms = new ArrayList<>(Objects.requireNonNull(JsonMapper.roomListMapper(RoomServerCommunication.getRooms())));
-        } catch (JsonProcessingException e) {
+        } catch (Exception e) {
             rooms = new ArrayList<>();
         }
         roomResult.clear();
