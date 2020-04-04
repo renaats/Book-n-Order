@@ -22,7 +22,7 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
  * Loads the correct content into the FXML objects that need to display server information and
- * controls all the user inputs made through the GUI in the "myPreviousTenBikeReservations.fxml" file
+ * controls all the user inputs made through the GUI in the "myPreviousTenBikeReservations.fxml" file.
  */
 public class MyPreviousBikeReservationsController implements Initializable {
 
@@ -49,7 +49,7 @@ public class MyPreviousBikeReservationsController implements Initializable {
     }
 
     /**
-     * Should load the previous reservations.
+     * Loads the previous bike reservations.
      */
     public void loadDataIntoTable() {
 
@@ -81,7 +81,7 @@ public class MyPreviousBikeReservationsController implements Initializable {
     }
 
     /**
-     * change the view to the main menu when the home icon is clicked.
+     * Change the view to the main menu when the home icon is clicked.
      * @throws IOException should never be thrown as the input is always the same
      */
     public void mainMenu() throws IOException {
@@ -89,7 +89,7 @@ public class MyPreviousBikeReservationsController implements Initializable {
     }
 
     /**
-     * changes view to the my Previous bookings view when the back arrow is clicked.
+     * Changes view to the my Previous bookings view when the back arrow is clicked.
      * @throws IOException should never be thrown as the input is always the same
      */
     public void goToMyCurrentReservations() throws IOException {
