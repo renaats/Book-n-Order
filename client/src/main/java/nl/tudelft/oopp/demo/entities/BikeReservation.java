@@ -1,5 +1,8 @@
 package nl.tudelft.oopp.demo.entities;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 import java.util.Date;
 import java.util.Objects;
 
@@ -97,6 +100,45 @@ public class BikeReservation {
     public Date getToTime() {
         return toTime;
     }
+
+    /**
+     * Makes the table list the building name instead of the building object
+     * @return String property, a property recognized by the tables.
+     */
+    public StringProperty getFromBuildingNameProperty() {
+        String name = getFromBuilding().getName();
+        return new SimpleStringProperty(name);
+    }
+
+    /**
+     * Makes the table list the building name instead of the building object
+     * @return String property, a property recognized by the tables.
+     */
+    public StringProperty getToBuildingNameProperty() {
+        String name = getToBuilding().getName();
+        return new SimpleStringProperty(name);
+    }
+
+    /**
+     * Makes the table list the from time instead of the from time object
+     * @return String property, a property recognized by the tables.
+     */
+    public StringProperty getFromTimeProperty() {
+        String day = "" + getFromTime().getDay();
+        String time = "" + getFromTime().getTime();
+        return new SimpleStringProperty("Day: " + day + " At " + time);
+    }
+
+    /**
+     * Makes the table list the from time instead of the from time object
+     * @return String property, a property recognized by the tables.
+     */
+    public StringProperty getToTimeProperty() {
+        String day = "" + getToTime().getDay();
+        String time = "" + getToTime().getTime();
+        return new SimpleStringProperty("Day: " + day + " At " + time);
+    }
+
 
     @Override
     public boolean equals(Object o) {
