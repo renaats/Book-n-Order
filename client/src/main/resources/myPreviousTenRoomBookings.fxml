@@ -52,7 +52,7 @@
                 <TableColumn fx:id="colToTime" prefWidth="235.33331298828125" text="To (Time)" />
             </columns>
         </TableView>
-        <Text layoutX="451.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Bike Reservations">
+        <Text layoutX="404.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Past Room Reservations">
             <font>
                 <Font size="33.0" />
             </font>
