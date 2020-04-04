@@ -35,8 +35,6 @@ public class BookRoomCalendarController implements Initializable {
 
     private int roomId;
     private RoomCalendarView calendarView;
-    URL location;
-    ResourceBundle resourceBundle;
     private boolean isThereAnotherEntry = false;
     private Entry<RoomReservation> storedEntry = null;
 
@@ -103,7 +101,7 @@ public class BookRoomCalendarController implements Initializable {
 
 
         if (e.isEntryAdded()) {
-            if (this.storedEntry != null || entry.getEndAsLocalDateTime().isBefore(LocalDateTime.now())) {
+            if (entry.getStartAsLocalDateTime().isBefore(LocalDateTime.now())) {
                 e.getEntry().removeFromCalendar();
                 fromTime.setText(convertToDate(storedEntry.getStartTime(), storedEntry.getStartDate()).toString());
                 untilTime.setText(convertToDate(storedEntry.getEndTime(), storedEntry.getEndDate()).toString());
@@ -168,8 +166,6 @@ public class BookRoomCalendarController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        this.location = location;
-        resourceBundle = resources;
         reserveSlot.disarm();
         showCal();
         disableFields();
