@@ -81,7 +81,7 @@ public class RoomReservation {
     }
 
     /**
-     * Makes the table list the from time instead of the from time object
+     * Makes the table list the name of the room instead of the room object.
      * @return String property, a property recognized by the tables.
      */
     public StringProperty getRoomNameProperty() {
@@ -90,7 +90,7 @@ public class RoomReservation {
     }
 
     /**
-     * Makes the table list the from time instead of the from time object
+     * Makes the table list the time in a readable form instead of the time object.
      * @return String property, a property recognized by the tables.
      */
     public StringProperty getToTimeProperty() {
@@ -100,7 +100,7 @@ public class RoomReservation {
     }
 
     /**
-     * Makes the table list the from time instead of the from time object
+     * Makes the table list the time in a readable form instead of the time object.
      * @return String property, a property recognized by the tables.
      */
     public StringProperty getFromTimeProperty() {
