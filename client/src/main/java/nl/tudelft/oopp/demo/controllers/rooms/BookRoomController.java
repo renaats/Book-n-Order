@@ -13,7 +13,12 @@ import javafx.fxml.FXML;
 
 import javafx.fxml.Initializable;
 
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
@@ -32,7 +37,6 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 public class BookRoomController implements Initializable {
 
     private final ObservableList<Room> roomResult = FXCollections.observableArrayList();
-    private final ObservableList<String> buildingNameList = FXCollections.observableArrayList();
     private final ObservableList<Building> buildingResult = FXCollections.observableArrayList();
 
     @FXML
@@ -116,7 +120,6 @@ public class BookRoomController implements Initializable {
 
         applyFilters();
         buildingTableSelectListener();
-//        loadBuildingChoiceBox();
     }
 
     /**
@@ -133,6 +136,9 @@ public class BookRoomController implements Initializable {
         calculateBuildingPages();
     }
 
+    /**
+     * Calculates the right amount of building pages for proper viewing of the building table
+     */
     public void calculateBuildingPages() {
         buildingResult.clear();
         totalBuildingPages = Math.ceil(buildings.size() / 7.0);
