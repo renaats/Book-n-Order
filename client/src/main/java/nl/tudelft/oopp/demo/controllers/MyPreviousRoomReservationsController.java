@@ -22,7 +22,7 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
  * Loads the correct content into the FXML objects that need to display server information and
- * controls all the user inputs made through the GUI in the "myPreviousTenRoomBookings.fxml" file
+ * controls all the user inputs made through the GUI in the "MyPreviousRoomBookings.fxml" file
  */
 public class MyPreviousRoomReservationsController implements Initializable {
 
@@ -82,7 +82,7 @@ public class MyPreviousRoomReservationsController implements Initializable {
      * @throws IOException should never be thrown as the input is always the same
      */
     public void mainMenu() throws IOException {
-        ApplicationDisplay.changeScene("/mainMenu.fxml");
+        ApplicationDisplay.changeScene("/MainMenu.fxml");
     }
 
     /**
@@ -90,6 +90,6 @@ public class MyPreviousRoomReservationsController implements Initializable {
      * @throws IOException should never be thrown as the input is always the same
      */
     public void goToMyCurrentReservations() throws IOException {
-        ApplicationDisplay.changeScene("/myPreviousBookings.fxml");
+        ApplicationDisplay.changeScene("/MyPreviousBookings.fxml");
     }
 }

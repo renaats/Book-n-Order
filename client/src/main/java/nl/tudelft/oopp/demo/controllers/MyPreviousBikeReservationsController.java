@@ -6,7 +6,7 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
  * Loads the correct content into the FXML objects that need to display server information and
- * controls all the user inputs made through the GUI in the "myPreviousTenBikeReservations.fxml" file
+ * controls all the user inputs made through the GUI in the "MyPreviousBikeReservations.fxml" file
  */
 public class MyPreviousBikeReservationsController {
     /**
@@ -14,14 +14,14 @@ public class MyPreviousBikeReservationsController {
      * @throws IOException should never throw an exception
      */
     public void mainMenu() throws IOException {
-        ApplicationDisplay.changeScene("/mainMenu.fxml");
+        ApplicationDisplay.changeScene("/MainMenu.fxml");
     }
 
     /**
-     * changes view to the my previous bookings view when the back arrow is clicked
+     * changes view to the user's previous bookings view when the back arrow is clicked
      * @throws IOException should never throw an exception
      */
     public void goToMyPreviousReservations() throws IOException {
-        ApplicationDisplay.changeScene("/myPreviousBookings.fxml");
+        ApplicationDisplay.changeScene("/MyPreviousBookings.fxml");
     }
 }
