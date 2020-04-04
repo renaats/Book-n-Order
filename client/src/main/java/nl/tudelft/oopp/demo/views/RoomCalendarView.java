@@ -1,8 +1,6 @@
 package nl.tudelft.oopp.demo.views;
 
 import com.calendarfx.model.Calendar;
-import com.calendarfx.model.Calendar.Style;
-import com.calendarfx.model.CalendarEvent;
 import com.calendarfx.model.CalendarSource;
 import com.calendarfx.model.Entry;
 import com.calendarfx.view.CalendarView;
@@ -19,8 +17,6 @@ import java.util.Objects;
 
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
-import nl.tudelft.oopp.demo.entities.AppUser;
-import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.entities.RoomReservation;
 
 public class RoomCalendarView extends CalendarView {
@@ -72,7 +68,7 @@ public class RoomCalendarView extends CalendarView {
 
         for (RoomReservation reservation : roomReservationList) {
             if (reservation != null) {
-                Entry<RoomReservation> bookedEntry = new Entry<>("Booking of Room: " + reservation.getRoom().getName());
+                Entry<RoomReservation> bookedEntry = new Entry<>("Reserved Slot");
                 LocalTime startTime = convertToLocalTime(reservation.getFromTime());
                 LocalTime endTime = convertToLocalTime(reservation.getToTime());
                 LocalDate date = convertToLocalDate(reservation.getFromTime());
@@ -80,6 +76,7 @@ public class RoomCalendarView extends CalendarView {
                 bookedEntry.setLocation(reservation.getRoom().getBuilding().getName());
                 bookedEntry.setInterval(date);
                 bookedEntry.setInterval(startTime, endTime);
+
                 unavailableSpots.addEntry(bookedEntry);
             }
         }

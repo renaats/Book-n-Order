@@ -417,7 +417,7 @@ class RoomReservationServiceTest {
     @Test
     public void testGetReservationForSpecificRoomWithoutReservations() {
         roomReservationService.add(request2, room2.getId(), 5000000, 10000000);
-        roomService.add("Ampere", "CSE", true, true, 1, 200, 200);
+        roomService.add("Ampere", "CSE", true, true, 1, 200, 200, "free");
         int id = roomService.all().get(0).getId();
         assertEquals(new ArrayList<>(), roomReservationService.findForRoom(id));
     }

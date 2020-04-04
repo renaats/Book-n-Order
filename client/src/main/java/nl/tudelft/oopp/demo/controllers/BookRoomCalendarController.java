@@ -7,12 +7,12 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -20,15 +20,13 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.SubScene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
-import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
-import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.entities.RoomReservation;
-import nl.tudelft.oopp.demo.entities.SelectedRoom;
+import nl.tudelft.oopp.demo.communication.SelectedRoom;
+import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.errors.ErrorMessages;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 import nl.tudelft.oopp.demo.views.RoomCalendarView;
@@ -39,6 +37,8 @@ public class BookRoomCalendarController implements Initializable {
     private RoomCalendarView calendarView;
     URL location;
     ResourceBundle resourceBundle;
+    private boolean isThereAnotherEntry = false;
+    private Entry<RoomReservation> entry;
 
     @FXML
     Button reserveSlot;
@@ -96,18 +96,24 @@ public class BookRoomCalendarController implements Initializable {
     }
 
     private void entryHandler(CalendarEvent e) {
+        Entry<RoomReservation> entry = (Entry<RoomReservation>) e.getEntry();
+        Date start = convertToDate(entry.getStartTime(), entry.getStartDate());
+        Date end = convertToDate(entry.getEndTime(), entry.getStartDate());
 
-        Entry<RoomReservation> event = (Entry<RoomReservation>) e.getEntry();
-
-        Date start = convertToDate(event.getStartTime(), event.getStartDate());
-        Date end = convertToDate(event.getEndTime(), event.getStartDate());
-
+//        if (this.isThereAnotherEntry) {
+//            e.getEntry().removeFromCalendar();
+//        }
         if (e.isEntryAdded()) {
+            entry.setTitle("New Booking");
             fromTime.setText(start.toString());
             untilTime.setText(end.toString());
+            reserveSlot.arm();
+            this.isThereAnotherEntry = true;
         } else if (e.isEntryRemoved()) {
             fromTime.setText("");
             untilTime.setText("");
+            reserveSlot.disarm();
+            this.isThereAnotherEntry = false;
         } else {
             fromTime.setText(start.toString());
             untilTime.setText(end.toString());
@@ -120,31 +126,27 @@ public class BookRoomCalendarController implements Initializable {
     public void addReservation() {
         String dateFrom = fromTime.getText();
         String dateUntil = untilTime.getText();
-        SimpleDateFormat format = new SimpleDateFormat("EE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
-        System.out.println(this.roomId);
-        try {
-            Date from = format.parse(dateFrom);
-            Date until = format.parse(dateUntil);
-            long milliseconds1 = from.getTime();
-            long milliseconds2 = until.getTime();
 
-            if (ServerCommunication.addRoomReservation(SelectedRoom.getSelectedRoom(), milliseconds1, milliseconds2)
-                    .equals(ErrorMessages.getErrorMessage(308))) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Error");
-                alert.setHeaderText(null);
-                alert.setContentText("Slot is already booked. Please make sure you do not overlay another reservation entry.");
-                alert.showAndWait();
-            } else {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Successfully Added!");
-                alert.setHeaderText(null);
-                alert.setContentText(ErrorMessages.getErrorMessage(200));
-                alert.showAndWait();
-                ApplicationDisplay.changeScene("/bookRoom.fxml");
+        if (dateFrom.equals("") || dateUntil.equals("")) {
+            CustomAlert.warningAlert("No slot selected");
+        } else {
+            SimpleDateFormat format = new SimpleDateFormat("EE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
+            try {
+                Date from = format.parse(dateFrom);
+                Date until = format.parse(dateUntil);
+                long milliseconds1 = from.getTime();
+                long milliseconds2 = until.getTime();
+
+                if (ServerCommunication.addRoomReservation(SelectedRoom.getSelectedRoom(), milliseconds1, milliseconds2)
+                        .equals(ErrorMessages.getErrorMessage(308))) {
+                    CustomAlert.warningAlert("Slot is already booked. Please make sure you do not overlay another reservation entry.");
+                } else {
+                    CustomAlert.informationAlert("Successfully Added!");
+                    ApplicationDisplay.changeScene("/bookRoom.fxml");
+                }
+            } catch (ParseException | IOException e) {
+                e.printStackTrace();
             }
-        } catch (ParseException | IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -159,30 +161,11 @@ public class BookRoomCalendarController implements Initializable {
         return Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant());
     }
 
-    /**
-     * Extracts time in Date object and converts it into LocalTime object.
-     * @param date = the full date of the slot.
-     * @return LocalTime object that holds the time component of date input.
-     */
-    public LocalTime convertToLocalTime(Date date) {
-        Instant instant1 = Instant.ofEpochMilli(date.getTime());
-        return LocalDateTime.ofInstant(instant1, ZoneId.systemDefault()).toLocalTime();
-    }
-
-    /**
-     * Extracts date in Date object and converts it into LocalDate object.
-     * @param date = the full date of the slot.
-     * @return LocalDate object that holds the date component of date input.
-     */
-    public LocalDate convertToLocalDate(Date date) {
-        Instant instant1 = Instant.ofEpochMilli(date.getTime());
-        return LocalDateTime.ofInstant(instant1, ZoneId.systemDefault()).toLocalDate();
-    }
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.location = location;
         resourceBundle = resources;
+        reserveSlot.disarm();
         showCal();
         disableFields();
     }

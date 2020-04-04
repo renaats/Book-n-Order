@@ -1,4 +1,4 @@
-package nl.tudelft.oopp.demo.entities;
+package nl.tudelft.oopp.demo.communication;
 
 public class SelectedRoom {
     private static int selectedRoom;
