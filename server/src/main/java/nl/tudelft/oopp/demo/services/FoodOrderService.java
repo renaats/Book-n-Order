@@ -297,7 +297,7 @@ public class FoodOrderService {
         }
         FoodOrder foodOrder = foodOrderRepository.findById(foodOrderId).get();
         foodOrder.setFeedback(feedback);
-        foodOrder.setFeedbackGiven(true);
+        foodOrder.setFeedbackHasBeenGiven(true);
         foodOrderRepository.save(foodOrder);
         return EXECUTED;
     }

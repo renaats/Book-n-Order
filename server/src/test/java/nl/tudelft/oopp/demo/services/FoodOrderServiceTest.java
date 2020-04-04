@@ -442,6 +442,6 @@ public class FoodOrderServiceTest {
     public void testAddFeedback() {
         foodOrderService.add(request, restaurant.getId(), deliverLocation.getId(), deliverTimeMilliseconds2);
         foodOrderService.addFeedback(foodOrderService.all().get(0).getId(), true);
-        assertTrue(foodOrderService.all().get(0).isFeedbackGiven());
+        assertTrue(foodOrderService.all().get(0).isFeedbackHasBeenGiven());
     }
 }

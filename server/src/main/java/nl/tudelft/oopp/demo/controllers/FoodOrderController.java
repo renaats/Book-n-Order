@@ -66,9 +66,9 @@ public class FoodOrderController {
 
 
     /**
-     * Updates a specified attribute for some food order.
+     * Adds feedback for some food order.
      * @param id = the id of the food order.
-     * @return String containing the result of your request.
+     * @return Int containing the result of your request.
      */
     @Secured({USER})
     @PostMapping(path = "/addFeedback")
