@@ -15,12 +15,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleButton;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -332,20 +327,22 @@ public class DatabaseRestaurantMenuController implements Initializable {
      */
     public void retrieveAllDishes() {
         dishList.clear();
-        List<Dish> dishes;
+        List<Dish> dishes = new ArrayList<>();
         try {
             dishes = new ArrayList<>(Objects.requireNonNull(
                     JsonMapper.dishListMapper(ServerCommunication.findDishesByMenu(Integer.parseInt(menuIdFieldRead.getText())))));
         } catch (Exception e) {
-            // Fakes the table having any entries, so the table shows up properly instead of "No contents".
-            dishes = new ArrayList<>();
-            dishes.add(null);
+            dishTableView.setPlaceholder(new Label(""));
         }
 
         totalPages = Math.ceil(dishes.size() / 7.0);
 
-        if (totalPages < pageNumber) {
-            pageNumber--;
+        if (dishes.size() == 0) {
+            pageNumber = 0;
+        }
+
+        if (pageNumber == 0 && dishes.size() != 0) {
+            pageNumber = 1;
         }
 
         pagesText.setText(pageNumber + " / " + (int) totalPages + " pages");
@@ -369,7 +366,7 @@ public class DatabaseRestaurantMenuController implements Initializable {
      */
     public void retrieveOwnedRestaurants() {
         ownedRestaurants.clear();
-        List<Restaurant> restaurants;
+        List<Restaurant> restaurants = new ArrayList<>();
         try {
             if (ServerCommunication.getAdminButtonPermission()) {
                 restaurants = new ArrayList<>(Objects.requireNonNull(
@@ -379,16 +376,17 @@ public class DatabaseRestaurantMenuController implements Initializable {
                         JsonMapper.restaurantListMapper(ServerCommunication.getOwnedRestaurants())));
             }
         } catch (Exception e) {
-            // Fakes the table having any entries, so the table shows up properly instead of "No contents".
-            e.printStackTrace();
-            restaurants = new ArrayList<>();
-            restaurants.add(null);
+            restaurantTable.setPlaceholder(new Label(""));
         }
 
         totalRestaurantPages = Math.ceil(restaurants.size() / 6.0);
 
-        if (totalRestaurantPages < restaurantPageNumber) {
-            restaurantPageNumber--;
+        if (restaurants.size() == 0) {
+            pageNumber = 0;
+        }
+
+        if (pageNumber == 0 && restaurants.size() != 0) {
+            pageNumber = 1;
         }
 
         restaurantPagesText.setText(restaurantPageNumber + " / " + (int) totalRestaurantPages + " pages");
@@ -412,23 +410,21 @@ public class DatabaseRestaurantMenuController implements Initializable {
      */
     public void retrieveAllAllergies() {
         allergySelectedList.clear();
-        List<Allergy> allergies;
+        List<Allergy> allergies = new ArrayList<>();
         try {
             allergies = new ArrayList<>(JsonMapper.allergiesListMapper(ServerCommunication.getAllergiesFromDish(Integer.parseInt(dishIdFieldRead.getText()))));
         } catch (Exception e) {
-            // Fakes the table having any entries, so the table shows up properly instead of "No contents".
-            allergies = new ArrayList<>();
-            allergies.add(null);
+            allergiesTableCurrent.setPlaceholder(new Label(""));
         }
 
         totalAllergySelectedPages = Math.ceil(allergies.size() / 5.0);
-        if (totalAllergySelectedPages < 1) {
-            totalAllergySelectedPages = 1;
-            allergySelectedPageNumber = 1;
+
+        if (allergies.size() == 0) {
+            allergySelectedPageNumber = 0;
         }
 
-        if (totalAllergySelectedPages < allergySelectedPageNumber) {
-            totalAllergySelectedPages--;
+        if (allergySelectedPageNumber == 0 && allergies.size() != 0) {
+            allergySelectedPageNumber = 1;
         }
 
         pagesTextAllergiesCurrent.setText(allergySelectedPageNumber + " / " + (int) totalAllergySelectedPages + " pages");
@@ -460,6 +456,12 @@ public class DatabaseRestaurantMenuController implements Initializable {
                 dishNameFieldRead.setText(dish.getName());
                 dishPriceFieldRead.setText(Double.toString((double) dish.getPrice() / 100));
                 dishDescriptionFieldRead.setText(dish.getDescription());
+                retrieveAllAllergies();
+            } else {
+                dishIdFieldRead.clear();
+                dishNameFieldRead.clear();
+                dishPriceFieldRead.clear();
+                dishDescriptionFieldRead.clear();
                 retrieveAllAllergies();
             }
 
@@ -621,6 +623,15 @@ public class DatabaseRestaurantMenuController implements Initializable {
                 anchorPane.getChildren().remove(allergyAddButton);
                 retrieveAllAllergies();
             }
+        }
+    }
+
+    public void deleteRestaurant() {
+        if (idFieldRead.getText().isEmpty()) {
+            CustomAlert.warningAlert("No selection detected.");
+        } else {
+            CustomAlert.informationAlert(ServerCommunication.deleteRestaurant(Integer.parseInt(idFieldRead.getText())));
+            retrieveOwnedRestaurants();
         }
     }
 }

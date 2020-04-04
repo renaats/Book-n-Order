@@ -582,6 +582,16 @@ public class ServerCommunication {
     }
 
     /**
+     * Deletes a restaurant from the database
+     * @param id the id of the restaurant
+     * @return response.body of the server
+     */
+    public static String deleteRestaurant(int id) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant/delete/" + id)).DELETE().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
      * Adds restaurant hours to the database
      * @param restaurantId restaurant id
      * @param date day represented by int
