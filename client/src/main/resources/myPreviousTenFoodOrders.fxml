@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" stylesheets="@Table.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.MyPreviousFoodReservationsController">
+<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/10.0.2-internal" fx:controller="nl.tudelft.oopp.demo.controllers.MyPreviousFoodReservationsController">
     <children>
         <ImageView fitHeight="720.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
             <image>
@@ -45,39 +45,16 @@
                 <Cursor fx:constant="HAND" />
             </cursor>
         </ImageView>
-        <TableView fx:id="table" layoutX="338.0" layoutY="193.0" prefHeight="408.0" prefWidth="906.0">
+        <TableView layoutX="327.0" layoutY="198.0" prefHeight="380.0" prefWidth="626.0">
             <columns>
-                <TableColumn fx:id="colRestaurant" prefWidth="285.6666564941406" text="Restaurant" />
-                <TableColumn fx:id="colDeliveryLoc" prefWidth="257.0" text="Delivery Location" />
-                <TableColumn fx:id="colDate" prefWidth="104.3333740234375" text="Date" />
-                <TableColumn fx:id="colTime" prefWidth="120.333251953125" text="Time" />
-                <TableColumn fx:id="colYourFeedback" prefWidth="137.6666259765625" text="Your Feedback" />
+                <TableColumn prefWidth="75.0" text="C1" />
+                <TableColumn prefWidth="75.0" text="C2" />
             </columns>
         </TableView>
-        <Text layoutX="572.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Previous Food Orders">
+        <Text layoutX="409.0" layoutY="146.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Current Food Reservations">
             <font>
                 <Font size="33.0" />
             </font>
         </Text>
-        <ImageView fitHeight="73.0" fitWidth="81.0" layoutX="151.0" layoutY="360.0" onMouseClicked="#thumbsUp" pickOnBounds="true" preserveRatio="true">
-            <image>
-                <Image url="@images/Thumbs_Up.png" />
-            </image>
-            <cursor>
-                <Cursor fx:constant="HAND" />
-            </cursor></ImageView>
-        <ImageView fitHeight="73.0" fitWidth="73.0" layoutX="151.0" layoutY="445.0" onMouseClicked="#thumbsDown" pickOnBounds="true" preserveRatio="true">
-            <image>
-                <Image url="@images/thumbs_Down.png" />
-            </image>
-            <cursor>
-                <Cursor fx:constant="HAND" />
-            </cursor>
-        </ImageView>
-      <Text layoutX="71.0" layoutY="321.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rate Your Experience&#10;With that order:" textAlignment="CENTER">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Text>
     </children>
 </AnchorPane>
