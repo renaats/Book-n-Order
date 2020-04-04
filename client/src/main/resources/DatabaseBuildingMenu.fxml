@@ -41,7 +41,7 @@
          <Font name="Calibri" size="11.0" />
       </font>
    </Text>
-   <TableView fx:id="table" layoutX="634.0" layoutY="179.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="386.0" prefWidth="562.0" stylesheets="@table.css">
+   <TableView fx:id="table" layoutX="634.0" layoutY="179.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="386.0" prefWidth="562.0" stylesheets="@Table.css">
       <columns>
          <TableColumn fx:id="colName" maxWidth="129.0" prefWidth="129.0" resizable="false" text="Name" />
          <TableColumn fx:id="colStreet" maxWidth="129.0" prefWidth="129.0" resizable="false" text="Street" />

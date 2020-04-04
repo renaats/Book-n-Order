@@ -86,15 +86,15 @@ public class MyPreviousFoodReservationsController implements Initializable {
      * @throws IOException should never be thrown as the input is always the same
      */
     public void mainMenu() throws IOException {
-        ApplicationDisplay.changeScene("/mainMenu.fxml");
+        ApplicationDisplay.changeScene("/MainMenu.fxml");
     }
 
     /**
-     * changes view to the my Previous bookings view when the back arrow is clicked
+     * changes view to the user's Previous bookings view when the back arrow is clicked
      * @throws IOException should never be thrown as the input is always the same
      */
     public void goToMyCurrentReservations() throws IOException {
-        ApplicationDisplay.changeScene("/myPreviousBookings.fxml");
+        ApplicationDisplay.changeScene("/MyPreviousBookings.fxml");
     }
 
     /**
