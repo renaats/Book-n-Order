@@ -21,6 +21,8 @@ public class Building {
 
     Set<Restaurant> restaurants = new HashSet<>();
 
+    Set<BuildingHours> buildingHours = new HashSet<>();
+
     /** Creates a new instance of Building.
      * @param name the name of the building.
      * @param street the street name of the building's address.
@@ -84,6 +86,15 @@ public class Building {
     public boolean hasRooms() {
         return rooms.size() > 0;
     }
+
+    public Set<BuildingHours> getBuildingHours() {
+        return buildingHours;
+    }
+
+    public void setBuildingHours(Set<BuildingHours> buildingHours) {
+        this.buildingHours = buildingHours;
+    }
+
 
     /**
      * Checks if this building has a room with the specified name.

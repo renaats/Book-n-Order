@@ -108,6 +108,14 @@ public class Building {
         return rooms.size() > 0;
     }
 
+    public Set<BuildingHours> getBuildingHours() {
+        return buildingHours;
+    }
+
+    public void setBuildingHours(Set<BuildingHours> buildingHours) {
+        this.buildingHours = buildingHours;
+    }
+
     /**
      * Checks if this building has a room with the specified name.
      * @param name = the name of the room.

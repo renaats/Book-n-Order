@@ -11,11 +11,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-import java.util.ResourceBundle;
+import java.util.*;
 
+import com.calendarfx.model.Interval;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -24,6 +22,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
+import nl.tudelft.oopp.demo.entities.Building;
+import nl.tudelft.oopp.demo.entities.BuildingHours;
 import nl.tudelft.oopp.demo.entities.RoomReservation;
 import nl.tudelft.oopp.demo.communication.SelectedRoom;
 import nl.tudelft.oopp.demo.errors.CustomAlert;
@@ -38,7 +38,7 @@ public class BookRoomCalendarController implements Initializable {
     URL location;
     ResourceBundle resourceBundle;
     private boolean isThereAnotherEntry = false;
-    private Entry<RoomReservation> entry;
+    private Entry<RoomReservation> storedEntry = null;
 
     @FXML
     Button reserveSlot;
@@ -64,11 +64,12 @@ public class BookRoomCalendarController implements Initializable {
      * Renders calendar view with all already existing reservations.
      */
     public void showCal() {
-        calendarView   = new RoomCalendarView(SelectedRoom.getSelectedRoom());
-        calendarContainer.setRoot(calendarView);
-        EventHandler<CalendarEvent> handler = e -> entryHandler(e);
+        calendarView   = new RoomCalendarView(SelectedRoom.getSelectedRoom().getId());
+        EventHandler<CalendarEvent> handler = this::entryHandler;
         calendarView.getCalendars().get(0).addEventHandler(handler);
         calendarView.loadRoomReservations();
+        calendarView.setShowToolBar(false);
+        calendarContainer.setRoot(calendarView);
     }
 
     /**
@@ -100,20 +101,24 @@ public class BookRoomCalendarController implements Initializable {
         Date start = convertToDate(entry.getStartTime(), entry.getStartDate());
         Date end = convertToDate(entry.getEndTime(), entry.getStartDate());
 
-//        if (this.isThereAnotherEntry) {
-//            e.getEntry().removeFromCalendar();
-//        }
+
         if (e.isEntryAdded()) {
-            entry.setTitle("New Booking");
-            fromTime.setText(start.toString());
-            untilTime.setText(end.toString());
-            reserveSlot.arm();
-            this.isThereAnotherEntry = true;
+            if (this.storedEntry != null || entry.getEndAsLocalDateTime().isBefore(LocalDateTime.now())) {
+                e.getEntry().removeFromCalendar();
+                fromTime.setText(convertToDate(storedEntry.getStartTime(), storedEntry.getStartDate()).toString());
+                untilTime.setText(convertToDate(storedEntry.getEndTime(), storedEntry.getEndDate()).toString());
+            } else {
+                entry.setTitle("New Booking");
+                fromTime.setText(start.toString());
+                untilTime.setText(end.toString());
+                reserveSlot.arm();
+                storedEntry = (Entry<RoomReservation>) e.getEntry();
+                this.isThereAnotherEntry = true;
+            }
         } else if (e.isEntryRemoved()) {
             fromTime.setText("");
             untilTime.setText("");
             reserveSlot.disarm();
-            this.isThereAnotherEntry = false;
         } else {
             fromTime.setText(start.toString());
             untilTime.setText(end.toString());
@@ -137,7 +142,7 @@ public class BookRoomCalendarController implements Initializable {
                 long milliseconds1 = from.getTime();
                 long milliseconds2 = until.getTime();
 
-                if (ServerCommunication.addRoomReservation(SelectedRoom.getSelectedRoom(), milliseconds1, milliseconds2)
+                if (ServerCommunication.addRoomReservation(SelectedRoom.getSelectedRoom().getId(), milliseconds1, milliseconds2)
                         .equals(ErrorMessages.getErrorMessage(308))) {
                     CustomAlert.warningAlert("Slot is already booked. Please make sure you do not overlay another reservation entry.");
                 } else {

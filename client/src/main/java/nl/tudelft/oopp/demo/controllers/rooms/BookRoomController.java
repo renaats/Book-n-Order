@@ -138,7 +138,7 @@ public class BookRoomController implements Initializable {
      * @throws IOException the input will always be the same, so it should never throw an IO exception
      */
     public void goToRoomCalendar() throws IOException {
-        SelectedRoom.setSelectedRoom(selectedRoom.getId());
+        SelectedRoom.setSelectedRoom(selectedRoom);
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/book_room_Calendar.fxml"));
         Parent root = loader.load();

@@ -1,13 +1,15 @@
 package nl.tudelft.oopp.demo.communication;
 
-public class SelectedRoom {
-    private static int selectedRoom;
+import nl.tudelft.oopp.demo.entities.Room;
 
-    public static void setSelectedRoom(int id) {
-        selectedRoom = id;
+public class SelectedRoom {
+    private static Room selectedRoom;
+
+    public static void setSelectedRoom(Room room) {
+        selectedRoom = room;
     }
 
-    public static int getSelectedRoom() {
+    public static Room getSelectedRoom() {
         return selectedRoom;
     }
 }
