@@ -204,7 +204,6 @@ public class JsonMapper {
      * @return Restaurant Object List
      */
     public static List<Restaurant> ownRestaurantMapper(String restaurantsJson) throws JsonProcessingException {
-        System.out.println(restaurantsJson);
         ObjectMapper mapper = new ObjectMapper();
 
         return mapper.readValue(restaurantsJson, new TypeReference<>(){});

@@ -250,6 +250,11 @@ public class OrderFoodChooseRestaurantController implements Initializable {
 
     // RESTAURANTS
 
+    /**
+     * Takes care of loading all restaurants in a specific building
+     * @param name restaurant name
+     * @param buildingName building name
+     */
     public void loadRestaurants(String name, String buildingName) {
         try {
             if (name != null) {
@@ -274,6 +279,9 @@ public class OrderFoodChooseRestaurantController implements Initializable {
         calculateRestaurantPages();
     }
 
+    /**
+     * Calculates how many restaurant pages there should be for browsing the table
+     */
     public void calculateRestaurantPages() {
         restaurantResult.clear();
         totalRestaurantPages = Math.ceil(restaurants.size() / 10.0);
@@ -318,6 +326,9 @@ public class OrderFoodChooseRestaurantController implements Initializable {
         calculateRestaurantPages();
     }
 
+    /**
+     * Handles applying of restaurant filters
+     */
     public void applyRestaurantFilters() {
         String buildingName = null;
         String name = null;
@@ -352,7 +363,7 @@ public class OrderFoodChooseRestaurantController implements Initializable {
             orders.clear();
             price = 0;
             calculateOrderPages();
-            totalCost.setText("Total Cost: " + new DecimalFormat("#0.00").format((double) Math.round(price * 100) / 10000) + "\u20AC");
+            totalCost.setText("Total Cost: " + new DecimalFormat("#0.00").format((double) Math.round(price * 100) / 10000) + "€");
             selectedDish = null;
             loadAllergies();
             selectedRestaurant = restaurantTable.getSelectionModel().getSelectedItem();
@@ -435,6 +446,9 @@ public class OrderFoodChooseRestaurantController implements Initializable {
         calculateDishPages();
     }
 
+    /**
+     * Calculates the amount of pages there should be to browswe the table properly
+     */
     public void calculateDishPages() {
         dishResult.clear();
         totalDishPages = Math.ceil(dishes.size() / 10.0);
@@ -479,6 +493,9 @@ public class OrderFoodChooseRestaurantController implements Initializable {
         calculateDishPages();
     }
 
+    /**
+     * Takes care of applying filters to a dish
+     */
     public void applyDishFilters() {
         try {
             String filterString = "menu:" + JsonMapper.menuMapper(ServerCommunication.findMenuByRestaurant(selectedRestaurant.getId())).getId();
@@ -499,6 +516,9 @@ public class OrderFoodChooseRestaurantController implements Initializable {
         }
     }
 
+    /**
+     * Takes care of displaying the description and image of a dish
+     */
     public void displayDescriptionAndImage() {
         try {
             anchorPane.getChildren().remove(description);
@@ -523,8 +543,9 @@ public class OrderFoodChooseRestaurantController implements Initializable {
         }
     }
 
-    // ORDERS
-
+    /**
+     * Takes care of adding a dish to an order
+     */
     public void addToOrder() {
         if (orders.contains(selectedDish)) {
             selectedDish.setAmount(selectedDish.getAmount() + 1);
@@ -533,10 +554,13 @@ public class OrderFoodChooseRestaurantController implements Initializable {
             orders.add(selectedDish);
         }
         price += selectedDish.getPrice();
-        totalCost.setText("Total Cost: " + new DecimalFormat("#0.00").format((double) Math.round(price * 100) / 10000) + "\u20AC");
+        totalCost.setText("Total Cost: " + new DecimalFormat("#0.00").format((double) Math.round(price * 100) / 10000) + "€");
         calculateOrderPages();
     }
 
+    /**
+     * Takes care of removing a dish from order
+     */
     public void removeFromOrder() {
         if (orders.contains(selectedDish)) {
             selectedDish.setAmount(selectedDish.getAmount() - 1);
@@ -548,10 +572,13 @@ public class OrderFoodChooseRestaurantController implements Initializable {
             anchorPane.getChildren().remove(removeButton);
             anchorPane.getChildren().remove(addButton);
         }
-        totalCost.setText("Total Cost: " + new DecimalFormat("#0.00").format((double) Math.round(price * 100) / 10000) + "\u20AC");
+        totalCost.setText("Total Cost: " + new DecimalFormat("#0.00").format((double) Math.round(price * 100) / 10000) + "€");
         calculateOrderPages();
     }
 
+    /**
+     * Calculates the amount of pages there should be to browswe the table properly
+     */
     public void calculateOrderPages() {
         orderResult.clear();
         totalOrderPages = Math.ceil(orders.size() / 10.0);
@@ -607,7 +634,9 @@ public class OrderFoodChooseRestaurantController implements Initializable {
             dishTable.getSelectionModel().clearSelection();
             restaurantTable.getSelectionModel().clearSelection();
             allergyTable.getSelectionModel().clearSelection();
-            if (orderTable.getSelectionModel().getSelectedItem() != null || !orders.contains(selectedDish) || !anchorPane.getChildren().contains(removeButton)) {
+            if (orderTable.getSelectionModel().getSelectedItem() != null
+                    || !orders.contains(selectedDish)
+                    || !anchorPane.getChildren().contains(removeButton)) {
                 anchorPane.getChildren().remove(removeButton);
                 selectedDish = orderTable.getSelectionModel().getSelectedItem();
             }
@@ -648,6 +677,9 @@ public class OrderFoodChooseRestaurantController implements Initializable {
 
     // ALLERGIES
 
+    /**
+     * Takes care of viewing the allergies
+     */
     public void viewAllergy() {
         imageView.setVisible(false);
         description.setVisible(false);
@@ -659,6 +691,9 @@ public class OrderFoodChooseRestaurantController implements Initializable {
         viewAllergyButton.setOnAction(event -> viewInfo());
     }
 
+    /**
+     * Takes care of viewing the information
+     */
     public void viewInfo() {
         imageView.setVisible(true);
         description.setVisible(true);
@@ -670,6 +705,9 @@ public class OrderFoodChooseRestaurantController implements Initializable {
         viewAllergyButton.setOnAction(event -> viewAllergy());
     }
 
+    /**
+     * Takes care of loading all allergies
+     */
     public void loadAllergies() {
         try {
             allergies = JsonMapper.allergiesListMapper(ServerCommunication.getAllergiesFromDish(selectedDish.getId()));
@@ -679,6 +717,9 @@ public class OrderFoodChooseRestaurantController implements Initializable {
         calculateAllergyPages();
     }
 
+    /**
+     * Takes care of calculating all table pages to navigate the table properly
+     */
     public void calculateAllergyPages() {
         allergyResult.clear();
         totalAllergyPages = Math.ceil(allergies.size() / 10.0);
@@ -723,6 +764,9 @@ public class OrderFoodChooseRestaurantController implements Initializable {
         calculateAllergyPages();
     }
 
+    /**
+     * Takes care of filtering all diets
+     */
     public void filterDiets() {
         if (addButton != null) {
             addButton.setVisible(false);
@@ -758,7 +802,9 @@ public class OrderFoodChooseRestaurantController implements Initializable {
         pagesTextSelectedDiet.setVisible(true);
     }
 
-
+    /**
+     * Takes care of viewing all dishes
+     */
     public void viewDishes() {
         if (addButton != null) {
             addButton.setVisible(true);
@@ -798,6 +844,9 @@ public class OrderFoodChooseRestaurantController implements Initializable {
         anchorPane.getChildren().remove(removeDietButton);
     }
 
+    /**
+     * Takes care of calculating all pages to navigate the diet table properly
+     */
     public void calculateAllDietPages() {
         allDietResult.clear();
         totalAllDietPages = Math.ceil(currentAllergies.size() / 5.0);
@@ -833,7 +882,7 @@ public class OrderFoodChooseRestaurantController implements Initializable {
     }
 
     /**
-     * Handles the clicking to the previous page
+     * Handles the clicking to the previous page.
      */
     public void previousAllDietPage() {
         if (allDietPageNumber > 1) {
@@ -842,6 +891,9 @@ public class OrderFoodChooseRestaurantController implements Initializable {
         calculateAllDietPages();
     }
 
+    /**
+     * Takes care of calculating the right amount of pages to navigate the selected diet table properly.
+     */
     public void calculateSelectedDietPages() {
         selectedDietResult.clear();
         totalSelectedDietPages = Math.ceil(selectedDiets.size() / 5.0);
@@ -877,7 +929,7 @@ public class OrderFoodChooseRestaurantController implements Initializable {
     }
 
     /**
-     * Handles the clicking to the previous page
+     * Handles the clicking to the previous page.
      */
     public void previousSelectedDietPage() {
         if (selectedDietPageNumber > 1) {
@@ -886,6 +938,9 @@ public class OrderFoodChooseRestaurantController implements Initializable {
         calculateSelectedDietPages();
     }
 
+    /**
+     * Takes care of loading all current allergies
+     */
     public void displayCurrentAllergies() {
         try {
             currentAllergies = JsonMapper.allergiesListMapper(ServerCommunication.filterAllergies(""));
@@ -895,11 +950,17 @@ public class OrderFoodChooseRestaurantController implements Initializable {
         calculateAllDietPages();
     }
 
+    /**
+     * Displays all removed allergies for filtering and selection
+     */
     public void displayRemovedAllergies() {
         selectedDiets = new ArrayList<>();
         calculateSelectedDietPages();
     }
 
+    /**
+     * Activates table listeners that check if a row is selected and adds a select button next to the table
+     */
     public void addAllergyTableListeners() {
         allDietTable.getSelectionModel().selectedItemProperty().addListener((obs) -> {
             if (allDietTable.getSelectionModel().getSelectedItem() == null) {
@@ -940,7 +1001,9 @@ public class OrderFoodChooseRestaurantController implements Initializable {
             orderTable.getSelectionModel().clearSelection();
             allergyTable.getSelectionModel().clearSelection();
             allDietTable.getSelectionModel().clearSelection();
-            if (selectedDietTable.getSelectionModel().getSelectedItem() != null || !selectedDiets.contains(selectedAllergy) || !anchorPane.getChildren().contains(removeDietButton)) {
+            if (selectedDietTable.getSelectionModel().getSelectedItem() != null
+                    || !selectedDiets.contains(selectedAllergy)
+                    || !anchorPane.getChildren().contains(removeDietButton)) {
                 anchorPane.getChildren().remove(removeDietButton);
                 selectedAllergy = selectedDietTable.getSelectionModel().getSelectedItem();
             }
@@ -979,6 +1042,9 @@ public class OrderFoodChooseRestaurantController implements Initializable {
         });
     }
 
+    /**
+     * Takes care of selecting a diet.
+     */
     public void selectDiet() {
         anchorPane.getChildren().remove(removeDietButton);
         anchorPane.getChildren().remove(selectDietButton);
@@ -989,6 +1055,9 @@ public class OrderFoodChooseRestaurantController implements Initializable {
         applyDishFilters();
     }
 
+    /**
+     * Takes care of adding allergies.
+     */
     public void addAllergy() {
         anchorPane.getChildren().remove(removeDietButton);
         anchorPane.getChildren().remove(selectDietButton);

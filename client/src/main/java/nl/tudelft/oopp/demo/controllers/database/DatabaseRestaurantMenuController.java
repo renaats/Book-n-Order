@@ -14,7 +14,13 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -23,10 +29,10 @@ import javafx.scene.text.Text;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.Allergy;
+import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Dish;
 import nl.tudelft.oopp.demo.entities.Menu;
 import nl.tudelft.oopp.demo.entities.Restaurant;
-import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
@@ -107,9 +113,15 @@ public class DatabaseRestaurantMenuController implements Initializable {
     @FXML
     private ImageView restaurantAddImage;
     @FXML
+    private ImageView menuAddImage;
+    @FXML
     private Text restaurantAddText;
     @FXML
+    private Text menuAddText;
+    @FXML
     private Button menuDeleteButton;
+    @FXML
+    private Button deleteRestaurantButton;
 
     private Button deleteButton;
     private Button deleteButtonAllergies;
@@ -134,10 +146,14 @@ public class DatabaseRestaurantMenuController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if (!ServerCommunication.getAdminButtonPermission()) {
+        if (!ServerCommunication.isUserAdmin()) {
             anchorPane.getChildren().remove(restaurantAddImage);
             anchorPane.getChildren().remove(restaurantAddText);
+            anchorPane.getChildren().remove(menuAddImage);
+            anchorPane.getChildren().remove(menuAddText);
             anchorPane.getChildren().remove(menuDeleteButton);
+            anchorPane.getChildren().remove(updateRestaurantButton);
+            anchorPane.getChildren().remove(deleteRestaurantButton);
             idFieldRead.setDisable(true);
             idFieldRead.setOpacity(0.75);
             nameFieldRead.setDisable(true);
@@ -179,7 +195,9 @@ public class DatabaseRestaurantMenuController implements Initializable {
         colOwnedRestaurants.setCellValueFactory(new PropertyValueFactory<>("name"));
 
         retrieveOwnedRestaurants();
-        tableSelectMethod();
+        dishTableSelectListener();
+        restautantTableSelectListener();
+        allergiesTableSelectListener();
     }
 
     /**
@@ -390,11 +408,11 @@ public class DatabaseRestaurantMenuController implements Initializable {
         totalRestaurantPages = Math.ceil(restaurants.size() / 6.0);
 
         if (restaurants.size() == 0) {
-            pageNumber = 0;
+            restaurantPageNumber = 0;
         }
 
         if (pageNumber == 0 && restaurants.size() != 0) {
-            pageNumber = 1;
+            restaurantPageNumber = 1;
         }
 
         restaurantPagesText.setText(restaurantPageNumber + " / " + (int) totalRestaurantPages + " pages");
@@ -452,9 +470,9 @@ public class DatabaseRestaurantMenuController implements Initializable {
     }
 
     /**
-     * Listener that checks if a row is selected, if so, fill the text fields.
+     * Listener that checks if a row is selected in the dish table, if so, fill the text fields.
      */
-    public void tableSelectMethod() {
+    public void dishTableSelectListener() {
         dishTableView.getSelectionModel().selectedItemProperty().addListener((obs) -> {
             anchorPane.getChildren().remove(deleteButton);
 
@@ -499,7 +517,12 @@ public class DatabaseRestaurantMenuController implements Initializable {
                 }
             }
         });
+    }
 
+    /**
+     * Listener that checks if a row is selected in the restaurant table, if so, fill the text fields.
+     */
+    public void restautantTableSelectListener() {
         restaurantTable.getSelectionModel().selectedItemProperty().addListener((obs) -> {
             final Restaurant restaurant = restaurantTable.getSelectionModel().getSelectedItem();
             if (restaurant != null) {
@@ -524,7 +547,12 @@ public class DatabaseRestaurantMenuController implements Initializable {
                 }
             }
         });
+    }
 
+    /**
+     * Listener that checks if a row is selected in the allergies table, if so, fill the text fields.
+     */
+    public void allergiesTableSelectListener() {
         allergiesTableCurrent.getSelectionModel().selectedItemProperty().addListener((obs) -> {
             anchorPane.getChildren().remove(deleteButtonAllergies);
 
@@ -546,7 +574,8 @@ public class DatabaseRestaurantMenuController implements Initializable {
                                 anchorPane.getChildren().remove(deleteButtonAllergies);
                             }
                         }
-                        String response = ServerCommunication.deleteAllergyFromDish(Integer.parseInt(dishIdFieldRead.getText()), allergy.getAllergyName());
+                        String response = ServerCommunication.deleteAllergyFromDish(
+                                Integer.parseInt(dishIdFieldRead.getText()), allergy.getAllergyName());
                         retrieveAllAllergies();
                         CustomAlert.informationAlert(response);
                     });
@@ -556,7 +585,10 @@ public class DatabaseRestaurantMenuController implements Initializable {
         });
     }
 
-    public void updateMenu() {
+    /**
+     * Takes care of updating the menu name.
+     */
+    public void updateMenuName() {
         String name = menuNameFieldRead.getText();
         if (name.equals("")) {
             CustomAlert.warningAlert("Please provide a name.");
@@ -564,6 +596,9 @@ public class DatabaseRestaurantMenuController implements Initializable {
         CustomAlert.informationAlert(ServerCommunication.updateMenuName(Integer.parseInt(menuIdFieldRead.getText()), name));
     }
 
+    /**
+     * Takes care of updating all values for restaurant.
+     */
     public void updateRestaurant() {
         int buildingId;
         boolean buildingFound = false;
@@ -619,6 +654,9 @@ public class DatabaseRestaurantMenuController implements Initializable {
         CustomAlert.informationAlert("Successfully executed.");
     }
 
+    /**
+     * Takes care of deleting a menu.
+     */
     public void deleteMenu() {
         int menuId = Integer.parseInt(menuIdFieldRead.getText());
         if (ServerCommunication.findDishesByMenu(menuId).equals("Not found.")) {
@@ -630,6 +668,9 @@ public class DatabaseRestaurantMenuController implements Initializable {
         }
     }
 
+    /**
+     * Takes care of all the update values for a dish.
+     */
     public void updateDish() {
         int dishId = Integer.parseInt(dishIdFieldRead.getText());
         try {
@@ -672,16 +713,24 @@ public class DatabaseRestaurantMenuController implements Initializable {
         retrieveAllDishes();
     }
 
+    /**
+     * Shows the add allergy button and text fields for adding an allergy to a dish.
+     */
     public void showAddAllergies() {
         try {
             anchorPane.getChildren().add(allergyImage);
             anchorPane.getChildren().add(allergyNameTextField);
             anchorPane.getChildren().add(allergyAddButton);
         } catch (IllegalArgumentException e) {
-            // Intentionally left blank
+            anchorPane.getChildren().remove(allergyImage);
+            anchorPane.getChildren().remove(allergyNameTextField);
+            anchorPane.getChildren().remove(allergyAddButton);
         }
     }
 
+    /**
+     * Takes care of adding an allergy to a dish.
+     */
     public void addAllergy() {
         if (allergyNameTextField.getText().isEmpty()) {
             CustomAlert.warningAlert("Please provide an allergy name.");
@@ -699,6 +748,9 @@ public class DatabaseRestaurantMenuController implements Initializable {
         }
     }
 
+    /**
+     * Takes care of deleting a restaurant.
+     */
     public void deleteRestaurant() {
         if (idFieldRead.getText().isEmpty()) {
             CustomAlert.warningAlert("No selection detected.");

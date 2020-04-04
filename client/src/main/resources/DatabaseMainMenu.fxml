@@ -72,22 +72,22 @@
             <Font name="Calibri" size="11.0" />
          </font>
       </Text>
-      <Button layoutX="540.0" layoutY="646.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#databaseRooms" style="-fx-background-color: #00a6d6;" text="Edit  Rooms" textFill="WHITE">
+      <Button layoutX="540.0" layoutY="646.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#databaseRooms" style="-fx-background-color: #00a6d6;" text="Edit Rooms" textFill="WHITE">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button layoutX="540.0" layoutY="407.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#databaseBuildings" style="-fx-background-color: #00a6d6;" text="Edit  Buildings" textFill="WHITE">
+      <Button layoutX="540.0" layoutY="407.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#databaseBuildings" style="-fx-background-color: #00a6d6;" text="Edit Buildings" textFill="WHITE">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button layoutX="860.0" layoutY="510.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#databaseBikes" style="-fx-background-color: #00a6d6;" text="Edit  Bikes" textFill="WHITE">
+      <Button layoutX="860.0" layoutY="510.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#databaseBikes" style="-fx-background-color: #00a6d6;" text="Edit Bikes" textFill="WHITE">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button layoutX="228.0" layoutY="510.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#databaseRestaurants" style="-fx-background-color: #00a6d6;" text="Edit  Food Places" textFill="WHITE">
+      <Button layoutX="228.0" layoutY="510.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#databaseRestaurants" style="-fx-background-color: #00a6d6;" text="Edit Restaurants" textFill="WHITE">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>

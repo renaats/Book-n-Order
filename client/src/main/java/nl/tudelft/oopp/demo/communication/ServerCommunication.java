@@ -405,8 +405,8 @@ public class ServerCommunication {
      * @return the body of the response from the server.
      */
     public static String addDish(String name, int menuId, int price, String description, String image) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/dish/add?name=" + URLEncoder.encode(name, StandardCharsets.UTF_8) + "&menuId=" + menuId + "&price=" + price + "&description=" + description + "&image=" + image)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        return communicateAndReturnBodyOfResponse(request);
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/dish/add?name=" + URLEncoder.encode(name, StandardCharsets.UTF_8) + "&menuId=" + menuId + "&price=" + price + "&description=" + description + "&image=" + URLEncoder.encode(image, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnErrorMessage(request);
     }
 
     /**
@@ -417,7 +417,7 @@ public class ServerCommunication {
      */
     public static String addAllergyToDish(String name, int id) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/dish/addAllergy?id=" + id + "&allergyName=" + URLEncoder.encode(name, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        return communicateAndReturnBodyOfResponse(request);
+        return communicateAndReturnErrorMessage(request);
     }
 
     /**
@@ -429,12 +429,12 @@ public class ServerCommunication {
      */
     public static String updateDish(int id, String attribute, String value) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/dish/update?id=" + id + "&attribute=" + URLEncoder.encode(attribute, StandardCharsets.UTF_8) + "&value=" + URLEncoder.encode(value, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        return communicateAndReturnBodyOfResponse(request);
+        return communicateAndReturnErrorMessage(request);
     }
 
     public static String deleteAllergyFromDish(int id, String allergyName) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/dish/removeAllergy?id=" + id + "&allergyName=" + URLEncoder.encode(allergyName, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        return communicateAndReturnBodyOfResponse(request);
+        return communicateAndReturnErrorMessage(request);
     }
 
     /**
@@ -454,7 +454,7 @@ public class ServerCommunication {
      */
     public static String deleteDish(int dishId) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/dish/delete/" + dishId)).DELETE().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        return communicateAndReturnBodyOfResponse(request);
+        return communicateAndReturnErrorMessage(request);
     }
 
     /**
@@ -523,7 +523,7 @@ public class ServerCommunication {
      */
     public static String updateFoodOrder(int id, String attribute, String value) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/food_order/update?id=" + id + "&attribute=" + URLEncoder.encode(attribute, StandardCharsets.UTF_8) + "&value=" + URLEncoder.encode(value, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        return communicateAndReturnBodyOfResponse(request);
+        return communicateAndReturnErrorMessage(request);
     }
 
     /**
@@ -534,7 +534,7 @@ public class ServerCommunication {
      */
     public static String addDishToFoodOrder(int id, String name, int amount) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/food_order/addDishOrder?id=" + id + "&name=" + URLEncoder.encode(name, StandardCharsets.UTF_8) + "&amount=" + amount)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        return communicateAndReturnBodyOfResponse(request);
+        return communicateAndReturnErrorMessage(request);
     }
 
     /**
@@ -544,7 +544,7 @@ public class ServerCommunication {
      */
     public static String deleteFoodOrder(int id) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/food_order/delete/" + id)).DELETE().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        return communicateAndReturnBodyOfResponse(request);
+        return communicateAndReturnErrorMessage(request);
     }
 
     /**
@@ -601,7 +601,7 @@ public class ServerCommunication {
      */
     public static String addMenu(String name, int restaurantId) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/menu/add?name=" + URLEncoder.encode(name, StandardCharsets.UTF_8) + "&restaurantId=" + restaurantId)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        return communicateAndReturnBodyOfResponse(request);
+        return communicateAndReturnErrorMessage(request);
     }
 
     /**
@@ -633,7 +633,7 @@ public class ServerCommunication {
      */
     public static String deleteMenu(int id) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/menu/delete/" + id)).DELETE().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        return communicateAndReturnBodyOfResponse(request);
+        return communicateAndReturnErrorMessage(request);
     }
 
     /**
@@ -643,7 +643,7 @@ public class ServerCommunication {
      */
     public static String deleteRestaurant(int id) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant/delete/" + id)).DELETE().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        return communicateAndReturnBodyOfResponse(request);
+        return communicateAndReturnErrorMessage(request);
     }
 
     /**
@@ -656,7 +656,7 @@ public class ServerCommunication {
      */
     public static String addRestaurantHours(int restaurantId, long date, int startTimeS, int endTimeS) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant_hours/add?restaurantId=" + restaurantId + "&date=" + date + "&startTimeS=" + startTimeS + "&endTimeS=" + endTimeS)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        return communicateAndReturnBodyOfResponse(request);
+        return communicateAndReturnErrorMessage(request);
     }
 
     /**
@@ -792,6 +792,22 @@ public class ServerCommunication {
      */
     public static boolean getAdminButtonPermission() {
         HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/user/admin")).build();
+        HttpResponse<String> response;
+        try {
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return response.body().contains("true");
+    }
+
+    /**
+     * Retrieves a boolean value from the server, false = no admin access, true = admin access.
+     * @return a boolean representing whether the account should see the admin button.
+     */
+    public static boolean isUserAdmin() {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/user/adminRole")).build();
         HttpResponse<String> response;
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
