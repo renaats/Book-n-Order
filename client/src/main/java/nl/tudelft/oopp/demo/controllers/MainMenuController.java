@@ -2,6 +2,8 @@ package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
 
+import nl.tudelft.oopp.demo.communication.JsonMapper;
+import nl.tudelft.oopp.demo.user.UserInformation;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 import nl.tudelft.oopp.demo.views.PersonalCalendarView;
 
