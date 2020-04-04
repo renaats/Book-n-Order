@@ -6,6 +6,7 @@ import static nl.tudelft.oopp.demo.config.Constants.ADDED;
 import static nl.tudelft.oopp.demo.config.Constants.ADDED_CONFIRM_EMAIL;
 import static nl.tudelft.oopp.demo.config.Constants.ADMIN;
 import static nl.tudelft.oopp.demo.config.Constants.ATTRIBUTE_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.BUILDING_ADMIN;
 import static nl.tudelft.oopp.demo.config.Constants.DUPLICATE_EMAIL;
 import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
 import static nl.tudelft.oopp.demo.config.Constants.INVALID_CONFIRMATION;
@@ -381,6 +382,24 @@ class UserServiceTest {
         assertFalse(userService.isAdmin(request));
         userService.addRole(appUser.getEmail(), ADMIN);
         assertTrue(userService.isAdmin(request));
+    }
+
+    /**
+     * Tests the hasAdminRole request for some user with and without the required role.
+     */
+    @Test
+    public void testHasAdminRole() {
+        userService.add(appUser.getEmail(), appUser.getPassword(), appUser.getName(), appUser.getSurname(), appUser.getFaculty());
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        String token = JWT.create()
+                .withSubject(appUser.getEmail())
+                .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                .sign(HMAC512(SECRET.getBytes()));
+        request.addHeader(HEADER_STRING, token);
+        userService.addRole(appUser.getEmail(), BUILDING_ADMIN);
+        assertFalse(userService.hasAdminRole(request));
+        userService.addRole(appUser.getEmail(), ADMIN);
+        assertTrue(userService.hasAdminRole(request));
     }
 
     /**
