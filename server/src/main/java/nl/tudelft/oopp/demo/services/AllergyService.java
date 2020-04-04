@@ -1,19 +1,14 @@
 package nl.tudelft.oopp.demo.services;
 
 import static nl.tudelft.oopp.demo.config.Constants.ADDED;
-import static nl.tudelft.oopp.demo.config.Constants.ALLERGY_NOT_FOUND;
-import static nl.tudelft.oopp.demo.config.Constants.ATTRIBUTE_NOT_FOUND;
-import static nl.tudelft.oopp.demo.config.Constants.DISH_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
 import static nl.tudelft.oopp.demo.config.Constants.ID_NOT_FOUND;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import nl.tudelft.oopp.demo.entities.Allergy;
-import nl.tudelft.oopp.demo.entities.Dish;
 import nl.tudelft.oopp.demo.repositories.AllergyRepository;
 import nl.tudelft.oopp.demo.repositories.DishRepository;
 import nl.tudelft.oopp.demo.specifications.AllergySpecificationsBuilder;

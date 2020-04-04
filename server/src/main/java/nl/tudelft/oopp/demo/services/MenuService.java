@@ -1,11 +1,8 @@
 package nl.tudelft.oopp.demo.services;
 
 import static nl.tudelft.oopp.demo.config.Constants.ADDED;
-import static nl.tudelft.oopp.demo.config.Constants.ATTRIBUTE_NOT_FOUND;
-import static nl.tudelft.oopp.demo.config.Constants.DISH_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
 import static nl.tudelft.oopp.demo.config.Constants.MENU_NOT_FOUND;
-import static nl.tudelft.oopp.demo.config.Constants.RESERVATION_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.RESTAURANT_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.WRONG_CREDENTIALS;
 
@@ -14,8 +11,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional;
 
-import nl.tudelft.oopp.demo.entities.Allergy;
-import nl.tudelft.oopp.demo.entities.Dish;
 import nl.tudelft.oopp.demo.entities.Menu;
 import nl.tudelft.oopp.demo.entities.Restaurant;
 import nl.tudelft.oopp.demo.repositories.DishRepository;
