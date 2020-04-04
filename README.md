@@ -1,7 +1,4 @@
-﻿# Starting template
-
-This README will need to contain a description of your project, how to run it, how to set up the development environment, and who worked on it.
-
+﻿# Book 'n Order
 
 ## Description of project
 Book 'n Order is a Java desktop application that allows students and employees of TU Delft to book study rooms, rent bikes, and purchase food, all in one location.
@@ -18,11 +15,19 @@ Book 'n Order is a Java desktop application that allows students and employees o
 | ![]() | Renāts Jurševskis | r.jursevskis@student.tudelft.nl |
 
 ## How to run it
+To run the server side of the application, run the 'DatabaseApplication'. To run the client side, run the 'MainApp'.
 
+For users: Download the desktop application. Upon running the application, you will be shown a log in screen. To be able to log in, you must register. In order to register you must have a TU Delft email account. Once you have an account, you can log in, and enter the application.
+
+## Setting up the development environment
+Clone the repository via GitLab. 
+
+Make sure to download Git LFS.
 
 ## How to contribute to it
 Pull requests are always welcome. However, before making changes, please open an issue to discuss your suggested changes.
 
-Please update the tests accordingly.
+Update the tests accordingly.
 
 ## Copyright / License
+Copyright 2020
