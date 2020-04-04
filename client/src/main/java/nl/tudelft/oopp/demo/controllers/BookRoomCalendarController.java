@@ -35,7 +35,7 @@ public class BookRoomCalendarController implements Initializable {
 
     private int roomId;
     private RoomCalendarView calendarView;
-    private boolean isThereAnotherEntry = false;
+    private Boolean isThereAnotherEntry = null;
     private Entry<RoomReservation> storedEntry = null;
 
     @FXML
@@ -101,7 +101,7 @@ public class BookRoomCalendarController implements Initializable {
 
 
         if (e.isEntryAdded()) {
-            if (entry.getStartAsLocalDateTime().isBefore(LocalDateTime.now())) {
+            if (isThereAnotherEntry!= null && (isThereAnotherEntry || entry.getStartAsLocalDateTime().isBefore(LocalDateTime.now()))) {
                 e.getEntry().removeFromCalendar();
                 fromTime.setText(convertToDate(storedEntry.getStartTime(), storedEntry.getStartDate()).toString());
                 untilTime.setText(convertToDate(storedEntry.getEndTime(), storedEntry.getEndDate()).toString());
@@ -111,12 +111,13 @@ public class BookRoomCalendarController implements Initializable {
                 untilTime.setText(end.toString());
                 reserveSlot.arm();
                 storedEntry = (Entry<RoomReservation>) e.getEntry();
-                this.isThereAnotherEntry = true;
+                isThereAnotherEntry = true;
             }
         } else if (e.isEntryRemoved()) {
             fromTime.setText("");
             untilTime.setText("");
             reserveSlot.disarm();
+            this.isThereAnotherEntry = false;
         } else {
             fromTime.setText(start.toString());
             untilTime.setText(end.toString());
