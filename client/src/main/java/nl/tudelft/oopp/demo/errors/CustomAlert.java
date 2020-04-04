@@ -17,7 +17,7 @@ public class CustomAlert {
         alert.setContentText(alertMessage);
         alert.initStyle(StageStyle.UNDECORATED);
         DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.getStylesheets().add(CustomAlert.class.getResource("/alertInformation.css").toExternalForm());
+        dialogPane.getStylesheets().add(CustomAlert.class.getResource("/AlertInformation.css").toExternalForm());
         alert.showAndWait();
     }
 
@@ -32,7 +32,7 @@ public class CustomAlert {
         alert.setContentText(alertMessage);
         alert.initStyle(StageStyle.UNDECORATED);
         DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.getStylesheets().add(CustomAlert.class.getResource("/alertWarning.css").toExternalForm());
+        dialogPane.getStylesheets().add(CustomAlert.class.getResource("/AlertWarning.css").toExternalForm());
         alert.showAndWait();
     }
 
@@ -47,7 +47,7 @@ public class CustomAlert {
         alert.setContentText(alertMessage);
         alert.initStyle(StageStyle.UNDECORATED);
         DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.getStylesheets().add(CustomAlert.class.getResource("/alertError.css").toExternalForm());
+        dialogPane.getStylesheets().add(CustomAlert.class.getResource("/AlertError.css").toExternalForm());
         alert.showAndWait();
     }
 }
