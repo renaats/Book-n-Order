@@ -5,7 +5,6 @@ import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 
-import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.communication.UserServerCommunication;
 import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;

@@ -3,7 +3,6 @@ package nl.tudelft.oopp.demo.controllers;
 import java.io.IOException;
 
 import nl.tudelft.oopp.demo.communication.JsonMapper;
-import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.user.UserInformation;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 import nl.tudelft.oopp.demo.views.PersonalCalendarView;
@@ -26,7 +25,6 @@ public class MainMenuController {
      * Handles the clicking of the Profile icon.
      * @throws IOException when it fails
      */
-
     public void goToProfile() throws IOException {
         ApplicationDisplay.changeScene("/myAccountScene.fxml");
     }
@@ -39,4 +37,11 @@ public class MainMenuController {
         ApplicationDisplay.changeScene("/MainMenuReservations.fxml");
     }
 
+    /**
+     * Handles the clicking of the Contact info button.
+     * @throws IOException when it fails
+     */
+    public void goToContactInformation() throws IOException {
+        ApplicationDisplay.changeScene("/ContactInformation.fxml");
+    }
 }

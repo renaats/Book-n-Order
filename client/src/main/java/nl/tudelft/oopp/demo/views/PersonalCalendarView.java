@@ -75,8 +75,8 @@ public class PersonalCalendarView extends CalendarView {
         List<FoodOrder> foodOrderList;
 
         try {
-            foodOrderList = new ArrayList<>(Objects.requireNonNull(JsonMapper
-                    .foodOrdersListMapper(DishServerCommunication.getAllActiveFoodOrders())));
+            foodOrderList = new ArrayList<>(Objects.requireNonNull(
+                    JsonMapper.foodOrdersListMapper(DishServerCommunication.getAllActiveFoodOrders())));
         } catch (NullPointerException e) {
             foodOrderList = new ArrayList<>();
             foodOrderList.add(null);
