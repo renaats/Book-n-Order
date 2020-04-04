@@ -103,7 +103,7 @@ public class BuildingServerCommunication {
     }
 
     /**
-     * Retrieve specific building hours for specific day in the database by id.
+     * Retrieve specific building hours for a specific day in the database by id.
      * @param buildingId = building id, which is parsed from a text field.
      * @param day = the date in milliseconds or the day of the week for regular hours represented by long.
      * @return the body of the response.

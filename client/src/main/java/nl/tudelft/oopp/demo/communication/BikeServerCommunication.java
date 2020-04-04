@@ -78,7 +78,7 @@ public class BikeServerCommunication {
     }
 
     /**
-     * Gets all bike reservations from the database
+     * Gets all bike reservations from the database.
      * @return the body of the response from the server.
      */
     public static String getAllBikeReservations() {

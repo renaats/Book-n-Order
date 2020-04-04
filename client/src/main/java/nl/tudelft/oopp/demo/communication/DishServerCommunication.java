@@ -229,6 +229,7 @@ public class DishServerCommunication {
 
     /**
      * Finds all past food orders for the user that sends the request.
+     * Finds all previous food orders for the user that sends the request.
      * @return the body of the response from the server.
      */
     public static String getAllPreviousFoodOrders() {
@@ -318,7 +319,6 @@ public class DishServerCommunication {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/menu/add?name=" + URLEncoder.encode(name, StandardCharsets.UTF_8) + "&restaurantId=" + restaurantId)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnErrorMessage(request);
     }
-
 
     /**
      * Removes restaurant hours from the database.
