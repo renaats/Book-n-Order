@@ -13,7 +13,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.text.Text;
 
 import nl.tudelft.oopp.demo.communication.DishServerCommunication;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
@@ -28,11 +27,7 @@ public class MyPreviousFoodReservationsController implements Initializable {
     private final ObservableList<FoodOrder> foodOrderResult = FXCollections.observableArrayList();
 
     @FXML
-    private Text pagesText;
-    @FXML
     private TableView<FoodOrder> table;
-    @FXML
-    private TableColumn<FoodOrder, String> colId;
     @FXML
     private TableColumn<FoodOrder, String> colRestaurant;
     @FXML
@@ -41,8 +36,6 @@ public class MyPreviousFoodReservationsController implements Initializable {
     private TableColumn<FoodOrder, Integer> colDate;
     @FXML
     private TableColumn<FoodOrder,Long> colTime;
-    @FXML
-    public TableColumn<FoodOrder,Integer> colFeedback;
     @FXML
     public TableColumn<FoodOrder,Boolean> colYourFeedback;
 
