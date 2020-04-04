@@ -114,7 +114,7 @@ public class MyPreviousFoodReservationsController implements Initializable {
                 CustomAlert.informationAlert(response1);
                 return;
             }
-            if (!(response2.equals("Successfully added!"))) {
+            if (!(response2.equals("Successfully executed."))) {
                 CustomAlert.informationAlert(response1);
                 return;
             }
@@ -143,7 +143,7 @@ public class MyPreviousFoodReservationsController implements Initializable {
                 CustomAlert.informationAlert(response1);
                 return;
             }
-            if (!(response2.equals("Successfully added!"))) {
+            if (!(response2.equals("Successfully executed."))) {
                 CustomAlert.informationAlert(response1);
                 return;
             }
