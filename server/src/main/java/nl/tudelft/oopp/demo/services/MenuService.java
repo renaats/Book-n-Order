@@ -106,4 +106,21 @@ public class MenuService {
     public Menu findRestaurant(int restaurantId) {
         return menuRepository.findByRestaurantId(restaurantId);
     }
+
+    /**
+     * Updates the name of a menu
+     * @param menuId menu id
+     * @param name the new name for a menu
+     * @return error code
+     */
+    public int changeMenuName(int menuId, String name) {
+        if (menuRepository.findById(menuId).isEmpty()) {
+            return MENU_NOT_FOUND;
+        }
+        Menu menu = menuRepository.findById(menuId).get();
+        menu.setName(name);
+        menuRepository.save(menu);
+        return EXECUTED;
+
+    }
 }

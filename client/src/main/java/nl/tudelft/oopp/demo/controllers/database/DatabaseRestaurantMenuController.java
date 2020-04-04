@@ -23,13 +23,10 @@ import javafx.scene.text.Text;
 
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
-import nl.tudelft.oopp.demo.entities.Allergy;
-import nl.tudelft.oopp.demo.entities.Dish;
+import nl.tudelft.oopp.demo.entities.*;
 import nl.tudelft.oopp.demo.entities.Menu;
-import nl.tudelft.oopp.demo.entities.Restaurant;
 import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
-
 
 
 public class DatabaseRestaurantMenuController implements Initializable {
@@ -43,13 +40,15 @@ public class DatabaseRestaurantMenuController implements Initializable {
     @FXML
     private Button nextPageButtonAllergiesSelected;
     @FXML
+    private Button updateRestaurantButton;
+    @FXML
     private Button restaurantPreviousPageButton;
     @FXML
     private Button restaurantNextPageButton;
     @FXML
-    private Button deleteButton;
-    @FXML
     private TextField idFieldRead;
+    @FXML
+    private TextField ownerTextField;
     @FXML
     private TextField nameFieldRead;
     @FXML
@@ -66,6 +65,8 @@ public class DatabaseRestaurantMenuController implements Initializable {
     private TextField dishPriceFieldRead;
     @FXML
     private TextField allergyNameTextField;
+    @FXML
+    private TextField dishImageTextField;
     @FXML
     private ImageView allergyImage;
     @FXML
@@ -109,6 +110,9 @@ public class DatabaseRestaurantMenuController implements Initializable {
     @FXML
     private Button menuDeleteButton;
 
+    private Button deleteButton;
+    private Button deleteButtonAllergies;
+
     private Boolean allergiesTableFlag;
     private Boolean restaurantTableFlag;
     private int pageNumber;
@@ -143,6 +147,8 @@ public class DatabaseRestaurantMenuController implements Initializable {
             menuIdFieldRead.setOpacity(0.75);
             dishIdFieldRead.setDisable(true);
             dishIdFieldRead.setOpacity(0.75);
+            ownerTextField.setDisable(true);
+            ownerTextField.setOpacity(0.75);
         }
 
         allergiesTableFlag = true;
@@ -236,6 +242,7 @@ public class DatabaseRestaurantMenuController implements Initializable {
             anchorPane.getChildren().remove(allergyImage);
             anchorPane.getChildren().remove(allergyNameTextField);
             anchorPane.getChildren().remove(allergyAddButton);
+            anchorPane.getChildren().remove(deleteButtonAllergies);
         }
         allergiesTableFlag = !allergiesTableFlag;
     }
@@ -456,12 +463,14 @@ public class DatabaseRestaurantMenuController implements Initializable {
                 dishNameFieldRead.setText(dish.getName());
                 dishPriceFieldRead.setText(Double.toString((double) dish.getPrice() / 100));
                 dishDescriptionFieldRead.setText(dish.getDescription());
+                dishImageTextField.setText(dish.getImage());
                 retrieveAllAllergies();
             } else {
                 dishIdFieldRead.clear();
                 dishNameFieldRead.clear();
                 dishPriceFieldRead.clear();
                 dishDescriptionFieldRead.clear();
+                dishImageTextField.clear();
                 retrieveAllAllergies();
             }
 
@@ -496,6 +505,7 @@ public class DatabaseRestaurantMenuController implements Initializable {
                 idFieldRead.setText(Integer.toString(restaurant.getId()));
                 nameFieldRead.setText(restaurant.getName());
                 locationFieldRead.setText(restaurant.getBuilding().getName());
+                ownerTextField.setText(restaurant.getEmail());
                 Menu menu = null;
                 try {
                     menu = JsonMapper.menuMapper(ServerCommunication.findMenuByRestaurant(restaurant.getId()));
@@ -515,31 +525,31 @@ public class DatabaseRestaurantMenuController implements Initializable {
         });
 
         allergiesTableCurrent.getSelectionModel().selectedItemProperty().addListener((obs) -> {
-            anchorPane.getChildren().remove(deleteButton);
+            anchorPane.getChildren().remove(deleteButtonAllergies);
 
             final Allergy allergy = allergiesTableCurrent.getSelectionModel().getSelectedItem();
 
             for (int i = 0; i < allergySelectedList.size(); i++) {
                 assert allergy != null;
-                if (allergySelectedList.get(i).getAllergyName() == (allergy.getAllergyName())) {
-                    deleteButton = new Button("Delete");
-                    deleteButton.setLayoutX(980);
-                    deleteButton.setLayoutY(462 + (24 * (i + 1)));
-                    deleteButton.setMinWidth(60);
-                    deleteButton.setStyle("-fx-background-color:  #CC5653; -fx-font-size:10; -fx-text-fill: white");
-                    deleteButton.setMinHeight(20);
-                    deleteButton.setOnAction(event -> {
+                if (allergySelectedList.get(i).getAllergyName().equals(allergy.getAllergyName())) {
+                    deleteButtonAllergies = new Button("Delete");
+                    deleteButtonAllergies.setLayoutX(980);
+                    deleteButtonAllergies.setLayoutY(462 + (24 * (i + 1)));
+                    deleteButtonAllergies.setMinWidth(60);
+                    deleteButtonAllergies.setStyle("-fx-background-color:  #CC5653; -fx-font-size:10; -fx-text-fill: white");
+                    deleteButtonAllergies.setMinHeight(20);
+                    deleteButtonAllergies.setOnAction(event -> {
                         for (int i1 = 0; i1 < allergySelectedList.size(); i1++) {
                             if (allergySelectedList.get(i1).getAllergyName().equals(allergy.getAllergyName())) {
                                 allergySelectedList.remove(allergySelectedList.get(i1));
-                                anchorPane.getChildren().remove(deleteButton);
+                                anchorPane.getChildren().remove(deleteButtonAllergies);
                             }
                         }
-//                        String response = ServerCommunication.deleteDish(allergy.getId());
+                        String response = ServerCommunication.deleteAllergyFromDish(Integer.parseInt(dishIdFieldRead.getText()), allergy.getAllergyName());
                         retrieveAllAllergies();
-//                        CustomAlert.informationAlert(response);
+                        CustomAlert.informationAlert(response);
                     });
-                    anchorPane.getChildren().add(deleteButton);
+                    anchorPane.getChildren().add(deleteButtonAllergies);
                 }
             }
         });
@@ -550,7 +560,62 @@ public class DatabaseRestaurantMenuController implements Initializable {
         if (name.equals("")) {
             CustomAlert.warningAlert("Please provide a name.");
         }
-//        ServerCommunication.updateMenuName(Integer.parseInt(menuIdFieldRead.getText()), name);
+        CustomAlert.informationAlert(ServerCommunication.updateMenuName(Integer.parseInt(menuIdFieldRead.getText()), name));
+    }
+
+    public void updateRestaurant() {
+        int buildingId;
+        boolean buildingFound = false;
+
+        if (idFieldRead.getText().isEmpty()) {
+            CustomAlert.warningAlert("No selection detected.");
+            return;
+        }
+
+        try {
+            buildingId = Integer.parseInt(locationFieldRead.getText());
+        } catch (NumberFormatException e) {
+            Building building = null;
+            if (!locationFieldRead.getText().equals("")) {
+                building = JsonMapper.buildingMapper(ServerCommunication.findBuildingByName(locationFieldRead.getText()));
+            } else {
+                CustomAlert.warningAlert("Please provide a building.");
+                return;
+            }
+            if (building == null) {
+                CustomAlert.errorAlert("Building not found");
+                return;
+            } else {
+                buildingId = building.getId();
+                buildingFound = true;
+            }
+        }
+
+        if (buildingFound) {
+            if (nameFieldRead.getText().isEmpty()) {
+                CustomAlert.warningAlert("Please provide a name.");
+                return;
+            } else {
+                ServerCommunication.updateRestaurant(Integer.parseInt(idFieldRead.getText()), "name", nameFieldRead.getText());
+            }
+            if (locationFieldRead.getText().isEmpty()) {
+                CustomAlert.warningAlert("Please provide a building.");
+                return;
+            } else {
+                ServerCommunication.updateRestaurant(Integer.parseInt(idFieldRead.getText()), "building", Integer.toString(buildingId));
+            }
+            if (ownerTextField.getText().isEmpty()) {
+                CustomAlert.warningAlert("Please provide a owner.");
+                return;
+            } else {
+                ServerCommunication.updateRestaurant(Integer.parseInt(idFieldRead.getText()), "email", ownerTextField.getText());
+            }
+        } else {
+            CustomAlert.warningAlert("Building not found.");
+            return;
+        }
+        retrieveOwnedRestaurants();
+        CustomAlert.informationAlert("Successfully executed.");
     }
 
     public void deleteMenu() {
@@ -588,6 +653,9 @@ public class DatabaseRestaurantMenuController implements Initializable {
                     return;
                 }
             }
+
+            ServerCommunication.updateDish(dishId, "image", dishImageTextField.getText());
+
             if (dishDescriptionFieldRead.getText().isEmpty()) {
                 CustomAlert.warningAlert("Please provide a description.");
                 return;
@@ -604,9 +672,13 @@ public class DatabaseRestaurantMenuController implements Initializable {
     }
 
     public void showAddAllergies() {
-        anchorPane.getChildren().add(allergyImage);
-        anchorPane.getChildren().add(allergyNameTextField);
-        anchorPane.getChildren().add(allergyAddButton);
+        try {
+            anchorPane.getChildren().add(allergyImage);
+            anchorPane.getChildren().add(allergyNameTextField);
+            anchorPane.getChildren().add(allergyAddButton);
+        } catch (IllegalArgumentException e) {
+            // Intentionally left blank
+        }
     }
 
     public void addAllergy() {

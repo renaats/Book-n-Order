@@ -411,6 +411,11 @@ public class ServerCommunication {
         return communicateAndReturnBodyOfResponse(request);
     }
 
+    public static String deleteAllergyFromDish(int id, String allergyName) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/dish/removeAllergy?id=" + id + "&allergyName=" + URLEncoder.encode(allergyName, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
     /**
      * Queries the dishes on specific attributes.
      * @param query the query parameters
@@ -939,5 +944,10 @@ public class ServerCommunication {
     public static String getAllFutureBikeReservations() {
         HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/bike_reservation/future")).build();
         return communicateAndReturnBodyOfResponse(request);
+    }
+
+    public static String updateMenuName(int menuId, String name) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/menu/changeName?menuId=" + menuId + "&name=" + name)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnErrorMessage(request);
     }
 }
