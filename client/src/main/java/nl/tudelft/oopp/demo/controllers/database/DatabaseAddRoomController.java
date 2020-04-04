@@ -1,6 +1,5 @@
 package nl.tudelft.oopp.demo.controllers.database;
 
-import java.awt.image.BandCombineOp;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;

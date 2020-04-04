@@ -13,12 +13,7 @@ import javafx.fxml.FXML;
 
 import javafx.fxml.Initializable;
 
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
@@ -35,8 +30,10 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
  * controls all the user inputs made through the GUI in the "bookRoom.fxml" file
  */
 public class BookRoomController implements Initializable {
+
     private final ObservableList<Room> roomResult = FXCollections.observableArrayList();
     private final ObservableList<String> buildingNameList = FXCollections.observableArrayList();
+    private final ObservableList<Building> buildingResult = FXCollections.observableArrayList();
 
     @FXML
     private CheckBox screen;
@@ -53,7 +50,11 @@ public class BookRoomController implements Initializable {
     @FXML
     private TextField name;
     @FXML
+    private TextField buildingNameTextField;
+    @FXML
     private Text pagesText;
+    @FXML
+    private Text buildingPagesText;
     @FXML
     private TableView<Room> table;
     @FXML
@@ -69,15 +70,28 @@ public class BookRoomController implements Initializable {
     @FXML
     private TableColumn<Room, Integer> colPlugs;
     @FXML
-    private ChoiceBox<String> buildingChoiceBox;
+    private TableColumn<Building, Integer> colBuildingId;
+    @FXML
+    private TableColumn<Building, String> colBuildingName;
     @FXML
     private AnchorPane anchorPane;
+    @FXML
+    private Button nextBuildingPageButton;
+    @FXML
+    private Button previousBuildingPageButton;
+    @FXML
+    private TableView<Building> buildingTable;
+    @FXML
+    private ToggleButton buildingsTableToggle;
 
     private int pageNumber;
     private double totalPages;
-
+    private boolean buildingsTableToggleFlag;
+    private int buildingPageNumber;
+    private double totalBuildingPages;
     private Room selectedRoom;
     private List<Room> rooms;
+    private List<Building> buildings;
     private Button reserveButton;
 
     @Override
@@ -89,16 +103,63 @@ public class BookRoomController implements Initializable {
         colCapacity.setCellValueFactory(new PropertyValueFactory<>("capacity"));
         colPlugs.setCellValueFactory(new PropertyValueFactory<>("plugs"));
 
-        if (pageNumber == 0) {
-            pageNumber++;
-        }
+        colBuildingName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colBuildingId.setCellValueFactory(new PropertyValueFactory<>("id"));
+
+        anchorPane.getChildren().remove(buildingTable);
+        anchorPane.getChildren().remove(previousBuildingPageButton);
+        anchorPane.getChildren().remove(nextBuildingPageButton);
+        anchorPane.getChildren().remove(buildingPagesText);
+
+        pageNumber = 1;
+        buildingPageNumber = 1;
 
         applyFilters();
-        loadBuildingChoiceBox();
+        buildingTableSelectListener();
+//        loadBuildingChoiceBox();
+    }
+
+    /**
+     * Handles clicking the list button.
+     */
+    public void retrieveAllBuildings() {
+        try {
+            buildings = new ArrayList<>(Objects.requireNonNull(JsonMapper.buildingListMapper(ServerCommunication.getBuildings())));
+        } catch (Exception e) {
+            // Fakes the table having any entries, so the table shows up properly instead of "No contents".
+            buildings = new ArrayList<>();
+            buildings.add(null);
+        }
+        calculateBuildingPages();
+    }
+
+    public void calculateBuildingPages() {
+        buildingResult.clear();
+        totalBuildingPages = Math.ceil(buildings.size() / 7.0);
+
+        if (totalBuildingPages < buildingPageNumber) {
+            pageNumber--;
+        }
+
+        buildingPagesText.setText(buildingPageNumber + " / " + (int) totalBuildingPages + " pages");
+
+        if (buildings.size() > 7) {
+            for (int i = 0; i < 7; i++) {
+                try {
+                    buildingResult.add(buildings.get((i - 7) + buildingPageNumber * 7));
+                } catch (IndexOutOfBoundsException e) {
+                    break;
+                }
+            }
+        } else {
+            buildingResult.addAll(buildings);
+        }
+        buildingTable.setItems(buildingResult);
     }
 
     /**
      * Changes to mainMenuReservations.fxml.
+     *
      * @throws IOException input will not be wrong, hence we throw.
      */
     public void mainMenu() throws IOException {
@@ -107,6 +168,7 @@ public class BookRoomController implements Initializable {
 
     /**
      * Changes to myPreviousBookings.fxml.
+     *
      * @throws IOException input will not be wrong, hence we throw.
      */
     public void myPreviousBookings() throws IOException {
@@ -115,6 +177,7 @@ public class BookRoomController implements Initializable {
 
     /**
      * Changes to myCurrentBookings.fxml.
+     *
      * @throws IOException input will not be wrong, hence we throw.
      */
     public void myCurrentBookings() throws IOException {
@@ -123,6 +186,7 @@ public class BookRoomController implements Initializable {
 
     /**
      * Return to the reservations menu when the back arrow button is clicked.
+     *
      * @throws IOException the input will always be the same, so it should never throw an IO exception
      */
     public void goToMainMenuReservations() throws IOException {
@@ -131,6 +195,7 @@ public class BookRoomController implements Initializable {
 
     /**
      * Go to the room confirmation screen when the reserve button is clicked.
+     *
      * @throws IOException the input will always be the same, so it should never throw an IO exception
      */
     public void goToRoomConfirmation() throws IOException {
@@ -149,7 +214,7 @@ public class BookRoomController implements Initializable {
             rooms.add(null);
         }
         calculatePages();
-        tableSelectMethod();
+        roomTableSelectListener();
     }
 
     /**
@@ -173,7 +238,7 @@ public class BookRoomController implements Initializable {
                     break;
                 }
             }
-        }  else {
+        } else {
             roomResult.addAll(rooms);
         }
         table.setItems(roomResult);
@@ -200,9 +265,51 @@ public class BookRoomController implements Initializable {
     }
 
     /**
+     * Handles the clicking to the next table page.
+     */
+    public void nextBuildingPage() {
+        if (buildingPageNumber < (int) totalBuildingPages) {
+            buildingPageNumber++;
+            calculateBuildingPages();
+        }
+    }
+
+    /**
+     * Handles the clicking to the previous page
+     */
+    public void previousBuildingPage() {
+        if (buildingPageNumber > 1) {
+            buildingPageNumber--;
+        }
+        calculateBuildingPages();
+    }
+
+    /**
+     * Makes sure the button toggles from false to true every time.
+     */
+    @FXML
+    private void toggleClickBuildingsTable() {
+        if (buildingsTableToggleFlag) {
+            buildingsTableToggle.setText("Show");
+            anchorPane.getChildren().remove(buildingTable);
+            anchorPane.getChildren().remove(previousBuildingPageButton);
+            anchorPane.getChildren().remove(nextBuildingPageButton);
+            anchorPane.getChildren().remove(buildingPagesText);
+        } else {
+            buildingsTableToggle.setText(" Hide");
+            anchorPane.getChildren().add(buildingTable);
+            anchorPane.getChildren().add(previousBuildingPageButton);
+            anchorPane.getChildren().add(nextBuildingPageButton);
+            anchorPane.getChildren().add(buildingPagesText);
+            retrieveAllBuildings();
+        }
+        buildingsTableToggleFlag = !buildingsTableToggleFlag;
+    }
+
+    /**
      * Listener that checks if a row is selected, if so, fill the text fields.
      */
-    public void tableSelectMethod() {
+    public void roomTableSelectListener() {
         table.getSelectionModel().selectedItemProperty().addListener((obs) -> {
             anchorPane.getChildren().remove(reserveButton);
 
@@ -212,8 +319,8 @@ public class BookRoomController implements Initializable {
                 assert room != null;
                 if (roomResult.get(i).getId().equals(room.getId())) {
                     reserveButton = new Button("Reserve");
-                    reserveButton.setLayoutX(1180);
-                    reserveButton.setLayoutY(186 + (24  * (i + 1)));
+                    reserveButton.setLayoutX(1190);
+                    reserveButton.setLayoutY(168 + (24 * (i + 1)));
                     reserveButton.setMinWidth(75);
                     reserveButton.setStyle("-fx-background-color:  #46cc00; -fx-font-size:10; -fx-text-fill: white; -fx-font:12 system;");
                     reserveButton.setMaxHeight(24);
@@ -231,14 +338,26 @@ public class BookRoomController implements Initializable {
     }
 
     /**
+     * Listener that checks if a row is selected, if so, fill the text fields.
+     */
+    public void buildingTableSelectListener() {
+        buildingTable.getSelectionModel().selectedItemProperty().addListener((obs) -> {
+            final Building building = buildingTable.getSelectionModel().getSelectedItem();
+            if (building != null) {
+                buildingNameTextField.setText(building.getName());
+            }
+        });
+    }
+
+    /**
      * Applies the selected filters
      */
     public void applyFilters() {
         String filterString = "";
-        if (buildingChoiceBox.getValue() != null) {
+        if (!buildingNameTextField.getText().isEmpty()) {
             try {
                 filterString += ",building:";
-                filterString += JsonMapper.buildingMapper(ServerCommunication.findBuildingByName(buildingChoiceBox.getValue())).getId();
+                filterString += JsonMapper.buildingMapper(ServerCommunication.findBuildingByName(buildingNameTextField.getText())).getId();
             } catch (Exception e) {
                 CustomAlert.errorAlert("Building not found!");
             }
@@ -268,21 +387,5 @@ public class BookRoomController implements Initializable {
             filterString = ",";
         }
         listRoomsButtonClicked(filterString.substring(1));
-    }
-
-    /**
-     * Takes care of the options for the buildingChoiceBox in the GUI
-     */
-    private void loadBuildingChoiceBox() {
-        buildingNameList.clear();
-        try {
-            for (Building building: Objects.requireNonNull(JsonMapper.buildingListMapper(ServerCommunication.getBuildings()))) {
-                buildingNameList.add(building.getName());
-            }
-            buildingNameList.add(null);
-        } catch (Exception e) {
-            buildingNameList.add(null);
-        }
-        buildingChoiceBox.getItems().addAll(buildingNameList);
     }
 }
