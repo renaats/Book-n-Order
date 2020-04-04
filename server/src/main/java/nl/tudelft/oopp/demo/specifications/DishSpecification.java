@@ -5,12 +5,10 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Dish;
-
 import nl.tudelft.oopp.demo.entities.Menu;
-import nl.tudelft.oopp.demo.services.BuildingService;
 import nl.tudelft.oopp.demo.services.MenuService;
+
 import org.springframework.data.jpa.domain.Specification;
 
 /**

@@ -18,7 +18,6 @@ import javafx.scene.control.DatePicker;
 import nl.tudelft.oopp.demo.communication.BikeServerCommunication;
 import nl.tudelft.oopp.demo.communication.BuildingServerCommunication;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
-import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.errors.ErrorMessages;

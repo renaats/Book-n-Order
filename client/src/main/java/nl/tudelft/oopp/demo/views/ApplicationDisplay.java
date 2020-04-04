@@ -9,7 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.util.Callback;
+
 import nl.tudelft.oopp.demo.controllers.restaurants.OrderFoodController;
 import nl.tudelft.oopp.demo.entities.Dish;
 import nl.tudelft.oopp.demo.entities.Restaurant;
@@ -73,9 +73,8 @@ public class ApplicationDisplay extends Application {
     /**
      * Opens a new window to show the personal calendar.
      * @param cal = personal calendar of the user
-     * @throws IOException = All input will be valid, no need to check, this we throw.
      */
-    public static void showCalendarScene(PersonalCalendarView cal) throws IOException {
+    public static void showCalendarScene(PersonalCalendarView cal) {
         Stage stage = new Stage();
         stage.setScene(new Scene(cal));
         stage.setWidth(1000);

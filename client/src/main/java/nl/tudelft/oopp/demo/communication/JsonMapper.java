@@ -105,7 +105,7 @@ public class JsonMapper {
      * @param roomsJson a JSON string representing a list.
      * @return A list filled with object room
      */
-    public static List<Room> roomListMapper(String roomsJson) throws JsonProcessingException {
+    public static List<Room> roomListMapper(String roomsJson) {
 
         ObjectMapper mapper = new ObjectMapper();
 
@@ -188,7 +188,7 @@ public class JsonMapper {
      * @param restaurantsJson a JSON string representing a list.
      * @return A list filled with object Restaurant
      */
-    public static List<Restaurant> restaurantListMapper(String restaurantsJson) throws JsonProcessingException {
+    public static List<Restaurant> restaurantListMapper(String restaurantsJson) {
 
         ObjectMapper mapper = new ObjectMapper();
 

@@ -6,7 +6,6 @@ import static nl.tudelft.oopp.demo.config.Constants.ADDED;
 import static nl.tudelft.oopp.demo.config.Constants.ATTRIBUTE_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.BUILDING_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
-import static nl.tudelft.oopp.demo.config.Constants.ID_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.RESERVATION_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.WRONG_USER;

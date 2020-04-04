@@ -6,7 +6,6 @@ import static nl.tudelft.oopp.demo.communication.ServerCommunication.communicate
 import java.net.URI;
 import java.net.URLEncoder;
 import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 
 import nl.tudelft.oopp.demo.authentication.AuthenticationKey;

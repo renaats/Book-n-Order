@@ -10,18 +10,15 @@ import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 
 import nl.tudelft.oopp.demo.communication.BuildingServerCommunication;
 import nl.tudelft.oopp.demo.communication.DishServerCommunication;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
-import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Dish;
 import nl.tudelft.oopp.demo.entities.Restaurant;
@@ -126,9 +123,8 @@ public class OrderFoodController implements Initializable {
 
     /**
      * Changes to orderFoodConfirmation.fxml.
-     * @throws IOException input will not be wrong, hence we throw.
      */
-    public void goToFoodOrderConfirmation() throws IOException {
+    public void goToFoodOrderConfirmation() {
         if (orderFoodDate.getValue() == null) {
             CustomAlert.warningAlert("Choose a date.");
         } else if (pickUpTimeH.getValue() == null || pickUpTimeMin.getValue() == null) {
