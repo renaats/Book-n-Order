@@ -122,7 +122,7 @@ public class BikeReservation {
     }
 
     /**
-     * Makes the table list the from time instead of the from time object
+     * Makes the table list the date in a readable way instead of the time object.
      * @return String property, a property recognized by the tables.
      */
     public StringProperty getFromTimeProperty() {
@@ -132,7 +132,7 @@ public class BikeReservation {
     }
 
     /**
-     * Makes the table list the from time instead of the from time object
+     * Makes the table list the date in a readable way instead of the time object.
      * @return String property, a property recognized by the tables.
      */
     public StringProperty getToTimeProperty() {
