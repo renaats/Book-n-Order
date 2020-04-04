@@ -363,7 +363,7 @@ public class OrderFoodChooseRestaurantController implements Initializable {
             orders.clear();
             price = 0;
             calculateOrderPages();
-            totalCost.setText("Total Cost: " + new DecimalFormat("#0.00").format((double) Math.round(price * 100) / 10000) + "€");
+            totalCost.setText("Total Cost: " + new DecimalFormat("#0.00").format((double) Math.round(price * 100) / 10000) + "\\u20ac\\");
             selectedDish = null;
             loadAllergies();
             selectedRestaurant = restaurantTable.getSelectionModel().getSelectedItem();
@@ -554,7 +554,7 @@ public class OrderFoodChooseRestaurantController implements Initializable {
             orders.add(selectedDish);
         }
         price += selectedDish.getPrice();
-        totalCost.setText("Total Cost: " + new DecimalFormat("#0.00").format((double) Math.round(price * 100) / 10000) + "€");
+        totalCost.setText("Total Cost: " + new DecimalFormat("#0.00").format((double) Math.round(price * 100) / 10000) + "\\u20ac\\");
         calculateOrderPages();
     }
 
@@ -572,7 +572,7 @@ public class OrderFoodChooseRestaurantController implements Initializable {
             anchorPane.getChildren().remove(removeButton);
             anchorPane.getChildren().remove(addButton);
         }
-        totalCost.setText("Total Cost: " + new DecimalFormat("#0.00").format((double) Math.round(price * 100) / 10000) + "€");
+        totalCost.setText("Total Cost: " + new DecimalFormat("#0.00").format((double) Math.round(price * 100) / 10000) + "\\u20ac\\");
         calculateOrderPages();
     }
 
