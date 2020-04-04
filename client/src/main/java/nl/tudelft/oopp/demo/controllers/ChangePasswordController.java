@@ -5,7 +5,7 @@ import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 
-import nl.tudelft.oopp.demo.communication.ServerCommunication;
+import nl.tudelft.oopp.demo.communication.UserServerCommunication;
 import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
@@ -37,7 +37,7 @@ public class ChangePasswordController {
         String password1 = newPassword1.getText();
         String password2 = newPassword2.getText();
         if (password1.equals(password2)) {
-            String response = ServerCommunication.changeUserPassword(password1);
+            String response = UserServerCommunication.changeUserPassword(password1);
             CustomAlert.informationAlert(response);
             ApplicationDisplay.changeScene("/login-screen.fxml");
         } else {
