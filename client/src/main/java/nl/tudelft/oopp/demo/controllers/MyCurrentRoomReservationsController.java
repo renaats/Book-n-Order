@@ -53,7 +53,7 @@ public class MyCurrentRoomReservationsController implements Initializable {
         roomOrderResult.clear();
         List<RoomReservation> roomReservations;
         try {
-            String json = RoomServerCommunication.getAllActiveRoomReservations();
+            String json = RoomServerCommunication.getAllFutureRoomReservations();
             List<RoomReservation> roomReservations1 = JsonMapper.roomReservationsListMapper(json);
             roomReservations = new ArrayList<>(roomReservations1);
             for (int i = 0; i < roomReservations.size(); i++) {

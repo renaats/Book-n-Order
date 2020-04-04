@@ -57,7 +57,7 @@ public class MyCurrentFoodReservationsController implements Initializable {
         foodOrderResult.clear();
         List<FoodOrder> foodOrders;
         try {
-            String json = DishServerCommunication.getAllPreviousFoodOrders();
+            String json = DishServerCommunication.getAllFutureFoodOrders();
             List<FoodOrder> foodOrders1 = JsonMapper.foodOrdersListMapper(json);
             foodOrders = new ArrayList<>(foodOrders1);
             for (int i = 0; i < foodOrders.size(); i++) {

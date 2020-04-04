@@ -1,5 +1,7 @@
 package nl.tudelft.oopp.demo.entities;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
@@ -73,9 +75,10 @@ public class FoodOrder {
      * Makes the table list the Delivery day instead of the Delivery Time object
      * @return String property, a property recognized by the tables.
      */
-    public LongProperty getDeliveryTimeProperty() {
-        long time = getDeliveryTime().getTime();
-        return new SimpleLongProperty(time);
+    public SimpleStringProperty getDeliveryTimeProperty() {
+        Date time = getDeliveryTime();
+        DateFormat df = new SimpleDateFormat("dd MMMMM yyyy HH:mm");
+        return new SimpleStringProperty(df.format(time));
     }
 
     /**

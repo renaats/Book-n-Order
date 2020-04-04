@@ -56,7 +56,7 @@ public class MyCurrentBikeReservationsController implements Initializable {
         bikeOrderResult.clear();
         List<BikeReservation> bikeReservations;
         try {
-            String json = BikeServerCommunication.getAllPreviousBikeReservations();
+            String json = BikeServerCommunication.getAllFutureBikeReservations();
             List<BikeReservation> bikeReservations1 = JsonMapper.bikeReservationsListMapper(json);
             bikeReservations = new ArrayList<>(bikeReservations1);
             for (int i = 0; i < bikeReservations.size(); i++) {
