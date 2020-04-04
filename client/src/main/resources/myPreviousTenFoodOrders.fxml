@@ -59,14 +59,14 @@
                 <Font size="33.0" />
             </font>
         </Text>
-        <ImageView fitHeight="73.0" fitWidth="81.0" layoutX="151.0" layoutY="360.0" onMouseClicked="#thumbsUp" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="73.0" fitWidth="81.0" layoutX="145.0" layoutY="361.0" onMouseClicked="#thumbsUp" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@images/Thumbs_Up.png" />
             </image>
             <cursor>
                 <Cursor fx:constant="HAND" />
             </cursor></ImageView>
-        <ImageView fitHeight="73.0" fitWidth="73.0" layoutX="151.0" layoutY="445.0" onMouseClicked="#thumbsDown" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="73.0" fitWidth="73.0" layoutX="145.0" layoutY="448.0" onMouseClicked="#thumbsDown" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@images/thumbs_Down.png" />
             </image>
@@ -74,7 +74,7 @@
                 <Cursor fx:constant="HAND" />
             </cursor>
         </ImageView>
-      <Text layoutX="71.0" layoutY="321.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rate Your Experience&#10;With that order:" textAlignment="CENTER">
+      <Text layoutX="45.0" layoutY="290.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please select a food order&#10;and rate Your Experience&#10;with that order:" textAlignment="CENTER">
          <font>
             <Font size="24.0" />
          </font>
