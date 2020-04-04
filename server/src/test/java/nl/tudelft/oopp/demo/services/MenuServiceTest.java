@@ -218,7 +218,7 @@ public class MenuServiceTest {
     public void testUpdateChangeName() {
         menuService.add(menu1.getName(), menu1.getRestaurant().getId());
         int id = menuService.all().get(0).getId();
-        menuService.update(id,"new name");
+        menuService.updateName(id,"new name");
         assertEquals("new name", menuService.all().get(0).getName());
     }
 }

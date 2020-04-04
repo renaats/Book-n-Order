@@ -54,7 +54,7 @@ public class MenuController {
     @PostMapping(path = "/update")
     @ResponseBody
     public int updateMenu(@RequestParam int id, @RequestParam String value) {
-        return menuService.update(id,value);
+        return menuService.updateName(id,value);
     }
 
     /**

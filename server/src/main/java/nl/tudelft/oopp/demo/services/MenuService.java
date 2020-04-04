@@ -112,7 +112,7 @@ public class MenuService {
      * @param value the new value of the attribute.
      * @return String containing the result of your request.
      */
-    public int update(int id, String value) {
+    public int updateName(int id, String value) {
         if (menuRepository.findById(id).isEmpty()) {
             return MENU_NOT_FOUND;
         }
