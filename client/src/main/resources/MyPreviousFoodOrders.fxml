@@ -50,8 +50,10 @@
         </ImageView>
         <TableView layoutX="327.0" layoutY="198.0" prefHeight="380.0" prefWidth="626.0">
             <columns>
-                <TableColumn prefWidth="75.0" text="C1" />
-                <TableColumn prefWidth="75.0" text="C2" />
+                <TableColumn fx:id="colRestaurant" prefWidth="285.6666564941406" text="Restaurant" />
+                <TableColumn fx:id="colDeliveryLoc" prefWidth="257.0" text="Delivery Location" />
+                <TableColumn fx:id="colDate" prefWidth="210.666748046875" text="Date" />
+                <TableColumn fx:id="colYourFeedback" prefWidth="149.3333740234375" text="Your Feedback" />
             </columns>
         </TableView>
         <Text layoutX="456.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My Previous Food Orders" AnchorPane.leftAnchor="456.0" AnchorPane.topAnchor="109.3896484375">
