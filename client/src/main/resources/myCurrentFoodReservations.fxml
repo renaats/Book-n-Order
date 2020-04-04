@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.MyCurrentFoodReservationsController">
+<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" stylesheets="@table.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.MyCurrentFoodReservationsController">
     <children>
         <ImageView fitHeight="720.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
             <image>
@@ -45,13 +45,16 @@
                 <Cursor fx:constant="HAND" />
             </cursor>
         </ImageView>
-        <TableView layoutX="327.0" layoutY="198.0" prefHeight="380.0" prefWidth="626.0">
+        <TableView fx:id="table" layoutX="187.0" layoutY="194.0" prefHeight="408.0" prefWidth="906.0">
             <columns>
-                <TableColumn prefWidth="75.0" text="C1" />
-                <TableColumn prefWidth="75.0" text="C2" />
+                <TableColumn fx:id="colRestaurant" prefWidth="285.6666564941406" text="Restaurant" />
+                <TableColumn fx:id="colDeliveryLoc" prefWidth="257.0" text="Delivery Location" />
+                <TableColumn fx:id="colDate" prefWidth="104.3333740234375" text="Date" />
+                <TableColumn fx:id="colTime" prefWidth="120.333251953125" text="Time" />
+                <TableColumn fx:id="colYourFeedback" prefWidth="137.6666259765625" text="Your Feedback" />
             </columns>
         </TableView>
-        <Text layoutX="409.0" layoutY="146.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Current Food Reservations">
+        <Text layoutX="445.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Current Food Orders">
             <font>
                 <Font size="33.0" />
             </font>

@@ -38,6 +38,8 @@ public class Restaurant {
     private String name;
     private String email;
 
+    private int feedbackCounter;
+
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn
     private Menu menu;
@@ -95,6 +97,26 @@ public class Restaurant {
 
     public Menu getMenu() {
         return menu;
+    }
+
+    public int getFeedbackCounter() {
+        return feedbackCounter;
+    }
+
+    public void setFeedbackCounter(int feedbackCounter) {
+        this.feedbackCounter = feedbackCounter;
+    }
+
+    /**
+     * When the feedback is positive it adds 1 to the feedback counter score, when it's negative it subtracts one.
+     * @param feedback if the feedback is positive or negative.
+     */
+    public void addFeedback(Boolean feedback) {
+        if (feedback) {
+            this.feedbackCounter = this.feedbackCounter + 1;
+        } else {
+            this.feedbackCounter = this.feedbackCounter - 1;
+        }
     }
 
     @Override

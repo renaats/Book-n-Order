@@ -4,6 +4,13 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.LongProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleLongProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 /**
  * Manages the FoodOrder object that is retrieved from the server
  */
@@ -16,6 +23,8 @@ public class FoodOrder {
     private Building deliveryLocation;
     private Date deliveryTime;
     private Set<Dish> dishes;
+    private boolean feedback;
+    private boolean feedbackHasBeenGiven;
 
     /** Creates a new instance of FoodOrder.
      * @param restaurant the restaurant at which the food order is placed.
@@ -30,6 +39,67 @@ public class FoodOrder {
         this.deliveryTime = deliveryTime;
         this.menu = menu;
         this.active = true;
+        this.feedback = true;
+    }
+
+    /**
+     * Makes the table list the restaurant name instead of the restaurant object
+     * @return String property, a property recognized by the tables.
+     */
+    public StringProperty getRestaurantNameProperty() {
+        String name = getRestaurant().getName();
+        return new SimpleStringProperty(name);
+    }
+
+    /**
+     * Makes the table list the Delivery Location name instead of the Delivery Location object
+     * @return String property, a property recognized by the tables.
+     */
+    public StringProperty getDeliveryLocationNameProperty() {
+        String name = getDeliveryLocation().getName();
+        return new SimpleStringProperty(name);
+    }
+
+    /**
+     * Makes the table list the Delivery day instead of the Delivery Time object
+     * @return String property, a property recognized by the tables.
+     */
+    public IntegerProperty getDeliveryDayProperty() {
+        int day = getDeliveryTime().getDay();
+        return new SimpleIntegerProperty(day);
+    }
+
+    /**
+     * Makes the table list the Delivery day instead of the Delivery Time object
+     * @return String property, a property recognized by the tables.
+     */
+    public LongProperty getDeliveryTimeProperty() {
+        long time = getDeliveryTime().getTime();
+        return new SimpleLongProperty(time);
+    }
+
+    /**
+     * Makes the table list the score of the restaurant.
+     * @return String property, a property recognized by the tables.
+     */
+    public StringProperty getYourFeedbackProperty() {
+        if (this.isFeedbackHasBeenGiven()) {
+            if (getFeedback()) {
+                return new SimpleStringProperty("Thumbs Up");
+            } else {
+                return new SimpleStringProperty("Thumbs Down");
+            }
+        } else {
+            return new SimpleStringProperty("No Feedback");
+        }
+    }
+
+    public void setFeedbackHasBeenGiven(boolean feedbackGiven) {
+        this.feedbackHasBeenGiven = feedbackGiven;
+    }
+
+    public boolean isFeedbackHasBeenGiven() {
+        return feedbackHasBeenGiven;
     }
 
     public FoodOrder() {
@@ -111,5 +181,13 @@ public class FoodOrder {
                 && Objects.equals(deliveryTime, that.deliveryTime)
                 && Objects.equals(menu, that.menu)
                 && Objects.equals(dishes, that.dishes);
+    }
+
+    public boolean getFeedback() {
+        return this.feedback;
+    }
+
+    public void setFeedback(boolean b) {
+        this.feedback = b;
     }
 }
