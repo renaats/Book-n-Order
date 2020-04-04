@@ -92,7 +92,7 @@ public class RoomReservation {
     }
 
     /**
-     * Makes the table list the time in a readable form instead of the time object.
+     * Makes the table list the date in a readable way instead of the time object.
      * @return String property, a property recognized by the tables.
      */
     public StringProperty getToTimeProperty() {
@@ -102,7 +102,7 @@ public class RoomReservation {
     }
 
     /**
-     * Makes the table list the time in a readable form instead of the time object.
+     * Makes the table list the date in a readable way instead of the time object.
      * @return String property, a property recognized by the tables.
      */
     public StringProperty getFromTimeProperty() {
