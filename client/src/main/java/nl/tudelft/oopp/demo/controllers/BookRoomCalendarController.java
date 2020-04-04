@@ -101,7 +101,7 @@ public class BookRoomCalendarController implements Initializable {
 
 
         if (e.isEntryAdded()) {
-            if (isThereAnotherEntry!= null && (isThereAnotherEntry || entry.getStartAsLocalDateTime().isBefore(LocalDateTime.now()))) {
+            if (storedEntry != null || entry.getStartAsLocalDateTime().isBefore(LocalDateTime.now())) {
                 e.getEntry().removeFromCalendar();
                 fromTime.setText(convertToDate(storedEntry.getStartTime(), storedEntry.getStartDate()).toString());
                 untilTime.setText(convertToDate(storedEntry.getEndTime(), storedEntry.getEndDate()).toString());
@@ -114,10 +114,17 @@ public class BookRoomCalendarController implements Initializable {
                 isThereAnotherEntry = true;
             }
         } else if (e.isEntryRemoved()) {
-            fromTime.setText("");
-            untilTime.setText("");
-            reserveSlot.disarm();
-            this.isThereAnotherEntry = false;
+            if (e.getEntry().equals(storedEntry)) {
+                fromTime.setText("");
+                untilTime.setText("");
+                reserveSlot.disarm();
+                storedEntry = null;
+            } else {
+                fromTime.setText("");
+                untilTime.setText("");
+                reserveSlot.disarm();
+            }
+
         } else {
             fromTime.setText(start.toString());
             untilTime.setText(end.toString());
