@@ -2,6 +2,8 @@ package nl.tudelft.oopp.demo.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.time.*;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -59,7 +61,7 @@ public class Restaurant {
 
     @JsonIgnore
     @OneToMany(mappedBy = "restaurant")
-    Set<RestaurantHours> restaurantHours = new HashSet<>();
+    Set<RestaurantHours> restaurantHoursList = new HashSet<>();
 
     public void setBuilding(Building building) {
         this.building = building;
@@ -95,6 +97,21 @@ public class Restaurant {
 
     public Menu getMenu() {
         return menu;
+    }
+
+    public boolean isOutsideBusinessHours(Date deliveryTime) {
+        for (RestaurantHours restaurantHours : restaurantHoursList) {
+
+            Instant instant = restaurantHours.getStartTime().atDate(LocalDate.ofEpochDay(restaurantHours.getDay())).atZone(ZoneId.systemDefault()).toInstant();
+            Date startTime = Date.from(instant);
+            Instant instant1 = restaurantHours.getEndTime().atDate(LocalDate.ofEpochDay(restaurantHours.getDay())).atZone(ZoneId.systemDefault()).toInstant();
+            Date endTime = Date.from(instant1);
+
+            if (deliveryTime.before(startTime) || deliveryTime.after(endTime)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

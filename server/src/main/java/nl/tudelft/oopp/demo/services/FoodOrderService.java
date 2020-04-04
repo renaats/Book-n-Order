@@ -12,6 +12,7 @@ import static nl.tudelft.oopp.demo.config.Constants.RESTAURANT_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.USER_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.WRONG_CREDENTIALS;
 import static nl.tudelft.oopp.demo.config.Constants.WRONG_USER;
+import static nl.tudelft.oopp.demo.config.Constants.OUTSIDE_BUSINESS_HOURS;
 import static nl.tudelft.oopp.demo.security.SecurityConstants.HEADER_STRING;
 
 import java.util.ArrayList;
@@ -77,6 +78,10 @@ public class FoodOrderService {
             return RESTAURANT_NOT_FOUND;
         }
         Restaurant restaurant = optionalRestaurant.get();
+
+        if (restaurant.isOutsideBusinessHours(new Date(deliverTimeMs))) {
+            return OUTSIDE_BUSINESS_HOURS;
+        }
 
         String token = request.getHeader(HEADER_STRING);
         AppUser appUser = UserService.getAppUser(token, userRepository);
