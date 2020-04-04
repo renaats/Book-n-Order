@@ -88,7 +88,11 @@ public class PersonalCalendarView extends CalendarView {
                 LocalTime endTime = convertToLocalTime(foodOrder.getDeliveryTime());
                 LocalDate date = convertToLocalDate(foodOrder.getDeliveryTime());
 
-                bookedEntry.setLocation(foodOrder.getDeliveryLocation().getName());
+                if (foodOrder.getDeliveryLocation() == null) {
+                    bookedEntry.setLocation(foodOrder.getRestaurant().getBuilding().getName());
+                } else {
+                    bookedEntry.setLocation(foodOrder.getDeliveryLocation().getName());
+                }
                 bookedEntry.setInterval(date);
                 bookedEntry.setInterval(startTime, endTime);
                 orderedFood.addEntry(bookedEntry);
