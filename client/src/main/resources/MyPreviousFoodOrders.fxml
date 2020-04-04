@@ -49,9 +49,8 @@
             <columns>
                 <TableColumn fx:id="colRestaurant" prefWidth="285.6666564941406" text="Restaurant" />
                 <TableColumn fx:id="colDeliveryLoc" prefWidth="257.0" text="Delivery Location" />
-                <TableColumn fx:id="colDate" prefWidth="104.3333740234375" text="Date" />
-                <TableColumn fx:id="colTime" prefWidth="120.333251953125" text="Time" />
-                <TableColumn fx:id="colYourFeedback" prefWidth="137.6666259765625" text="Your Feedback" />
+                <TableColumn fx:id="colDate" prefWidth="210.666748046875" text="Date" />
+                <TableColumn fx:id="colYourFeedback" prefWidth="149.3333740234375" text="Your Feedback" />
             </columns>
         </TableView>
         <Text layoutX="572.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Previous Food Orders">

@@ -35,8 +35,6 @@ public class MyPreviousFoodReservationsController implements Initializable {
     @FXML
     private TableColumn<FoodOrder, Integer> colDate;
     @FXML
-    private TableColumn<FoodOrder,Long> colTime;
-    @FXML
     public TableColumn<FoodOrder,Boolean> colYourFeedback;
 
     @Override
@@ -44,7 +42,6 @@ public class MyPreviousFoodReservationsController implements Initializable {
         colRestaurant.setCellValueFactory(new PropertyValueFactory<>("getRestaurantName"));
         colDeliveryLoc.setCellValueFactory(new PropertyValueFactory<>("getDeliveryLocationName"));
         colDate.setCellValueFactory(new PropertyValueFactory<>("getDeliveryDay"));
-        colTime.setCellValueFactory(new PropertyValueFactory<>("getDeliveryTime"));
         colYourFeedback.setCellValueFactory(new PropertyValueFactory<>("getYourFeedback"));
         loadDataIntoTable();
     }
