@@ -80,7 +80,6 @@ public class AllergyController {
         return allergyService.findByAllergyName(name);
     }
 
-    
     /**
      * Allows for a multi-parameter Allergy search in a AllergyRepository.
      * @param query The search string in the format "[param1][operation][value],[param2][operation][value],..."
