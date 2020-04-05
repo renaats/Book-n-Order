@@ -22,7 +22,7 @@ Install [Java JDK 13](https://www.oracle.com/java/technologies/javase-jdk13-down
 
 Add our [Checkstlyle](config/checkstyle/checkstyle.xml) to the settings in your IDE. Make sure to apply Checkstyle version 8.25. 
 
-Also install [Git LFS](https://git-lfs.github.com/) via Git Bash.
+For contributing to the project, it is essential that everyone has [Git LFS](https://git-lfs.github.com/) installed. You can do this via Git Bash.
 
 ## How to run it
 You can run the application from the IDE. To run the server side of the application, run the 'DatabaseApplication'. To run the client side, run the 'MainApp'.
