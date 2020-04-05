@@ -139,7 +139,7 @@ public class BookRoomController implements Initializable {
         totalBuildingPages = Math.ceil(buildings.size() / 7.0);
 
         if (totalBuildingPages < 1) {
-            pageNumber = 0;
+            buildingPageNumber--;
         }
 
         buildingPagesText.setText(buildingPageNumber + " / " + (int) totalBuildingPages + " pages");
@@ -210,9 +210,8 @@ public class BookRoomController implements Initializable {
         try {
             rooms = new ArrayList<>(Objects.requireNonNull(JsonMapper.roomListMapper(RoomServerCommunication.filterRooms(filterString))));
         } catch (Exception e) {
-            // Fakes the table having any entries, so the table shows up properly instead of "No contents".
+            table.setPlaceholder(new Label(""));
             rooms = new ArrayList<>();
-            rooms.add(null);
         }
         calculatePages();
         roomTableSelectListener();
