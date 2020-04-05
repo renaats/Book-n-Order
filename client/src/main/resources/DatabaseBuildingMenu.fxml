@@ -3,6 +3,7 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -12,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.database.DatabaseBuildingMenuController">
+<AnchorPane fx:id="anchorPane" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@DatabaseGeneric.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.database.DatabaseBuildingMenuController">
    <ImageView fitWidth="1280.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@images/mainMenuBackground.jpg" />
@@ -102,7 +103,7 @@
          <Cursor fx:constant="HAND" />
       </cursor>
    </Button>
-   <Button fx:id="buildingFindAllButton" layoutX="197.0" layoutY="426.0" mnemonicParsing="false" onAction="#listBuildingsButtonClicked" prefHeight="26.0" prefWidth="223.0" style="-fx-background-color: #00a6d6;" text="Find all" textFill="WHITE">
+   <Button fx:id="buildingFindAllButton" layoutX="197.0" layoutY="426.0" mnemonicParsing="false" onAction="#listBuildingsButtonClicked" prefHeight="26.0" prefWidth="223.0" style="-fx-background-color: #00a6d6;" text="Find all" textFill="WHITE" AnchorPane.leftAnchor="197.0" AnchorPane.rightAnchor="860.0">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor>
@@ -117,7 +118,7 @@
          <Font size="17.0" />
       </font>
    </Text>
-   <Button fx:id="updateBuildingButton" layoutX="197.0" layoutY="314.0" mnemonicParsing="false" onAction="#updateBuilding" prefHeight="26.0" prefWidth="223.0" style="-fx-background-color: #00a6d6;" text="Update" textFill="WHITE">
+   <Button fx:id="updateBuildingButton" layoutX="197.0" layoutY="314.0" mnemonicParsing="false" onAction="#updateBuilding" prefHeight="26.0" prefWidth="223.0" style="-fx-background-color: #00a6d6;" text="Update" textFill="WHITE" AnchorPane.leftAnchor="197.0" AnchorPane.rightAnchor="860.0">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor>
@@ -151,5 +152,56 @@
       </cursor>
    </ImageView>
    <Text layoutX="181.0" layoutY="199.0" onMouseClicked="#goToAddBuildings" strokeType="OUTSIDE" strokeWidth="0.0" text="Add" AnchorPane.leftAnchor="181.0" AnchorPane.topAnchor="186.0" />
+   <Text layoutX="54.0" layoutY="480.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Building hours:">
+      <font>
+         <Font size="26.0" />
+      </font>
+   </Text>
+   <ChoiceBox fx:id="daysChoiceBox" layoutX="102.0" layoutY="491.0" maxHeight="23.0" minHeight="23.0" prefHeight="23.0" prefWidth="150.0" />
+   <Text layoutX="55.0" layoutY="509.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Day:">
+      <font>
+         <Font size="17.0" />
+      </font>
+   </Text>
+   <TextField fx:id="hoursStartTime" layoutX="307.0" layoutY="489.0" prefHeight="25.0" prefWidth="56.0" promptText="Hours" />
+   <Text layoutX="258.0" layoutY="508.0" strokeType="OUTSIDE" strokeWidth="0.0" text="From:">
+      <font>
+         <Font size="17.0" />
+      </font>
+   </Text>
+   <Text layoutX="364.0" layoutY="508.0" strokeType="OUTSIDE" strokeWidth="0.0" text=":">
+      <font>
+         <Font size="17.0" />
+      </font>
+   </Text>
+   <TextField fx:id="minutesStartTime" layoutX="369.0" layoutY="489.0" prefHeight="25.0" prefWidth="60.0" promptText="Minutes" />
+   <TextField fx:id="hoursEndTime" layoutX="306.0" layoutY="524.0" prefHeight="25.0" prefWidth="56.0" promptText="Hours" />
+   <Text layoutX="258.0" layoutY="543.0" strokeType="OUTSIDE" strokeWidth="0.0" text="To:">
+      <font>
+         <Font size="17.0" />
+      </font>
+   </Text>
+   <TextField fx:id="minutesEndTime" layoutX="369.0" layoutY="524.0" prefHeight="25.0" prefWidth="60.0" promptText="Minutes" />
+   <Text layoutX="363.0" layoutY="543.0" strokeType="OUTSIDE" strokeWidth="0.0" text=":">
+      <font>
+         <Font size="17.0" />
+      </font>
+   </Text>
+   <DatePicker fx:id="datePicker" layoutX="102.0" layoutY="524.0" prefHeight="25.0" prefWidth="151.0" />
+   <Text layoutX="55.0" layoutY="543.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date:">
+      <font>
+         <Font size="17.0" />
+      </font>
+   </Text>
+   <Button fx:id="updateBuildingHoursButton" layoutX="198.0" layoutY="560.0" mnemonicParsing="false" onAction="#updateBuildingHours" prefHeight="26.0" prefWidth="223.0" style="-fx-background-color: #00a6d6;" text="Update" textFill="WHITE" AnchorPane.leftAnchor="197.0" AnchorPane.rightAnchor="860.0">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
+   <Button fx:id="confirmFindByIdButton1" layoutX="432.0" layoutY="506.0" mnemonicParsing="false" onAction="#findBuilding" prefHeight="26.0" prefWidth="70.0" style="-fx-background-color: #00a6d6;" text="Set closed" textFill="WHITE">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
 
       </AnchorPane>

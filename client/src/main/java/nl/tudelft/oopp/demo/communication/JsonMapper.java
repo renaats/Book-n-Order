@@ -223,18 +223,12 @@ public class JsonMapper {
      * @param buildingHourJson a JSON string
      * @return building hour object
      */
-    public static BuildingHours buildingHoursMapper(String buildingHourJson) {
+    public static BuildingHours buildingHoursMapper(String buildingHourJson) throws JsonProcessingException {
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
 
-        try {
-            // Convert JSON string to Object
-            return mapper.readValue(buildingHourJson, BuildingHours.class);
-        } catch (Exception e) {
-            CustomAlert.warningAlert(buildingHourJson);
-        }
-        return null;
+        return mapper.readValue(buildingHourJson, BuildingHours.class);
     }
 
     /**

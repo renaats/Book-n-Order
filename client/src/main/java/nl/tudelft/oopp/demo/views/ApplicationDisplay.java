@@ -33,6 +33,7 @@ public class ApplicationDisplay extends Application {
         loader.setLocation(xmlUrl);
         Parent root = loader.load();
         primaryStage.setScene(new Scene(root));
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 
@@ -44,6 +45,7 @@ public class ApplicationDisplay extends Application {
     public static void changeScene(String fxml) throws IOException {
         Parent pane = FXMLLoader.load(ApplicationDisplay.class.getResource(fxml));
         primaryStage.getScene().setRoot(pane);
+        primaryStage.setResizable(false);
     }
 
     /**
