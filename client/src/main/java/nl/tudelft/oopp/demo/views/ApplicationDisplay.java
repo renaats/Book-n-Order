@@ -47,7 +47,7 @@ public class ApplicationDisplay extends Application {
      * @param cal = personal calendar of the user
      * @throws IOException = All input will be valid, no need to check, this we throw.
      */
-    public static void showCalendarScene(PersonalCalendarView cal) throws IOException {
+    public static void showCalendarScene(PersonalCalendar cal) throws IOException {
         Stage stage = new Stage();
         stage.setScene(new Scene(cal));
         stage.setWidth(1000);

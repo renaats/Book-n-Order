@@ -5,7 +5,7 @@ import java.io.IOException;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.user.UserInformation;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
-import nl.tudelft.oopp.demo.views.PersonalCalendarView;
+import nl.tudelft.oopp.demo.views.PersonalCalendar;
 
 /**
  * Loads the correct content into the FXML objects that need to display server information and
@@ -82,6 +82,6 @@ public class MainMenuReservationsController {
      * @throws IOException this method should never throw an exception
      */
     public void openCalendar() throws IOException {
-        ApplicationDisplay.showCalendarScene(new PersonalCalendarView());
+        ApplicationDisplay.showCalendarScene(new PersonalCalendar());
     }
 }
