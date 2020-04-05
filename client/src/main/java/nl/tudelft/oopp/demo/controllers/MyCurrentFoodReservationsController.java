@@ -34,18 +34,15 @@ public class MyCurrentFoodReservationsController implements Initializable {
     @FXML
     private TableColumn<FoodOrder, String> colRestaurant;
     @FXML
-    private TableColumn<FoodOrder, Integer> colDeliveryLoc;
+    private TableColumn<FoodOrder, String> colDeliveryLoc;
     @FXML
-    private TableColumn<FoodOrder, Integer> colDate;
-    @FXML
-    public TableColumn<FoodOrder,Boolean> colYourFeedback;
+    private TableColumn<FoodOrder, String> colDate;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         colRestaurant.setCellValueFactory(new PropertyValueFactory<>("getRestaurantName"));
         colDeliveryLoc.setCellValueFactory(new PropertyValueFactory<>("getDeliveryLocationName"));
         colDate.setCellValueFactory(new PropertyValueFactory<>("getDeliveryTime"));
-        colYourFeedback.setCellValueFactory(new PropertyValueFactory<>("getYourFeedback"));
         loadDataIntoTable();
     }
 
