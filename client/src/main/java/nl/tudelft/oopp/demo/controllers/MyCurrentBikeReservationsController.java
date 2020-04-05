@@ -43,7 +43,7 @@ public class MyCurrentBikeReservationsController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        colBikeNumber.setCellValueFactory(new PropertyValueFactory<>("getBikeNumber"));
+        colBikeNumber.setCellValueFactory(new PropertyValueFactory<>("getBikeId"));
         colFromTime.setCellValueFactory(new PropertyValueFactory<>("getFromTime"));
         colToTime.setCellValueFactory(new PropertyValueFactory<>("getToTime"));
         colFromLoc.setCellValueFactory(new PropertyValueFactory<>("getFromBuildingName"));

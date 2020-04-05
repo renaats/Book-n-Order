@@ -47,10 +47,10 @@
         </ImageView>
         <TableView fx:id="table" layoutX="135.0" layoutY="193.0" prefHeight="408.0" prefWidth="1010.0">
             <columns>
-            <TableColumn fx:id="colBikeNumber" prefWidth="175" text="Bike number" />
-                <TableColumn fx:id="colFromTime" prefWidth="175" text="From (Time)" />
-                <TableColumn fx:id="colToTime" prefWidth="175" text="To (Time)" />
-                <TableColumn fx:id="colFromLoc" prefWidth="300" text="From (Location)" />
+            <TableColumn fx:id="colBikeNumber" prefWidth="109.33332824707031" text="Bike number" />
+                <TableColumn fx:id="colFromTime" prefWidth="241.33335876464844" text="From (Time)" />
+                <TableColumn fx:id="colToTime" prefWidth="218.33334350585938" text="To (Time)" />
+                <TableColumn fx:id="colFromLoc" prefWidth="257.0" text="From (Location)" />
                 <TableColumn fx:id="colToLoc" prefWidth="181.00006103515625" text="To (Location)" />
             </columns>
         </TableView>
