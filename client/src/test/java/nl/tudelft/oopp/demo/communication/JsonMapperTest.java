@@ -53,7 +53,7 @@ class JsonMapperTest {
     }
 
     @Test
-    void testBuildingMapper() {
+    void testBuildingMapper() throws JsonProcessingException {
         stubFor(get(urlEqualTo("/building/find/1")).willReturn(aResponse().withStatus(200)
                 .withBody("{\"id\":1,\"name\":\"testffes\",\"street\":\"1\",\"houseNumber\":1}")));
         assertEquals(JsonMapper.buildingMapper("{\"id\":1,\"name\":\"testffes\",\"street\":\"1\",\"houseNumber\":1}"),
