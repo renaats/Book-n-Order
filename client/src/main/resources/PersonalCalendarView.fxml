@@ -14,17 +14,17 @@
    <children>
       <ImageView cache="true" cacheHint="QUALITY" depthTest="DISABLE" fitHeight="720.0" fitWidth="1280.0" opacity="0.5" pickOnBounds="true">
          <image>
-            <Image url="@images/mainMenuBackground.jpg" />
+            <Image url="@Images/mainMenuBackground.jpg" />
          </image>
       </ImageView>
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="63.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@images/TuDelftLogoFinal.png" />
+            <Image url="@Images/TuDelftLogoFinal.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="258.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="576.0" AnchorPane.leftAnchor="258.0" AnchorPane.rightAnchor="902.0" AnchorPane.topAnchor="120.0">
          <image>
-            <Image url="@images/booknorderlogo.png" />
+            <Image url="@Images/booknorderlogo.png" />
          </image>
       </ImageView>
       <Text fill="WHITE" layoutX="20.0" layoutY="555.576171875" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback is welcome" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0">
@@ -48,7 +48,15 @@
             <Cursor fx:constant="HAND" />
          </cursor>
          <image>
-            <Image url="@images/HomeIconTransparent.png" />
+            <Image url="@Images/HomeIconTransparent.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="openNewWindow" fitHeight="41.0" fitWidth="85.0" layoutX="1159.0" layoutY="100.0" onMouseClicked="#newWindow" pickOnBounds="true" preserveRatio="true">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <image>
+            <Image url="@Images/Open_in_new_window.png" />
          </image>
       </ImageView>
    </children>

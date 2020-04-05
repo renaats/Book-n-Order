@@ -5,9 +5,11 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.calendarfx.model.CalendarEvent;
+import com.calendarfx.model.Entry;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.SubScene;
+import nl.tudelft.oopp.demo.entities.RoomReservation;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 import nl.tudelft.oopp.demo.views.PersonalCalendar;
 
@@ -15,6 +17,8 @@ import nl.tudelft.oopp.demo.views.PersonalCalendar;
 public class PersonalCalendarViewController implements Initializable {
 
     PersonalCalendar calendar = new PersonalCalendar();
+
+    Entry<RoomReservation> roomReservationEntry = null;
 
     @FXML
     SubScene personalCalContainer;
@@ -25,7 +29,6 @@ public class PersonalCalendarViewController implements Initializable {
         calendar.loadRoomReservations();
         calendar.loadBikeReservations();
         calendar.loadFoodOrders();
-        calendar.getCalendars().get(1).addEventHandler(this::onSelect);
         calendar.getCalendars().get(0).addEventHandler(this::removeEntriesAdded);
     }
 
@@ -37,15 +40,13 @@ public class PersonalCalendarViewController implements Initializable {
         ApplicationDisplay.changeScene("/MainMenu.fxml");
     }
 
-    public void onSelect(CalendarEvent event) {
-        System.out.println(event.isConsumed());
+    public void newWindow() throws IOException {
+        ApplicationDisplay.showCalendarScene(calendar);
     }
 
     public void removeEntriesAdded(CalendarEvent event) {
         event.getEntry().removeFromCalendar();
     }
-
-    public void 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
