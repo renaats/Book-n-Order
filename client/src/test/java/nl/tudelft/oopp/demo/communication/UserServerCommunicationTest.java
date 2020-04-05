@@ -111,7 +111,7 @@ class UserServerCommunicationTest {
      */
     @Test
     public void testSuccessfulAddUser() {
-        assertEquals("200", UserServerCommunication.addUser("a", "a", "a", "a", "a", "a"));
+        assertEquals(ErrorMessages.getErrorMessage(200), UserServerCommunication.addUser("a", "a", "a", "a", "a", "a"));
     }
 
     /**

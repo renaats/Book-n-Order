@@ -31,6 +31,7 @@ import nl.tudelft.oopp.demo.entities.Allergy;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Dish;
 import nl.tudelft.oopp.demo.entities.Restaurant;
+import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
@@ -168,7 +169,11 @@ public class OrderFoodChooseRestaurantController implements Initializable {
      * @throws IOException the input is always the same, so it should never throw an exception.
      */
     public void goToOrderFood() throws IOException {
-        ApplicationDisplay.changeSceneWithVariables("/OrderFoodPickDate.fxml", orders, selectedRestaurant);
+        if (selectedRestaurant != null && orders != null && !orders.isEmpty()) {
+            ApplicationDisplay.changeSceneWithVariables("/OrderFoodPickDate.fxml", orders, selectedRestaurant);
+        } else {
+            CustomAlert.warningAlert("You must select dishes first.");
+        }
     }
 
     /**

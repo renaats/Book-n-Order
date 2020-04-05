@@ -89,6 +89,9 @@ public class BikeReservationController implements Initializable {
             if (fromDateLong > toDateLong) {
                 CustomAlert.warningAlert("Pick up time must be before the drop off time.");
                 return;
+            } else if (fromDateLong < new Date().getTime()) {
+                CustomAlert.warningAlert("Pick up time cannot be in the past.");
+                return;
             }
             try {
                 int fromBuildingId = JsonMapper.buildingMapper(BuildingServerCommunication.findBuildingByName(pickUpLocation.getValue())).getId();
