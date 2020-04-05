@@ -33,12 +33,15 @@ public class MyCurrentRoomReservationsController implements Initializable {
     @FXML
     private TableColumn<RoomReservation, String> colRoom;
     @FXML
+    private TableColumn<RoomReservation,String> colBuilding;
+    @FXML
     private TableColumn<RoomReservation, Integer> colFromTime;
     @FXML
     private TableColumn<RoomReservation, Long> colToTime;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        colBuilding.setCellValueFactory(new PropertyValueFactory<>("getBuildingName"));
         colRoom.setCellValueFactory(new PropertyValueFactory<>("getRoomName"));
         colToTime.setCellValueFactory(new PropertyValueFactory<>("getToTime"));
         colFromTime.setCellValueFactory(new PropertyValueFactory<>("getFromTime"));

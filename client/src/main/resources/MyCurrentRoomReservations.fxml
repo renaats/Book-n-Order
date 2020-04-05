@@ -45,11 +45,12 @@
                 <Cursor fx:constant="HAND" />
             </cursor>
         </ImageView>
-        <TableView fx:id="table" layoutX="163.0" layoutY="191.0" prefHeight="408.0" prefWidth="908.0">
+        <TableView fx:id="table" layoutX="217.0" layoutY="197.0" prefHeight="400.0" prefWidth="802.0">
             <columns>
-                <TableColumn fx:id="colRoom" prefWidth="400" text="Location" />
-                <TableColumn fx:id="colFromTime" prefWidth="269.3333740234375" text="From (Time)" />
-                <TableColumn fx:id="colToTime" prefWidth="235.33331298828125" text="To (Time)" />
+            <TableColumn fx:id="colBuilding" prefWidth="200" text="Building" />
+                <TableColumn fx:id="colRoom" prefWidth="200" text="Room" />
+                <TableColumn fx:id="colFromTime" prefWidth="200" text="From (Time)" />
+                <TableColumn fx:id="colToTime" prefWidth="200" text="To (Time)" />
             </columns>
         </TableView>
         <Text layoutX="380.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Current Room Reservations">

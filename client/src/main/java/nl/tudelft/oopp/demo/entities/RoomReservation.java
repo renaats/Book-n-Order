@@ -83,6 +83,15 @@ public class RoomReservation {
     }
 
     /**
+     * Makes the table list the name of the building instead of the building object.
+     * @return String property, a property recognized by the tables.
+     */
+    public StringProperty getBuildingNameProperty() {
+        String room = getRoom().getBuilding().getName();
+        return new SimpleStringProperty(room);
+    }
+
+    /**
      * Makes the table list the name of the room instead of the room object.
      * @return String property, a property recognized by the tables.
      */
