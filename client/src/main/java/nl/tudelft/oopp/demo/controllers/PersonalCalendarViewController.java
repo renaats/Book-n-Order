@@ -26,6 +26,7 @@ public class PersonalCalendarViewController implements Initializable {
         calendar.loadBikeReservations();
         calendar.loadFoodOrders();
         calendar.getCalendars().get(1).addEventHandler(this::onSelect);
+        calendar.getCalendars().get(0).addEventHandler(this::removeEntriesAdded);
     }
 
     /**
@@ -39,6 +40,12 @@ public class PersonalCalendarViewController implements Initializable {
     public void onSelect(CalendarEvent event) {
         System.out.println(event.isConsumed());
     }
+
+    public void removeEntriesAdded(CalendarEvent event) {
+        event.getEntry().removeFromCalendar();
+    }
+
+    public void 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
