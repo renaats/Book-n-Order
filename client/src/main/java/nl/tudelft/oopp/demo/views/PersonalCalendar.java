@@ -133,17 +133,7 @@ public class PersonalCalendar extends CalendarView {
      */
     public void roomReservationCancellationHandler(CalendarEvent event) {
         if (event.isEntryRemoved()) {
-            if (attemptedDelete.equals(event.getEntry().getId())) {
-                DishServerCommunication.cancelFoodOrder(Integer.parseInt(event.getEntry().getId()));
-            } else {
-                attemptedDelete = event.getEntry().getId();
-                CustomAlert.warningAlert("You are about to cancel your reservation. Try again to complete cancellation.");
-                bookedRooms.addEntry(event.getEntry());
-                attemptedDelete = event.getEntry().getId();
-            }
-        }
-        if (event.isEntryAdded()) {
-            int i = 1;
+            RoomServerCommunication.cancelRoomReservation(Integer.parseInt(event.getEntry().getId()));
         }
     }
 
@@ -153,13 +143,7 @@ public class PersonalCalendar extends CalendarView {
      */
     public void foodOrderCancellationHandler(CalendarEvent event) {
         if (event.isEntryRemoved()) {
-            if (attemptedDelete.equals(event.getEntry().getId())) {
-                DishServerCommunication.cancelFoodOrder(Integer.parseInt(event.getEntry().getId()));
-            } else {
-                attemptedDelete = event.getEntry().getId();
-                event.getEntry().getCalendar().addEntry(event.getEntry());
-                CustomAlert.warningAlert("You are about to cancel your order. Try again to complete cancellation.");
-            }
+            DishServerCommunication.cancelFoodOrder(Integer.parseInt(event.getEntry().getId()));
         }
     }
 
@@ -169,13 +153,7 @@ public class PersonalCalendar extends CalendarView {
      */
     public void bikeReservationCancellationHandler(CalendarEvent event) {
         if (event.isEntryRemoved()) {
-            if (attemptedDelete.equals(event.getEntry().getId())) {
-                DishServerCommunication.cancelFoodOrder(Integer.parseInt(event.getEntry().getId()));
-            } else {
-                attemptedDelete = event.getEntry().getId();
-                event.getEntry().getCalendar().addEntry(event.getEntry());
-                CustomAlert.warningAlert("You are about to cancel your reservation. Try again to complete cancellation.");
-            }
+            BikeServerCommunication.cancelBikeReservation(Integer.parseInt(event.getEntry().getId()));
         }
     }
 
