@@ -100,18 +100,6 @@ public class Restaurant {
         return menu;
     }
 
-    public boolean isOutsideBusinessHours(Date deliveryTime) {
-        RestaurantHourService restaurantHourService = new RestaurantHourService();
-        RestaurantHours restaurantHours = restaurantHourService.find(getId(), deliveryTime.getTime());
-
-        Instant instant = restaurantHours.getStartTime().atDate(LocalDate.ofEpochDay(restaurantHours.getDay())).atZone(ZoneId.systemDefault()).toInstant();
-        Date startTime = Date.from(instant);
-        Instant instant1 = restaurantHours.getEndTime().atDate(LocalDate.ofEpochDay(restaurantHours.getDay())).atZone(ZoneId.systemDefault()).toInstant();
-        Date endTime = Date.from(instant1);
-
-        return deliveryTime.before(startTime) || deliveryTime.after(endTime);
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {

@@ -15,6 +15,9 @@ import static nl.tudelft.oopp.demo.config.Constants.WRONG_USER;
 import static nl.tudelft.oopp.demo.config.Constants.OUTSIDE_BUSINESS_HOURS;
 import static nl.tudelft.oopp.demo.security.SecurityConstants.HEADER_STRING;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -23,11 +26,7 @@ import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
-import nl.tudelft.oopp.demo.entities.AppUser;
-import nl.tudelft.oopp.demo.entities.Building;
-import nl.tudelft.oopp.demo.entities.Dish;
-import nl.tudelft.oopp.demo.entities.FoodOrder;
-import nl.tudelft.oopp.demo.entities.Restaurant;
+import nl.tudelft.oopp.demo.entities.*;
 import nl.tudelft.oopp.demo.repositories.BuildingRepository;
 import nl.tudelft.oopp.demo.repositories.DishRepository;
 import nl.tudelft.oopp.demo.repositories.FoodOrderRepository;
@@ -64,6 +63,9 @@ public class FoodOrderService {
     @Autowired
     private DishRepository dishRepository;
 
+    @Autowired
+    private RestaurantHourService restaurantHourService;
+
     /**
      * Adds a foodOrder.
      * @param request = the Http request that calls this method.
@@ -79,10 +81,6 @@ public class FoodOrderService {
         }
         Restaurant restaurant = optionalRestaurant.get();
 
-        if (restaurant.isOutsideBusinessHours(new Date(deliverTimeMs))) {
-            return OUTSIDE_BUSINESS_HOURS;
-        }
-
         String token = request.getHeader(HEADER_STRING);
         AppUser appUser = UserService.getAppUser(token, userRepository);
         if (appUser == null) {
@@ -94,6 +92,19 @@ public class FoodOrderService {
             return BUILDING_NOT_FOUND;
         }
         Building deliveryLocation = optionalDeliveryLocation.get();
+
+        RestaurantHours restaurantHours = restaurantHourService.find(restaurant.getId(), deliverTimeMs);
+
+        if (restaurantHours != null) {
+            Instant instant = restaurantHours.getStartTime().atDate(LocalDate.ofEpochDay(restaurantHours.getDay())).atZone(ZoneId.systemDefault()).toInstant();
+            Date startTime = Date.from(instant);
+            Instant instant1 = restaurantHours.getEndTime().atDate(LocalDate.ofEpochDay(restaurantHours.getDay())).atZone(ZoneId.systemDefault()).toInstant();
+            Date endTime = Date.from(instant1);
+
+            if (startTime.compareTo(new Date(deliverTimeMs)) > 0 || endTime.compareTo(new Date(deliverTimeMs)) < 0) {
+                return OUTSIDE_BUSINESS_HOURS;
+            }
+        }
 
         FoodOrder foodOrder = new FoodOrder();
         foodOrder.setRestaurant(restaurant);
