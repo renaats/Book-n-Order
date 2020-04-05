@@ -26,7 +26,7 @@ public class DishServerCommunication {
      * @return the body of the response from the server.
      */
     public static String addDish(String name, int menuId, int price, String description, String image) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/dish/add?name=" + URLEncoder.encode(name, StandardCharsets.UTF_8) + "&menuId=" + menuId + "&price=" + price + "&description=" + description + "&image=" + URLEncoder.encode(image, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/dish/add?name=" + URLEncoder.encode(name, StandardCharsets.UTF_8) + "&menuId=" + menuId + "&price=" + price + "&description=" + URLEncoder.encode(description, StandardCharsets.UTF_8) + "&image=" + URLEncoder.encode(image, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnErrorMessage(request);
     }
 

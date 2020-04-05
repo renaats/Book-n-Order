@@ -337,10 +337,25 @@ public class DatabaseRoomMenuController implements Initializable {
 
     private void loadStudySpecificChoiceBox() {
         studyList.clear();
-        String a = "";
-        String b = "Computer Science and Engineering";
-        studyList.addAll(a, b);
+        studyList.add("Aerospace Engineering");
+        studyList.add("Applied Earth Sciences");
+        studyList.add("Architecture");
+        studyList.add("Civil Engineering");
+        studyList.add("Computer Science and Engineering");
+        studyList.add("Electrical Engineering");
+        studyList.add("Industrial Design");
+        studyList.add("Clinical Technology");
+        studyList.add("Life Science and Technology");
+        studyList.add("Maritime Technology");
+        studyList.add("Molecular Science and Technology");
+        studyList.add("Nanobiology");
+        studyList.add("Technical Public Administration");
+        studyList.add("Applied Physics");
+        studyList.add("Technical Mathematics");
+        studyList.add("Mechanical Engineering");
+        studyList.add("");
         studyChoiceBox.getItems().addAll(studyList);
+        studyChoiceBox.setValue("");
     }
 
     private void loadStatusChoiceBox() {
