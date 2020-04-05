@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
@@ -53,12 +54,22 @@ public class BuildingInformationController implements Initializable {
     private Text buildingRestaurants;
     @FXML
     private Text buildingOpeningHours;
+    @FXML
+    private Text pagesText;
+
+    private int pageNumber;
+    private double totalPages;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        colName.setCellValueFactory(new PropertyValueFactory<>("getName"));
-        colStreet.setCellValueFactory(new PropertyValueFactory<>("getStreet"));
-        colHouseNumber.setCellValueFactory(new PropertyValueFactory<>("getHouseNumber"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colStreet.setCellValueFactory(new PropertyValueFactory<>("street"));
+        colHouseNumber.setCellValueFactory(new PropertyValueFactory<>("houseNumber"));
+
+        if (pageNumber == 0) {
+            pageNumber++;
+        }
+
         loadDataIntoTable();
         showInformation();
     }
@@ -70,22 +81,53 @@ public class BuildingInformationController implements Initializable {
         buildingResult.clear();
         List<Building> buildings;
         try {
-            String json = BuildingServerCommunication.getBuildings();
-            List<Building> buildings1 = JsonMapper.buildingListMapper(json);
-            buildings = new ArrayList<>(buildings1);
+            buildings = new ArrayList<>(Objects.requireNonNull(JsonMapper.buildingListMapper(BuildingServerCommunication.getBuildings())));
         } catch (Exception e) {
             // Fakes the table having any entries, so the table shows up properly instead of "No contents".
             buildings = new ArrayList<>();
             buildings.add(null);
         }
 
-        if (buildings.size() > 10) {
-            buildings = buildings.subList(0, 15);
-            buildingResult.addAll(buildings);
-        } else {
+        totalPages = Math.ceil(buildings.size() / 15.0);
+
+        if (totalPages < pageNumber) {
+            pageNumber--;
+        }
+
+        pagesText.setText(pageNumber + " / " + (int) totalPages + " pages");
+
+        if (buildings.size() > 16) {
+            for (int i = 1; i < 16; i++) {
+                try {
+                    buildingResult.add(buildings.get((i - 15) + pageNumber * 15));
+                } catch (IndexOutOfBoundsException e) {
+                    break;
+                }
+            }
+        }  else {
             buildingResult.addAll(buildings);
         }
         table.setItems(buildingResult);
+    }
+
+    /**
+     * Handles the clicking to the previous page
+     */
+    public void previousPage() {
+        if (pageNumber > 1) {
+            pageNumber--;
+        }
+        loadDataIntoTable();
+    }
+
+    /**
+     * Handles the clicking to the next table page.
+     */
+    public void nextPage() {
+        if (pageNumber < (int) totalPages) {
+            pageNumber++;
+            loadDataIntoTable();
+        }
     }
 
     /**
