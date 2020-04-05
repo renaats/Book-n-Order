@@ -41,18 +41,29 @@ public class DishServerCommunication {
         return communicateAndReturnErrorMessage(request);
     }
 
+    /**
+     * Gets all allergies for some dish.
+     * @param dishId the dish id.
+     * @return the body of the response from the server.
+     */
     public static String getAllergiesFromDish(int dishId) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/allergy/dish/" + dishId)).GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnBodyOfResponse(request);
     }
 
+    /**
+     * Deletes an allergy for some dish.
+     * @param id the dish id.
+     * @param allergyName the name of the allergy.
+     * @return the body of the response from the server.
+     */
     public static String deleteAllergyFromDish(int id, String allergyName) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/dish/removeAllergy?id=" + id + "&allergyName=" + URLEncoder.encode(allergyName, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnErrorMessage(request);
     }
 
     /**
-     * Updates a dish on the server.
+     * Updates an attribute of the dish.
      * @param id = the id of the dish.
      * @param attribute = the attribute whose value is changed.
      * @param value = the new value of the attribute.
@@ -156,6 +167,7 @@ public class DishServerCommunication {
      * Adds a restaurant to the database.
      * @param buildingId the ID of the building where the restaurant is located restaurant.
      * @param name the name of the restaurant.
+     * @param email the email of the restaurant.
      * @return the body of the response from the server.
      */
     public static String addRestaurant(int buildingId, String name, String email) {
@@ -201,6 +213,7 @@ public class DishServerCommunication {
      * Updates a specific attribute of a food order.
      * @param id food order id.
      * @param name the name of the dish you want to add.
+     * @param amount the amount of dishes to add.
      * @return the body of the response from the server.
      */
     public static String addDishToFoodOrder(int id, String name, int amount) {
@@ -228,7 +241,6 @@ public class DishServerCommunication {
     }
 
     /**
-     * Finds all past food orders for the user that sends the request.
      * Finds all previous food orders for the user that sends the request.
      * @return the body of the response from the server.
      */
@@ -265,6 +277,12 @@ public class DishServerCommunication {
         return communicateAndReturnErrorMessage(request);
     }
 
+    /**
+     * Changes the name of the menu to the one provided.
+     * @param menuId the id of the menu.
+     * @param name the new name of the menu.
+     * @return the error message corresponding to the server's response.
+     */
     public static String updateMenuName(int menuId, String name) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/menu/changeName?menuId=" + menuId + "&name=" + name)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnErrorMessage(request);

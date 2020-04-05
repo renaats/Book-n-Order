@@ -38,7 +38,7 @@ public class BikeServerCommunication {
 
     /**
      * Retrieves a bike by given id.
-     * @param bikeId = the id of the room.
+     * @param bikeId = the id of the bike.
      * @return The body of the response from the server.
      */
     public static String findBike(int bikeId) {

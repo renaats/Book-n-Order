@@ -140,7 +140,7 @@ public class DatabaseAddBikeController implements Initializable {
                 return;
             }
             if (building == null) {
-                CustomAlert.errorAlert("Building not found");
+                CustomAlert.errorAlert("Building not found.");
                 return;
             } else {
                 buildingId = building.getId();

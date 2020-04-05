@@ -100,8 +100,8 @@ public class UserServerCommunication {
      * @param email User's email.
      * @param name User's name.
      * @param surname User's surname.
-     * @param password User's password.
      * @param faculty User's faculty.
+     * @param password User's password.
      * @param study User's study.
      * @return the error message corresponding to the server's response.
      */
@@ -150,7 +150,7 @@ public class UserServerCommunication {
                         if (!getAccountActivation()) {
                             ApplicationDisplay.changeScene("/ConfirmationSixDigits.fxml");
                         } else {
-                            ApplicationDisplay.changeScene("/mainMenu.fxml");
+                            ApplicationDisplay.changeScene("/MainMenu.fxml");
                         }
                         return ErrorMessages.getErrorMessage(200);
                     }

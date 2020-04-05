@@ -106,11 +106,11 @@ public class OrderFoodController implements Initializable {
     }
 
     /**
-     * Changes to mainMenuReservations.fxml.
+     * Changes to MainMenuReservations.fxml.
      * @throws IOException input will not be wrong, hence we throw.
      */
     public void mainMenu() throws IOException {
-        ApplicationDisplay.changeScene("/mainMenu.fxml");
+        ApplicationDisplay.changeScene("/MainMenu.fxml");
     }
 
     /**
@@ -118,7 +118,7 @@ public class OrderFoodController implements Initializable {
      * @throws IOException the input will always be the same, so it should never throw an IO exception
      */
     public void goToMainMenuReservations() throws IOException {
-        ApplicationDisplay.changeScene("/mainMenuReservations.fxml");
+        ApplicationDisplay.changeScene("/MainMenuReservations.fxml");
     }
 
     /**
