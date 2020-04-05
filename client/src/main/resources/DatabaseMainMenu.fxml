@@ -26,7 +26,7 @@
       <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="258.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="576.0" AnchorPane.leftAnchor="258.0" AnchorPane.rightAnchor="902.0" AnchorPane.topAnchor="120.0">
          <Image url="@images/booknorderlogo.png" />
       </ImageView>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="565.0" layoutY="264.0" onMouseClicked="#databaseBuildings" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="buildingImage" fitHeight="150.0" fitWidth="200.0" layoutX="565.0" layoutY="264.0" onMouseClicked="#databaseBuildings" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/databaseMenuBuildingIcon.png" />
          </image>
@@ -34,7 +34,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </ImageView>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="565.0" layoutY="490.0" onMouseClicked="#databaseRooms" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="roomImage" fitHeight="150.0" fitWidth="200.0" layoutX="565.0" layoutY="490.0" onMouseClicked="#databaseRooms" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/DatabasemenuRoomIcon.png" />
          </image>
@@ -42,7 +42,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </ImageView>
-      <ImageView fitHeight="133.0" fitWidth="150.0" layoutX="253.0" layoutY="369.0" onMouseClicked="#databaseRestaurants" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="restaurantImage" fitHeight="133.0" fitWidth="150.0" layoutX="253.0" layoutY="369.0" onMouseClicked="#databaseRestaurants" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/45332.png" />
          </image>
@@ -50,7 +50,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </ImageView>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="885.0" layoutY="360.0" onMouseClicked="#databaseBikes" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="bikeImage" fitHeight="150.0" fitWidth="200.0" layoutX="885.0" layoutY="360.0" onMouseClicked="#databaseBikes" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/bikeIconFinalWithCircle.png" />
          </image>
@@ -72,22 +72,22 @@
             <Font name="Calibri" size="11.0" />
          </font>
       </Text>
-      <Button layoutX="540.0" layoutY="646.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#databaseRooms" style="-fx-background-color: #00a6d6;" text="Edit Rooms" textFill="WHITE">
+      <Button fx:id="roomButton" layoutX="540.0" layoutY="646.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#databaseRooms" style="-fx-background-color: #00a6d6;" text="Edit Rooms" textFill="WHITE">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button layoutX="540.0" layoutY="407.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#databaseBuildings" style="-fx-background-color: #00a6d6;" text="Edit Buildings" textFill="WHITE">
+      <Button fx:id="buildingButton" layoutX="540.0" layoutY="407.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#databaseBuildings" style="-fx-background-color: #00a6d6;" text="Edit Buildings" textFill="WHITE">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button layoutX="860.0" layoutY="510.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#databaseBikes" style="-fx-background-color: #00a6d6;" text="Edit Bikes" textFill="WHITE">
+      <Button fx:id="bikeButton" layoutX="860.0" layoutY="510.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#databaseBikes" style="-fx-background-color: #00a6d6;" text="Edit Bikes" textFill="WHITE">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button layoutX="228.0" layoutY="510.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#databaseRestaurants" style="-fx-background-color: #00a6d6;" text="Edit Restaurants" textFill="WHITE">
+      <Button fx:id="restaurantButton" layoutX="228.0" layoutY="510.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#databaseRestaurants" style="-fx-background-color: #00a6d6;" text="Edit Restaurants" textFill="WHITE">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
