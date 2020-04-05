@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -194,7 +195,11 @@ public class DatabaseAddRestaurants implements Initializable {
             } catch (NumberFormatException e) {
                 Building building = null;
                 if (!buildingNameTextField.getText().equals("")) {
-                    building = JsonMapper.buildingMapper(BuildingServerCommunication.findBuildingByName(buildingNameTextField.getText()));
+                    try {
+                        building = JsonMapper.buildingMapper(BuildingServerCommunication.findBuildingByName(buildingNameTextField.getText()));
+                    } catch (JsonProcessingException ex) {
+                        CustomAlert.errorAlert("Building not found.");
+                    }
                 } else {
                     CustomAlert.warningAlert("Please provide a building.");
                     return;

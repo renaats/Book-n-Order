@@ -609,13 +609,16 @@ public class DatabaseRestaurantMenuController implements Initializable {
             CustomAlert.warningAlert("No selection detected.");
             return;
         }
-
         try {
             buildingId = Integer.parseInt(locationFieldRead.getText());
         } catch (NumberFormatException e) {
             Building building = null;
             if (!locationFieldRead.getText().equals("")) {
-                building = JsonMapper.buildingMapper(BuildingServerCommunication.findBuildingByName(locationFieldRead.getText()));
+                try {
+                    building = JsonMapper.buildingMapper(BuildingServerCommunication.findBuildingByName(locationFieldRead.getText()));
+                } catch (JsonProcessingException ex) {
+                    CustomAlert.errorAlert("Building not found.");
+                }
             } else {
                 CustomAlert.warningAlert("Please provide a building.");
                 return;

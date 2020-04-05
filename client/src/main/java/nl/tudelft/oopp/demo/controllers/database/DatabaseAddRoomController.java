@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -175,12 +176,25 @@ public class DatabaseAddRoomController implements Initializable {
         int plugs = -1;
         boolean buildingFound = false;
 
+        Building building = null;
         try {
             buildingId = Integer.parseInt(buildingIdTextField.getText());
+            try {
+                building = JsonMapper.buildingMapper(BuildingServerCommunication.findBuilding(buildingId));
+            } catch (JsonProcessingException e) {
+                CustomAlert.errorAlert("Building not found.");
+                return;
+            }
+            if (building != null) {
+                buildingFound = true;
+            }
         } catch (NumberFormatException e) {
-            Building building = null;
             if (!buildingIdTextField.getText().equals("")) {
-                building = JsonMapper.buildingMapper(BuildingServerCommunication.findBuildingByName(buildingIdTextField.getText()));
+                try {
+                    building = JsonMapper.buildingMapper(BuildingServerCommunication.findBuildingByName(buildingIdTextField.getText()));
+                } catch (JsonProcessingException ex) {
+                    CustomAlert.errorAlert("Building not found.");
+                }
             } else {
                 CustomAlert.warningAlert("Please provide a building.");
                 return;

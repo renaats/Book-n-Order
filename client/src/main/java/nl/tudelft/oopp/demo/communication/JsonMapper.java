@@ -34,17 +34,11 @@ public class JsonMapper {
      * @param buildingJson JSON string representation of a building
      * @return Building object
      */
-    public static Building buildingMapper(String buildingJson) {
+    public static Building buildingMapper(String buildingJson) throws JsonProcessingException {
 
         ObjectMapper mapper = new ObjectMapper();
 
-        try {
-            // Convert JSON string to Object
-            return mapper.readValue(buildingJson, Building.class);
-        } catch (Exception e) {
-            CustomAlert.warningAlert(buildingJson);
-        }
-        return null;
+        return mapper.readValue(buildingJson, Building.class);
     }
 
     /**

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -207,7 +208,12 @@ public class DatabaseBuildingMenuController implements Initializable {
             }
         } catch (Exception e) {
             String name = buildingFindTextField.getText();
-            Building building = JsonMapper.buildingMapper(BuildingServerCommunication.findBuildingByName(name));
+            Building building = null;
+            try {
+                building = JsonMapper.buildingMapper(BuildingServerCommunication.findBuildingByName(name));
+            } catch (JsonProcessingException ex) {
+                CustomAlert.errorAlert("Building not found!");
+            }
             if (building != null) {
                 buildingResult.clear();
                 buildingResult.add(building);
@@ -224,7 +230,12 @@ public class DatabaseBuildingMenuController implements Initializable {
         int id;
         try {
             id = Integer.parseInt(idFieldRead.getText());
-            Building building = JsonMapper.buildingMapper(BuildingServerCommunication.findBuilding(id));
+            Building building = null;
+            try {
+                building = JsonMapper.buildingMapper(BuildingServerCommunication.findBuilding(id));
+            } catch (JsonProcessingException e) {
+                CustomAlert.errorAlert("Building not found!");
+            }
             assert building != null;
             if (!building.getName().equals(nameFieldRead.getText())) {
                 String response = BuildingServerCommunication.updateBuilding(id, "name", nameFieldRead.getText());
