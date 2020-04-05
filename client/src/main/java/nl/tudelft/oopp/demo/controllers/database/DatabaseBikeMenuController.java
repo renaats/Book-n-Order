@@ -127,6 +127,14 @@ public class DatabaseBikeMenuController implements Initializable {
     }
 
     /**
+     * Goes to the reservation screen.
+     * @throws IOException again, all input will be valid. No need to check this, thus we throw.
+     */
+    public void goToReservations() throws IOException {
+        ApplicationDisplay.changeScene("/DatabaseBikeReservations.fxml");
+    }
+
+    /**
      * Handles the clicking to the next table page.
      */
     public void nextPage() {

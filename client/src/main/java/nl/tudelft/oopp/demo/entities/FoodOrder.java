@@ -94,7 +94,7 @@ public class FoodOrder {
     }
 
     public String getDeliveryTimeString() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd  HH:mm");//""HH:mm  dd-MM-yyyy");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd  HH:mm");
         return simpleDateFormat.format(deliveryTime);
     }
 

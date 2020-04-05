@@ -108,6 +108,10 @@ public class Room {
         return building;
     }
 
+    public String getBuildingName() {
+        return building.getName();
+    }
+
     /**
      * Makes the table list the building name instead of the building object
      * @return String property, a property recognized by the tables.

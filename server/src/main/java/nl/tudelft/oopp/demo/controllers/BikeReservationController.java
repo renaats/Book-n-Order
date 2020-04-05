@@ -113,6 +113,28 @@ public class BikeReservationController {
     }
 
     /**
+     * Finds all past bike reservations for some bike.
+     * @param bikeId = the bike for which the bike reservations are searched.
+     * @return a list of past bike reservations for this bike.
+     */
+    @Secured({ADMIN, BIKE_ADMIN})
+    @GetMapping(path = "/pastAdmin")
+    public Iterable<BikeReservation> getPastReservationsAdmin(@RequestParam int bikeId) {
+        return bikeReservationService.pastForAdmin(bikeId);
+    }
+
+    /**
+     * Finds all future bike reservations for some bike.
+     * @param bikeId = the bike for which the bike reservations are searched.
+     * @return a list of future bike reservations for this bike.
+     */
+    @Secured({ADMIN, BIKE_ADMIN})
+    @GetMapping(path = "/futureAdmin")
+    public Iterable<BikeReservation> getFutureReservationsAdmin(@RequestParam int bikeId) {
+        return bikeReservationService.futureForAdmin(bikeId);
+    }
+
+    /**
      * Finds all active bike reservations for the user that sends the Http request.
      * @param request = the Http request that calls this method.
      * @return a list of active bike reservations for this user.

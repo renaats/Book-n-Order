@@ -236,6 +236,36 @@ public class BikeReservationService {
     }
 
     /**
+     * Finds all past bike reservations for some bike.
+     * @param bikeId = the bike for which the bike reservations are searched.
+     * @return a list of past bike reservations for this bike.
+     */
+    public List<BikeReservation> pastForAdmin(int bikeId) {
+        List<BikeReservation> bikeReservations = new ArrayList<>();
+        for (BikeReservation bikeReservation: bikeReservationRepository.findAllByBikeId(bikeId)) {
+            if (!bikeReservation.getToTime().after(new Date()) || !bikeReservation.isActive()) {
+                bikeReservations.add(bikeReservation);
+            }
+        }
+        return bikeReservations;
+    }
+
+    /**
+     * Finds all future bike reservations for some bike.
+     * @param bikeId = the bike for which the bike reservations are searched.
+     * @return a list of future bike reservations for this bike.
+     */
+    public List<BikeReservation> futureForAdmin(int bikeId) {
+        List<BikeReservation> bikeReservations = new ArrayList<>();
+        for (BikeReservation bikeReservation: bikeReservationRepository.findAllByBikeId(bikeId)) {
+            if (bikeReservation.getToTime().after(new Date()) && bikeReservation.isActive()) {
+                bikeReservations.add(bikeReservation);
+            }
+        }
+        return bikeReservations;
+    }
+
+    /**
      * Finds all active bike reservations for the user that sends the Http request.
      * @param request = the Http request that calls this method.
      * @return a list of active bike reservations for this user.

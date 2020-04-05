@@ -43,6 +43,14 @@ public class Bike {
         return location;
     }
 
+    public String getLocationName() {
+        return location.getName();
+    }
+
+    public String getAvailableString() {
+        return ((Boolean) available).toString();
+    }
+
     /**
      * Makes the table list the building name instead of the building object
      * @return String property, a property recognized by the tables.

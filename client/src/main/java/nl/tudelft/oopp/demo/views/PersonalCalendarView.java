@@ -59,10 +59,11 @@ public class PersonalCalendarView extends CalendarView {
 
                 LocalTime startTime = convertToLocalTime(reservation.getFromTime());
                 LocalTime endTime = convertToLocalTime(reservation.getToTime());
-                LocalDate date = convertToLocalDate(reservation.getFromTime());
+                LocalDate fromDate = convertToLocalDate(reservation.getFromTime());
+                LocalDate toDate = convertToLocalDate(reservation.getToTime());
 
                 bookedEntry.setLocation(reservation.getRoom().getBuilding().getName());
-                bookedEntry.setInterval(date);
+                bookedEntry.setInterval(fromDate, toDate);
                 bookedEntry.setInterval(startTime, endTime);
                 bookedRooms.addEntry(bookedEntry);
             }

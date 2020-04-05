@@ -598,10 +598,10 @@ public class DatabaseRestaurantMenuController implements Initializable {
      * Sets all fields to 0 to indicate that that means closed.
      */
     public void setClosedTextFields() {
-//        hoursStartTime.setText("0");
-//        minutesStartTime.setText("0");
-//        hoursEndTime.setText("0");
-//        minutesEndTime.setText("0");
+    //        hoursStartTime.setText("0");
+    //        minutesStartTime.setText("0");
+    //        hoursEndTime.setText("0");
+    //        minutesEndTime.setText("0");
     }
 
     /**

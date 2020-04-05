@@ -196,4 +196,9 @@
       </font>
    </Text>
    <TextField fx:id="plugsReadField" layoutX="356.0" layoutY="380.0" promptText="Amount of people" />
+   <Button fx:id="reservationsButton" layoutX="82.0" layoutY="417.0" mnemonicParsing="false" onAction="#goToReservations" prefHeight="26.0" prefWidth="113.0" style="-fx-background-color: #00a6d6;" text="Reservations" textFill="WHITE">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
 </AnchorPane>

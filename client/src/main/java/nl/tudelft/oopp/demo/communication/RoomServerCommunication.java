@@ -126,6 +126,26 @@ public class RoomServerCommunication {
     }
 
     /**
+     * Retrieves all future and current room reservations for some room.
+     * @param roomId the id of the room.
+     * @return the body of the response from the server.
+     */
+    public static String getAllFutureRoomReservationsForRoom(int roomId) {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/room_reservation/futureAdmin?roomId=" + roomId)).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Retrieves all previous room reservations for some room.
+     * @param roomId the id of the room.
+     * @return the body of the response from the server.
+     */
+    public static String getAllPreviousRoomReservationsForRoom(int roomId) {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/room_reservation/pastAdmin?roomId=" + roomId)).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
      * Retrieves all active room reservations from the server.
      * @return the body of the response from the server.
      */

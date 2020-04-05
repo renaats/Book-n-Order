@@ -105,6 +105,26 @@ public class BikeServerCommunication {
     }
 
     /**
+     * Finds all past bike reservations for the bike with the bikeId.
+     * @param bikeId the id of the bike.
+     * @return the body of the response from the server.
+     */
+    public static String getAllPreviousBikeReservationsForBike(int bikeId) {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/bike_reservation/pastAdmin?bikeId=" + bikeId)).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Finds all future and current bike reservations for the bike with the bikeId.
+     * @param bikeId the id of the bike.
+     * @return the body of the response from the server.
+     */
+    public static String getAllFutureBikeReservationsForBike(int bikeId) {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/bike_reservation/futureAdmin?bikeId=" + bikeId)).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
      * Finds all active bike reservations for the user that sends the request.
      * @return the body of the response from the server.
      */

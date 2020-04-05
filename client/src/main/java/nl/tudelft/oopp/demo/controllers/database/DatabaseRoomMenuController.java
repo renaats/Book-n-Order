@@ -150,6 +150,14 @@ public class DatabaseRoomMenuController implements Initializable {
     }
 
     /**
+     * Goes to the reservation screen.
+     * @throws IOException again, all input will be valid. No need to check this, thus we throw.
+     */
+    public void goToReservations() throws IOException {
+        ApplicationDisplay.changeScene("/DatabaseRoomReservations.fxml");
+    }
+
+    /**
      * Handles the clicking to the next table page.
      */
     public void nextPage() {

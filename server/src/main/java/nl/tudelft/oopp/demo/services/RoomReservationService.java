@@ -193,6 +193,36 @@ public class RoomReservationService {
     }
 
     /**
+     * Finds all past room reservations for some room.
+     * @param roomId = the room for which the room reservations are searched.
+     * @return a list of past room reservations for this room.
+     */
+    public List<RoomReservation> pastForAdmin(int roomId) {
+        List<RoomReservation> roomReservations = new ArrayList<>();
+        for (RoomReservation roomReservation: roomReservationRepository.findAllByRoomId(roomId)) {
+            if (!roomReservation.getToTime().after(new Date()) || !roomReservation.isActive()) {
+                roomReservations.add(roomReservation);
+            }
+        }
+        return roomReservations;
+    }
+
+    /**
+     * Finds all future room reservations for some room.
+     * @param roomId = the room for which the room reservations are searched.
+     * @return a list of future room reservations for this room.
+     */
+    public List<RoomReservation> futureForAdmin(int roomId) {
+        List<RoomReservation> roomReservations = new ArrayList<>();
+        for (RoomReservation roomReservation: roomReservationRepository.findAllByRoomId(roomId)) {
+            if (roomReservation.getToTime().after(new Date()) && roomReservation.isActive()) {
+                roomReservations.add(roomReservation);
+            }
+        }
+        return roomReservations;
+    }
+
+    /**
      * Finds all active room reservations for the user that sends the Http request.
      * @param request = the Http request that calls this method.
      * @return a list of active room reservations for this user.
