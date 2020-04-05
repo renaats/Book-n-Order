@@ -44,4 +44,12 @@ public class MainMenuController {
     public void goToContactInformation() throws IOException {
         ApplicationDisplay.changeScene("/ContactInformation.fxml");
     }
+
+    /**
+     * Handles the clicking of the Building Information button.
+     * @throws IOException when it fails
+     */
+    public void goToBuildingInformation() throws IOException {
+        ApplicationDisplay.changeScene("/BuildingInformation.fxml");
+    }
 }

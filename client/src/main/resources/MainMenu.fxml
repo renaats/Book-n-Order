@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.MainMenuController">
+<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.MainMenuController">
    <ImageView cache="true" cacheHint="QUALITY" depthTest="DISABLE" fitHeight="720.0" fitWidth="1280.0" opacity="0.5" pickOnBounds="true">
       <image>
          <Image url="@images/mainMenuBackground.jpg" />
@@ -76,6 +80,14 @@
       </cursor>
    </Button>
    <Hyperlink layoutX="1166.0" layoutY="671.0" onMouseClicked="#goToContactInformation" text="Contact Us" textAlignment="CENTER" textFill="#00a6d6">
+      <font>
+         <Font size="18.0" />
+      </font>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Hyperlink>
+   <Hyperlink layoutX="974.0" layoutY="671.0" onMouseClicked="#goToBuildingInformation" text="Building Information" textAlignment="CENTER" textFill="#00a6d6">
       <font>
          <Font size="18.0" />
       </font>
