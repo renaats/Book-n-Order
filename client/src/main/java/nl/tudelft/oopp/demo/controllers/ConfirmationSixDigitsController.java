@@ -6,7 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
 import nl.tudelft.oopp.demo.authentication.AuthenticationKey;
-import nl.tudelft.oopp.demo.communication.ServerCommunication;
+import nl.tudelft.oopp.demo.communication.UserServerCommunication;
 import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
@@ -24,9 +24,9 @@ public class ConfirmationSixDigitsController {
     public void confirmValidity() {
         try {
             int code = Integer.parseInt(sixDigitCode.getText());
-            String response =  ServerCommunication.validateUser(code);
+            String response =  UserServerCommunication.validateUser(code);
             if (response.equals("Successfully executed.")) {
-                ApplicationDisplay.changeScene("/mainMenu.fxml");
+                ApplicationDisplay.changeScene("/MainMenu.fxml");
             } else {
                 CustomAlert.warningAlert(response);
             }
@@ -41,7 +41,7 @@ public class ConfirmationSixDigitsController {
      */
     public void goToLoginScreen() throws IOException {
         AuthenticationKey.setBearerKey(null);
-        ApplicationDisplay.changeScene("/login-screen.fxml");
+        ApplicationDisplay.changeScene("/LoginScreen.fxml");
     }
 }
 

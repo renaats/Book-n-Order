@@ -13,14 +13,14 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 import nl.tudelft.oopp.demo.communication.JsonMapper;
-import nl.tudelft.oopp.demo.communication.ServerCommunication;
+import nl.tudelft.oopp.demo.communication.UserServerCommunication;
 import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.user.UserInformation;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
  * Loads the correct content into the FXML objects that need to display server information and
- * controls all the user inputs made through the GUI in the "myAccountScene.fxml" file
+ * controls all the user inputs made through the GUI in the "MyAccountScene.fxml" file
  */
 public class MyAccountController implements Initializable {
 
@@ -37,7 +37,7 @@ public class MyAccountController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        UserInformation userInformation = JsonMapper.userInformationMapper(ServerCommunication.getOwnUserInformation());
+        UserInformation userInformation = JsonMapper.userInformationMapper(UserServerCommunication.getOwnUserInformation());
         fullNameLabel.setText(userInformation.getName() + " " + userInformation.getSurname());
         emailLabel.setText(userInformation.getEmail());
         facultyLabel.setText(userInformation.getFaculty());
@@ -45,7 +45,7 @@ public class MyAccountController implements Initializable {
 
         boolean showAdminButton = false;
         try {
-            showAdminButton = ServerCommunication.getAdminButtonPermission();
+            showAdminButton = UserServerCommunication.getAdminButtonPermission();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -55,23 +55,23 @@ public class MyAccountController implements Initializable {
     }
 
     /**
-     * Changes current scene to myCurrentBookings.fxml.
+     * Changes current scene to MyCurrentBookings.fxml.
      * @throws IOException input will be valid.
      */
     public void myCurrentBookings() throws IOException {
-        ApplicationDisplay.changeScene("/myCurrentBookings.fxml");
+        ApplicationDisplay.changeScene("/MyCurrentBookings.fxml");
     }
 
     /**
-     * Changes current scene to myPreviousBookings.fxml.
+     * Changes current scene to MyPreviousBookings.fxml.
      * @throws IOException input will be valid.
      */
     public void myPreviousBookings() throws IOException {
-        ApplicationDisplay.changeScene("/myPreviousBookings.fxml");
+        ApplicationDisplay.changeScene("/MyPreviousBookings.fxml");
     }
 
     /**
-     *  method changes the view to that of the DatabaseMenu
+     * Method changes the view to that of the DatabaseMenu
      * @param actionEvent clicking the button admin
      * @throws IOException the method will never throw an exception
      */
@@ -80,12 +80,12 @@ public class MyAccountController implements Initializable {
     }
 
     /**
-     *  method changes the view to that of the main menu
+     * Method changes the view to that of the main menu
      * @param actionEvent clicking the button to go back to menu
      * @throws IOException the method will never throw an exception
      */
     public void mainMenu(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/mainMenu.fxml");
+        ApplicationDisplay.changeScene("/MainMenu.fxml");
     }
 
     /**
@@ -93,9 +93,9 @@ public class MyAccountController implements Initializable {
      * @throws IOException input is valid hence we throw.
      */
     public void logoutUser() throws IOException {
-        ServerCommunication.logoutUser();
+        UserServerCommunication.logoutUser();
         CustomAlert.informationAlert("Logged out!");
-        ApplicationDisplay.changeScene("/login-screen.fxml");
+        ApplicationDisplay.changeScene("/LoginScreen.fxml");
     }
 
     /**
@@ -104,7 +104,7 @@ public class MyAccountController implements Initializable {
      * @throws IOException this should never throw an exception
      */
     public void changePasswordScene(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/changePassword.fxml");
+        ApplicationDisplay.changeScene("/ChangePassword.fxml");
     }
 
     /**
@@ -113,6 +113,6 @@ public class MyAccountController implements Initializable {
      * @throws IOException this method should never throw an exception
      */
     public void mainMenuIcon(MouseEvent mouseEvent) throws IOException {
-        ApplicationDisplay.changeScene("/mainMenu.fxml");
+        ApplicationDisplay.changeScene("/MainMenu.fxml");
     }
 }

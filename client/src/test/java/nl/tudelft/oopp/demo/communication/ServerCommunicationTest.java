@@ -17,7 +17,6 @@ import com.github.tomakehurst.wiremock.http.Fault;
 
 import nl.tudelft.oopp.demo.errors.ErrorMessages;
 
-import org.eclipse.jetty.server.Server;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
