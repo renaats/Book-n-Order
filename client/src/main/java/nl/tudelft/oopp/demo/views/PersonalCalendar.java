@@ -23,7 +23,7 @@ import nl.tudelft.oopp.demo.entities.BikeReservation;
 import nl.tudelft.oopp.demo.entities.FoodOrder;
 import nl.tudelft.oopp.demo.entities.RoomReservation;
 
-public class PersonalCalendarView extends CalendarView {
+public class PersonalCalendar extends CalendarView {
 
     Calendar bookedRooms = new Calendar("Room Bookings");
     Calendar orderedFood = new Calendar("Food Orders");
@@ -32,7 +32,7 @@ public class PersonalCalendarView extends CalendarView {
     /**
      * Constuctor for the Personal Calendar View
      */
-    public PersonalCalendarView() {
+    public PersonalCalendar() {
         displayCalendars();
         loadRoomReservations();
         loadBikeReservations();
