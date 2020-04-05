@@ -1,5 +1,5 @@
 ﻿# Book 'n Order
-(client/src/main/resources/images/mycampusbookingslogo.png)
+(client/src/main/resources/Images/mycampusbookingslogo.png)
 
 ## Description of project
 Book 'n Order is a Java desktop application that allows students and employees of TU Delft to book study rooms, rent bikes, and purchase food, all in one location.
