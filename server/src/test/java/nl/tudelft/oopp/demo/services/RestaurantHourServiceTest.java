@@ -389,6 +389,15 @@ public class RestaurantHourServiceTest {
     }
 
     /**
+     * Tests the saving and retrieval of an instance of RestaurantHours by restaurant id and day.
+     */
+    @Test
+    public void testFindByRestaurantAndDay() {
+        assertEquals(ADDED, restaurantHourService.add(restaurant.getId(), 939600000, 1000, 3000));
+        assertEquals(restaurantHoursSpecial, restaurantHourService.findAdmin(restaurant.getId(), 939600000));
+    }
+
+    /**
      * Tests the change of the day to a special day by using the service.
      */
     @Test

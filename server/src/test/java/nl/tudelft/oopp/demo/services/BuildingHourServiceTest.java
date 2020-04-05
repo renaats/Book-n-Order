@@ -372,6 +372,15 @@ public class BuildingHourServiceTest {
     }
 
     /**
+     * Tests the saving and retrieval of an instance of BuildingHours by building id and day.
+     */
+    @Test
+    public void testFindByBuildingAndDay() {
+        assertEquals(ADDED, buildingHourService.add(building.getId(), 939600000, 1000, 3000));
+        assertEquals(buildingHoursSpecial, buildingHourService.findAdmin(building.getId(), 939600000));
+    }
+
+    /**
      * Tests the change of the day to a special day by using the service.
      */
     @Test

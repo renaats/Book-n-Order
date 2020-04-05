@@ -158,4 +158,17 @@ public class RestaurantHourService {
         }
         return null;
     }
+
+    /**
+     * Finds the hours for a restaurant with the specified id and day.
+     * @param restaurantId = the id of the restaurant.
+     * @param day = the day;
+     * @return restaurant hours that match the id.
+     */
+    public RestaurantHours findAdmin(int restaurantId, long day) {
+        if (!restaurantHourRepository.existsByRestaurant_IdAndDay(restaurantId, day)) {
+            return null;
+        }
+        return restaurantHourRepository.findByRestaurant_IdAndDay(restaurantId, day);
+    }
 }
