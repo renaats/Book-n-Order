@@ -74,13 +74,7 @@ public class MyCurrentFoodReservationsController implements Initializable {
             foodOrders = new ArrayList<>();
             foodOrders.add(null);
         }
-
-        if (foodOrders.size() > 10) {
-            foodOrders = foodOrders.subList(0, 15);
-            foodOrderResult.addAll(foodOrders);
-        } else {
-            foodOrderResult.addAll(foodOrders);
-        }
+        foodOrderResult.addAll(foodOrders);
         table.setItems(foodOrderResult);
     }
 

@@ -67,13 +67,7 @@ public class MyCurrentRoomReservationsController implements Initializable {
             roomReservations = new ArrayList<>();
             roomReservations.add(null);
         }
-
-        if (roomReservations.size() > 10) {
-            roomReservations = roomReservations.subList(0, 15);
-            roomOrderResult.addAll(roomReservations);
-        } else {
-            roomOrderResult.addAll(roomReservations);
-        }
+        roomOrderResult.addAll(roomReservations);
         table.setItems(roomOrderResult);
     }
 

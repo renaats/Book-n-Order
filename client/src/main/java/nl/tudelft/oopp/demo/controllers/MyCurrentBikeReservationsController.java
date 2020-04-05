@@ -70,13 +70,7 @@ public class MyCurrentBikeReservationsController implements Initializable {
             bikeReservations = new ArrayList<>();
             bikeReservations.add(null);
         }
-
-        if (bikeReservations.size() > 10) {
-            bikeReservations = bikeReservations.subList(0, 15);
-            bikeOrderResult.addAll(bikeReservations);
-        } else {
-            bikeOrderResult.addAll(bikeReservations);
-        }
+        bikeOrderResult.addAll(bikeReservations);
         table.setItems(bikeOrderResult);
     }
 
