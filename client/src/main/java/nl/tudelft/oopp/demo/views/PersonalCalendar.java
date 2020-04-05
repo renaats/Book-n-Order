@@ -1,8 +1,6 @@
 package nl.tudelft.oopp.demo.views;
 
-import com.calendarfx.model.Calendar;
-import com.calendarfx.model.CalendarSource;
-import com.calendarfx.model.Entry;
+import com.calendarfx.model.*;
 import com.calendarfx.view.CalendarView;
 
 import java.time.Instant;
@@ -15,19 +13,20 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-import nl.tudelft.oopp.demo.communication.BikeServerCommunication;
-import nl.tudelft.oopp.demo.communication.DishServerCommunication;
-import nl.tudelft.oopp.demo.communication.JsonMapper;
-import nl.tudelft.oopp.demo.communication.RoomServerCommunication;
+import com.sun.javafx.scene.control.IntegerField;
+import nl.tudelft.oopp.demo.communication.*;
 import nl.tudelft.oopp.demo.entities.BikeReservation;
 import nl.tudelft.oopp.demo.entities.FoodOrder;
 import nl.tudelft.oopp.demo.entities.RoomReservation;
+import nl.tudelft.oopp.demo.errors.CustomAlert;
 
 public class PersonalCalendar extends CalendarView {
 
     Calendar bookedRooms = new Calendar("Room Bookings");
     Calendar orderedFood = new Calendar("Food Orders");
-    Calendar rentedBikes = new Calendar("Bike Rent");
+    Calendar rentedBikes = new Calendar("Bike Rentals");
+
+    String attemptedDelete = "empty";
 
     /**
      * Constuctor for the Personal Calendar View
@@ -60,6 +59,7 @@ public class PersonalCalendar extends CalendarView {
                 bookedEntry.setLocation(reservation.getRoom().getBuilding().getName());
                 bookedEntry.setInterval(date);
                 bookedEntry.setInterval(startTime, endTime);
+                bookedEntry.setId(String.valueOf(reservation.getId()));
                 bookedRooms.addEntry(bookedEntry);
             }
         }
@@ -90,6 +90,7 @@ public class PersonalCalendar extends CalendarView {
                 bookedEntry.setLocation(foodOrder.getDeliveryLocation().getName());
                 bookedEntry.setInterval(date);
                 bookedEntry.setInterval(startTime, endTime);
+                bookedEntry.setId(String.valueOf(foodOrder.getId()));
                 orderedFood.addEntry(bookedEntry);
             }
         }
@@ -120,10 +121,64 @@ public class PersonalCalendar extends CalendarView {
                 bookedEntry.setLocation(reservation.getFromBuilding().getName());
                 bookedEntry.setInterval(date);
                 bookedEntry.setInterval(startTime, endTime);
+                bookedEntry.setId(String.valueOf(reservation.getId()));
                 rentedBikes.addEntry(bookedEntry);
             }
         }
     }
+
+    /**
+     * Handles the event of entry removal. Cancels the reservation/order of the entry that was removed.
+     * @param event = the calendar event
+     */
+    public void roomReservationCancellationHandler(CalendarEvent event) {
+        if (event.isEntryRemoved()) {
+            if (attemptedDelete.equals(event.getEntry().getId())) {
+                DishServerCommunication.cancelFoodOrder(Integer.parseInt(event.getEntry().getId()));
+            } else {
+                attemptedDelete = event.getEntry().getId();
+                CustomAlert.warningAlert("You are about to cancel your reservation. Try again to complete cancellation.");
+                bookedRooms.addEntry(event.getEntry());
+                attemptedDelete = event.getEntry().getId();
+            }
+        }
+        if (event.isEntryAdded()) {
+            int i = 1;
+        }
+    }
+
+    /**
+     * Handles the event of entry removal. Cancels the reservation/order of the entry that was removed.
+     * @param event = the calendar event
+     */
+    public void foodOrderCancellationHandler(CalendarEvent event) {
+        if (event.isEntryRemoved()) {
+            if (attemptedDelete.equals(event.getEntry().getId())) {
+                DishServerCommunication.cancelFoodOrder(Integer.parseInt(event.getEntry().getId()));
+            } else {
+                attemptedDelete = event.getEntry().getId();
+                event.getEntry().getCalendar().addEntry(event.getEntry());
+                CustomAlert.warningAlert("You are about to cancel your order. Try again to complete cancellation.");
+            }
+        }
+    }
+
+    /**
+     * Handles the event of entry removal. Cancels the reservation/order of the entry that was removed.
+     * @param event = the calendar event
+     */
+    public void bikeReservationCancellationHandler(CalendarEvent event) {
+        if (event.isEntryRemoved()) {
+            if (attemptedDelete.equals(event.getEntry().getId())) {
+                DishServerCommunication.cancelFoodOrder(Integer.parseInt(event.getEntry().getId()));
+            } else {
+                attemptedDelete = event.getEntry().getId();
+                event.getEntry().getCalendar().addEntry(event.getEntry());
+                CustomAlert.warningAlert("You are about to cancel your reservation. Try again to complete cancellation.");
+            }
+        }
+    }
+
 
     /**
      * Method that displays the different calendars.
@@ -136,6 +191,10 @@ public class PersonalCalendar extends CalendarView {
         CalendarSource myCalendarSource = new CalendarSource("My Calendars");
         myCalendarSource.getCalendars().addAll(bookedRooms, orderedFood, rentedBikes);
         this.getCalendarSources().add(myCalendarSource);
+
+        bookedRooms.addEventHandler(this::roomReservationCancellationHandler);
+        orderedFood.addEventHandler(this::foodOrderCancellationHandler);
+        rentedBikes.addEventHandler(this::bikeReservationCancellationHandler);
     }
 
     public Date convertToDate(LocalTime time, LocalDate date) {
