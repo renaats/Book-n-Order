@@ -105,17 +105,11 @@ public class JsonMapper {
      * @param roomsJson a JSON string representing a list.
      * @return A list filled with object room
      */
-    public static List<Room> roomListMapper(String roomsJson) {
+    public static List<Room> roomListMapper(String roomsJson) throws JsonProcessingException {
 
         ObjectMapper mapper = new ObjectMapper();
 
-        try {
-            // Convert JSON string to Object
-            return mapper.readValue(roomsJson, new TypeReference<>(){});
-        } catch (Exception e) {
-            CustomAlert.warningAlert(roomsJson);
-        }
-        return null;
+        return mapper.readValue(roomsJson, new TypeReference<>(){});
     }
 
     /**
@@ -188,17 +182,11 @@ public class JsonMapper {
      * @param restaurantsJson a JSON string representing a list.
      * @return A list filled with object Restaurant
      */
-    public static List<Restaurant> restaurantListMapper(String restaurantsJson) {
+    public static List<Restaurant> restaurantListMapper(String restaurantsJson) throws JsonProcessingException {
 
         ObjectMapper mapper = new ObjectMapper();
 
-        try {
-            // Convert JSON string to Object
-            return mapper.readValue(restaurantsJson, new TypeReference<>(){});
-        } catch (Exception e) {
-            CustomAlert.warningAlert(restaurantsJson);
-        }
-        return null;
+        return mapper.readValue(restaurantsJson, new TypeReference<>(){});
     }
 
     /**
