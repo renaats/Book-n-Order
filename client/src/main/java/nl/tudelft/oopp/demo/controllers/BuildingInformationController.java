@@ -44,10 +44,10 @@ public class BuildingInformationController implements Initializable {
         loadDataIntoTable();
     }
 
-    /**
+     /**
      * Loads the building data into the table
      */
-     public void loadDataIntoTable() {
+    public void loadDataIntoTable() {
         buildingResult.clear();
         List<Building> buildings;
         try {
