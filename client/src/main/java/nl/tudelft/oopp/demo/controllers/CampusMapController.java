@@ -17,4 +17,13 @@ public class CampusMapController {
     public void mainMenu() throws IOException {
         ApplicationDisplay.changeScene("/MainMenu.fxml");
     }
+
+    /**
+     * method changes the view to that of the contact information
+     * @throws IOException the method will never throw an exception
+     */
+    public void goToContactInformation() throws IOException {
+        ApplicationDisplay.changeScene("/ContactInformation.fxml");
+    }
+
 }

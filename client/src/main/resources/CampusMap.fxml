@@ -4,6 +4,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -31,18 +32,27 @@
             <Font name="Calibri" size="11.0" />
         </font>
     </Text>
-   <ImageView fitHeight="452.0" fitWidth="941.0" layoutX="170.0" layoutY="182.0" onMouseClicked="#myCurrentBookings" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="170.0" AnchorPane.topAnchor="182.0">
-      <image>
-         <Image url="@Images/TuDelftCampus.png" />
-      </image>
-      <cursor>
-         <Cursor fx:constant="HAND" />
-      </cursor>
-   </ImageView>
     <ImageView fx:id="homeIcon" fitHeight="41.0" fitWidth="44.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#mainMenu" pickOnBounds="true" preserveRatio="true">
         <Image url="@images/HomeIconTransparent.png" />
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor>
     </ImageView>
+   <Pane layoutX="145.0" layoutY="215.0" prefHeight="380.0" prefWidth="989.0" style="-fx-border-color: #439FDA; -fx-border-width: 5; -fx-background-color: white;" AnchorPane.leftAnchor="145.0">
+      <children>
+         <ImageView fitHeight="432.0" fitWidth="978.0" layoutX="5.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@Images/TuDelftCampus.png" />
+            </image>
+         </ImageView>
+      </children>
+   </Pane>
+   <ImageView fitHeight="41.0" fitWidth="69.0" layoutX="24.0" layoutY="77.0" onMouseClicked="#goToContactInformation" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="67.0">
+      <image>
+         <Image url="@images/BackArrow.png" />
+      </image>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </ImageView>
 </AnchorPane>

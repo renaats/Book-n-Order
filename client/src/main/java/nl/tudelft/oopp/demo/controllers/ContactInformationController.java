@@ -35,6 +35,14 @@ public class ContactInformationController {
     }
 
     /**
+     * Changes current scene to CampusMap.fxml.
+     * @throws IOException input will be valid.
+     */
+    public void goToCampusMap() throws IOException {
+        ApplicationDisplay.changeScene("/CampusMap.fxml");
+    }
+
+    /**
      * Changes current scene to MainMenu.fxml.
      * @throws IOException input will be valid.
      */
