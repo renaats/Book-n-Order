@@ -34,9 +34,6 @@ public class PersonalCalendar extends CalendarView {
      */
     public PersonalCalendar() {
         displayCalendars();
-        loadRoomReservations();
-        loadBikeReservations();
-        loadFoodOrders();
     }
 
     /**

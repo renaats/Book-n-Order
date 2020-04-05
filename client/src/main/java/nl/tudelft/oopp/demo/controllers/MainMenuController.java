@@ -18,7 +18,7 @@ public class MainMenuController {
      * @throws IOException when it fails
      */
     public void calendarIcon() throws IOException {
-        ApplicationDisplay.showCalendarScene(new PersonalCalendar());
+        ApplicationDisplay.changeScene("/PersonalCalendarView.fxml");
     }
 
     /**

@@ -34,14 +34,6 @@
          </font>
       </Text>
       <Accordion layoutX="76.0" layoutY="144.0" />
-      <Hyperlink layoutX="1166.0" layoutY="671.0" onMouseClicked="#goToContactInformation" text="Contact Us" textAlignment="CENTER" textFill="#00a6d6">
-         <font>
-            <Font size="18.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </Hyperlink>
       <SubScene fx:id="personalCalContainer" height="460.0" layoutX="67.0" layoutY="167.0" width="1110.0" AnchorPane.bottomAnchor="96.0" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="160.0">
         <root>
           <Region />
