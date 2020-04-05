@@ -393,8 +393,8 @@ public class RestaurantHourServiceTest {
      */
     @Test
     public void testFindByRestaurantAndDay() {
-        assertEquals(ADDED, restaurantHourService.add(restaurant.getId(), 939600000, 1000, 3000));
-        assertEquals(restaurantHoursSpecial, restaurantHourService.findAdmin(restaurant.getId(), 939600000));
+        assertEquals(ADDED, restaurantHourService.add(restaurant.getId(), restaurantHoursSpecial.getDay(), 1000, 3000));
+        assertEquals(restaurantHoursSpecial, restaurantHourService.findAdmin(restaurant.getId(), restaurantHoursSpecial.getDay()));
     }
 
     /**

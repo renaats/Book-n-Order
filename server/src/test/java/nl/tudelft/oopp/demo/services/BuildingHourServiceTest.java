@@ -376,8 +376,8 @@ public class BuildingHourServiceTest {
      */
     @Test
     public void testFindByBuildingAndDay() {
-        assertEquals(ADDED, buildingHourService.add(building.getId(), 939600000, 1000, 3000));
-        assertEquals(buildingHoursSpecial, buildingHourService.findAdmin(building.getId(), 939600000));
+        assertEquals(ADDED, buildingHourService.add(building.getId(), buildingHoursSpecial.getDay(), 1000, 3000));
+        assertEquals(buildingHoursSpecial, buildingHourService.findAdmin(building.getId(), buildingHoursSpecial.getDay()));
     }
 
     /**
