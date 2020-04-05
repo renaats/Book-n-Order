@@ -21,7 +21,10 @@ import nl.tudelft.oopp.demo.entities.FoodOrder;
 import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
-
+/**
+ * Loads the correct content into the FXML objects that need to display server information and
+ * controls all the user inputs made through the GUI in the "MyCurrentFoodReservations.fxml" file.
+ */
 public class MyCurrentFoodReservationsController implements Initializable {
 
     private final ObservableList<FoodOrder> foodOrderResult = FXCollections.observableArrayList();
