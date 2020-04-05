@@ -46,12 +46,12 @@ public class OrderFoodChooseRestaurantController implements Initializable {
     private final ObservableList<Allergy> allDietResult = FXCollections.observableArrayList();
     private final ObservableList<Allergy> selectedDietResult = FXCollections.observableArrayList();
     private final ObservableList<String> buildingNameList = FXCollections.observableArrayList();
-    List<Restaurant> restaurants;
-    List<Dish> dishes;
-    List<Dish> orders;
-    List<Allergy> allergies;
-    List<Allergy> currentAllergies;
-    List<Allergy> selectedDiets;
+    private List<Restaurant> restaurants;
+    private List<Dish> dishes;
+    private List<Dish> orders;
+    private List<Allergy> allergies;
+    private List<Allergy> currentAllergies;
+    private List<Allergy> selectedDiets;
 
     @FXML
     public TableView<Restaurant> restaurantTable;

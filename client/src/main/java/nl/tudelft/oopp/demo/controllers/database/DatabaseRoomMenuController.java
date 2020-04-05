@@ -294,6 +294,7 @@ public class DatabaseRoomMenuController implements Initializable {
         table.getSelectionModel().selectedItemProperty().addListener((obs) -> {
             anchorPane.getChildren().remove(deleteButton);
 
+            // Fills the textfields with data
             final Room room = table.getSelectionModel().getSelectedItem();
             if (room != null) {
                 idFieldRead.setText(Integer.toString(room.getId()));
@@ -315,6 +316,7 @@ public class DatabaseRoomMenuController implements Initializable {
                 }
             }
 
+            // Calculates where the delete button should be
             for (int i = 0; i < roomResult.size(); i++) {
                 assert room != null;
                 if (roomResult.get(i).getId().equals(room.getId())) {

@@ -43,6 +43,9 @@ public class DatabaseRestaurantMenuController implements Initializable {
     private final ObservableList<Dish> dishList = FXCollections.observableArrayList();
     private final ObservableList<Allergy> allergySelectedList = FXCollections.observableArrayList();
     private final ObservableList<Restaurant> ownedRestaurants = FXCollections.observableArrayList();
+    private List<Allergy> allergies;
+    private List<Dish> dishes;
+    private List<Restaurant> restaurants;
 
     @FXML
     private Button previousPageButtonAllergiesSelected;
@@ -149,6 +152,7 @@ public class DatabaseRestaurantMenuController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         if (!UserServerCommunication.isUserAdmin()) {
+            // Removes all admin elements if a user is not an admin.
             anchorPane.getChildren().remove(restaurantAddImage);
             anchorPane.getChildren().remove(restaurantAddText);
             anchorPane.getChildren().remove(menuAddImage);
@@ -173,6 +177,7 @@ public class DatabaseRestaurantMenuController implements Initializable {
         allergiesTableFlag = true;
         restaurantTableFlag = true;
 
+        // Removes general elements that are hidden / shown by toggle boxes.
         anchorPane.getChildren().remove(previousPageButtonAllergiesSelected);
         anchorPane.getChildren().remove(nextPageButtonAllergiesSelected);
         anchorPane.getChildren().remove(pagesTextAllergiesCurrent);
@@ -296,7 +301,7 @@ public class DatabaseRestaurantMenuController implements Initializable {
     public void nextPage() {
         if (pageNumber < (int) totalPages) {
             pageNumber++;
-            retrieveAllDishes();
+            calculateDishPages();
         }
     }
 
@@ -307,7 +312,7 @@ public class DatabaseRestaurantMenuController implements Initializable {
         if (pageNumber > 1) {
             pageNumber--;
         }
-        retrieveAllDishes();
+        calculateDishPages();
     }
 
     /**
@@ -336,7 +341,7 @@ public class DatabaseRestaurantMenuController implements Initializable {
     public void nextAllergyPage() {
         if (allergySelectedPageNumber < (int) totalAllergySelectedPages) {
             allergySelectedPageNumber++;
-            retrieveAllAllergies();
+            calculateAllergyPages();
         }
     }
 
@@ -347,21 +352,27 @@ public class DatabaseRestaurantMenuController implements Initializable {
         if (allergySelectedPageNumber > 1) {
             allergySelectedPageNumber--;
         }
-        retrieveAllAllergies();
+        calculateAllergyPages();
     }
 
     /**
      * Handles clicking the list button.
      */
     public void retrieveAllDishes() {
-        dishList.clear();
-        List<Dish> dishes = new ArrayList<>();
         try {
             dishes = new ArrayList<>(Objects.requireNonNull(
                     JsonMapper.dishListMapper(DishServerCommunication.findDishesByMenu(Integer.parseInt(menuIdFieldRead.getText())))));
         } catch (Exception e) {
             dishTableView.setPlaceholder(new Label(""));
         }
+        calculateDishPages();
+    }
+
+    /**
+     * Takes care of calculating and displaying the right pages in the Dish table
+     */
+    public void calculateDishPages() {
+        dishList.clear();
 
         totalPages = Math.ceil(dishes.size() / 7.0);
 
@@ -393,8 +404,6 @@ public class DatabaseRestaurantMenuController implements Initializable {
      * Handles clicking the list button.
      */
     public void retrieveOwnedRestaurants() {
-        ownedRestaurants.clear();
-        List<Restaurant> restaurants = new ArrayList<>();
         try {
             if (UserServerCommunication.getAdminButtonPermission()) {
                 restaurants = new ArrayList<>(Objects.requireNonNull(
@@ -406,7 +415,13 @@ public class DatabaseRestaurantMenuController implements Initializable {
         } catch (Exception e) {
             restaurantTable.setPlaceholder(new Label(""));
         }
+        calculateRestaurantPages();
+    }
 
+    /**
+     * Takes care of calculating and displaying the right pages in the Restaurant table
+     */
+    public void calculateRestaurantPages() {
         totalRestaurantPages = Math.ceil(restaurants.size() / 6.0);
 
         if (restaurants.size() == 0) {
@@ -434,17 +449,22 @@ public class DatabaseRestaurantMenuController implements Initializable {
     }
 
     /**
-     * Handles clicking the list button.
+     * Retrieves all dishes
      */
     public void retrieveAllAllergies() {
-        allergySelectedList.clear();
-        List<Allergy> allergies = new ArrayList<>();
         try {
             allergies = JsonMapper.allergiesListMapper(DishServerCommunication.getAllergiesFromDish(Integer.parseInt(dishIdFieldRead.getText())));
         } catch (Exception e) {
             allergiesTableCurrent.setPlaceholder(new Label(""));
         }
+        calculateAllergyPages();
+    }
 
+    /**
+     * Takes care of calculating and displaying the right pages in the Allergy table
+     */
+    public void calculateAllergyPages() {
+        allergySelectedList.clear();
         totalAllergySelectedPages = Math.ceil(allergies.size() / 5.0);
 
         if (allergies.size() == 0) {
@@ -480,6 +500,7 @@ public class DatabaseRestaurantMenuController implements Initializable {
 
             final Dish dish = dishTableView.getSelectionModel().getSelectedItem();
             if (dish != null) {
+                // Sets all the fields if there's a valid selection.
                 dishIdFieldRead.setText(Integer.toString(dish.getId()));
                 dishNameFieldRead.setText(dish.getName());
                 dishPriceFieldRead.setText(Double.toString((double) dish.getPrice() / 100));
@@ -487,6 +508,7 @@ public class DatabaseRestaurantMenuController implements Initializable {
                 dishImageTextField.setText(dish.getImage());
                 retrieveAllAllergies();
             } else {
+                // If the selection is not valid, clear the fields so that fields don't stay hanging if you switch
                 dishIdFieldRead.clear();
                 dishNameFieldRead.clear();
                 dishPriceFieldRead.clear();
@@ -495,6 +517,7 @@ public class DatabaseRestaurantMenuController implements Initializable {
                 retrieveAllAllergies();
             }
 
+            // This takes care of the dynamic delete button to the side. It calculates where it should be and places it accordingly.
             for (int i = 0; i < dishList.size(); i++) {
                 assert dish != null;
                 if (dishList.get(i).getId() == (dish.getId())) {
@@ -528,16 +551,19 @@ public class DatabaseRestaurantMenuController implements Initializable {
         restaurantTable.getSelectionModel().selectedItemProperty().addListener((obs) -> {
             final Restaurant restaurant = restaurantTable.getSelectionModel().getSelectedItem();
             if (restaurant != null) {
+                // Sets the fields
                 idFieldRead.setText(Integer.toString(restaurant.getId()));
                 nameFieldRead.setText(restaurant.getName());
                 locationFieldRead.setText(restaurant.getBuilding().getName());
                 ownerTextField.setText(restaurant.getEmail());
                 Menu menu = null;
+                // Does there exist a menu check
                 try {
                     menu = JsonMapper.menuMapper(DishServerCommunication.findMenuByRestaurant(restaurant.getId()));
                 } catch (JsonProcessingException e) {
                     // intentionally left blank
                 }
+                // Sets the menu fields
                 if (menu != null) {
                     menuIdFieldRead.setText(Integer.toString(menu.getId()));
                     menuNameFieldRead.setText(menu.getName());
@@ -560,6 +586,7 @@ public class DatabaseRestaurantMenuController implements Initializable {
 
             final Allergy allergy = allergiesTableCurrent.getSelectionModel().getSelectedItem();
 
+            // Takes care of placing the delete button next to the table
             for (int i = 0; i < allergySelectedList.size(); i++) {
                 assert allergy != null;
                 if (allergySelectedList.get(i).getAllergyName().equals(allergy.getAllergyName())) {
@@ -609,6 +636,8 @@ public class DatabaseRestaurantMenuController implements Initializable {
             CustomAlert.warningAlert("No selection detected.");
             return;
         }
+
+        // Executes various checks to show the proper alerts to a user
         try {
             buildingId = Integer.parseInt(locationFieldRead.getText());
         } catch (NumberFormatException e) {
@@ -632,6 +661,8 @@ public class DatabaseRestaurantMenuController implements Initializable {
             }
         }
 
+        // If there's actually a building, then start executing the update methods.
+        // More if checks, to show the proper alert to the user so we are as clear as possible.
         if (buildingFound) {
             if (nameFieldRead.getText().isEmpty()) {
                 CustomAlert.warningAlert("Please provide a name.");
@@ -678,8 +709,9 @@ public class DatabaseRestaurantMenuController implements Initializable {
      */
     public void updateDish() {
         int dishId = Integer.parseInt(dishIdFieldRead.getText());
-        try {
 
+        // Checks again if all fields and values are correct. And gives the user the appropriate error if not.
+        try {
             double price = -1;
             if (dishNameFieldRead.getText().isEmpty()) {
                 CustomAlert.warningAlert("Please provide a name.");
@@ -701,6 +733,7 @@ public class DatabaseRestaurantMenuController implements Initializable {
                 }
             }
 
+            // A image is optional, it doesn't have to be filled in, hence there are no checks regarding it.
             DishServerCommunication.updateDish(dishId, "image", dishImageTextField.getText());
 
             if (dishDescriptionFieldRead.getText().isEmpty()) {

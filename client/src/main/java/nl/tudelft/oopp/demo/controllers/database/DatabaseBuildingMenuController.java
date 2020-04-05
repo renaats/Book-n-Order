@@ -44,6 +44,7 @@ public class DatabaseBuildingMenuController implements Initializable {
     private final ObservableList<Building> buildingResult = FXCollections.observableArrayList();
     private final ObservableList<String> facultyList = FXCollections.observableArrayList();
     private final ObservableList<String> daysList = FXCollections.observableArrayList();
+    private List<Building> buildings;
 
     @FXML
     private TextField idFieldRead;
@@ -126,17 +127,23 @@ public class DatabaseBuildingMenuController implements Initializable {
     }
 
     /**
-     * Handles clicking the list button.
+     * Retrieves all buttons on the database.
      */
     public void listBuildingsButtonClicked() {
-        buildingResult.clear();
-        List<Building> buildings = new ArrayList<>();
         try {
             buildings = new ArrayList<>(Objects.requireNonNull(JsonMapper.buildingListMapper(BuildingServerCommunication.getBuildings())));
         } catch (Exception e) {
             // Fakes the table having any entries, so the table shows up properly instead of "No contents".
             table.setPlaceholder(new Label(""));
         }
+        calculatesTablePages();
+    }
+
+    /**
+     * Calculates the right amount of results per page and how much pages there should be for table navigation
+     */
+    public void calculatesTablePages() {
+        buildingResult.clear();
 
         totalPages = Math.ceil(buildings.size() / 15.0);
 
@@ -187,6 +194,7 @@ public class DatabaseBuildingMenuController implements Initializable {
         table.getSelectionModel().selectedItemProperty().addListener((obs) -> {
             anchorPane.getChildren().remove(deleteButton);
 
+            // Takes care of filling in the fields
             final Building building = table.getSelectionModel().getSelectedItem();
             if (building != null) {
                 buildingId = building.getId();
@@ -197,6 +205,7 @@ public class DatabaseBuildingMenuController implements Initializable {
                 facultyChoiceBox.setValue(building.getFaculty());
             }
 
+            // Takes care of showing where the delete button should be
             for (int i = 0; i < buildingResult.size(); i++) {
                 assert building != null;
                 if (buildingResult.get(i).getId().equals(building.getId())) {
@@ -259,11 +268,14 @@ public class DatabaseBuildingMenuController implements Initializable {
     public void updateBuilding() {
         try {
             Building building = null;
+            // Checks if the id provided actually exists
             try {
                 building = JsonMapper.buildingMapper(BuildingServerCommunication.findBuilding(buildingId));
             } catch (JsonProcessingException e) {
                 CustomAlert.errorAlert("Building not found!");
+                return;
             }
+            // Various checks if the other fields are in order and the values are able to be used
             assert building != null;
             if (!building.getName().equals(nameFieldRead.getText())) {
                 String response = BuildingServerCommunication.updateBuilding(buildingId, "name", nameFieldRead.getText());
@@ -286,6 +298,7 @@ public class DatabaseBuildingMenuController implements Initializable {
             if ((building.getFaculty() == null) || !building.getFaculty().equals(facultyChoiceBox.getValue())) {
                 BuildingServerCommunication.updateBuilding(buildingId, "faculty", facultyChoiceBox.getValue());
             }
+            // Corresponds to the first try block, if it fails to parse the number it means there's no selection in the table
         } catch (NumberFormatException e) {
             CustomAlert.warningAlert("No selection detected.");
             return;
@@ -436,6 +449,8 @@ public class DatabaseBuildingMenuController implements Initializable {
      */
     public void updateBuildingHours() {
         int day = 0;
+        // Long list of if statements checking for various things such as
+        // If all values are there, if the values are not out of bounds and if the values are viable to use.
         try {
             if (daysChoiceBox.getValue() == null && datePicker.getValue() == null) {
                 CustomAlert.errorAlert("Please select either a day or a date.");
@@ -453,6 +468,7 @@ public class DatabaseBuildingMenuController implements Initializable {
             } else if (Integer.parseInt(minutesStartTime.getText()) > 59 || Integer.parseInt(minutesEndTime.getText()) > 59) {
                 CustomAlert.warningAlert("Minutes cannot be larger than 59.");
             } else if (datePicker.getValue() == null) {
+                // Switch case that turns the day string into a number
                 switch (daysChoiceBox.getValue()) {
                     case "Monday":
                         day = 1;
@@ -487,6 +503,9 @@ public class DatabaseBuildingMenuController implements Initializable {
                         return;
                     }
                     try {
+                        // Checks if there are already building hours there, if there are not this generates a JsonProcessingException that
+                        // that is then caught and instead of adding, we update the hours.
+                        // This is put in place because there's no explicit add building hours button or page.
                         BuildingHours buildingHours = JsonMapper.buildingHoursMapper(
                                 BuildingServerCommunication.findBuildingHoursByDay(buildingId, day));
 
@@ -504,6 +523,7 @@ public class DatabaseBuildingMenuController implements Initializable {
                             return;
                         }
                         CustomAlert.informationAlert("Successfully executed.");
+                        // If exception, update building
                     } catch (JsonProcessingException e) {
                         e.printStackTrace();
                         CustomAlert.informationAlert(BuildingServerCommunication.addBuildingHours(buildingId, day, startTime, endTime));
@@ -511,6 +531,7 @@ public class DatabaseBuildingMenuController implements Initializable {
                 } catch (NumberFormatException ex) {
                     CustomAlert.warningAlert("Buildings hours have to be an integer.");
                 }
+                // If the day choice box is empty, take the date picker and update it that way.
             } else {
                 LocalDate date = datePicker.getValue();
                 Instant instant = date.atStartOfDay(ZoneId.systemDefault()).toInstant();
