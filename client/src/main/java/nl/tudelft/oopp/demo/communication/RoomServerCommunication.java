@@ -47,6 +47,7 @@ public class RoomServerCommunication {
      * @param projector does the room have a projector.
      * @param capacity capacity of the room in people.
      * @param plugs amount of available plugs.
+     * @param status status of the room.
      * @return the error message corresponding to the server's response.
      */
     public static String addRoom(String name,

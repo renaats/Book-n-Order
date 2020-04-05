@@ -341,6 +341,9 @@ public class DatabaseRoomMenuController implements Initializable {
         });
     }
 
+    /**
+     * Loads all studies in the studySpecific choice box.
+     */
     private void loadStudySpecificChoiceBox() {
         studyList.clear();
         studyList.add("Aerospace Engineering");
@@ -364,6 +367,9 @@ public class DatabaseRoomMenuController implements Initializable {
         studyChoiceBox.setValue("");
     }
 
+    /**
+     * Loads all status values in the status choice box.
+     */
     private void loadStatusChoiceBox() {
         statusList.clear();
         String a = "Open";

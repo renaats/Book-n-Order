@@ -31,10 +31,8 @@ import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 public class DatabaseAddRestaurants implements Initializable {
-
     private final ObservableList<Building> buildings = FXCollections.observableArrayList();
     private final ObservableList<Building> buildingResult = FXCollections.observableArrayList();
-
 
     @FXML
     private Text buildingPagesText;
