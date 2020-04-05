@@ -18,6 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import nl.tudelft.oopp.demo.services.RestaurantHourService;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -100,18 +101,15 @@ public class Restaurant {
     }
 
     public boolean isOutsideBusinessHours(Date deliveryTime) {
-        for (RestaurantHours restaurantHours : restaurantHoursList) {
+        RestaurantHourService restaurantHourService = new RestaurantHourService();
+        RestaurantHours restaurantHours = restaurantHourService.find(getId(), deliveryTime.getTime());
 
-            Instant instant = restaurantHours.getStartTime().atDate(LocalDate.ofEpochDay(restaurantHours.getDay())).atZone(ZoneId.systemDefault()).toInstant();
-            Date startTime = Date.from(instant);
-            Instant instant1 = restaurantHours.getEndTime().atDate(LocalDate.ofEpochDay(restaurantHours.getDay())).atZone(ZoneId.systemDefault()).toInstant();
-            Date endTime = Date.from(instant1);
+        Instant instant = restaurantHours.getStartTime().atDate(LocalDate.ofEpochDay(restaurantHours.getDay())).atZone(ZoneId.systemDefault()).toInstant();
+        Date startTime = Date.from(instant);
+        Instant instant1 = restaurantHours.getEndTime().atDate(LocalDate.ofEpochDay(restaurantHours.getDay())).atZone(ZoneId.systemDefault()).toInstant();
+        Date endTime = Date.from(instant1);
 
-            if (deliveryTime.before(startTime) || deliveryTime.after(endTime)) {
-                return true;
-            }
-        }
-        return false;
+        return deliveryTime.before(startTime) || deliveryTime.after(endTime);
     }
 
     @Override
