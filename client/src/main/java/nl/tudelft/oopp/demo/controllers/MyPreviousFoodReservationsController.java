@@ -47,7 +47,7 @@ public class MyPreviousFoodReservationsController implements Initializable {
     }
 
     /**
-     * Should load the previous reservations
+     * Loads the previous reservations.
      */
     public void loadDataIntoTable() {
 
@@ -79,23 +79,23 @@ public class MyPreviousFoodReservationsController implements Initializable {
     }
 
     /**
-     * change the view to the main menu when the home icon is clicked
-     * @throws IOException should never be thrown as the input is always the same
+     * Change the view to the main menu when the home icon is clicked.
+     * @throws IOException should never be thrown as the input is always the same.
      */
     public void mainMenu() throws IOException {
         ApplicationDisplay.changeScene("/MainMenu.fxml");
     }
 
     /**
-     * changes view to the user's Previous bookings view when the back arrow is clicked
-     * @throws IOException should never be thrown as the input is always the same
+     * Changes view to the user's Previous bookings view when the back arrow is clicked.
+     * @throws IOException should never be thrown as the input is always the same.
      */
     public void goToMyCurrentReservations() throws IOException {
         ApplicationDisplay.changeScene("/MyPreviousBookings.fxml");
     }
 
     /**
-     * Adds a positive review to the restaurant the order came from
+     * Adds a positive review to the restaurant the order came from.
      */
     public void thumbsUp() {
         try {
@@ -124,7 +124,7 @@ public class MyPreviousFoodReservationsController implements Initializable {
     }
 
     /**
-     * Adds a negative review to the restaurant the order came from
+     * Adds a negative review to the restaurant the order came from.
      */
     public void thumbsDown() {
         try {
