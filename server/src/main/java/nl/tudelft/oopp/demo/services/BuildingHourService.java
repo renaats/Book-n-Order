@@ -126,7 +126,7 @@ public class BuildingHourService {
                 return ATTRIBUTE_NOT_FOUND;
         }
         buildingHourRepository.save(buildingHours);
-        return ADDED;
+        return EXECUTED;
     }
 
     /**

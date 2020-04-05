@@ -4,23 +4,32 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.*;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.ResourceBundle;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
 import nl.tudelft.oopp.demo.communication.BuildingServerCommunication;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
-import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.BuildingHours;
 import nl.tudelft.oopp.demo.errors.CustomAlert;
@@ -78,6 +87,7 @@ public class DatabaseBuildingMenuController implements Initializable {
     private int pageNumber;
     private double totalPages;
     private Button deleteButton;
+    private int buildingId;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -94,8 +104,7 @@ public class DatabaseBuildingMenuController implements Initializable {
         loadFacultyChoiceBox();
         loadDaysChoiceBox();
         daysChoiceBoxListener();
-
-        daysChoiceBox.setValue("Monday");
+        datePickerListener();
     }
 
     /**
@@ -180,6 +189,7 @@ public class DatabaseBuildingMenuController implements Initializable {
 
             final Building building = table.getSelectionModel().getSelectedItem();
             if (building != null) {
+                buildingId = building.getId();
                 idFieldRead.setText(Integer.toString(building.getId()));
                 nameFieldRead.setText(building.getName());
                 streetFieldRead.setText(building.getStreet());
@@ -247,36 +257,34 @@ public class DatabaseBuildingMenuController implements Initializable {
      * Updates a building directly from the fields.
      */
     public void updateBuilding() {
-        int id;
         try {
-            id = Integer.parseInt(idFieldRead.getText());
             Building building = null;
             try {
-                building = JsonMapper.buildingMapper(BuildingServerCommunication.findBuilding(id));
+                building = JsonMapper.buildingMapper(BuildingServerCommunication.findBuilding(buildingId));
             } catch (JsonProcessingException e) {
                 CustomAlert.errorAlert("Building not found!");
             }
             assert building != null;
             if (!building.getName().equals(nameFieldRead.getText())) {
-                String response = BuildingServerCommunication.updateBuilding(id, "name", nameFieldRead.getText());
+                String response = BuildingServerCommunication.updateBuilding(buildingId, "name", nameFieldRead.getText());
                 if (response.equals("Name already exists.")) {
                     CustomAlert.warningAlert("Name already exists.");
                     return;
                 }
             }
             if (!building.getStreet().equals(streetFieldRead.getText())) {
-                BuildingServerCommunication.updateBuilding(id, "street", streetFieldRead.getText());
+                BuildingServerCommunication.updateBuilding(buildingId, "street", streetFieldRead.getText());
             }
             try {
                 if (!(building.getHouseNumber() == Integer.parseInt(houseNumberFieldRead.getText()))) {
-                    BuildingServerCommunication.updateBuilding(id, "houseNumber", houseNumberFieldRead.getText());
+                    BuildingServerCommunication.updateBuilding(buildingId, "houseNumber", houseNumberFieldRead.getText());
                 }
             } catch (NumberFormatException e) {
                 CustomAlert.warningAlert("House number has to be an integer.");
                 return;
             }
             if ((building.getFaculty() == null) || !building.getFaculty().equals(facultyChoiceBox.getValue())) {
-                BuildingServerCommunication.updateBuilding(id, "faculty", facultyChoiceBox.getValue());
+                BuildingServerCommunication.updateBuilding(buildingId, "faculty", facultyChoiceBox.getValue());
             }
         } catch (NumberFormatException e) {
             CustomAlert.warningAlert("No selection detected.");
@@ -291,10 +299,9 @@ public class DatabaseBuildingMenuController implements Initializable {
      */
     public void deleteBuilding() {
         try {
-            int id = Integer.parseInt(idFieldRead.getText());
-            CustomAlert.informationAlert(BuildingServerCommunication.deleteBuilding(id));
-            BuildingServerCommunication.deleteBuilding(id);
-            buildingResult.removeIf(b -> b.getId() == id);
+            CustomAlert.informationAlert(BuildingServerCommunication.deleteBuilding(buildingId));
+            BuildingServerCommunication.deleteBuilding(buildingId);
+            buildingResult.removeIf(b -> b.getId() == buildingId);
         } catch (Exception e) {
             CustomAlert.warningAlert("No selection detected.");
         }
@@ -331,23 +338,48 @@ public class DatabaseBuildingMenuController implements Initializable {
         daysChoiceBox.getItems().addAll(daysList);
     }
 
+    /**
+     * Sets all fields to 0 to indiciate that that means closed.
+     */
+    public void setClosedTextFields() {
+        hoursStartTime.setText("0");
+        minutesStartTime.setText("0");
+        hoursEndTime.setText("0");
+        minutesEndTime.setText("0");
+    }
+
+    /**
+     * Sets the start and end time text fields.
+     * @param buildingId building id.
+     * @param day the day of the week represented in int (1 - 7)
+     */
     public void setStartAndEndTimeTextFields(int buildingId, int day) {
         System.out.println(buildingId + "  " + day);
         try {
-            BuildingHours buildingHours = JsonMapper.buildingHoursMapper(BuildingServerCommunication.findBuildingHours(buildingId, day));
-            LocalTime startime = buildingHours.getStartTime();
-            hoursStartTime.setText(Integer.toString(startime.getHour()));
-            minutesStartTime.setText(Integer.toString(startime.getMinute()));
+            BuildingHours buildingHours = JsonMapper.buildingHoursMapper(BuildingServerCommunication.findBuildingHoursByDay(buildingId, day));
+            LocalTime startTime = buildingHours.getStartTime();
+            hoursStartTime.setText(Integer.toString(startTime.getHour()));
+            minutesStartTime.setText(Integer.toString(startTime.getMinute()));
+            LocalTime endTime = buildingHours.getEndTime();
+            hoursEndTime.setText(Integer.toString(endTime.getHour()));
+            minutesEndTime.setText(Integer.toString(endTime.getMinute()));
         } catch (JsonProcessingException e) {
-            e.printStackTrace();
             hoursStartTime.clear();
             minutesStartTime.clear();
+            hoursEndTime.clear();
+            minutesEndTime.clear();
         }
     }
 
-    public void daysChoiceBoxListener () {
+    /**
+     * Automatically updates the fields when the user interacts with the choicebox.
+     */
+    public void daysChoiceBoxListener() {
         daysChoiceBox.getSelectionModel().selectedItemProperty().addListener((obs) -> {
             final String dayName = daysChoiceBox.getSelectionModel().getSelectedItem();
+            if (dayName != null) {
+                datePicker.setValue(null);
+            }
             if (!idFieldRead.getText().isEmpty()) {
                 int buildingId = Integer.parseInt(idFieldRead.getText());
                 int day = 0;
@@ -390,69 +422,113 @@ public class DatabaseBuildingMenuController implements Initializable {
         });
     }
 
+    /**
+     * Sets the choice box to null if the user interacts with the date picker to prevent duplicate dates.
+     */
+    public void datePickerListener() {
+        datePicker.valueProperty().addListener((obs) -> {
+            daysChoiceBox.setValue(null);
+        });
+    }
 
+    /**
+     * Takes care of updating building hours
+     */
     public void updateBuildingHours() {
         int day = 0;
-        int buildingId = 0;
-        if (daysChoiceBox.getValue() != null && datePicker.getValue() != null || daysChoiceBox.getValue() == null && datePicker.getValue() == null) {
-            CustomAlert.errorAlert("Please select either a day or a date.");
-            daysChoiceBox.setValue(null);
-            datePicker.setValue(null);
-        } else if (idFieldRead.getText().isEmpty()) {
-            CustomAlert.warningAlert("No selection detected.");
-        } else if (hoursEndTime.getText().isEmpty() || minutesEndTime.getText().isEmpty() || hoursStartTime.getText().isEmpty() || hoursEndTime.getText().isEmpty()) {
-            CustomAlert.warningAlert("Please provide opening and closing time.");
-        } else {
-            buildingId = Integer.parseInt(idFieldRead.getText());
-            switch (daysChoiceBox.getValue()) {
-                case "Monday":
-                    day = 1;
-                    break;
-                case "Tuesday":
-                    day = 2;
-                    break;
-                case "Wednesday":
-                    day = 3;
-                    break;
-                case "Thursday":
-                    day = 4;
-                    break;
-                case "Friday":
-                    day = 5;
-                    break;
-                case "Saturday":
-                    day = 6;
-                    break;
-                case "Sunday":
-                    day = 7;
-                    break;
-                default:
-                    CustomAlert.errorAlert("Day not recognized.");
-                    daysChoiceBox.setValue(null);
+        try {
+            if (daysChoiceBox.getValue() == null && datePicker.getValue() == null) {
+                CustomAlert.errorAlert("Please select either a day or a date.");
+                daysChoiceBox.setValue(null);
+                datePicker.setValue(null);
+            } else if (idFieldRead.getText().isEmpty()) {
+                CustomAlert.warningAlert("No selection detected.");
+            } else if (hoursEndTime.getText().isEmpty()
+                    || minutesEndTime.getText().isEmpty()
+                    || hoursStartTime.getText().isEmpty()
+                    || hoursEndTime.getText().isEmpty()) {
+                CustomAlert.warningAlert("Please provide opening and closing time.");
+            } else if (Integer.parseInt(hoursStartTime.getText()) > 23 || Integer.parseInt(hoursEndTime.getText()) > 23) {
+                CustomAlert.warningAlert("Hours cannot be larger than 23.");
+            } else if (Integer.parseInt(minutesStartTime.getText()) > 59 || Integer.parseInt(minutesEndTime.getText()) > 59) {
+                CustomAlert.warningAlert("Minutes cannot be larger than 59.");
+            } else if (datePicker.getValue() == null) {
+                switch (daysChoiceBox.getValue()) {
+                    case "Monday":
+                        day = 1;
+                        break;
+                    case "Tuesday":
+                        day = 2;
+                        break;
+                    case "Wednesday":
+                        day = 3;
+                        break;
+                    case "Thursday":
+                        day = 4;
+                        break;
+                    case "Friday":
+                        day = 5;
+                        break;
+                    case "Saturday":
+                        day = 6;
+                        break;
+                    case "Sunday":
+                        day = 7;
+                        break;
+                    default:
+                        CustomAlert.errorAlert("Day not recognized.");
+                        daysChoiceBox.setValue(null);
+                }
+                try {
+                    int startTime = Integer.parseInt(hoursStartTime.getText()) * 3600 + Integer.parseInt(minutesStartTime.getText()) * 60;
+                    int endTime = Integer.parseInt(hoursEndTime.getText()) * 3600 + Integer.parseInt(minutesEndTime.getText()) * 60;
+                    if (startTime > endTime) {
+                        CustomAlert.errorAlert("Opening hours cannot be later than closing hours.");
+                        return;
+                    }
+                    try {
+                        BuildingHours buildingHours = JsonMapper.buildingHoursMapper(
+                                BuildingServerCommunication.findBuildingHoursByDay(buildingId, day));
+
+                        String response = BuildingServerCommunication.updateBuildingHours(
+                                buildingHours.getId(), "starttimes", Integer.toString(startTime));
+                        if (!response.equals("Successfully executed.")) {
+                            System.out.println("response 1");
+                            CustomAlert.errorAlert(response);
+                            return;
+                        }
+                        response = BuildingServerCommunication.updateBuildingHours(buildingHours.getId(), "endtimes", Integer.toString(endTime));
+                        if (!response.equals("Successfully executed.")) {
+                            System.out.println("response 2");
+                            CustomAlert.errorAlert(response);
+                            return;
+                        }
+                        CustomAlert.informationAlert("Successfully executed.");
+                    } catch (JsonProcessingException e) {
+                        e.printStackTrace();
+                        CustomAlert.informationAlert(BuildingServerCommunication.addBuildingHours(buildingId, day, startTime, endTime));
+                    }
+                } catch (NumberFormatException ex) {
+                    CustomAlert.warningAlert("Buildings hours have to be an integer.");
+                }
+            } else {
+                LocalDate date = datePicker.getValue();
+                Instant instant = date.atStartOfDay(ZoneId.systemDefault()).toInstant();
+                long dateInMs = instant.toEpochMilli();
+                try {
+                    int startTime = Integer.parseInt(hoursStartTime.getText()) * 3600 + Integer.parseInt(minutesStartTime.getText()) * 60;
+                    int endTime = Integer.parseInt(hoursEndTime.getText()) * 3600 + Integer.parseInt(minutesEndTime.getText()) * 60;
+                    if (startTime > endTime) {
+                        CustomAlert.errorAlert("Opening hours cannot be later than closing hours.");
+                        return;
+                    }
+                    CustomAlert.informationAlert(BuildingServerCommunication.addBuildingHours(buildingId, dateInMs, startTime, endTime));
+                } catch (NumberFormatException e) {
+                    CustomAlert.warningAlert("Building hours have to be an integer.");
+                }
             }
-            int startTime = Integer.parseInt(hoursStartTime.getText()) * 3600 + Integer.parseInt(minutesStartTime.getText()) * 60;
-            int endTime = Integer.parseInt(hoursEndTime.getText()) * 3600 + Integer.parseInt(minutesEndTime.getText()) * 60;
-            try {
-                BuildingHours buildingHours = JsonMapper.buildingHoursMapper(
-                        BuildingServerCommunication.findBuildingHours(buildingId, day));
-                if (startTime < endTime) {
-                   CustomAlert.errorAlert("Opening hours cannot be later than closing hours.");
-                   return;
-                }
-                String response = BuildingServerCommunication.updateBuildingHours(buildingId, "starttimes", Integer.toString(startTime));
-                if (!response.equals("Successfully executed.")) {
-                    CustomAlert.errorAlert(response);
-                    return;
-                }
-                response = BuildingServerCommunication.updateBuildingHours(buildingId, "endtimes", Integer.toString(endTime));
-                if (!response.equals("Successfully executed.")) {
-                    CustomAlert.errorAlert(response);
-                    return;
-                }
-                CustomAlert.informationAlert("Successfully executed.");
-            } catch (JsonProcessingException e) {
-                CustomAlert.informationAlert(BuildingServerCommunication.addBuildingHours(buildingId, day, startTime, endTime));
-            }
+        } catch (NumberFormatException e) {
+            CustomAlert.warningAlert("Building hours have to be an integer.");
         }
     }
 }

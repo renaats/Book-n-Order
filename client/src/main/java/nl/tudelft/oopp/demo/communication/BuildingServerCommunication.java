@@ -90,7 +90,7 @@ public class BuildingServerCommunication {
      */
     public static String addBuildingHours(int buildingId, long date, int startTimeS, int endTimeS) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building_hours/add?buildingId=" + buildingId + "&date=" + date + "&startTimeS=" + startTimeS + "&endTimeS=" + endTimeS)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
-        return communicateAndReturnBodyOfResponse(request);
+        return communicateAndReturnErrorMessage(request);
     }
 
     /**
@@ -110,6 +110,17 @@ public class BuildingServerCommunication {
      */
     public static String findBuildingHours(int buildingId, long day) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building_hours/find/" + buildingId + "/" + day)).GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Retrieve specific building hours for a specific day in the database by id.
+     * @param buildingId = building id, which is parsed from a text field.
+     * @param day = the day in integer representation (1 - 7)
+     * @return the body of the response.
+     */
+    public static String findBuildingHoursByDay(int buildingId, int day) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building_hours/findAdmin/" + buildingId + "/" + day)).GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnBodyOfResponse(request);
     }
 

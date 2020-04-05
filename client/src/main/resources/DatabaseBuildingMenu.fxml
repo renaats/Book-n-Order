@@ -198,7 +198,7 @@
          <Cursor fx:constant="HAND" />
       </cursor>
    </Button>
-   <Button fx:id="confirmFindByIdButton1" layoutX="432.0" layoutY="506.0" mnemonicParsing="false" onAction="#findBuilding" prefHeight="26.0" prefWidth="70.0" style="-fx-background-color: #00a6d6;" text="Set closed" textFill="WHITE">
+   <Button fx:id="confirmFindByIdButton1" layoutX="432.0" layoutY="506.0" mnemonicParsing="false" onAction="#setClosedTextFields" prefHeight="26.0" prefWidth="70.0" style="-fx-background-color: #00a6d6;" text="Set closed" textFill="WHITE">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor>
