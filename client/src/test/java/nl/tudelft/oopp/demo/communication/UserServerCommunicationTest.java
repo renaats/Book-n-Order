@@ -191,6 +191,12 @@ class UserServerCommunicationTest {
         assertEquals(ErrorMessages.getErrorMessage(200), UserServerCommunication.sendRecoveryPassword("test@tudelft.nl"));
     }
 
+    @Test
+    public void testGetUserForReservation() {
+        stubFor(get(urlEqualTo("/room_reservation/user/1")).willReturn(aResponse().withStatus(200).withBody("Message51")));
+        assertEquals("Message51", UserServerCommunication.findUserForReservation(1));
+    }
+
     /**
      * Stops the mock server after each test.
      */

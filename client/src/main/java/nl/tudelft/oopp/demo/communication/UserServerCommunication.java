@@ -171,4 +171,14 @@ public class UserServerCommunication {
         HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/user")).build();
         return communicateAndReturnBodyOfResponse(request);
     }
+
+    /**
+     * Finds user for a specific room reservation.
+     * @param id = id of the room reservation.
+     * @return the body of the response from the server.
+     */
+    public static String findUserForReservation(int id) {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/room_reservation/user/" + id)).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
 }
