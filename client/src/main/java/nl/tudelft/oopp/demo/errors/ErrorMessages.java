@@ -34,6 +34,7 @@ public class ErrorMessages {
     private static final String somethingWentWrongMessage = "Something went wrong.";
     private static final String menuNotFoundMessage = "Menu not found.";
     private static final String dishNotFoundMessage = "Dish not found.";
+    private static final String closedRestaurantMessage = "Restaurant is closed.";
     private static int code;
 
     /**
@@ -109,6 +110,8 @@ public class ErrorMessages {
                 return dishNotFoundMessage;
             case 431:
                 return codesDoNotMatchMessage;
+            case 432:
+                return closedRestaurantMessage;
             case 502:
                 return unsupportedEncodingMessage;
             default:

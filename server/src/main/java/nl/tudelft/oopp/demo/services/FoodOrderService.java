@@ -1,42 +1,17 @@
 package nl.tudelft.oopp.demo.services;
 
-import static nl.tudelft.oopp.demo.config.Constants.ADDED;
-import static nl.tudelft.oopp.demo.config.Constants.ATTRIBUTE_NOT_FOUND;
-import static nl.tudelft.oopp.demo.config.Constants.BUILDING_NOT_FOUND;
-import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
-import static nl.tudelft.oopp.demo.config.Constants.ID_NOT_FOUND;
-import static nl.tudelft.oopp.demo.config.Constants.NOT_FOUND;
-import static nl.tudelft.oopp.demo.config.Constants.ORDER_NOT_FOUND;
-import static nl.tudelft.oopp.demo.config.Constants.RESERVATION_NOT_FOUND;
-import static nl.tudelft.oopp.demo.config.Constants.RESTAURANT_NOT_FOUND;
-import static nl.tudelft.oopp.demo.config.Constants.USER_NOT_FOUND;
-import static nl.tudelft.oopp.demo.config.Constants.WRONG_CREDENTIALS;
-import static nl.tudelft.oopp.demo.config.Constants.WRONG_USER;
-import static nl.tudelft.oopp.demo.security.SecurityConstants.HEADER_STRING;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-
-import javax.servlet.http.HttpServletRequest;
-
-import nl.tudelft.oopp.demo.entities.AppUser;
-import nl.tudelft.oopp.demo.entities.Building;
-import nl.tudelft.oopp.demo.entities.Dish;
-import nl.tudelft.oopp.demo.entities.FoodOrder;
-import nl.tudelft.oopp.demo.entities.Restaurant;
-import nl.tudelft.oopp.demo.repositories.BuildingRepository;
-import nl.tudelft.oopp.demo.repositories.DishRepository;
-import nl.tudelft.oopp.demo.repositories.FoodOrderRepository;
-import nl.tudelft.oopp.demo.repositories.MenuRepository;
-import nl.tudelft.oopp.demo.repositories.RestaurantRepository;
-import nl.tudelft.oopp.demo.repositories.UserRepository;
-
+import nl.tudelft.oopp.demo.entities.*;
+import nl.tudelft.oopp.demo.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
+import javax.servlet.http.HttpServletRequest;
+import java.time.*;
+import java.util.*;
+
+import static nl.tudelft.oopp.demo.config.Constants.*;
+import static nl.tudelft.oopp.demo.security.SecurityConstants.HEADER_STRING;
 
 /**
  * Supports CRUD operations for the FoodOrder entity.
@@ -63,6 +38,9 @@ public class FoodOrderService {
     @Autowired
     private DishRepository dishRepository;
 
+    @Autowired
+    private RestaurantHourService restaurantHourService;
+
     /**
      * Adds a foodOrder.
      * @param request = the Http request that calls this method.
@@ -88,8 +66,19 @@ public class FoodOrderService {
         if (optionalDeliveryLocation.isEmpty()) {
             return BUILDING_NOT_FOUND;
         }
+        RestaurantHours restaurantHours = restaurantHourService.find(restaurantId, deliverTimeMs);
+        LocalTime startTime2 = restaurantHours.getStartTime();
+        LocalTime endTime = restaurantHours.getEndTime();
+        Date order = new Date(deliverTimeMs);
+        LocalDate localDate = order.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDateTime dateTime = LocalDateTime.of(localDate, restaurantHours.getStartTime());
+        Date openingHour = Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant());
+        dateTime = LocalDateTime.of(localDate, restaurantHours.getEndTime());
+        Date closingHour = Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant());
+        if(order.compareTo(openingHour) < 0 || order.compareTo(closingHour) > 0) {
+            return CLOSED_RESTAURANT;
+        }
         Building deliveryLocation = optionalDeliveryLocation.get();
-
         FoodOrder foodOrder = new FoodOrder();
         foodOrder.setRestaurant(restaurant);
         foodOrder.setAppUser(appUser);

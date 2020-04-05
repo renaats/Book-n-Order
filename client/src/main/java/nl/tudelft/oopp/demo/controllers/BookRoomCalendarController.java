@@ -120,7 +120,7 @@ public class BookRoomCalendarController implements Initializable {
             } else if(entry.getStartAsLocalDateTime().isBefore(LocalDateTime.now())) {
                 e.getEntry().removeFromCalendar();
                 CustomAlert.warningAlert("Unfortunately booking a room in the past is impossible.");
-            } else if ((entry.getStartAsLocalDateTime().isBefore(LocalDateTime.now()) || start.compareTo(startBuildingHours) < 0 || start.compareTo(endBuildingHours) > 0 || end.compareTo(endBuildingHours) > 0)) {
+            } else if (start.compareTo(startBuildingHours) < 0 || start.compareTo(endBuildingHours) > 0 || end.compareTo(endBuildingHours) > 0) {
                 e.getEntry().removeFromCalendar();
                 CustomAlert.warningAlert("Building is closed.");
             } else {
