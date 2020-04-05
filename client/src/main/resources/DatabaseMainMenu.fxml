@@ -42,7 +42,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </ImageView>
-      <ImageView fx:id="restaurantImage" fitHeight="133.0" fitWidth="150.0" layoutX="253.0" layoutY="369.0" onMouseClicked="#databaseRestaurants" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="restaurantImage" fitHeight="133.0" fitWidth="150.0" layoutX="253.0" layoutY="369.0" onMouseClicked="#databaseRestaurants" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="218.0">
          <image>
             <Image url="@images/45332.png" />
          </image>
@@ -50,7 +50,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </ImageView>
-      <ImageView fx:id="bikeImage" fitHeight="150.0" fitWidth="200.0" layoutX="885.0" layoutY="360.0" onMouseClicked="#databaseBikes" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="bikeImage" fitHeight="150.0" fitWidth="200.0" layoutX="884.0" layoutY="355.60000000000025" onMouseClicked="#databaseBikes" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="214.39999999999975">
          <image>
             <Image url="@images/bikeIconFinalWithCircle.png" />
          </image>

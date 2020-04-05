@@ -202,6 +202,10 @@ public class DatabaseRestaurantMenuController implements Initializable {
         colAllergyName.setCellValueFactory(new PropertyValueFactory<>("AllergyName"));
         colOwnedRestaurants.setCellValueFactory(new PropertyValueFactory<>("name"));
 
+        allergiesTableCurrent.setPlaceholder(new Label(""));
+        restaurantTable.setPlaceholder(new Label(""));
+        dishTableView.setPlaceholder(new Label(""));
+
         retrieveOwnedRestaurants();
         dishTableSelectListener();
         restautantTableSelectListener();
@@ -291,14 +295,14 @@ public class DatabaseRestaurantMenuController implements Initializable {
     @FXML
     private void toggleRestaurantList() {
         if (restaurantTableFlag) {
-            restaurantToggleButton.setText(" Close");
+            restaurantToggleButton.setText("Select");
             anchorPane.getChildren().add(restaurantTable);
             anchorPane.getChildren().add(restaurantPreviousPageButton);
             anchorPane.getChildren().add(restaurantPagesText);
             anchorPane.getChildren().add(restaurantNextPageButton);
-            retrieveAllAllergies();
+            calculateRestaurantPages();
         } else {
-            restaurantToggleButton.setText("Select");
+            restaurantToggleButton.setText(" Close");
             anchorPane.getChildren().remove(restaurantTable);
             anchorPane.getChildren().remove(restaurantPreviousPageButton);
             anchorPane.getChildren().remove(restaurantPagesText);
@@ -375,7 +379,7 @@ public class DatabaseRestaurantMenuController implements Initializable {
             dishes = new ArrayList<>(Objects.requireNonNull(
                     JsonMapper.dishListMapper(DishServerCommunication.findDishesByMenu(Integer.parseInt(menuIdFieldRead.getText())))));
         } catch (Exception e) {
-            dishTableView.setPlaceholder(new Label(""));
+            dishes = new ArrayList<>();
         }
         calculateDishPages();
     }
@@ -425,7 +429,7 @@ public class DatabaseRestaurantMenuController implements Initializable {
                         JsonMapper.restaurantListMapper(DishServerCommunication.getOwnedRestaurants())));
             }
         } catch (Exception e) {
-            restaurantTable.setPlaceholder(new Label(""));
+            restaurants = new ArrayList<>();
         }
         calculateRestaurantPages();
     }
@@ -434,6 +438,7 @@ public class DatabaseRestaurantMenuController implements Initializable {
      * Takes care of calculating and displaying the right pages in the Restaurant table
      */
     public void calculateRestaurantPages() {
+        ownedRestaurants.clear();
         totalRestaurantPages = Math.ceil(restaurants.size() / 6.0);
 
         if (restaurants.size() == 0) {
@@ -467,7 +472,7 @@ public class DatabaseRestaurantMenuController implements Initializable {
         try {
             allergies = JsonMapper.allergiesListMapper(DishServerCommunication.getAllergiesFromDish(Integer.parseInt(dishIdFieldRead.getText())));
         } catch (Exception e) {
-            allergiesTableCurrent.setPlaceholder(new Label(""));
+            allergies = new ArrayList<>();
         }
         calculateAllergyPages();
     }
@@ -587,6 +592,16 @@ public class DatabaseRestaurantMenuController implements Initializable {
                 }
             }
         });
+    }
+
+    /**
+     * Sets all fields to 0 to indicate that that means closed.
+     */
+    public void setClosedTextFields() {
+//        hoursStartTime.setText("0");
+//        minutesStartTime.setText("0");
+//        hoursEndTime.setText("0");
+//        minutesEndTime.setText("0");
     }
 
     /**

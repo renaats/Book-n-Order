@@ -45,7 +45,7 @@
     <TableView fx:id="restaurantTable" layoutX="55.0" layoutY="320.0" prefHeight="280.0" prefWidth="302.0" stylesheets="@table.css">
         <columns>
             <TableColumn fx:id="colRestaurantName" editable="false" maxWidth="153.0" minWidth="153.0" prefWidth="153.0" sortable="false" text="Restaurant" />
-         <TableColumn fx:id="colRestaurantBuilding" editable="false" maxWidth="147.0" minWidth="147.0" prefWidth="147.0" sortable="false" text="Building" />
+         <TableColumn fx:id="colRestaurantBuilding" editable="false" maxWidth="146.0" minWidth="146.0" prefWidth="146.0" sortable="false" text="Building" />
         </columns>
     </TableView>
     <ImageView fitHeight="41.0" fitWidth="69.0" layoutX="14.0" layoutY="67.0" onMouseClicked="#goToMainMenuReservations" pickOnBounds="true" preserveRatio="true">
@@ -69,7 +69,7 @@
      <columns>
        <TableColumn fx:id="colOrderDishName" editable="false" maxWidth="95.0" minWidth="95.0" prefWidth="95.0" sortable="false" text="Dish" />
        <TableColumn fx:id="colOrderPrice" editable="false" maxWidth="65.0" minWidth="65.0" prefWidth="65.0" sortable="false" text="Price" />
-         <TableColumn fx:id="colOrderAmount" editable="false" maxWidth="65.0" minWidth="65.0" prefWidth="65.0" sortable="false" text="Amount" />
+         <TableColumn fx:id="colOrderAmount" editable="false" maxWidth="64.0" minWidth="64.0" prefWidth="64.0" sortable="false" text="Amount" />
      </columns>
    </TableView>
    <Button fx:id="nextPageRestaurantButton" layoutX="241.0" layoutY="595.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#nextRestaurantPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&gt;&gt;" textFill="WHITE">

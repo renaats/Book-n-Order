@@ -131,7 +131,7 @@ class JsonMapperTest {
     }
 
     @Test
-    void testBuildingHoursMapper() {
+    void testBuildingHoursMapper() throws JsonProcessingException {
         stubFor(get(urlEqualTo("/building_hours/find/1/1"))
                 .willReturn(aResponse()
                         .withStatus(200)

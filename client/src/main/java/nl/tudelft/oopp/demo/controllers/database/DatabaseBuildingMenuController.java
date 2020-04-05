@@ -97,6 +97,8 @@ public class DatabaseBuildingMenuController implements Initializable {
         colHouseNumber.setCellValueFactory(new PropertyValueFactory<>("houseNumber"));
         colFaculty.setCellValueFactory(new PropertyValueFactory<>("faculty"));
 
+        table.setPlaceholder(new Label(""));
+
         idFieldRead.setDisable(true);
         pageNumber = 1;
 
@@ -133,8 +135,7 @@ public class DatabaseBuildingMenuController implements Initializable {
         try {
             buildings = new ArrayList<>(Objects.requireNonNull(JsonMapper.buildingListMapper(BuildingServerCommunication.getBuildings())));
         } catch (Exception e) {
-            // Fakes the table having any entries, so the table shows up properly instead of "No contents".
-            table.setPlaceholder(new Label(""));
+            buildings = new ArrayList<>();
         }
         calculatesTablePages();
     }
@@ -352,7 +353,7 @@ public class DatabaseBuildingMenuController implements Initializable {
     }
 
     /**
-     * Sets all fields to 0 to indiciate that that means closed.
+     * Sets all fields to 0 to indicate that that means closed.
      */
     public void setClosedTextFields() {
         hoursStartTime.setText("0");
