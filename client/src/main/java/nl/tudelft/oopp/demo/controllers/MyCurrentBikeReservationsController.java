@@ -31,16 +31,19 @@ public class MyCurrentBikeReservationsController implements Initializable {
     @FXML
     private TableView<BikeReservation> table;
     @FXML
+    private TableColumn<BikeReservation, String> colBikeNumber;
+    @FXML
     private TableColumn<BikeReservation, String> colFromTime;
     @FXML
-    private TableColumn<BikeReservation, Integer> colToTime;
+    private TableColumn<BikeReservation, String> colToTime;
     @FXML
-    private TableColumn<BikeReservation, Integer> colFromLoc;
+    private TableColumn<BikeReservation, String> colFromLoc;
     @FXML
-    private TableColumn<BikeReservation, Long> colToLoc;
+    private TableColumn<BikeReservation, String> colToLoc;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        colBikeNumber.setCellValueFactory(new PropertyValueFactory<>("getBikeNumber"));
         colFromTime.setCellValueFactory(new PropertyValueFactory<>("getFromTime"));
         colToTime.setCellValueFactory(new PropertyValueFactory<>("getToTime"));
         colFromLoc.setCellValueFactory(new PropertyValueFactory<>("getFromBuildingName"));

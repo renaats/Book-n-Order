@@ -66,15 +66,6 @@ public class FoodOrder {
      * Makes the table list the Delivery day instead of the Delivery Time object
      * @return String property, a property recognized by the tables.
      */
-    public IntegerProperty getDeliveryDayProperty() {
-        int day = getDeliveryTime().getDay();
-        return new SimpleIntegerProperty(day);
-    }
-
-    /**
-     * Makes the table list the Delivery day instead of the Delivery Time object
-     * @return String property, a property recognized by the tables.
-     */
     public SimpleStringProperty getDeliveryTimeProperty() {
         Date time = getDeliveryTime();
         DateFormat df = new SimpleDateFormat("dd MMMMM yyyy HH:mm");

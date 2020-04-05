@@ -47,7 +47,7 @@
         </ImageView>
         <TableView fx:id="table" layoutX="163.0" layoutY="191.0" prefHeight="408.0" prefWidth="908.0">
             <columns>
-                <TableColumn fx:id="colRoom" prefWidth="400" text="From (Location)" />
+                <TableColumn fx:id="colRoom" prefWidth="400" text="Location" />
                 <TableColumn fx:id="colFromTime" prefWidth="269.3333740234375" text="From (Time)" />
                 <TableColumn fx:id="colToTime" prefWidth="235.33331298828125" text="To (Time)" />
             </columns>
