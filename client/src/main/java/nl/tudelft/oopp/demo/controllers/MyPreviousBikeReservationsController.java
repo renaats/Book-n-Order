@@ -22,7 +22,7 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
  * Loads the correct content into the FXML objects that need to display server information and
- * controls all the user inputs made through the GUI in the "myPreviousTenBikeReservations.fxml" file.
+ * controls all the user inputs made through the GUI in the "MyPreviousBikeReservations.fxml" file.
  */
 public class MyPreviousBikeReservationsController implements Initializable {
 
@@ -56,15 +56,8 @@ public class MyPreviousBikeReservationsController implements Initializable {
         bikeOrderResult.clear();
         List<BikeReservation> bikeReservations;
         try {
-            String json = BikeServerCommunication.getAllPreviousBikeReservations();
-            List<BikeReservation> bikeReservations1 = JsonMapper.bikeReservationsListMapper(json);
+            List<BikeReservation> bikeReservations1 = JsonMapper.bikeReservationsListMapper(BikeServerCommunication.getAllPreviousBikeReservations());
             bikeReservations = new ArrayList<>(bikeReservations1);
-            for (int i = 0; i < bikeReservations.size(); i++) {
-                if (!(bikeReservations.get(i).getAppUser().getEmail()
-                        .equals(JsonMapper.appUserMapper(UserServerCommunication.getOwnUserInformation()).getEmail()))) {
-                    bikeReservations.remove(bikeReservations.get(i));
-                }
-            }
         } catch (Exception e) {
             // Fakes the table having any entries, so the table shows up properly instead of "No contents".
             bikeReservations = new ArrayList<>();
@@ -93,6 +86,6 @@ public class MyPreviousBikeReservationsController implements Initializable {
      * @throws IOException should never be thrown as the input is always the same
      */
     public void goToMyCurrentReservations() throws IOException {
-        ApplicationDisplay.changeScene("/myPreviousBookings.fxml");
+        ApplicationDisplay.changeScene("/MyPreviousBookings.fxml");
     }
 }

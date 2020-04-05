@@ -50,7 +50,7 @@
                 <TableColumn fx:id="colFromTime" prefWidth="175" text="From (Time)" />
                 <TableColumn fx:id="colToTime" prefWidth="175" text="To (Time)" />
                 <TableColumn fx:id="colFromLoc" prefWidth="300" text="From (Location)" />
-                <TableColumn fx:id="colToLoc" prefWidth="300" text="To (Location)" />
+                <TableColumn fx:id="colToLoc" prefWidth="254.0" text="To (Location)" />
             </columns>
         </TableView>
         <Text layoutX="409.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Previous Bike Reservations">
