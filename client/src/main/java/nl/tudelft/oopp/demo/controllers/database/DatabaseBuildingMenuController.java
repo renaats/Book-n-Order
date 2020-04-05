@@ -11,11 +11,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
@@ -83,6 +79,7 @@ public class DatabaseBuildingMenuController implements Initializable {
 
     /**
      * return to the database main menu when the home icon is clicked
+     *
      * @throws IOException this should not throw an exception, since the input is always the same
      */
     public void mainMenu() throws IOException {
@@ -91,6 +88,7 @@ public class DatabaseBuildingMenuController implements Initializable {
 
     /**
      * sends the user to the add building view
+     *
      * @throws IOException this should not throw an exception, since the input is always the same
      */
     public void goToAddBuildings() throws IOException {
@@ -102,13 +100,12 @@ public class DatabaseBuildingMenuController implements Initializable {
      */
     public void listBuildingsButtonClicked() {
         buildingResult.clear();
-        List<Building> buildings;
+        List<Building> buildings = new ArrayList<>();
         try {
             buildings = new ArrayList<>(Objects.requireNonNull(JsonMapper.buildingListMapper(BuildingServerCommunication.getBuildings())));
         } catch (Exception e) {
             // Fakes the table having any entries, so the table shows up properly instead of "No contents".
-            buildings = new ArrayList<>();
-            buildings.add(null);
+            table.setPlaceholder(new Label(""));
         }
 
         totalPages = Math.ceil(buildings.size() / 15.0);
@@ -127,7 +124,7 @@ public class DatabaseBuildingMenuController implements Initializable {
                     break;
                 }
             }
-        }  else {
+        } else {
             buildingResult.addAll(buildings);
         }
         table.setItems(buildingResult);
@@ -174,7 +171,7 @@ public class DatabaseBuildingMenuController implements Initializable {
                 if (buildingResult.get(i).getId().equals(building.getId())) {
                     deleteButton = new Button("Delete");
                     deleteButton.setLayoutX(1200);
-                    deleteButton.setLayoutY(179 + (24  * (i + 1)));
+                    deleteButton.setLayoutY(179 + (24 * (i + 1)));
                     deleteButton.setMinWidth(60);
                     deleteButton.setStyle("-fx-background-color:  #CC5653; -fx-font-size:10; -fx-text-fill: white");
                     deleteButton.setMinHeight(20);

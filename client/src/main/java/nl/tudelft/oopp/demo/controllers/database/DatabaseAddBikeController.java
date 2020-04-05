@@ -11,11 +11,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleButton;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
@@ -178,13 +174,11 @@ public class DatabaseAddBikeController implements Initializable {
      */
     public void retrieveAllBuildings() {
         buildingResult.clear();
-        List<Building> buildings;
+        List<Building> buildings = new ArrayList<>();
         try {
             buildings = new ArrayList<>(Objects.requireNonNull(JsonMapper.buildingListMapper(BuildingServerCommunication.getBuildings())));
         } catch (Exception e) {
-            // Fakes the table having any entries, so the table shows up properly instead of "No contents".
-            buildings = new ArrayList<>();
-            buildings.add(null);
+            table.setPlaceholder(new Label(""));
         }
 
         totalPages = Math.ceil(buildings.size() / 7.0);

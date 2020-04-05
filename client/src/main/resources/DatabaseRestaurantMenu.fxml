@@ -99,7 +99,7 @@
          <Cursor fx:constant="HAND" />
       </cursor>
    </Button>
-   <Text fx:id="pagesText" layoutX="836.0" layoutY="435.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0 / pages" />
+   <Text fx:id="pagesText" layoutX="830.0" layoutY="435.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0 / 0 pages" />
    <Text layoutX="49.0" layoutY="355.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID:" AnchorPane.leftAnchor="49.0">
       <font>
          <Font size="17.0" />

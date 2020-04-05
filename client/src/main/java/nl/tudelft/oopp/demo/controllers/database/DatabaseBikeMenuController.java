@@ -11,11 +11,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleButton;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
@@ -80,13 +76,11 @@ public class DatabaseBikeMenuController implements Initializable {
      */
     public void retrieveAllBikes() {
         bikeResult.clear();
-        List<Bike> bikes;
+        List<Bike> bikes = new ArrayList<>();
         try {
             bikes = new ArrayList<>(Objects.requireNonNull(JsonMapper.bikeListMapper(BikeServerCommunication.getBikes())));
         } catch (Exception e) {
-            // Fakes the table having any entries, so the table shows up properly instead of "No contents".
-            bikes = new ArrayList<>();
-            bikes.add(null);
+            table.setPlaceholder(new Label(""));
         }
 
         totalPages = Math.ceil(bikes.size() / 15.0);

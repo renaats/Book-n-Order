@@ -30,6 +30,7 @@ public class JsonMapper {
 
     /**
      * Current mapper for buildings
+     *
      * @param buildingJson JSON string representation of a building
      * @return Building object
      */
@@ -48,6 +49,7 @@ public class JsonMapper {
 
     /**
      * Current mapper for menus
+     *
      * @param menuJson JSON string representation of a menu
      * @return Menu object
      */
@@ -60,6 +62,7 @@ public class JsonMapper {
 
     /**
      * Maps all building JSONS to a list.
+     *
      * @param buildingsJson a JSON string representing a list.
      * @return A list filled with Buildings objects
      */
@@ -67,11 +70,13 @@ public class JsonMapper {
 
         ObjectMapper mapper = new ObjectMapper();
 
-        return mapper.readValue(buildingsJson, new TypeReference<>(){});
+        return mapper.readValue(buildingsJson, new TypeReference<>() {
+        });
     }
 
     /**
      * Maps all allergies in the JSON to a list.
+     *
      * @param allergiesJson a JSON string representing a list.
      * @return A list filled with Allergies objects
      */
@@ -79,11 +84,13 @@ public class JsonMapper {
 
         ObjectMapper mapper = new ObjectMapper();
 
-        return mapper.readValue(allergiesJson, new TypeReference<>(){});
+        return mapper.readValue(allergiesJson, new TypeReference<>() {
+        });
     }
 
     /**
      * Maps JSON to Room entity.
+     *
      * @param roomJson JSON representation of a room.
      * @return Room entity.
      */
@@ -102,6 +109,7 @@ public class JsonMapper {
 
     /**
      * Maps all room JSONS to a list.
+     *
      * @param roomsJson a JSON string representing a list.
      * @return A list filled with object room
      */
@@ -114,6 +122,7 @@ public class JsonMapper {
 
     /**
      * Maps a JSON string to an AppUser object
+     *
      * @param appUserJson JSON representation of a String
      * @return AppUser Object
      */
@@ -132,6 +141,7 @@ public class JsonMapper {
 
     /**
      * Maps a JSON string to an UserInformation object
+     *
      * @param userInformationJson JSON representation of a String
      * @return UserInformation Object
      */
@@ -150,6 +160,7 @@ public class JsonMapper {
 
     /**
      * Maps a JSON string to an Restaurant object
+     *
      * @param restaurantJson JSON representation of a String
      * @return Restaurant Object
      */
@@ -168,17 +179,20 @@ public class JsonMapper {
 
     /**
      * Maps a JSON string to an Restaurant object and doesn't throw a warning if it gets a null
+     *
      * @param restaurantsJson JSON representation of a String
      * @return Restaurant Object List
      */
     public static List<Restaurant> ownRestaurantMapper(String restaurantsJson) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
 
-        return mapper.readValue(restaurantsJson, new TypeReference<>(){});
+        return mapper.readValue(restaurantsJson, new TypeReference<>() {
+        });
     }
 
     /**
      * Maps all restaurant JSONS to a list.
+     *
      * @param restaurantsJson a JSON string representing a list.
      * @return A list filled with object Restaurant
      */
@@ -191,6 +205,7 @@ public class JsonMapper {
 
     /**
      * Maps all restaurant hours JSONS to an object.
+     *
      * @param restaurantHoursJson a JSON string
      * @return Restaurant hour object
      */
@@ -210,6 +225,7 @@ public class JsonMapper {
 
     /**
      * Maps all building hours JSONS to an object.
+     *
      * @param buildingHourJson a JSON string
      * @return building hour object
      */
@@ -229,6 +245,7 @@ public class JsonMapper {
 
     /**
      * Maps JSON to RoomReservation entity.
+     *
      * @param roomReservationJson representation of a room.
      * @return RoomReservation entity.
      */
@@ -248,6 +265,7 @@ public class JsonMapper {
 
     /**
      * Maps all Room Reservation JSONS to a list.
+     *
      * @param roomReservationsJson a JSON string representing a list.
      * @return A list filled with object Room Reservation
      */
@@ -256,11 +274,13 @@ public class JsonMapper {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
 
-        return mapper.readValue(roomReservationsJson, new TypeReference<>(){});
+        return mapper.readValue(roomReservationsJson, new TypeReference<>() {
+        });
     }
 
     /**
      * Maps JSON to FoodOrder entity.
+     *
      * @param foodOrderJson representation of a food order.
      * @return FoodOrder entity.
      */
@@ -280,6 +300,7 @@ public class JsonMapper {
 
     /**
      * Maps all Food Orders JSONS to a list.
+     *
      * @param foodOrdersJson a JSON string representing a list.
      * @return A list filled with object Food Order
      */
@@ -288,11 +309,13 @@ public class JsonMapper {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
 
-        return mapper.readValue(foodOrdersJson, new TypeReference<>(){});
+        return mapper.readValue(foodOrdersJson, new TypeReference<>() {
+        });
     }
 
     /**
      * Maps JSON to Bike entity.
+     *
      * @param bikeJson JSON representation of a bike.
      * @return Bike entity.
      */
@@ -311,6 +334,7 @@ public class JsonMapper {
 
     /**
      * Maps all room JSONS to a list.
+     *
      * @param bikesJson a JSON string representing a list.
      * @return A list filled with object bike
      */
@@ -318,11 +342,13 @@ public class JsonMapper {
 
         ObjectMapper mapper = new ObjectMapper();
 
-        return mapper.readValue(bikesJson, new TypeReference<>(){});
+        return mapper.readValue(bikesJson, new TypeReference<>() {
+        });
     }
 
     /**
      * Maps JSON to BikeReservation entity.
+     *
      * @param bikeReservationJson representation of a bike reservation.
      * @return BikeReservation entity.
      */
@@ -342,6 +368,7 @@ public class JsonMapper {
 
     /**
      * Maps all Bike Reservation JSONS to a list.
+     *
      * @param bikeReservationsJson a JSON string representing a list.
      * @return A list filled with object Bike Reservation
      */
@@ -350,11 +377,13 @@ public class JsonMapper {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
 
-        return mapper.readValue(bikeReservationsJson, new TypeReference<>(){});
+        return mapper.readValue(bikeReservationsJson, new TypeReference<>() {
+        });
     }
 
     /**
      * Maps all menu JSONS to a list.
+     *
      * @param menusJson a JSON string representing a list.
      * @return A list filled with object Menus.
      */
@@ -362,17 +391,20 @@ public class JsonMapper {
 
         ObjectMapper mapper = new ObjectMapper();
 
-        return mapper.readValue(menusJson, new TypeReference<>(){});
+        return mapper.readValue(menusJson, new TypeReference<>() {
+        });
     }
 
     /**
      * Maps all dish JSONS to a list.
+     *
      * @param dishesJson a JSON string representing a list.
      * @return A list filled with object dishes.
      */
     public static List<Dish> dishListMapper(String dishesJson) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
 
-        return mapper.readValue(dishesJson, new TypeReference<>(){});
+        return mapper.readValue(dishesJson, new TypeReference<>() {
+        });
     }
 }

@@ -13,6 +13,8 @@ import javafx.scene.control.TextField;
 
 import nl.tudelft.oopp.demo.communication.DishServerCommunication;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
+import nl.tudelft.oopp.demo.communication.ServerCommunication;
+import nl.tudelft.oopp.demo.communication.UserServerCommunication;
 import nl.tudelft.oopp.demo.entities.Menu;
 import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
@@ -42,15 +44,17 @@ public class DatabaseAddDishController implements Initializable {
             menu = JsonMapper.menuMapper(DishServerCommunication.findMenuByRestaurant(
                     JsonMapper.ownRestaurantMapper(DishServerCommunication.getOwnedRestaurants()).get(0).getId()));
         } catch (JsonProcessingException e) {
-            e.printStackTrace();
+            // Intentionally left blank
         }
         if (menu != null) {
             menuId = menu.getId();
             menuTextField.setText(menu.getName());
+        } else {
+            CustomAlert.errorAlert("No menu found.");
+        }
+        if (!UserServerCommunication.isUserAdmin()) {
             menuTextField.setDisable(true);
             menuTextField.setOpacity(0.75);
-        } else {
-            CustomAlert.errorAlert("Something went wrong. Please contact an administrator.");
         }
     }
 

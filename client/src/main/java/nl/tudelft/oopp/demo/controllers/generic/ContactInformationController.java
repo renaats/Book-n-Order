@@ -1,4 +1,4 @@
-package nl.tudelft.oopp.demo.controllers;
+package nl.tudelft.oopp.demo.controllers.generic;
 
 import java.io.IOException;
 
