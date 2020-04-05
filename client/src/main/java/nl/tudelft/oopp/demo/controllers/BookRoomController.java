@@ -124,7 +124,7 @@ public class BookRoomController {
     }
 
     /**
-     * Changes to MainMenuReservations.fxml.
+     * Changes to MainMenu.fxml.
      * @throws IOException input will not be wrong, hence we throw.
      */
     public void mainMenu() throws IOException {
