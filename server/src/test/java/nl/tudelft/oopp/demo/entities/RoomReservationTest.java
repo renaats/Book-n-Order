@@ -56,7 +56,7 @@ public class RoomReservationTest {
         room.setRoomReservations(new HashSet<>());
         roomRepository.saveAndFlush(room);
 
-        appUser = new AppUser("R.Jursevskis@student.tudelft.nl", "1234", "Renats", "Jursevskis", "EWI");
+        appUser = new AppUser("R.Jursevskis@student.tudelft.nl", "1234", "Renats", "Jursevskis", "EWI", "CSE");
         appUser.setRoomReservations(new HashSet<>());
         userRepository.saveAndFlush(appUser);
 

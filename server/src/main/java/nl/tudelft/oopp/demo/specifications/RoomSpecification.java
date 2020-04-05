@@ -41,6 +41,10 @@ public class RoomSpecification implements Specification<Room> {
             } else {
                 return builder.equal(root.get(criteria.getKey()), criteria.getValue());
             }
+        } else if (criteria.getOperation().equalsIgnoreCase("'")) {
+            return builder.or(root.<String>get(criteria.getKey()).in(criteria.getValue().toString()), root.<String>get(criteria.getKey()).in("Open"));
+        } else if (criteria.getOperation().equalsIgnoreCase(";")) {
+            return builder.or(root.<String>get(criteria.getKey()).in(criteria.getValue().toString()), root.<String>get(criteria.getKey()).in(""));
         }
         return null;
     }

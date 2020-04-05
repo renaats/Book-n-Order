@@ -46,11 +46,11 @@ public class LoginController {
         }
 
         // NEED TO BE DELETED BEFORE PRODUCTION! ONLY USED FOR END-TO-END TESTING!
-        UserServerCommunication.addUser("staff@tudelft.nl", "Staff", "AlsoStaff", "EWI", "1234");
-        UserServerCommunication.addUser("admin@tudelft.nl", "Admin", "AlsoAdmin", "None", "1234");
-        UserServerCommunication.addUser("building_admin@tudelft.nl", "BuildingAdmin", "AlsoBuildingAdmin", "None", "1234");
-        UserServerCommunication.addUser("bike_admin@tudelft.nl", "BikeAdmin", "AlsoBikeAdmin", "None", "1234");
-        UserServerCommunication.addUser("restaurant@tudelft.nl", "Restaurant", "AlsoRestaurant", "None", "1234");
+        UserServerCommunication.addUser("staff@tudelft.nl", "Staff", "AlsoStaff", "EWI", "1234", "");
+        UserServerCommunication.addUser("admin@tudelft.nl", "Admin", "AlsoAdmin", "None", "1234", "");
+        UserServerCommunication.addUser("building_admin@tudelft.nl", "BuildingAdmin", "AlsoBuildingAdmin", "None", "1234", "");
+        UserServerCommunication.addUser("bike_admin@tudelft.nl", "BikeAdmin", "AlsoBikeAdmin", "None", "1234", "");
+        UserServerCommunication.addUser("restaurant@tudelft.nl", "Restaurant", "AlsoRestaurant", "None", "1234", "");
         // NEED TO BE DELETED BEFORE PRODUCTION! ONLY USED FOR END-TO-END TESTING!
 
         String message = UserServerCommunication.loginUser(username, password);

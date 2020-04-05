@@ -101,11 +101,13 @@ public class UserServerCommunication {
      * @param name User's name.
      * @param surname User's surname.
      * @param password User's password.
+     * @param faculty User's faculty.
+     * @param study User's study.
      * @return the error message corresponding to the server's response.
      */
-    public static String addUser(String email, String name, String surname, String faculty, String password) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/user/add?email=" + URLEncoder.encode(email, StandardCharsets.UTF_8)  + "&name=" + URLEncoder.encode(name, StandardCharsets.UTF_8) + "&surname=" + URLEncoder.encode(surname, StandardCharsets.UTF_8) + "&faculty=" + URLEncoder.encode(faculty, StandardCharsets.UTF_8) + "&password=" + URLEncoder.encode(password, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).build();
-        return communicateAndReturnErrorMessage(request);
+    public static String addUser(String email, String name, String surname, String faculty, String password, String study) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/user/add?email=" + URLEncoder.encode(email, StandardCharsets.UTF_8)  + "&name=" + URLEncoder.encode(name, StandardCharsets.UTF_8) + "&surname=" + URLEncoder.encode(surname, StandardCharsets.UTF_8) + "&faculty=" + URLEncoder.encode(faculty, StandardCharsets.UTF_8) + "&password=" + URLEncoder.encode(password, StandardCharsets.UTF_8) + "&study=" + URLEncoder.encode(study, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).build();
+        return communicateAndReturnBodyOfResponse(request);
     }
 
     /**

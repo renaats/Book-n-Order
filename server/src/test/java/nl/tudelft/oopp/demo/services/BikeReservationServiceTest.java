@@ -94,11 +94,11 @@ public class BikeReservationServiceTest {
      */
     @BeforeEach
     public void setup() {
-        appUser = new AppUser("l.j.jongejans@student.tudelft.nl", "1234", "Liselotte", "Jongejans", "EWI");
+        appUser = new AppUser("l.j.jongejans@student.tudelft.nl", "1234", "Liselotte", "Jongejans", "EWI", "CSE");
         appUser.setBikeReservations(new HashSet<>());
         userRepository.save(appUser);
 
-        appUser2 = new AppUser("l.j.jongejans@tudelft.nl", "1234", "Liselotte", "Jongejans", "EWI");
+        appUser2 = new AppUser("l.j.jongejans@tudelft.nl", "1234", "Liselotte", "Jongejans", "EWI", "CSE");
         appUser2.setBikeReservations(new HashSet<>());
         userRepository.save(appUser2);
 

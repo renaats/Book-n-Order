@@ -5,6 +5,7 @@ import static nl.tudelft.oopp.demo.config.Constants.MENU_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.RESTAURANT_NOT_FOUND;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
@@ -170,6 +171,19 @@ public class MenuServiceTest {
     public void testFindExistingByRestaurant() {
         menuService.add(menu1.getName(), menu1.getRestaurant().getId());
         assertNotNull(menuService.findRestaurant(menu1.getRestaurant().getId()));
+    }
+
+    /**
+     * Tests the change of name for an existing object.
+     */
+    @Test
+    @WithMockUser(username = "restaurant@tudelft.nl", roles = {"USER", "STAFF", "RESTAURANT"})
+    public void testChangeName() {
+        menuService.add(menu1.getName(), menu1.getRestaurant().getId());
+        int id = menuService.all().get(0).getId();
+        assertNotEquals("NewName", menuService.find(id).getName());
+        menuService.changeMenuName(id, "NewName");
+        assertEquals("NewName", menuService.find(id).getName());
     }
 
     /**

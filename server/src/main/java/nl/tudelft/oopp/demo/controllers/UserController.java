@@ -70,6 +70,7 @@ public class UserController {
      * @param name = the name of the user
      * @param surname = the surname of the user
      * @param faculty = the faculty of the user
+     * @param study = the study of the user
      * @return an error code corresponding to the outcome of the request
      */
     @PostMapping(path = "/add") // Map ONLY POST Requests
@@ -79,8 +80,9 @@ public class UserController {
             @RequestParam String password,
             @RequestParam String name,
             @RequestParam String surname,
-            @RequestParam String faculty) {
-        return userService.add(email,password,name,surname, URLDecoder.decode(faculty, StandardCharsets.UTF_8));
+            @RequestParam String faculty,
+            @RequestParam String study) {
+        return userService.add(email,password,name,surname, URLDecoder.decode(faculty, StandardCharsets.UTF_8), study);
     }
 
     /**

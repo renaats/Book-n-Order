@@ -141,9 +141,10 @@ public class UserService {
      * @param name = the name of the user
      * @param surname = the surname of the user
      * @param faculty = the faculty of the user
+     * @param study = the study of the user
      * @return an error code corresponding to the outcome of the request
      */
-    public int add(String email, String password, String name, String surname, String faculty) {
+    public int add(String email, String password, String name, String surname, String faculty, String study) {
         if (!EmailValidator.getInstance().isValid(URLDecoder.decode(email, StandardCharsets.UTF_8))) {
             return INVALID_EMAIL;
         }
@@ -153,7 +154,7 @@ public class UserService {
         if (userRepository.existsById(email)) {
             return DUPLICATE_EMAIL;
         }
-        AppUser appUser = new AppUser(email, bcryptPasswordEncoder.encode(password), name, surname, faculty);
+        AppUser appUser = new AppUser(email, bcryptPasswordEncoder.encode(password), name, surname, faculty, study);
         appUser.setRoles(new HashSet<>());
         if (!roleRepository.existsByName(USER)) {
             Role role = new Role();
@@ -243,6 +244,9 @@ public class UserService {
                 break;
             case "faculty":
                 appUser.setFaculty(value);
+                break;
+            case "study":
+                appUser.setStudy(value);
                 break;
             default:
                 return ATTRIBUTE_NOT_FOUND;

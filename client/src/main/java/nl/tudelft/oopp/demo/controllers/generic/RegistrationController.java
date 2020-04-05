@@ -23,9 +23,12 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 public class RegistrationController implements Initializable {
 
     private final ObservableList<String> facultyList = FXCollections.observableArrayList();
+    private final ObservableList<String> studyList = FXCollections.observableArrayList();
 
     @FXML
     private ChoiceBox<String> facultyChoiceBox;
+    @FXML
+    private ChoiceBox<String> studyChoiceBox;
     @FXML
     private TextField emailField;
     @FXML
@@ -47,9 +50,10 @@ public class RegistrationController implements Initializable {
             String name = nameField.getText();
             String password = passwordField.getText();
             String surname = surnameField.getText();
-            String faculty = facultyChoiceBox.getValue().replaceAll(" ", "");
+            String faculty = facultyChoiceBox.getValue();
+            String study = studyChoiceBox.getValue();
             if (password.equals(password2)) {
-                CustomAlert.informationAlert(UserServerCommunication.addUser(email, name, surname, faculty, password));
+                CustomAlert.informationAlert(UserServerCommunication.addUser(email, name, surname, faculty, password, study));
             } else {
                 CustomAlert.errorAlert("Passwords do not match.");
             }
@@ -87,6 +91,25 @@ public class RegistrationController implements Initializable {
         String h = "Mechanical, Maritime and Materials Engineering";
         facultyList.addAll(a, b, c, d, e, f, g, h);
         facultyChoiceBox.getItems().addAll(facultyList);
+
+        studyList.clear();
+        studyList.add("Aerospace Engineering");
+        studyList.add("Applied Earth Sciences");
+        studyList.add("Architecture");
+        studyList.add("Civil Engineering");
+        studyList.add("Computer Science and Engineering");
+        studyList.add("Electrical Engineering");
+        studyList.add("Industrial Design");
+        studyList.add("Clinical Technology");
+        studyList.add("Life Science and Technology");
+        studyList.add("Maritime Technology");
+        studyList.add("Molecular Science and Technology");
+        studyList.add("Nanobiology");
+        studyList.add("Technical Public Administration");
+        studyList.add("Applied Physics");
+        studyList.add("Technical Mathematics");
+        studyList.add("Mechanical Engineering");
+        studyChoiceBox.getItems().addAll(studyList);
     }
 
     @Override

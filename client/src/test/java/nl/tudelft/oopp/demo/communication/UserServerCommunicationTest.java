@@ -35,7 +35,8 @@ class UserServerCommunicationTest {
         wireMockServer.start();
         configureFor("localhost", 8080);
 
-        stubFor(post(urlEqualTo("/user/add?email=a&name=a&surname=a&faculty=a&password=a")).willReturn(aResponse().withStatus(200).withBody("200")));
+        stubFor(post(urlEqualTo("/user/add?email=a&name=a&surname=a&faculty=a&password=a&study=a"))
+                .willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(post(urlEqualTo("/login")).willReturn(aResponse().withStatus(200).withBody("").withHeader("Authorization", "a b c")));
         stubFor(post(urlEqualTo("/user/changePassword?password=Password")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(get(urlEqualTo("/user/info")).willReturn(aResponse().withStatus(200).withBody("Information")));
@@ -110,7 +111,7 @@ class UserServerCommunicationTest {
      */
     @Test
     public void testSuccessfulAddUser() {
-        assertEquals(ErrorMessages.getErrorMessage(200), UserServerCommunication.addUser("a", "a", "a", "a", "a"));
+        assertEquals("200", UserServerCommunication.addUser("a", "a", "a", "a", "a", "a"));
     }
 
     /**

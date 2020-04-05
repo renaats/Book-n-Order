@@ -33,6 +33,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
@@ -73,6 +74,14 @@ public class RoomServiceTest {
         }
     }
 
+    @TestConfiguration
+    static class UserTestConfiguration {
+        @Bean
+        public UserService userService() {
+            return new UserService();
+        }
+    }
+
     @Autowired
     RoomService roomService;
 
@@ -81,6 +90,9 @@ public class RoomServiceTest {
 
     @Autowired
     ServiceHelper serviceHelper;
+
+    @Autowired
+    UserService userService;
 
 
     Building building;
@@ -470,6 +482,31 @@ public class RoomServiceTest {
         List<Room> rooms = roomService.search("name:Boole,plugs>150,studySpecific:CSE2,projector:true,plugs<300");
         assertFalse(rooms.contains(room));
         assertTrue(rooms.contains(room2));
+    }
+
+    /**
+     * Tests the searching of a room with the staff role.
+     */
+    @Test
+    @WithMockUser(username = "user@tudelft.nl", roles = {"USER", "STAFF"})
+    public void testSearchStaffRole() {
+        userService.add("user@tudelft.nl", "123", "User", "User", "1", "CSE2");
+        roomService.add("Ampere", "CSE", true, true, building.getId(), 200, 200, "Closed");
+        roomService.add("Boole", "CSE2", true, true, building2.getId(), 200, 200, "Staff-Only");
+        room2.setStatus("Staff-Only");
+        assertEquals(Collections.singletonList(room2), roomService.search(""));
+    }
+
+    /**
+     * Tests the searching of a room with the staff role.
+     */
+    @Test
+    @WithMockUser(username = "user@student.tudelft.nl")
+    public void testSearchUserRole() {
+        userService.add("user@student.tudelft.nl", "123", "User", "User", "1", "CSE");
+        roomService.add("Ampere", "CSE", true, true, building.getId(), 200, 200, "Open");
+        roomService.add("Boole", "CSE2", true, true, building2.getId(), 200, 200, "Staff-Only");
+        assertEquals(Collections.singletonList(room), roomService.search(""));
     }
 
     /**
