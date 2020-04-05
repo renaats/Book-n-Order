@@ -40,19 +40,19 @@
             <Cursor fx:constant="HAND" />
         </cursor>
     </ImageView>
-    <TableView fx:id="currentTable" layoutX="59.0" layoutY="230.0" prefHeight="404.0" prefWidth="260.0" stylesheets="@table.css">
+    <TableView fx:id="currentTable" layoutX="59.0" layoutY="230.0" prefHeight="404.0" prefWidth="260.0" stylesheets="@Table.css">
         <columns>
             <TableColumn fx:id="colCurrentTime" editable="false" maxWidth="128.0" minWidth="128.0" prefWidth="128.0" resizable="false" sortable="false" text="Delivery Time" />
             <TableColumn fx:id="colCurrentLocation" editable="false" maxWidth="129.0" minWidth="129.0" prefWidth="129.0" resizable="false" sortable="false" text="Delivery Location" />
         </columns>
     </TableView>
-    <TableView fx:id="pastTable" layoutX="860.0" layoutY="230.0" prefHeight="404.0" prefWidth="260.0" stylesheets="@table.css">
+    <TableView fx:id="pastTable" layoutX="860.0" layoutY="230.0" prefHeight="404.0" prefWidth="260.0" stylesheets="@Table.css">
         <columns>
             <TableColumn fx:id="colPastTime" editable="false" maxWidth="128.0" minWidth="128.0" prefWidth="128.0" resizable="false" sortType="DESCENDING" sortable="false" text="Delivery Time" />
             <TableColumn fx:id="colPastLocation" editable="false" maxWidth="129.0" minWidth="129.0" prefWidth="129.0" resizable="false" sortable="false" text="Delivery Location" />
         </columns>
     </TableView>
-    <TableView fx:id="dishTable" layoutX="475.0" layoutY="230.0" prefHeight="404.0" prefWidth="260.0" stylesheets="@table.css">
+    <TableView fx:id="dishTable" layoutX="475.0" layoutY="230.0" prefHeight="404.0" prefWidth="260.0" stylesheets="@Table.css">
         <columns>
             <TableColumn fx:id="colDishName" editable="false" maxWidth="129.0" minWidth="129.0" prefWidth="129.0" resizable="false" sortable="false" text="Dish Name" />
             <TableColumn fx:id="colDishAmount" editable="false" maxWidth="128.0" minWidth="128.0" prefWidth="128.0" resizable="false" sortable="false" text="Dish Amount" />

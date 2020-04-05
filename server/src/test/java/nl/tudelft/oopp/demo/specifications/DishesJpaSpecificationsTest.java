@@ -28,14 +28,13 @@ public class DishesJpaSpecificationsTest {
 
     private Dish dish1;
     private Dish dish2;
-    private Menu menu;
 
     /**
      * Initializes variables before each test.
      */
     @BeforeEach
     public void setup() {
-        menu = new Menu();
+        Menu menu = new Menu();
         menuRepository.save(menu);
 
         dish1 = new Dish("Tosti", menu, 300, "Cooked", "123");

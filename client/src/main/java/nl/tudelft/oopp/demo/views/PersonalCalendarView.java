@@ -31,7 +31,7 @@ public class PersonalCalendarView extends CalendarView {
     Calendar rentedBikes = new Calendar("Bike Rent");
 
     /**
-     * Constuctor for the Personal Calendar View
+     * Constructor for the Personal Calendar View
      */
     public PersonalCalendarView() {
         displayCalendars();

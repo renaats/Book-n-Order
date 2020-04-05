@@ -103,7 +103,7 @@
          </ImageView>
       </graphic>
    </ToggleButton>
-   <TableView fx:id="table" layoutX="877.0" layoutY="208.0" prefHeight="203.0" prefWidth="200.0" stylesheets="@table.css">
+   <TableView fx:id="table" layoutX="877.0" layoutY="208.0" prefHeight="203.0" prefWidth="200.0" stylesheets="@Table.css">
       <columns>
          <TableColumn fx:id="colId" prefWidth="41.3333740234375" resizable="false" text="ID" />
          <TableColumn fx:id="colName" maxWidth="156.0" minWidth="156.0" prefWidth="156.0" resizable="false" text="Name" />

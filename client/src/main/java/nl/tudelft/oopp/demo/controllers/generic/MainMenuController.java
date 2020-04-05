@@ -13,9 +13,8 @@ public class MainMenuController {
 
     /**
      * Handles the clicking of the calendar icon.
-     * @throws IOException when it fails
      */
-    public void calendarIcon() throws IOException {
+    public void calendarIcon() {
         ApplicationDisplay.showCalendarScene(new PersonalCalendarView());
     }
 

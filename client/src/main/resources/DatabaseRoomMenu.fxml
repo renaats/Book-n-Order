@@ -55,7 +55,7 @@
          <Font name="Calibri" size="11.0" />
       </font>
    </Text>
-   <TableView fx:id="table" layoutX="551.0" layoutY="167.0" prefHeight="386.0" prefWidth="562.0" stylesheets="@table.css">
+   <TableView fx:id="table" layoutX="551.0" layoutY="167.0" prefHeight="386.0" prefWidth="562.0" stylesheets="@Table.css">
       <columns>
          <TableColumn fx:id="colName" editable="false" prefWidth="139.0" resizable="false" sortable="false" text="Name" />
          <TableColumn fx:id="colBuilding" editable="false" prefWidth="140.0" resizable="false" sortable="false" text="Building" />

@@ -97,7 +97,7 @@ public class RoomReservation {
             return false;
         }
         RoomReservation that = (RoomReservation) o;
-        return active == this.active
+        return active == that.active
                 && Objects.equals(room, that.room)
                 && Objects.equals(appUser, that.appUser)
                 && Objects.equals(fromTime, that.fromTime)

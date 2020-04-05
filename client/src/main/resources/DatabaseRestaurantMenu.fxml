@@ -74,7 +74,7 @@
       </font>
    </Text>
    <TextField fx:id="nameFieldRead" layoutX="246.0" layoutY="180.0" prefHeight="26.0" prefWidth="260.0" promptText="Restaurant name" />
-   <TableView fx:id="dishTableView" layoutX="712.0" layoutY="179.0" maxHeight="195.0" prefHeight="195.0" prefWidth="271.0" stylesheets="@table.css" AnchorPane.topAnchor="179.0">
+   <TableView fx:id="dishTableView" layoutX="712.0" layoutY="179.0" maxHeight="195.0" prefHeight="195.0" prefWidth="271.0" stylesheets="@Table.css" AnchorPane.topAnchor="179.0">
       <columns>
          <TableColumn fx:id="colDishName" editable="false" prefWidth="201.5999755859375" resizable="false" sortable="false" text="Dish">
             <graphic>
@@ -233,7 +233,7 @@
          <Cursor fx:constant="HAND" />
       </cursor>
    </Button>
-   <TableView fx:id="allergiesTableCurrent" layoutX="1023.0" layoutY="178.0" prefHeight="147.0" prefWidth="223.0" stylesheets="@table.css" AnchorPane.topAnchor="179.0">
+   <TableView fx:id="allergiesTableCurrent" layoutX="1023.0" layoutY="178.0" prefHeight="147.0" prefWidth="223.0" stylesheets="@Table.css" AnchorPane.topAnchor="179.0">
       <columns>
          <TableColumn fx:id="colAllergyName" editable="false" prefWidth="220.00001525878906" resizable="false" sortable="false" text="Name">
             <graphic>
@@ -291,7 +291,7 @@
          </ImageView>
       </graphic>
    </ToggleButton>
-   <TableView fx:id="restaurantTable" layoutX="513.0" layoutY="179.0" maxHeight="195.0" maxWidth="-Infinity" minHeight="195.0" minWidth="-Infinity" prefHeight="195.0" prefWidth="145.0" stylesheets="@table.css" AnchorPane.topAnchor="179.0">
+   <TableView fx:id="restaurantTable" layoutX="513.0" layoutY="179.0" maxHeight="195.0" maxWidth="-Infinity" minHeight="195.0" minWidth="-Infinity" prefHeight="195.0" prefWidth="145.0" stylesheets="@Table.css" AnchorPane.topAnchor="179.0">
       <columns>
          <TableColumn fx:id="colOwnedRestaurants" editable="false" maxWidth="143.0" prefWidth="143.0" resizable="false" sortable="false" text="Owned Restaurants">
             <graphic>

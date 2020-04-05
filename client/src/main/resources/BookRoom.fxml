@@ -51,7 +51,7 @@
     </ImageView>
    <CheckBox fx:id="beamer" layoutX="179.0" layoutY="290.0" mnemonicParsing="false" text="Beamer" />
    <CheckBox fx:id="screen" layoutX="179.0" layoutY="327.0" mnemonicParsing="false" text="Screen" />
-   <TableView fx:id="table" layoutX="634.0" layoutY="168.0" prefHeight="404.0" prefWidth="546.0" stylesheets="@table.css">
+   <TableView fx:id="table" layoutX="634.0" layoutY="168.0" prefHeight="404.0" prefWidth="546.0" stylesheets="@Table.css">
      <columns>
        <TableColumn fx:id="colName" prefWidth="130.0" text="Name" />
        <TableColumn fx:id="colBuilding" prefWidth="100.0" text="Building" />
@@ -115,7 +115,7 @@
          </ImageView>
       </graphic>
    </ToggleButton>
-   <TableView fx:id="buildingTable" layoutX="318.0" layoutY="236.0" prefHeight="203.0" prefWidth="200.0" stylesheets="@table.css">
+   <TableView fx:id="buildingTable" layoutX="318.0" layoutY="236.0" prefHeight="203.0" prefWidth="200.0" stylesheets="@Table.css">
       <columns>
          <TableColumn fx:id="colBuildingId" prefWidth="41.3333740234375" resizable="false" text="ID" />
          <TableColumn fx:id="colBuildingName" prefWidth="155.0" resizable="false" text="Name" />

@@ -68,6 +68,10 @@ public class Dish {
         this.amount = amount;
     }
 
+    public void setDishOrders(Set<DishOrder> dishOrders) {
+        this.dishOrders = dishOrders;
+    }
+
     public int getId() {
         return id;
     }

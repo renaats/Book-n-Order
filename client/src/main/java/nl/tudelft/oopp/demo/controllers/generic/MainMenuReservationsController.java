@@ -77,9 +77,8 @@ public class MainMenuReservationsController {
 
     /**
      * Goes to personal calendar when the calendar image is clicked
-     * @throws IOException this method should never throw an exception
      */
-    public void openCalendar() throws IOException {
+    public void openCalendar() {
         ApplicationDisplay.showCalendarScene(new PersonalCalendarView());
     }
 }

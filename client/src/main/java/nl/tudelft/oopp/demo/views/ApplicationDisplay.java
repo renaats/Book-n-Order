@@ -65,7 +65,7 @@ public class ApplicationDisplay extends Application {
                 } else if (controllerClass == DatabaseViewFoodOrderController.class) {
                     return new DatabaseViewFoodOrderController((Restaurant) variable1);
                 } else {
-                    return controllerClass.newInstance();
+                    return controllerClass.getDeclaredConstructor().newInstance();
                 }
             } catch (Exception exc) {
                 throw new RuntimeException(exc); // just bail

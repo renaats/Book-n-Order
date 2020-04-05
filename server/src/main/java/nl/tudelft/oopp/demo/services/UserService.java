@@ -352,10 +352,9 @@ public class UserService {
             RandomStringGenerator pwdGenerator = new RandomStringGenerator.Builder().withinRange(48, 90)
                     .build();
             String password = pwdGenerator.generate(10);
-            String recipient = email;
             String subject = "Password Recovery";
             SimpleMailMessage email2 = new SimpleMailMessage();
-            email2.setTo(recipient);
+            email2.setTo(email);
             email2.setSubject(subject);
             email2.setText("This email provides you with the new password.\nTU Delft advices you to change it immediately "
                     + "after logging in to secure yourself from unwanted presence.\n"

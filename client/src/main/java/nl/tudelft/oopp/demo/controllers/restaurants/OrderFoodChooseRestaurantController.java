@@ -149,7 +149,6 @@ public class OrderFoodChooseRestaurantController implements Initializable {
     private Button removeDietButton;
     private Button selectDietButton;
     private ImageView imageView;
-    private Image image;
     private Text description;
     private Restaurant selectedRestaurant;
     private Dish selectedDish;
@@ -407,9 +406,7 @@ public class OrderFoodChooseRestaurantController implements Initializable {
                     addButton.setMinWidth(50);
                     addButton.setStyle("-fx-background-color:  #46cc00; -fx-font-size:10; -fx-text-fill: white; -fx-font:12 system;");
                     addButton.setMaxHeight(24);
-                    addButton.setOnAction(event -> {
-                        addToOrder();
-                    });
+                    addButton.setOnAction(event -> addToOrder());
                     anchorPane.getChildren().add(addButton);
                 }
             }
@@ -453,7 +450,7 @@ public class OrderFoodChooseRestaurantController implements Initializable {
     }
 
     /**
-     * Calculates the amount of pages there should be to browswe the table properly
+     * Calculates the amount of pages there should be to browse the table properly
      */
     public void calculateDishPages() {
         dishResult.clear();
@@ -536,7 +533,7 @@ public class OrderFoodChooseRestaurantController implements Initializable {
             anchorPane.getChildren().add(description);
 
             anchorPane.getChildren().remove(imageView);
-            image = new Image(selectedDish.getImage());
+            Image image = new Image(selectedDish.getImage());
             imageView = new ImageView(image);
             imageView.setLayoutX(705);
             imageView.setLayoutY(320);
@@ -583,7 +580,7 @@ public class OrderFoodChooseRestaurantController implements Initializable {
     }
 
     /**
-     * Calculates the amount of pages there should be to browswe the table properly
+     * Calculates the amount of pages there should be to browse the table properly
      */
     public void calculateOrderPages() {
         orderResult.clear();
@@ -654,9 +651,7 @@ public class OrderFoodChooseRestaurantController implements Initializable {
                     removeButton.setMinWidth(50);
                     removeButton.setStyle("-fx-background-color:  #cc3c1f; -fx-font-size:10; -fx-text-fill: white; -fx-font:12 system;");
                     removeButton.setMaxHeight(24);
-                    removeButton.setOnAction(event -> {
-                        removeFromOrder();
-                    });
+                    removeButton.setOnAction(event -> removeFromOrder());
                     anchorPane.getChildren().add(removeButton);
                 }
             }
@@ -670,9 +665,7 @@ public class OrderFoodChooseRestaurantController implements Initializable {
                     addButton.setMinWidth(50);
                     addButton.setStyle("-fx-background-color:  #46cc00; -fx-font-size:10; -fx-text-fill: white; -fx-font:12 system;");
                     addButton.setMaxHeight(24);
-                    addButton.setOnAction(event -> {
-                        addToOrder();
-                    });
+                    addButton.setOnAction(event -> addToOrder());
                     anchorPane.getChildren().add(addButton);
                 }
             }
@@ -990,9 +983,7 @@ public class OrderFoodChooseRestaurantController implements Initializable {
                     selectDietButton.setMinWidth(50);
                     selectDietButton.setStyle("-fx-background-color:  #46cc00; -fx-font-size:10; -fx-text-fill: white; -fx-font:12 system;");
                     selectDietButton.setMaxHeight(24);
-                    selectDietButton.setOnAction(event -> {
-                        selectDiet();
-                    });
+                    selectDietButton.setOnAction(event -> selectDiet());
                     anchorPane.getChildren().add(selectDietButton);
                 }
             }
@@ -1022,9 +1013,7 @@ public class OrderFoodChooseRestaurantController implements Initializable {
                     removeDietButton.setMinWidth(50);
                     removeDietButton.setStyle("-fx-background-color:  #cc3c1f; -fx-font-size:10; -fx-text-fill: white; -fx-font:12 system;");
                     removeDietButton.setMaxHeight(24);
-                    removeDietButton.setOnAction(event -> {
-                        addAllergy();
-                    });
+                    removeDietButton.setOnAction(event -> addAllergy());
                     anchorPane.getChildren().add(removeDietButton);
                 }
             }
@@ -1039,9 +1028,7 @@ public class OrderFoodChooseRestaurantController implements Initializable {
                     selectDietButton.setMinWidth(50);
                     selectDietButton.setStyle("-fx-background-color:  #46cc00; -fx-font-size:10; -fx-text-fill: white; -fx-font:12 system;");
                     selectDietButton.setMaxHeight(24);
-                    selectDietButton.setOnAction(event -> {
-                        selectDiet();
-                    });
+                    selectDietButton.setOnAction(event -> selectDiet());
                     anchorPane.getChildren().add(selectDietButton);
                 }
             }

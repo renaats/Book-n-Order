@@ -523,7 +523,6 @@ public class DatabaseRestaurantMenuController implements Initializable {
                 dishPriceFieldRead.setText(Double.toString((double) dish.getPrice() / 100));
                 dishDescriptionFieldRead.setText(dish.getDescription());
                 dishImageTextField.setText(dish.getImage());
-                retrieveAllAllergies();
             } else {
                 // If the selection is not valid, clear the fields so that fields don't stay hanging if you switch
                 dishIdFieldRead.clear();
@@ -531,8 +530,8 @@ public class DatabaseRestaurantMenuController implements Initializable {
                 dishPriceFieldRead.clear();
                 dishDescriptionFieldRead.clear();
                 dishImageTextField.clear();
-                retrieveAllAllergies();
             }
+            retrieveAllAllergies();
 
             // This takes care of the dynamic delete button to the side. It calculates where it should be and places it accordingly.
             for (int i = 0; i < dishList.size(); i++) {
@@ -584,12 +583,11 @@ public class DatabaseRestaurantMenuController implements Initializable {
                 if (menu != null) {
                     menuIdFieldRead.setText(Integer.toString(menu.getId()));
                     menuNameFieldRead.setText(menu.getName());
-                    retrieveAllDishes();
                 } else {
                     menuNameFieldRead.clear();
                     menuIdFieldRead.clear();
-                    retrieveAllDishes();
                 }
+                retrieveAllDishes();
             }
         });
     }

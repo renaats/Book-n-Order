@@ -38,19 +38,19 @@
             <Cursor fx:constant="HAND" />
         </cursor>
     </ImageView>
-    <TableView fx:id="currentTable" layoutX="498.0" layoutY="230.0" prefHeight="404.0" prefWidth="260.0" stylesheets="@table.css">
+    <TableView fx:id="currentTable" layoutX="498.0" layoutY="230.0" prefHeight="404.0" prefWidth="260.0" stylesheets="@Table.css">
         <columns>
             <TableColumn fx:id="colCurrentFrom" editable="false" maxWidth="129.0" minWidth="129.0" prefWidth="129.0" sortable="false" text="From" />
             <TableColumn fx:id="colCurrentTo" editable="false" maxWidth="129.0" minWidth="129.0" prefWidth="129.0" sortable="false" text="To" />
         </columns>
     </TableView>
-    <TableView fx:id="pastTable" layoutX="860.0" layoutY="230.0" prefHeight="404.0" prefWidth="260.0" stylesheets="@table.css">
+    <TableView fx:id="pastTable" layoutX="860.0" layoutY="230.0" prefHeight="404.0" prefWidth="260.0" stylesheets="@Table.css">
         <columns>
             <TableColumn fx:id="colPastFrom" editable="false" maxWidth="129.0" minWidth="129.0" prefWidth="129.0" sortType="DESCENDING" sortable="false" text="From" />
             <TableColumn fx:id="colPastTo" editable="false" maxWidth="129.0" minWidth="129.0" prefWidth="129.0" sortable="false" text="To" />
         </columns>
     </TableView>
-    <TableView fx:id="roomTable" layoutX="93.0" layoutY="230.0" prefHeight="404.0" prefWidth="260.0" stylesheets="@table.css">
+    <TableView fx:id="roomTable" layoutX="93.0" layoutY="230.0" prefHeight="404.0" prefWidth="260.0" stylesheets="@Table.css">
         <columns>
             <TableColumn fx:id="colRoomName" editable="false" maxWidth="129.0" minWidth="129.0" prefWidth="129.0" sortable="false" text="Room name" />
             <TableColumn fx:id="colRoomBuilding" editable="false" maxWidth="129.0" minWidth="129.0" prefWidth="129.0" sortable="false" text="Building" />

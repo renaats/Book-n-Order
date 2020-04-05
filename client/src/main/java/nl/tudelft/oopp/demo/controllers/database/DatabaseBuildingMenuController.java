@@ -440,9 +440,7 @@ public class DatabaseBuildingMenuController implements Initializable {
      * Sets the choice box to null if the user interacts with the date picker to prevent duplicate dates.
      */
     public void datePickerListener() {
-        datePicker.valueProperty().addListener((obs) -> {
-            daysChoiceBox.setValue(null);
-        });
+        datePicker.valueProperty().addListener((obs) -> daysChoiceBox.setValue(null));
     }
 
     /**

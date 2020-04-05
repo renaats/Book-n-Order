@@ -39,7 +39,7 @@
             <Cursor fx:constant="HAND" />
         </cursor>
     </ImageView>
-    <TableView fx:id="currentTable" layoutX="413.0" layoutY="230.0" prefHeight="404.0" prefWidth="402.0" stylesheets="@table.css">
+    <TableView fx:id="currentTable" layoutX="413.0" layoutY="230.0" prefHeight="404.0" prefWidth="402.0" stylesheets="@Table.css">
         <columns>
             <TableColumn fx:id="colCurrentFrom" editable="false" maxWidth="110.0" minWidth="110.0" prefWidth="110.0" resizable="false" sortable="false" text="From" />
             <TableColumn fx:id="colCurrentTo" editable="false" maxWidth="110.0" minWidth="110.0" prefWidth="110.0" resizable="false" sortable="false" text="To" />
@@ -47,7 +47,7 @@
          <TableColumn fx:id="colCurrentFromBuilding" maxWidth="90.0" minWidth="90.0" prefWidth="90.0" resizable="false" text="To Building" />
         </columns>
     </TableView>
-    <TableView fx:id="pastTable" layoutX="844.0" layoutY="230.0" prefHeight="404.0" prefWidth="402.0" stylesheets="@table.css">
+    <TableView fx:id="pastTable" layoutX="844.0" layoutY="230.0" prefHeight="404.0" prefWidth="402.0" stylesheets="@Table.css">
         <columns>
             <TableColumn fx:id="colPastFrom" editable="false" maxWidth="110.0" minWidth="110.0" prefWidth="110.0" resizable="false" sortType="DESCENDING" sortable="false" text="From" />
             <TableColumn fx:id="colPastTo" editable="false" maxWidth="110.0" minWidth="110.0" prefWidth="110.0" resizable="false" sortable="false" text="To" />
@@ -55,7 +55,7 @@
          <TableColumn fx:id="colPastToBuilding" maxWidth="90.0" minWidth="90.0" prefWidth="90.0" resizable="false" text="To Building" />
         </columns>
     </TableView>
-    <TableView fx:id="bikeTable" layoutX="118.0" layoutY="230.0" prefHeight="404.0" prefWidth="202.0" stylesheets="@table.css">
+    <TableView fx:id="bikeTable" layoutX="118.0" layoutY="230.0" prefHeight="404.0" prefWidth="202.0" stylesheets="@Table.css">
         <columns>
             <TableColumn fx:id="colBikeName" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" sortable="false" text="Bike ID" />
             <TableColumn fx:id="colBikeBuilding" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" sortable="false" text="Building" />
