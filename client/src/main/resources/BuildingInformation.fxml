@@ -106,4 +106,44 @@
          <Font size="16.0" />
       </font>
    </Text>
+   <Text fx:id="buildingName" layoutX="320.0" layoutY="332.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Value" AnchorPane.leftAnchor="320.0" AnchorPane.topAnchor="316.0">
+      <font>
+         <Font size="16.0" />
+      </font>
+   </Text>
+   <Text fx:id="buildingStreet" layoutX="320.0" layoutY="366.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Value" AnchorPane.leftAnchor="320.0" AnchorPane.topAnchor="348.0">
+      <font>
+         <Font size="16.0" />
+      </font>
+   </Text>
+   <Text fx:id="buildingHouseNumber" layoutX="320.0" layoutY="396.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Value" AnchorPane.leftAnchor="320.0" AnchorPane.topAnchor="380.0">
+      <font>
+         <Font size="16.0" />
+      </font>
+   </Text>
+   <Text fx:id="buildingFaculty" layoutX="320.0" layoutY="428.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Value" AnchorPane.leftAnchor="320.0" AnchorPane.topAnchor="412.0">
+      <font>
+         <Font size="16.0" />
+      </font>
+   </Text>
+   <Text fx:id="buildingRoomBook" layoutX="320.0" layoutY="460.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Value" AnchorPane.leftAnchor="320.0" AnchorPane.topAnchor="444.0">
+      <font>
+         <Font size="16.0" />
+      </font>
+   </Text>
+   <Text fx:id="buildingBikeRent" layoutX="320.0" layoutY="492.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Value" AnchorPane.leftAnchor="320.0" AnchorPane.topAnchor="476.0">
+      <font>
+         <Font size="16.0" />
+      </font>
+   </Text>
+   <Text fx:id="buildingRestaurants" layoutX="320.0" layoutY="524.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Value" AnchorPane.leftAnchor="320.0" AnchorPane.topAnchor="508.0">
+      <font>
+         <Font size="16.0" />
+      </font>
+   </Text>
+   <Text fx:id="buildingOpeningHours" layoutX="320.0" layoutY="556.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Value" AnchorPane.leftAnchor="320.0" AnchorPane.topAnchor="540.0">
+      <font>
+         <Font size="16.0" />
+      </font>
+   </Text>
 </AnchorPane>

@@ -13,10 +13,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.text.Text;
 import nl.tudelft.oopp.demo.communication.BuildingServerCommunication;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Room;
+import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
@@ -35,6 +37,22 @@ public class BuildingInformationController implements Initializable {
     private TableColumn<Building, String> colStreet;
     @FXML
     private TableColumn<Building, Integer> colHouseNumber;
+    @FXML
+    private Text buildingName;
+    @FXML
+    private Text buildingStreet;
+    @FXML
+    private Text buildingHouseNumber;
+    @FXML
+    private Text buildingFaculty;
+    @FXML
+    private Text buildingRoomBook;
+    @FXML
+    private Text buildingBikeRent;
+    @FXML
+    private Text buildingRestaurants;
+    @FXML
+    private Text buildingOpeningHours;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -42,6 +60,7 @@ public class BuildingInformationController implements Initializable {
         colStreet.setCellValueFactory(new PropertyValueFactory<>("getStreet"));
         colHouseNumber.setCellValueFactory(new PropertyValueFactory<>("getHouseNumber"));
         loadDataIntoTable();
+        showInformation();
     }
 
     /**
@@ -67,6 +86,21 @@ public class BuildingInformationController implements Initializable {
             buildingResult.addAll(buildings);
         }
         table.setItems(buildingResult);
+    }
+
+    /**
+     * Shows the information of the chosen building in the JavaFX Text placeholders.
+     */
+    public void showInformation() {
+        try {
+            Building chosenBuilding = table.getSelectionModel().getSelectedItem();
+            buildingName.setText(chosenBuilding.getName());
+            buildingStreet.setText(chosenBuilding.getStreet());
+            buildingHouseNumber.setText(Integer.toString(chosenBuilding.getHouseNumber()));
+            buildingFaculty.setText(chosenBuilding.getFaculty());
+        } catch (NullPointerException e) {
+            CustomAlert.warningAlert("Select a building to view its information.");
+        }
     }
 
     /**
