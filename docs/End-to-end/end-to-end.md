@@ -6,51 +6,70 @@
 - Building admin account
   - Login to `building_admin@tudelft.nl` with password `1234`
   - Add a new building 
-    - [x] Warning when missing a field
-    - [x] Error when the house number is not an integer
-    - [x] Successfully added alert
-    - [x] Name already exists error
+    - [ ] Warning when missing a field
+    - [ ] Error when the house number is not an integer
+    - [ ] Successfully added alert
+    - [ ] Name already exists error
   - Update the building's attributes, delete it, add again
-    - [x] All of building's fields can be changed to other valid values
-    - [x] Warning when the house number is not an integer
-    - [x] Name already exists error
+    - [ ] All of building's fields can be changed to other valid values
+    - [ ] Warning when the house number is not an integer
+    - [ ] Name already exists error
   - Add a new room
-    - [x] Warning when missing a field
-    - [x] Error when the capacity or plugs is not an integer
-    - [x] Error when screen or projector is not a boolean. (Using the UI they can never not be booleans)
-    - [ ] Only limited to valid buildings.
-    - [x] Successfully added alert.
-    - [x] Name already exists error.
+    - [ ] Warning when missing a field
+    - [ ] Error when the capacity or plugs is not an integer
+    - [ ] Error when faculty specific, screen or projector is not a boolean
+    - [ ] Only limited to valid buildings
+    - [ ] Successfully added alert
+    - [ ] Name already exists error
   - Update the room's attributes, delete it, add again
-    - [x] All of room's fields can be changed to other valid values
-    - [x] Warning when the capacity or plugs is not an integer
-    - [x] Warning when screen or projector is not a boolean. (Using the UI they can never not be booleans)
-    - [ ] Only limited to valid buildings. Buildings can't be changed in edit rooms.
-    - [ ] Name already exists error. I could use the update room UI to give 2 rooms the same name.
+    - [ ] All of room's fields can be changed to other valid values
+    - [ ] Warning when the capacity or plugs is not an integer
+    - [ ] Warning when faculty specific, screen or projector is not a boolean
+    - [ ] Only limited to valid buildings
+    - [ ] Name already exists error
   - Try to add a new restaurant / bike (should not work)
-    - [ ] Should have an "Unauthorized" warning. When adding a dish the notification that I am not authorized should be an error alert, not a warning alert(as it currently is).
+    - [ ] Should have an "Unauthorized" warning
 
 - Bike admin account
   - Login to `bike_admin@tudelft.nl` with password `1234`
-  - Add new bikes
-    - [x] Warning when missing a field
-    - [ ] Only limited to valid buildings. When trying to add bikes using the building id and not the building selection no alert showed. But when the id was correct bikes where indeed added.
-    - [ ] Error when the amount of bikes is not an integer. There is not amount of bike filed (Was removed).
-    - [ ] Successfully added alert. When adding the building Id manually no alert shows.
-  - Update the bike's attributes, delete it, add again
-    - [x] All of bike's fields can be changed to other valid values
-    - [ ] Only limited to valid buildings. the building can't be changed.
+  - *Add new bikes*
+    - [ ] *Warning when missing a field*
+    - [ ] *Only limited to valid buildings*
+    - [ ] *Error when the amount of bikes is not an integer*
+    - [ ] *Successfully added alert*
+  - *Update the bike's attributes, delete it, add again*
+    - [ ] *All of bike's fields can be changed to other valid values*
+    - [ ] *Only limited to valid buildings*
   - Try to add a new restaurant / building (should not work)
-    - [ ] Should have an "Unauthorized" warning. When adding a dish the notification that I am not authorized should be an error alert, not a warning alert(as it currently is). In addition to that with all the admin accounts when you try and update an entity outside your authorization it shows a successfully executed alert, when it should show an unauthorized access alert. (the entity in question is not updates, as it should be).
+    - [ ] Should have an "Unauthorized" warning
 
 - Restaurant account
   - Login to `restaurant@tudelft.nl` with password `1234`
-  - Update the menu's attributes, delete it, add again
-    - [ ] All of menu's fields can be changed to other valid values. Can't change the name.
-    - [x] Only limited to valid restaurants. can't change the restaurant.
-    - [ ] Name already exists error. can't change the name.
-  - Update the dishes attributes, delete it, add again
-    - [ ] All of dishes fields can be changed to other valid values. No
+  - *Add a new restaurant*
+    - [ ] *Warning when missing a field*
+    - [ ] *Only limited to valid buildings*
+    - [ ] *Successfully added alert*
+    - [ ] *Name already exists error*
+  - *Update the restaurant's attributes, delete it, add again*
+    - [ ] *All of restaurant's fields can be changed to other valid values*
+    - [ ] *Only limited to valid buildings*
+    - [ ] *Name already exists error*
+  - *Add a new menu*
+    - [ ] *Warning when missing a field*
+    - [ ] *Only limited to valid restaurants*
+    - [ ] *Successfully added alert*
+    - [ ] *Name already exists error*
+  - *Update the menu's attributes, delete it, add again*
+    - [ ] *All of menu's fields can be changed to other valid values*
+    - [ ] *Only limited to valid restaurants*
+    - [ ] *Name already exists error*
+  - *Add a new dish*
+    - [ ] *Warning when missing a field*
+    - [ ] *Only limited to valid menus*
+    - [ ] *Successfully added alert*
+    - [ ] *Name already exists error*
+  - *Update the dishes attributes, delete it, add again*
+    - [ ] *All of dishes fields can be changed to other valid values*
     - [ ] *Only limited to valid menus*
     - [ ] *Name already exists error*
   - *Add a new allergy*
@@ -68,101 +87,106 @@
 - Admin account
   - Login to `admin@tudelft.nl` with password `1234`
   - Add a new building 
-    - [x] Warning when missing a field
-    - [x] Error when the house number is not an integer
-    - [x] Successfully added alert. When adding the building Id manually no alert shows.
-    - [x] Name already exists error.
+    - [ ] Warning when missing a field
+    - [ ] Error when the house number is not an integer
+    - [ ] Successfully added alert
+    - [ ] Name already exists error
   - Update the building's attributes, delete it, add again
-    - [x] All of building's fields can be changed to other valid values
-    - [x] Warning when the house number is not an integer
-    - [x] Name already exists error
+    - [ ] All of building's fields can be changed to other valid values
+    - [ ] Warning when the house number is not an integer
+    - [ ] Name already exists error
   - Add a new room
-    - [x] Warning when missing a field
-    - [x] Error when the capacity or plugs is not an integer
-    - [x] Error when screen or projector is not a boolean. (Using the UI they can never not be booleans)
-    - [ ] Only limited to valid buildings.
-    - [x] Successfully added alert.
-    - [x] Name already exists error.
+    - [ ] Warning when missing a field
+    - [ ] Error when the capacity or plugs is not an integer
+    - [ ] Error when faculty specific, screen or projector is not a boolean
+    - [ ] Only limited to valid buildings
+    - [ ] Successfully added alert
+    - [ ] Name already exists error
   - Update the room's attributes, delete it, add again
-    - [x] All of room's fields can be changed to other valid values
-    - [x] Warning when the capacity or plugs is not an integer
-    - [x] Warning when screen or projector is not a boolean. (Using the UI they can never not be booleans)
-    - [ ] Only limited to valid buildings. Buildings can't be changed in edit rooms.
-    - [ ] Name already exists error. I could use the update room UI to give 2 rooms the same name.
-  - Add new bikes
-    - [x] Warning when missing a field
-    - [ ] Only limited to valid buildings. When trying to add bikes using the building id and not the building selection no alert showed. But when the id was correct bikes where indeed added.
-    - [ ] Error when the amount of bikes is not an integer. There is not amount of bike filed (Was removed).
-    - [ ] Successfully added alert. When adding the building Id manually no alert shows.
-  - Update the bike's attributes, delete it, add again
-    - [x] All of bike's fields can be changed to other valid values
-    - [ ] Only limited to valid buildings. the building can't be changed.
-  - Add a new restaurant
-    - [ ] Warning when missing a field. when missing the email field it tells you you are missing the name field.
-    - [ ] Only limited to valid buildings. When trying to add bikes using the building id and not the building selection no alert showed. But when the id was correct bikes where indeed added.
-    - [ ] Successfully. added alert When adding the building Id manually no alert shows.
-    - [ ] Name already exists error. It allows for duplicate names
-  - Update the restaurant's attributes, delete it, add again
-    - [x] All of restaurant's fields can be changed to other valid values.
-    - [x] Only limited to valid buildings
-    - [ ] Name already exists error. Name can be duplicated
-  - Add a new menu
-    - [x] Warning when missing a field
-    - [x] Only limited to valid restaurants
-    - [ ] Successfully added alert. When adding the building Id manually no alert shows.
-    - [ ] Name already exists error. Allows duplicates.
-  - Update the menu's attributes, delete it, add again
-    - [x] All of menu's fields can be changed to other valid values
-    - [x] Only limited to valid restaurants. The restaurant of a menu can't be changed.
-    - [ ] Name already exists error. Allows duplicates.
-  - Add a new dish
-    - [x] Warning when missing a field. All except image
-    - [x] Only limited to valid menus. can't change the menu
-    - [x] Successfully added alert
-    - [ ] Name already exists error. Allows duplicates
-  - Update the dishes attributes, delete it, add again
-    - [x] All of dishes fields can be changed to other valid values
-    - [x] Only limited to valid menus
-    - [ ] Name already exists error. Allows duplicates
-  - Add a new allergy
-    - [x] Warning when missing a field
-    - [x] Only limited to valid dishes
-    - [x] Successfully added alert
-    - [ ] Name already exists error. Shows a successfully added alert but doesn't add it
+    - [ ] All of room's fields can be changed to other valid values
+    - [ ] Warning when the capacity or plugs is not an integer
+    - [ ] Warning when faculty specific, screen or projector is not a boolean
+    - [ ] Only limited to valid buildings
+    - [ ] Name already exists error
+  - *Add new bikes*
+    - [ ] *Warning when missing a field*
+    - [ ] *Only limited to valid buildings*
+    - [ ] *Error when the amount of bikes is not an integer*
+    - [ ] *Successfully added alert*
+  - *Update the bike's attributes, delete it, add again*
+    - [ ] *All of bike's fields can be changed to other valid values*
+    - [ ] *Only limited to valid buildings*
+  - *Add a new restaurant*
+    - [ ] *Warning when missing a field*
+    - [ ] *Only limited to valid buildings*
+    - [ ] *Successfully added alert*
+    - [ ] *Name already exists error*
+  - *Update the restaurant's attributes, delete it, add again*
+    - [ ] *All of restaurant's fields can be changed to other valid values*
+    - [ ] *Only limited to valid buildings*
+    - [ ] *Name already exists error*
+  - *Add a new menu*
+    - [ ] *Warning when missing a field*
+    - [ ] *Only limited to valid restaurants*
+    - [ ] *Successfully added alert*
+    - [ ] *Name already exists error*
+  - *Update the menu's attributes, delete it, add again*
+    - [ ] *All of menu's fields can be changed to other valid values*
+    - [ ] *Only limited to valid restaurants*
+    - [ ] *Name already exists error*
+  - *Add a new dish*
+    - [ ] *Warning when missing a field*
+    - [ ] *Only limited to valid menus*
+    - [ ] *Successfully added alert*
+    - [ ] *Name already exists error*
+  - *Update the dishes attributes, delete it, add again*
+    - [ ] *All of dishes fields can be changed to other valid values*
+    - [ ] *Only limited to valid menus*
+    - [ ] *Name already exists error*
+  - *Add a new allergy*
+    - [ ] *Warning when missing a field*
+    - [ ] *Only limited to valid dishes*
+    - [ ] *Successfully added alert*
+    - [ ] *Name already exists error*
+  - *Update the allergies attributes, delete it, add again*
+    - [ ] *All of allergies fields can be changed to other valid values*
+    - [ ] *Only limited to valid dishes*
+    - [ ] *Name already exists error*
 
 - Normal user
   - Register
-    - [x] Invalid email warning
-    - [x] TU Delft email only
-    - [x] Missing name / surname / faculty fields warnings
-    - [x] Passwords not matching
-    - [x] Successful register
+    - [ ] Invalid email warning
+    - [ ] TU Delft email only
+    - [ ] Missing name / surname / faculty fields warnings
+    - [ ] Passwords not matching
+    - [ ] Successful register
   - Login to the account
-    - [x] Missing email or password error
-    - [x] Wrong password error
-    - [x] Successful login
+    - [ ] Missing email or password error
+    - [ ] Wrong password error
+    - [ ] Successful login
   - Activate the account using the confirmation code sent to the email
-    - [x] Input the wrong code error
-    - [x] Successful activation
+    - [ ] Input the wrong code error
+    - [ ] Successful activation
   - Check the user information in the profile
-    - [x] User information must match the one used when registering
+    - [ ] User information must match the one used when registering
   - Change the password
-    - [x] Passwords do not match error
-    - [x] Successful change, should be logged out automatically
+    - [ ] Passwords do not match error
+    - [ ] Successful change, should be logged out automatically
   - Login to the account again
-    - [x] Unsuccessful login with the old password
-    - [x] Successful login with the new password
-  - Reserve a room
-    - [x] Only limited to valid rooms
-    - [x] Successful reservation
-  - Book a bike
-    - [x] Missing fields warning
-    - [x] Only limited to valid locations
-    - [x] Successful reservation
-  - Order food
-    - [x] Missing fields warning
-    - [x] Only limited to valid restaurants, dishes, allergies
-    - [x] Successful order
+    - [ ] Unsuccessful login with the old password
+    - [ ] Successful login with the new password
+  - *Reserve a room*
+    - [ ] *Missing fields warning*
+    - [ ] *Only limited to valid rooms*
+    - [ ] *Successful reservation*
+  - *Book a bike*
+    - [ ] *Missing fields warning*
+    - [ ] *Only limited to valid locations*
+    - [ ] *Successful reservation*
+  - *Order food*
+    - [ ] *Missing fields warning*
+    - [ ] *Only limited to valid restaurants, dishes, allergies*
+    - [ ] *Successful order*
   - *See your own reservations*
     - [ ] *Lists all current orders and reservations*
   - *Look at the reservations in the calendar*
@@ -173,9 +197,9 @@
     - [ ] *Share functionality works*
   - Logout
   - Use the "Forgot password" functionality
-    - [x] Missing fields warning
-    - [x] Invalid email warning
-    - [x] Successful password reset
+    - [ ] Missing fields warning
+    - [ ] Invalid email warning
+    - [ ] Successful password reset
   - Login using the password sent to the email
-    - [x] Unsuccessful login with the old password
-    - [x] Successful login with the new password sent in the email
+    - [ ] Unsuccessful login with the old password
+    - [ ] Successful login with the new password sent in the email
