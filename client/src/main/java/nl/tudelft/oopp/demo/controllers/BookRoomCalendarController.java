@@ -5,7 +5,6 @@ import com.calendarfx.model.Entry;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLOutput;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -15,7 +14,6 @@ import java.time.ZoneId;
 import java.util.*;
 
 import com.calendarfx.model.Interval;
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -102,13 +100,29 @@ public class BookRoomCalendarController implements Initializable {
         Date start = convertToDate(entry.getStartTime(), entry.getStartDate());
         Date end = convertToDate(entry.getEndTime(), entry.getStartDate());
         BuildingHours buildingHours = JsonMapper.buildingHoursMapper(ServerCommunication.findBuildingHours(SelectedRoom.getSelectedRoom().getBuilding().getId(), start.getTime()));
-        Date startBuildingHours = convertToDate(buildingHours.getStartTime(), entry.getStartDate());
-        Date endBuildingHours = convertToDate(buildingHours.getEndTime(), entry.getStartDate());
+        Date startBuildingHours = null;
+        Date endBuildingHours = null;
+        if(buildingHours == null) {
+            CustomAlert.errorAlert("There is no information about the business hours of this building for this day.");
+        } else {
+        startBuildingHours = convertToDate(buildingHours.getStartTime(), entry.getStartDate());
+        endBuildingHours = convertToDate(buildingHours.getEndTime(), entry.getStartDate());
+        }
         if (e.isEntryAdded()) {
-            if (storedEntry != null || entry.getStartAsLocalDateTime().isBefore(LocalDateTime.now()) || start.compareTo(startBuildingHours) < 0 || start.compareTo(endBuildingHours) > 0 || end.compareTo(endBuildingHours) > 0) {
+            if(buildingHours == null) {
                 e.getEntry().removeFromCalendar();
-//                fromTime.setText(convertToDate(storedEntry.getStartTime(), storedEntry.getStartDate()).toString());
-//                untilTime.setText(convertToDate(storedEntry.getEndTime(), storedEntry.getEndDate()).toString());
+                return;
+            } else if(storedEntry != null) {
+                e.getEntry().removeFromCalendar();
+                CustomAlert.warningAlert("You can make only one reservation at a time.");
+                fromTime.setText(convertToDate(storedEntry.getStartTime(), storedEntry.getStartDate()).toString());
+                untilTime.setText(convertToDate(storedEntry.getEndTime(), storedEntry.getEndDate()).toString());
+            } else if(entry.getStartAsLocalDateTime().isBefore(LocalDateTime.now())) {
+                e.getEntry().removeFromCalendar();
+                CustomAlert.warningAlert("Unfortunately booking a room in the past is impossible.");
+            } else if ((entry.getStartAsLocalDateTime().isBefore(LocalDateTime.now()) || start.compareTo(startBuildingHours) < 0 || start.compareTo(endBuildingHours) > 0 || end.compareTo(endBuildingHours) > 0)) {
+                e.getEntry().removeFromCalendar();
+                CustomAlert.warningAlert("Building is closed.");
             } else {
                 entry.setTitle("New Booking");
                 fromTime.setText(start.toString());
