@@ -1,4 +1,5 @@
 ﻿# Book 'n Order
+(/client/src/main/resources/images/mycampusbookingslogo.png)
 
 ## Description of project
 Book 'n Order is a Java desktop application that allows students and employees of TU Delft to book study rooms, rent bikes, and purchase food, all in one location.
@@ -15,9 +16,9 @@ Book 'n Order is a Java desktop application that allows students and employees o
 | ![]() | Renāts Jurševskis | r.jursevskis@student.tudelft.nl |
 
 ## Setting up the development environment
-Clone the repository via GitLab. 
+Clone the repository (or download the source code if you don't intend on contributing) from GitLab. 
 
-Install Java JDK 13 and JavaFX-13. Add these to the project structure in your IDE.
+Install [Java JDK 13](https://www.oracle.com/java/technologies/javase-jdk13-downloads.html) and [JavaFX-13](https://openjfx.io/). The project requires you to add these to the project structure in your IDE.
 
 Add our [Checkstlyle](config/checkstyle/checkstyle.xml) to the settings in your IDE. Make sure to apply Checkstyle version 8.25. 
 
