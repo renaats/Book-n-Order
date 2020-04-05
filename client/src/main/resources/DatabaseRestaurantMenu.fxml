@@ -341,7 +341,7 @@
          <Font size="17.0" />
       </font>
    </Text>
-   <Button fx:id="updateRestaurantButton1" layoutX="117.0" layoutY="282.0" mnemonicParsing="false" onAction="#updateRestaurant" prefHeight="26.0" prefWidth="83.0" style="-fx-background-color: #00a6d6;" text="View orders" textFill="WHITE">
+   <Button fx:id="viewOrdersButton" layoutX="117.0" layoutY="282.0" mnemonicParsing="false" onAction="#goToViewOrders" prefHeight="26.0" prefWidth="83.0" style="-fx-background-color: #00a6d6;" text="View orders" textFill="WHITE">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor>

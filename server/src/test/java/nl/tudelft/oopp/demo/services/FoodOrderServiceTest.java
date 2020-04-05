@@ -435,4 +435,44 @@ public class FoodOrderServiceTest {
         MockHttpServletRequest request = new MockHttpServletRequest();
         assertEquals(WRONG_USER, foodOrderService.cancel(request, foodOrderService.all().get(0).getId()));
     }
+
+    /**
+     * Tests the retrieval of past food orders for the restaurant that sends the request.
+     */
+    @Test
+    @WithMockUser(username = "restaurant@tudelft.nl", roles = {"USER", "STAFF", "RESTAURANT"})
+    public void testGetPastFoodOrdersForRestaurant() {
+        foodOrderService.add(request, restaurant.getId(), deliverLocation.getId(), deliverTimeMilliseconds);
+        assertEquals(Collections.singletonList(foodOrder), foodOrderService.pastForRestaurant(restaurant.getId()));
+    }
+
+    /**
+     * Tests the retrieval of past food orders for a non-existent restaurant.
+     */
+    @Test
+    @WithMockUser(username = "restaurant2@tudelft.nl", roles = {"USER", "STAFF", "RESTAURANT"})
+    public void testGetPastFoodOrdersForNonExistentRestaurant() {
+        foodOrderService.add(request, restaurant.getId(), deliverLocation.getId(), deliverTimeMilliseconds);
+        assertEquals(new ArrayList<>(), foodOrderService.pastForRestaurant(restaurant.getId()));
+    }
+
+    /**
+     * Tests the retrieval of future food orders for the restaurant that sends the request.
+     */
+    @Test
+    @WithMockUser(username = "restaurant@tudelft.nl", roles = {"USER", "STAFF", "RESTAURANT"})
+    public void testGetFutureFoodOrdersForRestaurant() {
+        foodOrderService.add(request, restaurant.getId(), deliverLocation.getId(), deliverTimeMilliseconds2);
+        assertEquals(Collections.singletonList(foodOrder2), foodOrderService.futureForRestaurant(restaurant.getId()));
+    }
+
+    /**
+     * Tests the retrieval of future food orders for a non-existent restaurant.
+     */
+    @Test
+    @WithMockUser(username = "restaurant2@tudelft.nl", roles = {"USER", "STAFF", "RESTAURANT"})
+    public void testGetFutureFoodOrdersForNonExistentRestaurant() {
+        foodOrderService.add(request, restaurant.getId(), deliverLocation.getId(), deliverTimeMilliseconds2);
+        assertEquals(new ArrayList<>(), foodOrderService.futureForRestaurant(restaurant.getId()));
+    }
 }

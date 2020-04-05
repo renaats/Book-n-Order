@@ -49,6 +49,10 @@ public class DishOrder {
         return foodOrder;
     }
 
+    public String getDishName() {
+        return dish.getName();
+    }
+
     public int getAmount() {
         return amount;
     }

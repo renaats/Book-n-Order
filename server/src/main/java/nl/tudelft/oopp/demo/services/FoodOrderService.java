@@ -1,6 +1,7 @@
 package nl.tudelft.oopp.demo.services;
 
 import static nl.tudelft.oopp.demo.config.Constants.ADDED;
+import static nl.tudelft.oopp.demo.config.Constants.ADMIN;
 import static nl.tudelft.oopp.demo.config.Constants.ATTRIBUTE_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.BUILDING_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
@@ -37,6 +38,8 @@ import nl.tudelft.oopp.demo.repositories.RestaurantRepository;
 import nl.tudelft.oopp.demo.repositories.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -267,6 +270,42 @@ public class FoodOrderService {
         }
         for (FoodOrder foodOrder: foodOrderRepository.findAll()) {
             if (foodOrder.getAppUser() == appUser && foodOrder.getDeliveryTime().after(new Date()) && foodOrder.isActive()) {
+                foodOrders.add(foodOrder);
+            }
+        }
+        return foodOrders;
+    }
+
+    /**
+     * Finds all past food orders for the restaurants of the user that sends the Http request.
+     * @param restaurantId = the restaurant for which the food orders are searched.
+     * @return a list of past food orders for this user.
+     */
+    public List<FoodOrder> pastForRestaurant(int restaurantId) {
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        List<FoodOrder> foodOrders = new ArrayList<>();
+        for (FoodOrder foodOrder: foodOrderRepository.findAllByRestaurantId(restaurantId)) {
+            if ((securityContext.getAuthentication().getAuthorities().contains(new SimpleGrantedAuthority(ADMIN))
+                    || foodOrder.getRestaurant().getEmail().equals(securityContext.getAuthentication().getName()))
+                    && (!foodOrder.getDeliveryTime().after(new Date()) || !foodOrder.isActive())) {
+                foodOrders.add(foodOrder);
+            }
+        }
+        return foodOrders;
+    }
+
+    /**
+     * Finds all future food orders for the restaurants of the user that sends the Http request.
+     * @param restaurantId = the restaurant for which the food orders are searched.
+     * @return a list of future food orders for this user.
+     */
+    public List<FoodOrder> futureForRestaurant(int restaurantId) {
+        List<FoodOrder> foodOrders = new ArrayList<>();
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        for (FoodOrder foodOrder: foodOrderRepository.findAllByRestaurantId(restaurantId)) {
+            if ((securityContext.getAuthentication().getAuthorities().contains(new SimpleGrantedAuthority(ADMIN))
+                    || foodOrder.getRestaurant().getEmail().equals(securityContext.getAuthentication().getName()))
+                    && foodOrder.getDeliveryTime().after(new Date()) && foodOrder.isActive()) {
                 foodOrders.add(foodOrder);
             }
         }

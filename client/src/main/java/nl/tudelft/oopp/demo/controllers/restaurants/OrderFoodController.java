@@ -133,9 +133,8 @@ public class OrderFoodController implements Initializable {
             try {
                 long dateLong = Date.from(orderFoodDate.getValue().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()).getTime()
                         + Long.parseLong(pickUpTimeH.getValue()) * 3600000 + Long.parseLong(pickUpTimeMin.getValue()) * 60000;
-                if (Date.from(orderFoodDate.getValue().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()).getTime() < new Date().getTime()) {
-                    CustomAlert.warningAlert("The pick up date cannot be in the past.");
-                } else if (dateLong <= new Date().getTime()) {
+
+                if (dateLong <= new Date().getTime()) {
                     CustomAlert.warningAlert("The pick up time cannot be in the past.");
                 } else {
                     int buildingId = 0;

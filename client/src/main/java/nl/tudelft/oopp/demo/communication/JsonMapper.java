@@ -14,6 +14,7 @@ import nl.tudelft.oopp.demo.entities.BikeReservation;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.BuildingHours;
 import nl.tudelft.oopp.demo.entities.Dish;
+import nl.tudelft.oopp.demo.entities.DishOrder;
 import nl.tudelft.oopp.demo.entities.FoodOrder;
 import nl.tudelft.oopp.demo.entities.Menu;
 import nl.tudelft.oopp.demo.entities.Restaurant;
@@ -393,6 +394,18 @@ public class JsonMapper {
         ObjectMapper mapper = new ObjectMapper();
 
         return mapper.readValue(dishesJson, new TypeReference<>() {
+        });
+    }
+
+    /**
+     * Maps all dish order JSONS to a list.
+     * @param dishOrdersJson a JSON string representing a list.
+     * @return A list filled with object dish orders.
+     */
+    public static List<DishOrder> dishOrderListMapper(String dishOrdersJson) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+
+        return mapper.readValue(dishOrdersJson, new TypeReference<>() {
         });
     }
 }

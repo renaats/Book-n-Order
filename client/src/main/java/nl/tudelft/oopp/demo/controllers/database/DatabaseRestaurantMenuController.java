@@ -46,6 +46,7 @@ public class DatabaseRestaurantMenuController implements Initializable {
     private List<Allergy> allergies;
     private List<Dish> dishes;
     private List<Restaurant> restaurants;
+    private Restaurant restaurant;
 
     @FXML
     private Button previousPageButtonAllergiesSelected;
@@ -236,11 +237,22 @@ public class DatabaseRestaurantMenuController implements Initializable {
 
     /**
      * Goes to to add 'menu' menu
-     *
      * @throws IOException Should never throw the exception
      */
     public void goToAddMenu() throws IOException {
         ApplicationDisplay.changeScene("/DatabaseAddMenu.fxml");
+    }
+
+    /**
+     * Goes to to add 'menu' menu
+     * @throws IOException Should never throw the exception
+     */
+    public void goToViewOrders() throws IOException {
+        if (restaurant != null) {
+            ApplicationDisplay.changeSceneWithVariables("/DatabaseViewFoodOrders.fxml", restaurant, null);
+        } else {
+            CustomAlert.warningAlert("Select a restaurant.");
+        }
     }
 
     /**
@@ -549,7 +561,7 @@ public class DatabaseRestaurantMenuController implements Initializable {
      */
     public void restautantTableSelectListener() {
         restaurantTable.getSelectionModel().selectedItemProperty().addListener((obs) -> {
-            final Restaurant restaurant = restaurantTable.getSelectionModel().getSelectedItem();
+            restaurant = restaurantTable.getSelectionModel().getSelectedItem();
             if (restaurant != null) {
                 // Sets the fields
                 idFieldRead.setText(Integer.toString(restaurant.getId()));

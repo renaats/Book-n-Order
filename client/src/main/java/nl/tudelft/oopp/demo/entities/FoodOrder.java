@@ -1,5 +1,6 @@
 package nl.tudelft.oopp.demo.entities;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
@@ -86,6 +87,15 @@ public class FoodOrder {
 
     public Date getDeliveryTime() {
         return deliveryTime;
+    }
+
+    public String getLocationName() {
+        return deliveryLocation.getName();
+    }
+
+    public String getDeliveryTimeString() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd  HH:mm");//""HH:mm  dd-MM-yyyy");
+        return simpleDateFormat.format(deliveryTime);
     }
 
     public Menu getMenu() {

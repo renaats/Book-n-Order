@@ -222,6 +222,16 @@ public class DishServerCommunication {
     }
 
     /**
+     * Gets dish orders for some food order.
+     * @param id food order id.
+     * @return the body of the response from the server.
+     */
+    public static String getDishOrders(int id) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/food_order/getDishOrders?id=" + id)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
      * Deletes a food order from the database.
      * @param id the id of the food order.
      * @return the body of the response from the server.
@@ -255,6 +265,24 @@ public class DishServerCommunication {
      */
     public static String getAllFutureFoodOrders() {
         HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/food_order/future")).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Finds all previous food orders for the user that sends the request.
+     * @return the body of the response from the server.
+     */
+    public static String getAllPreviousFoodOrdersForRestaurant(int restaurantId) {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/food_order/pastRestaurant?restaurantId=" + restaurantId)).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Finds all future and actual food orders for the user that sends the request.
+     * @return the body of the response from the server.
+     */
+    public static String getAllFutureFoodOrdersForRestaurant(int restaurantId) {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/food_order/futureRestaurant?restaurantId=" + restaurantId)).build();
         return communicateAndReturnBodyOfResponse(request);
     }
 
