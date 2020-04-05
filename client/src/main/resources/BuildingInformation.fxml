@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.BuildingInformationController">
-   <ImageView fitWidth="1280.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+   <ImageView fx:id="table" fitWidth="1280.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@images/mainMenuBackground.jpg" />
       </image></ImageView>
@@ -63,7 +63,7 @@
          <Font size="26.0" />
       </font>
    </Text>
-   <TableView layoutX="732.0" layoutY="217.0" prefHeight="386.0" prefWidth="387.0" stylesheets="@Table.css">
+   <TableView fx:id="table" layoutX="732.0" layoutY="217.0" prefHeight="386.0" prefWidth="387.0" stylesheets="@Table.css">
      <columns>
        <TableColumn fx:id="colName" maxWidth="129.0" prefWidth="129.0" text="Name" />
        <TableColumn fx:id="colStreet" maxWidth="129.0" prefWidth="129.0" text="Street" />
