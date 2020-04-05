@@ -44,6 +44,18 @@ public class PersonalCalendarViewController implements Initializable {
         ApplicationDisplay.showCalendarScene(calendar);
     }
 
+    public void goToBookRoom() throws IOException {
+        ApplicationDisplay.changeScene("/bookRoom.fxml");
+    }
+
+    public void goToFoodOrder() throws IOException {
+        ApplicationDisplay.changeScene("/OrderFoodPickDate");
+    }
+
+    public void goToBikeReservation() throws IOException {
+        ApplicationDisplay.changeScene("/bikeReservations.fxml");
+    }
+
     public void removeEntriesAdded(CalendarEvent event) {
         event.getEntry().removeFromCalendar();
     }
