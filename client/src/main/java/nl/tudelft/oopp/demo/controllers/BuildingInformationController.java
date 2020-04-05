@@ -11,6 +11,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -131,15 +132,17 @@ public class BuildingInformationController implements Initializable {
     }
 
     /**
-     * Shows the information of the chosen building in the JavaFX Text placeholders.
+     * Listener that checks if a building is selected, and if so, fills in the JavaFX text with building information
      */
     public void showInformation() {
         try {
             Building chosenBuilding = table.getSelectionModel().getSelectedItem();
-            buildingName.setText(chosenBuilding.getName());
-            buildingStreet.setText(chosenBuilding.getStreet());
-            buildingHouseNumber.setText(Integer.toString(chosenBuilding.getHouseNumber()));
-            buildingFaculty.setText(chosenBuilding.getFaculty());
+            if (chosenBuilding != null) {
+                buildingName.setText(chosenBuilding.getName());
+                buildingStreet.setText(chosenBuilding.getStreet());
+                buildingHouseNumber.setText(Integer.toString(chosenBuilding.getHouseNumber()));
+                buildingFaculty.setText(chosenBuilding.getFaculty());
+            }
         } catch (NullPointerException e) {
             CustomAlert.warningAlert("Select a building to view its information.");
         }
