@@ -62,7 +62,7 @@ public class BuildingHourService {
      */
     public int add(int buildingId, long date, int startTimeS, int endTimeS) {
         Building building = buildingService.find(buildingId);
-        if (date >= 7) {
+        if (date > 7) {
             date = parse(date);
         }
         if (building == null) {

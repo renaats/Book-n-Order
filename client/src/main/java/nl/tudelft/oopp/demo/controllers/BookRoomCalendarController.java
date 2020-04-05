@@ -5,6 +5,7 @@ import com.calendarfx.model.Entry;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLOutput;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -14,6 +15,7 @@ import java.time.ZoneId;
 import java.util.*;
 
 import com.calendarfx.model.Interval;
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -21,6 +23,7 @@ import javafx.scene.SubScene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
+import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.BuildingHours;
@@ -98,13 +101,14 @@ public class BookRoomCalendarController implements Initializable {
         Entry<RoomReservation> entry = (Entry<RoomReservation>) e.getEntry();
         Date start = convertToDate(entry.getStartTime(), entry.getStartDate());
         Date end = convertToDate(entry.getEndTime(), entry.getStartDate());
-
-
+        BuildingHours buildingHours = JsonMapper.buildingHoursMapper(ServerCommunication.findBuildingHours(SelectedRoom.getSelectedRoom().getBuilding().getId(), start.getTime()));
+        Date startBuildingHours = convertToDate(buildingHours.getStartTime(), entry.getStartDate());
+        Date endBuildingHours = convertToDate(buildingHours.getEndTime(), entry.getStartDate());
         if (e.isEntryAdded()) {
-            if (storedEntry != null || entry.getStartAsLocalDateTime().isBefore(LocalDateTime.now())) {
+            if (storedEntry != null || entry.getStartAsLocalDateTime().isBefore(LocalDateTime.now()) || start.compareTo(startBuildingHours) < 0 || start.compareTo(endBuildingHours) > 0 || end.compareTo(endBuildingHours) > 0) {
                 e.getEntry().removeFromCalendar();
-                fromTime.setText(convertToDate(storedEntry.getStartTime(), storedEntry.getStartDate()).toString());
-                untilTime.setText(convertToDate(storedEntry.getEndTime(), storedEntry.getEndDate()).toString());
+//                fromTime.setText(convertToDate(storedEntry.getStartTime(), storedEntry.getStartDate()).toString());
+//                untilTime.setText(convertToDate(storedEntry.getEndTime(), storedEntry.getEndDate()).toString());
             } else {
                 entry.setTitle("New Booking");
                 fromTime.setText(start.toString());
