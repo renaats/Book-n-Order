@@ -13,16 +13,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
 import nl.tudelft.oopp.demo.communication.BuildingServerCommunication;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
-import nl.tudelft.oopp.demo.communication.RoomServerCommunication;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.BuildingHours;
 import nl.tudelft.oopp.demo.errors.CustomAlert;
@@ -55,33 +52,19 @@ public class BuildingInformationController implements Initializable {
     @FXML
     private Text buildingRoomBook;
     @FXML
-    private Text buildingMondayFrom;
+    private Text buildingMonday;
     @FXML
-    private Text buildingMondayTo;
+    private Text buildingTuesday;
     @FXML
-    private Text buildingTuesdayFrom;
+    private Text buildingWednesday;
     @FXML
-    private Text buildingTuesdayTo;
+    private Text buildingThursday;
     @FXML
-    private Text buildingWednesdayFrom;
+    private Text buildingFriday;
     @FXML
-    private Text buildingWednesdayTo;
+    private Text buildingSaturday;
     @FXML
-    private Text buildingThursdayFrom;
-    @FXML
-    private Text buildingThursdayTo;
-    @FXML
-    private Text buildingFridayFrom;
-    @FXML
-    private Text buildingFridayTo;
-    @FXML
-    private Text buildingSaturdayFrom;
-    @FXML
-    private Text buildingSaturdayTo;
-    @FXML
-    private Text buildingSundayFrom;
-    @FXML
-    private Text buildingSundayTo;
+    private Text buildingSunday;
     @FXML
     private Text pagesText;
 
@@ -163,51 +146,104 @@ public class BuildingInformationController implements Initializable {
      */
     public void showInformation() {
         try {
-            Building chosenBuilding = table.getSelectionModel().getSelectedItem();
-            if (chosenBuilding != null) {
-                buildingName.setText(chosenBuilding.getName());
-                buildingStreet.setText(chosenBuilding.getStreet());
-                buildingHouseNumber.setText(Integer.toString(chosenBuilding.getHouseNumber()));
-                buildingFaculty.setText(chosenBuilding.getFaculty());
-                if (chosenBuilding.hasRooms()) {
-                    buildingRoomBook.setText("Yes");
-                } else {
-                    buildingRoomBook.setText("No");
-                }
+            table.getSelectionModel().selectedItemProperty().addListener((obs) -> {
+                final Building chosenBuilding = table.getSelectionModel().getSelectedItem();
+                // Building chosenBuilding = table.getSelectionModel().getSelectedItem();
+                if (chosenBuilding != null) {
+                    buildingName.setText(chosenBuilding.getName());
+                    buildingStreet.setText(chosenBuilding.getStreet());
+                    buildingHouseNumber.setText(Integer.toString(chosenBuilding.getHouseNumber()));
+                    buildingFaculty.setText(chosenBuilding.getFaculty());
+                    if (chosenBuilding.hasRooms()) {
+                        buildingRoomBook.setText("Yes");
+                    } else {
+                        buildingRoomBook.setText("No");
+                    }
 
-                BuildingHours buildingHoursMonday = JsonMapper.buildingHoursMapper(BuildingServerCommunication
-                        .findBuildingHoursByDay(chosenBuilding.getId(), 1));
-                buildingMondayFrom.setText(buildingHoursMonday.getStartTime().toString());
-                buildingMondayTo.setText(buildingHoursMonday.getEndTime().toString());
-                BuildingHours buildingHoursTuesday = JsonMapper.buildingHoursMapper(BuildingServerCommunication
-                        .findBuildingHoursByDay(chosenBuilding.getId(), 2));
-                buildingTuesdayFrom.setText(buildingHoursTuesday.getStartTime().toString());
-                buildingTuesdayTo.setText(buildingHoursTuesday.getEndTime().toString());
-                BuildingHours buildingHoursWednesday = JsonMapper.buildingHoursMapper(BuildingServerCommunication
-                        .findBuildingHoursByDay(chosenBuilding.getId(), 3));
-                buildingWednesdayFrom.setText(buildingHoursWednesday.getStartTime().toString());
-                buildingWednesdayTo.setText(buildingHoursWednesday.getEndTime().toString());
-                BuildingHours buildingHoursThursday = JsonMapper.buildingHoursMapper(BuildingServerCommunication
-                        .findBuildingHoursByDay(chosenBuilding.getId(), 4));
-                buildingThursdayFrom.setText(buildingHoursThursday.getStartTime().toString());
-                buildingThursdayTo.setText(buildingHoursThursday.getEndTime().toString());
-                BuildingHours buildingHoursFriday = JsonMapper.buildingHoursMapper(BuildingServerCommunication
-                        .findBuildingHoursByDay(chosenBuilding.getId(), 5));
-                buildingFridayFrom.setText(buildingHoursFriday.getStartTime().toString());
-                buildingFridayTo.setText(buildingHoursFriday.getEndTime().toString());
-                BuildingHours buildingHoursSaturday = JsonMapper.buildingHoursMapper(BuildingServerCommunication
-                        .findBuildingHoursByDay(chosenBuilding.getId(), 6));
-                buildingSaturdayFrom.setText(buildingHoursSaturday.getStartTime().toString());
-                buildingSaturdayTo.setText(buildingHoursSaturday.getEndTime().toString());
-                BuildingHours buildingHoursSunday = JsonMapper.buildingHoursMapper(BuildingServerCommunication
-                        .findBuildingHoursByDay(chosenBuilding.getId(), 7));
-                buildingSundayFrom.setText(buildingHoursSunday.getStartTime().toString());
-                buildingSundayTo.setText(buildingHoursSunday.getEndTime().toString());
-            }
-        } catch (NullPointerException | JsonProcessingException e) {
-            if (buildingMondayFrom.getText().equals(".") || buildingTuesdayFrom.getText().equals(".") || buildingWednesdayFrom.getText().equals(".")
-                    || buildingThursdayFrom.getText().equals(".") || buildingFridayFrom.getText().equals(".")
-                    || buildingSaturdayFrom.getText().equals(".") || buildingSundayFrom.getText().equals(".")) {
+                    BuildingHours buildingHoursMonday = null;
+                    try {
+                        buildingHoursMonday = JsonMapper.buildingHoursMapper(BuildingServerCommunication
+                                .findBuildingHoursByDay(chosenBuilding.getId(), 1));
+                    } catch (JsonProcessingException e) {
+                        e.printStackTrace();
+                    }
+                    buildingMonday.setText(buildingHoursMonday.getStartTime().toString() + " - " + buildingHoursMonday.getEndTime().toString());
+                    if (buildingMonday.getText() == ".") {
+                        buildingMonday.setText("");
+                    }
+                    BuildingHours buildingHoursTuesday = null;
+                    try {
+                        buildingHoursTuesday = JsonMapper.buildingHoursMapper(BuildingServerCommunication
+                                .findBuildingHoursByDay(chosenBuilding.getId(), 2));
+                    } catch (JsonProcessingException e) {
+                        e.printStackTrace();
+                    }
+                    buildingTuesday.setText(buildingHoursTuesday.getStartTime().toString() + " - " + buildingHoursTuesday.getEndTime().toString());
+                    if (buildingTuesday.getText() == ".") {
+                        buildingTuesday.setText("");
+                    }
+                    BuildingHours buildingHoursWednesday = null;
+                    try {
+                        buildingHoursWednesday = JsonMapper.buildingHoursMapper(BuildingServerCommunication
+                                .findBuildingHoursByDay(chosenBuilding.getId(), 3));
+                    } catch (JsonProcessingException e) {
+                        e.printStackTrace();
+                    }
+                    buildingWednesday.setText(buildingHoursWednesday.getStartTime().toString() + " - " + buildingHoursWednesday.getEndTime().toString());
+                    if (buildingWednesday.getText() == ".") {
+                        buildingWednesday.setText("");
+                    }
+                    BuildingHours buildingHoursThursday = null;
+                    try {
+                        buildingHoursThursday = JsonMapper.buildingHoursMapper(BuildingServerCommunication
+                                .findBuildingHoursByDay(chosenBuilding.getId(), 4));
+                    } catch (JsonProcessingException e) {
+                        e.printStackTrace();
+                    }
+                    buildingThursday.setText(buildingHoursThursday.getStartTime().toString() + " - " + buildingHoursThursday.getEndTime().toString());
+                    if (buildingThursday.getText() == ".") {
+                        buildingThursday.setText("");
+                    }
+                    BuildingHours buildingHoursFriday = null;
+                    try {
+                        buildingHoursFriday = JsonMapper.buildingHoursMapper(BuildingServerCommunication
+                                .findBuildingHoursByDay(chosenBuilding.getId(), 5));
+                    } catch (JsonProcessingException e) {
+                        e.printStackTrace();
+                    }
+                    buildingFriday.setText(buildingHoursFriday.getStartTime().toString() + " - " + buildingHoursFriday.getEndTime().toString());
+                    if (buildingFriday.getText() == ".") {
+                        buildingFriday.setText("");
+                    }
+                    BuildingHours buildingHoursSaturday = null;
+                    try {
+                        buildingHoursSaturday = JsonMapper.buildingHoursMapper(BuildingServerCommunication
+                                .findBuildingHoursByDay(chosenBuilding.getId(), 6));
+                    } catch (JsonProcessingException e) {
+                        e.printStackTrace();
+                    }
+                    buildingSaturday.setText(buildingHoursSaturday.getStartTime().toString() + " - " + buildingHoursSaturday.getEndTime().toString());
+                    if (buildingSaturday.getText() == ".") {
+                        buildingSaturday.setText("");
+                    }
+                    BuildingHours buildingHoursSunday = null;
+                    try {
+                        buildingHoursSunday = JsonMapper.buildingHoursMapper(BuildingServerCommunication
+                                .findBuildingHoursByDay(chosenBuilding.getId(), 7));
+                    } catch (JsonProcessingException e) {
+                        e.printStackTrace();
+                    }
+                    buildingSunday.setText(buildingHoursSunday.getStartTime().toString() + " - " + buildingHoursSunday.getEndTime().toString());
+                    if (buildingSunday.getText() == ".") {
+                        buildingSunday.setText("");
+                    }
+                }
+            });
+        }
+         catch (NullPointerException e) {
+            if (buildingMonday.getText().equals("") || buildingTuesday.getText().equals("") || buildingWednesday.getText().equals("")
+                    || buildingThursday.getText().equals("") || buildingFriday.getText().equals("")
+                    || buildingSaturday.getText().equals("") || buildingSunday.getText().equals("")) {
                 CustomAlert.warningAlert("(Some) building hours are unknown.");
                 return;
             }
