@@ -20,7 +20,6 @@ public class FoodOrder implements Comparable {
     private AppUser appUser;
     private Building deliveryLocation;
     private Date deliveryTime;
-    private Set<Dish> dishes;
     private boolean feedback;
     private boolean feedbackHasBeenGiven;
     private Set<DishOrder> dishOrders;

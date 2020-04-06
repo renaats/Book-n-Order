@@ -15,7 +15,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-import nl.tudelft.oopp.demo.communication.DishServerCommunication;
+import nl.tudelft.oopp.demo.communication.RestaurantServerCommunication;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.UserServerCommunication;
 import nl.tudelft.oopp.demo.entities.FoodOrder;
@@ -55,7 +55,7 @@ public class MyCurrentFoodReservationsController implements Initializable {
         foodOrderResult.clear();
         List<FoodOrder> foodOrders;
         try {
-            String json = DishServerCommunication.getAllFutureFoodOrders();
+            String json = RestaurantServerCommunication.getAllFutureFoodOrders();
             List<FoodOrder> foodOrders1 = JsonMapper.foodOrdersListMapper(json);
             foodOrders = new ArrayList<>(foodOrders1);
             for (int i = 0; i < foodOrders.size(); i++) {

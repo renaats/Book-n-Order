@@ -90,10 +90,6 @@ public class Room {
         this.roomReservations = roomReservations;
     }
 
-    public void setStudySpecific(String studySpecific) {
-        this.studySpecific = studySpecific;
-    }
-
     public void setStatus(String status) {
         this.status = status;
     }
@@ -133,10 +129,6 @@ public class Room {
 
     public String getFaculty() {
         return faculty;
-    }
-
-    public String getStudySpecific() {
-        return studySpecific;
     }
 
     public boolean isProjector() {
