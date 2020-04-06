@@ -53,7 +53,7 @@
                 <TableColumn fx:id="colToLoc" prefWidth="254.0" text="To (Location)" />
             </columns>
         </TableView>
-        <Text layoutX="409.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Previous Bike Reservations">
+        <Text layoutX="420.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My Previous Bike Reservations">
             <font>
                 <Font size="33.0" />
             </font>
