@@ -12,7 +12,7 @@ import javafx.beans.property.StringProperty;
 /**
  * Manages the FoodOrder object that is retrieved from the server
  */
-public class FoodOrder {
+public class FoodOrder implements Comparable {
     private Integer id;
     private Boolean active;
     private Restaurant restaurant;
@@ -170,6 +170,15 @@ public class FoodOrder {
 
     public Set<DishOrder> getDishOrders() {
         return dishOrders;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        long compareTime = ((FoodOrder)o).getDeliveryTime().getTime();
+        if (this.getDeliveryTime().getTime() > compareTime) {
+            return 1;
+        }
+        return -1;
     }
 
     @Override

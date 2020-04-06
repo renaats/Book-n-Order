@@ -3,6 +3,7 @@ package nl.tudelft.oopp.demo.controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -68,6 +69,8 @@ public class MyPreviousFoodReservationsController implements Initializable {
             foodOrders = new ArrayList<>();
             foodOrders.add(null);
         }
+
+        Collections.sort(foodOrders);
 
         if (foodOrders.size() > 10) {
             foodOrders = foodOrders.subList(0, 15);
