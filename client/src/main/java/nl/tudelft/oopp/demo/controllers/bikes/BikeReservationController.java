@@ -98,7 +98,6 @@ public class BikeReservationController implements Initializable {
                 int toBuildingId = JsonMapper.buildingMapper(BuildingServerCommunication.findBuildingByName(dropOffLocation.getValue())).getId();
                 String response = BikeServerCommunication.addBikeReservation(fromBuildingId, toBuildingId, fromDateLong, toDateLong);
                 if (response.equals(ErrorMessages.getErrorMessage(201))) {
-                    CustomAlert.informationAlert(response);
                     ApplicationDisplay.changeScene("/BikeConfirmation.fxml");
                     return;
                 }
