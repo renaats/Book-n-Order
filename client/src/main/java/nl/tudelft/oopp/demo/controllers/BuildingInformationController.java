@@ -171,6 +171,8 @@ public class BuildingInformationController implements Initializable {
                 } else {
                     buildingRoomBook.setText("No");
                 }
+                BuildingHours buildingHours = JsonMapper.buildingHoursMapper(BuildingServerCommunication.findBuilding(chosenBuilding.getId()));
+                
             }
         } catch (NullPointerException e) {
             CustomAlert.warningAlert("Select a building to view its information.");
