@@ -263,8 +263,8 @@ public class OrderFoodChooseRestaurantController implements Initializable {
     public void loadRestaurants(String name, String buildingName) {
         try {
             if (name != null) {
-                restaurants = new ArrayList<>(
-                        Objects.requireNonNull(JsonMapper.restaurantListMapper(RestaurantServerCommunication.findRestaurantByName(name))));
+                restaurants = new ArrayList<>();
+                restaurants.add(Objects.requireNonNull(JsonMapper.restaurantMapper(RestaurantServerCommunication.findRestaurantByName(name))));
             } else {
                 restaurants = new ArrayList<>(
                         Objects.requireNonNull(JsonMapper.restaurantListMapper(RestaurantServerCommunication.getRestaurants())));

@@ -37,6 +37,10 @@ public class Restaurant {
 
     Set<RestaurantHours> restaurantHours = new HashSet<>();
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public void setBuilding(Building building) {
         this.building = building;
     }
