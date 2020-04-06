@@ -20,7 +20,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests the DishRelated class by using a mock server to simulate client to server communication.
  */
-class DishServerCommunicationTest {
+class RestaurantServerCommunicationTest {
     public WireMockServer wireMockServer;
 
     /**
@@ -31,7 +31,6 @@ class DishServerCommunicationTest {
         wireMockServer = new WireMockServer();
         wireMockServer.start();
         configureFor("localhost", 8080);
-
         stubFor(post(urlEqualTo("/dish/add?name=test&menuId=1&price=3&description=A&image=B"))
                 .willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(delete(urlEqualTo("/dish/delete/1")).willReturn(aResponse().withStatus(200).withBody("200")));
@@ -66,7 +65,7 @@ class DishServerCommunicationTest {
      */
     @Test
     public void testSuccessfulAddDishes() {
-        assertEquals(ErrorMessages.getErrorMessage(200), DishServerCommunication.addDish("test", 1, 3, "A", "B"));
+        assertEquals(ErrorMessages.getErrorMessage(200), RestaurantServerCommunication.addDish("test", 1, 3, "A", "B"));
     }
 
     /**
@@ -74,7 +73,7 @@ class DishServerCommunicationTest {
      */
     @Test
     public void testSuccessfulUpdatingDish() {
-        assertEquals(ErrorMessages.getErrorMessage(200), DishServerCommunication.updateDish(1, "a", "a"));
+        assertEquals(ErrorMessages.getErrorMessage(200), RestaurantServerCommunication.updateDish(1, "a", "a"));
     }
 
     /**
@@ -82,7 +81,7 @@ class DishServerCommunicationTest {
      */
     @Test
     public void testSuccessfulAddAllergyToDish() {
-        assertEquals(ErrorMessages.getErrorMessage(200), DishServerCommunication.addAllergyToDish("test", 1));
+        assertEquals(ErrorMessages.getErrorMessage(200), RestaurantServerCommunication.addAllergyToDish("test", 1));
     }
 
     /**
@@ -90,7 +89,7 @@ class DishServerCommunicationTest {
      */
     @Test
     public void testSuccessfulDeleteDishes() {
-        assertEquals(ErrorMessages.getErrorMessage(200), DishServerCommunication.deleteDish(1));
+        assertEquals(ErrorMessages.getErrorMessage(200), RestaurantServerCommunication.deleteDish(1));
     }
 
     /**
@@ -98,7 +97,7 @@ class DishServerCommunicationTest {
      */
     @Test
     public void testSuccessfulAddingFoodOrder() {
-        assertEquals(ErrorMessages.getErrorMessage(200), DishServerCommunication.addFoodOrder(1, 1, 1));
+        assertEquals(ErrorMessages.getErrorMessage(200), RestaurantServerCommunication.addFoodOrder(1, 1, 1));
     }
 
     /**
@@ -106,7 +105,7 @@ class DishServerCommunicationTest {
      */
     @Test
     public void testSuccessfulUpdatingFoodOrder() {
-        assertEquals(ErrorMessages.getErrorMessage(200), DishServerCommunication.updateFoodOrder(1, "a", "a"));
+        assertEquals(ErrorMessages.getErrorMessage(200), RestaurantServerCommunication.updateFoodOrder(1, "a", "a"));
     }
 
     /**
@@ -114,7 +113,7 @@ class DishServerCommunicationTest {
      */
     @Test
     public void testSuccessfulAddDishToFoodOrder() {
-        assertEquals(ErrorMessages.getErrorMessage(200), DishServerCommunication.addDishToFoodOrder(1, "test", 1));
+        assertEquals(ErrorMessages.getErrorMessage(200), RestaurantServerCommunication.addDishToFoodOrder(1, "test", 1));
     }
 
     /**
@@ -122,7 +121,7 @@ class DishServerCommunicationTest {
      */
     @Test
     public void testSuccessfulDeletingFoodOrder() {
-        assertEquals(ErrorMessages.getErrorMessage(200), DishServerCommunication.deleteFoodOrder(1));
+        assertEquals(ErrorMessages.getErrorMessage(200), RestaurantServerCommunication.deleteFoodOrder(1));
     }
 
     /**
@@ -130,7 +129,7 @@ class DishServerCommunicationTest {
      */
     @Test
     public void testSuccessfulGetAllFoodOrders() {
-        assertEquals("Message3", DishServerCommunication.getAllFoodOrders());
+        assertEquals("Message3", RestaurantServerCommunication.getAllFoodOrders());
     }
 
     /**
@@ -138,7 +137,7 @@ class DishServerCommunicationTest {
      */
     @Test
     public void testSuccessfulGetAllActiveFoodOrders() {
-        assertEquals("200", DishServerCommunication.getAllActiveFoodOrders());
+        assertEquals("200", RestaurantServerCommunication.getAllActiveFoodOrders());
     }
 
     /**
@@ -146,7 +145,7 @@ class DishServerCommunicationTest {
      */
     @Test
     public void testSuccessfulGetAllFutureFoodOrders() {
-        assertEquals("200", DishServerCommunication.getAllFutureFoodOrders());
+        assertEquals("200", RestaurantServerCommunication.getAllFutureFoodOrders());
     }
 
     /**
@@ -154,7 +153,7 @@ class DishServerCommunicationTest {
      */
     @Test
     public void testSuccessfulGetAllPastFoodOrders() {
-        assertEquals("200", DishServerCommunication.getAllPreviousFoodOrders());
+        assertEquals("200", RestaurantServerCommunication.getAllPreviousFoodOrders());
     }
 
     /**
@@ -162,7 +161,7 @@ class DishServerCommunicationTest {
      */
     @Test
     public void testSuccessfulAddMenu() {
-        assertEquals(ErrorMessages.getErrorMessage(200), DishServerCommunication.addMenu("test", 1));
+        assertEquals(ErrorMessages.getErrorMessage(200), RestaurantServerCommunication.addMenu("test", 1));
     }
 
     /**
@@ -170,7 +169,7 @@ class DishServerCommunicationTest {
      */
     @Test
     public void testSuccessfulDeleteMenu() {
-        assertEquals(ErrorMessages.getErrorMessage(200), DishServerCommunication.deleteMenu(1));
+        assertEquals(ErrorMessages.getErrorMessage(200), RestaurantServerCommunication.deleteMenu(1));
     }
 
     /**
@@ -178,7 +177,7 @@ class DishServerCommunicationTest {
      */
     @Test
     public void testSuccessfulFilterDishes() {
-        assertEquals("Message11", DishServerCommunication.filterDishes("name:Tosti"));
+        assertEquals("Message11", RestaurantServerCommunication.filterDishes("name:Tosti"));
     }
 
     /**
@@ -186,7 +185,7 @@ class DishServerCommunicationTest {
      */
     @Test
     public void testSuccessfulFilterAllergies() {
-        assertEquals("Message12", DishServerCommunication.filterAllergies("name:Lactose"));
+        assertEquals("Message12", RestaurantServerCommunication.filterAllergies("name:Lactose"));
     }
 
     /**
@@ -194,7 +193,7 @@ class DishServerCommunicationTest {
      */
     @Test
     public void testCancelFoodOrder() {
-        assertEquals(ErrorMessages.getErrorMessage(201), DishServerCommunication.cancelFoodOrder(1));
+        assertEquals(ErrorMessages.getErrorMessage(201), RestaurantServerCommunication.cancelFoodOrder(1));
     }
 
     /**
@@ -202,7 +201,7 @@ class DishServerCommunicationTest {
      */
     @Test
     public void testSuccessfulDeleteRestaurantHoursByDay() {
-        assertEquals(ErrorMessages.getErrorMessage(200), DishServerCommunication.deleteRestaurantHours(1, 1));
+        assertEquals(ErrorMessages.getErrorMessage(200), RestaurantServerCommunication.deleteRestaurantHours(1, 1));
     }
 
     /**
@@ -210,7 +209,7 @@ class DishServerCommunicationTest {
      */
     @Test
     public void testSuccessfulDeleteRestaurantHoursByDate() {
-        assertEquals(ErrorMessages.getErrorMessage(200), DishServerCommunication.deleteRestaurantHours(1, 1L));
+        assertEquals(ErrorMessages.getErrorMessage(200), RestaurantServerCommunication.deleteRestaurantHours(1, 1L));
     }
 
     /**
@@ -218,7 +217,7 @@ class DishServerCommunicationTest {
      */
     @Test
     public void testSuccessfulAddRestaurantHours() {
-        assertEquals(ErrorMessages.getErrorMessage(200), DishServerCommunication.addRestaurantHours(1, 1L, 1, 2));
+        assertEquals(ErrorMessages.getErrorMessage(200), RestaurantServerCommunication.addRestaurantHours(1, 1L, 1, 2));
     }
 
     /**
@@ -226,7 +225,7 @@ class DishServerCommunicationTest {
      */
     @Test
     public void testGetRestaurantHours() {
-        assertEquals("200", DishServerCommunication.getRestaurantHours());
+        assertEquals("200", RestaurantServerCommunication.getRestaurantHours());
     }
 
     /**
@@ -234,7 +233,7 @@ class DishServerCommunicationTest {
      */
     @Test
     public void testFindRestaurantHours() {
-        assertEquals("200", DishServerCommunication.findRestaurantHours(1,1));
+        assertEquals("200", RestaurantServerCommunication.findRestaurantHours(1,1));
     }
 
     /**
@@ -242,7 +241,7 @@ class DishServerCommunicationTest {
      */
     @Test
     public void testUpdateRestaurantHours() {
-        assertEquals(ErrorMessages.getErrorMessage(200), DishServerCommunication.updateRestaurantHours(1,"attribute","value"));
+        assertEquals(ErrorMessages.getErrorMessage(200), RestaurantServerCommunication.updateRestaurantHours(1,"attribute","value"));
     }
 
     /**

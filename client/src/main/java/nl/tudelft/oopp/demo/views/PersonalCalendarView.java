@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Objects;
 
 import nl.tudelft.oopp.demo.communication.BikeServerCommunication;
-import nl.tudelft.oopp.demo.communication.DishServerCommunication;
+import nl.tudelft.oopp.demo.communication.RestaurantServerCommunication;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.RoomServerCommunication;
 import nl.tudelft.oopp.demo.entities.BikeReservation;
@@ -78,7 +78,7 @@ public class PersonalCalendarView extends CalendarView {
 
         try {
             foodOrderList = new ArrayList<>(Objects.requireNonNull(
-                    JsonMapper.foodOrdersListMapper(DishServerCommunication.getAllActiveFoodOrders())));
+                    JsonMapper.foodOrdersListMapper(RestaurantServerCommunication.getAllActiveFoodOrders())));
         } catch (Exception e) {
             foodOrderList = new ArrayList<>();
             foodOrderList.add(null);

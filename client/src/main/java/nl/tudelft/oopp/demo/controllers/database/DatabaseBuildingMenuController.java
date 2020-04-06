@@ -349,6 +349,9 @@ public class DatabaseBuildingMenuController implements Initializable {
         facultyChoiceBox.getItems().addAll(facultyList);
     }
 
+    /**
+     * Loads the days into the choice box.
+     */
     private void loadDaysChoiceBox() {
         daysList.clear();
         String a = "Monday";
@@ -378,7 +381,6 @@ public class DatabaseBuildingMenuController implements Initializable {
      * @param day the day of the week represented in int (1 - 7)
      */
     public void setStartAndEndTimeTextFields(int buildingId, int day) {
-        System.out.println(buildingId + "  " + day);
         try {
             BuildingHours buildingHours = JsonMapper.buildingHoursMapper(BuildingServerCommunication.findBuildingHoursByDay(buildingId, day));
             LocalTime startTime = buildingHours.getStartTime();
@@ -521,13 +523,11 @@ public class DatabaseBuildingMenuController implements Initializable {
                         String response = BuildingServerCommunication.updateBuildingHours(
                                 buildingHours.getId(), "starttimes", Integer.toString(startTime));
                         if (!response.equals("Successfully executed.")) {
-                            System.out.println("response 1");
                             CustomAlert.errorAlert(response);
                             return;
                         }
                         response = BuildingServerCommunication.updateBuildingHours(buildingHours.getId(), "endtimes", Integer.toString(endTime));
                         if (!response.equals("Successfully executed.")) {
-                            System.out.println("response 2");
                             CustomAlert.errorAlert(response);
                             return;
                         }

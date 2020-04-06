@@ -14,7 +14,7 @@ import nl.tudelft.oopp.demo.authentication.AuthenticationKey;
  * Controls all client to server communication related to the dish entity
  * Sends the appropriate HTTP request depending on the method
  */
-public class DishServerCommunication {
+public class RestaurantServerCommunication {
 
     /**
      * Adds a dish to the database.
@@ -431,5 +431,16 @@ public class DishServerCommunication {
     public static String updateRestaurantHours(int id, String attribute, String changeValue) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/restaurant_hours/update?id=" + id + "&attribute=" + attribute + "&value=" + URLEncoder.encode(changeValue, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnErrorMessage(request);
+    }
+
+    /**
+     * Retrieve specific restaurant hours for a specific day in the database by id.
+     * @param restaurantId = restaurant id, which is parsed from a text field.
+     * @param day = the day in integer representation (1 - 7)
+     * @return the body of the response.
+     */
+    public static String findRestaurantHoursByDay(int restaurantId, int day) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building_hours/findAdmin/" + restaurantId + "/" + day)).GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
     }
 }

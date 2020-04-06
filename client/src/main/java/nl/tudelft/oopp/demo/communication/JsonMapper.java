@@ -204,18 +204,12 @@ public class JsonMapper {
      * @param restaurantHoursJson a JSON string
      * @return Restaurant hour object
      */
-    public static RestaurantHours restaurantHoursMapper(String restaurantHoursJson) {
+    public static RestaurantHours restaurantHoursMapper(String restaurantHoursJson) throws JsonProcessingException {
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
 
-        try {
-            // Convert JSON string to Object
-            return mapper.readValue(restaurantHoursJson, RestaurantHours.class);
-        } catch (Exception e) {
-            CustomAlert.warningAlert(restaurantHoursJson);
-        }
-        return null;
+        return mapper.readValue(restaurantHoursJson, RestaurantHours.class);
     }
 
     /**

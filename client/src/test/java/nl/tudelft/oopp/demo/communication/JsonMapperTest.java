@@ -160,7 +160,7 @@ class JsonMapperTest {
 
         RestaurantHours restaurantHours = JsonMapper.restaurantHoursMapper(json);
 
-        assertEquals(restaurantHours, JsonMapper.restaurantHoursMapper(DishServerCommunication.findRestaurantHours(1, 1)));
+        assertEquals(restaurantHours, JsonMapper.restaurantHoursMapper(RestaurantServerCommunication.findRestaurantHours(1, 1)));
     }
 
     @Test

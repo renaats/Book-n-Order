@@ -24,7 +24,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import nl.tudelft.oopp.demo.communication.BuildingServerCommunication;
-import nl.tudelft.oopp.demo.communication.DishServerCommunication;
+import nl.tudelft.oopp.demo.communication.RestaurantServerCommunication;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.errors.CustomAlert;
@@ -223,7 +223,7 @@ public class DatabaseAddRestaurants implements Initializable {
                 return;
             }
 
-            String response = DishServerCommunication.addRestaurant(buildingId, restaurantName, ownerEmail);
+            String response = RestaurantServerCommunication.addRestaurant(buildingId, restaurantName, ownerEmail);
             if (response.equals("Successfully added!") && buildingFound) {
                 CustomAlert.informationAlert(response);
             } else if (buildingFound) {

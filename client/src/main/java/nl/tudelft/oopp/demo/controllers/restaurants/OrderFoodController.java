@@ -17,7 +17,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 
 import nl.tudelft.oopp.demo.communication.BuildingServerCommunication;
-import nl.tudelft.oopp.demo.communication.DishServerCommunication;
+import nl.tudelft.oopp.demo.communication.RestaurantServerCommunication;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Dish;
@@ -141,10 +141,10 @@ public class OrderFoodController implements Initializable {
                     if (buildingChoiceBox.getValue() != null) {
                         buildingId = JsonMapper.buildingMapper(BuildingServerCommunication.findBuildingByName(buildingChoiceBox.getValue())).getId();
                     }
-                    String response = DishServerCommunication.addFoodOrder(restaurant.getId(), buildingId, dateLong);
+                    String response = RestaurantServerCommunication.addFoodOrder(restaurant.getId(), buildingId, dateLong);
                     int foodOrderId = Integer.parseInt(response) - 1000;
                     for (Dish dish: dishes) {
-                        DishServerCommunication.addDishToFoodOrder(foodOrderId, dish.getName(), dish.getAmount());
+                        RestaurantServerCommunication.addDishToFoodOrder(foodOrderId, dish.getName(), dish.getAmount());
                     }
                     ApplicationDisplay.changeScene("/FoodConfirmation.fxml");
                 }

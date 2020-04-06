@@ -11,7 +11,7 @@ import javafx.scene.image.ImageView;
 
 import nl.tudelft.oopp.demo.communication.BikeServerCommunication;
 import nl.tudelft.oopp.demo.communication.BuildingServerCommunication;
-import nl.tudelft.oopp.demo.communication.DishServerCommunication;
+import nl.tudelft.oopp.demo.communication.RestaurantServerCommunication;
 import nl.tudelft.oopp.demo.communication.RoomServerCommunication;
 import nl.tudelft.oopp.demo.errors.ErrorMessages;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
@@ -50,7 +50,7 @@ public class DatabaseMainMenuController implements Initializable {
             buildingImage.setOnMouseClicked(null);
             buildingButton.setStyle("-fx-background-color: gray;");
         }
-        if (DishServerCommunication.updateDish(0, "Dummy", "Value").equals(ErrorMessages.getErrorMessage(401))) {
+        if (RestaurantServerCommunication.updateDish(0, "Dummy", "Value").equals(ErrorMessages.getErrorMessage(401))) {
             restaurantButton.setOnAction(null);
             restaurantImage.setOnMouseClicked(null);
             restaurantButton.setStyle("-fx-background-color: gray;");

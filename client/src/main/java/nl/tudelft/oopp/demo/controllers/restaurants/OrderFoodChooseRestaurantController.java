@@ -25,7 +25,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
 import nl.tudelft.oopp.demo.communication.BuildingServerCommunication;
-import nl.tudelft.oopp.demo.communication.DishServerCommunication;
+import nl.tudelft.oopp.demo.communication.RestaurantServerCommunication;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.entities.Allergy;
 import nl.tudelft.oopp.demo.entities.Building;
@@ -264,10 +264,10 @@ public class OrderFoodChooseRestaurantController implements Initializable {
         try {
             if (name != null) {
                 restaurants = new ArrayList<>(
-                        Objects.requireNonNull(JsonMapper.restaurantListMapper(DishServerCommunication.findRestaurantByName(name))));
+                        Objects.requireNonNull(JsonMapper.restaurantListMapper(RestaurantServerCommunication.findRestaurantByName(name))));
             } else {
                 restaurants = new ArrayList<>(
-                        Objects.requireNonNull(JsonMapper.restaurantListMapper(DishServerCommunication.getRestaurants())));
+                        Objects.requireNonNull(JsonMapper.restaurantListMapper(RestaurantServerCommunication.getRestaurants())));
             }
             if (buildingName != null) {
                 List<Restaurant> newRestaurants = new ArrayList<>();
@@ -418,14 +418,14 @@ public class OrderFoodChooseRestaurantController implements Initializable {
     private void loadDishes(String filterString) {
         try {
             dishes = new ArrayList<>(Objects.requireNonNull(
-                    JsonMapper.dishListMapper(DishServerCommunication.filterDishes(filterString))));
+                    JsonMapper.dishListMapper(RestaurantServerCommunication.filterDishes(filterString))));
             if (selectedDiets != null && !selectedDiets.isEmpty()) {
                 List<Dish> filteredDishes = new ArrayList<>();
                 for (Dish dish: dishes) {
                     boolean isValid = true;
                     List<Allergy> dishAllergies;
                     try {
-                        dishAllergies = JsonMapper.allergiesListMapper(DishServerCommunication.getAllergiesFromDish(dish.getId()));
+                        dishAllergies = JsonMapper.allergiesListMapper(RestaurantServerCommunication.getAllergiesFromDish(dish.getId()));
                     } catch (Exception e) {
                         dishAllergies = new ArrayList<>();
                     }
@@ -501,7 +501,7 @@ public class OrderFoodChooseRestaurantController implements Initializable {
      */
     public void applyDishFilters() {
         try {
-            String filterString = "menu:" + JsonMapper.menuMapper(DishServerCommunication.findMenuByRestaurant(selectedRestaurant.getId())).getId();
+            String filterString = "menu:" + JsonMapper.menuMapper(RestaurantServerCommunication.findMenuByRestaurant(selectedRestaurant.getId())).getId();
             if (!fromPrice.getText().equals("")) {
                 long filterPrice = Math.round((Double.parseDouble(fromPrice.getText())) * 100);
                 filterString += ",price>" + filterPrice;
@@ -709,7 +709,7 @@ public class OrderFoodChooseRestaurantController implements Initializable {
      */
     public void loadAllergies() {
         try {
-            allergies = JsonMapper.allergiesListMapper(DishServerCommunication.getAllergiesFromDish(selectedDish.getId()));
+            allergies = JsonMapper.allergiesListMapper(RestaurantServerCommunication.getAllergiesFromDish(selectedDish.getId()));
         } catch (Exception e) {
             allergies = new ArrayList<>();
         }
@@ -942,7 +942,7 @@ public class OrderFoodChooseRestaurantController implements Initializable {
      */
     public void displayCurrentAllergies() {
         try {
-            currentAllergies = JsonMapper.allergiesListMapper(DishServerCommunication.filterAllergies(""));
+            currentAllergies = JsonMapper.allergiesListMapper(RestaurantServerCommunication.filterAllergies(""));
         } catch (Exception e) {
             currentAllergies = new ArrayList<>();
         }

@@ -11,7 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
-import nl.tudelft.oopp.demo.communication.DishServerCommunication;
+import nl.tudelft.oopp.demo.communication.RestaurantServerCommunication;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.UserServerCommunication;
 import nl.tudelft.oopp.demo.entities.Menu;
@@ -40,8 +40,8 @@ public class DatabaseAddDishController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         Menu menu = null;
         try {
-            menu = JsonMapper.menuMapper(DishServerCommunication.findMenuByRestaurant(
-                    JsonMapper.ownRestaurantMapper(DishServerCommunication.getOwnedRestaurants()).get(0).getId()));
+            menu = JsonMapper.menuMapper(RestaurantServerCommunication.findMenuByRestaurant(
+                    JsonMapper.ownRestaurantMapper(RestaurantServerCommunication.getOwnedRestaurants()).get(0).getId()));
         } catch (JsonProcessingException e) {
             // Intentionally left blank
         }
@@ -103,6 +103,6 @@ public class DatabaseAddDishController implements Initializable {
             return;
         }
         String image = imageTextField.getText();
-        CustomAlert.informationAlert(DishServerCommunication.addDish(name, menuId, (int) price * 100, description, image));
+        CustomAlert.informationAlert(RestaurantServerCommunication.addDish(name, menuId, (int) price * 100, description, image));
     }
 }

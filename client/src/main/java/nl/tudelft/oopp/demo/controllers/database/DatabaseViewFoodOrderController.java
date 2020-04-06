@@ -19,7 +19,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
-import nl.tudelft.oopp.demo.communication.DishServerCommunication;
+import nl.tudelft.oopp.demo.communication.RestaurantServerCommunication;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.entities.DishOrder;
 import nl.tudelft.oopp.demo.entities.FoodOrder;
@@ -137,13 +137,13 @@ public class DatabaseViewFoodOrderController implements Initializable {
      */
     public void loadAllOrders() {
         try {
-            currentOrders = JsonMapper.foodOrdersListMapper(DishServerCommunication.getAllFutureFoodOrdersForRestaurant(restaurant.getId()));
+            currentOrders = JsonMapper.foodOrdersListMapper(RestaurantServerCommunication.getAllFutureFoodOrdersForRestaurant(restaurant.getId()));
         } catch (Exception e) {
             currentOrders = new ArrayList<>();
         }
         currentOrders.sort(Comparator.comparing(FoodOrder::getDeliveryTimeString));
         try {
-            pastOrders = JsonMapper.foodOrdersListMapper(DishServerCommunication.getAllPreviousFoodOrdersForRestaurant(restaurant.getId()));
+            pastOrders = JsonMapper.foodOrdersListMapper(RestaurantServerCommunication.getAllPreviousFoodOrdersForRestaurant(restaurant.getId()));
         } catch (Exception e) {
             pastOrders = new ArrayList<>();
         }
@@ -286,7 +286,7 @@ public class DatabaseViewFoodOrderController implements Initializable {
      */
     public void viewDishes() {
         try {
-            dishOrders = JsonMapper.dishOrderListMapper(DishServerCommunication.getDishOrders(selectedFoodOrder.getId()));
+            dishOrders = JsonMapper.dishOrderListMapper(RestaurantServerCommunication.getDishOrders(selectedFoodOrder.getId()));
         } catch (Exception e) {
             dishOrders = new ArrayList<>();
         }
