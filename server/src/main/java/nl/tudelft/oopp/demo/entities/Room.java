@@ -163,17 +163,19 @@ public class Room {
             return true;
         }
         for (RoomReservation roomReservation: roomReservations) {
-            if (fromTime.compareTo(roomReservation.getFromTime()) <= 0 && toTime.compareTo(roomReservation.getFromTime()) > 0) {
-                return true;
-            }
-            if (fromTime.compareTo(roomReservation.getToTime()) < 0 && toTime.compareTo(roomReservation.getToTime()) >= 0) {
-                return true;
-            }
-            if (fromTime.compareTo(roomReservation.getFromTime()) >= 0 && fromTime.compareTo(roomReservation.getToTime()) < 0) {
-                return true;
-            }
-            if (toTime.compareTo(roomReservation.getFromTime()) > 0 && toTime.compareTo(roomReservation.getToTime()) <= 0) {
-                return true;
+            if (roomReservation.isActive()) {
+                if (fromTime.compareTo(roomReservation.getFromTime()) <= 0 && toTime.compareTo(roomReservation.getFromTime()) > 0) {
+                    return true;
+                }
+                if (fromTime.compareTo(roomReservation.getToTime()) < 0 && toTime.compareTo(roomReservation.getToTime()) >= 0) {
+                    return true;
+                }
+                if (fromTime.compareTo(roomReservation.getFromTime()) >= 0 && fromTime.compareTo(roomReservation.getToTime()) < 0) {
+                    return true;
+                }
+                if (toTime.compareTo(roomReservation.getFromTime()) > 0 && toTime.compareTo(roomReservation.getToTime()) <= 0) {
+                    return true;
+                }
             }
         }
         return false;
