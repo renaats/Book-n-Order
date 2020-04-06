@@ -3,6 +3,7 @@ package nl.tudelft.oopp.demo.controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -63,6 +64,9 @@ public class MyPreviousBikeReservationsController implements Initializable {
             bikeReservations = new ArrayList<>();
             bikeReservations.add(null);
         }
+
+
+        Collections.sort(bikeReservations);
 
         if (bikeReservations.size() > 10) {
             bikeReservations = bikeReservations.subList(0, 15);

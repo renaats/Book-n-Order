@@ -11,7 +11,7 @@ import javafx.beans.property.StringProperty;
 /**
  * Manages the BikeReservations object that is retrieved from the server
  */
-public class BikeReservation {
+public class BikeReservation implements Comparable {
     private Integer id;
     private Boolean active;
     private Bike bike;
@@ -139,6 +139,12 @@ public class BikeReservation {
         Date time = getToTime();
         DateFormat df = new SimpleDateFormat("dd MMMMM yyyy HH:mm");
         return new SimpleStringProperty(df.format(time));
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        long compareTime = ((BikeReservation)o).getFromTime().getTime();
+        return (int) (this.fromTime.getTime() - compareTime);
     }
 
     @Override
