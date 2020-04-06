@@ -199,6 +199,36 @@ public class RoomReservationService {
     }
 
     /**
+     * Finds all past room reservations for some room.
+     * @param roomId = the room for which the room reservations are searched.
+     * @return a list of past room reservations for this room.
+     */
+    public List<RoomReservation> pastForAdmin(int roomId) {
+        List<RoomReservation> roomReservations = new ArrayList<>();
+        for (RoomReservation roomReservation: roomReservationRepository.findAllByRoomId(roomId)) {
+            if (!roomReservation.getToTime().after(new Date()) || !roomReservation.isActive()) {
+                roomReservations.add(roomReservation);
+            }
+        }
+        return roomReservations;
+    }
+
+    /**
+     * Finds all future room reservations for some room.
+     * @param roomId = the room for which the room reservations are searched.
+     * @return a list of future room reservations for this room.
+     */
+    public List<RoomReservation> futureForAdmin(int roomId) {
+        List<RoomReservation> roomReservations = new ArrayList<>();
+        for (RoomReservation roomReservation: roomReservationRepository.findAllByRoomId(roomId)) {
+            if (roomReservation.getToTime().after(new Date()) && roomReservation.isActive()) {
+                roomReservations.add(roomReservation);
+            }
+        }
+        return roomReservations;
+    }
+
+    /**
      * Finds all reservations for a specific room.
      * @param roomId = the id of the room for which reservations are retrieved.
      * @return a list of reservations for this room.

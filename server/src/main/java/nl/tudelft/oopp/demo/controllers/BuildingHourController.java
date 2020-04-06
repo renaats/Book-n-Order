@@ -96,4 +96,17 @@ public class BuildingHourController {
     public BuildingHours findBuildingHours(@PathVariable(value = "buildingID") int buildingId, @PathVariable(value = "day") long dateInMilliseconds) {
         return buildingHourService.find(buildingId, dateInMilliseconds);
     }
+
+    /**
+     * Finds the hours for a building with the specified id.
+     * @param buildingId = the id of the building.
+     * @param day = the day.
+     * @return building hours that match the id.
+     */
+    @Secured({ADMIN, BUILDING_ADMIN})
+    @GetMapping(path = "/findAdmin/{buildingID}/{day}")
+    @ResponseBody
+    public BuildingHours findAdminHours(@PathVariable(value = "buildingID") int buildingId, @PathVariable(value = "day") long day) {
+        return buildingHourService.findAdmin(buildingId, day);
+    }
 }

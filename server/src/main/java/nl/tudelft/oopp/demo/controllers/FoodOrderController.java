@@ -4,8 +4,11 @@ import static nl.tudelft.oopp.demo.config.Constants.ADMIN;
 import static nl.tudelft.oopp.demo.config.Constants.RESTAURANT;
 import static nl.tudelft.oopp.demo.config.Constants.USER;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
+import nl.tudelft.oopp.demo.entities.DishOrder;
 import nl.tudelft.oopp.demo.entities.FoodOrder;
 import nl.tudelft.oopp.demo.services.FoodOrderService;
 
@@ -63,15 +66,24 @@ public class FoodOrderController {
     }
 
     /**
-     * Adds a dish to a food order.
+     * Adds a dishOrder to a food order.
      * @param id = the id of the food order.
      * @param name = the name of the dish.
      */
     @Secured(USER)
-    @PostMapping(path = "/addDish")
-    public int addDish(HttpServletRequest request, @RequestParam int id, @RequestParam String name) {
-        return foodOrderService.addDish(request, id, name);
+    @PostMapping(path = "/addDishOrder")
+    public int addDishOrder(HttpServletRequest request, @RequestParam int id, @RequestParam String name, @RequestParam int amount) {
+        return foodOrderService.addDishOrder(request, id, name, amount);
+    }
 
+    /**
+     * Gets a dishOrder for some food order.
+     * @param id = the id of the food order.
+     */
+    @Secured(USER)
+    @PostMapping(path = "/getDishOrders")
+    public List<DishOrder> getDishOrder(HttpServletRequest request, @RequestParam int id) {
+        return foodOrderService.getDishOrders(request, id);
     }
 
     /**
@@ -104,7 +116,7 @@ public class FoodOrderController {
      */
     @Secured(USER)
     @GetMapping(path = "/past")
-    public Iterable<FoodOrder> getPastReservations(HttpServletRequest request) {
+    public Iterable<FoodOrder> getPastFoodOrders(HttpServletRequest request) {
         return foodOrderService.past(request);
     }
 
@@ -115,8 +127,30 @@ public class FoodOrderController {
      */
     @Secured(USER)
     @GetMapping(path = "/future")
-    public Iterable<FoodOrder> getFutureReservations(HttpServletRequest request) {
+    public Iterable<FoodOrder> getFutureFoodOrders(HttpServletRequest request) {
         return foodOrderService.future(request);
+    }
+
+    /**
+     * Finds all past food orders for the restaurants of the user that sends the Http request.
+     * @param restaurantId = the restaurant for which the food orders are searched.
+     * @return a list of past food orders for this user.
+     */
+    @Secured({ADMIN, RESTAURANT})
+    @GetMapping(path = "/pastRestaurant")
+    public Iterable<FoodOrder> getPastFoodOrdersRestaurant(@RequestParam int restaurantId) {
+        return foodOrderService.pastForRestaurant(restaurantId);
+    }
+
+    /**
+     * Finds all future food orders for the restaurants of the user that sends the Http request.
+     * @param restaurantId = the restaurant for which the food orders are searched.
+     * @return a list of future food orders for this user.
+     */
+    @Secured({ADMIN, RESTAURANT})
+    @GetMapping(path = "/futureRestaurant")
+    public Iterable<FoodOrder> getFutureFoodOrdersRestaurant(@RequestParam int restaurantId) {
+        return foodOrderService.futureForRestaurant(restaurantId);
     }
 
     /**

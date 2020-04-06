@@ -13,6 +13,7 @@ public class AppUser {
     private String name;
     private String surname;
     private String faculty;
+    private String study;
     private boolean loggedIn;
     private int confirmationNumber;
 
@@ -25,13 +26,15 @@ public class AppUser {
      * @param name the user's first name.
      * @param surname the user's last name.
      * @param faculty the faculty the user belongs to.
+     * @param study the study of the user.
      */
-    public AppUser(String email, String password, String name, String surname, String faculty) {
+    public AppUser(String email, String password, String name, String surname, String faculty, String study) {
         this.email = email;
         this.password = password;
         this.name = name;
         this.surname = surname;
         this.faculty = faculty;
+        this.study = study;
     }
 
     public AppUser() {
@@ -60,6 +63,10 @@ public class AppUser {
 
     public void setFaculty(String faculty) {
         this.faculty = faculty;
+    }
+
+    public void setStudy(String study) {
+        this.study = study;
     }
 
     public void setLoggedIn(boolean loggedIn) {
@@ -106,6 +113,10 @@ public class AppUser {
         return faculty;
     }
 
+    public String getStudy() {
+        return study;
+    }
+
     public boolean isLoggedIn() {
         return loggedIn;
     }
@@ -144,6 +155,7 @@ public class AppUser {
                 && Objects.equals(name, appUser.name)
                 && Objects.equals(surname, appUser.surname)
                 && Objects.equals(faculty, appUser.faculty)
+                && Objects.equals(study, appUser.study)
                 && Objects.equals(roomReservations, appUser.roomReservations);
     }
 }

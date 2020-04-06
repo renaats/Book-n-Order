@@ -1,5 +1,6 @@
 package nl.tudelft.oopp.demo.entities;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
@@ -77,6 +78,16 @@ public class RoomReservation {
         return toTime;
     }
 
+    public String getFromTimeString() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd  HH:mm");
+        return simpleDateFormat.format(fromTime);
+    }
+
+    public String getToTimeString() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd  HH:mm");
+        return simpleDateFormat.format(toTime);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -86,7 +97,7 @@ public class RoomReservation {
             return false;
         }
         RoomReservation that = (RoomReservation) o;
-        return active == this.active
+        return active == that.active
                 && Objects.equals(room, that.room)
                 && Objects.equals(appUser, that.appUser)
                 && Objects.equals(fromTime, that.fromTime)

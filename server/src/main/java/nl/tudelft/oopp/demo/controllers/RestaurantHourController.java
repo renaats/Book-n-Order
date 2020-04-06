@@ -97,4 +97,17 @@ public class RestaurantHourController {
                                                @PathVariable(value = "day") long dateInMilliseconds) {
         return restaurantHourService.find(restaurantId, dateInMilliseconds);
     }
+
+    /**
+     * Finds the hours for a restaurant with the specified id.
+     * @param restaurantId = the id of the restaurant.
+     * @param day = the day.
+     * @return restaurant hours that match the id.
+     */
+    @Secured({ADMIN, RESTAURANT})
+    @GetMapping(path = "/findAdmin/{restaurantID}/{day}")
+    @ResponseBody
+    public RestaurantHours findAdminHours(@PathVariable(value = "restaurantID") int restaurantId, @PathVariable(value = "day") long day) {
+        return restaurantHourService.findAdmin(restaurantId, day);
+    }
 }

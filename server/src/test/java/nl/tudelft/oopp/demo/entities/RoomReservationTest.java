@@ -52,12 +52,11 @@ public class RoomReservationTest {
     public void setup() {
         building = new Building("EWI", "Mekelweg", "EWI", 4);
         buildingRepository.saveAndFlush(building);
-
-        room = new Room("Ampere", building, "CSE", true, true, 300, 250);
+        room = new Room("Ampere", building, "CSE", true, true, 300, 250, "OPEN");
         room.setRoomReservations(new HashSet<>());
         roomRepository.saveAndFlush(room);
 
-        appUser = new AppUser("R.Jursevskis@student.tudelft.nl", "1234", "Renats", "Jursevskis", "EWI");
+        appUser = new AppUser("R.Jursevskis@student.tudelft.nl", "1234", "Renats", "Jursevskis", "EWI", "CSE");
         appUser.setRoomReservations(new HashSet<>());
         userRepository.saveAndFlush(appUser);
 

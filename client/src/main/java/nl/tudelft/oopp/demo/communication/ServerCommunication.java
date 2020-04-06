@@ -44,6 +44,9 @@ public class ServerCommunication {
         if (response.statusCode() == 403) {
             return ErrorMessages.getErrorMessage(401);
         }
+        if (Integer.parseInt(response.body()) >= 1000) {
+            return response.body();
+        }
         return ErrorMessages.getErrorMessage(Integer.parseInt(response.body()));
     }
 

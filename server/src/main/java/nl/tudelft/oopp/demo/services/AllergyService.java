@@ -68,6 +68,15 @@ public class AllergyService {
     }
 
     /**
+     * Finds all allergies for a dish the specified id.
+     * @param dishId = the id of the dish
+     * @return the allergies that match the provided dish id
+     */
+    public List<Allergy> findAllByDishId(int dishId) {
+        return allergyRepository.findAllByDishesId(dishId);
+    }
+
+    /**
      * Queries the allergy repository based on input
      * @param search String consisting of query parameters
      * @return list of allergies that match the query
