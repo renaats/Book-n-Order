@@ -47,9 +47,9 @@
         </ImageView>
         <TableView fx:id="table" layoutX="163.0" layoutY="191.0" prefHeight="408.0" prefWidth="908.0">
             <columns>
-                <TableColumn fx:id="colRoom" prefWidth="400" text="Name" />
-                <TableColumn fx:id="colFromTime" prefWidth="269.3333740234375" text="From (Time)" />
-                <TableColumn fx:id="colToTime" prefWidth="235.33331298828125" text="To (Time)" />
+                <TableColumn fx:id="colRoom" editable="false" maxWidth="400.0" prefWidth="400" resizable="false" sortable="false" text="Name" />
+                <TableColumn fx:id="colFromTime" editable="false" maxWidth="269.3333740234375" prefWidth="269.3333740234375" resizable="false" sortable="false" text="From (Time)" />
+                <TableColumn fx:id="colToTime" editable="false" maxWidth="235.33331298828125" prefWidth="235.33331298828125" resizable="false" sortable="false" text="To (Time)" />
             </columns>
         </TableView>
         <Text layoutX="409.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My Previous Room Bookings">
