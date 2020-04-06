@@ -47,10 +47,10 @@
         </ImageView>
         <TableView fx:id="table" layoutX="332.0" layoutY="193.0" prefHeight="408.0" prefWidth="907.0">
             <columns>
-                <TableColumn fx:id="colRestaurant" prefWidth="285.6666564941406" text="Restaurant" />
-                <TableColumn fx:id="colDeliveryLoc" prefWidth="257.0" text="Delivery Location" />
-                <TableColumn fx:id="colDate" prefWidth="210.666748046875" text="Date" />
-                <TableColumn fx:id="colYourFeedback" prefWidth="149.3333740234375" text="Your Feedback" />
+                <TableColumn fx:id="colRestaurant" editable="false" maxWidth="285.6666564941406" minWidth="285.6666564941406" prefWidth="285.6666564941406" resizable="false" sortable="false" text="Restaurant" />
+                <TableColumn fx:id="colDeliveryLoc" editable="false" maxWidth="257.0" minWidth="257.0" prefWidth="257.0" resizable="false" sortable="false" text="Delivery Location" />
+                <TableColumn fx:id="colDate" editable="false" maxWidth="210.666748046875" minWidth="210.666748046875" prefWidth="210.666748046875" resizable="false" sortable="false" text="Date" />
+                <TableColumn fx:id="colYourFeedback" editable="false" maxWidth="149.3333740234375" minWidth="149.3333740234375" prefWidth="149.3333740234375" resizable="false" sortable="false" text="Your Feedback" />
             </columns>
         </TableView>
         <Text layoutX="584.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My Previous Food Orders">
