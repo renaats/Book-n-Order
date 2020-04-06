@@ -1,13 +1,17 @@
 package nl.tudelft.oopp.demo.controllers.database;
 
+import static nl.tudelft.oopp.demo.controllers.database.DatabaseRestaurantMenuAlertController.daySwitchCase;
+import static nl.tudelft.oopp.demo.controllers.database.DatabaseRestaurantMenuAlertController.disable;
+import static nl.tudelft.oopp.demo.controllers.database.DatabaseRestaurantMenuAlertController.updateDishAlert;
+import static nl.tudelft.oopp.demo.controllers.database.DatabaseRestaurantMenuAlertController.updateRestaurantAlert;
+import static nl.tudelft.oopp.demo.controllers.database.DatabaseRestaurantMenuAlertController.updateRestaurantHoursAlert;
+import static nl.tudelft.oopp.demo.controllers.generic.CalculatePages.calculatePages;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -17,7 +21,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
@@ -31,13 +34,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import javafx.util.Pair;
 
-import nl.tudelft.oopp.demo.communication.BuildingServerCommunication;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.RestaurantServerCommunication;
 import nl.tudelft.oopp.demo.communication.UserServerCommunication;
 import nl.tudelft.oopp.demo.entities.Allergy;
-import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Dish;
 import nl.tudelft.oopp.demo.entities.Menu;
 import nl.tudelft.oopp.demo.entities.Restaurant;
@@ -46,7 +48,6 @@ import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 public class DatabaseRestaurantMenuController implements Initializable {
-
     private final ObservableList<Dish> dishList = FXCollections.observableArrayList();
     private final ObservableList<Allergy> allergySelectedList = FXCollections.observableArrayList();
     private final ObservableList<Restaurant> ownedRestaurants = FXCollections.observableArrayList();
@@ -56,118 +57,62 @@ public class DatabaseRestaurantMenuController implements Initializable {
     private List<Restaurant> restaurants;
     private Restaurant restaurant;
 
-    @FXML
-    private AnchorPane anchorPane;
-    @FXML
-    private ToggleButton restaurantToggleButton;
-    @FXML
-    private ToggleButton allergiesToggleButton;
-    @FXML
-    private ToggleButton hoursToggleButton;
-    @FXML
-    private Button previousPageButtonAllergiesSelected;
-    @FXML
-    private Button nextPageButtonAllergiesSelected;
-    @FXML
-    private Button updateRestaurantButton;
-    @FXML
-    private Button restaurantPreviousPageButton;
-    @FXML
-    private Button restaurantNextPageButton;
-    @FXML
-    private Button allergyAddButton;
-    @FXML
-    private Button menuDeleteButton;
-    @FXML
-    private Button setClosedButton;
-    @FXML
-    private Button deleteRestaurantButton;
-    @FXML
-    private Button updateRestaurantHoursButton;
-    @FXML
-    private ChoiceBox<String> daysChoiceBox;
-    @FXML
-    private DatePicker datePicker;
-    @FXML
-    private TextField idFieldRead;
-    @FXML
-    private TextField ownerTextField;
-    @FXML
-    private TextField nameFieldRead;
-    @FXML
-    private TextField locationFieldRead;
-    @FXML
-    private TextField menuIdFieldRead;
-    @FXML
-    private TextField menuNameFieldRead;
-    @FXML
-    private TextField dishIdFieldRead;
-    @FXML
-    private TextField dishNameFieldRead;
-    @FXML
-    private TextField dishPriceFieldRead;
-    @FXML
-    private TextField allergyNameTextField;
-    @FXML
-    private TextField dishImageTextField;
-    @FXML
-    private TextField hoursStartTime;
-    @FXML
-    private TextField minutesStartTime;
-    @FXML
-    private TextField hoursEndTime;
-    @FXML
-    private TextField minutesEndTime;
-    @FXML
-    private TextArea dishDescriptionFieldRead;
-    @FXML
-    private Text restaurantHoursText;
-    @FXML
-    private Text dayText;
-    @FXML
-    private Text dateText;
-    @FXML
-    private Text fromText;
-    @FXML
-    private Text toText;
-    @FXML
-    private Text semiColonText1;
-    @FXML
-    private Text semiColonText2;
-    @FXML
-    private Text showAddAllergiesText;
-    @FXML
-    private Text restaurantPagesText;
-    @FXML
-    private Text pagesText;
-    @FXML
-    private Text pagesTextAllergiesCurrent;
-    @FXML
-    private Text restaurantAddText;
-    @FXML
-    private Text menuAddText;
-    @FXML
-    private ImageView allergyImage;
-    @FXML
-    private ImageView showAddAllergiesButton;
-    @FXML
-    private ImageView restaurantAddImage;
-    @FXML
-    private ImageView menuAddImage;
-    @FXML
-    private TableView<Dish> dishTableView;
-    @FXML
-    private TableView<Restaurant> restaurantTable;
-    @FXML
-    private TableView<Allergy> allergiesTableCurrent;
-    @FXML
-    private TableColumn<Restaurant, String> colOwnedRestaurants;
-    @FXML
-    private TableColumn<Allergy, String> colAllergyName;
-    @FXML
-    private TableColumn<Dish, String> colDishName;
-    @FXML
-    private TableColumn<Dish, Double> colDishPrice;
+    @FXML private AnchorPane anchorPane;
+    @FXML private ToggleButton restaurantToggleButton;
+    @FXML private ToggleButton allergiesToggleButton;
+    @FXML private ToggleButton hoursToggleButton;
+    @FXML private Button previousPageButtonAllergiesSelected;
+    @FXML private Button nextPageButtonAllergiesSelected;
+    @FXML private Button updateRestaurantButton;
+    @FXML private Button restaurantPreviousPageButton;
+    @FXML private Button restaurantNextPageButton;
+    @FXML private Button allergyAddButton;
+    @FXML private Button menuDeleteButton;
+    @FXML private Button setClosedButton;
+    @FXML private Button deleteRestaurantButton;
+    @FXML private Button updateRestaurantHoursButton;
+    @FXML private ChoiceBox<String> daysChoiceBox;
+    @FXML private DatePicker datePicker;
+    @FXML private TextField idFieldRead;
+    @FXML private TextField ownerTextField;
+    @FXML private TextField nameFieldRead;
+    @FXML private TextField locationFieldRead;
+    @FXML private TextField menuIdFieldRead;
+    @FXML private TextField menuNameFieldRead;
+    @FXML private TextField dishIdFieldRead;
+    @FXML private TextField dishNameFieldRead;
+    @FXML private TextField dishPriceFieldRead;
+    @FXML private TextField allergyNameTextField;
+    @FXML private TextField dishImageTextField;
+    @FXML private TextField hoursStartTime;
+    @FXML private TextField minutesStartTime;
+    @FXML private TextField hoursEndTime;
+    @FXML private TextField minutesEndTime;
+    @FXML private TextArea dishDescriptionFieldRead;
+    @FXML private Text restaurantHoursText;
+    @FXML private Text dayText;
+    @FXML private Text dateText;
+    @FXML private Text fromText;
+    @FXML private Text toText;
+    @FXML private Text semiColonText1;
+    @FXML private Text semiColonText2;
+    @FXML private Text showAddAllergiesText;
+    @FXML private Text restaurantPagesText;
+    @FXML private Text pagesText;
+    @FXML private Text pagesTextAllergiesCurrent;
+    @FXML private Text restaurantAddText;
+    @FXML private Text menuAddText;
+    @FXML private ImageView allergyImage;
+    @FXML private ImageView showAddAllergiesButton;
+    @FXML private ImageView restaurantAddImage;
+    @FXML private ImageView menuAddImage;
+    @FXML private TableView<Dish> dishTableView;
+    @FXML private TableView<Restaurant> restaurantTable;
+    @FXML private TableView<Allergy> allergiesTableCurrent;
+    @FXML private TableColumn<Restaurant, String> colOwnedRestaurants;
+    @FXML private TableColumn<Allergy, String> colAllergyName;
+    @FXML private TableColumn<Dish, String> colDishName;
+    @FXML private TableColumn<Dish, Double> colDishPrice;
 
     private Button deleteButton;
     private Button deleteButtonAllergies;
@@ -181,18 +126,14 @@ public class DatabaseRestaurantMenuController implements Initializable {
     private int allergySelectedPageNumber;
     private int restaurantPageNumber;
 
-    private double totalPages;
-    private double totalRestaurantPages;
-    private double totalAllergySelectedPages;
+    private int totalPages;
+    private int totalRestaurantPages;
+    private int totalAllergySelectedPages;
 
     /**
-     * Called to initialize a controller after its root element has been
-     * completely processed.
-     *
-     * @param location  The location used to resolve relative paths for the root object, or
-     *                  {@code null} if the location is not known.
-     * @param resources The resources used to localize the root object, or {@code null} if
-     *                  resource is not known
+     * Called to initialize a controller after its root element has been completely processed.
+     * @param location The location used to resolve relative paths for the root object, or {@code null} if the location is not known.
+     * @param resources The resources used to localize the root object, or {@code null} if resource is not known
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -205,18 +146,12 @@ public class DatabaseRestaurantMenuController implements Initializable {
             anchorPane.getChildren().remove(menuDeleteButton);
             anchorPane.getChildren().remove(updateRestaurantButton);
             anchorPane.getChildren().remove(deleteRestaurantButton);
-            idFieldRead.setDisable(true);
-            idFieldRead.setOpacity(0.75);
-            nameFieldRead.setDisable(true);
-            nameFieldRead.setOpacity(0.75);
-            locationFieldRead.setDisable(true);
-            locationFieldRead.setOpacity(0.75);
-            menuIdFieldRead.setDisable(true);
-            menuIdFieldRead.setOpacity(0.75);
-            dishIdFieldRead.setDisable(true);
-            dishIdFieldRead.setOpacity(0.75);
-            ownerTextField.setDisable(true);
-            ownerTextField.setOpacity(0.75);
+            disable(idFieldRead);
+            disable(nameFieldRead);
+            disable(locationFieldRead);
+            disable(menuIdFieldRead);
+            disable(dishIdFieldRead);
+            disable(ownerTextField);
         }
 
         allergiesTableFlag = true;
@@ -251,16 +186,11 @@ public class DatabaseRestaurantMenuController implements Initializable {
 
         loadDaysChoiceBox();
         retrieveOwnedRestaurants();
-        dishTableSelectListener();
-        restautantTableSelectListener();
-        allergiesTableSelectListener();
-        daysChoiceBoxListener();
-        datePickerListener();
+        setListeners();
     }
 
     /**
      * Returns to the main database menu
-     *
      * @throws IOException Should never throw the exception
      */
     public void mainMenu() throws IOException {
@@ -269,10 +199,8 @@ public class DatabaseRestaurantMenuController implements Initializable {
 
     /**
      * Goes to to add dishes menu
-     *
-     * @throws IOException Should never throw the exception
      */
-    public void goToAddDishes() throws IOException {
+    public void goToAddDishes() {
         if (restaurant == null) {
             CustomAlert.warningAlert("Select a restaurant.");
             return;
@@ -287,7 +215,6 @@ public class DatabaseRestaurantMenuController implements Initializable {
 
     /**
      * Goes to to add restaurants menu
-     *
      * @throws IOException Should never throw the exception
      */
     public void goToAddRestaurants() throws IOException {
@@ -296,7 +223,6 @@ public class DatabaseRestaurantMenuController implements Initializable {
 
     /**
      * Goes to to add 'menu' menu
-     *
      * @throws IOException Should never throw the exception
      */
     public void goToAddMenu() throws IOException {
@@ -305,7 +231,6 @@ public class DatabaseRestaurantMenuController implements Initializable {
 
     /**
      * Goes to to add 'menu' menu
-     *
      * @throws IOException Should never throw the exception
      */
     public void goToViewOrders() throws IOException {
@@ -375,7 +300,7 @@ public class DatabaseRestaurantMenuController implements Initializable {
      * Handles the clicking to the next table page.
      */
     public void nextPage() {
-        if (pageNumber < (int) totalPages) {
+        if (pageNumber < totalPages) {
             pageNumber++;
             calculateDishPages();
         }
@@ -395,7 +320,7 @@ public class DatabaseRestaurantMenuController implements Initializable {
      * Handles the clicking to the next table page.
      */
     public void nextRestaurantPage() {
-        if (restaurantPageNumber < (int) totalRestaurantPages) {
+        if (restaurantPageNumber < totalRestaurantPages) {
             restaurantPageNumber++;
             retrieveOwnedRestaurants();
         }
@@ -415,7 +340,7 @@ public class DatabaseRestaurantMenuController implements Initializable {
      * Handles the clicking to the next table page.
      */
     public void nextAllergyPage() {
-        if (allergySelectedPageNumber < (int) totalAllergySelectedPages) {
+        if (allergySelectedPageNumber < totalAllergySelectedPages) {
             allergySelectedPageNumber++;
             calculateAllergyPages();
         }
@@ -448,31 +373,10 @@ public class DatabaseRestaurantMenuController implements Initializable {
      * Takes care of calculating and displaying the right pages in the Dish table
      */
     public void calculateDishPages() {
-        dishList.clear();
-
-        totalPages = Math.ceil(dishes.size() / 6);
-
-        if (dishes.size() == 0) {
-            pageNumber = 0;
-        }
-
-        if (pageNumber == 0 && dishes.size() != 0) {
-            pageNumber = 1;
-        }
-
-        pagesText.setText(pageNumber + " / " + (int) totalPages + " pages");
-
-        if (dishes.size() > 6) {
-            for (int i = 0; i < 6; i++) {
-                try {
-                    dishList.add(dishes.get((i - 6) + pageNumber * 6));
-                } catch (IndexOutOfBoundsException e) {
-                    break;
-                }
-            }
-        } else {
-            dishList.addAll(dishes);
-        }
+        Pair<Integer, Integer> pair = calculatePages(dishList, totalPages, pageNumber, dishes, 6);
+        totalPages = pair.getKey();
+        pageNumber = pair.getValue();
+        pagesText.setText(pageNumber + " / " + totalPages + " pages");
         dishTableView.setItems(dishList);
     }
 
@@ -493,30 +397,10 @@ public class DatabaseRestaurantMenuController implements Initializable {
      * Takes care of calculating and displaying the right pages in the Restaurant table
      */
     public void calculateRestaurantPages() {
-        ownedRestaurants.clear();
-        totalRestaurantPages = Math.ceil(restaurants.size() / 6.0);
-
-        if (restaurants.size() == 0) {
-            restaurantPageNumber = 0;
-        }
-
-        if (pageNumber == 0 && restaurants.size() != 0) {
-            restaurantPageNumber = 1;
-        }
-
-        restaurantPagesText.setText(restaurantPageNumber + " / " + (int) totalRestaurantPages + " pages");
-
-        if (restaurants.size() > 6) {
-            for (int i = 0; i < 6; i++) {
-                try {
-                    ownedRestaurants.add(restaurants.get((i - 6) + restaurantPageNumber * 6));
-                } catch (IndexOutOfBoundsException e) {
-                    break;
-                }
-            }
-        } else {
-            ownedRestaurants.addAll(restaurants);
-        }
+        Pair<Integer, Integer> pair = calculatePages(ownedRestaurants, totalRestaurantPages, restaurantPageNumber, restaurants, 6);
+        totalRestaurantPages = pair.getKey();
+        restaurantPageNumber = pair.getValue();
+        restaurantPagesText.setText(restaurantPageNumber + " / " + totalRestaurantPages + " pages");
         restaurantTable.setItems(ownedRestaurants);
     }
 
@@ -537,50 +421,158 @@ public class DatabaseRestaurantMenuController implements Initializable {
      * Takes care of calculating and displaying the right pages in the Allergy table
      */
     public void calculateAllergyPages() {
-        allergySelectedList.clear();
-        totalAllergySelectedPages = Math.ceil(allergies.size() / 6.0);
-
-        if (allergies.size() == 0) {
-            allergySelectedPageNumber = 0;
-        }
-
-        if (allergySelectedPageNumber == 0 && allergies.size() != 0) {
-            allergySelectedPageNumber = 1;
-        }
-
-        pagesTextAllergiesCurrent.setText(allergySelectedPageNumber + " / " + (int) totalAllergySelectedPages + " pages");
-
-        if (allergies.size() > 6) {
-            for (int i = 0; i < 6; i++) {
-                try {
-                    allergySelectedList.add(allergies.get((i - 6) + allergySelectedPageNumber * 6));
-                } catch (IndexOutOfBoundsException e) {
-                    break;
-                }
-            }
-        } else {
-            allergySelectedList.addAll(allergies);
-        }
+        Pair<Integer, Integer> pair = calculatePages(allergySelectedList, totalAllergySelectedPages, allergySelectedPageNumber, allergies, 6);
+        totalAllergySelectedPages = pair.getKey();
+        allergySelectedPageNumber = pair.getValue();
+        pagesTextAllergiesCurrent.setText(allergySelectedPageNumber + " / " + totalAllergySelectedPages + " pages");
         allergiesTableCurrent.setItems(allergySelectedList);
     }
 
     /**
-     * Listener that checks if a row is selected in the dish table, if so, fill the text fields.
+     * Sets all fields to 0 to indicate that that means closed.
      */
-    public void dishTableSelectListener() {
+    public void setClosedTextFields() {
+        hoursStartTime.setText("0");
+        minutesStartTime.setText("0");
+        hoursEndTime.setText("0");
+        minutesEndTime.setText("0");
+    }
+
+    /**
+     * Takes care of updating the menu name.
+     */
+    public void updateMenuName() {
+        String name = menuNameFieldRead.getText();
+        if (name.equals("")) {
+            CustomAlert.warningAlert("Please provide a name.");
+        }
+        CustomAlert.informationAlert(RestaurantServerCommunication.updateMenuName(Integer.parseInt(menuIdFieldRead.getText()), name));
+    }
+
+    /**
+     * Takes care of updating all values for restaurant.
+     */
+    public void updateRestaurant() {
+        updateRestaurantAlert(idFieldRead, locationFieldRead, nameFieldRead, ownerTextField, this);
+    }
+
+    /**
+     * Takes care of deleting a menu.
+     */
+    public void deleteMenu() {
+        int menuId = Integer.parseInt(menuIdFieldRead.getText());
+        if (RestaurantServerCommunication.findDishesByMenu(menuId).equals("Not found.")) {
+            CustomAlert.informationAlert(RestaurantServerCommunication.deleteMenu(menuId));
+            menuIdFieldRead.clear();
+            menuNameFieldRead.clear();
+        } else {
+            CustomAlert.warningAlert("Please delete all dishes first.");
+        }
+    }
+
+    /**
+     * Takes care of all the update values for a dish.
+     */
+    public void updateDish() {
+        updateDishAlert(dishIdFieldRead, dishNameFieldRead, dishPriceFieldRead, dishImageTextField, dishDescriptionFieldRead, this);
+    }
+
+    /**
+     * Shows the add allergy button and text fields for adding an allergy to a dish.
+     */
+    public void showAddAllergies() {
+        try {
+            anchorPane.getChildren().addAll(allergyImage, allergyNameTextField, allergyAddButton);
+        } catch (IllegalArgumentException e) {
+            anchorPane.getChildren().addAll(allergyImage, allergyNameTextField, allergyAddButton);
+        }
+    }
+
+    /**
+     * Takes care of adding an allergy to a dish.
+     */
+    public void addAllergy() {
+        if (allergyNameTextField.getText().isEmpty()) {
+            CustomAlert.warningAlert("Please provide an allergy name.");
+        } else {
+            String name = allergyNameTextField.getText();
+            if (menuIdFieldRead.getText().isEmpty()) {
+                CustomAlert.warningAlert("No dish selection detected.");
+            } else {
+                CustomAlert.informationAlert(RestaurantServerCommunication.addAllergyToDish(name, Integer.parseInt(dishIdFieldRead.getText())));
+                anchorPane.getChildren().removeAll(allergyImage, allergyNameTextField, allergyAddButton);
+                retrieveAllAllergies();
+            }
+        }
+    }
+
+    /**
+     * Takes care of deleting a restaurant.
+     */
+    public void deleteRestaurant() {
+        if (idFieldRead.getText().isEmpty()) {
+            CustomAlert.warningAlert("No selection detected.");
+        } else {
+            CustomAlert.informationAlert(RestaurantServerCommunication.deleteRestaurant(Integer.parseInt(idFieldRead.getText())));
+            retrieveOwnedRestaurants();
+        }
+    }
+
+    /**
+     * Takes care of updating building hours
+     */
+    public void updateRestaurantHours() {
+        updateRestaurantHoursAlert(daysChoiceBox, datePicker, idFieldRead, hoursEndTime,
+                minutesEndTime, hoursStartTime, minutesStartTime, restaurantId);
+    }
+
+    /**
+     * Sets the start and end time text fields.
+     * @param restaurantId restaurant id.
+     * @param day the day of the week represented in int (1 - 7)
+     */
+    public void setStartAndEndTimeTextFields(int restaurantId, int day) {
+        try {
+            RestaurantHours restaurantHours = JsonMapper.restaurantHoursMapper(
+                    RestaurantServerCommunication.findRestaurantHoursByDay(restaurantId, day));
+            LocalTime startTime = restaurantHours.getStartTime();
+            hoursStartTime.setText(Integer.toString(startTime.getHour()));
+            minutesStartTime.setText(Integer.toString(startTime.getMinute()));
+            LocalTime endTime = restaurantHours.getEndTime();
+            hoursEndTime.setText(Integer.toString(endTime.getHour()));
+            minutesEndTime.setText(Integer.toString(endTime.getMinute()));
+        } catch (JsonProcessingException e) {
+            hoursStartTime.clear();
+            minutesStartTime.clear();
+            hoursEndTime.clear();
+            minutesEndTime.clear();
+        }
+    }
+
+    /**
+     * Loads the days into the choice box.
+     */
+    private void loadDaysChoiceBox() {
+        daysList.clear();
+        daysList.addAll("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday");
+        daysChoiceBox.getItems().addAll(daysList);
+    }
+
+    /**
+     * Sets all the necessary listeners to perform actions, whenever the table rows are selected.
+     */
+    private void setListeners() {
         dishTableView.getSelectionModel().selectedItemProperty().addListener((obs) -> {
             anchorPane.getChildren().remove(deleteButton);
 
             final Dish dish = dishTableView.getSelectionModel().getSelectedItem();
-            if (dish != null) {
-                // Sets all the fields if there's a valid selection.
+            if (dish != null) { // Sets all the fields if there's a valid selection.
                 dishIdFieldRead.setText(Integer.toString(dish.getId()));
                 dishNameFieldRead.setText(dish.getName());
                 dishPriceFieldRead.setText(Double.toString((double) dish.getPrice() / 100));
                 dishDescriptionFieldRead.setText(dish.getDescription());
                 dishImageTextField.setText(dish.getImage());
-            } else {
-                // If the selection is not valid, clear the fields so that fields don't stay hanging if you switch
+            } else { // If the selection is not valid, clear the fields so that fields don't stay hanging if you switch
                 dishIdFieldRead.clear();
                 dishNameFieldRead.clear();
                 dishPriceFieldRead.clear();
@@ -614,16 +606,10 @@ public class DatabaseRestaurantMenuController implements Initializable {
                 }
             }
         });
-    }
 
-    /**
-     * Listener that checks if a row is selected in the restaurant table, if so, fill the text fields.
-     */
-    public void restautantTableSelectListener() {
         restaurantTable.getSelectionModel().selectedItemProperty().addListener((obs) -> {
             restaurant = restaurantTable.getSelectionModel().getSelectedItem();
-            if (restaurant != null) {
-                // Sets the fields
+            if (restaurant != null) { // Sets the fields
                 restaurantId = restaurant.getId();
                 idFieldRead.setText(Integer.toString(restaurant.getId()));
                 nameFieldRead.setText(restaurant.getName());
@@ -647,22 +633,7 @@ public class DatabaseRestaurantMenuController implements Initializable {
                 retrieveAllDishes();
             }
         });
-    }
 
-    /**
-     * Sets all fields to 0 to indicate that that means closed.
-     */
-    public void setClosedTextFields() {
-        hoursStartTime.setText("0");
-        minutesStartTime.setText("0");
-        hoursEndTime.setText("0");
-        minutesEndTime.setText("0");
-    }
-
-    /**
-     * Listener that checks if a row is selected in the allergies table, if so, fill the text fields.
-     */
-    public void allergiesTableSelectListener() {
         allergiesTableCurrent.getSelectionModel().selectedItemProperty().addListener((obs) -> {
             anchorPane.getChildren().remove(deleteButtonAllergies);
 
@@ -694,308 +665,9 @@ public class DatabaseRestaurantMenuController implements Initializable {
                 }
             }
         });
-    }
 
-    /**
-     * Takes care of updating the menu name.
-     */
-    public void updateMenuName() {
-        String name = menuNameFieldRead.getText();
-        if (name.equals("")) {
-            CustomAlert.warningAlert("Please provide a name.");
-        }
-        CustomAlert.informationAlert(RestaurantServerCommunication.updateMenuName(Integer.parseInt(menuIdFieldRead.getText()), name));
-    }
-
-    /**
-     * Takes care of updating all values for restaurant.
-     */
-    public void updateRestaurant() {
-        int buildingId;
-        boolean buildingFound = false;
-
-        if (idFieldRead.getText().isEmpty()) {
-            CustomAlert.warningAlert("No selection detected.");
-            return;
-        }
-
-        // Executes various checks to show the proper alerts to a user
-        try {
-            buildingId = Integer.parseInt(locationFieldRead.getText());
-        } catch (NumberFormatException e) {
-            Building building = null;
-            if (!locationFieldRead.getText().equals("")) {
-                try {
-                    building = JsonMapper.buildingMapper(BuildingServerCommunication.findBuildingByName(locationFieldRead.getText()));
-                } catch (JsonProcessingException ex) {
-                    CustomAlert.errorAlert("Building not found.");
-                }
-            } else {
-                CustomAlert.warningAlert("Please provide a building.");
-                return;
-            }
-            if (building == null) {
-                CustomAlert.errorAlert("Building not found");
-                return;
-            } else {
-                buildingId = building.getId();
-                buildingFound = true;
-            }
-        }
-
-        // If there's actually a building, then start executing the update methods.
-        // More if checks, to show the proper alert to the user so we are as clear as possible.
-        if (buildingFound) {
-            if (nameFieldRead.getText().isEmpty()) {
-                CustomAlert.warningAlert("Please provide a name.");
-                return;
-            } else {
-                RestaurantServerCommunication.updateRestaurant(Integer.parseInt(idFieldRead.getText()), "name", nameFieldRead.getText());
-            }
-            if (locationFieldRead.getText().isEmpty()) {
-                CustomAlert.warningAlert("Please provide a building.");
-                return;
-            } else {
-                RestaurantServerCommunication.updateRestaurant(Integer.parseInt(idFieldRead.getText()), "building", Integer.toString(buildingId));
-            }
-            if (ownerTextField.getText().isEmpty()) {
-                CustomAlert.warningAlert("Please provide a owner.");
-                return;
-            } else {
-                RestaurantServerCommunication.updateRestaurant(Integer.parseInt(idFieldRead.getText()), "email", ownerTextField.getText());
-            }
-        } else {
-            CustomAlert.warningAlert("Building not found.");
-            return;
-        }
-        retrieveOwnedRestaurants();
-        CustomAlert.informationAlert("Successfully executed.");
-    }
-
-    /**
-     * Takes care of deleting a menu.
-     */
-    public void deleteMenu() {
-        int menuId = Integer.parseInt(menuIdFieldRead.getText());
-        if (RestaurantServerCommunication.findDishesByMenu(menuId).equals("Not found.")) {
-            CustomAlert.informationAlert(RestaurantServerCommunication.deleteMenu(menuId));
-            menuIdFieldRead.clear();
-            menuNameFieldRead.clear();
-        } else {
-            CustomAlert.warningAlert("Please delete all dishes first.");
-        }
-    }
-
-    /**
-     * Takes care of all the update values for a dish.
-     */
-    public void updateDish() {
-        int dishId = Integer.parseInt(dishIdFieldRead.getText());
-
-        // Checks again if all fields and values are correct. And gives the user the appropriate error if not.
-        try {
-            double price = -1;
-            if (dishNameFieldRead.getText().isEmpty()) {
-                CustomAlert.warningAlert("Please provide a name.");
-                return;
-            } else {
-                String name = dishNameFieldRead.getText();
-                RestaurantServerCommunication.updateDish(dishId, "name", name);
-            }
-            if (dishPriceFieldRead.getText().isEmpty()) {
-                CustomAlert.warningAlert("Please provide a price.");
-                return;
-            } else {
-                try {
-                    price = Double.parseDouble(dishPriceFieldRead.getText());
-                    RestaurantServerCommunication.updateDish(dishId, "price", Integer.toString((int) (price * 100)));
-                } catch (NumberFormatException e) {
-                    CustomAlert.warningAlert("Price requires a number.");
-                    return;
-                }
-            }
-
-            // A image is optional, it doesn't have to be filled in, hence there are no checks regarding it.
-            RestaurantServerCommunication.updateDish(dishId, "image", dishImageTextField.getText());
-
-            if (dishDescriptionFieldRead.getText().isEmpty()) {
-                CustomAlert.warningAlert("Please provide a description.");
-                return;
-            } else {
-                String description = dishDescriptionFieldRead.getText();
-                RestaurantServerCommunication.updateDish(dishId, "description", description);
-            }
-        } catch (Exception e) {
-            CustomAlert.warningAlert("No selection detected.");
-            return;
-        }
-        CustomAlert.informationAlert("Successfully executed.");
-        retrieveAllDishes();
-    }
-
-    /**
-     * Shows the add allergy button and text fields for adding an allergy to a dish.
-     */
-    public void showAddAllergies() {
-        try {
-            anchorPane.getChildren().addAll(allergyImage, allergyNameTextField, allergyAddButton);
-        } catch (IllegalArgumentException e) {
-            anchorPane.getChildren().addAll(allergyImage, allergyNameTextField, allergyAddButton);
-        }
-    }
-
-    /**
-     * Takes care of adding an allergy to a dish.
-     */
-    public void addAllergy() {
-        if (allergyNameTextField.getText().isEmpty()) {
-            CustomAlert.warningAlert("Please provide an allergy name.");
-        } else {
-            String name = allergyNameTextField.getText();
-            if (menuIdFieldRead.getText().isEmpty()) {
-                CustomAlert.warningAlert("No dish selection detected.");
-            } else {
-                CustomAlert.informationAlert(RestaurantServerCommunication.addAllergyToDish(name, Integer.parseInt(dishIdFieldRead.getText())));
-                anchorPane.getChildren().remove(allergyImage);
-                anchorPane.getChildren().remove(allergyNameTextField);
-                anchorPane.getChildren().remove(allergyAddButton);
-                retrieveAllAllergies();
-            }
-        }
-    }
-
-    /**
-     * Takes care of deleting a restaurant.
-     */
-    public void deleteRestaurant() {
-        if (idFieldRead.getText().isEmpty()) {
-            CustomAlert.warningAlert("No selection detected.");
-        } else {
-            CustomAlert.informationAlert(RestaurantServerCommunication.deleteRestaurant(Integer.parseInt(idFieldRead.getText())));
-            retrieveOwnedRestaurants();
-        }
-    }
-
-    /**
-     * Takes care of updating building hours
-     */
-    public void updateRestaurantHours() {
-        int day = 0;
-        // Long list of if statements checking for various things such as
-        // If all values are there, if the values are not out of bounds and if the values are viable to use.
-        try {
-            if (daysChoiceBox.getValue() == null && datePicker.getValue() == null) {
-                CustomAlert.errorAlert("Please select either a day or a date.");
-                daysChoiceBox.setValue(null);
-                datePicker.setValue(null);
-            } else if (idFieldRead.getText().isEmpty()) {
-                CustomAlert.warningAlert("No selection detected.");
-            } else if (hoursEndTime.getText().isEmpty()
-                    || minutesEndTime.getText().isEmpty()
-                    || hoursStartTime.getText().isEmpty()
-                    || hoursEndTime.getText().isEmpty()) {
-                CustomAlert.warningAlert("Please provide opening and closing time.");
-            } else if (Integer.parseInt(hoursStartTime.getText()) > 23 || Integer.parseInt(hoursEndTime.getText()) > 23) {
-                CustomAlert.warningAlert("Hours cannot be larger than 23.");
-            } else if (Integer.parseInt(minutesStartTime.getText()) > 59 || Integer.parseInt(minutesEndTime.getText()) > 59) {
-                CustomAlert.warningAlert("Minutes cannot be larger than 59.");
-            } else if (datePicker.getValue() == null) {
-                // Switch case that turns the day string into a number
-                switch (daysChoiceBox.getValue()) {
-                    case "Monday":
-                        day = 1;
-                        break;
-                    case "Tuesday":
-                        day = 2;
-                        break;
-                    case "Wednesday":
-                        day = 3;
-                        break;
-                    case "Thursday":
-                        day = 4;
-                        break;
-                    case "Friday":
-                        day = 5;
-                        break;
-                    case "Saturday":
-                        day = 6;
-                        break;
-                    case "Sunday":
-                        day = 7;
-                        break;
-                    default:
-                        CustomAlert.errorAlert("Day not recognized.");
-                        daysChoiceBox.setValue(null);
-                }
-                try {
-                    int startTime = Integer.parseInt(hoursStartTime.getText()) * 3600 + Integer.parseInt(minutesStartTime.getText()) * 60;
-                    int endTime = Integer.parseInt(hoursEndTime.getText()) * 3600 + Integer.parseInt(minutesEndTime.getText()) * 60;
-                    if (startTime > endTime) {
-                        CustomAlert.errorAlert("Opening hours cannot be later than closing hours.");
-                        return;
-                    }
-                    try {
-                        // Checks if there are already building hours there, if there are not this generates a JsonProcessingException that
-                        // that is then caught and instead of adding, we update the hours.
-                        // This is put in place because there's no explicit add building hours button or page.
-                        RestaurantHours restaurantHours = JsonMapper.restaurantHoursMapper(
-                                RestaurantServerCommunication.findRestaurantHoursByDay(restaurantId, day));
-
-                        String response = RestaurantServerCommunication.updateRestaurantHours(
-                                restaurantHours.getId(), "starttimes", Integer.toString(startTime));
-                        if (!response.equals("Successfully executed.")) {
-                            CustomAlert.errorAlert(response);
-                            return;
-                        }
-                        response = RestaurantServerCommunication.updateRestaurantHours(
-                                restaurantHours.getId(), "endtimes", Integer.toString(endTime));
-                        if (!response.equals("Successfully executed.")) {
-                            CustomAlert.errorAlert(response);
-                            return;
-                        }
-                        CustomAlert.informationAlert("Successfully executed.");
-                        // If exception, update building
-                    } catch (JsonProcessingException e) {
-                        System.out.println(restaurantId);
-                        e.printStackTrace();
-                        CustomAlert.informationAlert(RestaurantServerCommunication.addRestaurantHours(restaurantId, day, startTime, endTime));
-                    }
-                } catch (NumberFormatException ex) {
-                    CustomAlert.warningAlert("Restaurant hours have to be an integer.");
-                }
-                // If the day choice box is empty, take the date picker and update it that way.
-            } else {
-                LocalDate date = datePicker.getValue();
-                Instant instant = date.atStartOfDay(ZoneId.systemDefault()).toInstant();
-                long dateInMs = instant.toEpochMilli();
-                try {
-                    int startTime = Integer.parseInt(hoursStartTime.getText()) * 3600 + Integer.parseInt(minutesStartTime.getText()) * 60;
-                    int endTime = Integer.parseInt(hoursEndTime.getText()) * 3600 + Integer.parseInt(minutesEndTime.getText()) * 60;
-                    if (startTime > endTime) {
-                        CustomAlert.errorAlert("Opening hours cannot be later than closing hours.");
-                        return;
-                    }
-                    CustomAlert.informationAlert(RestaurantServerCommunication.addRestaurantHours(restaurantId, dateInMs, startTime, endTime));
-                } catch (NumberFormatException e) {
-                    CustomAlert.warningAlert("Restaurant hours have to be an integer.");
-                }
-            }
-        } catch (NumberFormatException e) {
-            CustomAlert.warningAlert("Restaurant hours have to be an integer.");
-        }
-    }
-
-    /**
-     * Sets the choice box to null if the user interacts with the date picker to prevent duplicate dates.
-     */
-    public void datePickerListener() {
         datePicker.valueProperty().addListener((obs) -> daysChoiceBox.setValue(null));
-    }
 
-    /**
-     * Automatically updates the fields when the user interacts with the choicebox.
-     */
-    public void daysChoiceBoxListener() {
         daysChoiceBox.getSelectionModel().selectedItemProperty().addListener((obs) -> {
             final String dayName = daysChoiceBox.getSelectionModel().getSelectedItem();
             if (dayName != null) {
@@ -1005,80 +677,12 @@ public class DatabaseRestaurantMenuController implements Initializable {
                 int restaurantId = Integer.parseInt(idFieldRead.getText());
                 int day = 0;
                 if (dayName != null) {
-                    switch (dayName) {
-                        case "Monday":
-                            day = 1;
-                            setStartAndEndTimeTextFields(restaurantId, day);
-                            break;
-                        case "Tuesday":
-                            day = 2;
-                            setStartAndEndTimeTextFields(restaurantId, day);
-                            break;
-                        case "Wednesday":
-                            day = 3;
-                            setStartAndEndTimeTextFields(restaurantId, day);
-                            break;
-                        case "Thursday":
-                            day = 4;
-                            setStartAndEndTimeTextFields(restaurantId, day);
-                            break;
-                        case "Friday":
-                            day = 5;
-                            setStartAndEndTimeTextFields(restaurantId, day);
-                            break;
-                        case "Saturday":
-                            day = 6;
-                            setStartAndEndTimeTextFields(restaurantId, day);
-                            break;
-                        case "Sunday":
-                            day = 7;
-                            setStartAndEndTimeTextFields(restaurantId, day);
-                            break;
-                        default:
-                            CustomAlert.errorAlert("Day not recognized.");
-                            daysChoiceBox.setValue(null);
+                    day = daySwitchCase(daysChoiceBox);
+                    if (day > 0) {
+                        setStartAndEndTimeTextFields(restaurantId, day);
                     }
                 }
             }
         });
-    }
-
-    /**
-     * Sets the start and end time text fields.
-     * @param restaurantId restaurant id.
-     * @param day the day of the week represented in int (1 - 7)
-     */
-    public void setStartAndEndTimeTextFields(int restaurantId, int day) {
-        try {
-            RestaurantHours restaurantHours = JsonMapper.restaurantHoursMapper(
-                    RestaurantServerCommunication.findRestaurantHoursByDay(restaurantId, day));
-            LocalTime startTime = restaurantHours.getStartTime();
-            hoursStartTime.setText(Integer.toString(startTime.getHour()));
-            minutesStartTime.setText(Integer.toString(startTime.getMinute()));
-            LocalTime endTime = restaurantHours.getEndTime();
-            hoursEndTime.setText(Integer.toString(endTime.getHour()));
-            minutesEndTime.setText(Integer.toString(endTime.getMinute()));
-        } catch (JsonProcessingException e) {
-            hoursStartTime.clear();
-            minutesStartTime.clear();
-            hoursEndTime.clear();
-            minutesEndTime.clear();
-        }
-    }
-
-    /**
-     * Loads the days into the choice box.
-     */
-    private void loadDaysChoiceBox() {
-        daysList.clear();
-        String a = "Monday";
-        String b = "Tuesday";
-        String c = "Wednesday";
-        String d = "Thursday";
-        String e = "Friday";
-        String f = "Saturday";
-        String g = "Sunday";
-        daysList.addAll(a, b, c, d, e, f, g);
-        daysChoiceBox.getItems().addAll(daysList);
     }
 }
