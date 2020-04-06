@@ -26,7 +26,7 @@ Clone or download the repository. To run the project it is required to have the 
 
 [Java JDK 13](https://www.oracle.com/java/technologies/javase-jdk13-downloads.html) & [JavaFX-13](https://openjfx.io/).
 
-If you are interested in contributing to our project, please follow use our [Checkstyle](config/checkstyle/checkstyle.xml) requirements. If you are using [CheckStyle-IDEA](https://plugins.jetbrains.com/plugin/1065-checkstyle-idea), it is then required to use version 8.25. Furthermore, it is essential that [Git LFS](https://git-lfs.github.com/) is installed. No further requirements! All help is welcome.
+If you are interested in contributing to our project, please follow use our [Checkstyle](config/checkstyle/checkstyle.xml) requirements. If you are using [CheckStyle-IDEA](https://plugins.jetbrains.com/plugin/1065-checkstyle-idea), it is then required to use version 8.25. Furthermore, it is essential that [Git LFS](https://git-lfs.github.com/) is installed. No further requirements!
 
 ## How to run it
 You can run the application directly from the IDE. To run the server side of the application, run `DatabaseApplication`. To run the client side, run `MainApp`.
