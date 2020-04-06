@@ -15,9 +15,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-import nl.tudelft.oopp.demo.communication.DishServerCommunication;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
-import nl.tudelft.oopp.demo.communication.UserServerCommunication;
+import nl.tudelft.oopp.demo.communication.RestaurantServerCommunication;
 import nl.tudelft.oopp.demo.entities.FoodOrder;
 import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
@@ -55,13 +54,12 @@ public class MyPreviousFoodReservationsController implements Initializable {
         foodOrderResult.clear();
         List<FoodOrder> foodOrders;
         try {
-            String json = DishServerCommunication.getAllPreviousFoodOrders();
+            String json = RestaurantServerCommunication.getAllPreviousFoodOrders();
             List<FoodOrder> foodOrders1 = JsonMapper.foodOrdersListMapper(json);
             foodOrders = new ArrayList<>(foodOrders1);
         } catch (Exception e) {
             // Fakes the table having any entries, so the table shows up properly instead of "No contents".
             foodOrders = new ArrayList<>();
-            foodOrders.add(null);
         }
 
         Collections.sort(foodOrders);
@@ -102,9 +100,9 @@ public class MyPreviousFoodReservationsController implements Initializable {
                 return;
             }
             String response1 =
-                    DishServerCommunication.addFeedbackFoodOrder(table.getSelectionModel().getSelectedItem().getId(), true);
+                    RestaurantServerCommunication.addFeedbackFoodOrder(table.getSelectionModel().getSelectedItem().getId(), true);
             String response2 =
-                    DishServerCommunication.addFoodFeedbackRestaurant(table.getSelectionModel().getSelectedItem().getRestaurant().getId(), true);
+                    RestaurantServerCommunication.addFoodFeedbackRestaurant(table.getSelectionModel().getSelectedItem().getRestaurant().getId(), true);
             if (!(response1.equals("Successfully executed."))) {
                 CustomAlert.informationAlert(response1);
                 return;
@@ -131,9 +129,9 @@ public class MyPreviousFoodReservationsController implements Initializable {
                 return;
             }
             String response1 =
-                    DishServerCommunication.addFeedbackFoodOrder(table.getSelectionModel().getSelectedItem().getId(), false);
+                    RestaurantServerCommunication.addFeedbackFoodOrder(table.getSelectionModel().getSelectedItem().getId(), false);
             String response2 =
-                    DishServerCommunication.addFoodFeedbackRestaurant(table.getSelectionModel().getSelectedItem().getRestaurant().getId(), false);
+                    RestaurantServerCommunication.addFoodFeedbackRestaurant(table.getSelectionModel().getSelectedItem().getRestaurant().getId(), false);
             if (!(response1.equals("Successfully executed."))) {
                 CustomAlert.informationAlert(response1);
                 return;
