@@ -19,7 +19,8 @@ public class Room {
 
     private Building building;
 
-    private boolean studySpecific;
+    private String faculty;
+    private boolean facultySpecific;
     private boolean projector;
     private boolean screen;
     private int capacity;
@@ -31,20 +32,22 @@ public class Room {
      * Creates a new instance of Room.
      * @param name = name of the room.
      * @param building = building in which room is situated.
-     * @param studySpecific = whether the room is study specific
+     * @param faculty = name of the faculty.
+     * @param facultySpecific = whether the room is faculty specific.
      * @param projector = whether the room has a projector.
      * @param screen = whether the room has a screen.
      * @param capacity = number of people who can sit in the room.
      * @param plugs = number of plugs in the room.
      */
-    public Room(String name, Building building, boolean studySpecific, boolean projector, boolean screen, int capacity, int plugs) {
+    public Room(String name, Building building, String faculty, boolean facultySpecific, boolean projector, boolean screen, int capacity, int plugs) {
         this.name = name;
         this.building = building;
+        this.faculty = faculty;
+        this.facultySpecific = facultySpecific;
         this.projector = projector;
         this.screen = screen;
         this.capacity = capacity;
         this.plugs = plugs;
-        this.studySpecific = studySpecific;
     }
 
     public Room() {
@@ -57,6 +60,14 @@ public class Room {
 
     public void setBuilding(Building building) {
         this.building = building;
+    }
+
+    public void setFaculty(String faculty) {
+        this.faculty = faculty;
+    }
+
+    public void setFacultySpecific(boolean facultySpecific) {
+        this.facultySpecific = facultySpecific;
     }
 
     public void setProjector(boolean projector) {
@@ -79,9 +90,6 @@ public class Room {
         this.roomReservations = roomReservations;
     }
 
-    public void setStudySpecific(boolean studySpecific) {
-        this.studySpecific = studySpecific;
-    }
 
     public Integer getId() {
         return id;
@@ -104,9 +112,12 @@ public class Room {
         return new SimpleStringProperty(name);
     }
 
+    public String getFaculty() {
+        return faculty;
+    }
 
-    public boolean isStudySpecific() {
-        return studySpecific;
+    public boolean isFacultySpecific() {
+        return facultySpecific;
     }
 
     public boolean isProjector() {
@@ -160,13 +171,14 @@ public class Room {
             return false;
         }
         Room room = (Room) o;
-        return projector == room.projector
+        return facultySpecific == room.facultySpecific
+                && projector == room.projector
                 && screen == room.screen
                 && capacity == room.capacity
                 && plugs == room.plugs
                 && Objects.equals(name, room.name)
                 && Objects.equals(building, room.building)
-                && Objects.equals(studySpecific, room.studySpecific)
+                && Objects.equals(faculty, room.faculty)
                 && Objects.equals(roomReservations, room.roomReservations);
     }
 
