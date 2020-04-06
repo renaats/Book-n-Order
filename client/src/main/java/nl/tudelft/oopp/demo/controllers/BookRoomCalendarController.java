@@ -21,6 +21,7 @@ import javafx.scene.SubScene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
+import javafx.scene.text.Text;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.Building;
@@ -48,6 +49,18 @@ public class BookRoomCalendarController implements Initializable {
     TextField fromTime;
     @FXML
     TextField untilTime;
+    @FXML
+    Text scheduleText;
+    @FXML
+    Text plugNumber;
+    @FXML
+    Text buildingName;
+    @FXML
+    Text capacity;
+    @FXML
+    Text projector;
+    @FXML
+    Text screen;
 
     public BookRoomCalendarController() {
     }
@@ -70,6 +83,15 @@ public class BookRoomCalendarController implements Initializable {
         calendarView.loadRoomReservations();
         calendarView.setShowToolBar(false);
         calendarContainer.setRoot(calendarView);
+    }
+
+    public void displayRoomInformation() {
+        scheduleText.setText("Schedule for Room: " + SelectedRoom.getSelectedRoom().getName());
+        buildingName.setText(SelectedRoom.getSelectedRoom().getBuilding().getName());
+        plugNumber.setText(String.valueOf(SelectedRoom.getSelectedRoom().getPlugs()));
+        capacity.setText(String.valueOf(SelectedRoom.getSelectedRoom().getCapacity()));
+        projector.setText(String.valueOf(SelectedRoom.getSelectedRoom().isProjector()));
+        screen.setText(String.valueOf(SelectedRoom.getSelectedRoom().isScreen()));
     }
 
     /**
@@ -202,5 +224,6 @@ public class BookRoomCalendarController implements Initializable {
         reserveSlot.disarm();
         showCal();
         disableFields();
+        displayRoomInformation();
     }
 }
