@@ -352,4 +352,21 @@ public class FoodOrderService {
         foodOrderRepository.save(foodOrder);
         return EXECUTED;
     }
+
+    /**
+     * Adds a feedback to the food order.
+     * @param foodOrderId the id of the food order.
+     * @param feedback the feedback (true if positive, false if negative).
+     * @return an error code.
+     */
+    public int addFeedback(int foodOrderId, boolean feedback) {
+        if (foodOrderRepository.findById(foodOrderId).isEmpty()) {
+            return ORDER_NOT_FOUND;
+        }
+        FoodOrder foodOrder = foodOrderRepository.findById(foodOrderId).get();
+        foodOrder.setFeedback(feedback);
+        foodOrder.setFeedbackHasBeenGiven(true);
+        foodOrderRepository.save(foodOrder);
+        return EXECUTED;
+    }
 }

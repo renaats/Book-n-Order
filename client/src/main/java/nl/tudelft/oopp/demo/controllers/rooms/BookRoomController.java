@@ -349,7 +349,7 @@ public class BookRoomController implements Initializable {
                                 goToRoomCalendar();
                             }
                         } catch (IOException e) {
-                            e.printStackTrace();
+                            //Left empty
                         }
                     });
                     anchorPane.getChildren().add(reserveButton);

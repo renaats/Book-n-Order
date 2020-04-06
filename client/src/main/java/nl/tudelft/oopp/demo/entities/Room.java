@@ -14,10 +14,9 @@ import javafx.beans.property.StringProperty;
 public class Room {
 
     private Integer id;
-
     private String name;
-
     private Building building;
+    private String faculty;
     private String studySpecific;
     private String status;
     private boolean projector;
@@ -31,13 +30,14 @@ public class Room {
      * Creates a new instance of Room.
      * @param name = name of the room.
      * @param building = building in which room is situated.
-     * @param studySpecific = whether the room is study specific.
+     * @param studySpecific = whether the room is faculty specific.
      * @param projector = whether the room has a projector.
      * @param screen = whether the room has a screen.
      * @param capacity = number of people who can sit in the room.
      * @param plugs = number of plugs in the room.
      * @param status = the status of the room.
      */
+     
     public Room(String name, Building building, String studySpecific, boolean projector, boolean screen, int capacity, int plugs, String status) {
         this.name = name;
         this.building = building;
@@ -61,6 +61,14 @@ public class Room {
         this.building = building;
     }
 
+    public void setFaculty(String faculty) {
+        this.faculty = faculty;
+    }
+
+    public void setStudySpecific(String studySpecific) {
+        this.studySpecific = studySpecific;
+    }
+
     public void setProjector(boolean projector) {
         this.projector = projector;
     }
@@ -79,10 +87,6 @@ public class Room {
 
     public void setRoomReservations(Set<RoomReservation> roomReservations) {
         this.roomReservations = roomReservations;
-    }
-
-    public void setStudySpecific(String studySpecific) {
-        this.studySpecific = studySpecific;
     }
 
     public void setStatus(String status) {
@@ -120,6 +124,10 @@ public class Room {
     public StringProperty getBuildingNameProperty() {
         String name = getBuilding().getName();
         return new SimpleStringProperty(name);
+    }
+
+    public String getFaculty() {
+        return faculty;
     }
 
     public boolean isProjector() {

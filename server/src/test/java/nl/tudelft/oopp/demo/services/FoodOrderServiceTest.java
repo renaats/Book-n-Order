@@ -143,8 +143,8 @@ public class FoodOrderServiceTest {
         dishes.add(dish1);
         dishes.add(dish2);
 
-        foodOrder = new FoodOrder(restaurant, appUser, deliverLocation, deliverTime);
-        foodOrder2 = new FoodOrder(restaurant, appUser, deliverLocation, deliverTime2);
+        foodOrder = new FoodOrder(restaurant, appUser, deliverLocation, deliverTime, menuRepository.findAll().get(0));
+        foodOrder2 = new FoodOrder(restaurant, appUser, deliverLocation, deliverTime2, menuRepository.findAll().get(0));
 
         request = new MockHttpServletRequest();
         String token = JWT.create()
@@ -434,6 +434,16 @@ public class FoodOrderServiceTest {
         foodOrderService.add(request, restaurant.getId(), deliverLocation.getId(), deliverTimeMilliseconds2);
         MockHttpServletRequest request = new MockHttpServletRequest();
         assertEquals(WRONG_USER, foodOrderService.cancel(request, foodOrderService.all().get(0).getId()));
+    }
+
+    /**
+     * Tests the adding of feedback.
+     */
+    @Test
+    public void testAddFeedback() {
+        foodOrderService.add(request, restaurant.getId(), deliverLocation.getId(), deliverTimeMilliseconds2);
+        foodOrderService.addFeedback(foodOrderService.all().get(0).getId(), true);
+        assertTrue(foodOrderService.all().get(0).isFeedbackHasBeenGiven());
     }
 
     /**

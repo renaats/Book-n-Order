@@ -3,7 +3,6 @@ package nl.tudelft.oopp.demo.controllers.generic;
 import java.io.IOException;
 
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
-import nl.tudelft.oopp.demo.views.PersonalCalendarView;
 
 /**
  * Loads the correct content into the FXML objects that need to display server information and
@@ -14,8 +13,8 @@ public class MainMenuController {
     /**
      * Handles the clicking of the calendar icon.
      */
-    public void calendarIcon() {
-        ApplicationDisplay.showCalendarScene(new PersonalCalendarView());
+    public void calendarIcon() throws IOException {
+        ApplicationDisplay.changeScene("/PersonalCalendar.fxml");
     }
 
     /**
@@ -40,5 +39,13 @@ public class MainMenuController {
      */
     public void goToContactInformation() throws IOException {
         ApplicationDisplay.changeScene("/ContactInformation.fxml");
+    }
+
+    /**
+     * Handles the clicking of the Building Information button.
+     * @throws IOException when it fails
+     */
+    public void goToBuildingInformation() throws IOException {
+        ApplicationDisplay.changeScene("/BuildingInformation.fxml");
     }
 }

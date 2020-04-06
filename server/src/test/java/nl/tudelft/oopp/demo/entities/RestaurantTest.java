@@ -84,13 +84,23 @@ public class RestaurantTest {
     }
 
     /**
-     * Tests the the change of the building by using a setter.
+     * Tests the change of the building by using a setter.
      */
     @Test
     public void testChangeBuilding() {
         assertNotEquals(building2, restaurant.getBuilding());
         restaurant.setBuilding(building2);
         assertEquals(building2, restaurant.getBuilding());
+    }
+
+    /**
+     * Test adding feedback to a restaurant.
+     */
+    @Test
+    public void testAddFeedback() {
+        assertEquals(0, restaurant.getFeedbackCounter());
+        restaurant.addFeedback(true);
+        assertEquals(1, restaurant.getFeedbackCounter());
     }
 
     /**

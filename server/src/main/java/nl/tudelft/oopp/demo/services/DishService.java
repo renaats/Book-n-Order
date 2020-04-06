@@ -3,6 +3,7 @@ package nl.tudelft.oopp.demo.services;
 import static nl.tudelft.oopp.demo.config.Constants.ADDED;
 import static nl.tudelft.oopp.demo.config.Constants.ATTRIBUTE_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.DISH_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.DUPLICATE_NAME;
 import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
 import static nl.tudelft.oopp.demo.config.Constants.ID_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.MENU_NOT_FOUND;
@@ -62,6 +63,9 @@ public class DishService {
         if (RestaurantService.noPermissions(SecurityContextHolder.getContext(), menu.getRestaurant())) {
             return WRONG_CREDENTIALS;
         }
+        if (dishRepository.existsByNameAndMenuId(name, menuId)) {
+            return DUPLICATE_NAME;
+        }
 
         Dish dish = new Dish(name, menu, price, description, image);
         dish.setAllergies(new HashSet<>());
@@ -86,6 +90,9 @@ public class DishService {
         }
         switch (attribute) {
             case "name":
+                if (dishRepository.existsByNameAndMenuId(value, dish.getMenu().getId())) {
+                    return DUPLICATE_NAME;
+                }
                 dish.setName(value);
                 break;
             case "menu":

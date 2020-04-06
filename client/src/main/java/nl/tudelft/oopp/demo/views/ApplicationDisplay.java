@@ -13,8 +13,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import nl.tudelft.oopp.demo.controllers.bikes.BikeReservationConfirmationController;
 import nl.tudelft.oopp.demo.controllers.database.DatabaseAddDishController;
 import nl.tudelft.oopp.demo.controllers.database.DatabaseViewFoodOrderController;
+import nl.tudelft.oopp.demo.controllers.restaurants.FoodReservationConfirmationController;
 import nl.tudelft.oopp.demo.controllers.restaurants.OrderFoodController;
 import nl.tudelft.oopp.demo.controllers.rooms.RoomConfirmationController;
 import nl.tudelft.oopp.demo.entities.Dish;
@@ -72,12 +74,14 @@ public class ApplicationDisplay extends Application {
             try {
                 if (controllerClass == OrderFoodController.class) {
                     return new OrderFoodController((List<Dish>) variable1, (Restaurant) variable2);
+                } else if (controllerClass == FoodReservationConfirmationController.class) {
+                    return new FoodReservationConfirmationController((long) variable1,(String[]) variable2);
                 } else if (controllerClass == DatabaseViewFoodOrderController.class) {
                     return new DatabaseViewFoodOrderController((Restaurant) variable1);
                 } else if (controllerClass == DatabaseAddDishController.class) {
                     return new DatabaseAddDishController((Menu) variable1);
-                } else if (controllerClass == RoomConfirmationController.class) {
-                    return new RoomConfirmationController(new Date((long)variable1), new Date((long)variable2));
+                } else if (controllerClass == BikeReservationConfirmationController.class) {
+                    return new BikeReservationConfirmationController((int[]) variable1, (long[]) variable2);
                 } else {
                     return controllerClass.getDeclaredConstructor().newInstance();
                 }

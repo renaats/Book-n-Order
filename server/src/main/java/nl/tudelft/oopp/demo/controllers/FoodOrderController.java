@@ -65,6 +65,19 @@ public class FoodOrderController {
         return foodOrderService.update(id, attribute, value);
     }
 
+
+    /**
+     * Adds feedback for some food order.
+     * @param id = the id of the food order.
+     * @return Int containing the result of your request.
+     */
+    @Secured({USER})
+    @PostMapping(path = "/addFeedback")
+    @ResponseBody
+    public int addFeedback(@RequestParam int id, @RequestParam boolean feedback) {
+        return foodOrderService.addFeedback(id, feedback);
+    }
+
     /**
      * Adds a dishOrder to a food order.
      * @param id = the id of the food order.
@@ -105,7 +118,7 @@ public class FoodOrderController {
     @Secured({ADMIN, RESTAURANT})
     @GetMapping(path = "/all")
     @ResponseBody
-    public Iterable<FoodOrder> getAllFoodOrders() {
+    public List<FoodOrder> getAllFoodOrders() {
         return foodOrderService.all();
     }
 

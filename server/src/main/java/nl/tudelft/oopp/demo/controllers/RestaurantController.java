@@ -51,6 +51,35 @@ public class RestaurantController {
         return restaurantService.add(buildingId, name, email);
     }
 
+
+    /**
+     * Adds a restaurant.
+     * @param id the restaurant id.
+     * @param feedback the feedback of the user.
+     * @return Error code.
+     */
+    @Secured({USER})
+    @PostMapping(path = "/addFeedback") // Map ONLY POST Requests
+    @ResponseBody
+    public int addNewRestaurant(
+            @RequestParam int id,
+            @RequestParam boolean feedback
+    ) {
+        return restaurantService.addFeedback(id,feedback);
+    }
+
+    /**
+     * Adds a review to a restaurant.
+     * @param id = the id of the restaurant
+     * @return Error code
+     */
+    @Secured("ROLE_USER")
+    @GetMapping(path = "/feedback")
+    @ResponseBody
+    public int restaurantFeedback(@RequestParam int id) {
+        return restaurantService.getFeedback(id);
+    }
+
     /**
      * Updates a specified attribute for some restaurant.
      * @param id = the id of the restaurant

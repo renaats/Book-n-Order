@@ -147,10 +147,10 @@ public class OrderFoodController implements Initializable {
                     for (Dish dish: dishes) {
                         RestaurantServerCommunication.addDishToFoodOrder(foodOrderId, dish.getName(), dish.getAmount());
                     }
-                    ApplicationDisplay.changeScene("/FoodConfirmation.fxml");
+                    String[] strings = {buildingChoiceBox.getValue(), restaurant.getName()};
+                    ApplicationDisplay.changeSceneWithVariables("/FoodConfirmation.fxml", dateLong, strings);
                 }
             } catch (Exception e) {
-                e.printStackTrace();
                 CustomAlert.errorAlert("Something went wrong.");
             }
         }

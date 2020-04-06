@@ -1,4 +1,4 @@
-package nl.tudelft.oopp.demo.controllers.generic;
+package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
 import java.net.URL;
@@ -13,6 +13,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 import nl.tudelft.oopp.demo.communication.JsonMapper;
+import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.communication.UserServerCommunication;
 import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.user.UserInformation;
@@ -20,7 +21,7 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
  * Loads the correct content into the FXML objects that need to display server information and
- * controls all the user inputs made through the GUI in the "MyAccountScene.fxml" file
+ * controls all the user inputs made through the GUI in the "myAccountScene.fxml" file
  */
 public class MyAccountController implements Initializable {
 
@@ -47,7 +48,7 @@ public class MyAccountController implements Initializable {
         try {
             showAdminButton = UserServerCommunication.getAdminButtonPermission();
         } catch (Exception e) {
-            //Left empty
+            e.printStackTrace();
         }
         if (!showAdminButton) {
             anchorPane.getChildren().remove(adminControl);
@@ -55,23 +56,23 @@ public class MyAccountController implements Initializable {
     }
 
     /**
-     * Changes current scene to MyCurrentBookings.fxml.
+     * Changes current scene to myCurrentBookings.fxml.
      * @throws IOException input will be valid.
      */
     public void myCurrentBookings() throws IOException {
-        ApplicationDisplay.changeScene("/MyCurrentBookings.fxml");
+        ApplicationDisplay.changeScene("/myCurrentBookings.fxml");
     }
 
     /**
-     * Changes current scene to MyPreviousBookings.fxml.
+     * Changes current scene to myPreviousBookings.fxml.
      * @throws IOException input will be valid.
      */
     public void myPreviousBookings() throws IOException {
-        ApplicationDisplay.changeScene("/MyPreviousBookings.fxml");
+        ApplicationDisplay.changeScene("/myPreviousBookings.fxml");
     }
 
     /**
-     * Method changes the view to that of the DatabaseMenu
+     *  method changes the view to that of the DatabaseMenu
      * @param actionEvent clicking the button admin
      * @throws IOException the method will never throw an exception
      */
@@ -80,12 +81,12 @@ public class MyAccountController implements Initializable {
     }
 
     /**
-     * Method changes the view to that of the main menu
+     *  method changes the view to that of the main menu
      * @param actionEvent clicking the button to go back to menu
      * @throws IOException the method will never throw an exception
      */
     public void mainMenu(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/MainMenu.fxml");
+        ApplicationDisplay.changeScene("/mainMenu.fxml");
     }
 
     /**
@@ -95,7 +96,7 @@ public class MyAccountController implements Initializable {
     public void logoutUser() throws IOException {
         UserServerCommunication.logoutUser();
         CustomAlert.informationAlert("Logged out!");
-        ApplicationDisplay.changeScene("/LoginScreen.fxml");
+        ApplicationDisplay.changeScene("/login-screen.fxml");
     }
 
     /**
@@ -104,7 +105,7 @@ public class MyAccountController implements Initializable {
      * @throws IOException this should never throw an exception
      */
     public void changePasswordScene(ActionEvent actionEvent) throws IOException {
-        ApplicationDisplay.changeScene("/ChangePassword.fxml");
+        ApplicationDisplay.changeScene("/changePassword.fxml");
     }
 
     /**
@@ -113,6 +114,6 @@ public class MyAccountController implements Initializable {
      * @throws IOException this method should never throw an exception
      */
     public void mainMenuIcon(MouseEvent mouseEvent) throws IOException {
-        ApplicationDisplay.changeScene("/MainMenu.fxml");
+        ApplicationDisplay.changeScene("/mainMenu.fxml");
     }
 }

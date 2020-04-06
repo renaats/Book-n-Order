@@ -11,7 +11,6 @@ import static nl.tudelft.oopp.demo.config.Constants.WRONG_CREDENTIALS;
 import static nl.tudelft.oopp.demo.security.SecurityConstants.EXPIRATION_TIME;
 import static nl.tudelft.oopp.demo.security.SecurityConstants.HEADER_STRING;
 import static nl.tudelft.oopp.demo.security.SecurityConstants.SECRET;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -184,6 +183,18 @@ public class RestaurantServiceTest {
     }
 
     /**
+     * Tests the change of the email by using the service.
+     */
+    @Test
+    @WithMockUser(username = "restaurant@tudelft.nl")
+    public void testGetFeedback() {
+        restaurantService.add(restaurant.getBuilding().getId(), restaurant.getName(), "restaurant@tudelft.nl");
+        int id = restaurantService.all().get(0).getId();
+        restaurantService.addFeedback(id, true);
+        assertEquals(1, restaurantService.find(id).getFeedbackCounter());
+    }
+
+    /**
      * Tests the change of the email by admins by using the service.
      */
     @Test
@@ -240,6 +251,16 @@ public class RestaurantServiceTest {
         int id = restaurantService.all().get(0).getId();
         assertEquals(EXECUTED, restaurantService.delete(id));
         assertEquals(0, restaurantService.all().size());
+    }
+
+    /**
+     * Tests the adding of feedback.
+     */
+    @Test
+    public void testAddFeedback() {
+        restaurantService.add(restaurant.getBuilding().getId(), restaurant.getName(), "restaurant@tudelft.nl");
+        restaurantService.addFeedback(restaurantService.all().get(0).getId(), true);
+        assertEquals(1,restaurantService.all().get(0).getFeedbackCounter());
     }
 
     /**
