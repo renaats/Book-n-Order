@@ -193,8 +193,7 @@ public class UserService {
         try {
             eventPublisher.publishEvent(new OnRegistrationSuccessEvent(appUser));
         } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Event did not go as expected.");
+            //Left empty
         }
         return ADDED_CONFIRM_EMAIL;
     }

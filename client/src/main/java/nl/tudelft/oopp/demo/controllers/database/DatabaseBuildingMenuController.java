@@ -534,7 +534,6 @@ public class DatabaseBuildingMenuController implements Initializable {
                         CustomAlert.informationAlert("Successfully executed.");
                         // If exception, update building
                     } catch (JsonProcessingException e) {
-                        e.printStackTrace();
                         CustomAlert.informationAlert(BuildingServerCommunication.addBuildingHours(buildingId, day, startTime, endTime));
                     }
                 } catch (NumberFormatException ex) {

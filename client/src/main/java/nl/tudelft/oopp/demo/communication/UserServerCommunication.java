@@ -57,7 +57,6 @@ public class UserServerCommunication {
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
         } catch (Exception e) {
-            e.printStackTrace();
             return false;
         }
         return response.body().contains("true");
@@ -73,7 +72,6 @@ public class UserServerCommunication {
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
         } catch (Exception e) {
-            e.printStackTrace();
             return false;
         }
         return response.body().contains("true");
@@ -89,7 +87,6 @@ public class UserServerCommunication {
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
         } catch (Exception e) {
-            e.printStackTrace();
             return false;
         }
         return response.body().contains("true");
@@ -157,7 +154,7 @@ public class UserServerCommunication {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            //Left empty
         }
         return ErrorMessages.getErrorMessage(311);
     }
