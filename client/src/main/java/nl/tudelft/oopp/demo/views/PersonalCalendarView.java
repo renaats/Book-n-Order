@@ -178,7 +178,7 @@ public class PersonalCalendarView extends CalendarView {
      */
     public void foodOrderCancellationHandler(CalendarEvent event) {
         if (event.isEntryRemoved()) {
-            DishServerCommunication.cancelFoodOrder(Integer.parseInt(event.getEntry().getId()));
+            RestaurantServerCommunication.cancelFoodOrder(Integer.parseInt(event.getEntry().getId()));
             CustomAlert.informationAlert(ErrorMessages.getErrorMessage(200));
         }
     }
