@@ -36,6 +36,7 @@ public class Room {
      * @param screen = whether the room has a screen.
      * @param capacity = number of people who can sit in the room.
      * @param plugs = number of plugs in the room.
+     * @param status = the status of the room.
      */
     public Room(String name, Building building, String studySpecific, boolean projector, boolean screen, int capacity, int plugs, String status) {
         this.name = name;

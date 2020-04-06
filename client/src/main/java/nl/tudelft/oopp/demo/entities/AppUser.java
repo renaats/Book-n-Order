@@ -26,6 +26,7 @@ public class AppUser {
      * @param name the user's first name.
      * @param surname the user's last name.
      * @param faculty the faculty the user belongs to.
+     * @param study the study of the user.
      */
     public AppUser(String email, String password, String name, String surname, String faculty, String study) {
         this.email = email;

@@ -165,7 +165,7 @@ public class BookRoomController implements Initializable {
     }
 
     /**
-     * Changes to MainMenuReservations.fxml.
+     * Changes to MainMenu.fxml.
      *
      * @throws IOException input will not be wrong, hence we throw.
      */
@@ -174,21 +174,21 @@ public class BookRoomController implements Initializable {
     }
 
     /**
-     * Changes to myPreviousBookings.fxml.
+     * Changes to MyPreviousBookings.fxml.
      *
      * @throws IOException input will not be wrong, hence we throw.
      */
     public void myPreviousBookings() throws IOException {
-        ApplicationDisplay.changeScene("/myPreviousBookings.fxml");
+        ApplicationDisplay.changeScene("/MyPreviousBookings.fxml");
     }
 
     /**
-     * Changes to myCurrentBookings.fxml.
+     * Changes to MyCurrentBookings.fxml.
      *
      * @throws IOException input will not be wrong, hence we throw.
      */
     public void myCurrentBookings() throws IOException {
-        ApplicationDisplay.changeScene("/myCurrentBookings.fxml");
+        ApplicationDisplay.changeScene("/MyCurrentBookings.fxml");
     }
 
     /**

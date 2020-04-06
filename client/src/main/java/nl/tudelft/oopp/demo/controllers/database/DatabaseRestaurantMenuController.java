@@ -169,7 +169,6 @@ public class DatabaseRestaurantMenuController implements Initializable {
     @FXML
     private TableColumn<Dish, Double> colDishPrice;
 
-
     private Button deleteButton;
     private Button deleteButtonAllergies;
 
@@ -224,7 +223,6 @@ public class DatabaseRestaurantMenuController implements Initializable {
         restaurantTableFlag = true;
         hoursToggleFlag = true;
 
-
         // Removes general elements that are hidden / shown by toggle boxes.
         // Allergies selection table elements
         anchorPane.getChildren().removeAll(previousPageButtonAllergiesSelected, nextPageButtonAllergiesSelected,
@@ -237,7 +235,6 @@ public class DatabaseRestaurantMenuController implements Initializable {
         anchorPane.getChildren().removeAll(dayText, dateText, daysChoiceBox, datePicker, hoursStartTime, hoursEndTime,
                 minutesEndTime, minutesStartTime, setClosedButton, updateRestaurantButton, updateRestaurantHoursButton,
                 restaurantHoursText, fromText, toText, semiColonText1, semiColonText2);
-
 
         pageNumber = 1;
         allergySelectedPageNumber = 1;
