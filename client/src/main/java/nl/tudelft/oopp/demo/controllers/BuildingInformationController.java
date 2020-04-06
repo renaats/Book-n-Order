@@ -205,7 +205,7 @@ public class BuildingInformationController implements Initializable {
             if (buildingMondayFrom.getText().equals(".") || buildingTuesdayFrom.getText().equals(".") || buildingWednesdayFrom.getText().equals(".")
                     || buildingThursdayFrom.getText().equals(".") || buildingFridayFrom.getText().equals(".")
                     || buildingSaturdayFrom.getText().equals(".") || buildingSundayFrom.getText().equals(".")) {
-                CustomAlert.warningAlert("Building has no, or only some, building hours.");
+                CustomAlert.warningAlert("(Some) building hours are unknown.");
                 return;
             }
             CustomAlert.warningAlert("Select a building to view its information.");
