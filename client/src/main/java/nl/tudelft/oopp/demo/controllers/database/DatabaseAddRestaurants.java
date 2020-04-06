@@ -196,13 +196,16 @@ public class DatabaseAddRestaurants implements Initializable {
 
             try {
                 buildingId = Integer.parseInt(buildingNameTextField.getText());
-            } catch (NumberFormatException e) {
+                JsonMapper.buildingMapper(BuildingServerCommunication.findBuilding(buildingId));
+                buildingFound = true;
+            } catch (NumberFormatException | JsonProcessingException e) {
                 Building building = null;
                 if (!buildingNameTextField.getText().equals("")) {
                     try {
                         building = JsonMapper.buildingMapper(BuildingServerCommunication.findBuildingByName(buildingNameTextField.getText()));
                     } catch (JsonProcessingException ex) {
                         CustomAlert.errorAlert("Building not found.");
+                        return;
                     }
                 } else {
                     CustomAlert.warningAlert("Please provide a building.");

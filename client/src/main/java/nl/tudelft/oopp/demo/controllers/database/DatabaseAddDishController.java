@@ -15,6 +15,7 @@ import nl.tudelft.oopp.demo.communication.RestaurantServerCommunication;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.UserServerCommunication;
 import nl.tudelft.oopp.demo.entities.Menu;
+import nl.tudelft.oopp.demo.entities.Restaurant;
 import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
@@ -34,27 +35,23 @@ public class DatabaseAddDishController implements Initializable {
     @FXML
     private TextArea descriptionTextArea;
 
+    private Menu menu;
     private int menuId;
+
+    public DatabaseAddDishController(Menu menu) {
+        this.menu = menu;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Menu menu = null;
-        try {
-            menu = JsonMapper.menuMapper(RestaurantServerCommunication.findMenuByRestaurant(
-                    JsonMapper.ownRestaurantMapper(RestaurantServerCommunication.getOwnedRestaurants()).get(0).getId()));
-        } catch (JsonProcessingException e) {
-            // Intentionally left blank
-        }
         if (menu != null) {
             menuId = menu.getId();
             menuTextField.setText(menu.getName());
         } else {
             CustomAlert.errorAlert("No menu found.");
         }
-        if (!UserServerCommunication.isUserAdmin()) {
-            menuTextField.setDisable(true);
-            menuTextField.setOpacity(0.75);
-        }
+        menuTextField.setDisable(true);
+        menuTextField.setOpacity(0.75);
     }
 
     /**

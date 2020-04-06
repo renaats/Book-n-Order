@@ -136,6 +136,7 @@ public class DatabaseAddBikeController implements Initializable {
         try {
             buildingId = Integer.parseInt(buildingIdTextField.getText());
             building = JsonMapper.buildingMapper(BuildingServerCommunication.findBuilding(buildingId));
+            buildingFound = true;
         } catch (NumberFormatException | JsonProcessingException e) {
             if (!buildingIdTextField.getText().equals("")) {
                 try {

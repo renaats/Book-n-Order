@@ -117,7 +117,6 @@ public class DatabaseAddMenuController implements Initializable {
                 return;
             }
             if (restaurant == null) {
-                CustomAlert.errorAlert("Restaurant not found.");
                 return;
             } else {
                 restaurantId = restaurant.getId();
@@ -127,7 +126,7 @@ public class DatabaseAddMenuController implements Initializable {
         String response = RestaurantServerCommunication.addMenu(name, restaurantId);
         if (response.equals("Successfully added!") && restaurantFound) {
             CustomAlert.informationAlert(response);
-        } else if (restaurantFound) {
+        } else {
             CustomAlert.errorAlert(response);
         }
     }

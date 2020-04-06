@@ -240,7 +240,16 @@ public class DatabaseRestaurantMenuController implements Initializable {
      * @throws IOException Should never throw the exception
      */
     public void goToAddDishes() throws IOException {
-        ApplicationDisplay.changeScene("/DatabaseAddDish.fxml");
+        if (restaurant == null) {
+            CustomAlert.warningAlert("Select a restaurant.");
+            return;
+        }
+        try {
+            Menu menu = JsonMapper.menuMapper(RestaurantServerCommunication.findMenuByRestaurant(restaurant.getId()));
+            ApplicationDisplay.changeSceneWithVariables("/DatabaseAddDish.fxml", menu, null);
+        } catch (Exception e) {
+            // Left blank
+        }
     }
 
     /**

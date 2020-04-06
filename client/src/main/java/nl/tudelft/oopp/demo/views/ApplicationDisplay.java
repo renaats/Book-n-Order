@@ -10,9 +10,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import nl.tudelft.oopp.demo.controllers.database.DatabaseAddDishController;
 import nl.tudelft.oopp.demo.controllers.database.DatabaseViewFoodOrderController;
 import nl.tudelft.oopp.demo.controllers.restaurants.OrderFoodController;
 import nl.tudelft.oopp.demo.entities.Dish;
+import nl.tudelft.oopp.demo.entities.Menu;
 import nl.tudelft.oopp.demo.entities.Restaurant;
 
 /**
@@ -64,6 +66,8 @@ public class ApplicationDisplay extends Application {
                     return new OrderFoodController((List<Dish>) variable1, (Restaurant) variable2);
                 } else if (controllerClass == DatabaseViewFoodOrderController.class) {
                     return new DatabaseViewFoodOrderController((Restaurant) variable1);
+                } else if (controllerClass == DatabaseAddDishController.class) {
+                    return new DatabaseAddDishController((Menu) variable1);
                 } else {
                     return controllerClass.getDeclaredConstructor().newInstance();
                 }

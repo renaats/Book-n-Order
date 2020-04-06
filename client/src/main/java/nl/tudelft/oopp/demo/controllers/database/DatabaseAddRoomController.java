@@ -215,6 +215,7 @@ public class DatabaseAddRoomController implements Initializable {
                     building = JsonMapper.buildingMapper(BuildingServerCommunication.findBuildingByName(buildingIdTextField.getText()));
                 } catch (JsonProcessingException ex) {
                     CustomAlert.errorAlert("Building not found.");
+                    return;
                 }
             } else {
                 CustomAlert.warningAlert("Please provide a building.");

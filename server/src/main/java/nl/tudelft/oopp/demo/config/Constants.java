@@ -40,5 +40,6 @@ public class Constants {
     public static final int MENU_NOT_FOUND = 429;
     public static final int DISH_NOT_FOUND = 430;
     public static final int INVALID_CONFIRMATION = 431;
+    public static final int MENU_ALREADY_EXISTS = 432;
     public static final int UNSUPPORTED_ENCODING = 502;
 }

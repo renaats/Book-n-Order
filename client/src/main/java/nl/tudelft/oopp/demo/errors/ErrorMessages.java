@@ -31,6 +31,7 @@ public class ErrorMessages {
     private static final String endBeforeStartMessage = "End time cannot be before start time.";
     private static final String duplicateBuildingDayMessage = "This building already has a time for this day.";
     private static final String restaurantNotFoundMessage = "Restaurant not found.";
+    private static final String menuAlreadyExistsMessage = "Already exists.";
     private static final String unsupportedEncodingMessage = "Please enter an encoding that is supported by the URLEncode class.";
     private static final String somethingWentWrongMessage = "Something went wrong.";
     private static final String menuNotFoundMessage = "Menu not found.";
@@ -112,6 +113,8 @@ public class ErrorMessages {
                 return dishNotFoundMessage;
             case 431:
                 return codesDoNotMatchMessage;
+            case 432:
+                return menuAlreadyExistsMessage;
             case 502:
                 return unsupportedEncodingMessage;
             default:

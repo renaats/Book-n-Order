@@ -2,6 +2,7 @@ package nl.tudelft.oopp.demo.services;
 
 import static nl.tudelft.oopp.demo.config.Constants.ADDED;
 import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
+import static nl.tudelft.oopp.demo.config.Constants.MENU_ALREADY_EXISTS;
 import static nl.tudelft.oopp.demo.config.Constants.MENU_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.RESTAURANT_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.WRONG_CREDENTIALS;
@@ -44,6 +45,9 @@ public class MenuService {
             return RESTAURANT_NOT_FOUND;
         }
         Restaurant restaurant = optionalRestaurant.get();
+        if (menuRepository.findByRestaurantId(restaurantId) != null) {
+            return MENU_ALREADY_EXISTS;
+        }
 
         if (RestaurantService.noPermissions(SecurityContextHolder.getContext(), restaurant)) {
             return WRONG_CREDENTIALS;
