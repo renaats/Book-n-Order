@@ -15,7 +15,7 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
  * Loads the correct content into the FXML objects that need to display server information and
- * controls all the user inputs made through the GUI in the "bookRoom.fxml" file
+ * controls all the user inputs made through the GUI in the "BookRoom.fxml" file
  */
 public class BookRoomController {
 
@@ -96,7 +96,7 @@ public class BookRoomController {
      * @throws IOException the input will always be the same, so it should never throw an IO exception
      */
     public void goToMainMenuReservations() throws IOException {
-        ApplicationDisplay.changeScene("/mainMenuReservations.fxml");
+        ApplicationDisplay.changeScene("/MainMenuReservations.fxml");
     }
     /**
      * return to the reservations menu when the back arrow button is clicked.
@@ -108,27 +108,27 @@ public class BookRoomController {
     }
 
     /**
-     * Changes to myCurrentBookings.fxml.
+     * Changes to MyCurrentBookings.fxml.
      * @throws IOException input will not be wrong, hence we throw.
      */
     public void myCurrentBookings() throws IOException {
-        ApplicationDisplay.changeScene("/myCurrentBookings.fxml");
+        ApplicationDisplay.changeScene("/MyCurrentBookings.fxml");
     }
 
     /**
-     * Changes to myPreviousBookings.fxml.
+     * Changes to MyPreviousBookings.fxml.
      * @throws IOException input will not be wrong, hence we throw.
      */
     public void myPreviousBookings() throws IOException {
-        ApplicationDisplay.changeScene("/myPreviousBookings.fxml");
+        ApplicationDisplay.changeScene("/MyPreviousBookings.fxml");
     }
 
     /**
-     * Changes to mainMenuReservations.fxml.
+     * Changes to MainMenuReservations.fxml.
      * @throws IOException input will not be wrong, hence we throw.
      */
     public void mainMenu() throws IOException {
-        ApplicationDisplay.changeScene("/mainMenu.fxml");
+        ApplicationDisplay.changeScene("/MainMenu.fxml");
     }
 
 }
