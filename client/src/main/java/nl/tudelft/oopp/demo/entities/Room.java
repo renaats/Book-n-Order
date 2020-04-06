@@ -37,6 +37,7 @@ public class Room {
      * @param plugs = number of plugs in the room.
      * @param status = the status of the room.
      */
+     
     public Room(String name, Building building, String studySpecific, boolean projector, boolean screen, int capacity, int plugs, String status) {
         this.name = name;
         this.building = building;
@@ -64,6 +65,10 @@ public class Room {
         this.faculty = faculty;
     }
 
+    public void setStudySpecific(String studySpecific) {
+        this.studySpecific = studySpecific;
+    }
+
     public void setProjector(boolean projector) {
         this.projector = projector;
     }
@@ -82,10 +87,6 @@ public class Room {
 
     public void setRoomReservations(Set<RoomReservation> roomReservations) {
         this.roomReservations = roomReservations;
-    }
-
-    public void setStudySpecific(String studySpecific) {
-        this.studySpecific = studySpecific;
     }
 
     public void setStatus(String status) {

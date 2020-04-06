@@ -44,6 +44,11 @@ public class FoodOrder {
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn
+    private Menu menu;
+
+    @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn
     private AppUser appUser;
 
     @ManyToOne
@@ -58,18 +63,23 @@ public class FoodOrder {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "foodOrder")
     private Set<DishOrder> dishOrders = new HashSet<>();
 
+    private boolean feedback;
+    private boolean feedbackHasBeenGiven;
+
     /** Creates a new instance of FoodOrder.
      * @param restaurant the restaurant at which the food order is placed.
      * @param appUser user who placed the food order.
      * @param deliveryLocation location of building where food needs to be delivered to/will be picked up from.
      * @param deliveryTime time at which food needs to be delivered.
      */
-    public FoodOrder(Restaurant restaurant, AppUser appUser, Building deliveryLocation, Date deliveryTime) {
+    public FoodOrder(Restaurant restaurant, AppUser appUser, Building deliveryLocation, Date deliveryTime, Menu menu) {
         this.restaurant = restaurant;
         this.appUser = appUser;
         this.deliveryLocation = deliveryLocation;
         this.deliveryTime = deliveryTime;
+        this.menu = menu;
         this.active = true;
+        this.feedbackHasBeenGiven = false;
         this.dishOrders = new HashSet<>();
     }
 
@@ -131,6 +141,30 @@ public class FoodOrder {
 
     public Set<DishOrder> getDishOrders() {
         return dishOrders;
+    }
+
+    public Menu getMenu() {
+        return menu;
+    }
+
+    public void setFeedbackHasBeenGiven(boolean feedbackHasBeenGiven) {
+        this.feedbackHasBeenGiven = feedbackHasBeenGiven;
+    }
+
+    public boolean isFeedbackHasBeenGiven() {
+        return feedbackHasBeenGiven;
+    }
+
+    public void setMenu(Menu menu) {
+        this.menu = menu;
+    }
+
+    public boolean isFeedback() {
+        return feedback;
+    }
+
+    public void setFeedback(boolean feedback) {
+        this.feedback = feedback;
     }
 
     @Override

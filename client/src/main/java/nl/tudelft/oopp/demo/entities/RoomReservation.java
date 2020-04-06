@@ -83,6 +83,15 @@ public class RoomReservation implements Comparable {
     }
 
     /**
+     * Makes the table list the name of the building instead of the building object.
+     * @return String property, a property recognized by the tables.
+     */
+    public StringProperty getBuildingNameProperty() {
+        String room = getRoom().getBuilding().getName();
+        return new SimpleStringProperty(room);
+    }
+
+    /**
      * Makes the table list the name of the room instead of the room object.
      * @return String property, a property recognized by the tables.
      */
@@ -92,7 +101,7 @@ public class RoomReservation implements Comparable {
     }
 
     /**
-     * Makes the table list the date in a readable way instead of the time object.
+     * Makes the table list the time in a readable form instead of the time object.
      * @return String property, a property recognized by the tables.
      */
     public StringProperty getToTimeProperty() {
@@ -102,7 +111,7 @@ public class RoomReservation implements Comparable {
     }
 
     /**
-     * Makes the table list the date in a readable way instead of the time object.
+     * Makes the table list the time in a readable form instead of the time object.
      * @return String property, a property recognized by the tables.
      */
     public StringProperty getFromTimeProperty() {
@@ -119,7 +128,7 @@ public class RoomReservation implements Comparable {
         }
         return -1;
     }
-    
+
     public String getFromTimeString() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd  HH:mm");
         return simpleDateFormat.format(fromTime);

@@ -19,6 +19,7 @@ public class Restaurant {
     private String name;
     private String email;
     private Menu menu;
+    private int feedbackCounter;
 
     /**
      * Creates a new instance of Restaurant.
@@ -73,6 +74,14 @@ public class Restaurant {
         return email;
     }
 
+    public int getFeedbackCounter() {
+        return feedbackCounter;
+    }
+
+    public void setFeedbackCounter(int feedbackCounter) {
+        this.feedbackCounter = feedbackCounter;
+    }
+    
     public Menu getMenu() {
         return menu;
     }

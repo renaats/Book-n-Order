@@ -48,6 +48,7 @@ public class FoodOrderTest {
     Building deliveryLocation;
     AppUser appUser;
     Menu menu;
+    Menu menu2;
 
     /**
      * Sets up the entities and saves them in the repository before executing every test.
@@ -71,7 +72,7 @@ public class FoodOrderTest {
         menuRepository.saveAndFlush(menu);
 
         foodOrder = new FoodOrder(restaurantRepository.findAll().get(0), userRepository.findAll().get(0),
-                buildingRepository.findAll().get(1), new Date(11000000000L));
+                buildingRepository.findAll().get(1), new Date(11000000000L), menuRepository.findAll().get(0));
         foodOrderRepository.saveAndFlush(foodOrder);
         foodOrder = foodOrderRepository.findAll().get(0);
     }
@@ -109,6 +110,24 @@ public class FoodOrderTest {
     public void testGetRestaurant() {
         foodOrder2 = foodOrderRepository.findAll().get(0);
         assertEquals(foodOrder.getRestaurant(), foodOrder2.getRestaurant());
+    }
+
+    /**
+     * Tests the getter for the menu field.
+     */
+    @Test
+    public void testGetMenu() {
+        assertEquals(menuRepository.findAll().get(0), foodOrder.getMenu());
+    }
+
+    /**
+     * Tests the setter for the menu field.
+     */
+    @Test
+    public void testSetMenu() {
+        assertEquals(menuRepository.findAll().get(0), foodOrder.getMenu());
+        foodOrder.setMenu(menu2);
+        assertEquals(menu2, foodOrder.getMenu());
     }
 
     /**
@@ -164,9 +183,38 @@ public class FoodOrderTest {
      */
     @Test
     public void testEqualFoodOrder() {
-        foodOrder2 = new FoodOrder(restaurant, appUser, deliveryLocation, new Date(11000000000L));
+        foodOrder2 = new FoodOrder(restaurant, appUser, deliveryLocation, new Date(11000000000L), menuRepository.findAll().get(0));
         assertEquals(foodOrder, foodOrder2);
         assertNotSame(foodOrder, foodOrder2);
+    }
+
+    /**
+     * Test the setter for feedback.
+     */
+    @Test
+    public void testSetFeedback() {
+        assertNotEquals(true, foodOrder.isFeedback());
+        foodOrder.setFeedback(true);
+        assertEquals(true, foodOrder.isFeedback());
+    }
+
+    /**
+     * Test the getter for feedback.
+     */
+    @Test
+    public void testIsFeedback() {
+        foodOrder.setFeedback(false);
+        assertEquals(false, foodOrder.isFeedbackHasBeenGiven());
+    }
+
+    /**
+     * Test adding feedback to a restaurant.
+     */
+    @Test
+    public void testAddFeedback() {
+        assertNotEquals(true, foodOrder.isFeedbackHasBeenGiven());
+        foodOrder.setFeedbackHasBeenGiven(true);
+        assertEquals(true, foodOrder.isFeedbackHasBeenGiven());
     }
 
     /**
