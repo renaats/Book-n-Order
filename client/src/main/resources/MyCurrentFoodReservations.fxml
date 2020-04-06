@@ -52,7 +52,7 @@
                 <TableColumn fx:id="colDate" prefWidth="221.33331298828125" text="Date" />
             </columns>
         </TableView>
-        <Text layoutX="445.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Current Food Orders">
+        <Text layoutX="456.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My Current Food Orders">
             <font>
                 <Font size="33.0" />
             </font>
