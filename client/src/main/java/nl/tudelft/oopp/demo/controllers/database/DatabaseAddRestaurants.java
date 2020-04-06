@@ -137,16 +137,10 @@ public class DatabaseAddRestaurants implements Initializable {
     private void toggleClickBuildingsTable() {
         if (buildingsTableToggleFlag) {
             buildingsTableToggle.setText("Show");
-            anchorPane.getChildren().remove(buildingTable);
-            anchorPane.getChildren().remove(previousBuildingPageButton);
-            anchorPane.getChildren().remove(nextBuildingPageButton);
-            anchorPane.getChildren().remove(buildingPagesText);
+            anchorPane.getChildren().removeAll(buildingTable, previousBuildingPageButton, nextBuildingPageButton, buildingPagesText);
         } else {
             buildingsTableToggle.setText(" Hide");
-            anchorPane.getChildren().add(buildingTable);
-            anchorPane.getChildren().add(previousBuildingPageButton);
-            anchorPane.getChildren().add(nextBuildingPageButton);
-            anchorPane.getChildren().add(buildingPagesText);
+            anchorPane.getChildren().addAll(buildingTable, previousBuildingPageButton, nextBuildingPageButton, buildingPagesText);
         }
         buildingsTableToggleFlag = !buildingsTableToggleFlag;
     }

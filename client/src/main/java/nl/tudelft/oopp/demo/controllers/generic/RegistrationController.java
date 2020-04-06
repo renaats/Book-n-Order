@@ -81,34 +81,16 @@ public class RegistrationController implements Initializable {
 
     private void loadData() {
         facultyList.clear();
-        String a = "Architecture and the Built Environment";
-        String b = "Civil Engineering and Geosciences";
-        String c = "Electrical Engineering, Mathematics & Computer Science";
-        String d = "Industrial Design Engineering";
-        String e = "Aerospace Engineering";
-        String f = "Technology, Policy and Management";
-        String g = "Applied Sciences";
-        String h = "Mechanical, Maritime and Materials Engineering";
-        facultyList.addAll(a, b, c, d, e, f, g, h);
+        facultyList.addAll("Architecture and the Built Environment", "Civil Engineering and Geosciences",
+                "Electrical Engineering, Mathematics & Computer Science", "Industrial Design Engineering", "Aerospace Engineering",
+                "Technology, Policy and Management", "Applied Sciences", "Mechanical, Maritime and Materials Engineering");
         facultyChoiceBox.getItems().addAll(facultyList);
 
         studyList.clear();
-        studyList.add("Aerospace Engineering");
-        studyList.add("Applied Earth Sciences");
-        studyList.add("Architecture");
-        studyList.add("Civil Engineering");
-        studyList.add("Computer Science and Engineering");
-        studyList.add("Electrical Engineering");
-        studyList.add("Industrial Design");
-        studyList.add("Clinical Technology");
-        studyList.add("Life Science and Technology");
-        studyList.add("Maritime Technology");
-        studyList.add("Molecular Science and Technology");
-        studyList.add("Nanobiology");
-        studyList.add("Technical Public Administration");
-        studyList.add("Applied Physics");
-        studyList.add("Technical Mathematics");
-        studyList.add("Mechanical Engineering");
+        studyList.addAll("Aerospace Engineering", "Applied Earth Sciences", "Architecture", "Civil Engineering", "Computer Science and Engineering",
+                "Electrical Engineering", "Industrial Design", "Clinical Technology", "Life Science and Technology", "Maritime Technology",
+                "Molecular Science and Technology", "Nanobiology", "Technical Public Administration", "Applied Physics", "Technical Mathematics",
+                "Mechanical Engineering");
         studyChoiceBox.getItems().addAll(studyList);
     }
 

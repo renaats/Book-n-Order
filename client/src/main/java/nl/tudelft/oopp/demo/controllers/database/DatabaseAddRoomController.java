@@ -119,23 +119,10 @@ public class DatabaseAddRoomController implements Initializable {
 
     private void loadStudySpecificChoiceBox() {
         studyList.clear();
-        studyList.add("Aerospace Engineering");
-        studyList.add("Applied Earth Sciences");
-        studyList.add("Architecture");
-        studyList.add("Civil Engineering");
-        studyList.add("Computer Science and Engineering");
-        studyList.add("Electrical Engineering");
-        studyList.add("Industrial Design");
-        studyList.add("Clinical Technology");
-        studyList.add("Life Science and Technology");
-        studyList.add("Maritime Technology");
-        studyList.add("Molecular Science and Technology");
-        studyList.add("Nanobiology");
-        studyList.add("Technical Public Administration");
-        studyList.add("Applied Physics");
-        studyList.add("Technical Mathematics");
-        studyList.add("Mechanical Engineering");
-        studyList.add("");
+        studyList.addAll("Aerospace Engineering", "Applied Earth Sciences", "Architecture", "Civil Engineering", "Computer Science and Engineering",
+                "Electrical Engineering", "Industrial Design", "Clinical Technology", "Life Science and Technology", "Maritime Technology",
+                "Molecular Science and Technology", "Nanobiology", "Technical Public Administration", "Applied Physics", "Technical Mathematics",
+                "Mechanical Engineering", "");
         studySpecificChoiceBox.getItems().addAll(studyList);
         studySpecificChoiceBox.setValue("");
     }

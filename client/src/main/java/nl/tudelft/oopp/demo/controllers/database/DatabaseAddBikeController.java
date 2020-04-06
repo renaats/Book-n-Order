@@ -81,10 +81,7 @@ public class DatabaseAddBikeController implements Initializable {
 
         pageNumber = 1;
 
-        anchorPane.getChildren().remove(table);
-        anchorPane.getChildren().remove(previousPageButton);
-        anchorPane.getChildren().remove(nextPageButton);
-        anchorPane.getChildren().remove(pagesText);
+        anchorPane.getChildren().removeAll(table, previousPageButton, nextPageButton, pagesText);
 
         retrieveAllBuildings();
         tableSelectMethod();
@@ -111,16 +108,10 @@ public class DatabaseAddBikeController implements Initializable {
     private void toggleClickBuildingsTable() {
         if (buildingsTableToggleFlag) {
             buildingsTableToggle.setText("Show");
-            anchorPane.getChildren().remove(table);
-            anchorPane.getChildren().remove(previousPageButton);
-            anchorPane.getChildren().remove(nextPageButton);
-            anchorPane.getChildren().remove(pagesText);
+            anchorPane.getChildren().removeAll(table, previousPageButton, nextPageButton, pagesText);
         } else {
             buildingsTableToggle.setText(" Hide");
-            anchorPane.getChildren().add(table);
-            anchorPane.getChildren().add(previousPageButton);
-            anchorPane.getChildren().add(nextPageButton);
-            anchorPane.getChildren().add(pagesText);
+            anchorPane.getChildren().addAll(table, previousPageButton, nextPageButton, pagesText);
         }
         buildingsTableToggleFlag = !buildingsTableToggleFlag;
     }

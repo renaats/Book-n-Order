@@ -68,10 +68,7 @@ public class DatabaseAddMenuController implements Initializable {
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
 
-        anchorPane.getChildren().remove(table);
-        anchorPane.getChildren().remove(nextPageButton);
-        anchorPane.getChildren().remove(previousPageButton);
-        anchorPane.getChildren().remove(pagesText);
+        anchorPane.getChildren().removeAll(table, nextPageButton, previousPageButton, pagesText);
 
         pageNumber = 1;
 
@@ -172,16 +169,10 @@ public class DatabaseAddMenuController implements Initializable {
     private void toggleClickMenuTable() {
         if (tableToggleFlag) {
             tableToggle.setText("Show");
-            anchorPane.getChildren().remove(table);
-            anchorPane.getChildren().remove(previousPageButton);
-            anchorPane.getChildren().remove(nextPageButton);
-            anchorPane.getChildren().remove(pagesText);
+            anchorPane.getChildren().removeAll(table, previousPageButton, nextPageButton, pagesText);
         } else {
             tableToggle.setText(" Hide");
-            anchorPane.getChildren().add(table);
-            anchorPane.getChildren().add(previousPageButton);
-            anchorPane.getChildren().add(nextPageButton);
-            anchorPane.getChildren().add(pagesText);
+            anchorPane.getChildren().addAll(table, previousPageButton, nextPageButton, pagesText);
         }
         tableToggleFlag = !tableToggleFlag;
     }

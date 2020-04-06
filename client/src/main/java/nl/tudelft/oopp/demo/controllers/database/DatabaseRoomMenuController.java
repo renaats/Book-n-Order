@@ -360,23 +360,10 @@ public class DatabaseRoomMenuController implements Initializable {
      */
     private void loadStudySpecificChoiceBox() {
         studyList.clear();
-        studyList.add("Aerospace Engineering");
-        studyList.add("Applied Earth Sciences");
-        studyList.add("Architecture");
-        studyList.add("Civil Engineering");
-        studyList.add("Computer Science and Engineering");
-        studyList.add("Electrical Engineering");
-        studyList.add("Industrial Design");
-        studyList.add("Clinical Technology");
-        studyList.add("Life Science and Technology");
-        studyList.add("Maritime Technology");
-        studyList.add("Molecular Science and Technology");
-        studyList.add("Nanobiology");
-        studyList.add("Technical Public Administration");
-        studyList.add("Applied Physics");
-        studyList.add("Technical Mathematics");
-        studyList.add("Mechanical Engineering");
-        studyList.add("");
+        studyList.addAll("Aerospace Engineering", "Applied Earth Sciences", "Architecture", "Civil Engineering", "Computer Science and Engineering",
+                "Electrical Engineering", "Industrial Design", "Clinical Technology", "Life Science and Technology", "Maritime Technology",
+                "Molecular Science and Technology", "Nanobiology", "Technical Public Administration", "Applied Physics", "Technical Mathematics",
+                "Mechanical Engineering", "");
         studyChoiceBox.getItems().addAll(studyList);
         studyChoiceBox.setValue("");
     }
@@ -385,12 +372,7 @@ public class DatabaseRoomMenuController implements Initializable {
      * Loads all status values in the status choice box.
      */
     private void loadStatusChoiceBox() {
-        statusList.clear();
-        String a = "Open";
-        String b = "Closed";
-        String c = "Staff-Only";
-        String d = "Maintenance";
-        statusList.addAll(a, b, c, d);
+        statusList.addAll("Open", "Closed", "Staff-Only", "Maintenance");
         statusChoiceBox.getItems().addAll(statusList);
     }
 }
