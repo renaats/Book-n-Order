@@ -214,9 +214,7 @@ public class BookRoomController implements Initializable {
      */
     public void goToRoomCalendar() throws IOException {
         SelectedRoom.setSelectedRoom(selectedRoom);
-        System.out.println(selectedRoom.getId());
         FXMLLoader loader = new FXMLLoader();
-        System.out.println(getClass().getResource("/BookRoomCalendar.fxml"));
         loader.setLocation(getClass().getResource("/BookRoomCalendar.fxml"));
         Parent root = loader.load();
 
@@ -350,7 +348,7 @@ public class BookRoomController implements Initializable {
                                 setSelectedRoom(room);
                                 goToRoomCalendar();
                             }
-                        } catch (IOException e){
+                        } catch (IOException e) {
                             e.printStackTrace();
                         }
                     });

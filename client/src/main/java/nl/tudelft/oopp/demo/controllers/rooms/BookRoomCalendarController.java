@@ -15,15 +15,19 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.SubScene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
+import javafx.scene.text.Text;
+
+import nl.tudelft.oopp.demo.communication.BuildingServerCommunication;
+import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.RoomServerCommunication;
 import nl.tudelft.oopp.demo.communication.SelectedRoom;
+import nl.tudelft.oopp.demo.entities.BuildingHours;
 import nl.tudelft.oopp.demo.entities.RoomReservation;
 import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.errors.ErrorMessages;
@@ -33,12 +37,9 @@ import nl.tudelft.oopp.demo.views.RoomCalendarView;
 public class BookRoomCalendarController implements Initializable {
 
     private int roomId;
-    private RoomCalendarView calendarView = new RoomCalendarView(SelectedRoom.getSelectedRoom().getId());
-    private Boolean isThereAnotherEntry = null;
+    private RoomCalendarView calendarView;
     private Entry<RoomReservation> storedEntry = null;
-
-    URL location;
-    ResourceBundle resourceBundle;
+    private BuildingHours buildingHours;
 
     @FXML
     Button reserveSlot;
@@ -48,6 +49,18 @@ public class BookRoomCalendarController implements Initializable {
     TextField fromTime;
     @FXML
     TextField untilTime;
+    @FXML
+    Text scheduleText;
+    @FXML
+    Text plugNumber;
+    @FXML
+    Text buildingName;
+    @FXML
+    Text capacity;
+    @FXML
+    Text projector;
+    @FXML
+    Text screen;
 
     public BookRoomCalendarController() {
     }
@@ -64,14 +77,23 @@ public class BookRoomCalendarController implements Initializable {
      * Renders calendar view with all already existing reservations.
      */
     public void showCal() {
-        System.out.println(SelectedRoom.getSelectedRoom());
         calendarView   = new RoomCalendarView(SelectedRoom.getSelectedRoom().getId());
-        System.out.println(SelectedRoom.getSelectedRoom().getId());
-        EventHandler<CalendarEvent> handler = this::entryHandler;
-        calendarView.getCalendars().get(0).addEventHandler(handler);
         calendarView.loadRoomReservations();
+        calendarView.getCalendars().get(0).addEventHandler(this::entryHandler);
         calendarView.setShowToolBar(false);
         calendarContainer.setRoot(calendarView);
+    }
+
+    /**
+     * Fills the text with room information.
+     */
+    public void displayRoomInformation() {
+        scheduleText.setText("Schedule for Room: " + SelectedRoom.getSelectedRoom().getName());
+        buildingName.setText(SelectedRoom.getSelectedRoom().getBuilding().getName());
+        plugNumber.setText(String.valueOf(SelectedRoom.getSelectedRoom().getPlugs()));
+        capacity.setText(String.valueOf(SelectedRoom.getSelectedRoom().getCapacity()));
+        projector.setText(String.valueOf(SelectedRoom.getSelectedRoom().isProjector()));
+        screen.setText(String.valueOf(SelectedRoom.getSelectedRoom().isScreen()));
     }
 
     /**
@@ -84,7 +106,6 @@ public class BookRoomCalendarController implements Initializable {
 
     /**
      * Changes to mainMenuReservations.fxml.
-     *
      * @throws IOException input will not be wrong, hence we throw.
      */
     public void mainMenu() throws IOException {
@@ -93,7 +114,6 @@ public class BookRoomCalendarController implements Initializable {
 
     /**
      * Changes to bookRoom.fxml.
-     *
      * @throws IOException input will not be wrong, hence we throw.
      */
     public void goToRoomBook() throws IOException {
@@ -102,44 +122,62 @@ public class BookRoomCalendarController implements Initializable {
 
     private void entryHandler(CalendarEvent e) {
         Entry<RoomReservation> entry = (Entry<RoomReservation>) e.getEntry();
+
         Date start = convertToDate(entry.getStartTime(), entry.getStartDate());
         Date end = convertToDate(entry.getEndTime(), entry.getStartDate());
+        try {
+            String jsonBuildingHours = BuildingServerCommunication.findBuildingHours(SelectedRoom.getSelectedRoom()
+                    .getBuilding().getId(), start.getTime());
+            buildingHours = JsonMapper.buildingHoursMapper(jsonBuildingHours);
+        } catch (Exception exception) {
+            buildingHours = null;
+        }
 
+        Date startBuildingHours = null;
+        Date endBuildingHours = null;
 
+        if (buildingHours != null) {
+            startBuildingHours = convertToDate(buildingHours.getStartTime(), entry.getStartDate());
+            endBuildingHours = convertToDate(buildingHours.getEndTime(), entry.getStartDate());
+        }
         if (e.isEntryAdded()) {
-            if (isThereAnotherEntry != null && (isThereAnotherEntry || entry.getStartAsLocalDateTime().isBefore(LocalDateTime.now()))) {
-                if (storedEntry != null || entry.getStartAsLocalDateTime().isBefore(LocalDateTime.now())) {
-                    e.getEntry().removeFromCalendar();
-                    fromTime.setText(convertToDate(storedEntry.getStartTime(), storedEntry.getStartDate()).toString());
-                    untilTime.setText(convertToDate(storedEntry.getEndTime(), storedEntry.getEndDate()).toString());
-                } else {
-                    entry.setTitle("New Booking");
-                    fromTime.setText(start.toString());
-                    untilTime.setText(end.toString());
-                    reserveSlot.arm();
-                    storedEntry = (Entry<RoomReservation>) e.getEntry();
-                    isThereAnotherEntry = true;
-                }
-            } else if (e.isEntryRemoved()) {
+            if (buildingHours == null) {
+                e.getEntry().removeFromCalendar();
+                CustomAlert.errorAlert("Building is out of service on this day!");
+                return;
+            } else if (storedEntry != null) {
+                e.getEntry().removeFromCalendar();
+                CustomAlert.warningAlert("You can make only one reservation at a time.");
+                fromTime.setText(convertToDate(storedEntry.getStartTime(), storedEntry.getStartDate()).toString());
+                untilTime.setText(convertToDate(storedEntry.getEndTime(), storedEntry.getEndDate()).toString());
+            } else if (entry.getStartAsLocalDateTime().isBefore(LocalDateTime.now())) {
+                e.getEntry().removeFromCalendar();
+                CustomAlert.warningAlert("Unfortunately booking a room in the past is impossible.");
+            } else if (start.compareTo(startBuildingHours) < 0 || start.compareTo(endBuildingHours) > 0 || end.compareTo(endBuildingHours) > 0) {
+                e.getEntry().removeFromCalendar();
+                CustomAlert.warningAlert("Building is closed at this hour.");
+            } else {
+                entry.setTitle("New Booking");
+                fromTime.setText(start.toString());
+                untilTime.setText(end.toString());
+                reserveSlot.arm();
+                storedEntry = (Entry<RoomReservation>) e.getEntry();
+            }
+        } else if (e.isEntryRemoved()) {
+            if (e.getEntry().equals(storedEntry)) {
                 fromTime.setText("");
                 untilTime.setText("");
                 reserveSlot.disarm();
-                this.isThereAnotherEntry = false;
-                if (e.getEntry().equals(storedEntry)) {
-                    fromTime.setText("");
-                    untilTime.setText("");
-                    reserveSlot.disarm();
-                    storedEntry = null;
-                } else {
-                    fromTime.setText("");
-                    untilTime.setText("");
-                    reserveSlot.disarm();
-                }
-
+                storedEntry = null;
             } else {
-                fromTime.setText(start.toString());
-                untilTime.setText(end.toString());
+                fromTime.setText("");
+                untilTime.setText("");
+                reserveSlot.disarm();
             }
+
+        } else {
+            fromTime.setText(start.toString());
+            untilTime.setText(end.toString());
         }
     }
 
@@ -160,22 +198,20 @@ public class BookRoomCalendarController implements Initializable {
                 long milliseconds1 = from.getTime();
                 long milliseconds2 = until.getTime();
 
-                    if (RoomServerCommunication.addRoomReservation(SelectedRoom.getSelectedRoom().getId(), milliseconds1, milliseconds2)
-                            .equals(ErrorMessages.getErrorMessage(308))) {
-                        CustomAlert.warningAlert("Slot is already booked. Please make sure you do not overlay another reservation entry.");
-                    } else {
-                        CustomAlert.informationAlert("Successfully Added!");
-                        ApplicationDisplay.changeScene("/bookRoom.fxml");
-                    }
+                if (RoomServerCommunication.addRoomReservation(SelectedRoom.getSelectedRoom().getId(), milliseconds1, milliseconds2)
+                        .equals(ErrorMessages.getErrorMessage(308))) {
+                    CustomAlert.warningAlert("Slot is already booked. Please make sure you do not overlay another reservation.");
+                } else {
+                    ApplicationDisplay.changeSceneWithVariables("/roomConfirmation.fxml", milliseconds1, milliseconds2);
+                }
             } catch (ParseException | IOException e) {
-                e.printStackTrace();
+                CustomAlert.errorAlert("Something went wrong! Could not reserve slot.");
             }
         }
     }
 
     /**
      * Converts LocalTime and LocalDate into Date object.
-     *
      * @param time = the hour, minute and seconds of the slot.
      * @param date = the date of the slot.
      * @return Date object that holds both components time and date.
@@ -187,11 +223,9 @@ public class BookRoomCalendarController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        this.location = location;
-        resourceBundle = resources;
         reserveSlot.disarm();
         showCal();
         disableFields();
+        displayRoomInformation();
     }
 }
-
