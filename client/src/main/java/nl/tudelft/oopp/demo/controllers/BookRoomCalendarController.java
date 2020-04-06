@@ -38,6 +38,7 @@ public class BookRoomCalendarController implements Initializable {
     private RoomCalendarView calendarView;
     private Boolean isThereAnotherEntry = null;
     private Entry<RoomReservation> storedEntry = null;
+    private BuildingHours buildingHours;
 
     @FXML
     Button reserveSlot;
@@ -97,20 +98,27 @@ public class BookRoomCalendarController implements Initializable {
 
     private void entryHandler(CalendarEvent e) {
         Entry<RoomReservation> entry = (Entry<RoomReservation>) e.getEntry();
+
         Date start = convertToDate(entry.getStartTime(), entry.getStartDate());
         Date end = convertToDate(entry.getEndTime(), entry.getStartDate());
-        BuildingHours buildingHours = JsonMapper.buildingHoursMapper(ServerCommunication.findBuildingHours(SelectedRoom.getSelectedRoom().getBuilding().getId(), start.getTime()));
+        try {
+            buildingHours = JsonMapper.buildingHoursMapper(ServerCommunication.findBuildingHours(SelectedRoom.getSelectedRoom().getBuilding().getId(), start.getTime()));
+        } catch (Exception exception) {
+            buildingHours = null;
+        }
+
         Date startBuildingHours = null;
         Date endBuildingHours = null;
-        if(buildingHours == null) {
-            CustomAlert.errorAlert("There is no information about the business hours of this building for this day.");
-        } else {
+
+        if (buildingHours != null) {
         startBuildingHours = convertToDate(buildingHours.getStartTime(), entry.getStartDate());
         endBuildingHours = convertToDate(buildingHours.getEndTime(), entry.getStartDate());
         }
+
         if (e.isEntryAdded()) {
-            if(buildingHours == null) {
+            if (buildingHours == null) {
                 e.getEntry().removeFromCalendar();
+                CustomAlert.errorAlert("Building is out of service on this day!");
                 return;
             } else if(storedEntry != null) {
                 e.getEntry().removeFromCalendar();

@@ -244,13 +244,8 @@ public class JsonMapper {
             // Convert JSON string to Object
             return mapper.readValue(buildingHourJson, BuildingHours.class);
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText(buildingHourJson);
-            alert.showAndWait();
+            return null;
         }
-        return null;
     }
 
     /**
