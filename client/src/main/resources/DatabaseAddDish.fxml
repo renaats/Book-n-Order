@@ -99,7 +99,7 @@
          <Font size="17.0" />
       </font>
    </Text>
-   <TextField fx:id="imageTextField" layoutX="617.0" layoutY="310.0" prefHeight="25.0" prefWidth="149.0" promptText="Image name" />
+   <TextField fx:id="imageTextField" layoutX="617.0" layoutY="310.0" prefHeight="25.0" prefWidth="149.0" promptText="Image URL" />
    <TextArea fx:id="descriptionTextArea" layoutX="423.0" layoutY="376.0" prefHeight="95.0" prefWidth="388.0" promptText="Description of 200 words" wrapText="true" />
    <Text layoutX="570.0" layoutY="361.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description:">
       <font>
