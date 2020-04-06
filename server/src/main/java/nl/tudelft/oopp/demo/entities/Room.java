@@ -153,7 +153,7 @@ public class Room {
             return true;
         }
         for (RoomReservation roomReservation: roomReservations) {
-            if(roomReservation.isActive()) {
+            if (roomReservation.isActive()) {
                 if (fromTime.compareTo(roomReservation.getFromTime()) <= 0 && toTime.compareTo(roomReservation.getFromTime()) > 0) {
                     return true;
                 }
