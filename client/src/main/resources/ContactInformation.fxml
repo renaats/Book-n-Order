@@ -92,7 +92,7 @@
          </ImageView>
       </children>
    </Pane>
-   <Button layoutX="1039.0" layoutY="667.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#goToContactInformation" style="-fx-background-color: #00a6d6;" text="Campus Map" textFill="WHITE">
+   <Button layoutX="1039.0" layoutY="667.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#goToCampusMap" style="-fx-background-color: #00a6d6;" text="Campus Map" textFill="WHITE">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor>
