@@ -270,6 +270,7 @@ public class RestaurantServerCommunication {
 
     /**
      * Finds all previous food orders for the user that sends the request.
+     * @param restaurantId the id of the restaurant.
      * @return the body of the response from the server.
      */
     public static String getAllPreviousFoodOrdersForRestaurant(int restaurantId) {
@@ -279,6 +280,7 @@ public class RestaurantServerCommunication {
 
     /**
      * Finds all future and actual food orders for the user that sends the request.
+     * @param restaurantId the id of the restaurant.
      * @return the body of the response from the server.
      */
     public static String getAllFutureFoodOrdersForRestaurant(int restaurantId) {

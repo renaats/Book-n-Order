@@ -70,6 +70,10 @@ public class BikeServerCommunication {
 
     /**
      * Adds a new bike reservation.
+     * @param fromBuildingId the id of the starting building.
+     * @param toBuildingId the id of the ending building.
+     * @param fromTimeMs the starting time in milliseconds.
+     * @param toTimeMs the ending time in milliseconds.
      * @return the error message corresponding to the server's response.
      */
     public static String addBikeReservation(int fromBuildingId, int toBuildingId, long fromTimeMs, long toTimeMs) {
