@@ -16,9 +16,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
+
 import nl.tudelft.oopp.demo.communication.BuildingServerCommunication;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.entities.Building;
+import nl.tudelft.oopp.demo.entities.BuildingHours;
 import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
@@ -50,11 +52,33 @@ public class BuildingInformationController implements Initializable {
     @FXML
     private Text buildingRoomBook;
     @FXML
-    private Text buildingBikeRent;
+    private Text buildingMondayFrom;
     @FXML
-    private Text buildingRestaurants;
+    private Text buildingMondayTo;
     @FXML
-    private Text buildingOpeningHours;
+    private Text buildingTuesdayFrom;
+    @FXML
+    private Text buildingTuesdayTo;
+    @FXML
+    private Text buildingWednesdayFrom;
+    @FXML
+    private Text buildingWednesdayTo;
+    @FXML
+    private Text buildingThursdayFrom;
+    @FXML
+    private Text buildingThursdayTo;
+    @FXML
+    private Text buildingFridayFrom;
+    @FXML
+    private Text buildingFridayTo;
+    @FXML
+    private Text buildingSaturdayFrom;
+    @FXML
+    private Text buildingSaturdayTo;
+    @FXML
+    private Text buildingSundayFrom;
+    @FXML
+    private Text buildingSundayTo;
     @FXML
     private Text pagesText;
 
