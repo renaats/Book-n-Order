@@ -13,13 +13,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
 import nl.tudelft.oopp.demo.communication.BuildingServerCommunication;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
+import nl.tudelft.oopp.demo.communication.RoomServerCommunication;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.BuildingHours;
 import nl.tudelft.oopp.demo.errors.CustomAlert;
@@ -81,9 +84,12 @@ public class BuildingInformationController implements Initializable {
     private Text buildingSundayTo;
     @FXML
     private Text pagesText;
+    @FXML
+    private AnchorPane anchorPane;
 
     private int pageNumber;
     private double totalPages;
+    private Button loadBuildingInfo;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -200,6 +206,28 @@ public class BuildingInformationController implements Initializable {
                         .findBuildingHoursByDay(chosenBuilding.getId(), 7));
                 buildingSundayFrom.setText(buildingHoursSunday.getStartTime().toString());
                 buildingSundayTo.setText(buildingHoursSunday.getEndTime().toString());
+
+                // Calculates where the load building info button should be
+                for (int i = 0; i < buildingResult.size(); i++) {
+                    assert chosenBuilding != null;
+                    if (buildingResult.get(i).getId().equals(chosenBuilding.getId())) {
+                        loadBuildingInfo = new Button("Load Building Info");
+                        loadBuildingInfo.setLayoutX(1120);
+                        loadBuildingInfo.setLayoutY(168 + (24 * (i + 1)));
+                        loadBuildingInfo.setMinWidth(60);
+                        loadBuildingInfo.setStyle("-fx-background-color:  #CC5653; -fx-font-size:10; -fx-text-fill: white");
+                        loadBuildingInfo.setMinHeight(20);
+                        loadBuildingInfo.setOnAction(event -> {
+                            for (int i1 = 0; i1 < buildingResult.size(); i1++) {
+                                if (buildingResult.get(i1).getId().equals(chosenBuilding.getId())) {
+                                    buildingResult.remove(buildingResult.get(i1));
+                                    anchorPane.getChildren().remove(loadBuildingInfo);
+                                }
+                            }
+                        });
+                        anchorPane.getChildren().add(loadBuildingInfo);
+                    }
+                }
             }
         } catch (NullPointerException | JsonProcessingException e) {
             if (buildingMondayFrom.getText().equals(".") || buildingTuesdayFrom.getText().equals(".") || buildingWednesdayFrom.getText().equals(".")
