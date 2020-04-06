@@ -1,25 +1,29 @@
 package nl.tudelft.oopp.demo.controllers.rooms;
 
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.text.Text;
-import nl.tudelft.oopp.demo.communication.SelectedRoom;
-import nl.tudelft.oopp.demo.entities.Building;
-import nl.tudelft.oopp.demo.views.ApplicationDisplay;
-
 import java.io.IOException;
+
 import java.net.URL;
+
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.TextStyle;
+
 import java.util.Date;
 import java.util.ResourceBundle;
+
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.text.Text;
+
+import nl.tudelft.oopp.demo.communication.SelectedRoom;
+import nl.tudelft.oopp.demo.entities.Building;
+import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
  * Loads the correct content into the FXML objects that need to display server information and
  * controls all the user inputs made through the GUI in the "roomConfirmation.fxml" file
  */
-public class RoomConfirmationController implements Initializable{
+public class RoomConfirmationController implements Initializable {
     private LocalDateTime start;
     private LocalDateTime end;
     @FXML
@@ -52,6 +56,9 @@ public class RoomConfirmationController implements Initializable{
         ApplicationDisplay.changeScene("/mainMenu.fxml");
     }
 
+    /**
+     * Loads the information of the room reservation.
+     */
     public void loadInformation() {
         dayOfMonth.setText(String.valueOf(start.getDayOfMonth()));
         int intMonth = start.getMonthValue();
@@ -96,7 +103,6 @@ public class RoomConfirmationController implements Initializable{
                 month.setText("No such month.");
         }
         int weekday = start.getDayOfWeek().getValue();
-        System.out.println( weekday);
         switch (weekday) {
             case 1:
                 dayOfWeek.setText("Mon");

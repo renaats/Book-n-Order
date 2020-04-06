@@ -1,10 +1,18 @@
 package nl.tudelft.oopp.demo.views;
 
+import java.io.IOException;
+
+import java.net.URL;
+
+import java.util.Date;
+import java.util.List;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+
 import nl.tudelft.oopp.demo.controllers.database.DatabaseAddDishController;
 import nl.tudelft.oopp.demo.controllers.database.DatabaseViewFoodOrderController;
 import nl.tudelft.oopp.demo.controllers.restaurants.OrderFoodController;
@@ -12,11 +20,6 @@ import nl.tudelft.oopp.demo.controllers.rooms.RoomConfirmationController;
 import nl.tudelft.oopp.demo.entities.Dish;
 import nl.tudelft.oopp.demo.entities.Menu;
 import nl.tudelft.oopp.demo.entities.Restaurant;
-
-import java.io.IOException;
-import java.net.URL;
-import java.util.Date;
-import java.util.List;
 
 /**
  * Manages the display of the views of the app
