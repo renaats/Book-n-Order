@@ -64,7 +64,6 @@ public class MyPreviousBikeReservationsController implements Initializable {
             bikeReservations = new ArrayList<>();
         }
 
-
         Collections.sort(bikeReservations);
 
         if (bikeReservations.size() > 10) {
