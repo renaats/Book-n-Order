@@ -65,7 +65,7 @@ public class MyPreviousRoomReservationsController implements Initializable {
         Collections.reverse(roomReservations);
 
         if (roomReservations.size() > 10) {
-            roomReservations = roomReservations.subList(0, 15);
+            roomReservations = roomReservations.subList(0, 10);
             roomOrderResult.addAll(roomReservations);
         } else {
             roomOrderResult.addAll(roomReservations);
