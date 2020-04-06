@@ -70,13 +70,13 @@
          <TableColumn fx:id="colHouseNumber" maxWidth="129.0" prefWidth="129.0" text="House Number" />
      </columns>
    </TableView>
-   <Button fx:id="previousPageButton" layoutX="864.0" layoutY="614.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#previousPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&lt;&lt;" textFill="WHITE">
+   <Button fx:id="previousPageButton" layoutX="853.0" layoutY="614.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#previousPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&lt;&lt;" textFill="WHITE">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor>
    </Button>
    <Text fx:id="pagesText" layoutX="910.0" layoutY="631.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0 / pages" />
-   <Button fx:id="nextPageButton" layoutX="967.0" layoutY="613.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#nextPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&gt;&gt;" textFill="WHITE">
+   <Button fx:id="nextPageButton" layoutX="981.0" layoutY="613.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#nextPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&gt;&gt;" textFill="WHITE">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor>
