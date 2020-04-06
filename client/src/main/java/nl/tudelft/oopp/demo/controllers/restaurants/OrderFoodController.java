@@ -150,7 +150,6 @@ public class OrderFoodController implements Initializable {
                     ApplicationDisplay.changeScene("/FoodConfirmation.fxml");
                 }
             } catch (Exception e) {
-                e.printStackTrace();
                 CustomAlert.errorAlert("Something went wrong.");
             }
         }

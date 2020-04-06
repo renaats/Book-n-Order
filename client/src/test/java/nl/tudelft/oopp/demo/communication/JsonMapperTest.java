@@ -344,7 +344,6 @@ class JsonMapperTest {
                     + ":50},\"fromTime\":\"2020-03-19T14:00:00.000+0000\""
                     + ",\"toTime\":\"2020-03-19T19:00:00.000+0000\"}]"));
         } catch (JsonProcessingException e) {
-            e.printStackTrace();
             fail();
         }
 
@@ -434,7 +433,6 @@ class JsonMapperTest {
                     + "alto\",\"street\":\"rruga\",\"houseNumber\":24},\"deliveryTime\":\"1970-01-01T00:00:00.100+0000\",\"menu\""
                     + ":null,\"dishOrders\":[]}]"));
         } catch (JsonProcessingException e) {
-            e.printStackTrace();
             fail();
         }
     }

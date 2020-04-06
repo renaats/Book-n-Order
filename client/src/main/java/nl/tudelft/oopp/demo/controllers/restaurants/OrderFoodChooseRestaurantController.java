@@ -1,5 +1,7 @@
 package nl.tudelft.oopp.demo.controllers.restaurants;
 
+import static nl.tudelft.oopp.demo.controllers.generic.CalculatePages.calculatePages;
+
 import java.io.IOException;
 import java.net.URL;
 import java.text.DecimalFormat;
@@ -23,6 +25,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import javafx.util.Pair;
 
 import nl.tudelft.oopp.demo.communication.BuildingServerCommunication;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
@@ -135,17 +138,17 @@ public class OrderFoodChooseRestaurantController implements Initializable {
     private Button filterDietsButton;
 
     private int restaurantPageNumber;
-    private double totalRestaurantPages;
+    private int totalRestaurantPages;
     private int dishPageNumber;
-    private double totalDishPages;
+    private int totalDishPages;
     private int orderPageNumber;
-    private double totalOrderPages;
+    private int totalOrderPages;
     private int allergyPageNumber;
-    private double totalAllergyPages;
+    private int totalAllergyPages;
     private int allDietPageNumber;
-    private double totalAllDietPages;
+    private int totalAllDietPages;
     private int selectedDietPageNumber;
-    private double totalSelectedDietPages;
+    private int totalSelectedDietPages;
     private Button addButton;
     private Button removeButton;
     private Button removeDietButton;
@@ -208,24 +211,12 @@ public class OrderFoodChooseRestaurantController implements Initializable {
 
         orders = new ArrayList<>();
 
-        if (restaurantPageNumber == 0) {
-            restaurantPageNumber++;
-        }
-        if (dishPageNumber == 0) {
-            dishPageNumber++;
-        }
-        if (orderPageNumber == 0) {
-            orderPageNumber++;
-        }
-        if (allergyPageNumber == 0) {
-            allergyPageNumber++;
-        }
-        if (allDietPageNumber == 0) {
-            allDietPageNumber++;
-        }
-        if (selectedDietPageNumber == 0) {
-            selectedDietPageNumber++;
-        }
+        restaurantPageNumber = 1;
+        dishPageNumber = 1;
+        orderPageNumber = 1;
+        allergyPageNumber = 1;
+        allDietPageNumber = 1;
+        selectedDietPageNumber = 1;
         price = 0;
 
         applyRestaurantFilters();
@@ -255,8 +246,6 @@ public class OrderFoodChooseRestaurantController implements Initializable {
         }
         buildingChoiceBox.getItems().addAll(buildingNameList);
     }
-
-    // RESTAURANTS
 
     /**
      * Takes care of loading all restaurants in a specific building
@@ -291,26 +280,10 @@ public class OrderFoodChooseRestaurantController implements Initializable {
      * Calculates how many restaurant pages there should be for browsing the table
      */
     public void calculateRestaurantPages() {
-        restaurantResult.clear();
-        totalRestaurantPages = Math.ceil(restaurants.size() / 10.0);
-        if (totalRestaurantPages < restaurantPageNumber) {
-            restaurantPageNumber--;
-        }
-        if (totalRestaurantPages > 0) {
-            restaurantPageNumber = Math.max(restaurantPageNumber, 1);
-        }
-        pagesTextRestaurant.setText(restaurantPageNumber + " / " + (int) totalRestaurantPages + " pages");
-        if (restaurants.size() > 10) {
-            for (int i = 0; i < 10; i++) {
-                try {
-                    restaurantResult.add(restaurants.get((i - 10) + restaurantPageNumber * 10));
-                } catch (IndexOutOfBoundsException e) {
-                    break;
-                }
-            }
-        }  else {
-            restaurantResult.addAll(restaurants);
-        }
+        Pair<Integer, Integer> pair = calculatePages(restaurantResult, totalRestaurantPages, restaurantPageNumber, restaurants, 10);
+        totalRestaurantPages = pair.getKey();
+        restaurantPageNumber = pair.getValue();
+        pagesTextRestaurant.setText(restaurantPageNumber + " / " + totalRestaurantPages + " pages");
         restaurantTable.setItems(restaurantResult);
     }
 
@@ -456,26 +429,10 @@ public class OrderFoodChooseRestaurantController implements Initializable {
      * Calculates the amount of pages there should be to browse the table properly
      */
     public void calculateDishPages() {
-        dishResult.clear();
-        totalDishPages = Math.ceil(dishes.size() / 10.0);
-        if (totalDishPages < dishPageNumber) {
-            dishPageNumber--;
-        }
-        if (totalDishPages > 0) {
-            dishPageNumber = Math.max(dishPageNumber, 1);
-        }
-        pagesTextDish.setText(dishPageNumber + " / " + (int) totalDishPages + " pages");
-        if (dishes.size() > 10) {
-            for (int i = 0; i < 10; i++) {
-                try {
-                    dishResult.add(dishes.get((i - 10) + dishPageNumber * 10));
-                } catch (IndexOutOfBoundsException e) {
-                    break;
-                }
-            }
-        }  else {
-            dishResult.addAll(dishes);
-        }
+        Pair<Integer, Integer> pair = calculatePages(dishResult, totalDishPages, dishPageNumber, dishes, 10);
+        totalDishPages = pair.getKey();
+        dishPageNumber = pair.getValue();
+        pagesTextDish.setText(dishPageNumber + " / " + totalDishPages + " pages");
         dishTable.setItems(dishResult);
     }
 
@@ -587,26 +544,10 @@ public class OrderFoodChooseRestaurantController implements Initializable {
      * Calculates the amount of pages there should be to browse the table properly
      */
     public void calculateOrderPages() {
-        orderResult.clear();
-        totalOrderPages = Math.ceil(orders.size() / 10.0);
-        if (totalOrderPages < orderPageNumber) {
-            orderPageNumber--;
-        }
-        if (totalOrderPages > 0) {
-            orderPageNumber = Math.max(orderPageNumber, 1);
-        }
-        pagesTextOrder.setText(orderPageNumber + " / " + (int) totalOrderPages + " pages");
-        if (orders.size() > 10) {
-            for (int i = 0; i < 10; i++) {
-                try {
-                    orderResult.add(orders.get((i - 10) + orderPageNumber * 10));
-                } catch (IndexOutOfBoundsException e) {
-                    break;
-                }
-            }
-        }  else {
-            orderResult.addAll(orders);
-        }
+        Pair<Integer, Integer> pair = calculatePages(orderResult, totalOrderPages, orderPageNumber, orders, 10);
+        totalOrderPages = pair.getKey();
+        orderPageNumber = pair.getValue();
+        pagesTextOrder.setText(orderPageNumber + " / " + totalOrderPages + " pages");
         orderTable.setItems(orderResult);
     }
 
@@ -724,26 +665,10 @@ public class OrderFoodChooseRestaurantController implements Initializable {
      * Takes care of calculating all table pages to navigate the table properly
      */
     public void calculateAllergyPages() {
-        allergyResult.clear();
-        totalAllergyPages = Math.ceil(allergies.size() / 10.0);
-        if (totalAllergyPages < allergyPageNumber) {
-            allergyPageNumber--;
-        }
-        if (totalAllergyPages > 0) {
-            allergyPageNumber = Math.max(allergyPageNumber, 1);
-        }
-        pagesTextAllergy.setText(allergyPageNumber + " / " + (int) totalAllergyPages + " pages");
-        if (allergies.size() > 10) {
-            for (int i = 0; i < 10; i++) {
-                try {
-                    allergyResult.add(allergies.get((i - 10) + allergyPageNumber * 10));
-                } catch (IndexOutOfBoundsException e) {
-                    break;
-                }
-            }
-        }  else {
-            allergyResult.addAll(allergies);
-        }
+        Pair<Integer, Integer> pair = calculatePages(allergyResult, totalAllergyPages, allergyPageNumber, allergies, 10);
+        totalAllergyPages = pair.getKey();
+        allergyPageNumber = pair.getValue();
+        pagesTextAllergy.setText(allergyPageNumber + " / " + totalAllergyPages + " pages");
         allergyTable.setItems(allergyResult);
     }
 
@@ -851,26 +776,10 @@ public class OrderFoodChooseRestaurantController implements Initializable {
      * Takes care of calculating all pages to navigate the diet table properly
      */
     public void calculateAllDietPages() {
-        allDietResult.clear();
-        totalAllDietPages = Math.ceil(currentAllergies.size() / 5.0);
-        if (totalAllDietPages < allDietPageNumber) {
-            allDietPageNumber--;
-        }
-        if (totalAllDietPages > 0) {
-            allDietPageNumber = Math.max(allDietPageNumber, 1);
-        }
-        pagesTextAllDiet.setText(allDietPageNumber + " / " + (int) totalAllDietPages + " pages");
-        if (currentAllergies.size() > 5) {
-            for (int i = 0; i < 5; i++) {
-                try {
-                    allDietResult.add(currentAllergies.get((i - 5) + allDietPageNumber * 5));
-                } catch (IndexOutOfBoundsException e) {
-                    break;
-                }
-            }
-        }  else {
-            allDietResult.addAll(currentAllergies);
-        }
+        Pair<Integer, Integer> pair = calculatePages(allDietResult, totalAllDietPages, allDietPageNumber, currentAllergies, 5);
+        totalAllDietPages = pair.getKey();
+        allDietPageNumber = pair.getValue();
+        pagesTextAllDiet.setText(allDietPageNumber + " / " + totalAllDietPages + " pages");
         allDietTable.setItems(allDietResult);
     }
 
@@ -878,7 +787,7 @@ public class OrderFoodChooseRestaurantController implements Initializable {
      * Handles the clicking to the next table page.
      */
     public void nextAllDietPage() {
-        if (allDietPageNumber < (int) totalAllDietPages) {
+        if (allDietPageNumber < totalAllDietPages) {
             allDietPageNumber++;
             calculateAllDietPages();
         }
@@ -898,26 +807,10 @@ public class OrderFoodChooseRestaurantController implements Initializable {
      * Takes care of calculating the right amount of pages to navigate the selected diet table properly.
      */
     public void calculateSelectedDietPages() {
-        selectedDietResult.clear();
-        totalSelectedDietPages = Math.ceil(selectedDiets.size() / 5.0);
-        if (totalSelectedDietPages < selectedDietPageNumber) {
-            selectedDietPageNumber--;
-        }
-        if (totalSelectedDietPages > 0) {
-            selectedDietPageNumber = Math.max(selectedDietPageNumber, 1);
-        }
-        pagesTextSelectedDiet.setText(selectedDietPageNumber + " / " + (int) totalSelectedDietPages + " pages");
-        if (selectedDiets.size() > 5) {
-            for (int i = 0; i < 5; i++) {
-                try {
-                    selectedDietResult.add(selectedDiets.get((i - 5) + selectedDietPageNumber * 5));
-                } catch (IndexOutOfBoundsException e) {
-                    break;
-                }
-            }
-        }  else {
-            selectedDietResult.addAll(selectedDiets);
-        }
+        Pair<Integer, Integer> pair = calculatePages(selectedDietResult, totalSelectedDietPages, selectedDietPageNumber, selectedDiets, 6);
+        totalSelectedDietPages = pair.getKey();
+        selectedDietPageNumber = pair.getValue();
+        pagesTextSelectedDiet.setText(selectedDietPageNumber + " / " + totalSelectedDietPages + " pages");
         selectedDietTable.setItems(selectedDietResult);
     }
 

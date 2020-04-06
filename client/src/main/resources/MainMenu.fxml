@@ -87,4 +87,12 @@
          <Cursor fx:constant="HAND" />
       </cursor>
    </Hyperlink>
+   <Hyperlink layoutX="974.0" layoutY="671.0" onMouseClicked="#goToBuildingInformation" text="Building Information" textAlignment="CENTER" textFill="#00a6d6">
+      <font>
+         <Font size="18.0" />
+      </font>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Hyperlink>
 </AnchorPane>

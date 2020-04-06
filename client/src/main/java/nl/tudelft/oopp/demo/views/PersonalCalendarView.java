@@ -1,6 +1,7 @@
 package nl.tudelft.oopp.demo.views;
 
 import com.calendarfx.model.Calendar;
+import com.calendarfx.model.CalendarEvent;
 import com.calendarfx.model.CalendarSource;
 import com.calendarfx.model.Entry;
 import com.calendarfx.view.CalendarView;
@@ -23,21 +24,25 @@ import nl.tudelft.oopp.demo.communication.RoomServerCommunication;
 import nl.tudelft.oopp.demo.entities.BikeReservation;
 import nl.tudelft.oopp.demo.entities.FoodOrder;
 import nl.tudelft.oopp.demo.entities.RoomReservation;
+import nl.tudelft.oopp.demo.errors.CustomAlert;
+import nl.tudelft.oopp.demo.errors.ErrorMessages;
 
 public class PersonalCalendarView extends CalendarView {
 
     Calendar bookedRooms = new Calendar("Room Bookings");
     Calendar orderedFood = new Calendar("Food Orders");
-    Calendar rentedBikes = new Calendar("Bike Rent");
+    Calendar rentedBikes = new Calendar("Bike Rentals");
+
+    String attemptedDelete = "empty";
 
     /**
      * Constructor for the Personal Calendar View
      */
     public PersonalCalendarView() {
         displayCalendars();
-        loadRoomReservations();
-        loadBikeReservations();
-        loadFoodOrders();
+        bookedRooms.addEventHandler(this::roomReservationCancellationHandler);
+        orderedFood.addEventHandler(this::foodOrderCancellationHandler);
+        rentedBikes.addEventHandler(this::bikeReservationCancellationHandler);
     }
 
     /**
@@ -65,6 +70,7 @@ public class PersonalCalendarView extends CalendarView {
                 bookedEntry.setLocation(reservation.getRoom().getBuilding().getName());
                 bookedEntry.setInterval(fromDate, toDate);
                 bookedEntry.setInterval(startTime, endTime);
+                bookedEntry.setId(String.valueOf(reservation.getId()));
                 bookedRooms.addEntry(bookedEntry);
             }
         }
@@ -104,6 +110,7 @@ public class PersonalCalendarView extends CalendarView {
                     bookedEntry.setInterval(date);
                 }
                 bookedEntry.setInterval(startTime, endTime);
+                bookedEntry.setId(String.valueOf(foodOrder.getId()));
                 orderedFood.addEntry(bookedEntry);
             }
         }
@@ -135,6 +142,7 @@ public class PersonalCalendarView extends CalendarView {
                 bookedEntry.setLocation(reservation.getFromBuilding().getName());
                 bookedEntry.setInterval(fromDate, toDate);
                 bookedEntry.setInterval(startTime, endTime);
+                bookedEntry.setId(String.valueOf(reservation.getId()));
                 rentedBikes.addEntry(bookedEntry);
             }
         }
@@ -148,18 +156,42 @@ public class PersonalCalendarView extends CalendarView {
         orderedFood.setStyle(Calendar.Style.STYLE3);
         rentedBikes.setStyle(Calendar.Style.STYLE4);
 
-        bookedRooms.setReadOnly(true);
-        orderedFood.setReadOnly(true);
-        rentedBikes.setReadOnly(true);
-
         CalendarSource myCalendarSource = new CalendarSource("My Calendars");
         myCalendarSource.getCalendars().addAll(bookedRooms, orderedFood, rentedBikes);
         this.getCalendarSources().add(myCalendarSource);
     }
 
-    public Date convertToDate(LocalTime time, LocalDate date) {
-        LocalDateTime dateTime = LocalDateTime.of(date, time);
-        return Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant());
+    /**
+     * Handles the event of entry removal. Cancels the room reservation of the entry that was removed.
+     * @param event = the calendar event
+     */
+    public void roomReservationCancellationHandler(CalendarEvent event) {
+        if (event.isEntryRemoved()) {
+            RoomServerCommunication.cancelRoomReservation(Integer.parseInt(event.getEntry().getId()));
+            CustomAlert.informationAlert(ErrorMessages.getErrorMessage(200));
+        }
+    }
+
+    /**
+     * Handles the event of entry removal. Cancels the food order of the entry that was removed.
+     * @param event = the calendar event
+     */
+    public void foodOrderCancellationHandler(CalendarEvent event) {
+        if (event.isEntryRemoved()) {
+            RestaurantServerCommunication.cancelFoodOrder(Integer.parseInt(event.getEntry().getId()));
+            CustomAlert.informationAlert(ErrorMessages.getErrorMessage(200));
+        }
+    }
+
+    /**
+     * Handles the event of entry removal. Cancels the bike reservation of the entry that was removed.
+     * @param event = the calendar event
+     */
+    public void bikeReservationCancellationHandler(CalendarEvent event) {
+        if (event.isEntryRemoved()) {
+            BikeServerCommunication.cancelBikeReservation(Integer.parseInt(event.getEntry().getId()));
+            CustomAlert.informationAlert(ErrorMessages.getErrorMessage(200));
+        }
     }
 
     public LocalTime convertToLocalTime(Date date) {
