@@ -427,7 +427,7 @@ public class DatabaseRestaurantMenuController implements Initializable {
     public void calculateDishPages() {
         dishList.clear();
 
-        totalPages = Math.ceil(dishes.size() / 7.0);
+        totalPages = Math.ceil(dishes.size() / 6);
 
         if (dishes.size() == 0) {
             pageNumber = 0;
@@ -439,10 +439,10 @@ public class DatabaseRestaurantMenuController implements Initializable {
 
         pagesText.setText(pageNumber + " / " + (int) totalPages + " pages");
 
-        if (dishes.size() > 7) {
-            for (int i = 0; i < 7; i++) {
+        if (dishes.size() > 6) {
+            for (int i = 0; i < 6; i++) {
                 try {
-                    dishList.add(dishes.get((i - 7) + pageNumber * 7));
+                    dishList.add(dishes.get((i - 6) + pageNumber * 6));
                 } catch (IndexOutOfBoundsException e) {
                     break;
                 }
@@ -520,7 +520,7 @@ public class DatabaseRestaurantMenuController implements Initializable {
      */
     public void calculateAllergyPages() {
         allergySelectedList.clear();
-        totalAllergySelectedPages = Math.ceil(allergies.size() / 5.0);
+        totalAllergySelectedPages = Math.ceil(allergies.size() / 6.0);
 
         if (allergies.size() == 0) {
             allergySelectedPageNumber = 0;
@@ -532,10 +532,10 @@ public class DatabaseRestaurantMenuController implements Initializable {
 
         pagesTextAllergiesCurrent.setText(allergySelectedPageNumber + " / " + (int) totalAllergySelectedPages + " pages");
 
-        if (allergies.size() > 5) {
-            for (int i = 0; i < 5; i++) {
+        if (allergies.size() > 6) {
+            for (int i = 0; i < 6; i++) {
                 try {
-                    allergySelectedList.add(allergies.get((i - 5) + allergySelectedPageNumber * 5));
+                    allergySelectedList.add(allergies.get((i - 6) + allergySelectedPageNumber * 6));
                 } catch (IndexOutOfBoundsException e) {
                     break;
                 }
@@ -576,8 +576,8 @@ public class DatabaseRestaurantMenuController implements Initializable {
                 assert dish != null;
                 if (dishList.get(i).getId() == (dish.getId())) {
                     deleteButton = new Button("Delete");
-                    deleteButton.setLayoutX(1062);
-                    deleteButton.setLayoutY(221 + (24 * (i + 1)));
+                    deleteButton.setLayoutX(990);
+                    deleteButton.setLayoutY(179 + (24 * (i + 1)));
                     deleteButton.setMinWidth(60);
                     deleteButton.setStyle("-fx-background-color:  #CC5653; -fx-font-size:10; -fx-text-fill: white");
                     deleteButton.setMinHeight(20);
