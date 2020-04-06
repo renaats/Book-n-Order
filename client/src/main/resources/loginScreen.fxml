@@ -46,5 +46,5 @@
             <Font name="DejaVu Sans ExtraLight" size="36.0" />
          </font>
       </Text>
-   <Hyperlink layoutX="980.0" layoutY="563.0" onAction="#forgotPassword" text="Forgot Password?" />
+   <Hyperlink layoutX="980.0" layoutY="563.0" onAction="#forgotPassword" text="Forgot Password?" style="-fx-border-color: transparent"/>
 </AnchorPane>

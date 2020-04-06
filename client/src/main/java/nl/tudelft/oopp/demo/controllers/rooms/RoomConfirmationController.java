@@ -53,11 +53,8 @@ public class RoomConfirmationController implements Initializable{
     }
 
     public void loadInformation() {
-        System.out.println(start.toString());
-        System.out.println(start.getDayOfMonth());
         dayOfMonth.setText(String.valueOf(start.getDayOfMonth()));
         int intMonth = start.getMonthValue();
-        System.out.println(intMonth);
         switch (intMonth) {
             case 1:
                 month.setText("January");
