@@ -30,7 +30,6 @@ public class Room {
      * Creates a new instance of Room.
      * @param name = name of the room.
      * @param building = building in which room is situated.
-     * @param faculty = name of the faculty.
      * @param studySpecific = whether the room is faculty specific.
      * @param studySpecific = whether the room is study specific.
      * @param projector = whether the room has a projector.
@@ -129,10 +128,6 @@ public class Room {
 
     public String getFaculty() {
         return faculty;
-    }
-
-    public String getStudySpecific() {
-        return studySpecific;
     }
 
     public boolean isProjector() {
