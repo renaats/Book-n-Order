@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -101,6 +103,15 @@ public class BikeReservation implements Comparable {
 
     public Date getToTime() {
         return toTime;
+    }
+
+    /**
+     * Makes the table list the id of the bike instead of the bike object
+     * @return String property, a property recognized by the tables.
+     */
+    public IntegerProperty getBikeIdProperty() {
+        int id = getBike().getId();
+        return new SimpleIntegerProperty(id);
     }
 
     /**

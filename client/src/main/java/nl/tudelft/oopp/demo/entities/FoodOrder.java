@@ -20,6 +20,8 @@ public class FoodOrder implements Comparable {
     private AppUser appUser;
     private Building deliveryLocation;
     private Date deliveryTime;
+    private boolean feedback;
+    private boolean feedbackHasBeenGiven;
     private Set<DishOrder> dishOrders;
     private boolean feedback;
     private boolean feedbackHasBeenGiven;
@@ -54,15 +56,17 @@ public class FoodOrder implements Comparable {
      * @return String property, a property recognized by the tables.
      */
     public StringProperty getDeliveryLocationNameProperty() {
-        String name = getDeliveryLocation().getName();
-        return new SimpleStringProperty(name);
+        if (getDeliveryLocation() == null || getDeliveryLocation().getName() == null || getDeliveryLocation().getName().equals("")) {
+            return new SimpleStringProperty("Pick Up");
+        }
+        return new SimpleStringProperty(getDeliveryLocation().getName());
     }
 
     /**
-     * Makes the table list the Delivery time in a readable manner of the Delivery Time object
+     * Makes the table list the Delivery day instead of the Delivery Time object
      * @return String property, a property recognized by the tables.
      */
-    public StringProperty getDeliveryDayProperty() {
+    public SimpleStringProperty getDeliveryTimeProperty() {
         Date time = getDeliveryTime();
         DateFormat df = new SimpleDateFormat("dd MMMMM yyyy HH:mm");
         return new SimpleStringProperty(df.format(time));

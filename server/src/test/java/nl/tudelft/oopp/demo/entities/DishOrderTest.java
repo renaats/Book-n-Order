@@ -77,7 +77,7 @@ public class DishOrderTest {
         menuRepository.saveAndFlush(menu);
 
         foodOrder = new FoodOrder(restaurantRepository.findAll().get(0), userRepository.findAll().get(0),
-                buildingRepository.findAll().get(1), new Date(11000000000L), menu);
+                buildingRepository.findAll().get(1), new Date(11000000000L),menuRepository.findAll().get(0));
         foodOrderRepository.saveAndFlush(foodOrder);
         foodOrder = foodOrderRepository.findAll().get(0);
 

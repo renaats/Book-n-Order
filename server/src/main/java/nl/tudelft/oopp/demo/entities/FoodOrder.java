@@ -79,6 +79,7 @@ public class FoodOrder {
         this.deliveryTime = deliveryTime;
         this.menu = menu;
         this.active = true;
+        this.feedbackHasBeenGiven = false;
         this.dishOrders = new HashSet<>();
         this.feedbackHasBeenGiven = false;
     }

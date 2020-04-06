@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.restaurants.MyCurrentFoodReservationsController">
+<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" stylesheets="@Table.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.restaurants.MyCurrentFoodReservationsController">
     <children>
         <ImageView fitHeight="720.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
             <image>
@@ -45,13 +45,14 @@
                 <Cursor fx:constant="HAND" />
             </cursor>
         </ImageView>
-        <TableView layoutX="327.0" layoutY="198.0" prefHeight="380.0" prefWidth="626.0">
+        <TableView fx:id="table" layoutX="250.0" layoutY="200.0" prefHeight="408.0" prefWidth="768.0">
             <columns>
-                <TableColumn prefWidth="75.0" text="C1" />
-                <TableColumn prefWidth="75.0" text="C2" />
+                <TableColumn fx:id="colRestaurant" editable="false" maxWidth="285.6666564941406" minWidth="285.6666564941406" prefWidth="285.6666564941406" resizable="false" sortable="false" text="Restaurant" />
+                <TableColumn fx:id="colDeliveryLoc" editable="false" maxWidth="257.0" minWidth="257.0" prefWidth="257.0" resizable="false" sortable="false" text="Delivery Location" />
+                <TableColumn fx:id="colDate" editable="false" maxWidth="221.33331298828125" minWidth="221.33331298828125" prefWidth="221.33331298828125" resizable="false" sortable="false" text="Date" />
             </columns>
         </TableView>
-        <Text layoutX="409.0" layoutY="146.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Current Food Reservations">
+        <Text layoutX="456.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My Current Food Orders">
             <font>
                 <Font size="33.0" />
             </font>
