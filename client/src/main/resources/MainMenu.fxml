@@ -63,7 +63,7 @@
       <font>
          <Font name="Candara Bold" size="24.0" />
       </font></Text>
-   <Text layoutX="76.0" layoutY="215.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book 'n Order is the TU Delft app for booking rooms, renting bikes and picking up food!" wrappingWidth="319.30078125" />
+   <Text layoutX="76.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" text="We are the TU Delft app for booking rooms, renting bikes, and ordering food! Click new bookings to get started!" textAlignment="CENTER" wrappingWidth="279.1640625" />
    <Button layoutX="824.0" layoutY="571.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#goToMainReservationsMenu" style="-fx-background-color: #00a6d6;" text="New Bookings" textFill="WHITE">
       <cursor>
          <Cursor fx:constant="HAND" />
