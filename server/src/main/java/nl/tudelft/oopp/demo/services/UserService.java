@@ -141,9 +141,10 @@ public class UserService {
      * @param name = the name of the user
      * @param surname = the surname of the user
      * @param faculty = the faculty of the user
+     * @param study = the study of the user
      * @return an error code corresponding to the outcome of the request
      */
-    public int add(String email, String password, String name, String surname, String faculty) {
+    public int add(String email, String password, String name, String surname, String faculty, String study) {
         if (!EmailValidator.getInstance().isValid(URLDecoder.decode(email, StandardCharsets.UTF_8))) {
             return INVALID_EMAIL;
         }
@@ -153,7 +154,7 @@ public class UserService {
         if (userRepository.existsById(email)) {
             return DUPLICATE_EMAIL;
         }
-        AppUser appUser = new AppUser(email, bcryptPasswordEncoder.encode(password), name, surname, faculty);
+        AppUser appUser = new AppUser(email, bcryptPasswordEncoder.encode(password), name, surname, faculty, study);
         appUser.setRoles(new HashSet<>());
         if (!roleRepository.existsByName(USER)) {
             Role role = new Role();
@@ -244,6 +245,9 @@ public class UserService {
             case "faculty":
                 appUser.setFaculty(value);
                 break;
+            case "study":
+                appUser.setStudy(value);
+                break;
             default:
                 return ATTRIBUTE_NOT_FOUND;
         }
@@ -325,6 +329,20 @@ public class UserService {
     }
 
     /**
+     * Retrieves a boolean value representing whether the user has the admin role.
+     * @param request = the Http request that calls this method.
+     * @return a boolean value representing whether the user has an admin role.
+     */
+    public boolean hasAdminRole(HttpServletRequest request) {
+        String token = request.getHeader(HEADER_STRING);
+        AppUser appUser = getAppUser(token, userRepository);
+        if (appUser == null) {
+            return false;
+        }
+        return appUser.getRoles().contains(roleRepository.findByName(ADMIN));
+    }
+
+    /**
      * Sends an email with the new password to the user.
      * @param email User's email
      * @return  error code corresponding to the actions taken
@@ -334,10 +352,9 @@ public class UserService {
             RandomStringGenerator pwdGenerator = new RandomStringGenerator.Builder().withinRange(48, 90)
                     .build();
             String password = pwdGenerator.generate(10);
-            String recipient = email;
             String subject = "Password Recovery";
             SimpleMailMessage email2 = new SimpleMailMessage();
-            email2.setTo(recipient);
+            email2.setTo(email);
             email2.setSubject(subject);
             email2.setText("This email provides you with the new password.\nTU Delft advices you to change it immediately "
                     + "after logging in to secure yourself from unwanted presence.\n"

@@ -113,6 +113,28 @@ public class RoomReservationController {
     }
 
     /**
+     * Finds all past room reservations for some room.
+     * @param roomId = the room for which the room reservations are searched.
+     * @return a list of past room reservations for this room.
+     */
+    @Secured({ADMIN, BUILDING_ADMIN})
+    @GetMapping(path = "/pastAdmin")
+    public Iterable<RoomReservation> getPastReservationsAdmin(@RequestParam int roomId) {
+        return roomReservationService.pastForAdmin(roomId);
+    }
+
+    /**
+     * Finds all future room reservations for some room.
+     * @param roomId = the room for which the room reservations are searched.
+     * @return a list of future room reservations for this room.
+     */
+    @Secured({ADMIN, BUILDING_ADMIN})
+    @GetMapping(path = "/futureAdmin")
+    public Iterable<RoomReservation> getFutureReservationsAdmin(@RequestParam int roomId) {
+        return roomReservationService.futureForAdmin(roomId);
+    }
+
+    /**
      * Finds all active room reservations for the user that sends the Http request.
      * @param request = the Http request that calls this method.
      * @return a list of active room reservations for this user.

@@ -36,7 +36,6 @@ public class BikeReservationController {
     /**
      * Adds a bike reservation.
      * @param request = the Http request that calls this method.
-     * @param bikeId = the id of the bike associated to the reservation.
      * @param fromBuilding = the building where the user picks up the reserved bike.
      * @param toBuilding = the building where the user drops off the reserved bike.
      * @param fromTimeMs = the starting time of the reservation.
@@ -47,12 +46,11 @@ public class BikeReservationController {
     @PostMapping(path = "/add") // Map ONLY POST Requests
     public int addNewBikeReservation(
             HttpServletRequest request,
-            @RequestParam int bikeId,
             @RequestParam int fromBuilding,
             @RequestParam int toBuilding,
             @RequestParam long fromTimeMs,
             @RequestParam long toTimeMs) {
-        return bikeReservationService.add(request, bikeId, fromBuilding, toBuilding, fromTimeMs, toTimeMs);
+        return bikeReservationService.add(request, fromBuilding, toBuilding, fromTimeMs, toTimeMs);
     }
 
     /**
@@ -112,6 +110,28 @@ public class BikeReservationController {
     @GetMapping(path = "/future")
     public Iterable<BikeReservation> getFutureReservations(HttpServletRequest request) {
         return bikeReservationService.future(request);
+    }
+
+    /**
+     * Finds all past bike reservations for some bike.
+     * @param bikeId = the bike for which the bike reservations are searched.
+     * @return a list of past bike reservations for this bike.
+     */
+    @Secured({ADMIN, BIKE_ADMIN})
+    @GetMapping(path = "/pastAdmin")
+    public Iterable<BikeReservation> getPastReservationsAdmin(@RequestParam int bikeId) {
+        return bikeReservationService.pastForAdmin(bikeId);
+    }
+
+    /**
+     * Finds all future bike reservations for some bike.
+     * @param bikeId = the bike for which the bike reservations are searched.
+     * @return a list of future bike reservations for this bike.
+     */
+    @Secured({ADMIN, BIKE_ADMIN})
+    @GetMapping(path = "/futureAdmin")
+    public Iterable<BikeReservation> getFutureReservationsAdmin(@RequestParam int bikeId) {
+        return bikeReservationService.futureForAdmin(bikeId);
     }
 
     /**

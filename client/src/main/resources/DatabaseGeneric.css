@@ -1,0 +1,24 @@
+.toggle-button {
+    -fx-background-color: #CC5653;
+}
+
+.toggle-button:selected {
+    -fx-background-color: #7cc263;
+}
+
+.scroll-pane .scroll-bar:vertical {
+    -fx-background-color:  #00a6d6;
+}
+
+.choice-box {
+    -fx-background-color: white;
+}
+
+.date-picker:editable > .arrow-button > * {
+     /*-fx-opacity: 0; !* Set the node in the button to be visible *!*/
+    -fx-background-color: white;
+ }
+
+.date-picker > .arrow-button {
+    -fx-background-color: #00a6d6;
+}

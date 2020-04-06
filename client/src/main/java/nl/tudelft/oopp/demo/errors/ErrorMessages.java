@@ -19,6 +19,7 @@ public class ErrorMessages {
     private static final String userNotFoundMessage = "User not found.";
     private static final String wrongUserMessage = "This reservation was not made by this user.";
     private static final String reservationNotFoundMessage = "Reservation not found.";
+    private static final String allBikesReservedMessage = "No bikes available.";
     private static final String orderNotFoundMessage = "Order not found.";
     private static final String buildingNotFoundMessage = "Building not found.";
     private static final String nameAlreadyExistsMessage = "Name already exists.";
@@ -30,6 +31,7 @@ public class ErrorMessages {
     private static final String endBeforeStartMessage = "End time cannot be before start time.";
     private static final String duplicateBuildingDayMessage = "This building already has a time for this day.";
     private static final String restaurantNotFoundMessage = "Restaurant not found.";
+    private static final String menuAlreadyExistsMessage = "Already exists.";
     private static final String unsupportedEncodingMessage = "Please enter an encoding that is supported by the URLEncode class.";
     private static final String somethingWentWrongMessage = "Something went wrong.";
     private static final String menuNotFoundMessage = "Menu not found.";
@@ -75,6 +77,8 @@ public class ErrorMessages {
                 return notFoundMessage;
             case 412:
                 return preConditionFailedMessage;
+            case 414:
+                return allBikesReservedMessage;
             case 415:
                 return orderNotFoundMessage;
             case 416:
@@ -109,6 +113,8 @@ public class ErrorMessages {
                 return dishNotFoundMessage;
             case 431:
                 return codesDoNotMatchMessage;
+            case 432:
+                return menuAlreadyExistsMessage;
             case 502:
                 return unsupportedEncodingMessage;
             default:

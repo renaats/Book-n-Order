@@ -103,7 +103,7 @@ class BuildingServerCommunicationTest {
      */
     @Test
     public void testSuccessfulAddBuildingHours() {
-        assertEquals(ErrorMessages.getErrorMessage(200), BuildingServerCommunication.addBuildingHours(1, 1L, 1, 2));
+        assertEquals("Successfully executed.", BuildingServerCommunication.addBuildingHours(1, 1L, 1, 2));
     }
 
     /**

@@ -1,7 +1,7 @@
 package nl.tudelft.oopp.demo.services;
 
 import static nl.tudelft.oopp.demo.config.Constants.ADDED;
-import static nl.tudelft.oopp.demo.config.Constants.ALREADY_RESERVED;
+import static nl.tudelft.oopp.demo.config.Constants.ALL_BIKES_RESERVED;
 import static nl.tudelft.oopp.demo.config.Constants.ATTRIBUTE_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.BUILDING_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
@@ -53,19 +53,13 @@ public class BikeReservationService {
     /**
      * Adds a bike reservation.
      * @param request = the Http request that calls this method.
-     * @param bikeId = the id of the bike associated to the reservation.
      * @param fromBuilding = the building where the user picks up the reserved bike.
      * @param toBuilding = the building where the user drops off the reserved bike.
      * @param fromTimeMs = the starting time of the reservation.
      * @param toTimeMs = the ending time of the reservation.
      * @return String containing the result of your request.
      */
-    public int add(HttpServletRequest request, int bikeId, int fromBuilding, int toBuilding, long fromTimeMs, long toTimeMs) {
-        Optional<Bike> optionalBike = bikeRepository.findById(bikeId);
-        if (optionalBike.isEmpty()) {
-            return ID_NOT_FOUND;
-        }
-
+    public int add(HttpServletRequest request, int fromBuilding, int toBuilding, long fromTimeMs, long toTimeMs) {
         String token = request.getHeader(HEADER_STRING);
         AppUser appUser = UserService.getAppUser(token, userRepository);
         if (appUser == null) {
@@ -82,9 +76,15 @@ public class BikeReservationService {
             return BUILDING_NOT_FOUND;
         }
 
-        Bike bike = optionalBike.get();
-        if (bike.hasBikeReservationBetween(new Date(fromTimeMs), new Date(toTimeMs))) {
-            return ALREADY_RESERVED;
+        Bike bike = null;
+        for (Bike loopBike: bikeRepository.findAll()) {
+            if (loopBike.isAvailable() && !loopBike.hasBikeReservationBetween(new Date(fromTimeMs), new Date(toTimeMs))) {
+                bike = loopBike;
+                break;
+            }
+        }
+        if (bike == null) {
+            return ALL_BIKES_RESERVED;
         }
         Building fromBuildingLoc = optionalFromBuilding.get();
         Building toBuildingLoc = optionalToBuilding.get();
@@ -229,6 +229,36 @@ public class BikeReservationService {
         }
         for (BikeReservation bikeReservation: bikeReservationRepository.findAll()) {
             if (bikeReservation.getAppUser() == appUser && bikeReservation.getToTime().after(new Date()) && bikeReservation.isActive()) {
+                bikeReservations.add(bikeReservation);
+            }
+        }
+        return bikeReservations;
+    }
+
+    /**
+     * Finds all past bike reservations for some bike.
+     * @param bikeId = the bike for which the bike reservations are searched.
+     * @return a list of past bike reservations for this bike.
+     */
+    public List<BikeReservation> pastForAdmin(int bikeId) {
+        List<BikeReservation> bikeReservations = new ArrayList<>();
+        for (BikeReservation bikeReservation: bikeReservationRepository.findAllByBikeId(bikeId)) {
+            if (!bikeReservation.getToTime().after(new Date()) || !bikeReservation.isActive()) {
+                bikeReservations.add(bikeReservation);
+            }
+        }
+        return bikeReservations;
+    }
+
+    /**
+     * Finds all future bike reservations for some bike.
+     * @param bikeId = the bike for which the bike reservations are searched.
+     * @return a list of future bike reservations for this bike.
+     */
+    public List<BikeReservation> futureForAdmin(int bikeId) {
+        List<BikeReservation> bikeReservations = new ArrayList<>();
+        for (BikeReservation bikeReservation: bikeReservationRepository.findAllByBikeId(bikeId)) {
+            if (bikeReservation.getToTime().after(new Date()) && bikeReservation.isActive()) {
                 bikeReservations.add(bikeReservation);
             }
         }

@@ -62,7 +62,7 @@ public class BikeReservationTest {
         bike.setAvailable(true);
         bikeRepository.saveAndFlush(bike);
 
-        appUser = new AppUser("l.j.jongejans@student.tudelft.nl", "1234", "Liselotte", "Jongejans", "EWI");
+        appUser = new AppUser("l.j.jongejans@student.tudelft.nl", "1234", "Liselotte", "Jongejans", "EWI", "CSE");
         appUser.setRoomReservations(new HashSet<>());
         userRepository.saveAndFlush(appUser);
 

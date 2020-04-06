@@ -1,5 +1,6 @@
 package nl.tudelft.oopp.demo.entities;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
@@ -15,7 +16,7 @@ public class FoodOrder {
     private AppUser appUser;
     private Building deliveryLocation;
     private Date deliveryTime;
-    private Set<Dish> dishes;
+    private Set<DishOrder> dishOrders;
 
     /** Creates a new instance of FoodOrder.
      * @param restaurant the restaurant at which the food order is placed.
@@ -60,8 +61,8 @@ public class FoodOrder {
         this.menu = menu;
     }
 
-    public void setDishes(Set<Dish> dishes) {
-        this.dishes = dishes;
+    public void setDishOrders(Set<DishOrder> dishOrders) {
+        this.dishOrders = dishOrders;
     }
 
     public Integer getId() {
@@ -88,12 +89,28 @@ public class FoodOrder {
         return deliveryTime;
     }
 
+    /**
+     * Gets the delivery location name.
+     * @return the name of the location.
+     */
+    public String getLocationNameString() {
+        if (deliveryLocation == null || deliveryLocation.getName() == null || deliveryLocation.getName().equals("")) {
+            return "Pick Up";
+        }
+        return deliveryLocation.getName();
+    }
+
+    public String getDeliveryTimeString() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd  HH:mm");
+        return simpleDateFormat.format(deliveryTime);
+    }
+
     public Menu getMenu() {
         return menu;
     }
 
-    public Set<Dish> getDishes() {
-        return dishes;
+    public Set<DishOrder> getDishOrders() {
+        return dishOrders;
     }
 
     @Override
@@ -110,6 +127,6 @@ public class FoodOrder {
                 && Objects.equals(deliveryLocation, that.deliveryLocation)
                 && Objects.equals(deliveryTime, that.deliveryTime)
                 && Objects.equals(menu, that.menu)
-                && Objects.equals(dishes, that.dishes);
+                && Objects.equals(dishOrders, that.dishOrders);
     }
 }
