@@ -21,7 +21,7 @@ import nl.tudelft.oopp.demo.views.PersonalCalendar;
 /**
  * Loads the user's Personal Calendar into the application template and handles events regarding it.
  */
-public class PersonalCalendarViewController implements Initializable {
+public class PersonalCalendarController implements Initializable {
 
     PersonalCalendar calendar = new PersonalCalendar();
 
