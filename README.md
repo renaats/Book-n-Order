@@ -31,7 +31,7 @@ It is optional to have a [MYSQL](https://dev.mysql.com/) database. If you [insta
 If you are interested in contributing to our project, please follow use our [Checkstyle](config/checkstyle/checkstyle.xml) requirements. If you are using [CheckStyle-IDEA](https://plugins.jetbrains.com/plugin/1065-checkstyle-idea), it is then required to use version 8.25. Furthermore, it is essential that [Git LFS](https://git-lfs.github.com/) is installed. No further requirements!
 
 ## How to run it
-You can run the application directly from the IDE. To run the server side of the application, run `DatabaseApplication`. To run the client side, run `MainApp`. The `DatabaseApplication` will run a database locally and will be reset upon every reboot. Please know that you can set up a MYSQL database that is persistent. See 'Setting up a Development Environment'
+You can run the application directly from the IDE. To run the server side of the application, run `DatabaseApplication`. To run the client side, run `MainApp`. The `DatabaseApplication` will run a database locally and will be reset upon every reboot. Please know that you can set up a MYSQL database that is persistent. See 'Setting up a Development Environment'.
 
 Please do know that using the application requires a TuDelft email. Registering with any other email will be declined. If you own a TuDelft email you can register and a verification code will be send your way. After verifying yourself, you can use the app freely.
 
