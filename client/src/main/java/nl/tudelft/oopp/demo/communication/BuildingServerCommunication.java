@@ -114,6 +114,17 @@ public class BuildingServerCommunication {
     }
 
     /**
+     * Retrieve specific building hours for a specific day in the database by id.
+     * @param buildingId = building id, which is parsed from a text field.
+     * @param day = the day in integer representation (1 - 7)
+     * @return the body of the response.
+     */
+    public static String findBuildingHoursByDay(int buildingId, int day) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/building_hours/findAdmin/" + buildingId + "/" + day)).GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
      * Updates a given attribute of building hours.
      * @param id = id of the building hour to be updated.
      * @param attribute = The attribute whose value is to be updated.

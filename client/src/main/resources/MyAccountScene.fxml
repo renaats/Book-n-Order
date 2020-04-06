@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.MyAccountController">
+<AnchorPane fx:id="anchorPane" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.generic.MyAccountController">
    <ImageView fitWidth="1280.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@images/mainMenuBackground.jpg" />
@@ -87,7 +87,7 @@
             <Cursor fx:constant="HAND" />
         </cursor>
     </Button>
-   <Button layoutX="771.0" layoutY="571.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#myPreviousBookings" style="-fx-background-color: #00a6d6;" text="Past Bookings" textFill="WHITE">
+   <Button layoutX="771.0" layoutY="571.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#myPreviousBookings" style="-fx-background-color: #00a6d6;" text="Previous Bookings" textFill="WHITE">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor>

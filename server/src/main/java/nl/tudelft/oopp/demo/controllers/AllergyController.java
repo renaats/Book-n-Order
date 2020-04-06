@@ -81,6 +81,18 @@ public class AllergyController {
     }
 
     /**
+     * Finds all allergies for a dish the specified id.
+     * @param dishId = the id of the dish
+     * @return the allergies that match the provided dish id
+     */
+    @Secured(USER)
+    @GetMapping(path = "/dish/{dishId}")
+    @ResponseBody
+    public List<Allergy> allergiesForDish(@PathVariable(value = "dishId") int dishId) {
+        return allergyService.findAllByDishId(dishId);
+    }
+
+    /**
      * Allows for a multi-parameter Allergy search in a AllergyRepository.
      * @param query The search string in the format "[param1][operation][value],[param2][operation][value],..."
      *               where [operation] is ':', '<', or '>'.

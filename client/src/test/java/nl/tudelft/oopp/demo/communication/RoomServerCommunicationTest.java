@@ -37,7 +37,7 @@ class RoomServerCommunicationTest {
         stubFor(get(urlEqualTo("/room/find/1")).willReturn(aResponse().withStatus(200).withBody("Message5")));
         stubFor(delete(urlEqualTo("/room/delete/1")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(post(urlEqualTo("/room/update?id=1&attribute=a&value=a")).willReturn(aResponse().withStatus(200).withBody("200")));
-        stubFor(post(urlEqualTo("/room/add?name=a&studySpecific=a&screen=true&projector=true&buildingId=1&capacity=1&plugs=1"))
+        stubFor(post(urlEqualTo("/room/add?name=a&studySpecific=a&screen=true&projector=true&buildingId=1&capacity=1&plugs=1&status=A"))
                 .willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(post(urlEqualTo("/room_reservation/add?roomId=1&fromTimeMs=1&toTimeMs=2"))
                 .willReturn(aResponse().withStatus(200).withBody("200")));
@@ -46,10 +46,11 @@ class RoomServerCommunicationTest {
         stubFor(delete(urlEqualTo("/room_reservation/delete?id=1")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(get(urlEqualTo("/room_reservation/find/10")).willReturn(aResponse().withStatus(200).withBody("Message10")));
         stubFor(get(urlEqualTo("/room_reservation/cancel/1")).willReturn(aResponse().withStatus(200).withBody("201")));
-        stubFor(get(urlEqualTo("/room/filter?query=name:Auditorium")).willReturn(aResponse().withStatus(200).withBody("Message15")));
+        stubFor(get(urlEqualTo("/room/filter?query=name%3AAuditorium")).willReturn(aResponse().withStatus(200).withBody("Message15")));
         stubFor(get(urlEqualTo("/room_reservation/past")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(get(urlEqualTo("/room_reservation/future")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(get(urlEqualTo("/room_reservation/active")).willReturn(aResponse().withStatus(200).withBody("Message4")));
+        stubFor(get(urlEqualTo("/room_reservation/room/1")).willReturn(aResponse().withStatus(200).withBody("Message50")));
     }
 
     /**
@@ -113,7 +114,7 @@ class RoomServerCommunicationTest {
      */
     @Test
     public void testSuccessfulAddRoom() {
-        assertEquals(ErrorMessages.getErrorMessage(200), RoomServerCommunication.addRoom("a", 1, "a", true, true, 1, 1));
+        assertEquals(ErrorMessages.getErrorMessage(200), RoomServerCommunication.addRoom("a", 1, "a", true, true, 1, 1, "A"));
     }
 
     /**
@@ -153,7 +154,7 @@ class RoomServerCommunicationTest {
      */
     @Test
     public void testSuccessfulUpdateRoomReservation() {
-        assertEquals(ErrorMessages.getErrorMessage(200), RoomServerCommunication.updateRoomReservation(1, "a","b"));
+        assertEquals(ErrorMessages.getErrorMessage(200), RoomServerCommunication.updateRoomReservation(1, "a", "b"));
     }
 
     /**
@@ -170,6 +171,11 @@ class RoomServerCommunicationTest {
     @Test
     public void testCancelRoomReservation() {
         assertEquals(ErrorMessages.getErrorMessage(201), RoomServerCommunication.cancelRoomReservation(1));
+    }
+
+    @Test
+    public void testFindReservationForRoom() {
+        assertEquals("Message50", RoomServerCommunication.findReservationForRoom(1));
     }
 
     /**

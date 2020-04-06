@@ -6,8 +6,11 @@ import static nl.tudelft.oopp.demo.config.Constants.DISH_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
 import static nl.tudelft.oopp.demo.config.Constants.ID_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.MENU_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.WRONG_CREDENTIALS;
 
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -136,6 +139,29 @@ public class DishService {
     }
 
     /**
+     * Removes an allergy from a dish.
+     * @param id = the id of the dish.
+     * @param allergyName = the name of the allergy.
+     */
+    public int removeAllergy(int id, String allergyName) {
+        if (!dishRepository.existsById(id)) {
+            return ID_NOT_FOUND;
+        }
+        Dish dish = dishRepository.getOne(id);
+        if (RestaurantService.noPermissions(SecurityContextHolder.getContext(), dish.getMenu().getRestaurant())) {
+            return WRONG_CREDENTIALS;
+        }
+        Allergy allergy;
+        if (!allergyRepository.existsByAllergyName(allergyName)) {
+            return NOT_FOUND;
+        }
+        allergy = allergyRepository.findByAllergyName(allergyName);
+        dish.removeAllergy(allergy);
+        dishRepository.save(dish);
+        return EXECUTED;
+    }
+
+    /**
      * Deletes a dish.
      * @param id = the id of the dish.
      * @return Error code.
@@ -174,6 +200,7 @@ public class DishService {
      * @return list of dishes that match the query
      */
     public List<Dish> search(String search) {
+        search = URLDecoder.decode(search, StandardCharsets.UTF_8);
         DishSpecificationsBuilder builder = new DishSpecificationsBuilder();
         Pattern pattern = Pattern.compile("(\\w+?)([:<>])(\\w+?),");
         Matcher matcher = pattern.matcher(search + ",");
@@ -183,6 +210,15 @@ public class DishService {
 
         Specification<Dish> spec = builder.build();
         return dishRepository.findAll(spec);
+    }
+
+    /**
+     * Lists all dishes from a specific menu.
+     * @param menuId the id of the menu
+     * @return all dishes from the menu
+     */
+    public List<Dish> findByMenu(int menuId) {
+        return dishRepository.findAllByMenuId(menuId);
     }
 }
 

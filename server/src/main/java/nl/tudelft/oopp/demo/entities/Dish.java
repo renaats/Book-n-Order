@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -37,12 +38,13 @@ public class Dish {
     @JoinColumn
     private Menu menu;
 
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Allergy> allergies;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "dishes", fetch = FetchType.EAGER)
-    private Set<FoodOrder> foodOrders;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "dish")
+    private Set<DishOrder> dishOrders;
 
     /**
      * Creates a new instance of Dish.
@@ -89,6 +91,10 @@ public class Dish {
         allergies.add(allergy);
     }
 
+    public void removeAllergy(Allergy allergy) {
+        allergies.remove(allergy);
+    }
+
     public int getId() {
         return id;
     }
@@ -130,8 +136,6 @@ public class Dish {
                 && Objects.equals(menu, dish.menu)
                 && Objects.equals(price, dish.price)
                 && Objects.equals(description, dish.description)
-                && Objects.equals(image, dish.image)
-                && Objects.equals(allergies, dish.allergies)
-                && Objects.equals(foodOrders, dish.foodOrders);
+                && Objects.equals(image, dish.image);
     }
 }

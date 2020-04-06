@@ -62,7 +62,7 @@ public class BuildingHourService {
      */
     public int add(int buildingId, long date, int startTimeS, int endTimeS) {
         Building building = buildingService.find(buildingId);
-        if (date >= 7) {
+        if (date > 7) {
             date = parse(date);
         }
         if (building == null) {
@@ -126,7 +126,7 @@ public class BuildingHourService {
                 return ATTRIBUTE_NOT_FOUND;
         }
         buildingHourRepository.save(buildingHours);
-        return ADDED;
+        return EXECUTED;
     }
 
     /**
@@ -173,5 +173,18 @@ public class BuildingHourService {
             return buildingHourRepository.findByBuilding_IdAndDay(buildingId, day);
         }
         return null;
+    }
+
+    /**
+     * Finds the building hours with the specified id and day.
+     * @param buildingId = the id of the building.
+     * @param day = the day.
+     * @return building hours that match the id.
+     */
+    public BuildingHours findAdmin(int buildingId, long day) {
+        if (!buildingHourRepository.existsByBuilding_IdAndDay(buildingId, day)) {
+            return null;
+        }
+        return buildingHourRepository.findByBuilding_IdAndDay(buildingId, day);
     }
 }

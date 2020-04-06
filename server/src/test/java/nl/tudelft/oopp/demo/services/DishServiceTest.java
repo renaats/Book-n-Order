@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -51,6 +52,11 @@ public class DishServiceTest {
         public MenuService menuService() {
             return new MenuService();
         }
+
+        @Bean
+        public AllergyService allergyService() {
+            return new AllergyService();
+        }
     }
 
     @Autowired
@@ -58,6 +64,9 @@ public class DishServiceTest {
 
     @Autowired
     MenuService menuService;
+
+    @Autowired
+    AllergyService allergyService;
 
     @Autowired
     MenuRepository menuRepository;
@@ -273,6 +282,37 @@ public class DishServiceTest {
     }
 
     /**
+     * Tests the removal of an allergy from a dish.
+     */
+    @Test
+    @WithMockUser(username = "restaurant@tudelft.nl", roles = {"USER", "STAFF", "RESTAURANT"})
+    public void testRemoveAllergy() {
+        dishService.add("Tosti", menu1.getId(), 300, "Cooked", "123");
+        dish = dishService.all().get(0);
+        dishService.addAllergy(dish.getId(), "Nuts");
+        dishService.addAllergy(dish.getId(), "Lactose");
+        dishService.removeAllergy(dish.getId(), "Nuts");
+        assertEquals(Collections.singletonList(allergy), allergyService.findAllByDishId(dish.getId()));
+    }
+
+    /**
+     * Tests the retrieval of allergies to a dish.
+     */
+    @Test
+    @WithMockUser(username = "restaurant@tudelft.nl", roles = {"USER", "STAFF", "RESTAURANT"})
+    public void testGetAllergies() {
+        dishService.add("Tosti", menu1.getId(), 300, "Cooked", "123");
+        dish = dishService.all().get(0);
+        dishService.addAllergy(dish.getId(), "Nuts");
+        dishService.addAllergy(dish.getId(), "Lactose");
+        List<Allergy> allergies = new LinkedList<>();
+        allergies.add(allergy);
+        Allergy allergy2 = new Allergy("Nuts");
+        allergies.add(allergy2);
+        assertEquals(allergies, allergyService.findAllByDishId(dish.getId()));
+    }
+
+    /**
      * Tests the retrieval of multiple instances.
      */
     @Test
@@ -300,6 +340,18 @@ public class DishServiceTest {
         int id = dishService.all().get(0).getId();
         Assertions.assertEquals(EXECUTED, dishService.delete(id));
         Assertions.assertEquals(1, dishService.all().size());
+    }
+
+    /**
+     * Tests the search by menu id.
+     */
+    @Test
+    @WithMockUser(username = "restaurant@tudelft.nl", roles = {"USER", "STAFF", "RESTAURANT"})
+    public void testFindByMenuId() {
+        dishService.add(dish.getName(), dish.getMenu().getId(), 300, "Cooked", "123");
+        dishService.add(dish2.getName(), dish2.getMenu().getId(), 400, "Grilled", "234");
+        assertEquals(Collections.singletonList(dish), dishService.findByMenu(dish.getMenu().getId()));
+        assertEquals(Collections.singletonList(dish2), dishService.findByMenu(dish2.getMenu().getId()));
     }
 
     /**

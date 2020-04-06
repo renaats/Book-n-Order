@@ -149,6 +149,38 @@ public class BikeReservation implements Comparable {
         }
         return -1;
     }
+    
+    public String getFromTimeString() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd  HH:mm");
+        return simpleDateFormat.format(fromTime);
+    }
+
+    public String getToTimeString() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd  HH:mm");
+        return simpleDateFormat.format(toTime);
+    }
+
+    /**
+     * Returns the building name as a string.
+     * @return the building name string.
+     */
+    public String getFromBuildingName() {
+        if (fromBuilding == null) {
+            return "";
+        }
+        return fromBuilding.getName();
+    }
+
+    /**
+     * Returns the building name as a string.
+     * @return the building name string.
+     */
+    public String getToBuildingName() {
+        if (toBuilding == null) {
+            return "";
+        }
+        return toBuilding.getName();
+    }
 
     @Override
     public boolean equals(Object o) {

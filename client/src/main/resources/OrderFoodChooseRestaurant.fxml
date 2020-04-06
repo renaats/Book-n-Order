@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.OrderFoodChooseRestaurantController">
+<AnchorPane fx:id="anchorPane" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.restaurants.OrderFoodChooseRestaurantController">
 
     <ImageView fitHeight="720.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
         <Image url="@images/Living-Campus-1-1280x600-c-center.jpg" />
@@ -29,17 +35,17 @@
             <Font name="Calibri" size="11.0" />
         </font>
     </Text>
-    <TextField fx:id="nameOfTheRestaurant" layoutX="210.0" layoutY="144.0" promptText="Name of the restaurant" />
-    <Button fx:id="submitButton" layoutX="169.0" layoutY="192.0" maxHeight="25.0" maxWidth="230.0" minHeight="25.0" minWidth="230.0" mnemonicParsing="false" onAction="#applyFilters" style="-fx-background-color: #00a6d6;" text="Search for restaurants" textFill="WHITE" />
+    <TextField fx:id="restaurantName" layoutX="132.0" layoutY="190.0" promptText="Name of the restaurant" />
     <ImageView fitHeight="41.0" fitWidth="44.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#mainMenu" pickOnBounds="true" preserveRatio="true">
         <Image url="@images/HomeIconTransparent.png" />
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor>
     </ImageView>
-    <TableView fx:id="restaurantsTable" layoutX="171.0" layoutY="225.0" prefHeight="384.0" prefWidth="226.0">
+    <TableView fx:id="restaurantTable" layoutX="55.0" layoutY="320.0" prefHeight="280.0" prefWidth="302.0" stylesheets="@Table.css">
         <columns>
-            <TableColumn prefWidth="224.66667556762695" text="Restaurants" />
+            <TableColumn fx:id="colRestaurantName" editable="false" maxWidth="153.0" minWidth="153.0" prefWidth="153.0" sortable="false" text="Restaurant" />
+         <TableColumn fx:id="colRestaurantBuilding" editable="false" maxWidth="146.0" minWidth="146.0" prefWidth="146.0" sortable="false" text="Building" />
         </columns>
     </TableView>
     <ImageView fitHeight="41.0" fitWidth="69.0" layoutX="14.0" layoutY="67.0" onMouseClicked="#goToMainMenuReservations" pickOnBounds="true" preserveRatio="true">
@@ -50,17 +56,120 @@
          <Cursor fx:constant="HAND" />
       </cursor>
     </ImageView>
-    <Button layoutX="881.0" layoutY="630.0" maxHeight="25.0" maxWidth="230.0" minHeight="25.0" minWidth="230.0" mnemonicParsing="false" onAction="#goToOrderFood" style="-fx-background-color: #00a6d6;" text="Place order" textFill="WHITE" />
-   <TableView layoutX="883.0" layoutY="225.0" prefHeight="384.0" prefWidth="226.0">
+   <TableView fx:id="dishTable" layoutX="392.0" layoutY="320.0" maxWidth="248.0" prefHeight="280.0" prefWidth="248.0" stylesheets="@Table.css">
       <columns>
-         <TableColumn fx:id="menuTable" prefWidth="224.66667556762695" text="Menu" />
+         <TableColumn fx:id="colDishName" editable="false" maxWidth="166.0" minWidth="166.0" prefWidth="166.0" sortable="false" text="Dish" />
+         <TableColumn fx:id="colDishPrice" editable="false" maxWidth="80.0" minWidth="80.0" sortable="false" text="Price (€)" />
       </columns>
    </TableView>
-   <Text layoutX="397.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please select the restaurant you want to order from and the select the desired menu items" />
-   <Button fx:id="chooseTheRestaurantButton" layoutX="169.0" layoutY="630.0" maxHeight="25.0" maxWidth="230.0" minHeight="25.0" minWidth="230.0" mnemonicParsing="false" onAction="#restaurantChosen" style="-fx-background-color: #00a6d6;" text="Choose the selected restaurant" textFill="WHITE" />
-    <Text layoutX="576.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Order food" AnchorPane.leftAnchor="576.0" AnchorPane.topAnchor="125.0">
-        <font>
-            <Font size="26.0" />
-        </font>
-    </Text>
+   <Text layoutX="90.0" layoutY="207.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" textAlignment="RIGHT" />
+   <Text layoutX="78.0" layoutY="239.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Building:" textAlignment="RIGHT" />
+   <ChoiceBox fx:id="buildingChoiceBox" layoutX="131.0" layoutY="222.0" prefWidth="150.0" />
+   <TableView fx:id="orderTable" layoutX="979.0" layoutY="320.0" prefHeight="280.0" prefWidth="227.0" stylesheets="@Table.css">
+     <columns>
+       <TableColumn fx:id="colOrderDishName" editable="false" maxWidth="95.0" minWidth="95.0" prefWidth="95.0" sortable="false" text="Dish" />
+       <TableColumn fx:id="colOrderPrice" editable="false" maxWidth="65.0" minWidth="65.0" prefWidth="65.0" sortable="false" text="Price" />
+         <TableColumn fx:id="colOrderAmount" editable="false" maxWidth="64.0" minWidth="64.0" prefWidth="64.0" sortable="false" text="Amount" />
+     </columns>
+   </TableView>
+   <Button fx:id="nextPageRestaurantButton" layoutX="241.0" layoutY="595.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#nextRestaurantPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&gt;&gt;" textFill="WHITE">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
+   <Button fx:id="previousPageRestaurantButton" layoutX="132.0" layoutY="595.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#previousRestaurantPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&lt;&lt;" textFill="WHITE">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
+   <Text fx:id="pagesTextRestaurant" layoutX="175.0" layoutY="612.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0 / pages" />
+   <Button fx:id="submitRestaurantButton" layoutX="106.0" layoutY="268.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#applyRestaurantFilters" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: #00a6d6;" text="Search" textFill="WHITE" />
+   <Button fx:id="nextPageDishButton" layoutX="553.0" layoutY="595.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#nextDishPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&gt;&gt;" textFill="WHITE">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
+   <Button fx:id="previousPageDishButton" layoutX="444.0" layoutY="595.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#previousDishPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&lt;&lt;" textFill="WHITE">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
+   <Text fx:id="pagesTextDish" layoutX="487.0" layoutY="612.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0 / pages" />
+   <Text layoutX="395.0" layoutY="207.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" textAlignment="RIGHT" />
+   <TextField fx:id="dishName" layoutX="437.0" layoutY="190.0" promptText="Name of the dish" />
+   <Button fx:id="submitDishButton" layoutX="412.0" layoutY="268.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#applyDishFilters" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: #00a6d6;" text="Search" textFill="WHITE" />
+   <Text layoutX="400.0" layoutY="239.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Price:" textAlignment="RIGHT" />
+   <TextField fx:id="fromPrice" layoutX="437.0" layoutY="222.0" prefHeight="25.0" prefWidth="41.0" promptText="From" />
+   <TextField fx:id="toPrice" layoutX="491.0" layoutY="222.0" prefHeight="25.0" prefWidth="41.0" promptText="To" />
+   <Button fx:id="nextPageOrderButton" layoutX="1129.0" layoutY="595.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#nextOrderPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&gt;&gt;" textFill="WHITE">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
+   <Button fx:id="previousPageOrderButton" layoutX="1020.0" layoutY="595.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#previousOrderPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&lt;&lt;" textFill="WHITE">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
+   <Text fx:id="pagesTextOrder" layoutX="1063.0" layoutY="612.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0 / pages" />
+   <Text fx:id="totalCost" layoutX="978.0" layoutY="687.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Cost: 0.00€">
+      <font>
+         <Font size="18.0" />
+      </font>
+   </Text>
+   <Button fx:id="orderButton" layoutX="1147.0" layoutY="659.0" maxHeight="41.0" maxWidth="200.0" minHeight="25.0" minWidth="100.0" mnemonicParsing="false" onAction="#goToOrderFood" prefHeight="41.0" prefWidth="100.0" style="-fx-background-color: #00a6d6;" text="Order" textFill="WHITE">
+      <font>
+         <Font size="18.0" />
+      </font>
+   </Button>
+   <TableView fx:id="allergyTable" layoutX="733.0" layoutY="320.0" prefHeight="280.0" prefWidth="152.0" stylesheets="@Table.css" visible="false">
+     <columns>
+       <TableColumn fx:id="colAllergy" editable="false" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" sortable="false" text="Diet" />
+     </columns>
+   </TableView>
+   <Button fx:id="nextPageAllergyButton" layoutX="845.0" layoutY="595.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#nextAllergyPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&gt;&gt;" textFill="WHITE" visible="false">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
+   <Button fx:id="previousPageAllergyButton" layoutX="736.0" layoutY="595.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#previousAllergyPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&lt;&lt;" textFill="WHITE" visible="false">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
+   <Text fx:id="pagesTextAllergy" layoutX="779.0" layoutY="612.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0 / pages" visible="false" />
+   <Button fx:id="viewAllergyButton" layoutX="704.0" layoutY="268.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#viewAllergy" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: #00a6d6;" text="View Diets" textFill="WHITE" />
+   <Button fx:id="filterDietsButton" layoutX="412.0" layoutY="153.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#filterDiets" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: #00a6d6;" text="Filter Diets" textFill="WHITE" />
+   <TableView fx:id="allDietTable" layoutX="704.0" layoutY="93.0" prefHeight="160.0" prefWidth="200.0" stylesheets="@Table.css" visible="false">
+     <columns>
+       <TableColumn fx:id="colAllDiet" editable="false" prefWidth="198.0" sortable="false" text="All Diets" />
+     </columns>
+   </TableView>
+   <TableView fx:id="selectedDietTable" layoutX="992.0" layoutY="93.0" prefHeight="160.0" prefWidth="200.0" stylesheets="@Table.css" visible="false">
+      <columns>
+         <TableColumn fx:id="colSelectedDiet" editable="false" prefWidth="198.0" sortable="false" text="Selected Diets" />
+      </columns>
+   </TableView>
+   <Button fx:id="nextPageAllDietButton" layoutX="840.0" layoutY="54.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#nextAllDietPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&gt;&gt;" textFill="WHITE" visible="false">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
+   <Button fx:id="previousPageAllDietButton" layoutX="731.0" layoutY="54.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#previousAllDietPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&lt;&lt;" textFill="WHITE" visible="false">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
+   <Text fx:id="pagesTextAllDiet" layoutX="774.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0 / pages" visible="false" />
+   <Button fx:id="nextPageSelectedDietButton" layoutX="1123.0" layoutY="54.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#nextSelectedDietPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&gt;&gt;" textFill="WHITE" visible="false">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
+   <Button fx:id="previousPageSelectedDietButton" layoutX="1014.0" layoutY="54.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#previousSelectedDietPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&lt;&lt;" textFill="WHITE" visible="false">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
+   <Text fx:id="pagesTextSelectedDiet" layoutX="1057.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0 / pages" visible="false" />
 </AnchorPane>

@@ -41,6 +41,7 @@ public class Room {
     private Boolean screen;
     private int capacity;
     private int plugs;
+    private String status = "Open";
 
     /**
      * Creates a new instance of Room.
@@ -52,7 +53,7 @@ public class Room {
      * @param capacity = number of people who can sit in the room.
      * @param plugs = number of plugs in the room.
      */
-    public Room(String name, Building building, String studySpecific, boolean projector, boolean screen, int capacity, int plugs) {
+    public Room(String name, Building building, String studySpecific, boolean projector, boolean screen, int capacity, int plugs, String status) {
         this.name = name;
         this.building = building;
         this.studySpecific = studySpecific;
@@ -60,6 +61,7 @@ public class Room {
         this.screen = screen;
         this.capacity = capacity;
         this.plugs = plugs;
+        this.status = status;
     }
 
     public Room() {
@@ -98,6 +100,10 @@ public class Room {
         this.plugs = plugs;
     }
 
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public void setRoomReservations(Set<RoomReservation> roomReservations) {
         this.roomReservations = roomReservations;
     }
@@ -132,6 +138,10 @@ public class Room {
 
     public int getPlugs() {
         return plugs;
+    }
+
+    public String getStatus() {
+        return status;
     }
 
     public Set<RoomReservation> getRoomReservations() {
@@ -174,17 +184,18 @@ public class Room {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof Room)) {
             return false;
         }
         Room room = (Room) o;
-        return projector == room.projector
-                && screen == room.screen
-                && capacity == room.capacity
+        return capacity == room.capacity
                 && plugs == room.plugs
                 && Objects.equals(name, room.name)
                 && Objects.equals(building, room.building)
                 && Objects.equals(studySpecific, room.studySpecific)
+                && Objects.equals(projector, room.projector)
+                && Objects.equals(screen, room.screen)
+                && Objects.equals(status, room.status)
                 && Objects.equals(roomReservations, room.roomReservations);
     }
 }

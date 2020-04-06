@@ -28,14 +28,13 @@ public class RoomsJpaSpecificationsTest {
 
     private Room roomAlpha;
     private Room roomBeta;
-    private Building building;
 
     /**
      * Initializes variables before each test.
      */
     @BeforeEach
     public void setup() {
-        building = new Building();
+        Building building = new Building();
         building.setHouseNumber(1);
         building.setName("Neo-Aula");
         building.setStreet("Straatlaanweg");

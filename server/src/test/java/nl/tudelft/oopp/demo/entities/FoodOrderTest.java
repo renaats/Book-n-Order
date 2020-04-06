@@ -1,6 +1,7 @@
 package nl.tudelft.oopp.demo.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -62,7 +63,7 @@ public class FoodOrderTest {
         deliveryLocation = new Building("EWI", "Mekelweg", "EWI", 4);
         buildingRepository.saveAndFlush(deliveryLocation);
 
-        appUser = new AppUser("l.j.jongejans@student.tudelft.nl", "1234", "Liselotte", "Jongejans", "EWI");
+        appUser = new AppUser("l.j.jongejans@student.tudelft.nl", "1234", "Liselotte", "Jongejans", "EWI", "CSE");
         appUser.setRoomReservations(new HashSet<>());
         userRepository.saveAndFlush(appUser);
 
@@ -138,6 +139,27 @@ public class FoodOrderTest {
     }
 
     /**
+     * Tests the getter for the DishOrders.
+     */
+    @Test
+    public void testGetDishOrder() {
+        foodOrder = foodOrderRepository.findAll().get(0);
+        foodOrder.setDishOrders(new HashSet<>());
+        assertNotNull(foodOrder.getDishOrders());
+    }
+
+    /**
+     * Tests the addition of a DishOrders.
+     */
+    @Test
+    public void testAddDishOrder() {
+        foodOrder = foodOrderRepository.findAll().get(0);
+        foodOrder.setDishOrders(new HashSet<>());
+        foodOrder.addDishOrder(new DishOrder());
+        assertNotEquals(new HashSet<>(), foodOrder.getDishOrders());
+    }
+
+    /**
      * Tests the equals method for 2 equal food orders.
      */
     @Test
@@ -151,7 +173,7 @@ public class FoodOrderTest {
      * Tests the setting of the foodOrders for an appUser.
      */
     @Test
-    public void testSetBikeReservations() {
+    public void testSetFoodOrders() {
         Set<FoodOrder> foodOrders = new HashSet<>();
         foodOrders.add(foodOrder);
         appUser.setFoodOrder(foodOrders);
