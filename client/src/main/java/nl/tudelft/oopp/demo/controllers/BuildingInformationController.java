@@ -186,7 +186,8 @@ public class BuildingInformationController implements Initializable {
                         e.printStackTrace();
                     }
                     buildingWednesday.setText("");
-                    buildingWednesday.setText(buildingHoursWednesday.getStartTime().toString() + " - " + buildingHoursWednesday.getEndTime().toString());
+                    buildingWednesday.setText(buildingHoursWednesday.getStartTime().toString() + " - " + buildingHoursWednesday.getEndTime()
+                            .toString());
                     BuildingHours buildingHoursThursday = null;
                     try {
                         buildingHoursThursday = JsonMapper.buildingHoursMapper(BuildingServerCommunication
@@ -225,8 +226,7 @@ public class BuildingInformationController implements Initializable {
                     buildingSunday.setText(buildingHoursSunday.getStartTime().toString() + " - " + buildingHoursSunday.getEndTime().toString());
                 }
             });
-        }
-         catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             if (buildingMonday.getText().equals("") || buildingTuesday.getText().equals("") || buildingWednesday.getText().equals("")
                     || buildingThursday.getText().equals("") || buildingFriday.getText().equals("")
                     || buildingSaturday.getText().equals("") || buildingSunday.getText().equals("")) {
