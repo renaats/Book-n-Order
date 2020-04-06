@@ -349,43 +349,43 @@
          <Cursor fx:constant="HAND" />
       </cursor>
    </Button>
-   <Text layoutX="636.0" layoutY="536.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Restaurant Hours">
+   <Text fx:id="restaurantHoursText" layoutX="636.0" layoutY="536.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Restaurant Hours">
       <font>
          <Font size="24.0" />
       </font>
    </Text>
    <ChoiceBox fx:id="daysChoiceBox" layoutX="684.0" layoutY="556.0" maxHeight="23.0" minHeight="23.0" prefHeight="23.0" prefWidth="150.0" />
-   <Text layoutX="637.0" layoutY="574.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Day:" AnchorPane.leftAnchor="636.0">
+   <Text fx:id="dayText" layoutX="637.0" layoutY="574.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Day:" AnchorPane.leftAnchor="636.0">
       <font>
          <Font size="17.0" />
       </font>
    </Text>
    <TextField fx:id="hoursStartTime" layoutX="889.0" layoutY="554.0" prefHeight="25.0" prefWidth="56.0" promptText="Hours" />
-   <Text layoutX="840.0" layoutY="573.0" strokeType="OUTSIDE" strokeWidth="0.0" text="From:">
+   <Text fx:id="fromText" layoutX="840.0" layoutY="573.0" strokeType="OUTSIDE" strokeWidth="0.0" text="From:">
       <font>
          <Font size="17.0" />
       </font>
    </Text>
-   <Text layoutX="946.0" layoutY="572.0" strokeType="OUTSIDE" strokeWidth="0.0" text=":">
+   <Text fx:id="semiColonText1" layoutX="946.0" layoutY="572.0" strokeType="OUTSIDE" strokeWidth="0.0" text=":">
       <font>
          <Font size="17.0" />
       </font>
    </Text>
    <TextField fx:id="minutesStartTime" layoutX="951.0" layoutY="554.0" prefHeight="25.0" prefWidth="60.0" promptText="Minutes" />
    <TextField fx:id="hoursEndTime" layoutX="887.0" layoutY="594.0" prefHeight="25.0" prefWidth="56.0" promptText="Hours" />
-   <Text layoutX="839.0" layoutY="613.0" strokeType="OUTSIDE" strokeWidth="0.0" text="To:">
+   <Text fx:id="toText" layoutX="839.0" layoutY="613.0" strokeType="OUTSIDE" strokeWidth="0.0" text="To:">
       <font>
          <Font size="17.0" />
       </font>
    </Text>
    <TextField fx:id="minutesEndTime" layoutX="950.0" layoutY="594.0" prefHeight="25.0" prefWidth="60.0" promptText="Minutes" />
-   <Text layoutX="945.0" layoutY="612.0" strokeType="OUTSIDE" strokeWidth="0.0" text=":">
+   <Text fx:id="semiColonText2" layoutX="945.0" layoutY="612.0" strokeType="OUTSIDE" strokeWidth="0.0" text=":">
       <font>
          <Font size="17.0" />
       </font>
    </Text>
    <DatePicker fx:id="datePicker" layoutX="683.0" layoutY="594.0" prefHeight="25.0" prefWidth="151.0" AnchorPane.bottomAnchor="100.39999999999998" />
-   <Text layoutX="636.0" layoutY="612.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date:" AnchorPane.leftAnchor="636.0">
+   <Text fx:id="dateText" layoutX="636.0" layoutY="612.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date:" AnchorPane.leftAnchor="636.0">
       <font>
          <Font size="17.0" />
       </font>
@@ -395,12 +395,12 @@
          <Cursor fx:constant="HAND" />
       </cursor>
    </Button>
-   <Button layoutX="1016.0" layoutY="573.0" mnemonicParsing="false" onAction="#setClosedTextFields" prefHeight="26.0" prefWidth="70.0" style="-fx-background-color: #00a6d6;" text="Set closed" textFill="WHITE">
+   <Button fx:id="setClosedButton" layoutX="1016.0" layoutY="573.0" mnemonicParsing="false" onAction="#setClosedTextFields" prefHeight="26.0" prefWidth="70.0" style="-fx-background-color: #00a6d6;" text="Set closed" textFill="WHITE">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor>
    </Button>
-   <ToggleButton fx:id="hoursToggleButton" layoutX="121.0" layoutY="277.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="83.0" selected="true" stylesheets="@DatabaseGeneric.css" text="Hours">
+   <ToggleButton fx:id="hoursToggleButton" layoutX="121.0" layoutY="277.0" mnemonicParsing="false" onAction="#toggleHours" prefHeight="25.0" prefWidth="83.0" selected="true" stylesheets="@DatabaseGeneric.css" text="Edit">
       <graphic>
          <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
             <image>

@@ -40,7 +40,6 @@ import nl.tudelft.oopp.demo.entities.Allergy;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Dish;
 import nl.tudelft.oopp.demo.entities.Menu;
-import nl.tudelft.oopp.demo.entities.Menu;
 import nl.tudelft.oopp.demo.entities.Restaurant;
 import nl.tudelft.oopp.demo.entities.RestaurantHours;
 import nl.tudelft.oopp.demo.errors.CustomAlert;
@@ -58,6 +57,14 @@ public class DatabaseRestaurantMenuController implements Initializable {
     private Restaurant restaurant;
 
     @FXML
+    private AnchorPane anchorPane;
+    @FXML
+    private ToggleButton restaurantToggleButton;
+    @FXML
+    private ToggleButton allergiesToggleButton;
+    @FXML
+    private ToggleButton hoursToggleButton;
+    @FXML
     private Button previousPageButtonAllergiesSelected;
     @FXML
     private Button nextPageButtonAllergiesSelected;
@@ -67,6 +74,20 @@ public class DatabaseRestaurantMenuController implements Initializable {
     private Button restaurantPreviousPageButton;
     @FXML
     private Button restaurantNextPageButton;
+    @FXML
+    private Button allergyAddButton;
+    @FXML
+    private Button menuDeleteButton;
+    @FXML
+    private Button setClosedButton;
+    @FXML
+    private Button deleteRestaurantButton;
+    @FXML
+    private Button updateRestaurantHoursButton;
+    @FXML
+    private ChoiceBox<String> daysChoiceBox;
+    @FXML
+    private DatePicker datePicker;
     @FXML
     private TextField idFieldRead;
     @FXML
@@ -90,58 +111,6 @@ public class DatabaseRestaurantMenuController implements Initializable {
     @FXML
     private TextField dishImageTextField;
     @FXML
-    private ImageView allergyImage;
-    @FXML
-    private Text showAddAllergiesText;
-    @FXML
-    private Text restaurantPagesText;
-    @FXML
-    private ImageView showAddAllergiesButton;
-    @FXML
-    private Button allergyAddButton;
-    @FXML
-    private TextArea dishDescriptionFieldRead;
-    @FXML
-    private Text pagesText;
-    @FXML
-    private Text pagesTextAllergiesCurrent;
-    @FXML
-    private ToggleButton allergiesToggleButton;
-    @FXML
-    private AnchorPane anchorPane;
-    @FXML
-    private TableView<Dish> dishTableView;
-    @FXML
-    private TableView<Restaurant> restaurantTable;
-    @FXML
-    private TableColumn<Restaurant, String> colOwnedRestaurants;
-    @FXML
-    private TableView<Allergy> allergiesTableCurrent;
-    @FXML
-    private TableColumn<Allergy, String> colAllergyName;
-    @FXML
-    private TableColumn<Dish, String> colDishName;
-    @FXML
-    private TableColumn<Dish, Double> colDishPrice;
-    @FXML
-    private ToggleButton restaurantToggleButton;
-    @FXML
-    private ImageView restaurantAddImage;
-    @FXML
-    private ImageView menuAddImage;
-    @FXML
-    private Text restaurantAddText;
-    @FXML
-    private Text menuAddText;
-    @FXML
-    private Button menuDeleteButton;
-    @FXML
-    private Button deleteRestaurantButton;
-    @FXML
-    private ChoiceBox<String> daysChoiceBox;
-    @FXML
-    private DatePicker datePicker;
-    @FXML
     private TextField hoursStartTime;
     @FXML
     private TextField minutesStartTime;
@@ -149,6 +118,56 @@ public class DatabaseRestaurantMenuController implements Initializable {
     private TextField hoursEndTime;
     @FXML
     private TextField minutesEndTime;
+    @FXML
+    private TextArea dishDescriptionFieldRead;
+    @FXML
+    private Text restaurantHoursText;
+    @FXML
+    private Text dayText;
+    @FXML
+    private Text dateText;
+    @FXML
+    private Text fromText;
+    @FXML
+    private Text toText;
+    @FXML
+    private Text semiColonText1;
+    @FXML
+    private Text semiColonText2;
+    @FXML
+    private Text showAddAllergiesText;
+    @FXML
+    private Text restaurantPagesText;
+    @FXML
+    private Text pagesText;
+    @FXML
+    private Text pagesTextAllergiesCurrent;
+    @FXML
+    private Text restaurantAddText;
+    @FXML
+    private Text menuAddText;
+    @FXML
+    private ImageView allergyImage;
+    @FXML
+    private ImageView showAddAllergiesButton;
+    @FXML
+    private ImageView restaurantAddImage;
+    @FXML
+    private ImageView menuAddImage;
+    @FXML
+    private TableView<Dish> dishTableView;
+    @FXML
+    private TableView<Restaurant> restaurantTable;
+    @FXML
+    private TableView<Allergy> allergiesTableCurrent;
+    @FXML
+    private TableColumn<Restaurant, String> colOwnedRestaurants;
+    @FXML
+    private TableColumn<Allergy, String> colAllergyName;
+    @FXML
+    private TableColumn<Dish, String> colDishName;
+    @FXML
+    private TableColumn<Dish, Double> colDishPrice;
 
 
     private Button deleteButton;
@@ -156,10 +175,13 @@ public class DatabaseRestaurantMenuController implements Initializable {
 
     private Boolean allergiesTableFlag;
     private Boolean restaurantTableFlag;
+    private Boolean hoursToggleFlag;
+
     private int pageNumber;
     private int restaurantId;
     private int allergySelectedPageNumber;
     private int restaurantPageNumber;
+
     private double totalPages;
     private double totalRestaurantPages;
     private double totalAllergySelectedPages;
@@ -200,21 +222,22 @@ public class DatabaseRestaurantMenuController implements Initializable {
 
         allergiesTableFlag = true;
         restaurantTableFlag = true;
+        hoursToggleFlag = true;
+
 
         // Removes general elements that are hidden / shown by toggle boxes.
-        anchorPane.getChildren().remove(previousPageButtonAllergiesSelected);
-        anchorPane.getChildren().remove(nextPageButtonAllergiesSelected);
-        anchorPane.getChildren().remove(pagesTextAllergiesCurrent);
-        anchorPane.getChildren().remove(allergiesTableCurrent);
-        anchorPane.getChildren().remove(allergyAddButton);
-        anchorPane.getChildren().remove(allergyImage);
-        anchorPane.getChildren().remove(allergyNameTextField);
-        anchorPane.getChildren().remove(showAddAllergiesText);
-        anchorPane.getChildren().remove(showAddAllergiesButton);
-        anchorPane.getChildren().remove(restaurantTable);
-        anchorPane.getChildren().remove(restaurantNextPageButton);
-        anchorPane.getChildren().remove(restaurantPreviousPageButton);
-        anchorPane.getChildren().remove(restaurantPagesText);
+        // Allergies selection table elements
+        anchorPane.getChildren().removeAll(previousPageButtonAllergiesSelected, nextPageButtonAllergiesSelected,
+                pagesTextAllergiesCurrent, allergiesTableCurrent, showAddAllergiesText, showAddAllergiesButton);
+        // Select restaurant elements
+        anchorPane.getChildren().removeAll(restaurantTable, restaurantPreviousPageButton, restaurantPagesText, restaurantNextPageButton);
+        // Add allergies elements
+        anchorPane.getChildren().removeAll(allergyImage, allergyNameTextField, allergyAddButton);
+        // Restaurant Hours elements
+        anchorPane.getChildren().removeAll(dayText, dateText, daysChoiceBox, datePicker, hoursStartTime, hoursEndTime,
+                minutesEndTime, minutesStartTime, setClosedButton, updateRestaurantButton, updateRestaurantHoursButton,
+                restaurantHoursText, fromText, toText, semiColonText1, semiColonText2);
+
 
         pageNumber = 1;
         allergySelectedPageNumber = 1;
@@ -303,24 +326,14 @@ public class DatabaseRestaurantMenuController implements Initializable {
     private void toggleAllergiesMenu() {
         if (allergiesTableFlag) {
             allergiesToggleButton.setText("Close");
-            anchorPane.getChildren().add(previousPageButtonAllergiesSelected);
-            anchorPane.getChildren().add(nextPageButtonAllergiesSelected);
-            anchorPane.getChildren().add(pagesTextAllergiesCurrent);
-            anchorPane.getChildren().add(allergiesTableCurrent);
-            anchorPane.getChildren().add(showAddAllergiesText);
-            anchorPane.getChildren().add(showAddAllergiesButton);
+            anchorPane.getChildren().addAll(previousPageButtonAllergiesSelected, nextPageButtonAllergiesSelected,
+                    pagesTextAllergiesCurrent, allergiesTableCurrent, showAddAllergiesText, showAddAllergiesButton);
             retrieveAllAllergies();
         } else {
             allergiesToggleButton.setText("Edit");
-            anchorPane.getChildren().remove(previousPageButtonAllergiesSelected);
-            anchorPane.getChildren().remove(nextPageButtonAllergiesSelected);
-            anchorPane.getChildren().remove(pagesTextAllergiesCurrent);
-            anchorPane.getChildren().remove(allergiesTableCurrent);
-            anchorPane.getChildren().remove(showAddAllergiesText);
-            anchorPane.getChildren().remove(showAddAllergiesButton);
-            anchorPane.getChildren().remove(allergyImage);
-            anchorPane.getChildren().remove(allergyNameTextField);
-            anchorPane.getChildren().remove(allergyAddButton);
+            anchorPane.getChildren().removeAll(previousPageButtonAllergiesSelected, nextPageButtonAllergiesSelected,
+                    pagesTextAllergiesCurrent, allergiesTableCurrent, showAddAllergiesText, showAddAllergiesButton);
+            anchorPane.getChildren().removeAll(allergyImage, allergyNameTextField, allergyAddButton);
             anchorPane.getChildren().remove(deleteButtonAllergies);
         }
         allergiesTableFlag = !allergiesTableFlag;
@@ -333,19 +346,32 @@ public class DatabaseRestaurantMenuController implements Initializable {
     private void toggleRestaurantList() {
         if (restaurantTableFlag) {
             restaurantToggleButton.setText(" Close");
-            anchorPane.getChildren().add(restaurantTable);
-            anchorPane.getChildren().add(restaurantPreviousPageButton);
-            anchorPane.getChildren().add(restaurantPagesText);
-            anchorPane.getChildren().add(restaurantNextPageButton);
+            anchorPane.getChildren().addAll(restaurantTable, restaurantPreviousPageButton, restaurantPagesText, restaurantNextPageButton);
             calculateRestaurantPages();
         } else {
             restaurantToggleButton.setText(" Select");
-            anchorPane.getChildren().remove(restaurantTable);
-            anchorPane.getChildren().remove(restaurantPreviousPageButton);
-            anchorPane.getChildren().remove(restaurantPagesText);
-            anchorPane.getChildren().remove(restaurantNextPageButton);
+            anchorPane.getChildren().removeAll(restaurantTable, restaurantPreviousPageButton, restaurantPagesText, restaurantNextPageButton);
         }
         restaurantTableFlag = !restaurantTableFlag;
+    }
+
+    /**
+     * Makes sure the button toggles from false to true every time.
+     */
+    @FXML
+    private void toggleHours() {
+        if (hoursToggleFlag) {
+            hoursToggleButton.setText("Close");
+            anchorPane.getChildren().addAll(dayText, dateText, daysChoiceBox, datePicker, hoursStartTime, hoursEndTime,
+                    minutesEndTime, minutesStartTime, setClosedButton, updateRestaurantButton, updateRestaurantHoursButton,
+                    restaurantHoursText, fromText, toText, semiColonText1, semiColonText2);
+        } else {
+            hoursToggleButton.setText(" Edit");
+            anchorPane.getChildren().removeAll(dayText, dateText, daysChoiceBox, datePicker, hoursStartTime, hoursEndTime,
+                    minutesEndTime, minutesStartTime, setClosedButton, updateRestaurantButton, updateRestaurantHoursButton,
+                    restaurantHoursText, fromText, toText, semiColonText1, semiColonText2);
+        }
+        hoursToggleFlag = !hoursToggleFlag;
     }
 
     /**
@@ -815,13 +841,9 @@ public class DatabaseRestaurantMenuController implements Initializable {
      */
     public void showAddAllergies() {
         try {
-            anchorPane.getChildren().add(allergyImage);
-            anchorPane.getChildren().add(allergyNameTextField);
-            anchorPane.getChildren().add(allergyAddButton);
+            anchorPane.getChildren().addAll(allergyImage, allergyNameTextField, allergyAddButton);
         } catch (IllegalArgumentException e) {
-            anchorPane.getChildren().remove(allergyImage);
-            anchorPane.getChildren().remove(allergyNameTextField);
-            anchorPane.getChildren().remove(allergyAddButton);
+            anchorPane.getChildren().addAll(allergyImage, allergyNameTextField, allergyAddButton);
         }
     }
 
