@@ -62,7 +62,6 @@ public class MyPreviousBikeReservationsController implements Initializable {
         } catch (Exception e) {
             // Fakes the table having any entries, so the table shows up properly instead of "No contents".
             bikeReservations = new ArrayList<>();
-            bikeReservations.add(null);
         }
 
 

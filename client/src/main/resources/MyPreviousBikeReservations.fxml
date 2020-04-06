@@ -45,7 +45,7 @@
                 <Cursor fx:constant="HAND" />
             </cursor>
         </ImageView>
-        <TableView fx:id="table" layoutX="163.0" layoutY="191.0" prefHeight="408.0" prefWidth="906.0">
+        <TableView fx:id="table" layoutX="163.0" layoutY="191.0" prefHeight="408.0" prefWidth="908.0">
             <columns>
                 <TableColumn fx:id="colFromTime" editable="false" maxWidth="175.0" minWidth="175.0" prefWidth="175" resizable="false" sortable="false" text="From (Time)" />
                 <TableColumn fx:id="colToTime" editable="false" maxWidth="175.0" minWidth="175.0" prefWidth="175" resizable="false" sortable="false" text="To (Time)" />
