@@ -99,10 +99,10 @@ public class MyPreviousFoodReservationsController implements Initializable {
                 CustomAlert.warningAlert("You have already given feedback");
                 return;
             }
-            String response1 =
-                    RestaurantServerCommunication.addFeedbackFoodOrder(table.getSelectionModel().getSelectedItem().getId(), true);
-            String response2 =
-                    RestaurantServerCommunication.addFoodFeedbackRestaurant(table.getSelectionModel().getSelectedItem().getRestaurant().getId(), true);
+            String response1 = RestaurantServerCommunication
+                    .addFeedbackFoodOrder(table.getSelectionModel().getSelectedItem().getId(), true);
+            String response2 = RestaurantServerCommunication
+                            .addFoodFeedbackRestaurant(table.getSelectionModel().getSelectedItem().getRestaurant().getId(), true);
             if (!(response1.equals("Successfully executed."))) {
                 CustomAlert.informationAlert(response1);
                 return;
@@ -130,8 +130,8 @@ public class MyPreviousFoodReservationsController implements Initializable {
             }
             String response1 =
                     RestaurantServerCommunication.addFeedbackFoodOrder(table.getSelectionModel().getSelectedItem().getId(), false);
-            String response2 =
-                    RestaurantServerCommunication.addFoodFeedbackRestaurant(table.getSelectionModel().getSelectedItem().getRestaurant().getId(), false);
+            String response2 = RestaurantServerCommunication
+                    .addFoodFeedbackRestaurant(table.getSelectionModel().getSelectedItem().getRestaurant().getId(), false);
             if (!(response1.equals("Successfully executed."))) {
                 CustomAlert.informationAlert(response1);
                 return;
