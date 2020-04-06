@@ -1,9 +1,11 @@
 ﻿<a href="https://aimeos.org/">
-    <img src="https://seeklogo.com/images/T/TU_Delft-logo-D6086E1A70-seeklogo.com.png" alt="BookNOrderLogo" title="Aimeos" align="right" height="150
+    <img src="https://seeklogo.com/images/T/TU_Delft-logo-D6086E1A70-seeklogo.com.png" alt="BookNOrderLogo" title="Aimeos" align="right" height="60
     " />
 </a>
 
-# Book 'n Order ![Logo](client/src/main/resources/Images/booknorderlogo.png)
+Book 'n Order
+======================
+
 
 ## Description of project
 Book 'n Order is a Java desktop application that allows students and employees of TU Delft to book study rooms, rent bikes, and purchase food, all in one location.
