@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import nl.tudelft.oopp.demo.controllers.bikes.BikeReservationConfirmationController;
 import nl.tudelft.oopp.demo.controllers.database.DatabaseAddDishController;
 import nl.tudelft.oopp.demo.controllers.database.DatabaseViewFoodOrderController;
+import nl.tudelft.oopp.demo.controllers.restaurants.FoodReservationConfirmationController;
 import nl.tudelft.oopp.demo.controllers.restaurants.OrderFoodController;
 import nl.tudelft.oopp.demo.entities.Dish;
 import nl.tudelft.oopp.demo.entities.Menu;
@@ -65,6 +66,8 @@ public class ApplicationDisplay extends Application {
             try {
                 if (controllerClass == OrderFoodController.class) {
                     return new OrderFoodController((List<Dish>) variable1, (Restaurant) variable2);
+                } else if (controllerClass == FoodReservationConfirmationController.class) {
+                    return new FoodReservationConfirmationController((long) variable1,(String[]) variable2);
                 } else if (controllerClass == DatabaseViewFoodOrderController.class) {
                     return new DatabaseViewFoodOrderController((Restaurant) variable1);
                 } else if (controllerClass == DatabaseAddDishController.class) {

@@ -1,20 +1,25 @@
 package nl.tudelft.oopp.demo.controllers.bikes;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+
+import java.io.IOException;
+
+import java.net.URL;
+
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+
+import java.util.Date;
+import java.util.ResourceBundle;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.text.Text;
+
 import nl.tudelft.oopp.demo.communication.BuildingServerCommunication;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
-
-import java.io.IOException;
-import java.net.URL;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
-import java.util.ResourceBundle;
 
 /**
  * Loads the correct content into the FXML objects that need to display server information and
@@ -28,15 +33,11 @@ public class BikeReservationConfirmationController implements Initializable {
     @FXML
     private Text dayOfMonthPickUp;
     @FXML
-    private Text monthPickUp;
-    @FXML
     private Text dayOfWeekPickUp;
     @FXML
     private Text pickUpTime;
     @FXML
     private Text dayOfMonthDropOff;
-    @FXML
-    private Text monthDropOff;
     @FXML
     private Text dayOfWeekDropOff;
     @FXML
@@ -46,6 +47,12 @@ public class BikeReservationConfirmationController implements Initializable {
     @FXML
     private Text buildingNameTwo;
 
+    /**
+     * Instantiates a BikeReservationController
+     * @param ints array holding the id's of the buildings
+     * @param longs array holding the two dates in longs
+     * @throws JsonProcessingException we know these id's are valid thus we throw
+     */
     public BikeReservationConfirmationController(int[] ints, long[] longs) throws JsonProcessingException {
         pickUp = LocalDateTime.ofInstant(new Date(longs[0]).toInstant(), ZoneId.systemDefault());
         dropOff = LocalDateTime.ofInstant(new Date(longs[1]).toInstant(), ZoneId.systemDefault());
@@ -61,49 +68,13 @@ public class BikeReservationConfirmationController implements Initializable {
         ApplicationDisplay.changeScene("/MainMenu.fxml");
     }
 
+    /**
+     * Loads the information of the bike reservation
+     */
     public void loadInformation() {
         dayOfMonthPickUp.setText(String.valueOf(pickUp.getDayOfMonth()));
-        int intMonthPickUp = pickUp.getMonthValue();
-        switch (intMonthPickUp) {
-            case 1:
-                monthPickUp.setText("January");
-                break;
-            case 2:
-                monthPickUp.setText("February");
-                break;
-            case 3:
-                monthPickUp.setText("March");
-                break;
-            case 4:
-                monthPickUp.setText("April");
-                break;
-            case 5:
-                monthPickUp.setText("May");
-                break;
-            case 6:
-                monthPickUp.setText("June");
-                break;
-            case 7:
-                monthPickUp.setText("July");
-                break;
-            case 8:
-                monthPickUp.setText("August");
-                break;
-            case 9:
-                monthPickUp.setText("September");
-                break;
-            case 10:
-                monthPickUp.setText("October");
-                break;
-            case 11:
-                monthPickUp.setText("November");
-                break;
-            case 12:
-                monthPickUp.setText("December");
-                break;
-            default:
-                monthPickUp.setText("No such month.");
-        }
+        String month = parseMonth(pickUp.getMonthValue());
+        dayOfMonthPickUp.setText(dayOfMonthPickUp.getText() + " " + month);
         int weekdayPickUp = pickUp.getDayOfWeek().getValue();
         switch (weekdayPickUp) {
             case 1:
@@ -128,51 +99,12 @@ public class BikeReservationConfirmationController implements Initializable {
                 dayOfWeekPickUp.setText("Sun");
                 break;
             default:
-                dayOfWeekPickUp.setText("No such day of the week");
+                dayOfWeekDropOff.setText("No such day of the week");
         }
-        dropOffTime.setText(dropOff.toLocalTime().toString());
+        dayOfWeekPickUp.setText(dayOfWeekPickUp.getText() + " " + pickUp.toLocalTime().toString());
         dayOfMonthDropOff.setText(String.valueOf(dropOff.getDayOfMonth()));
-        int intMonthDropOff = dropOff.getMonthValue();
-        switch (intMonthDropOff) {
-            case 1:
-                monthDropOff.setText("January");
-                break;
-            case 2:
-                monthDropOff.setText("February");
-                break;
-            case 3:
-                monthDropOff.setText("March");
-                break;
-            case 4:
-                monthDropOff.setText("April");
-                break;
-            case 5:
-                monthDropOff.setText("May");
-                break;
-            case 6:
-                monthDropOff.setText("June");
-                break;
-            case 7:
-                monthDropOff.setText("July");
-                break;
-            case 8:
-                monthDropOff.setText("August");
-                break;
-            case 9:
-                monthDropOff.setText("September");
-                break;
-            case 10:
-                monthDropOff.setText("October");
-                break;
-            case 11:
-                monthDropOff.setText("November");
-                break;
-            case 12:
-                monthDropOff.setText("December");
-                break;
-            default:
-                monthDropOff.setText("No such month.");
-        }
+        month = parseMonth(dropOff.getMonthValue());
+        dayOfMonthDropOff.setText(dayOfMonthDropOff.getText() + " " + month);
         int weekdayDropOff = dropOff.getDayOfWeek().getValue();
         switch (weekdayDropOff) {
             case 1:
@@ -199,10 +131,66 @@ public class BikeReservationConfirmationController implements Initializable {
             default:
                 dayOfWeekDropOff.setText("No such day of the week");
         }
-        dropOffTime.setText(dropOff.toLocalTime().toString());
-        buildingNameOne.setText(building1.getName() + "\n" + building1.getStreet() + " " + building1.getHouseNumber() + "\nDelft, The Netherlands");
-        buildingNameTwo.setText(building2.getName() + "\n" + building2.getStreet() + " " + building2.getHouseNumber() + "\nDelft, The Netherlands");
+        dayOfWeekDropOff.setText(dayOfWeekDropOff.getText() + " " + dropOff.toLocalTime().toString());
+        buildingNameOne.setText(building1.getName() + ",\n" + building1.getStreet() + " " + building1.getHouseNumber() + ",\nDelft, The Netherlands");
+        buildingNameTwo.setText(building2.getName() + ",\n" + building2.getStreet() + " " + building2.getHouseNumber() + ",\nDelft, The Netherlands");
     }
+
+    /**
+     * Parses a 1-12 to month in String
+     * @param monthByInt the number to parse
+     * @return String representation of the month
+     */
+    public String parseMonth(int monthByInt) {
+        String month;
+        switch (monthByInt) {
+            case 1:
+                month = "January";
+                break;
+            case 2:
+                month = "February";
+                break;
+            case 3:
+                month = "March";
+                break;
+            case 4:
+                month = "April";
+                break;
+            case 5:
+                month = "May";
+                break;
+            case 6:
+                month = "June";
+                break;
+            case 7:
+                month = "July";
+                break;
+            case 8:
+                month = "August";
+                break;
+            case 9:
+                month = "September";
+                break;
+            case 10:
+                month = "October";
+                break;
+            case 11:
+                month = "November";
+                break;
+            case 12:
+                month = "December";
+                break;
+            default:
+                month = "No such month";
+        }
+        return month;
+    }
+
+    /**
+     * Initialises the fields upon loading the fxml file
+     * @param location the location from which the fxml is called
+     * @param resources holding specific information about the user such as locale
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         loadInformation();

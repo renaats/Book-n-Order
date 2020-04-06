@@ -100,7 +100,7 @@ public class BikeReservationController implements Initializable {
                 if (response.equals(ErrorMessages.getErrorMessage(201))) {
                     int[] ints = {fromBuildingId, toBuildingId};
                     long[] longs = {fromDateLong, toDateLong};
-                    ApplicationDisplay.changeScene("/BikeConfirmation.fxml");
+                    ApplicationDisplay.changeSceneWithVariables("/BikeConfirmation.fxml", ints, longs);
                     return;
                 }
                 CustomAlert.errorAlert(response);
