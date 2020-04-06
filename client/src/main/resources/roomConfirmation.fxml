@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Hyperlink?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.rooms.RoomConfirmationController">
+<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.rooms.RoomConfirmationController">
    <children>
       <ImageView fitHeight="790.0" fitWidth="1479.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -50,16 +48,16 @@
             <Font name="Calibri" size="11.0" />
          </font>
       </Text>
-      <Hyperlink layoutX="496.0" layoutY="656.0" prefHeight="46.0" prefWidth="294.0" text="Check out more services" textFill="WHITE">
+      <Hyperlink ellipsisString="" layoutX="496.0" layoutY="656.0" onMouseClicked="#mainMenu" prefHeight="46.0" prefWidth="294.0" text="Check out more services" textFill="WHITE">
          <font>
             <Font size="24.0" />
          </font></Hyperlink>
-      <Text fx:id="month" layoutX="210.0" layoutY="399.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Month" textAlignment="CENTER">
+      <Text fx:id="month" layoutX="116.0" layoutY="418.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Month" textAlignment="CENTER" wrappingWidth="294.4000000000001">
          <font>
             <Font size="36.0" />
          </font>
       </Text>
-      <Text fx:id="dayOfMonth" layoutX="203.0" layoutY="337.0" strokeType="OUTSIDE" strokeWidth="0.0" text="10" textAlignment="CENTER" wrappingWidth="120.0">
+      <Text fx:id="dayOfMonth" layoutX="203.0" layoutY="354.0" strokeType="OUTSIDE" strokeWidth="0.0" text="10" textAlignment="CENTER" wrappingWidth="120.0">
          <font>
             <Font size="48.0" />
          </font>
@@ -74,12 +72,32 @@
             <Font size="24.0" />
          </font>
       </Text>
-      <Text fx:id="roomName" layoutX="569.0" layoutY="295.0" strokeType="OUTSIDE" strokeWidth="0.0" text="IMESTAQ">
+      <Text fx:id="roomName" layoutX="811.0" layoutY="292.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RoomName">
          <font>
-            <Font size="36.0" />
+            <Font size="24.0" />
          </font>
       </Text>
-      <Text fx:id="address" layoutX="597.0" layoutY="434.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address">
+      <Text fx:id="address" layoutX="811.0" layoutY="490.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+      <Text layoutX="489.0" layoutY="291.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name of the room:">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+      <Text layoutX="489.0" layoutY="399.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name of the building:">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+      <Text layoutX="489.0" layoutY="491.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address:">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+      <Text fx:id="buildingName" layoutX="811.0" layoutY="398.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BuildingName">
          <font>
             <Font size="24.0" />
          </font>

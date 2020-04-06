@@ -1,21 +1,25 @@
 package nl.tudelft.oopp.demo.controllers.rooms;
 
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.text.Text;
 import nl.tudelft.oopp.demo.communication.SelectedRoom;
+import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 import java.io.IOException;
+import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.TextStyle;
 import java.util.Date;
+import java.util.ResourceBundle;
 
 /**
  * Loads the correct content into the FXML objects that need to display server information and
  * controls all the user inputs made through the GUI in the "roomConfirmation.fxml" file
  */
-public class RoomConfirmationController {
+public class RoomConfirmationController implements Initializable{
     private LocalDateTime start;
     private LocalDateTime end;
     @FXML
@@ -26,8 +30,8 @@ public class RoomConfirmationController {
     private Text dayOfWeek;
     @FXML
     private Text startTime;
-//    @FXML
-//    private Text endTime;
+    @FXML
+    private Text buildingName;
     @FXML
     private Text roomName;
     @FXML
@@ -36,62 +40,9 @@ public class RoomConfirmationController {
     public RoomConfirmationController(Date start1, Date end1) {
         this.start = LocalDateTime.ofInstant(start1.toInstant(), ZoneId.systemDefault());
         this.end = LocalDateTime.ofInstant(end1.toInstant(), ZoneId.systemDefault());
-        System.out.println(start.toString());
-        System.out.println(start.getDayOfMonth());
-        dayOfMonth.setText(String.valueOf(start.getDayOfMonth()));
-        int intMonth = start.getMonthValue();
-        switch (intMonth) {
-            case 1:
-                month.setText("January");
-            case 2:
-                month.setText("February");
-            case 3:
-                month.setText("March");
-            case 4:
-                month.setText("April");
-            case 5:
-                month.setText("May");
-            case 6:
-                month.setText("June");
-            case 7:
-                month.setText("July");
-            case 8:
-                month.setText("August");
-            case 9:
-                month.setText("September");
-            case 10:
-                month.setText("October");
-            case 11:
-                month.setText("November");
-            case 12:
-                month.setText("December");
-            default:
-                month.setText("No such month.");
-        }
-        int weekday = start.getDayOfWeek().getValue();
-        switch (weekday) {
-            case 1:
-                dayOfWeek.setText("Mon");
-            case 2:
-                dayOfWeek.setText("Tue");
-            case 3:
-                dayOfWeek.setText("Wed");
-            case 4:
-                dayOfWeek.setText("Thu");
-            case 5:
-                dayOfWeek.setText("Fri");
-            case 6:
-                dayOfWeek.setText("Sat");
-            case 7:
-                dayOfWeek.setText("Sun");
-            default:
-                dayOfWeek.setText("No such day of the week");
-        }
-        startTime.setText(start.toLocalTime().toString() + "\n to\t" + end.toLocalTime().toString());
-        roomName.setText(SelectedRoom.getSelectedRoom().getName());
-        address.setText(SelectedRoom.getSelectedRoom().getBuilding().getName() + ", " + SelectedRoom.getSelectedRoom().getBuilding().getHouseNumber() + " "
-                + SelectedRoom.getSelectedRoom().getBuilding().getStreet() + ", Delft, The Netherlands");
     }
+
+
 
     /**
      * will change to main menu when the background is clicked
@@ -99,5 +50,90 @@ public class RoomConfirmationController {
      */
     public void mainMenu() throws IOException {
         ApplicationDisplay.changeScene("/mainMenu.fxml");
+    }
+
+    public void loadInformation() {
+        System.out.println(start.toString());
+        System.out.println(start.getDayOfMonth());
+        dayOfMonth.setText(String.valueOf(start.getDayOfMonth()));
+        int intMonth = start.getMonthValue();
+        System.out.println(intMonth);
+        switch (intMonth) {
+            case 1:
+                month.setText("January");
+                break;
+            case 2:
+                month.setText("February");
+                break;
+            case 3:
+                month.setText("March");
+                break;
+            case 4:
+                month.setText("April");
+                break;
+            case 5:
+                month.setText("May");
+                break;
+            case 6:
+                month.setText("June");
+                break;
+            case 7:
+                month.setText("July");
+                break;
+            case 8:
+                month.setText("August");
+                break;
+            case 9:
+                month.setText("September");
+                break;
+            case 10:
+                month.setText("October");
+                break;
+            case 11:
+                month.setText("November");
+                break;
+            case 12:
+                month.setText("December");
+                break;
+            default:
+                month.setText("No such month.");
+        }
+        int weekday = start.getDayOfWeek().getValue();
+        System.out.println( weekday);
+        switch (weekday) {
+            case 1:
+                dayOfWeek.setText("Mon");
+                break;
+            case 2:
+                dayOfWeek.setText("Tue");
+                break;
+            case 3:
+                dayOfWeek.setText("Wed");
+                break;
+            case 4:
+                dayOfWeek.setText("Thu");
+                break;
+            case 5:
+                dayOfWeek.setText("Fri");
+                break;
+            case 6:
+                dayOfWeek.setText("Sat");
+                break;
+            case 7:
+                dayOfWeek.setText("Sun");
+                break;
+            default:
+                dayOfWeek.setText("No such day of the week");
+        }
+        startTime.setText(start.toLocalTime().toString() + "\n   to\t" + end.toLocalTime().toString());
+        roomName.setText(SelectedRoom.getSelectedRoom().getName());
+        buildingName.setText(SelectedRoom.getSelectedRoom().getBuilding().getName());
+        address.setText(SelectedRoom.getSelectedRoom().getBuilding().getHouseNumber() + " "
+                + SelectedRoom.getSelectedRoom().getBuilding().getStreet() + ", Delft, The Netherlands");
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        loadInformation();
     }
 }
