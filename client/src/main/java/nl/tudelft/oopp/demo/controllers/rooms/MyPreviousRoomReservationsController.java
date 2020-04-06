@@ -17,7 +17,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.RoomServerCommunication;
-import nl.tudelft.oopp.demo.communication.UserServerCommunication;
 import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.entities.RoomReservation;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
@@ -63,8 +62,10 @@ public class MyPreviousRoomReservationsController implements Initializable {
             roomReservations = new ArrayList<>();
             roomReservations.add(null);
         }
+
         Collections.sort(roomReservations);
-            Collections.reverse(roomReservations);
+        Collections.reverse(roomReservations);
+
         if (roomReservations.size() > 10) {
             roomReservations = roomReservations.subList(0, 15);
             roomOrderResult.addAll(roomReservations);
