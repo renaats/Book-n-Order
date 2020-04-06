@@ -7,6 +7,7 @@ import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.TextStyle;
 import java.util.Date;
 
@@ -33,8 +34,10 @@ public class RoomConfirmationController {
     private Text address;
 
     public RoomConfirmationController(Date start1, Date end1) {
-        this.start = new java.sql.Timestamp(start1.getTime()).toLocalDateTime();
-        this.end = new java.sql.Timestamp(end1.getTime()).toLocalDateTime();
+        this.start = LocalDateTime.ofInstant(start1.toInstant(), ZoneId.systemDefault());
+        this.end = LocalDateTime.ofInstant(end1.toInstant(), ZoneId.systemDefault());
+        System.out.println(start.toString());
+        System.out.println(start.getDayOfMonth());
         dayOfMonth.setText(String.valueOf(start.getDayOfMonth()));
         int intMonth = start.getMonthValue();
         switch (intMonth) {
@@ -84,7 +87,7 @@ public class RoomConfirmationController {
             default:
                 dayOfWeek.setText("No such day of the week");
         }
-        startTime.setText(start.toLocalTime().toString() + "\nto\t" + end.toLocalTime().toString());
+        startTime.setText(start.toLocalTime().toString() + "\n to\t" + end.toLocalTime().toString());
         roomName.setText(SelectedRoom.getSelectedRoom().getName());
         address.setText(SelectedRoom.getSelectedRoom().getBuilding().getName() + ", " + SelectedRoom.getSelectedRoom().getBuilding().getHouseNumber() + " "
                 + SelectedRoom.getSelectedRoom().getBuilding().getStreet() + ", Delft, The Netherlands");

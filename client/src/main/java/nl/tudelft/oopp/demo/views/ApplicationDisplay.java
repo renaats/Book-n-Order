@@ -59,7 +59,7 @@ public class ApplicationDisplay extends Application {
         fxmlLoader.setControllerFactory(controllerClass -> {
             try {
                 if (controllerClass == RoomConfirmationController.class) {
-                    return new RoomConfirmationController((Date) variable1, (Date) variable2);
+                    return new RoomConfirmationController(new Date((long)variable1), new Date((long)variable2));
                 } else {
                     return controllerClass.newInstance();
                 }

@@ -1,32 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.rooms.RoomConfirmationController">
+<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.rooms.RoomConfirmationController">
    <children>
       <ImageView fitHeight="790.0" fitWidth="1479.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/template.jpg" />
          </image>
       </ImageView>
-      <Text fill="WHITE" layoutX="338.0" layoutY="222.0" stroke="BLACK" strokeType="OUTSIDE" text="Your reservation has been completed">
+      <Text fill="WHITE" layoutX="445.0" layoutY="93.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Great, You're Booked!">
          <font>
             <Font size="36.0" />
          </font>
       </Text>
-      <Text fill="WHITE" layoutX="331.0" layoutY="350.0" stroke="BLACK" strokeType="OUTSIDE" text="Click anywhere to return to main menu">
-         <font>
-            <Font size="36.0" />
-         </font>
-      </Text>
-      <Text fill="WHITE" layoutX="375.0" layoutY="514.0" stroke="BLACK" strokeType="OUTSIDE" text="Your reservation id is:" wrappingWidth="268.54296875">
-         <font>
-            <Font size="24.0" />
-         </font></Text>
       <ImageView fitHeight="41.0" fitWidth="44.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#mainMenu" pickOnBounds="true" preserveRatio="true">
          <Image url="@images/HomeIconTransparent.png" />
       </ImageView>
@@ -48,15 +40,6 @@
             <Font name="Calibri" size="11.0" />
          </font>
       </Text>
-      <Button fx:id="addButton" layoutX="524.0" layoutY="557.0" mnemonicParsing="false" onAction="#mainMenu" prefHeight="25.0" prefWidth="240.0" style="-fx-background-color: #00a6d6;" text="Add Event To Calendar" textFill="WHITE" AnchorPane.leftAnchor="524.0" AnchorPane.rightAnchor="516.0" AnchorPane.topAnchor="557.0">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor></Button>
-      <Text fx:id="text" fill="WHITE" layoutX="619.0" layoutY="513.0" stroke="BLACK" strokeType="OUTSIDE" text="Order ID" wrappingWidth="268.54296875">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Text>
       <Text fill="WHITE" layoutX="20.0" layoutY="555.576171875" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback is welcome" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0">
          <font>
             <Font size="18.0" />
@@ -67,7 +50,40 @@
             <Font name="Calibri" size="11.0" />
          </font>
       </Text>
-      <Hyperlink text="Check out more services" textFill="WHITE" />
+      <Hyperlink layoutX="496.0" layoutY="656.0" prefHeight="46.0" prefWidth="294.0" text="Check out more services" textFill="WHITE">
+         <font>
+            <Font size="24.0" />
+         </font></Hyperlink>
+      <Text fx:id="month" layoutX="210.0" layoutY="399.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Month" textAlignment="CENTER">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Text>
+      <Text fx:id="dayOfMonth" layoutX="203.0" layoutY="337.0" strokeType="OUTSIDE" strokeWidth="0.0" text="10" textAlignment="CENTER" wrappingWidth="120.0">
+         <font>
+            <Font size="48.0" />
+         </font>
+      </Text>
+      <Text fx:id="dayOfWeek" layoutX="174.0" layoutY="562.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SSS">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Text>
+      <Text fx:id="startTime" layoutX="279.0" layoutY="526.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00:15 &#10;  to&#10;11:12" wrappingWidth="78.13671875">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+      <Text fx:id="roomName" layoutX="569.0" layoutY="295.0" strokeType="OUTSIDE" strokeWidth="0.0" text="IMESTAQ">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Text>
+      <Text fx:id="address" layoutX="597.0" layoutY="434.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
 
    </children>
 </AnchorPane>
