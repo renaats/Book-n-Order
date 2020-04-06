@@ -87,9 +87,9 @@ public class DatabaseViewFoodOrderController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        colCurrentLocation.setCellValueFactory(new PropertyValueFactory<>("locationName"));
+        colCurrentLocation.setCellValueFactory(new PropertyValueFactory<>("locationNameString"));
         colCurrentTime.setCellValueFactory(new PropertyValueFactory<>("deliveryTimeString"));
-        colPastLocation.setCellValueFactory(new PropertyValueFactory<>("locationName"));
+        colPastLocation.setCellValueFactory(new PropertyValueFactory<>("locationNameString"));
         colPastTime.setCellValueFactory(new PropertyValueFactory<>("deliveryTimeString"));
         colDishName.setCellValueFactory(new PropertyValueFactory<>("dishName"));
         colDishAmount.setCellValueFactory(new PropertyValueFactory<>("amount"));

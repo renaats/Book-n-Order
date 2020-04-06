@@ -89,7 +89,14 @@ public class FoodOrder {
         return deliveryTime;
     }
 
-    public String getLocationName() {
+    /**
+     * Gets the delivery location name.
+     * @return the name of the location.
+     */
+    public String getLocationNameString() {
+        if (deliveryLocation == null || deliveryLocation.getName() == null || deliveryLocation.getName().equals("")) {
+            return "Pick Up";
+        }
         return deliveryLocation.getName();
     }
 
