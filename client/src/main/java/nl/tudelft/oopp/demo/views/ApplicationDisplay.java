@@ -69,7 +69,7 @@ public class ApplicationDisplay extends Application {
                     return new DatabaseViewFoodOrderController((Restaurant) variable1);
                 } else if (controllerClass == DatabaseAddDishController.class) {
                     return new DatabaseAddDishController((Menu) variable1);
-                } else if (controllerClass == BikeReservationConfirmationController) {
+                } else if (controllerClass == BikeReservationConfirmationController.class) {
                     return new BikeReservationConfirmationController((int[]) variable1, (long[]) variable2);
                 } else {
                     return controllerClass.getDeclaredConstructor().newInstance();
