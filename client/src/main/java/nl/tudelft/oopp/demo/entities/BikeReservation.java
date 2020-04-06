@@ -143,7 +143,7 @@ public class BikeReservation implements Comparable {
 
     @Override
     public int compareTo(Object o) {
-        long compareTime = ((RoomReservation)o).getFromTime().getTime();
+        long compareTime = ((BikeReservation)o).getFromTime().getTime();
         if (this.getFromTime().getTime() > compareTime) {
             return 1;
         }
