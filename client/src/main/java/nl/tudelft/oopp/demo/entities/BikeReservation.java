@@ -1,13 +1,21 @@
 package nl.tudelft.oopp.demo.entities;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
+
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 /**
  * Manages the BikeReservations object that is retrieved from the server
  */
-public class BikeReservation {
+public class BikeReservation implements Comparable {
     private Integer id;
+    private Boolean active;
     private Bike bike;
     private AppUser appUser;
     private Building fromBuilding;
@@ -30,10 +38,15 @@ public class BikeReservation {
         this.toBuilding = toBuilding;
         this.fromTime = fromTime;
         this.toTime = toTime;
+        this.active = true;
     }
 
     public BikeReservation() {
+        this.active = true;
+    }
 
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 
     public void setBike(Bike bike) {
@@ -64,6 +77,10 @@ public class BikeReservation {
         return id;
     }
 
+    public Boolean getActive() {
+        return active;
+    }
+
     public Bike getBike() {
         return bike;
     }
@@ -88,6 +105,94 @@ public class BikeReservation {
         return toTime;
     }
 
+    /**
+     * Makes the table list the id of the bike instead of the bike object
+     * @return String property, a property recognized by the tables.
+     */
+    public IntegerProperty getBikeIdProperty() {
+        int id = getBike().getId();
+        return new SimpleIntegerProperty(id);
+    }
+
+    /**
+     * Makes the table list the building name instead of the building object
+     * @return String property, a property recognized by the tables.
+     */
+    public StringProperty getFromBuildingNameProperty() {
+        String name = getFromBuilding().getName();
+        return new SimpleStringProperty(name);
+    }
+
+    /**
+     * Makes the table list the building name instead of the building object
+     * @return String property, a property recognized by the tables.
+     */
+    public StringProperty getToBuildingNameProperty() {
+        String name = getToBuilding().getName();
+        return new SimpleStringProperty(name);
+    }
+
+    /**
+     * Makes the table list the date in a readable way instead of the time object.
+     * @return String property, a property recognized by the tables.
+     */
+    public StringProperty getFromTimeProperty() {
+        Date time = getFromTime();
+        DateFormat df = new SimpleDateFormat("dd MMMMM yyyy HH:mm");
+        return new SimpleStringProperty(df.format(time));
+    }
+
+    /**
+     * Makes the table list the date in a readable way instead of the time object.
+     * @return String property, a property recognized by the tables.
+     */
+    public StringProperty getToTimeProperty() {
+        Date time = getToTime();
+        DateFormat df = new SimpleDateFormat("dd MMMMM yyyy HH:mm");
+        return new SimpleStringProperty(df.format(time));
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        long compareTime = ((BikeReservation)o).getFromTime().getTime();
+        if (this.getFromTime().getTime() > compareTime) {
+            return 1;
+        }
+        return -1;
+    }
+    
+    public String getFromTimeString() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd  HH:mm");
+        return simpleDateFormat.format(fromTime);
+    }
+
+    public String getToTimeString() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd  HH:mm");
+        return simpleDateFormat.format(toTime);
+    }
+
+    /**
+     * Returns the building name as a string.
+     * @return the building name string.
+     */
+    public String getFromBuildingName() {
+        if (fromBuilding == null) {
+            return "";
+        }
+        return fromBuilding.getName();
+    }
+
+    /**
+     * Returns the building name as a string.
+     * @return the building name string.
+     */
+    public String getToBuildingName() {
+        if (toBuilding == null) {
+            return "";
+        }
+        return toBuilding.getName();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -97,7 +202,8 @@ public class BikeReservation {
             return false;
         }
         BikeReservation that = (BikeReservation) o;
-        return Objects.equals(bike, that.bike)
+        return active == that.active
+                && Objects.equals(bike, that.bike)
                 && Objects.equals(appUser, that.appUser)
                 && Objects.equals(fromBuilding, that.fromBuilding)
                 && Objects.equals(toBuilding, that.toBuilding)

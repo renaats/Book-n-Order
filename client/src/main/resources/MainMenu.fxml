@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.generic.MainMenuController">
+   <ImageView fitWidth="1280.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@images/mainMenuBackground.jpg" />
+      </image>
+   </ImageView>
+   <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="63.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@images/TuDelftLogoFinal.png" />
+      </image>
+   </ImageView>
+   <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="258.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="576.0" AnchorPane.leftAnchor="258.0" AnchorPane.rightAnchor="902.0" AnchorPane.topAnchor="120.0">
+      <Image url="@images/booknorderlogo.png" />
+   </ImageView>
+   <Text fill="WHITE" layoutX="20.0" layoutY="555.576171875" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback is welcome" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0">
+      <font>
+         <Font size="18.0" />
+      </font>
+   </Text>
+   <Text fill="WHITE" layoutX="20.0" layoutY="578.75" strokeType="OUTSIDE" strokeWidth="0.0" text="© 2020 TU Delft. All rights reserved." AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0">
+      <font>
+         <Font name="Calibri" size="11.0" />
+      </font>
+   </Text>
+   <Accordion layoutX="76.0" layoutY="144.0" />
+   <ImageView fitHeight="191.0" fitWidth="229.0" layoutX="526.0" layoutY="182.0" onMouseClicked="#calendarIcon" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@images/CalendarChangedFinal.png" />
+      </image>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </ImageView>
+   <ImageView fitHeight="170.0" layoutX="270.0" layoutY="396.0" onMouseClicked="#goToProfile" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@images/ProfileIconChangeFinal.png" />
+      </image>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </ImageView>
+   <ImageView fitHeight="170.0" fitWidth="170.0" layoutX="839.0" layoutY="396.0" onMouseClicked="#goToMainReservationsMenu" pickOnBounds="true">
+      <image>
+         <Image url="@images/BookingLogoChangeWithoutShadow.png" />
+      </image>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </ImageView>
+   <Text layoutX="76.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Book 'n Order!">
+      <font>
+         <Font name="Candara Bold" size="24.0" />
+      </font></Text>
+   <Text layoutX="76.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" text="We are the TU Delft app for booking rooms, renting bikes, and ordering food! Click new bookings to get started!" textAlignment="CENTER" wrappingWidth="279.1640625" />
+   <Button layoutX="824.0" layoutY="571.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#goToMainReservationsMenu" style="-fx-background-color: #00a6d6;" text="New Bookings" textFill="WHITE">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
+   <Button layoutX="540.0" layoutY="371.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#calendarIcon" style="-fx-background-color: #00a6d6;" text="My Calendar" textFill="WHITE">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
+   <Button layoutX="261.0" layoutY="571.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#goToProfile" style="-fx-background-color: #00a6d6;" text="My Profile" textFill="WHITE">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
+   <Hyperlink layoutX="1166.0" layoutY="671.0" onMouseClicked="#goToContactInformation" text="Contact Us" textAlignment="CENTER" textFill="#00a6d6">
+      <font>
+         <Font size="18.0" />
+      </font>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Hyperlink>
+   <Hyperlink layoutX="974.0" layoutY="671.0" onMouseClicked="#goToBuildingInformation" text="Building Information" textAlignment="CENTER" textFill="#00a6d6">
+      <font>
+         <Font size="18.0" />
+      </font>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Hyperlink>
+</AnchorPane>

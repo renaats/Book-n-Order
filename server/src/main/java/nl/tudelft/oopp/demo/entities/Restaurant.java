@@ -35,8 +35,10 @@ public class Restaurant {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn
     private Building building;
-
     private String name;
+    private String email;
+
+    private int feedbackCounter;
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn
@@ -47,9 +49,10 @@ public class Restaurant {
      * @param building = building in which restaurant is located.
      * @param name = name of the restaurant.
      */
-    public Restaurant(Building building, String name) {
+    public Restaurant(Building building, String name, String email) {
         this.building = building;
         this.name = name;
+        this.email = email;
     }
 
     public Restaurant() {
@@ -68,6 +71,10 @@ public class Restaurant {
         this.name = name;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public void setMenu(Menu menu) {
         this.menu = menu;
     }
@@ -84,8 +91,32 @@ public class Restaurant {
         return name;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
     public Menu getMenu() {
         return menu;
+    }
+
+    public int getFeedbackCounter() {
+        return feedbackCounter;
+    }
+
+    public void setFeedbackCounter(int feedbackCounter) {
+        this.feedbackCounter = feedbackCounter;
+    }
+
+    /**
+     * When the feedback is positive it adds 1 to the feedback counter score, when it's negative it subtracts one.
+     * @param feedback if the feedback is positive or negative.
+     */
+    public void addFeedback(Boolean feedback) {
+        if (feedback) {
+            this.feedbackCounter = this.feedbackCounter + 1;
+        } else {
+            this.feedbackCounter = this.feedbackCounter - 1;
+        }
     }
 
     @Override
@@ -98,6 +129,7 @@ public class Restaurant {
         }
         Restaurant restaurant = (Restaurant) o;
         return name.equals(restaurant.name)
+                && Objects.equals(email, restaurant.email)
                 && Objects.equals(building, restaurant.building);
     }
 }

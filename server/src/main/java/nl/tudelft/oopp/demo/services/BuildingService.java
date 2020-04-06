@@ -1,5 +1,15 @@
 package nl.tudelft.oopp.demo.services;
 
+import static nl.tudelft.oopp.demo.config.Constants.ADDED;
+import static nl.tudelft.oopp.demo.config.Constants.ATTRIBUTE_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.DUPLICATE_NAME;
+import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
+import static nl.tudelft.oopp.demo.config.Constants.HAS_ROOMS;
+import static nl.tudelft.oopp.demo.config.Constants.ID_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.NOT_FOUND;
+
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -7,6 +17,7 @@ import java.util.Set;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.repositories.BuildingRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,17 +36,18 @@ public class BuildingService {
      * @param name = the name of the building
      * @return String to see if your request passed
      */
-    public int add(String name, String street, int houseNumber) {
+    public int add(String name, String street, String faculty, int houseNumber) {
         if (buildingRepository.existsByName(name)) {
-            return 309;
+            return DUPLICATE_NAME;
         }
         Building building = new Building();
         building.setName(name);
         building.setStreet(street);
+        building.setFaculty(faculty);
         building.setHouseNumber(houseNumber);
         building.setRooms(new HashSet<>());
         buildingRepository.save(building);
-        return 201;
+        return ADDED;
     }
 
     /**
@@ -47,24 +59,30 @@ public class BuildingService {
      */
     public int update(int id, String attribute, String value) {
         if (!buildingRepository.existsById(id)) {
-            return 416;
+            return ID_NOT_FOUND;
         }
         Building building = buildingRepository.getOne(id);
         switch (attribute.toLowerCase()) {
             case "name":
+                if (buildingRepository.existsByName(value)) {
+                    return DUPLICATE_NAME;
+                }
                 building.setName(value);
                 break;
             case "street":
                 building.setStreet(value);
                 break;
+            case "faculty":
+                building.setFaculty(value);
+                break;
             case "housenumber":
                 building.setHouseNumber(Integer.parseInt(value));
                 break;
             default:
-                return 412;
+                return ATTRIBUTE_NOT_FOUND;
         }
         buildingRepository.save(building);
-        return 201;
+        return ADDED;
     }
 
     /**
@@ -74,13 +92,13 @@ public class BuildingService {
      */
     public int delete(int id) {
         if (buildingRepository.findById(id).isEmpty()) {
-            return 404;
+            return NOT_FOUND;
         }
         if (buildingRepository.findById(id).get().hasRooms()) {
-            return 417;
+            return HAS_ROOMS;
         }
         buildingRepository.deleteById(id);
-        return 200;
+        return EXECUTED;
     }
 
     /**
@@ -106,7 +124,7 @@ public class BuildingService {
      * @return a building that matches the name
      */
     public Building find(String name) {
-        return buildingRepository.findByName(name);
+        return buildingRepository.findByName(URLDecoder.decode(name, StandardCharsets.UTF_8));
     }
 
     /**

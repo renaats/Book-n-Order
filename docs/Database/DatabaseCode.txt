@@ -65,6 +65,7 @@ Table restaurant {
   name String
   business_hours business_hours
   menu menu
+  int feedbackCounter
 }
 
 Table menu {
@@ -93,6 +94,11 @@ Table food_orders {
   delivery_date date
   delivery_location building_number
   menu menu
+  dish id
+}
+
+Table allergies {
+  allergy String PK
   dish id
 }
 
@@ -125,5 +131,9 @@ Ref: "building"."building_number" < "food_orders"."delivery_location"
 Ref: "bike_reservations"."from_building" < "building"."building_number"
 
 Ref: "bike_reservations"."to_building" < "building"."building_number"
+
+Ref: "dish"."id" < "allergies"."menu"
+
+Ref: "allergies"."id" < "dish"."allergies"
 
 Ref: "dish"."dish" < "food_orders"."dish"

@@ -7,6 +7,7 @@ import com.google.gson.annotations.Expose;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -31,6 +32,8 @@ public class AppUser {
     private String surname;
     @Expose
     private String faculty;
+    @Expose
+    private String study;
     private boolean loggedIn = false;
     private int confirmationNumber;
 
@@ -44,12 +47,13 @@ public class AppUser {
      * @param surname the user's surname.
      * @param faculty the faculty the user is associated to.
      */
-    public AppUser(String email, String password, String name, String surname, String faculty) {
+    public AppUser(String email, String password, String name, String surname, String faculty, String study) {
         this.email = email;
         this.password = password;
         this.name = name;
         this.surname = surname;
         this.faculty = faculty;
+        this.study = study;
     }
 
     public AppUser() {
@@ -86,6 +90,10 @@ public class AppUser {
 
     public void setFaculty(String faculty) {
         this.faculty = faculty;
+    }
+
+    public void setStudy(String study) {
+        this.study = study;
     }
 
     public void setRoles(Set<Role> roles) {
@@ -136,6 +144,10 @@ public class AppUser {
         return faculty;
     }
 
+    public String getStudy() {
+        return study;
+    }
+
     public Set<Role> getRoles() {
         return roles;
     }
@@ -173,6 +185,7 @@ public class AppUser {
                 && Objects.equals(name, appUser.name)
                 && Objects.equals(surname, appUser.surname)
                 && Objects.equals(faculty, appUser.faculty)
+                && Objects.equals(study, appUser.study)
                 && Objects.equals(roles, appUser.roles)
                 && Objects.equals(roomReservations, appUser.roomReservations)
                 && Objects.equals(foodOrders, appUser.foodOrders);

@@ -1,10 +1,15 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import static nl.tudelft.oopp.demo.config.Constants.ADMIN;
+import static nl.tudelft.oopp.demo.config.Constants.BUILDING_ADMIN;
+import static nl.tudelft.oopp.demo.config.Constants.USER;
+
 import java.util.Set;
 
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.services.BuildingService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Repository;
@@ -34,11 +39,11 @@ public class BuildingController {
      * @param name = the name of the new building.
      * @return Error code
      */
-    @Secured({"ROLE_ADMIN", "ROLE_BUILDING_ADMIN"})
+    @Secured({ADMIN, BUILDING_ADMIN})
     @PostMapping(path = "/add")
     @ResponseBody
-    public int addNewBuilding(@RequestParam String name, @RequestParam String street, @RequestParam int houseNumber) {
-        return buildingService.add(name, street, houseNumber);
+    public int addNewBuilding(@RequestParam String name, @RequestParam String street, @RequestParam String faculty, @RequestParam int houseNumber) {
+        return buildingService.add(name, street, faculty, houseNumber);
     }
 
     /**
@@ -46,7 +51,7 @@ public class BuildingController {
      * @param id = the id of the existing building to be deleted.
      * @return Error code
      */
-    @Secured({"ROLE_ADMIN", "ROLE_BUILDING_ADMIN"})
+    @Secured({ADMIN, BUILDING_ADMIN})
     @DeleteMapping(path = "/delete/{buildingID}")
     @ResponseBody
     public int deleteBuilding(@PathVariable(value = "buildingID") int id) {
@@ -60,7 +65,7 @@ public class BuildingController {
      * @param value = the new value.
      * @return Error code
      */
-    @Secured({"ROLE_ADMIN", "ROLE_BUILDING_ADMIN"})
+    @Secured({ADMIN, BUILDING_ADMIN})
     @PostMapping(path = "/update")
     @ResponseBody
     public int updateBuilding(@RequestParam int id, @RequestParam String attribute, @RequestParam String value) {
@@ -71,19 +76,19 @@ public class BuildingController {
      * Lists all buildings in the database.
      * @return Iterable of all buildings in the database.
      */
-    @Secured("ROLE_USER")
+    @Secured(USER)
     @GetMapping(path = "/all")
     @ResponseBody
     public Iterable<Building> getAllBuildings() {
         return buildingService.all();
     }
-
+    
     /**
      * Retrieves the building with the specified id.
      * @param id = the id of the building.
      * @return Building that matches the id.
      */
-    @Secured("ROLE_USER")
+    @Secured(USER)
     @GetMapping(path = "/find/{buildingID}")
     @ResponseBody
     public Building findBuilding(@PathVariable(value = "buildingID") int id) {
@@ -91,15 +96,26 @@ public class BuildingController {
     }
 
     /**
+     * Finds a building with the specified name.
+     * @param name = the name of the building
+     * @return a building that matches the name
+     */
+    @Secured(USER)
+    @GetMapping(path = "/findName/{name}")
+    @ResponseBody
+    public Building findBuildingByName(@PathVariable(value = "name") String name) {
+        return buildingService.find(name);
+    }
+
+    /**
      * Return all rooms that are in the building with the specified id.
      * @param id = the id of the building.
      * @return Set of all rooms in the retrieved building.
      */
-    @Secured("ROLE_USER")
+    @Secured(USER)
     @GetMapping(path = "/rooms/{buildingId}")
     @ResponseBody
     public Set<Room> getRooms(@PathVariable(value = "buildingId") int id) {
         return buildingService.rooms(id);
     }
-
 }

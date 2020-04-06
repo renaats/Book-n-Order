@@ -1,11 +1,25 @@
 package nl.tudelft.oopp.demo.services;
 
+import static nl.tudelft.oopp.demo.config.Constants.ADDED;
+import static nl.tudelft.oopp.demo.config.Constants.ATTRIBUTE_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.BUILDING_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.DUPLICATE_DAY;
+import static nl.tudelft.oopp.demo.config.Constants.END_BEFORE_START;
+import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
+import static nl.tudelft.oopp.demo.config.Constants.ID_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.INVALID_DAY;
+import static nl.tudelft.oopp.demo.config.Constants.NOT_FOUND;
+
 import java.time.LocalTime;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import nl.tudelft.oopp.demo.entities.Restaurant;
 import nl.tudelft.oopp.demo.entities.RestaurantHours;
 import nl.tudelft.oopp.demo.repositories.RestaurantHourRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,57 +38,65 @@ public class RestaurantHourService {
     /**
      * Adds restaurant hours to the database.
      * @param restaurantId = the id of the restaurant.
-     * @param day = the day of the week in number representation (1 to 7)
-     * @param startTimeS = the starting time in milliseconds
-     * @param endTimeS = the ending time in milliseconds
+     * @param date = the date in milliseconds or the day of the week for regular hours.
+     * @param startTimeS = the starting time in milliseconds.
+     * @param endTimeS = the ending time in milliseconds.
      * @return String containing the result of your request.
      */
-    public int add(int restaurantId, int day, int startTimeS, int endTimeS) {
+    public int add(int restaurantId, long date, int startTimeS, int endTimeS) {
         Restaurant restaurant = restaurantService.find(restaurantId);
-        if (restaurant == null) {
-            return 422;
+        if (date > 7) {
+            date = BuildingHourService.parse(date);
         }
-        if (day < 1 || day > 7) {
-            return 425;
+        if (restaurant == null) {
+            return BUILDING_NOT_FOUND;
+        }
+        if (date < 1) {
+            return INVALID_DAY;
         }
         if (endTimeS < startTimeS) {
-            return 426;
+            return END_BEFORE_START;
         }
-        if (restaurantHourRepository.existsByRestaurant_IdAndDay(restaurantId, day)) {
-            return 427;
+        if (restaurantHourRepository.existsByRestaurant_IdAndDay(restaurantId, date)) {
+            return DUPLICATE_DAY;
         }
-        RestaurantHours restaurantHours = new RestaurantHours(day, restaurant,LocalTime.ofSecondOfDay(startTimeS), LocalTime.ofSecondOfDay(endTimeS));
+        RestaurantHours restaurantHours =
+                new RestaurantHours(date, restaurant, LocalTime.ofSecondOfDay(startTimeS), LocalTime.ofSecondOfDay(endTimeS));
         restaurantHourRepository.save(restaurantHours);
-        return 201;
+        return ADDED;
     }
 
     /**
      * Updates a database attribute.
-     * @param id = the restaurant hour id
-     * @param attribute = the attribute that is changed
-     * @param value = the new value of the attribute
-     * @return message if it passes
+     * @param id = the restaurant hour id.
+     * @param attribute = the attribute that is changed.
+     * @param value = the new value of the attribute.
+     * @return message if it passes.
      */
     public int update(int id, String attribute, String value) {
         if (!restaurantHourRepository.existsById(id)) {
-            return 416;
+            return ID_NOT_FOUND;
         }
         RestaurantHours restaurantHours = restaurantHourRepository.getOne(id);
         switch (attribute.toLowerCase()) {
             case "day":
-                if (restaurantHourRepository.existsByRestaurant_IdAndDay(restaurantHours.getRestaurant().getId(), Integer.parseInt(value))) {
-                    return 427;
+                long dateInMilliseconds = Long.parseLong(value);
+                if (dateInMilliseconds > 7) {
+                    dateInMilliseconds = BuildingHourService.parse(dateInMilliseconds);
                 }
-                restaurantHours.setDay(Integer.parseInt(value));
+                if (restaurantHourRepository.existsByRestaurant_IdAndDay(restaurantHours.getRestaurant().getId(), dateInMilliseconds)) {
+                    return DUPLICATE_DAY;
+                }
+                restaurantHours.setDay(dateInMilliseconds);
                 break;
             case "restaurantid":
                 int restaurantId = Integer.parseInt(value);
                 if (restaurantHourRepository.existsByRestaurant_IdAndDay(restaurantId, restaurantHours.getDay())) {
-                    return 427;
+                    return DUPLICATE_DAY;
                 }
                 Restaurant restaurant = restaurantService.find(restaurantId);
                 if (restaurant == null) {
-                    return 422;
+                    return BUILDING_NOT_FOUND;
                 }
                 restaurantHours.setRestaurant(restaurant);
                 break;
@@ -85,29 +107,32 @@ public class RestaurantHourService {
                 restaurantHours.setEndTime(LocalTime.ofSecondOfDay(Integer.parseInt(value)));
                 break;
             default:
-                return 412;
+                return ATTRIBUTE_NOT_FOUND;
         }
         restaurantHourRepository.save(restaurantHours);
-        return 201;
+        return EXECUTED;
     }
 
     /**
      * Deletes restaurant hours.
-     * @param restaurantId = the id of the restaurant
-     * @param day = the day of the week
-     * @return String to see if your request passed
+     * @param restaurantId = the id of the restaurant.
+     * @param dateInMilliseconds = the date in milliseconds.
+     * @return String to see if your request passed.
      */
-    public int delete(int restaurantId, int day) {
-        if (!restaurantHourRepository.existsByRestaurant_IdAndDay(restaurantId, day)) {
-            return 404;
+    public int delete(int restaurantId, long dateInMilliseconds) {
+        if (dateInMilliseconds > 7) {
+            dateInMilliseconds = BuildingHourService.parse(dateInMilliseconds);
         }
-        restaurantHourRepository.deleteByRestaurant_IdAndDay(restaurantId, day);
-        return 200;
+        if (!restaurantHourRepository.existsByRestaurant_IdAndDay(restaurantId, dateInMilliseconds)) {
+            return NOT_FOUND;
+        }
+        restaurantHourRepository.deleteByRestaurant_IdAndDay(restaurantId, dateInMilliseconds);
+        return EXECUTED;
     }
 
     /**
      * Lists all restaurant hours.
-     * @return all restaurant hours
+     * @return all restaurant hours.
      */
     public List<RestaurantHours> all() {
         return restaurantHourRepository.findAll();
@@ -115,11 +140,32 @@ public class RestaurantHourService {
 
     /**
      * Finds the hours for a restaurant with the specified id.
-     * @param restaurantId = the id of the restaurant
-     * @param day = the day of the week
-     * @return restaurant hours that match the id
+     * @param restaurantId = the id of the restaurant.
+     * @param dateInMilliseconds = the date in milliseconds.
+     * @return restaurant hours that match the id.
      */
-    public RestaurantHours find(int restaurantId, int day) {
+    public RestaurantHours find(int restaurantId, long dateInMilliseconds) {
+        dateInMilliseconds = BuildingHourService.parse(dateInMilliseconds);
+        if (restaurantHourRepository.existsByRestaurant_IdAndDay(restaurantId, dateInMilliseconds)) {
+            return restaurantHourRepository.findByRestaurant_IdAndDay(restaurantId, dateInMilliseconds);
+        }
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeZone(TimeZone.getTimeZone("Europe/Amsterdam"));
+        calendar.setTime(new Date(dateInMilliseconds));
+        long day = calendar.get(Calendar.DAY_OF_WEEK);
+        if (restaurantHourRepository.existsByRestaurant_IdAndDay(restaurantId, day)) {
+            return restaurantHourRepository.findByRestaurant_IdAndDay(restaurantId, day);
+        }
+        return null;
+    }
+
+    /**
+     * Finds the hours for a restaurant with the specified id and day.
+     * @param restaurantId = the id of the restaurant.
+     * @param day = the day;
+     * @return restaurant hours that match the id.
+     */
+    public RestaurantHours findAdmin(int restaurantId, long day) {
         if (!restaurantHourRepository.existsByRestaurant_IdAndDay(restaurantId, day)) {
             return null;
         }

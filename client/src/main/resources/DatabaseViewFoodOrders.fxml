@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="anchorPane" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #FFFFFF;" stylesheets="@DatabaseGeneric.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.database.DatabaseViewFoodOrderController">
+    <ImageView fitHeight="720.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+        <image>
+            <Image url="@images/Living-Campus-1-1280x600-c-center.jpg" />
+        </image>
+    </ImageView>
+    <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="63.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+        <image>
+            <Image url="@images/TuDelftLogoFinal.png" />
+        </image>
+    </ImageView>
+    <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="258.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="576.0" AnchorPane.leftAnchor="258.0" AnchorPane.rightAnchor="902.0" AnchorPane.topAnchor="120.0">
+        <Image url="@images/booknorderlogo.png" />
+    </ImageView>
+    <Text fill="WHITE" layoutX="20.0" layoutY="555.576171875" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback is welcome" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0">
+        <font>
+            <Font size="18.0" />
+        </font>
+    </Text>
+    <Text fill="WHITE" layoutX="20.0" layoutY="578.75" strokeType="OUTSIDE" strokeWidth="0.0" text="© 2020 TU Delft. All rights reserved." AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0">
+        <font>
+            <Font name="Calibri" size="11.0" />
+        </font>
+    </Text>
+    <ImageView fx:id="homeIcon" fitHeight="41.0" fitWidth="44.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#mainMenu" pickOnBounds="true" preserveRatio="true">
+        <Image url="@images/HomeIconTransparent.png" />
+        <cursor>
+            <Cursor fx:constant="HAND" />
+        </cursor>
+    </ImageView>
+    <TableView fx:id="currentTable" layoutX="59.0" layoutY="230.0" prefHeight="404.0" prefWidth="260.0" stylesheets="@Table.css">
+        <columns>
+            <TableColumn fx:id="colCurrentTime" editable="false" maxWidth="128.0" minWidth="128.0" prefWidth="128.0" resizable="false" sortable="false" text="Delivery Time" />
+            <TableColumn fx:id="colCurrentLocation" editable="false" maxWidth="129.0" minWidth="129.0" prefWidth="129.0" resizable="false" sortable="false" text="Delivery Location" />
+        </columns>
+    </TableView>
+    <TableView fx:id="pastTable" layoutX="860.0" layoutY="230.0" prefHeight="404.0" prefWidth="260.0" stylesheets="@Table.css">
+        <columns>
+            <TableColumn fx:id="colPastTime" editable="false" maxWidth="128.0" minWidth="128.0" prefWidth="128.0" resizable="false" sortType="DESCENDING" sortable="false" text="Delivery Time" />
+            <TableColumn fx:id="colPastLocation" editable="false" maxWidth="129.0" minWidth="129.0" prefWidth="129.0" resizable="false" sortable="false" text="Delivery Location" />
+        </columns>
+    </TableView>
+    <TableView fx:id="dishTable" layoutX="475.0" layoutY="230.0" prefHeight="404.0" prefWidth="260.0" stylesheets="@Table.css">
+        <columns>
+            <TableColumn fx:id="colDishName" editable="false" maxWidth="129.0" minWidth="129.0" prefWidth="129.0" resizable="false" sortable="false" text="Dish Name" />
+            <TableColumn fx:id="colDishAmount" editable="false" maxWidth="128.0" minWidth="128.0" prefWidth="128.0" resizable="false" sortable="false" text="Dish Amount" />
+        </columns>
+    </TableView>
+    <ImageView fitHeight="41.0" fitWidth="69.0" layoutX="14.0" layoutY="67.0" onMouseClicked="#goToRestaurantMenu" pickOnBounds="true" preserveRatio="true">
+        <image>
+            <Image url="@images/BackArrow.png" />
+        </image>
+        <cursor>
+            <Cursor fx:constant="HAND" />
+        </cursor>
+    </ImageView>
+    <Button fx:id="nextCurrentPageButton" layoutX="224.0" layoutY="634.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#nextCurrentPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&gt;&gt;" textFill="WHITE">
+        <cursor>
+            <Cursor fx:constant="HAND" />
+        </cursor>
+    </Button>
+    <Button fx:id="previousCurrentPageButton" layoutX="115.0" layoutY="634.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#previousCurrentPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&lt;&lt;" textFill="WHITE">
+        <cursor>
+            <Cursor fx:constant="HAND" />
+        </cursor>
+    </Button>
+    <Text fx:id="currentPagesText" layoutX="158.0" layoutY="651.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0 / pages" />
+   <Text layoutX="80.0" layoutY="208.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Current Food Orders">
+      <font>
+         <Font size="24.0" />
+      </font>
+   </Text>
+   <Text layoutX="899.0" layoutY="208.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Past Food Orders">
+      <font>
+         <Font size="24.0" />
+      </font>
+   </Text>
+   <Button fx:id="nextPastPageButton" layoutX="1027.0" layoutY="621.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#nextPastPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&gt;&gt;" textFill="WHITE">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
+   <Button fx:id="previousPastPageButton" layoutX="918.0" layoutY="621.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#previousPastPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&lt;&lt;" textFill="WHITE">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
+   <Text fx:id="pastPagesText" layoutX="961.0" layoutY="638.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0 / pages" />
+   <Button fx:id="nextDishPageButton" layoutX="642.0" layoutY="634.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#nextDishPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&gt;&gt;" textFill="WHITE">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
+   <Button fx:id="previousDishPageButton" layoutX="533.0" layoutY="634.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#previousDishPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&lt;&lt;" textFill="WHITE">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
+   <Text fx:id="dishPagesText" layoutX="576.0" layoutY="651.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0 / pages" />
+</AnchorPane>

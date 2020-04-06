@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="anchorPane" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: white;" stylesheets="@DatabaseGeneric.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.database.DatabaseAddBikeController">
+    <ImageView fitHeight="911.0" fitWidth="1280.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+        <image>
+            <Image url="@images/BikeBackground.jpg" />
+        </image></ImageView>
+    <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="63.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+        <image>
+            <Image url="@images/TuDelftLogoFinal.png" />
+        </image>
+    </ImageView>
+    <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="258.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="576.0" AnchorPane.leftAnchor="258.0" AnchorPane.rightAnchor="902.0" AnchorPane.topAnchor="120.0">
+        <Image url="@images/booknorderlogo.png" />
+    </ImageView>
+    <ImageView fx:id="goToBikeMenuButton" fitHeight="57.0" fitWidth="26.0" layoutX="546.0" layoutY="164.0" onMouseClicked="#goToBikeMenu" pickOnBounds="true" preserveRatio="true">
+        <image>
+            <Image url="@images/bikeIconFinalWithCircle.png" />
+        </image>
+        <cursor>
+            <Cursor fx:constant="HAND" />
+        </cursor>
+    </ImageView>
+    <Text layoutX="578.0" layoutY="185.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bikes" AnchorPane.leftAnchor="578.0" AnchorPane.topAnchor="156.943359375">
+        <font>
+            <Font size="26.0" />
+        </font>
+    </Text>
+    <Text layoutX="562.0" layoutY="204.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add a bike" AnchorPane.leftAnchor="562.0" AnchorPane.topAnchor="185.6552734375">
+        <font>
+            <Font size="17.0" />
+        </font>
+    </Text>
+    <Text layoutX="489.0" layoutY="243.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Building:" AnchorPane.leftAnchor="489.0" AnchorPane.topAnchor="224.6552734375">
+        <font>
+            <Font size="17.0" />
+        </font>
+    </Text>
+    <Text layoutX="489.0" layoutY="272.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Available:" AnchorPane.leftAnchor="489.0" AnchorPane.topAnchor="253.6552734375">
+        <font>
+            <Font size="17.0" />
+        </font>
+    </Text>
+    <TextField fx:id="buildingIdTextField" layoutX="617.0" layoutY="223.0" promptText="Building ID or Name" AnchorPane.leftAnchor="617.0" AnchorPane.rightAnchor="514.3333333333334" AnchorPane.topAnchor="223.0" />
+    <ToggleButton fx:id="availableToggle" layoutX="617.0" layoutY="252.0" mnemonicParsing="false" onAction="#toggleClickAvailable" prefHeight="26.0" prefWidth="149.0" text="False" textFill="WHITE" AnchorPane.leftAnchor="617.0" AnchorPane.rightAnchor="514.3333333333334" AnchorPane.topAnchor="252.0">
+        <cursor>
+            <Cursor fx:constant="HAND" />
+        </cursor></ToggleButton>
+    <Button fx:id="AddButton" layoutX="497.0" layoutY="289.0" mnemonicParsing="false" onAction="#databaseAddBike" prefHeight="25.0" prefWidth="240.0" style="-fx-background-color: #00a6d6;" text="Add" textFill="WHITE" AnchorPane.topAnchor="289.0">
+        <cursor>
+            <Cursor fx:constant="HAND" />
+        </cursor></Button>
+
+    <ImageView fitHeight="41.0" fitWidth="44.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#mainMenu" pickOnBounds="true" preserveRatio="true">
+        <Image url="@images/HomeIconTransparent.png" />
+        <cursor>
+            <Cursor fx:constant="HAND" />
+        </cursor>
+    </ImageView>
+    <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="111.0" layoutY="119.0" onMouseClicked="#goToBikeMenu" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="66.0">
+        <image>
+            <Image url="@images/EditIcon.png" />
+        </image>
+        <cursor>
+            <Cursor fx:constant="HAND" />
+        </cursor>
+    </ImageView>
+    <Text fill="WHITE" layoutX="20.0" layoutY="555.576171875" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback is welcome" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0">
+        <font>
+            <Font size="18.0" />
+        </font>
+    </Text>
+    <Text fill="WHITE" layoutX="20.0" layoutY="578.75" strokeType="OUTSIDE" strokeWidth="0.0" text="© 2020 TU Delft. All rights reserved." AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0">
+        <font>
+            <Font name="Calibri" size="11.0" />
+        </font>
+    </Text>
+    <Text layoutX="114.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit" AnchorPane.leftAnchor="22.0" AnchorPane.topAnchor="92.0" />
+    <ToggleButton fx:id="buildingsTableToggle" layoutX="774.0" layoutY="223.0" mnemonicParsing="false" onAction="#toggleClickBuildingsTable" prefHeight="25.0" prefWidth="67.0" selected="true" text="Show">
+        <graphic>
+            <ImageView fitHeight="17.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@images/databaseMenuBuildingIcon.png" />
+                </image>
+                <cursor>
+                    <Cursor fx:constant="DEFAULT" />
+                </cursor>
+            </ImageView>
+        </graphic>
+    </ToggleButton>
+    <TableView fx:id="table" layoutX="869.0" layoutY="225.0" prefHeight="203.0" prefWidth="200.0" stylesheets="@Table.css">
+        <columns>
+            <TableColumn fx:id="colId" prefWidth="41.3333740234375" resizable="false" text="ID" />
+            <TableColumn fx:id="colName" prefWidth="155.0" resizable="false" text="Name" />
+        </columns>
+    </TableView>
+    <Button fx:id="nextPageButton" layoutX="1006.0" layoutY="429.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#nextPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&gt;&gt;" textFill="WHITE">
+        <cursor>
+            <Cursor fx:constant="HAND" />
+        </cursor>
+    </Button>
+    <Button fx:id="previousPageButton" layoutX="897.0" layoutY="429.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#previousPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&lt;&lt;" textFill="WHITE">
+        <cursor>
+            <Cursor fx:constant="HAND" />
+        </cursor>
+    </Button>
+    <Text fx:id="pagesText" layoutX="942.0" layoutY="447.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0 / pages" />
+</AnchorPane>

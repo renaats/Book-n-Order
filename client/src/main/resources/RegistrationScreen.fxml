@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.generic.RegistrationController">
+   <children>
+      <ImageView cache="true" cacheHint="QUALITY" depthTest="DISABLE" fitHeight="800.0" fitWidth="1280.0" opacity="0.5" pickOnBounds="true">
+         <Image url="@../../../../images/tudelft.jpeg" />
+      </ImageView>
+      <Pane layoutX="166.0" layoutY="188.0" opacity="0.75" prefHeight="412.0" prefWidth="946.0" style="-fx-border-color: #439FDA; -fx-border-width: 5; -fx-background-color: white;" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="166.0" AnchorPane.rightAnchor="168.0">
+         <children>
+            <Text fill="#439fd9" layoutX="272.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+            </Text>
+            <Text fill="#439fd9" layoutX="272.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+            </Text>
+            <TextField fx:id="emailField" layoutX="272.0" layoutY="61.0" prefHeight="25.0" prefWidth="400.0" promptText="Email" />
+            <TextField fx:id="nameField" layoutX="272.0" layoutY="124.0" prefHeight="25.0" prefWidth="183.0" promptText="First Name" />
+            <TextField fx:id="surnameField" layoutX="489.0" layoutY="124.0" prefHeight="25.0" prefWidth="183.0" promptText="Surname" />
+            <ChoiceBox fx:id="facultyChoiceBox" layoutX="272.0" layoutY="189.0" prefHeight="25.0" prefWidth="400.0" />
+            <PasswordField fx:id="passwordField" layoutX="272.0" layoutY="320.0" prefHeight="26.0" prefWidth="400.0" promptText="Password" />
+            <PasswordField fx:id="passwordConfirm" layoutX="272.0" layoutY="361.0" prefHeight="25.0" prefWidth="400.0" promptText="Re-enter Password" />
+            <Text layoutX="381.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Registration form">
+               <font>
+                  <Font name="DejaVu Sans ExtraLight" size="21.0" />
+               </font>
+            </Text>
+            <Text fill="#439fd9" layoutX="272.0" layoutY="305.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+            </Text>
+            <Text fill="#439fd9" layoutX="489.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Surname">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+            </Text>
+            <Text fill="#439fd9" layoutX="272.0" layoutY="177.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Faculty">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+            </Text>
+            <ChoiceBox fx:id="studyChoiceBox" layoutX="272.0" layoutY="252.0" prefHeight="25.0" prefWidth="400.0" />
+            <Text fill="#439fd9" layoutX="272.0" layoutY="240.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Study">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+            </Text>
+         </children></Pane>
+      <Button fx:id="registerButton" layoutX="200.0" layoutY="622.0" mnemonicParsing="false" onAction="#registerButton" style="-fx-background-color: #439fd9;" text="Register" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </Button>
+      <Text layoutX="516.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book 'n Order" AnchorPane.bottomAnchor="560.509765625" AnchorPane.leftAnchor="516.0" AnchorPane.rightAnchor="516.9921875">
+         <font>
+            <Font name="DejaVu Sans ExtraLight" size="36.0" />
+         </font>
+      </Text>
+      <Button fx:id="loginButton" layoutX="1113.0" layoutY="76.0" mnemonicParsing="false" onAction="#loginScene" prefHeight="38.0" prefWidth="90.0" style="-fx-background-color: #439fd9;" text="Login" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </Button>
+      <ImageView fitHeight="190.0" fitWidth="275.0" layoutX="30.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Image url="@../../../../images/tudelft_logo.png" />
+   </ImageView>
+   </children>
+</AnchorPane>

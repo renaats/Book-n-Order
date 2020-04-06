@@ -1,8 +1,16 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import static nl.tudelft.oopp.demo.config.Constants.ADMIN;
+import static nl.tudelft.oopp.demo.config.Constants.USER;
+
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
+
 import javax.servlet.http.HttpServletRequest;
+
 import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.services.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Repository;
@@ -49,7 +57,7 @@ public class UserController {
      * @param request = the Http request that calls this method
      * @return account information about the account that requests it.
      */
-    @Secured("ROLE_USER")
+    @Secured(USER)
     @GetMapping(path = "/info")
     public String userInfo(HttpServletRequest request) {
         return userService.userInfo(request);
@@ -62,6 +70,7 @@ public class UserController {
      * @param name = the name of the user
      * @param surname = the surname of the user
      * @param faculty = the faculty of the user
+     * @param study = the study of the user
      * @return an error code corresponding to the outcome of the request
      */
     @PostMapping(path = "/add") // Map ONLY POST Requests
@@ -71,8 +80,9 @@ public class UserController {
             @RequestParam String password,
             @RequestParam String name,
             @RequestParam String surname,
-            @RequestParam String faculty) {
-        return userService.add(email,password,name,surname,faculty);
+            @RequestParam String faculty,
+            @RequestParam String study) {
+        return userService.add(email,password,name,surname, URLDecoder.decode(faculty, StandardCharsets.UTF_8), study);
     }
 
     /**
@@ -81,6 +91,7 @@ public class UserController {
      * @param sixDigitCode User's six digit input
      * @return an error code corresponding to the outcome of the request
      */
+    @Secured(USER)
     @PostMapping(path = "/validate")
     @ResponseBody
     public int validateUser(HttpServletRequest request,  @RequestParam int sixDigitCode) {
@@ -88,13 +99,13 @@ public class UserController {
     }
 
     /**
-     * Updates a specified attribute for some user.
-     * @param email = the email of the user
-     * @param attribute = the attribute that is changed
-     * @param value = the new value of the attribute
-     * @return an error code corresponding to the outcome of the request
+     * Updates a specified attribute for given user.
+     * @param email = the email of the user.
+     * @param attribute = the attribute whose value is to be changed.
+     * @param value = the new value of the attribute.
+     * @return an error code corresponding to the outcome of the request.
      */
-    @Secured("ROLE_ADMIN")
+    @Secured(ADMIN)
     @PostMapping(path = "/update")
     @ResponseBody
     public int updateAttribute(@RequestParam String email, @RequestParam String attribute, @RequestParam String value) {
@@ -106,7 +117,7 @@ public class UserController {
      * @param email = the email of the account
      * @return an error code corresponding to the outcome of the request
      */
-    @Secured("ROLE_ADMIN")
+    @Secured(ADMIN)
     @DeleteMapping(path = "/delete")
     @ResponseBody
     public int deleteUser(@RequestParam String email) {
@@ -118,7 +129,7 @@ public class UserController {
      * Should be removed for the finished version!
      * @return Iterable of all accounts.
      */
-    @Secured("ROLE_ADMIN")
+    @Secured(ADMIN)
     @GetMapping(path = "/all")
     @ResponseBody
     public Iterable<AppUser> getAllUsers() {
@@ -129,7 +140,7 @@ public class UserController {
      * Retrieves an account given its email.
      * @return User with the specified email, or null if no such account exists.
      */
-    @Secured("ROLE_ADMIN")
+    @Secured(ADMIN)
     @GetMapping(path = "/find")
     @ResponseBody
     public AppUser getUser(@RequestParam String email) {
@@ -142,7 +153,7 @@ public class UserController {
      * @param roleName = the name of the role
      * @return an error code corresponding to the outcome of the request
      */
-    //@Secured("ROLE_ADMIN") SHOULD BE UNCOMMENTED WHEN IN PRODUCTION!
+    @Secured(ADMIN)
     @PostMapping(path = "/addRole")
     @ResponseBody
     public int addRole(@RequestParam String email, @RequestParam String roleName) {
@@ -154,10 +165,21 @@ public class UserController {
      * @param request = the Http request that calls this method.
      * @return a boolean value representing the admin status of the user
      */
-    @Secured("ROLE_USER")
+    @Secured(USER)
     @GetMapping(path = "/admin")
     public boolean isAdmin(HttpServletRequest request) {
         return userService.isAdmin(request);
+    }
+
+    /**
+     * Retrieves a boolean value representing whether the user has the admin role.
+     * @param request = the Http request that calls this method.
+     * @return a boolean value representing whether the user has an admin role.
+     */
+    @Secured(USER)
+    @GetMapping(path = "/adminRole")
+    public boolean hasAdminRole(HttpServletRequest request) {
+        return userService.hasAdminRole(request);
     }
 
     /**
@@ -165,7 +187,7 @@ public class UserController {
      * @param request = the Http request that calls this method.
      * @return a boolean value representing the status of the account's activation
      */
-    @Secured("ROLE_USER")
+    @Secured(USER)
     @GetMapping(path = "/activated")
     public boolean isActivated(HttpServletRequest request) {
         return userService.isActivated(request);
@@ -177,7 +199,7 @@ public class UserController {
      * @param password = the new password.
      * @return an error code corresponding to the outcome of the request
      */
-    @Secured("ROLE_USER")
+    @Secured(USER)
     @PostMapping(path = "/changePassword")
     public int changePassword(HttpServletRequest request, @RequestParam String password) {
         return userService.changePassword(request, password);

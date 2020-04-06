@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="anchorPane" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #FFFFFF;" stylesheets="@DatabaseGeneric.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.rooms.BookRoomController">
+    <ImageView fitWidth="1280.0" layoutX="1.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+        <Image url="@images/69a1a9a32df2e8d5aec7961d23a4b0e4.jpg" />
+    </ImageView>
+    <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="63.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+        <image>
+            <Image url="@images/TuDelftLogoFinal.png" />
+        </image>
+    </ImageView>
+    <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="258.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="576.0" AnchorPane.leftAnchor="258.0" AnchorPane.rightAnchor="902.0" AnchorPane.topAnchor="120.0">
+        <Image url="@images/booknorderlogo.png" />
+    </ImageView>
+    <Text fill="WHITE" layoutX="20.0" layoutY="555.576171875" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback is welcome" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0">
+        <font>
+            <Font size="18.0" />
+        </font>
+    </Text>
+    <Text fill="WHITE" layoutX="20.0" layoutY="578.75" strokeType="OUTSIDE" strokeWidth="0.0" text="© 2020 TU Delft. All rights reserved." AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0">
+        <font>
+            <Font name="Calibri" size="11.0" />
+        </font>
+    </Text>
+   <TextField fx:id="plugsFrom" layoutX="81.0" layoutY="323.0" prefHeight="25.0" prefWidth="41.0" promptText="From" />
+    <Button fx:id="submitButton" layoutX="56.0" layoutY="413.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#applyFilters" style="-fx-background-color: #00a6d6;" text="Search for rooms" textFill="WHITE" />
+   <Text layoutX="18.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Building:" textAlignment="RIGHT" wrappingWidth="57.0">
+      <font>
+         <Font size="14.0" />
+      </font>
+   </Text>
+   <TextField fx:id="capacityFrom" layoutX="81.0" layoutY="286.0" prefHeight="25.0" prefWidth="41.0" promptText="From" />
+    <ImageView fx:id="homeIcon" fitHeight="41.0" fitWidth="44.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#mainMenu" pickOnBounds="true" preserveRatio="true">
+        <Image url="@images/HomeIconTransparent.png" />
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+    </ImageView>
+   <CheckBox fx:id="beamer" layoutX="179.0" layoutY="290.0" mnemonicParsing="false" text="Beamer" />
+   <CheckBox fx:id="screen" layoutX="179.0" layoutY="327.0" mnemonicParsing="false" text="Screen" />
+   <TableView fx:id="table" layoutX="634.0" layoutY="168.0" prefHeight="404.0" prefWidth="546.0" stylesheets="@Table.css">
+     <columns>
+       <TableColumn fx:id="colName" prefWidth="130.0" text="Name" />
+       <TableColumn fx:id="colBuilding" prefWidth="100.0" text="Building" />
+       <TableColumn fx:id="colBeamer" prefWidth="88.0" text="Beamer" />
+       <TableColumn fx:id="colScreen" prefWidth="70.0" text="Screen" />
+       <TableColumn fx:id="colCapacity" prefWidth="86.0" text="Capacity" />
+       <TableColumn fx:id="colPlugs" prefWidth="70.0" text="Plugs" />
+     </columns>
+   </TableView>
+   <ImageView fitHeight="41.0" fitWidth="69.0" layoutX="14.0" layoutY="67.0" onMouseClicked="#goToMainMenuReservations" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@images/BackArrow.png" />
+      </image>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </ImageView>
+   <Text layoutX="123.0" layoutY="223.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filter">
+      <font>
+         <Font size="24.0" />
+      </font>
+   </Text>
+   <TextField fx:id="capacityTo" layoutX="129.0" layoutY="286.0" prefHeight="25.0" prefWidth="41.0" promptText="To" />
+   <TextField fx:id="plugsTo" layoutX="129.0" layoutY="323.0" prefHeight="25.0" prefWidth="41.0" promptText="To" />
+   <Text layoutX="18.0" layoutY="304.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Capacity:" textAlignment="RIGHT" wrappingWidth="57.0">
+      <font>
+         <Font size="14.0" />
+      </font>
+   </Text>
+   <Text layoutX="34.0" layoutY="341.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Plugs:" textAlignment="RIGHT" wrappingWidth="41.0">
+      <font>
+         <Font size="14.0" />
+      </font>
+   </Text>
+   <Text layoutX="34.0" layoutY="385.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" textAlignment="RIGHT" wrappingWidth="41.00000000000006">
+      <font>
+         <Font size="14.0" />
+      </font>
+   </Text>
+   <TextField fx:id="name" layoutX="81.0" layoutY="367.0" prefHeight="25.0" prefWidth="150.0" promptText="Room name" />
+   <Button fx:id="nextPageButton" layoutX="945.0" layoutY="572.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#nextPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&gt;&gt;" textFill="WHITE">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
+   <Button fx:id="previousPageButton" layoutX="836.0" layoutY="572.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#previousPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&lt;&lt;" textFill="WHITE">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
+   <Text fx:id="pagesText" layoutX="879.0" layoutY="589.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0 / pages" />
+   <ToggleButton fx:id="buildingsTableToggle" layoutX="242.0" layoutY="237.0" mnemonicParsing="false" onAction="#toggleClickBuildingsTable" prefHeight="25.0" prefWidth="67.0" selected="true" text="Show">
+      <graphic>
+         <ImageView fitHeight="17.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@images/databaseMenuBuildingIcon.png" />
+            </image>
+            <cursor>
+               <Cursor fx:constant="DEFAULT" />
+            </cursor>
+         </ImageView>
+      </graphic>
+   </ToggleButton>
+   <TableView fx:id="buildingTable" layoutX="318.0" layoutY="236.0" prefHeight="203.0" prefWidth="200.0" stylesheets="@Table.css">
+      <columns>
+         <TableColumn fx:id="colBuildingId" prefWidth="41.3333740234375" resizable="false" text="ID" />
+         <TableColumn fx:id="colBuildingName" prefWidth="155.0" resizable="false" text="Name" />
+      </columns>
+   </TableView>
+   <Button fx:id="nextBuildingPageButton" layoutX="455.0" layoutY="440.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#nextBuildingPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&gt;&gt;" textFill="WHITE">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
+   <Button fx:id="previousBuildingPageButton" layoutX="346.0" layoutY="440.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#previousBuildingPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&lt;&lt;" textFill="WHITE">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
+   <Text fx:id="buildingPagesText" layoutX="391.0" layoutY="458.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0 / pages" />
+   <TextField fx:id="buildingNameTextField" layoutX="81.0" layoutY="237.0" prefHeight="25.0" prefWidth="150.0" promptText="Room name" />
+</AnchorPane>

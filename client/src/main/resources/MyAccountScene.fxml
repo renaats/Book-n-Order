@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="anchorPane" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.generic.MyAccountController">
+   <ImageView fitWidth="1280.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@images/mainMenuBackground.jpg" />
+      </image>
+   </ImageView>
+    <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="63.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+        <image>
+            <Image url="@images/TuDelftLogoFinal.png" />
+        </image>
+    </ImageView>
+    <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="258.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="576.0" AnchorPane.leftAnchor="258.0" AnchorPane.rightAnchor="902.0" AnchorPane.topAnchor="120.0">
+        <Image url="@images/booknorderlogo.png" />
+    </ImageView>
+    <Button layoutX="119.0" layoutY="349.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#changePasswordScene" style="-fx-background-color: #00a6d6;" text="Change password" textFill="WHITE" AnchorPane.leftAnchor="119.0" AnchorPane.topAnchor="349.0">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor></Button>
+    <Text fill="WHITE" layoutX="20.0" layoutY="555.576171875" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback is welcome" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0">
+        <font>
+            <Font size="18.0" />
+        </font>
+    </Text>
+    <Text fill="WHITE" layoutX="20.0" layoutY="578.75" strokeType="OUTSIDE" strokeWidth="0.0" text="© 2020 TU Delft. All rights reserved." AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0">
+        <font>
+            <Font name="Calibri" size="11.0" />
+        </font>
+    </Text>
+    <Text layoutX="75.0" layoutY="215.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My profile information:" AnchorPane.leftAnchor="75.0" AnchorPane.topAnchor="189.1015625">
+        <font>
+            <Font size="24.0" />
+        </font>
+    </Text>
+    <Text layoutX="86.0" layoutY="261.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" AnchorPane.leftAnchor="86.0" AnchorPane.topAnchor="241.576171875">
+        <font>
+            <Font size="18.0" />
+        </font>
+    </Text>
+    <Text layoutX="85.0" layoutY="289.0" strokeType="OUTSIDE" strokeWidth="0.0" text="E-mail:" AnchorPane.leftAnchor="85.0" AnchorPane.topAnchor="269.0">
+        <font>
+            <Font size="18.0" />
+        </font>
+    </Text>
+   <Label fx:id="fullNameLabel" layoutX="184.0" layoutY="241.0" text="name + surname">
+      <font>
+         <Font size="18.0" />
+      </font></Label>
+   <Label fx:id="emailLabel" layoutX="182.0" layoutY="268.0" text="tu delft E-mail">
+      <font>
+         <Font size="18.0" />
+      </font></Label>
+   <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="765.0" layoutY="365.0" onMouseClicked="#myPreviousBookings" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@images/Previous-booking-icon-png.png" />
+      </image>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </ImageView>
+   <ImageView fitHeight="200.0" fitWidth="329.0" layoutX="771.0" layoutY="124.0" onMouseClicked="#myCurrentBookings" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@images/CurrentBookingsIcon.png" />
+      </image>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </ImageView>
+    <ImageView fx:id="homeIcon" fitHeight="41.0" fitWidth="44.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#mainMenuIcon" pickOnBounds="true" preserveRatio="true">
+        <Image url="@images/HomeIconTransparent.png" />
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+    </ImageView>
+    <Button layoutX="771.0" layoutY="324.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#myCurrentBookings" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: #00a6d6;" text="Current Bookings" textFill="WHITE">
+        <cursor>
+            <Cursor fx:constant="HAND" />
+        </cursor>
+    </Button>
+   <Button layoutX="771.0" layoutY="571.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#myPreviousBookings" style="-fx-background-color: #00a6d6;" text="Previous Bookings" textFill="WHITE">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
+   <Button fx:id="adminControl" layoutX="118.0" layoutY="419.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#adminPanel" style="-fx-background-color: #00a6d6;" text="Admin control" textFill="WHITE">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
+   <Button fx:id="logoutButton" layoutX="118.0" layoutY="384.0" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" mnemonicParsing="false" onAction="#logoutUser" style="-fx-background-color: #00a6d6;" text="Logout" textFill="WHITE">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
+   <Text layoutX="85.0" layoutY="316.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Faculty:">
+      <font>
+         <Font size="18.0" />
+      </font>
+   </Text>
+   <Label fx:id="facultyLabel" layoutX="183.0" layoutY="297.0" text="faculty">
+      <font>
+         <Font size="18.0" />
+      </font>
+   </Label>
+</AnchorPane>

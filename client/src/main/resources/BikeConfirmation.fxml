@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.bikes.BikeReservationConfirmationController">
+   <children>
+      <ImageView fitHeight="790.0" fitWidth="1479.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/template.jpg" />
+         </image>
+      </ImageView>
+      <Text fill="WHITE" layoutX="445.0" layoutY="93.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Great, You're Booked!">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="41.0" fitWidth="44.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#mainMenu" pickOnBounds="true" preserveRatio="true">
+         <Image url="@images/HomeIconTransparent.png" />
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="63.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/TuDelftLogoFinal.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="258.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="576.0" AnchorPane.leftAnchor="258.0" AnchorPane.rightAnchor="902.0" AnchorPane.topAnchor="120.0">
+         <Image url="@images/booknorderlogo.png" />
+      </ImageView>
+      <Text fill="WHITE" layoutX="20.0" layoutY="555.576171875" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback is welcome" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="20.0" layoutY="578.75" strokeType="OUTSIDE" strokeWidth="0.0" text="© 2020 TU Delft. All rights reserved." AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0">
+         <font>
+            <Font name="Calibri" size="11.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="20.0" layoutY="555.576171875" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback is welcome" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="20.0" layoutY="578.75" strokeType="OUTSIDE" strokeWidth="0.0" text="© 2020 TU Delft. All rights reserved." AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0">
+         <font>
+            <Font name="Calibri" size="11.0" />
+         </font>
+      </Text>
+      <Text fx:id="dayOfMonthPickUp" layoutX="124.0" layoutY="350.0" strokeType="OUTSIDE" strokeWidth="0.0" text="10 September" textAlignment="CENTER" wrappingWidth="278.0">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Text>
+      <Text fx:id="dayOfWeekPickUp" layoutX="142.0" layoutY="406.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MON 00:15" textAlignment="CENTER" wrappingWidth="231.9287098813802">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Text>
+      <Text fx:id="buildingNameOne" layoutX="791.0" layoutY="287.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BuildingOneName" wrappingWidth="272.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+      <Text layoutX="482.0" layoutY="289.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pick up location:">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Text>
+      <Text layoutX="482.0" layoutY="487.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Drop off location:">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Text>
+      <Text fx:id="buildingNameTwo" layoutX="791.0" layoutY="485.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BuildingTwoName" wrappingWidth="272.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+      <Text layoutX="160.0" layoutY="291.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pick up time">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Text>
+      <Text layoutX="156.0" layoutY="489.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Drop off time">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Text>
+      <Text fx:id="dayOfMonthDropOff" layoutX="98.0" layoutY="540.0" strokeType="OUTSIDE" strokeWidth="0.0" text="24 November" textAlignment="CENTER" wrappingWidth="328.28125">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Text>
+      <Text fx:id="dayOfWeekDropOff" layoutX="147.0" layoutY="591.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MON 10:15" textAlignment="CENTER" wrappingWidth="231.9287098813802">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Text>
+
+   </children>
+</AnchorPane>

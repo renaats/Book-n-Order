@@ -14,13 +14,11 @@ import javafx.beans.property.StringProperty;
 public class Room {
 
     private Integer id;
-
     private String name;
-
     private Building building;
-
     private String faculty;
-    private boolean facultySpecific;
+    private String studySpecific;
+    private String status;
     private boolean projector;
     private boolean screen;
     private int capacity;
@@ -32,22 +30,23 @@ public class Room {
      * Creates a new instance of Room.
      * @param name = name of the room.
      * @param building = building in which room is situated.
-     * @param faculty = name of the faculty.
-     * @param facultySpecific = whether the room is faculty specific.
+     * @param studySpecific = whether the room is faculty specific.
      * @param projector = whether the room has a projector.
      * @param screen = whether the room has a screen.
      * @param capacity = number of people who can sit in the room.
      * @param plugs = number of plugs in the room.
+     * @param status = the status of the room.
      */
-    public Room(String name, Building building, String faculty, boolean facultySpecific, boolean projector, boolean screen, int capacity, int plugs) {
+     
+    public Room(String name, Building building, String studySpecific, boolean projector, boolean screen, int capacity, int plugs, String status) {
         this.name = name;
         this.building = building;
-        this.faculty = faculty;
-        this.facultySpecific = facultySpecific;
+        this.studySpecific = studySpecific;
         this.projector = projector;
         this.screen = screen;
         this.capacity = capacity;
         this.plugs = plugs;
+        this.status = status;
     }
 
     public Room() {
@@ -66,8 +65,8 @@ public class Room {
         this.faculty = faculty;
     }
 
-    public void setFacultySpecific(boolean facultySpecific) {
-        this.facultySpecific = facultySpecific;
+    public void setStudySpecific(String studySpecific) {
+        this.studySpecific = studySpecific;
     }
 
     public void setProjector(boolean projector) {
@@ -90,6 +89,17 @@ public class Room {
         this.roomReservations = roomReservations;
     }
 
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getStudySpecific() {
+        return studySpecific;
+    }
+
+    public String getStatus() {
+        return status;
+    }
 
     public Integer getId() {
         return id;
@@ -103,6 +113,10 @@ public class Room {
         return building;
     }
 
+    public String getBuildingName() {
+        return building.getName();
+    }
+
     /**
      * Makes the table list the building name instead of the building object
      * @return String property, a property recognized by the tables.
@@ -114,10 +128,6 @@ public class Room {
 
     public String getFaculty() {
         return faculty;
-    }
-
-    public boolean isFacultySpecific() {
-        return facultySpecific;
     }
 
     public boolean isProjector() {
@@ -167,19 +177,19 @@ public class Room {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof Room)) {
             return false;
         }
         Room room = (Room) o;
-        return facultySpecific == room.facultySpecific
-                && projector == room.projector
+        return projector == room.projector
                 && screen == room.screen
                 && capacity == room.capacity
                 && plugs == room.plugs
+                && Objects.equals(id, room.id)
                 && Objects.equals(name, room.name)
                 && Objects.equals(building, room.building)
-                && Objects.equals(faculty, room.faculty)
+                && Objects.equals(studySpecific, room.studySpecific)
+                && Objects.equals(status, room.status)
                 && Objects.equals(roomReservations, room.roomReservations);
     }
-
 }

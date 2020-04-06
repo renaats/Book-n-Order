@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" stylesheets="@Table.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.rooms.MyCurrentRoomReservationsController">
+    <children>
+        <ImageView fitWidth="1280.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@images/DatabaseRoomBackground.jpg" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="63.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@images/TuDelftLogoFinal.png" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="26.0" fitWidth="120.0" layoutX="258.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="576.0" AnchorPane.leftAnchor="258.0" AnchorPane.rightAnchor="902.0" AnchorPane.topAnchor="120.0">
+            <Image url="@images/booknorderlogo.png" />
+        </ImageView>
+        <Text fill="WHITE" layoutX="20.0" layoutY="555.576171875" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback is welcome" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Text>
+        <Text fill="WHITE" layoutX="20.0" layoutY="578.75" strokeType="OUTSIDE" strokeWidth="0.0" text="© 2020 TU Delft. All rights reserved." AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0">
+            <font>
+                <Font name="Calibri" size="11.0" />
+            </font>
+        </Text>
+        <ImageView fitHeight="41.0" fitWidth="69.0" layoutX="14.0" layoutY="69.0" onMouseClicked="#goToMyCurrentReservations" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@images/BackArrow.png" />
+            </image>
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+        </ImageView>
+        <ImageView fitHeight="41.0" fitWidth="44.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#mainMenu" pickOnBounds="true" preserveRatio="true">
+            <Image url="@images/HomeIconTransparent.png" />
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+        </ImageView>
+        <TableView fx:id="table" layoutX="217.0" layoutY="197.0" prefHeight="400.0" prefWidth="802.0">
+            <columns>
+            <TableColumn fx:id="colBuilding" editable="false" minWidth="200.0" prefWidth="200" resizable="false" sortable="false" text="Building" />
+                <TableColumn fx:id="colRoom" editable="false" maxWidth="200.0" minWidth="200.0" prefWidth="200" resizable="false" sortable="false" text="Room" />
+                <TableColumn fx:id="colFromTime" editable="false" maxWidth="200.0" minWidth="200.0" prefWidth="200" sortable="false" text="From (Time)" />
+                <TableColumn fx:id="colToTime" editable="false" maxWidth="200.0" minWidth="200.0" prefWidth="200" resizable="false" sortable="false" text="To (Time)" />
+            </columns>
+        </TableView>
+        <Text layoutX="392.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My Current Room Reservations">
+            <font>
+                <Font size="33.0" />
+            </font>
+        </Text>
+    </children>
+</AnchorPane>

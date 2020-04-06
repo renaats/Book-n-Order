@@ -1,34 +1,23 @@
 package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.stage.StageStyle;
 
+import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
  * Loads the correct content into the FXML objects that need to display server information and
- * controls all the user inputs made through the GUI in the "bookRoom.fxml" file
+ * controls all the user inputs made through the GUI in the "BookRoom.fxml" file
  */
-public class BookRoomController implements Initializable {
-
-    final ObservableList<String> listOfRooms = FXCollections.observableArrayList();
-    final ObservableList<String> listOfTimeSlots = FXCollections.observableArrayList();
-    final ObservableList<String> listOfBuildings = FXCollections.observableArrayList();
+public class BookRoomController {
 
     public static class Search {
         private final boolean screen;
@@ -68,47 +57,21 @@ public class BookRoomController implements Initializable {
     private TextField nuOfPlugs;
     private TextArea rooms;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        loadRoomData();
-    }
-
     /**
      * applies the selected filters
      * @return returns an object of search with the proper properties
      */
     public Search applyFilters() {
         if (building.getValue() == null) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle(null);
-            alert.setHeaderText(null);
-            alert.setContentText("Please select a building.");
-            alert.initStyle(StageStyle.UNDECORATED);
-            DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(getClass().getResource("/alertWarning.css").toExternalForm());
-            alert.showAndWait();
+            CustomAlert.warningAlert("Please select a building.");
             return null;
         }
         if (capacity.getCharacters() == null) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle(null);
-            alert.setHeaderText(null);
-            alert.setContentText("Please select a maximum capacity.");
-            alert.initStyle(StageStyle.UNDECORATED);
-            DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(getClass().getResource("/alertWarning.css").toExternalForm());
-            alert.showAndWait();
+            CustomAlert.warningAlert("Please select a capacity.");
             return null;
         }
         if (nuOfPlugs.getCharacters() == null) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle(null);
-            alert.setHeaderText(null);
-            alert.setContentText("Please select the amount of plugs.");
-            alert.initStyle(StageStyle.UNDECORATED);
-            DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(getClass().getResource("/alertWarning.css").toExternalForm());
-            alert.showAndWait();
+            CustomAlert.warningAlert("Please select the amount of plugs.");
             return null;
         }
         boolean isScreen = false;
@@ -133,7 +96,7 @@ public class BookRoomController implements Initializable {
      * @throws IOException the input will always be the same, so it should never throw an IO exception
      */
     public void goToMainMenuReservations() throws IOException {
-        ApplicationDisplay.changeScene("/mainMenuReservations.fxml");
+        ApplicationDisplay.changeScene("/MainMenuReservations.fxml");
     }
     /**
      * return to the reservations menu when the back arrow button is clicked.
@@ -143,44 +106,29 @@ public class BookRoomController implements Initializable {
     public void goToRoomConfirmation() throws IOException {
         ApplicationDisplay.changeScene("/RoomConfirmation.fxml");
     }
-    /**
-     * Adds the items to the choice boxes
-     */
-
-    public void loadRoomData() {
-        //rooms.setText("rooms=" + "ServerCommunication.getRooms()");
-    }
 
     /**
-     * Changes to myCurrentBookings.fxml.
+     * Changes to MyCurrentBookings.fxml.
      * @throws IOException input will not be wrong, hence we throw.
      */
     public void myCurrentBookings() throws IOException {
-        ApplicationDisplay.changeScene("/myCurrentBookings.fxml");
+        ApplicationDisplay.changeScene("/MyCurrentBookings.fxml");
     }
 
     /**
-     * Changes to myPreviousBookings.fxml.
+     * Changes to MyPreviousBookings.fxml.
      * @throws IOException input will not be wrong, hence we throw.
      */
     public void myPreviousBookings() throws IOException {
-        ApplicationDisplay.changeScene("/myPreviousBookings.fxml");
+        ApplicationDisplay.changeScene("/MyPreviousBookings.fxml");
     }
 
     /**
-     * Changes to myAccountScene.fxml.
-     * @throws IOException when it fails
-     */
-    public void myAccountScene() throws IOException {
-        ApplicationDisplay.changeScene("/myAccountScene.fxml");
-    }
-
-    /**
-     * Changes to mainMenuReservations.fxml.
+     * Changes to MainMenu.fxml.
      * @throws IOException input will not be wrong, hence we throw.
      */
     public void mainMenu() throws IOException {
-        ApplicationDisplay.changeScene("/mainMenu.fxml");
+        ApplicationDisplay.changeScene("/MainMenu.fxml");
     }
 
 }

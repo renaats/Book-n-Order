@@ -1,5 +1,18 @@
 package nl.tudelft.oopp.demo.services;
 
+import static nl.tudelft.oopp.demo.config.Constants.ADDED;
+import static nl.tudelft.oopp.demo.config.Constants.ADMIN;
+import static nl.tudelft.oopp.demo.config.Constants.ATTRIBUTE_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.BUILDING_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
+import static nl.tudelft.oopp.demo.config.Constants.ID_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.ORDER_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.RESERVATION_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.RESTAURANT_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.USER_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.WRONG_CREDENTIALS;
+import static nl.tudelft.oopp.demo.config.Constants.WRONG_USER;
 import static nl.tudelft.oopp.demo.security.SecurityConstants.HEADER_STRING;
 
 import java.util.ArrayList;
@@ -7,22 +20,27 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
 import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Dish;
+import nl.tudelft.oopp.demo.entities.DishOrder;
 import nl.tudelft.oopp.demo.entities.FoodOrder;
 import nl.tudelft.oopp.demo.entities.Restaurant;
 import nl.tudelft.oopp.demo.repositories.BuildingRepository;
+import nl.tudelft.oopp.demo.repositories.DishOrderRepository;
 import nl.tudelft.oopp.demo.repositories.DishRepository;
 import nl.tudelft.oopp.demo.repositories.FoodOrderRepository;
 import nl.tudelft.oopp.demo.repositories.MenuRepository;
 import nl.tudelft.oopp.demo.repositories.RestaurantRepository;
 import nl.tudelft.oopp.demo.repositories.UserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -50,41 +68,47 @@ public class FoodOrderService {
     @Autowired
     private DishRepository dishRepository;
 
+    @Autowired
+    private DishOrderRepository dishOrderRepository;
+
     /**
      * Adds a foodOrder.
+     * @param request = the Http request that calls this method.
      * @param restaurantId = the id of the restaurant associated to the food order.
-     * @param userEmail = the email of the user associated to the food order.
      * @param deliverLocation = the building where the food order needs to be delivered.
      * @param deliverTimeMs = the deliver time of the food order in milliseconds (Java Date).
      * @return String containing the result of your request.
      */
-    public int add(int restaurantId, String userEmail, int deliverLocation, long deliverTimeMs, Set<Integer> dishIds) {
+    public int add(HttpServletRequest request, int restaurantId, int deliverLocation, long deliverTimeMs) {
         Optional<Restaurant> optionalRestaurant = restaurantRepository.findById(restaurantId);
         if (optionalRestaurant.isEmpty()) {
-            return 428;
+            return RESTAURANT_NOT_FOUND;
         }
-        Restaurant restaurant = optionalRestaurant.get();
 
-        Optional<AppUser> optionalUser = userRepository.findById(userEmail);
-        if (optionalUser.isEmpty()) {
-            return 404;
+        String token = request.getHeader(HEADER_STRING);
+        AppUser appUser = UserService.getAppUser(token, userRepository);
+        if (appUser == null) {
+            return NOT_FOUND;
         }
-        AppUser appUser = optionalUser.get();
 
         Optional<Building> optionalDeliveryLocation = buildingRepository.findById(deliverLocation);
-        if (optionalDeliveryLocation.isEmpty()) {
-            return 422;
+        if (optionalDeliveryLocation.isEmpty() && deliverLocation != 0) {
+            return BUILDING_NOT_FOUND;
         }
-        Building deliveryLocation = optionalDeliveryLocation.get();
+        Building deliveryLocation = null;
+        if (deliverLocation != 0) {
+            deliveryLocation = optionalDeliveryLocation.get();
+        }
+        Restaurant restaurant = optionalRestaurant.get();
 
         FoodOrder foodOrder = new FoodOrder();
         foodOrder.setRestaurant(restaurant);
         foodOrder.setAppUser(appUser);
         foodOrder.setDeliveryLocation(deliveryLocation);
         foodOrder.setDeliveryTime(new Date(deliverTimeMs));
-        foodOrder.setDishes(new HashSet<>());
+        foodOrder.setDishOrders(new HashSet<>());
         foodOrderRepository.save(foodOrder);
-        return 201;
+        return foodOrder.getId() + 1000;
     }
 
     /**
@@ -96,7 +120,10 @@ public class FoodOrderService {
      */
     public int update(int id, String attribute, String value) {
         if (foodOrderRepository.findById(id).isEmpty()) {
-            return 421;
+            return RESERVATION_NOT_FOUND;
+        }
+        if (RestaurantService.noPermissions(SecurityContextHolder.getContext(), foodOrderRepository.getOne(id).getRestaurant())) {
+            return WRONG_CREDENTIALS;
         }
         FoodOrder foodOrder = foodOrderRepository.findById(id).get();
         switch (attribute) {
@@ -104,7 +131,7 @@ public class FoodOrderService {
                 int buildingId = Integer.parseInt(value);
                 Optional<Building> optionalDeliveryLocation = buildingRepository.findById(buildingId);
                 if (optionalDeliveryLocation.isEmpty()) {
-                    return 422;
+                    return BUILDING_NOT_FOUND;
                 }
                 Building deliveryLocation = optionalDeliveryLocation.get();
                 foodOrder.setDeliveryLocation(deliveryLocation);
@@ -115,33 +142,65 @@ public class FoodOrderService {
             case "useremail":
                 Optional<AppUser> optionalUser = userRepository.findById(value);
                 if (optionalUser.isEmpty()) {
-                    return 419;
+                    return USER_NOT_FOUND;
                 }
                 AppUser appUser = optionalUser.get();
                 foodOrder.setAppUser(appUser);
                 break;
+            case "active":
+                foodOrder.setActive(Boolean.parseBoolean(value));
+                break;
             default:
-                return 420;
+                return ATTRIBUTE_NOT_FOUND;
         }
         foodOrderRepository.save(foodOrder);
-        return 200;
+        return EXECUTED;
     }
 
     /**
-     * Adds a dish to food order
-     * @param id = the id of the food order
-     * @param dishName = the name of the dish
+     * Adds a dishOrder to food order.
+     * @param id = the id of the food order.
+     * @param dishName = the name of the dish.
      */
-    public int addDish(int id, String dishName) {
+    public int addDishOrder(HttpServletRequest request, int id, String dishName, int amount) {
         if (!foodOrderRepository.existsById(id)) {
-            return 416;
+            return ID_NOT_FOUND;
+        }
+        String token = request.getHeader(HEADER_STRING);
+        AppUser appUser = UserService.getAppUser(token, userRepository);
+        if (appUser == null) {
+            return NOT_FOUND;
         }
         FoodOrder foodOrder = foodOrderRepository.getOne(id);
-        Dish dish;
-        dish = dishRepository.findByName(dishName);
-        foodOrder.addDish(dish);
-        foodOrderRepository.save(foodOrder);
-        return 201;
+        if (!appUser.equals(foodOrder.getAppUser())) {
+            return WRONG_USER;
+        }
+        if (!dishRepository.existsByName(dishName)) {
+            return NOT_FOUND;
+        }
+        Dish dish = dishRepository.findByName(dishName);
+        dishOrderRepository.save(new DishOrder(dish, foodOrder, amount));
+        return ADDED;
+    }
+
+    /**
+     * Gets all DishOrders for a food order.
+     * @param id = the id of the food order.
+     */
+    public List<DishOrder> getDishOrders(HttpServletRequest request, int id) {
+        if (!foodOrderRepository.existsById(id)) {
+            return null;
+        }
+        String token = request.getHeader(HEADER_STRING);
+        AppUser appUser = UserService.getAppUser(token, userRepository);
+        if (appUser == null) {
+            return null;
+        }
+        FoodOrder foodOrder = foodOrderRepository.getOne(id);
+        if (!appUser.equals(foodOrder.getAppUser())) {
+            return null;
+        }
+        return dishOrderRepository.findAllByFoodOrderId(id);
     }
 
     /**
@@ -151,10 +210,13 @@ public class FoodOrderService {
      */
     public int delete(int id) {
         if (!foodOrderRepository.existsById(id)) {
-            return 421;
+            return RESERVATION_NOT_FOUND;
+        }
+        if (RestaurantService.noPermissions(SecurityContextHolder.getContext(), foodOrderRepository.getOne(id).getRestaurant())) {
+            return WRONG_CREDENTIALS;
         }
         foodOrderRepository.deleteById(id);
-        return 200;
+        return EXECUTED;
     }
 
     /**
@@ -167,8 +229,8 @@ public class FoodOrderService {
 
     /**
      * Finds a food order with the specified id.
-     * @param id = the food order id
-     * @return a food order that matches the id
+     * @param id = the food order id.
+     * @return a food order that matches the id.
      */
     public FoodOrder find(int id) {
         return foodOrderRepository.findById(id).orElse(null);
@@ -176,7 +238,7 @@ public class FoodOrderService {
 
     /**
      * Finds all past food orders for the user that sends the Http request.
-     * @param request = the Http request that calls this method
+     * @param request = the Http request that calls this method.
      * @return a list of past food orders for this user.
      */
     public List<FoodOrder> past(HttpServletRequest request) {
@@ -187,7 +249,7 @@ public class FoodOrderService {
             return foodOrders;
         }
         for (FoodOrder foodOrder: foodOrderRepository.findAll()) {
-            if (foodOrder.getAppUser() == appUser && foodOrder.getDeliveryTime().before(new Date())) {
+            if (foodOrder.getAppUser() == appUser && (!foodOrder.getDeliveryTime().after(new Date()) || !foodOrder.isActive())) {
                 foodOrders.add(foodOrder);
             }
         }
@@ -196,7 +258,7 @@ public class FoodOrderService {
 
     /**
      * Finds all future food orders for the user that sends the Http request.
-     * @param request = the Http request that calls this method
+     * @param request = the Http request that calls this method.
      * @return a list of future food orders for this user.
      */
     public List<FoodOrder> future(HttpServletRequest request) {
@@ -207,10 +269,104 @@ public class FoodOrderService {
             return foodOrders;
         }
         for (FoodOrder foodOrder: foodOrderRepository.findAll()) {
-            if (foodOrder.getAppUser() == appUser && foodOrder.getDeliveryTime().after(new Date())) {
+            if (foodOrder.getAppUser() == appUser && foodOrder.getDeliveryTime().after(new Date()) && foodOrder.isActive()) {
                 foodOrders.add(foodOrder);
             }
         }
         return foodOrders;
+    }
+
+    /**
+     * Finds all past food orders for the restaurants of the user that sends the Http request.
+     * @param restaurantId = the restaurant for which the food orders are searched.
+     * @return a list of past food orders for this user.
+     */
+    public List<FoodOrder> pastForRestaurant(int restaurantId) {
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        List<FoodOrder> foodOrders = new ArrayList<>();
+        for (FoodOrder foodOrder: foodOrderRepository.findAllByRestaurantId(restaurantId)) {
+            if ((securityContext.getAuthentication().getAuthorities().contains(new SimpleGrantedAuthority(ADMIN))
+                    || foodOrder.getRestaurant().getEmail().equals(securityContext.getAuthentication().getName()))
+                    && (!foodOrder.getDeliveryTime().after(new Date()) || !foodOrder.isActive())) {
+                foodOrders.add(foodOrder);
+            }
+        }
+        return foodOrders;
+    }
+
+    /**
+     * Finds all future food orders for the restaurants of the user that sends the Http request.
+     * @param restaurantId = the restaurant for which the food orders are searched.
+     * @return a list of future food orders for this user.
+     */
+    public List<FoodOrder> futureForRestaurant(int restaurantId) {
+        List<FoodOrder> foodOrders = new ArrayList<>();
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        for (FoodOrder foodOrder: foodOrderRepository.findAllByRestaurantId(restaurantId)) {
+            if ((securityContext.getAuthentication().getAuthorities().contains(new SimpleGrantedAuthority(ADMIN))
+                    || foodOrder.getRestaurant().getEmail().equals(securityContext.getAuthentication().getName()))
+                    && foodOrder.getDeliveryTime().after(new Date()) && foodOrder.isActive()) {
+                foodOrders.add(foodOrder);
+            }
+        }
+        return foodOrders;
+    }
+
+    /**
+     * Finds all active food orders for the user that sends the Http request.
+     * @param request = the Http request that calls this method.
+     * @return a list of active food orders for this user.
+     */
+    public List<FoodOrder> active(HttpServletRequest request) {
+        List<FoodOrder> foodOrders = new ArrayList<>();
+        String token = request.getHeader(HEADER_STRING);
+        AppUser appUser = UserService.getAppUser(token, userRepository);
+        if (appUser == null) {
+            return foodOrders;
+        }
+        for (FoodOrder foodOrder: foodOrderRepository.findAll()) {
+            if (foodOrder.getAppUser() == appUser && foodOrder.isActive()) {
+                foodOrders.add(foodOrder);
+            }
+        }
+        return foodOrders;
+    }
+
+    /**
+     * Cancels a food order if it was made by the user that sends the Http request.
+     * @param request = the Http request that calls this method.
+     * @param foodOrderId = the id of the target order.
+     * @return an error code.
+     */
+    public int cancel(HttpServletRequest request, int foodOrderId) {
+        String token = request.getHeader(HEADER_STRING);
+        AppUser appUser = UserService.getAppUser(token, userRepository);
+        if (foodOrderRepository.findById(foodOrderId).isEmpty()) {
+            return ORDER_NOT_FOUND;
+        }
+        FoodOrder foodOrder = foodOrderRepository.findById(foodOrderId).get();
+        if (!foodOrder.getAppUser().equals(appUser)) {
+            return WRONG_USER;
+        }
+        foodOrder.setActive(false);
+        foodOrderRepository.save(foodOrder);
+        return EXECUTED;
+    }
+
+    /**
+     * Adds a feedback to the food order.
+     * @param foodOrderId the id of the food order.
+     * @param feedback the feedback (true if positive, false if negative).
+     * @return an error code.
+     */
+    public int addFeedback(int foodOrderId, boolean feedback) {
+        if (foodOrderRepository.findById(foodOrderId).isEmpty()) {
+            return ORDER_NOT_FOUND;
+        }
+        FoodOrder foodOrder = foodOrderRepository.findById(foodOrderId).get();
+        foodOrder.setFeedback(feedback);
+        foodOrder.setFeedbackHasBeenGiven(true);
+        foodOrderRepository.save(foodOrder);
+        return EXECUTED;
     }
 }

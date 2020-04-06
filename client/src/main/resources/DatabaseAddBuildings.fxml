@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.DatabaseAddBuildingController">
+<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.database.DatabaseAddBuildingController">
    <ImageView fitWidth="1280.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@images/mainMenuBackground.jpg" />
@@ -24,7 +28,7 @@
          <Cursor fx:constant="HAND" />
       </cursor>
     </ImageView>
-    <ImageView fx:id="goToBuildingMenuButton" fitHeight="26.0" fitWidth="41.0" layoutX="22.0" layoutY="119.0" onMouseClicked="#goToBuildingMenu" pickOnBounds="true" preserveRatio="true">
+    <ImageView fx:id="goToBuildingMenuButton" fitHeight="26.0" fitWidth="41.0" layoutX="542.0" layoutY="166.0" onMouseClicked="#goToBuildingMenu" pickOnBounds="true" preserveRatio="true">
         <image>
             <Image url="@images/databaseMenuBuildingIcon.png" />
         </image>
@@ -32,42 +36,34 @@
          <Cursor fx:constant="HAND" />
       </cursor>
     </ImageView>
-    <Text layoutX="588.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Buildings" AnchorPane.leftAnchor="588.0" AnchorPane.topAnchor="137.943359375">
+    <Text layoutX="578.0" layoutY="188.056640625" strokeType="OUTSIDE" strokeWidth="0.0" text="Buildings" AnchorPane.leftAnchor="578.0" AnchorPane.topAnchor="160.0">
         <font>
             <Font size="26.0" />
         </font>
     </Text>
-    <Text layoutX="585.0" layoutY="191.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add a building" AnchorPane.leftAnchor="585.0" AnchorPane.topAnchor="172.6552734375">
+    <Text layoutX="556.0" layoutY="210.3447265625" strokeType="OUTSIDE" strokeWidth="0.0" text="Add a building" AnchorPane.leftAnchor="556.0" AnchorPane.topAnchor="192.0">
         <font>
             <Font size="17.0" />
         </font>
     </Text>
-    <Text layoutX="503.0" layoutY="343.0" strokeType="OUTSIDE" strokeWidth="0.0" text="House Number:" AnchorPane.leftAnchor="503.0" AnchorPane.topAnchor="324.6552734375">
+    <Text layoutX="331.0" layoutY="343.0" strokeType="OUTSIDE" strokeWidth="0.0" text="House Number:" AnchorPane.leftAnchor="331.0" AnchorPane.topAnchor="324.0">
         <font>
             <Font size="17.0" />
         </font>
     </Text>
-    <Text layoutX="503.0" layoutY="302.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Street:" AnchorPane.leftAnchor="503.0" AnchorPane.topAnchor="283.6552734375">
+    <Text layoutX="331.0" layoutY="301.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Street:" AnchorPane.leftAnchor="331.0" AnchorPane.topAnchor="282.6552734375">
         <font>
             <Font size="17.0" />
         </font>
     </Text>
-    <Text layoutX="502.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" AnchorPane.leftAnchor="502.0" AnchorPane.topAnchor="237.6552734375">
+    <Text layoutX="330.0" layoutY="255.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" AnchorPane.leftAnchor="330.0" AnchorPane.topAnchor="236.6552734375">
         <font>
             <Font size="17.0" />
         </font>
     </Text>
-    <TextField fx:id="nameTextField" layoutX="640.0" layoutY="237.0" AnchorPane.leftAnchor="640.0" />
-    <TextField fx:id="streetTextField" layoutX="640.0" layoutY="283.0" AnchorPane.leftAnchor="640.0" AnchorPane.topAnchor="283.0" />
-    <TextField fx:id="houseNumberTextField" layoutX="640.0" layoutY="324.0" AnchorPane.leftAnchor="640.0" AnchorPane.topAnchor="324.0" />
-    <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="62.0" layoutY="119.0" onMouseClicked="#goToAddBuildings" pickOnBounds="true" preserveRatio="true">
-        <image>
-            <Image url="@images/ko7djzvdIPehWkkQYeDHv7ZYArEETK3uclcEy1WmrEHakj5qfn1nysOSyuNxsI2FsTJGcKNFdQ-9TIGRXV3le_sG-lyGg6Lu2OpiVNdwOZw_Fw16XYOh.png" />
-        </image>
-      <cursor>
-         <Cursor fx:constant="HAND" />
-      </cursor></ImageView>
-    <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="111.0" layoutY="119.0" onMouseClicked="#goToEditBuildings" pickOnBounds="true" preserveRatio="true">
+    <TextField fx:id="nameTextField" layoutX="468.0" layoutY="236.0" prefHeight="25.0" prefWidth="309.0" AnchorPane.leftAnchor="468.0" />
+    <TextField fx:id="streetTextField" layoutX="468.0" layoutY="282.0" prefHeight="25.0" prefWidth="309.0" AnchorPane.leftAnchor="468.0" AnchorPane.topAnchor="282.0" />
+    <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="111.0" layoutY="119.0" onMouseClicked="#goToEditBuildings" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="22.0" AnchorPane.topAnchor="66.0">
         <image>
             <Image url="@images/EditIcon.png" />
         </image>
@@ -75,7 +71,7 @@
          <Cursor fx:constant="HAND" />
       </cursor>
     </ImageView>
-    <Button fx:id="addButton" layoutX="520.0" layoutY="386.0" mnemonicParsing="false" onAction="#databaseAddBuilding" prefHeight="25.0" prefWidth="240.0" style="-fx-background-color: #00a6d6;" text="Add" textFill="WHITE" AnchorPane.leftAnchor="520.0" AnchorPane.rightAnchor="520.0" AnchorPane.topAnchor="386.0" />
+    <Button fx:id="addButton" layoutX="502.0" layoutY="412.0" mnemonicParsing="false" onAction="#databaseAddBuilding" prefHeight="25.0" prefWidth="240.0" style="-fx-background-color: #00a6d6;" text="Add" textFill="WHITE" AnchorPane.leftAnchor="502.0" AnchorPane.rightAnchor="538.0" AnchorPane.topAnchor="412.0" />
     <Text fill="WHITE" layoutX="20.0" layoutY="555.576171875" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback is welcome" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0">
         <font>
             <Font size="18.0" />
@@ -86,6 +82,12 @@
             <Font name="Calibri" size="11.0" />
         </font>
     </Text>
-    <Text layoutX="64.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add" />
-    <Text layoutX="114.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit" />
+    <Text layoutX="114.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit" AnchorPane.leftAnchor="22.0" AnchorPane.topAnchor="92.0" />
+   <Text layoutX="331.0" layoutY="383.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Faculty:">
+      <font>
+         <Font size="17.0" />
+      </font>
+   </Text>
+   <TextField fx:id="houseNumberTextField" layoutX="468.0" layoutY="323.0" prefHeight="25.0" prefWidth="309.0" />
+   <ChoiceBox fx:id="facultyChoiceBox" layoutX="467.0" layoutY="364.0" prefHeight="25.0" prefWidth="309.0" />
 </AnchorPane>

@@ -7,16 +7,15 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.StageStyle;
 
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
+import nl.tudelft.oopp.demo.communication.UserServerCommunication;
+import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.user.UserInformation;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
@@ -39,7 +38,7 @@ public class MyAccountController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        UserInformation userInformation = JsonMapper.userInformationMapper(ServerCommunication.getOwnUserInformation());
+        UserInformation userInformation = JsonMapper.userInformationMapper(UserServerCommunication.getOwnUserInformation());
         fullNameLabel.setText(userInformation.getName() + " " + userInformation.getSurname());
         emailLabel.setText(userInformation.getEmail());
         facultyLabel.setText(userInformation.getFaculty());
@@ -47,7 +46,7 @@ public class MyAccountController implements Initializable {
 
         boolean showAdminButton = false;
         try {
-            showAdminButton = ServerCommunication.getAdminButtonPermission();
+            showAdminButton = UserServerCommunication.getAdminButtonPermission();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -95,15 +94,8 @@ public class MyAccountController implements Initializable {
      * @throws IOException input is valid hence we throw.
      */
     public void logoutUser() throws IOException {
-        ServerCommunication.logoutUser();
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(null);
-        alert.setHeaderText(null);
-        alert.setContentText("Logged out!");
-        alert.initStyle(StageStyle.UNDECORATED);
-        DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.getStylesheets().add(getClass().getResource("/alertInformation.css").toExternalForm());
-        alert.showAndWait();
+        UserServerCommunication.logoutUser();
+        CustomAlert.informationAlert("Logged out!");
         ApplicationDisplay.changeScene("/login-screen.fxml");
     }
 

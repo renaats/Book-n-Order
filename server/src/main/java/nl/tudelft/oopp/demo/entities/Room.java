@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -35,33 +36,32 @@ public class Room {
     @JoinColumn
     private Building building;
 
-    private String faculty;
-    private boolean facultySpecific;
-    private boolean projector;
-    private boolean screen;
+    private String studySpecific;
+    private Boolean projector;
+    private Boolean screen;
     private int capacity;
     private int plugs;
+    private String status = "Open";
 
     /**
      * Creates a new instance of Room.
      * @param name = name of the room.
      * @param building = building in which room is situated.
-     * @param faculty = name of the faculty.
-     * @param facultySpecific = whether the room is faculty specific.
+     * @param studySpecific = whether the room is study specific.
      * @param projector = whether the room has a projector.
      * @param screen = whether the room has a screen.
      * @param capacity = number of people who can sit in the room.
      * @param plugs = number of plugs in the room.
      */
-    public Room(String name, Building building, String faculty, boolean facultySpecific, boolean projector, boolean screen, int capacity, int plugs) {
+    public Room(String name, Building building, String studySpecific, boolean projector, boolean screen, int capacity, int plugs, String status) {
         this.name = name;
         this.building = building;
-        this.faculty = faculty;
-        this.facultySpecific = facultySpecific;
+        this.studySpecific = studySpecific;
         this.projector = projector;
         this.screen = screen;
         this.capacity = capacity;
         this.plugs = plugs;
+        this.status = status;
     }
 
     public Room() {
@@ -80,12 +80,8 @@ public class Room {
         this.building = building;
     }
 
-    public void setFaculty(String faculty) {
-        this.faculty = faculty;
-    }
-
-    public void setFacultySpecific(boolean facultySpecific) {
-        this.facultySpecific = facultySpecific;
+    public void setStudySpecific(String studySpecific) {
+        this.studySpecific = studySpecific;
     }
 
     public void setProjector(boolean projector) {
@@ -104,6 +100,10 @@ public class Room {
         this.plugs = plugs;
     }
 
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public void setRoomReservations(Set<RoomReservation> roomReservations) {
         this.roomReservations = roomReservations;
     }
@@ -120,12 +120,8 @@ public class Room {
         return building;
     }
 
-    public String getFaculty() {
-        return faculty;
-    }
-
-    public boolean isFacultySpecific() {
-        return facultySpecific;
+    public String getStudySpecific() {
+        return studySpecific;
     }
 
     public boolean isProjector() {
@@ -142,6 +138,10 @@ public class Room {
 
     public int getPlugs() {
         return plugs;
+    }
+
+    public String getStatus() {
+        return status;
     }
 
     public Set<RoomReservation> getRoomReservations() {
@@ -163,17 +163,19 @@ public class Room {
             return true;
         }
         for (RoomReservation roomReservation: roomReservations) {
-            if (fromTime.compareTo(roomReservation.getFromTime()) <= 0 && toTime.compareTo(roomReservation.getFromTime()) > 0) {
-                return true;
-            }
-            if (fromTime.compareTo(roomReservation.getToTime()) < 0 && toTime.compareTo(roomReservation.getToTime()) >= 0) {
-                return true;
-            }
-            if (fromTime.compareTo(roomReservation.getFromTime()) >= 0 && fromTime.compareTo(roomReservation.getToTime()) < 0) {
-                return true;
-            }
-            if (toTime.compareTo(roomReservation.getFromTime()) > 0 && toTime.compareTo(roomReservation.getToTime()) <= 0) {
-                return true;
+            if (roomReservation.isActive()) {
+                if (fromTime.compareTo(roomReservation.getFromTime()) <= 0 && toTime.compareTo(roomReservation.getFromTime()) > 0) {
+                    return true;
+                }
+                if (fromTime.compareTo(roomReservation.getToTime()) < 0 && toTime.compareTo(roomReservation.getToTime()) >= 0) {
+                    return true;
+                }
+                if (fromTime.compareTo(roomReservation.getFromTime()) >= 0 && fromTime.compareTo(roomReservation.getToTime()) < 0) {
+                    return true;
+                }
+                if (toTime.compareTo(roomReservation.getFromTime()) > 0 && toTime.compareTo(roomReservation.getToTime()) <= 0) {
+                    return true;
+                }
             }
         }
         return false;
@@ -184,19 +186,18 @@ public class Room {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof Room)) {
             return false;
         }
         Room room = (Room) o;
-        return facultySpecific == room.facultySpecific
-                && projector == room.projector
-                && screen == room.screen
-                && capacity == room.capacity
+        return capacity == room.capacity
                 && plugs == room.plugs
                 && Objects.equals(name, room.name)
                 && Objects.equals(building, room.building)
-                && Objects.equals(faculty, room.faculty)
+                && Objects.equals(studySpecific, room.studySpecific)
+                && Objects.equals(projector, room.projector)
+                && Objects.equals(screen, room.screen)
+                && Objects.equals(status, room.status)
                 && Objects.equals(roomReservations, room.roomReservations);
     }
-
 }

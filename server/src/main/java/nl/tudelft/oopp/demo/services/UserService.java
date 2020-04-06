@@ -1,5 +1,21 @@
 package nl.tudelft.oopp.demo.services;
 
+import static nl.tudelft.oopp.demo.config.Constants.ADDED;
+import static nl.tudelft.oopp.demo.config.Constants.ADDED_CONFIRM_EMAIL;
+import static nl.tudelft.oopp.demo.config.Constants.ADMIN;
+import static nl.tudelft.oopp.demo.config.Constants.ATTRIBUTE_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.BIKE_ADMIN;
+import static nl.tudelft.oopp.demo.config.Constants.BUILDING_ADMIN;
+import static nl.tudelft.oopp.demo.config.Constants.DUPLICATE_EMAIL;
+import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
+import static nl.tudelft.oopp.demo.config.Constants.INVALID_CONFIRMATION;
+import static nl.tudelft.oopp.demo.config.Constants.INVALID_EMAIL;
+import static nl.tudelft.oopp.demo.config.Constants.INVALID_EMAIL_DOMAIN;
+import static nl.tudelft.oopp.demo.config.Constants.RECOVER_PASSWORD;
+import static nl.tudelft.oopp.demo.config.Constants.RESTAURANT;
+import static nl.tudelft.oopp.demo.config.Constants.STAFF;
+import static nl.tudelft.oopp.demo.config.Constants.USER;
+import static nl.tudelft.oopp.demo.config.Constants.USER_NOT_FOUND;
 import static nl.tudelft.oopp.demo.security.SecurityConstants.HEADER_STRING;
 import static nl.tudelft.oopp.demo.security.SecurityConstants.SECRET;
 import static nl.tudelft.oopp.demo.security.SecurityConstants.TOKEN_PREFIX;
@@ -15,11 +31,13 @@ import java.util.HashSet;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+
 import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.Role;
 import nl.tudelft.oopp.demo.events.OnRegistrationSuccessEvent;
 import nl.tudelft.oopp.demo.repositories.RoleRepository;
 import nl.tudelft.oopp.demo.repositories.UserRepository;
+
 import org.apache.commons.text.RandomStringGenerator;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +64,24 @@ public class UserService {
     private ApplicationEventPublisher eventPublisher;
     @Autowired
     private MailSender mailSender;
-    
+
+    /**
+     * Automatically assigns some role to a user, sets their account as activated. Should not be used in production!
+     * @param appUser = the user that is assigned the role.
+     * @param roleName = the name of the new role.
+     * @return an error code corresponding to the outcome of the request.
+     */
+    private int assign(AppUser appUser, String roleName) {
+        if (!roleRepository.existsByName(roleName)) {
+            Role role = new Role();
+            role.setName(roleName);
+            roleRepository.save(role);
+        }
+        appUser.setConfirmationNumber(-1);
+        appUser.addRole(roleRepository.findByName(roleName));
+        userRepository.save(appUser);
+        return ADDED;
+    }
 
     /**
      * Finds the appUser for some Http request token.
@@ -77,11 +112,11 @@ public class UserService {
         String token = request.getHeader(HEADER_STRING);
         AppUser appUser = getAppUser(token, userRepository);
         if (appUser == null) {
-            return 419;
+            return USER_NOT_FOUND;
         }
         appUser.setLoggedIn(false);
         userRepository.save(appUser);
-        return 201;
+        return ADDED;
     }
 
     /**
@@ -106,47 +141,61 @@ public class UserService {
      * @param name = the name of the user
      * @param surname = the surname of the user
      * @param faculty = the faculty of the user
+     * @param study = the study of the user
      * @return an error code corresponding to the outcome of the request
      */
-    public int add(String email, String password, String name, String surname, String faculty) {
+    public int add(String email, String password, String name, String surname, String faculty, String study) {
         if (!EmailValidator.getInstance().isValid(URLDecoder.decode(email, StandardCharsets.UTF_8))) {
-            return 423;
+            return INVALID_EMAIL;
         }
         if (!email.contains("@student.tudelft.nl") && !email.contains("@tudelft.nl")) {
-            return 424;
+            return INVALID_EMAIL_DOMAIN;
         }
         if (userRepository.existsById(email)) {
-            return 310;
+            return DUPLICATE_EMAIL;
         }
-        AppUser appUser = new AppUser();
-        appUser.setEmail(email);
-        appUser.setPassword(bcryptPasswordEncoder.encode(password));
-        appUser.setName(name);
-        appUser.setSurname(surname);
-        appUser.setFaculty(faculty);
+        AppUser appUser = new AppUser(email, bcryptPasswordEncoder.encode(password), name, surname, faculty, study);
         appUser.setRoles(new HashSet<>());
-        if (!roleRepository.existsByName("ROLE_USER")) {
+        if (!roleRepository.existsByName(USER)) {
             Role role = new Role();
-            role.setName("ROLE_USER");
+            role.setName(USER);
             roleRepository.save(role);
         }
-        appUser.addRole(roleRepository.findByName("ROLE_USER"));
+        appUser.addRole(roleRepository.findByName(USER));
         if (email.contains("@tudelft.nl")) {
-            if (!roleRepository.existsByName("ROLE_STAFF")) {
+            if (!roleRepository.existsByName(STAFF)) {
                 Role role = new Role();
-                role.setName("ROLE_STAFF");
+                role.setName(STAFF);
                 roleRepository.save(role);
             }
-            appUser.addRole(roleRepository.findByName("ROLE_STAFF"));
+            appUser.addRole(roleRepository.findByName(STAFF));
         }
+
+        // NEED TO BE DELETED BEFORE PRODUCTION! ONLY USED FOR END-TO-END TESTING!
+        if (appUser.getEmail().equals("staff@tudelft.nl")) {
+            return assign(appUser, STAFF);
+        }
+        if (appUser.getEmail().equals("admin@tudelft.nl")) {
+            return assign(appUser, ADMIN);
+        }
+        if (appUser.getEmail().equals("building_admin@tudelft.nl")) {
+            return assign(appUser, BUILDING_ADMIN);
+        }
+        if (appUser.getEmail().equals("bike_admin@tudelft.nl")) {
+            return assign(appUser, BIKE_ADMIN);
+        }
+        if (appUser.getEmail().equals("restaurant@tudelft.nl")) {
+            return assign(appUser, RESTAURANT);
+        }
+        // NEED TO BE DELETED BEFORE PRODUCTION! ONLY USED FOR END-TO-END TESTING!
+
         userRepository.save(appUser);
         try {
             eventPublisher.publishEvent(new OnRegistrationSuccessEvent(appUser));
         } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Event did not go as expected.");
+            //Left empty
         }
-        return 203;
+        return ADDED_CONFIRM_EMAIL;
     }
 
     /**
@@ -159,14 +208,14 @@ public class UserService {
         String token = request.getHeader(HEADER_STRING);
         AppUser appUser = getAppUser(token, userRepository);
         if (appUser == null) {
-            return 419;
+            return USER_NOT_FOUND;
         }
         if (sixDigitCode == appUser.getConfirmationNumber()) {
             appUser.setConfirmationNumber(-1);
             userRepository.save(appUser);
-            return 200;
+            return EXECUTED;
         }
-        return 431;
+        return INVALID_CONFIRMATION;
     }
 
     /**
@@ -178,13 +227,13 @@ public class UserService {
      */
     public int update(String email, String attribute, String value) {
         if (userRepository.findById(email).isEmpty()) {
-            return 419;
+            return USER_NOT_FOUND;
         }
         AppUser appUser = userRepository.findById(email).get();
 
         switch (attribute) {
             case "password":
-                appUser.setPassword(bcryptPasswordEncoder.encode(value));
+                appUser.setPassword(bcryptPasswordEncoder.encode(URLDecoder.decode(value, StandardCharsets.UTF_8)));
                 break;
             case "name":
                 appUser.setName(value);
@@ -195,11 +244,14 @@ public class UserService {
             case "faculty":
                 appUser.setFaculty(value);
                 break;
+            case "study":
+                appUser.setStudy(value);
+                break;
             default:
-                return 412;
+                return ATTRIBUTE_NOT_FOUND;
         }
         userRepository.save(appUser);
-        return 200;
+        return EXECUTED;
     }
 
     /**
@@ -209,10 +261,10 @@ public class UserService {
      */
     public int delete(String email) {
         if (!userRepository.existsById(email)) {
-            return 419;
+            return USER_NOT_FOUND;
         }
         userRepository.deleteById(email);
-        return 200;
+        return EXECUTED;
     }
 
     /**
@@ -243,7 +295,7 @@ public class UserService {
      */
     public int addRole(String email, String roleName) {
         if (!userRepository.existsById(email)) {
-            return 419;
+            return USER_NOT_FOUND;
         }
         AppUser appUser = userRepository.getOne(email);
         Role role;
@@ -255,7 +307,7 @@ public class UserService {
         role = roleRepository.findByName(roleName);
         appUser.addRole(role);
         userRepository.save(appUser);
-        return 201;
+        return ADDED;
     }
 
     /**
@@ -269,10 +321,24 @@ public class UserService {
         if (appUser == null) {
             return false;
         }
-        return appUser.getRoles().contains(roleRepository.findByName("ROLE_ADMIN"))
-                || appUser.getRoles().contains(roleRepository.findByName("ROLE_BUILDING_ADMIN"))
-                || appUser.getRoles().contains(roleRepository.findByName("ROLE_BIKE_ADMIN"))
-                || appUser.getRoles().contains(roleRepository.findByName("ROLE_RESTAURANT"));
+        return appUser.getRoles().contains(roleRepository.findByName(ADMIN))
+                || appUser.getRoles().contains(roleRepository.findByName(BUILDING_ADMIN))
+                || appUser.getRoles().contains(roleRepository.findByName(BIKE_ADMIN))
+                || appUser.getRoles().contains(roleRepository.findByName(RESTAURANT));
+    }
+
+    /**
+     * Retrieves a boolean value representing whether the user has the admin role.
+     * @param request = the Http request that calls this method.
+     * @return a boolean value representing whether the user has an admin role.
+     */
+    public boolean hasAdminRole(HttpServletRequest request) {
+        String token = request.getHeader(HEADER_STRING);
+        AppUser appUser = getAppUser(token, userRepository);
+        if (appUser == null) {
+            return false;
+        }
+        return appUser.getRoles().contains(roleRepository.findByName(ADMIN));
     }
 
     /**
@@ -285,10 +351,9 @@ public class UserService {
             RandomStringGenerator pwdGenerator = new RandomStringGenerator.Builder().withinRange(48, 90)
                     .build();
             String password = pwdGenerator.generate(10);
-            String recipient = email;
             String subject = "Password Recovery";
             SimpleMailMessage email2 = new SimpleMailMessage();
-            email2.setTo(recipient);
+            email2.setTo(email);
             email2.setSubject(subject);
             email2.setText("This email provides you with the new password.\nTU Delft advices you to change it immediately "
                     + "after logging in to secure yourself from unwanted presence.\n"
@@ -297,9 +362,9 @@ public class UserService {
             AppUser appUser = userRepository.findByEmail(email);
             appUser.setPassword(bcryptPasswordEncoder.encode(password));
             userRepository.save(appUser);
-            return 205;
+            return RECOVER_PASSWORD;
         }
-        return 419;
+        return USER_NOT_FOUND;
     }
 
     /**
@@ -326,11 +391,11 @@ public class UserService {
         String token = request.getHeader(HEADER_STRING);
         AppUser appUser = getAppUser(token, userRepository);
         if (appUser == null) {
-            return 419;
+            return USER_NOT_FOUND;
         }
         appUser.setPassword(bcryptPasswordEncoder.encode(password));
         appUser.setLoggedIn(false);
         userRepository.save(appUser);
-        return 201;
+        return EXECUTED;
     }
 }

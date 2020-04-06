@@ -13,8 +13,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -34,10 +34,17 @@ public class FoodOrder {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
+    private boolean active;
+
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn
     private Restaurant restaurant;
+
+    @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn
+    private Menu menu;
 
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -52,13 +59,12 @@ public class FoodOrder {
     @Temporal(TemporalType.TIMESTAMP)
     private Date deliveryTime;
 
-    @ManyToOne
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn
-    private Menu menu;
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "foodOrder")
+    private Set<DishOrder> dishOrders = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    private Set<Dish> dishes;
+    private boolean feedback;
+    private boolean feedbackHasBeenGiven;
 
     /** Creates a new instance of FoodOrder.
      * @param restaurant the restaurant at which the food order is placed.
@@ -66,15 +72,24 @@ public class FoodOrder {
      * @param deliveryLocation location of building where food needs to be delivered to/will be picked up from.
      * @param deliveryTime time at which food needs to be delivered.
      */
-    public FoodOrder(Restaurant restaurant, AppUser appUser, Building deliveryLocation, Date deliveryTime) {
+    public FoodOrder(Restaurant restaurant, AppUser appUser, Building deliveryLocation, Date deliveryTime, Menu menu) {
         this.restaurant = restaurant;
         this.appUser = appUser;
         this.deliveryLocation = deliveryLocation;
         this.deliveryTime = deliveryTime;
+        this.menu = menu;
+        this.active = true;
+        this.feedbackHasBeenGiven = false;
+        this.dishOrders = new HashSet<>();
+        this.feedbackHasBeenGiven = false;
     }
 
     public FoodOrder() {
+        this.active = true;
+    }
 
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public void setRestaurant(Restaurant restaurant) {
@@ -93,20 +108,20 @@ public class FoodOrder {
         this.deliveryTime = deliveryTime;
     }
 
-    public void setMenu(Menu menu) {
-        this.menu = menu;
+    public void setDishOrders(Set<DishOrder> dishOrders) {
+        this.dishOrders = dishOrders;
     }
 
-    public void setDishes(Set<Dish> dishes) {
-        this.dishes = dishes;
-    }
-
-    public void addDish(Dish dish) {
-        dishes.add(dish);
+    public void addDishOrder(DishOrder dishOrder) {
+        dishOrders.add(dishOrder);
     }
 
     public Integer getId() {
         return id;
+    }
+
+    public boolean isActive() {
+        return active;
     }
 
     public Restaurant getRestaurant() {
@@ -125,12 +140,32 @@ public class FoodOrder {
         return deliveryTime;
     }
 
+    public Set<DishOrder> getDishOrders() {
+        return dishOrders;
+    }
+
     public Menu getMenu() {
         return menu;
     }
 
-    public Set<Dish> getDishes() {
-        return dishes;
+    public void setFeedbackHasBeenGiven(boolean feedbackHasBeenGiven) {
+        this.feedbackHasBeenGiven = feedbackHasBeenGiven;
+    }
+
+    public boolean isFeedbackHasBeenGiven() {
+        return feedbackHasBeenGiven;
+    }
+
+    public void setMenu(Menu menu) {
+        this.menu = menu;
+    }
+
+    public boolean isFeedback() {
+        return feedback;
+    }
+
+    public void setFeedback(boolean feedback) {
+        this.feedback = feedback;
     }
 
     @Override
@@ -142,11 +177,11 @@ public class FoodOrder {
             return false;
         }
         FoodOrder that = (FoodOrder) o;
-        return Objects.equals(restaurant, that.restaurant)
+        return active == that.active
+                && Objects.equals(restaurant, that.restaurant)
                 && Objects.equals(appUser, that.appUser)
                 && Objects.equals(deliveryLocation, that.deliveryLocation)
                 && Objects.equals(deliveryTime, that.deliveryTime)
-                && Objects.equals(menu, that.menu)
-                && Objects.equals(dishes, that.dishes);
+                && Objects.equals(dishOrders, that.dishOrders);
     }
 }
