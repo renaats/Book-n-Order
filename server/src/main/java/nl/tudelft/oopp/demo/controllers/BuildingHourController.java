@@ -103,7 +103,7 @@ public class BuildingHourController {
      * @param day = the day.
      * @return building hours that match the id.
      */
-    @Secured({ADMIN, BUILDING_ADMIN})
+    @Secured({USER, ADMIN, BUILDING_ADMIN})
     @GetMapping(path = "/findAdmin/{buildingID}/{day}")
     @ResponseBody
     public BuildingHours findAdminHours(@PathVariable(value = "buildingID") int buildingId, @PathVariable(value = "day") long day) {
