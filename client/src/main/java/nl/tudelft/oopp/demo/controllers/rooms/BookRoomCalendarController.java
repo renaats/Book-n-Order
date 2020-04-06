@@ -62,9 +62,6 @@ public class BookRoomCalendarController implements Initializable {
     @FXML
     Text screen;
 
-    public BookRoomCalendarController() {
-    }
-
     public void setRoomId(int roomId) {
         this.roomId = roomId;
     }
