@@ -50,6 +50,7 @@ class RoomServerCommunicationTest {
         stubFor(get(urlEqualTo("/room_reservation/past")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(get(urlEqualTo("/room_reservation/future")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(get(urlEqualTo("/room_reservation/active")).willReturn(aResponse().withStatus(200).withBody("Message4")));
+        stubFor(get(urlEqualTo("/room_reservation/room/1")).willReturn(aResponse().withStatus(200).withBody("Message50")));
     }
 
     /**
@@ -170,6 +171,11 @@ class RoomServerCommunicationTest {
     @Test
     public void testCancelRoomReservation() {
         assertEquals(ErrorMessages.getErrorMessage(201), RoomServerCommunication.cancelRoomReservation(1));
+    }
+
+    @Test
+    public void testFindReservationForRoom() {
+        assertEquals("Message50", RoomServerCommunication.findReservationForRoom(1));
     }
 
     /**
