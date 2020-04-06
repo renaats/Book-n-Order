@@ -110,7 +110,7 @@ public class RestaurantHourService {
                 return ATTRIBUTE_NOT_FOUND;
         }
         restaurantHourRepository.save(restaurantHours);
-        return ADDED;
+        return EXECUTED;
     }
 
     /**
