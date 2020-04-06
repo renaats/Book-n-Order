@@ -97,7 +97,12 @@ public class PersonalCalendarView extends CalendarView {
                 } else {
                     bookedEntry.setLocation(foodOrder.getDeliveryLocation().getName());
                 }
-                bookedEntry.setInterval(date);
+
+                if (startTime.isAfter(endTime)) {
+                    bookedEntry.setInterval(date.minusDays(1), date);
+                } else {
+                    bookedEntry.setInterval(date);
+                }
                 bookedEntry.setInterval(startTime, endTime);
                 orderedFood.addEntry(bookedEntry);
             }
