@@ -63,6 +63,7 @@ public class OrderFoodChooseRestaurantController implements Initializable {
     @FXML public TableView<Allergy> allDietTable;
     @FXML public TableView<Allergy> selectedDietTable;
     @FXML public TableColumn<Restaurant, String> colRestaurantName;
+    @FXML public TableColumn<Restaurant, Integer> colRestaurantScore;
     @FXML public TableColumn<Restaurant, Building> colRestaurantBuilding;
     @FXML public TableColumn<Dish, String> colDishName;
     @FXML public TableColumn<Dish, String> colDishPrice;
@@ -149,6 +150,7 @@ public class OrderFoodChooseRestaurantController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        colRestaurantScore.setCellValueFactory(new PropertyValueFactory<>("feedbackCounter"));
         colRestaurantName.setCellValueFactory(new PropertyValueFactory<>("name"));
         colRestaurantBuilding.setCellValueFactory(new PropertyValueFactory<>("getBuildingName"));
         colDishName.setCellValueFactory(new PropertyValueFactory<>("name"));
