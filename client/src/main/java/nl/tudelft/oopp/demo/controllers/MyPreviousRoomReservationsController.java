@@ -2,9 +2,7 @@ package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -67,7 +65,7 @@ public class MyPreviousRoomReservationsController implements Initializable {
             roomReservations = new ArrayList<>();
             roomReservations.add(null);
         }
-
+        Collections.sort(roomReservations);
         if (roomReservations.size() > 10) {
             roomReservations = roomReservations.subList(0, 15);
             roomOrderResult.addAll(roomReservations);

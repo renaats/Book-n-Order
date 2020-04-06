@@ -11,7 +11,7 @@ import javafx.beans.property.StringProperty;
 /**
  * Manages the RoomReservation object that is retrieved from the server
  */
-public class RoomReservation {
+public class RoomReservation implements Comparable{
 
     private Integer id;
     private boolean active;
@@ -109,6 +109,12 @@ public class RoomReservation {
         Date time = getFromTime();
         DateFormat df = new SimpleDateFormat("dd MMMMM yyyy HH:mm");
         return new SimpleStringProperty(df.format(time));
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        long compareTime=((RoomReservation)o).getFromTime().getTime();
+        return (int) (compareTime - this.fromTime.getTime());
     }
 
     @Override
