@@ -20,8 +20,8 @@ public class FoodOrder implements Comparable {
     private AppUser appUser;
     private Building deliveryLocation;
     private Date deliveryTime;
-    private boolean feedback;
     private Set<DishOrder> dishOrders;
+    private boolean feedback;
     private boolean feedbackHasBeenGiven;
 
     /** Creates a new instance of FoodOrder.

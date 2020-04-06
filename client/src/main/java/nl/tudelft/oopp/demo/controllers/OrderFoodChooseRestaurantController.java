@@ -57,4 +57,10 @@ public class OrderFoodChooseRestaurantController {
 
     public void restaurantChosen(ActionEvent actionEvent) {
     }
+
+    public void applyFilters(ActionEvent actionEvent) {
+    }
+
+    public void restaurantChosen(ActionEvent actionEvent) {
+    }
 }

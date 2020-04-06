@@ -154,4 +154,62 @@ public class MyPreviousFoodReservationsController implements Initializable {
             CustomAlert.warningAlert("Select an order to rate");
         }
     }
+
+    /**
+     * Adds a positive review to the restaurant the order came from.
+     */
+    public void thumbsUp() {
+        try {
+            if (table.getSelectionModel().getSelectedItem().isFeedbackHasBeenGiven()) {
+                CustomAlert.warningAlert("You have already given feedback");
+                return;
+            }
+            String response1 =
+                    DishServerCommunication.addFeedbackFoodOrder(table.getSelectionModel().getSelectedItem().getId(), true);
+            String response2 =
+                    DishServerCommunication.addFoodFeedbackRestaurant(table.getSelectionModel().getSelectedItem().getRestaurant().getId(), true);
+            if (!(response1.equals("Successfully executed."))) {
+                CustomAlert.informationAlert(response1);
+                return;
+            }
+            if (!(response2.equals("Successfully executed."))) {
+                CustomAlert.informationAlert(response1);
+                return;
+            }
+            CustomAlert.informationAlert("Feedback has been received");
+            loadDataIntoTable();
+
+        } catch (NullPointerException e) {
+            CustomAlert.warningAlert("Select an order to rate");
+        }
+    }
+
+    /**
+     * Adds a negative review to the restaurant the order came from.
+     */
+    public void thumbsDown() {
+        try {
+            if (table.getSelectionModel().getSelectedItem().isFeedbackHasBeenGiven()) {
+                CustomAlert.warningAlert("You have already given feedback");
+                return;
+            }
+            String response1 =
+                    DishServerCommunication.addFeedbackFoodOrder(table.getSelectionModel().getSelectedItem().getId(), false);
+            String response2 =
+                    DishServerCommunication.addFoodFeedbackRestaurant(table.getSelectionModel().getSelectedItem().getRestaurant().getId(), false);
+            if (!(response1.equals("Successfully executed."))) {
+                CustomAlert.informationAlert(response1);
+                return;
+            }
+            if (!(response2.equals("Successfully executed."))) {
+                CustomAlert.informationAlert(response1);
+                return;
+            }
+            CustomAlert.informationAlert("Feedback has been received");
+            loadDataIntoTable();
+
+        } catch (NullPointerException e) {
+            CustomAlert.warningAlert("Select an order to rate");
+        }
+    }
 }

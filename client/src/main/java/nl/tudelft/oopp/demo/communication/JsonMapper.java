@@ -270,7 +270,6 @@ public class JsonMapper {
     public static FoodOrder foodOrderMapper(String foodOrderJson) {
 
         ObjectMapper mapper = new ObjectMapper();
-        mapper.registerModule(new JavaTimeModule());
 
         try {
             // Convert JSON string to Object
