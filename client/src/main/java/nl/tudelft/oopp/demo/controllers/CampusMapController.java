@@ -25,5 +25,4 @@ public class CampusMapController {
     public void goToContactInformation() throws IOException {
         ApplicationDisplay.changeScene("/ContactInformation.fxml");
     }
-
 }
