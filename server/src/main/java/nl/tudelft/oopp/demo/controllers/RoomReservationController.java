@@ -6,6 +6,7 @@ import static nl.tudelft.oopp.demo.config.Constants.USER;
 
 import javax.servlet.http.HttpServletRequest;
 
+import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.RoomReservation;
 import nl.tudelft.oopp.demo.services.RoomReservationService;
 
@@ -112,6 +113,28 @@ public class RoomReservationController {
     }
 
     /**
+     * Finds all past room reservations for some room.
+     * @param roomId = the room for which the room reservations are searched.
+     * @return a list of past room reservations for this room.
+     */
+    @Secured({ADMIN, BUILDING_ADMIN})
+    @GetMapping(path = "/pastAdmin")
+    public Iterable<RoomReservation> getPastReservationsAdmin(@RequestParam int roomId) {
+        return roomReservationService.pastForAdmin(roomId);
+    }
+
+    /**
+     * Finds all future room reservations for some room.
+     * @param roomId = the room for which the room reservations are searched.
+     * @return a list of future room reservations for this room.
+     */
+    @Secured({ADMIN, BUILDING_ADMIN})
+    @GetMapping(path = "/futureAdmin")
+    public Iterable<RoomReservation> getFutureReservationsAdmin(@RequestParam int roomId) {
+        return roomReservationService.futureForAdmin(roomId);
+    }
+
+    /**
      * Finds all active room reservations for the user that sends the Http request.
      * @param request = the Http request that calls this method.
      * @return a list of active room reservations for this user.
@@ -120,6 +143,17 @@ public class RoomReservationController {
     @GetMapping(path = "/active")
     public Iterable<RoomReservation> getActiveReservations(HttpServletRequest request) {
         return roomReservationService.active(request);
+    }
+
+    /**
+     * Finds all active reservations for a specific room.
+     * @param id = the id of room the reservations are retreived for.
+     * @return a list all active room reservations for this room.
+     */
+    @Secured(USER)
+    @GetMapping(path = "/room/{id}")
+    public Iterable<RoomReservation> getReservationForRoom(@PathVariable(value = "id") int id) {
+        return roomReservationService.findForRoom(id);
     }
 
     /**
@@ -132,5 +166,16 @@ public class RoomReservationController {
     @GetMapping(path = "/cancel/{id}")
     public int cancelReservation(HttpServletRequest request, @PathVariable(value = "id") int roomReservationId) {
         return roomReservationService.cancel(request, roomReservationId);
+    }
+
+    /**
+     * Finds user for a specific reservation.
+     * @param id = id of reservation for which we retrieve user.
+     * @return a user that corresponds to this reservation.
+     */
+    @Secured({ADMIN, BUILDING_ADMIN})
+    @GetMapping(path = "/user/{id}")
+    public AppUser findForReservation(@PathVariable int id) {
+        return roomReservationService.findForReservation(id);
     }
 }

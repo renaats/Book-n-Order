@@ -45,7 +45,7 @@ public class RestaurantHourService {
      */
     public int add(int restaurantId, long date, int startTimeS, int endTimeS) {
         Restaurant restaurant = restaurantService.find(restaurantId);
-        if (date >= 7) {
+        if (date > 7) {
             date = BuildingHourService.parse(date);
         }
         if (restaurant == null) {
@@ -110,7 +110,7 @@ public class RestaurantHourService {
                 return ATTRIBUTE_NOT_FOUND;
         }
         restaurantHourRepository.save(restaurantHours);
-        return ADDED;
+        return EXECUTED;
     }
 
     /**
@@ -157,5 +157,18 @@ public class RestaurantHourService {
             return restaurantHourRepository.findByRestaurant_IdAndDay(restaurantId, day);
         }
         return null;
+    }
+
+    /**
+     * Finds the hours for a restaurant with the specified id and day.
+     * @param restaurantId = the id of the restaurant.
+     * @param day = the day;
+     * @return restaurant hours that match the id.
+     */
+    public RestaurantHours findAdmin(int restaurantId, long day) {
+        if (!restaurantHourRepository.existsByRestaurant_IdAndDay(restaurantId, day)) {
+            return null;
+        }
+        return restaurantHourRepository.findByRestaurant_IdAndDay(restaurantId, day);
     }
 }

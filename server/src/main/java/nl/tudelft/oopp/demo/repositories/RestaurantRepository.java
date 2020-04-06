@@ -15,4 +15,6 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Integer>
     Restaurant findByName(String name);
 
     List<Restaurant> findAllByEmail(String email);
+
+    boolean existsByName(String name);
 }

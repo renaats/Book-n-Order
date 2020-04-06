@@ -85,7 +85,7 @@ class RoleTest {
      */
     @Test
     public void testUserRole() {
-        AppUser appUser = new AppUser("R.Jursevskis@student.tudelft.nl", "1234", "Renats", "Jursevskis", "EWI");
+        AppUser appUser = new AppUser("R.Jursevskis@student.tudelft.nl", "1234", "Renats", "Jursevskis", "EWI", "CSE");
         appUser.setRoomReservations(new HashSet<>());
 
         Set<Role> roleSet = new HashSet<>();

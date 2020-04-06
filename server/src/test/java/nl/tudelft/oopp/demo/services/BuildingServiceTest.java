@@ -232,7 +232,7 @@ public class BuildingServiceTest {
     public void testHasRooms() {
         buildingService.add(building.getName(), building.getStreet(), building.getFaculty(), building.getHouseNumber());
         int id = buildingService.all().get(0).getId();
-        roomService.add("Ampere", "CSE", true, true, id, 300, 50);
+        roomService.add("Ampere", "CSE", true, true, id, 300, 50, "Open");
         Set<Room> rooms = new HashSet<>();
         rooms.add(roomService.all().get(0));
         buildingService.find(id).setRooms(rooms);
