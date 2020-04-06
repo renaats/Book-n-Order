@@ -8,7 +8,7 @@
 
 <AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.rooms.RoomConfirmationController">
    <children>
-      <ImageView fitHeight="790.0" fitWidth="1479.0" onMouseClicked="#mainMenu" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="790.0" fitWidth="1479.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/template.jpg" />
          </image>
@@ -52,7 +52,7 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <Text fill="WHITE" layoutX="619.0" layoutY="513.0" stroke="BLACK" strokeType="OUTSIDE" text="Order ID" wrappingWidth="268.54296875">
+      <Text fx:id="text" fill="WHITE" layoutX="619.0" layoutY="513.0" stroke="BLACK" strokeType="OUTSIDE" text="Order ID" wrappingWidth="268.54296875">
          <font>
             <Font size="24.0" />
          </font>
@@ -67,6 +67,7 @@
             <Font name="Calibri" size="11.0" />
          </font>
       </Text>
+      <Hyperlink text="Check out more services" textFill="WHITE" />
 
    </children>
 </AnchorPane>

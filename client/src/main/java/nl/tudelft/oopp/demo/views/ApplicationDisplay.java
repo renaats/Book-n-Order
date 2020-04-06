@@ -1,15 +1,15 @@
 package nl.tudelft.oopp.demo.views;
 
-import java.io.IOException;
-import java.net.URL;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import nl.tudelft.oopp.demo.controllers.BookRoomCalendarController;
+import nl.tudelft.oopp.demo.controllers.rooms.RoomConfirmationController;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.Date;
 
 /**
  * Manages the display of the views of the app
@@ -44,6 +44,30 @@ public class ApplicationDisplay extends Application {
      */
     public static void changeScene(String fxml) throws IOException {
         Parent pane = FXMLLoader.load(ApplicationDisplay.class.getResource(fxml));
+        primaryStage.getScene().setRoot(pane);
+    }
+
+    /**
+     * Changes the current scene to given fxml file and transfers a variable.
+     * @param fxml = filename of scene you want to change the current scene to.
+     * @param variable1 = some variable.
+     * @param variable2 = some variable.
+     * @throws IOException = All input will be valid, no need to check, this we throw.
+     */
+    public static void changeSceneWithVariables(String fxml, Object variable1, Object variable2) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(ApplicationDisplay.class.getResource(fxml));
+        fxmlLoader.setControllerFactory(controllerClass -> {
+            try {
+                if (controllerClass == RoomConfirmationController.class) {
+                    return new RoomConfirmationController((Date) variable1, (Date) variable2);
+                } else {
+                    return controllerClass.newInstance();
+                }
+            } catch (Exception exc) {
+                throw new RuntimeException(exc); // just bail
+            }
+        });
+        Parent pane = fxmlLoader.load();
         primaryStage.getScene().setRoot(pane);
     }
 
