@@ -66,11 +66,12 @@ public class OrderFoodController implements Initializable {
             for (Building building: Objects.requireNonNull(JsonMapper.buildingListMapper(BuildingServerCommunication.getBuildings()))) {
                 buildingNameList.add(building.getName());
             }
-            buildingNameList.add(null);
+            buildingNameList.add("Pick Up");
         } catch (Exception e) {
-            buildingNameList.add(null);
+            buildingNameList.add("Pick Up");
         }
         buildingChoiceBox.getItems().addAll(buildingNameList);
+        buildingChoiceBox.setValue("Pick Up");
     }
 
     /**
@@ -138,7 +139,7 @@ public class OrderFoodController implements Initializable {
                     CustomAlert.warningAlert("The pick up time cannot be in the past.");
                 } else {
                     int buildingId = 0;
-                    if (buildingChoiceBox.getValue() != null) {
+                    if (!buildingChoiceBox.getValue().equals("Pick Up")) {
                         buildingId = JsonMapper.buildingMapper(BuildingServerCommunication.findBuildingByName(buildingChoiceBox.getValue())).getId();
                     }
                     String response = RestaurantServerCommunication.addFoodOrder(restaurant.getId(), buildingId, dateLong);
