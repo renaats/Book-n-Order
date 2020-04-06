@@ -81,6 +81,7 @@ public class FoodOrder {
         this.active = true;
         this.feedbackHasBeenGiven = false;
         this.dishOrders = new HashSet<>();
+        this.feedbackHasBeenGiven = false;
     }
 
     public FoodOrder() {

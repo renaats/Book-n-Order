@@ -64,7 +64,7 @@ public class RestaurantService {
      * @param buildingId = the building, where the restaurant is located
      * @param name = the name of the restaurant
      * @param email = the email of the restaurant
-     * @return String to see if your request passed
+     * @return String to see if your request passed.
      */
     public int add(int buildingId, String name, String email) {
         Optional<Building> optionalBuilding = buildingRepository.findById(buildingId);
@@ -81,6 +81,22 @@ public class RestaurantService {
         restaurant.setEmail(email);
         restaurantRepository.save(restaurant);
         return ADDED;
+    }
+
+    /**
+     * Adds a feedback to the restaurant, decreases the feedbackCounter by 1 if negative and increases by 1 of positive.
+     * @param id the restaurant id.
+     * @param feedback the feedback is true if positive and false if negative.
+     * @return the server response code.
+     */
+    public int addFeedback(int id, boolean feedback) {
+        if (restaurantRepository.findById(id).isEmpty()) {
+            return 428;
+        }
+        Restaurant restaurant = restaurantRepository.findById(id).get();
+        restaurant.addFeedback(feedback);
+        restaurantRepository.save(restaurant);
+        return EXECUTED;
     }
 
     /**
@@ -184,5 +200,14 @@ public class RestaurantService {
      */
     public Restaurant find(String name) {
         return restaurantRepository.findByName(URLDecoder.decode(name, StandardCharsets.UTF_8));
+    }
+
+    /**
+     * Gets the feedbackCounter of the restaurant with the given id.
+     * @param id the id of the restaurant.
+     * @return the value of feedbackCounter.
+     */
+    public int getFeedback(int id) {
+        return restaurantRepository.findById(id).get().getFeedbackCounter();
     }
 }

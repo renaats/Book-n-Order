@@ -1,4 +1,4 @@
-package nl.tudelft.oopp.demo.controllers.restaurants;
+package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
 import java.net.URL;
@@ -17,6 +17,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.RestaurantServerCommunication;
+import nl.tudelft.oopp.demo.communication.UserServerCommunication;
 import nl.tudelft.oopp.demo.entities.FoodOrder;
 import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
@@ -41,7 +42,7 @@ public class MyPreviousFoodReservationsController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         colRestaurant.setCellValueFactory(new PropertyValueFactory<>("getRestaurantName"));
         colDeliveryLoc.setCellValueFactory(new PropertyValueFactory<>("getDeliveryLocationName"));
-        colDate.setCellValueFactory(new PropertyValueFactory<>("getDeliveryTime"));
+        colDate.setCellValueFactory(new PropertyValueFactory<>("getDeliveryDay"));
         colYourFeedback.setCellValueFactory(new PropertyValueFactory<>("getYourFeedback"));
         loadDataIntoTable();
     }
@@ -57,16 +58,22 @@ public class MyPreviousFoodReservationsController implements Initializable {
             String json = RestaurantServerCommunication.getAllPreviousFoodOrders();
             List<FoodOrder> foodOrders1 = JsonMapper.foodOrdersListMapper(json);
             foodOrders = new ArrayList<>(foodOrders1);
+            for (int i = 0; i < foodOrders.size(); i++) {
+                if (!(foodOrders.get(i).getAppUser().getEmail()
+                        .equals(JsonMapper.appUserMapper(UserServerCommunication.getOwnUserInformation()).getEmail()))) {
+                    foodOrders.remove(foodOrders.get(i));
+                }
+            }
         } catch (Exception e) {
             // Fakes the table having any entries, so the table shows up properly instead of "No contents".
             foodOrders = new ArrayList<>();
+            foodOrders.add(null);
         }
 
         Collections.sort(foodOrders);
-        Collections.reverse(foodOrders);
 
         if (foodOrders.size() > 10) {
-            foodOrders = foodOrders.subList(0, 10);
+            foodOrders = foodOrders.subList(0, 15);
             foodOrderResult.addAll(foodOrders);
         } else {
             foodOrderResult.addAll(foodOrders);
@@ -102,7 +109,7 @@ public class MyPreviousFoodReservationsController implements Initializable {
             String response1 = RestaurantServerCommunication
                     .addFeedbackFoodOrder(table.getSelectionModel().getSelectedItem().getId(), true);
             String response2 = RestaurantServerCommunication
-                            .addFoodFeedbackRestaurant(table.getSelectionModel().getSelectedItem().getRestaurant().getId(), true);
+                    .addFoodFeedbackRestaurant(table.getSelectionModel().getSelectedItem().getRestaurant().getId(), true);
             if (!(response1.equals("Successfully executed."))) {
                 CustomAlert.informationAlert(response1);
                 return;

@@ -56,6 +56,10 @@ class RestaurantServerCommunicationTest {
                 .willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(get(urlEqualTo("/restaurant_hours/all")).willReturn(aResponse().withStatus(200).withBody("200")));
         stubFor(get(urlEqualTo("/restaurant_hours/find/1/1")).willReturn(aResponse().withStatus(200).withBody("200")));
+        stubFor(post(urlEqualTo("/restaurant_hours/update?id=1&attribute=attribute&value=value")).willReturn(aResponse().withStatus(200)
+                .withBody("200")));
+        stubFor(post(urlEqualTo("/food_order/addFeedback?id=1&feedback=true")).willReturn(aResponse().withStatus(201).withBody("201")));
+        stubFor(post(urlEqualTo("/food_order/addFeedback?id=1&feedback=true")).willReturn(aResponse().withStatus(201).withBody("201")));
         stubFor(post(urlEqualTo("/restaurant_hours/update?id=1&attribute=attribute&value=value"))
                 .willReturn(aResponse().withStatus(200).withBody("200")));
     }
@@ -242,6 +246,23 @@ class RestaurantServerCommunicationTest {
     @Test
     public void testUpdateRestaurantHours() {
         assertEquals(ErrorMessages.getErrorMessage(200), RestaurantServerCommunication.updateRestaurantHours(1,"attribute","value"));
+    }
+
+
+    /**
+     * Tests the adding of feedback to a food order
+     */
+    @Test
+    public void testAddFeedbackFoodOrder() {
+        assertEquals(ErrorMessages.getErrorMessage(201), RestaurantServerCommunication.addFeedbackFoodOrder(1,true));
+    }
+
+    /**
+     * Tests the adding of feedback to a food order
+     */
+    @Test
+    public void testAddFoodFeedbackRestaurant() {
+        assertEquals(ErrorMessages.getErrorMessage(201), RestaurantServerCommunication.addFeedbackFoodOrder(1,true));
     }
 
     /**

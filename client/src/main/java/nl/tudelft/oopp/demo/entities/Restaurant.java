@@ -81,7 +81,7 @@ public class Restaurant {
     public void setFeedbackCounter(int feedbackCounter) {
         this.feedbackCounter = feedbackCounter;
     }
-    
+
     public Menu getMenu() {
         return menu;
     }

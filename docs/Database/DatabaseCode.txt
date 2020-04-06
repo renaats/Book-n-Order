@@ -65,6 +65,7 @@ Table restaurant {
   name String
   business_hours business_hours
   menu menu
+  int feedbackCounter
 }
 
 Table menu {

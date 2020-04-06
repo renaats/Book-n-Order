@@ -270,7 +270,6 @@ public class JsonMapper {
     public static FoodOrder foodOrderMapper(String foodOrderJson) {
 
         ObjectMapper mapper = new ObjectMapper();
-        mapper.registerModule(new JavaTimeModule());
 
         try {
             // Convert JSON string to Object
@@ -285,7 +284,7 @@ public class JsonMapper {
      * Maps all Food Orders JSONS to a list.
      *
      * @param foodOrdersJson a JSON string representing a list.
-     * @return A list filled with object Food Order
+     * @return A list filled with object Food Order.
      */
     public static List<FoodOrder> foodOrdersListMapper(String foodOrdersJson) throws JsonProcessingException {
 
@@ -353,7 +352,7 @@ public class JsonMapper {
      * Maps all Bike Reservation JSONS to a list.
      *
      * @param bikeReservationsJson a JSON string representing a list.
-     * @return A list filled with object Bike Reservation
+     * @return A list filled with object Bike Reservation.
      */
     public static List<BikeReservation> bikeReservationsListMapper(String bikeReservationsJson) throws JsonProcessingException {
 
@@ -401,5 +400,25 @@ public class JsonMapper {
 
         return mapper.readValue(dishOrdersJson, new TypeReference<>() {
         });
+    }
+
+    /**
+     * Maps all food orders JSONS to a list.
+     * @param allFoodOrdersJson a JSON string representing a list.
+     * @return A list filled with object Food orders.
+     */
+    public static List<FoodOrder> foodOrderList(String allFoodOrdersJson) {
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+
+        try {
+            // Convert JSON string to Object
+            return mapper.readValue(allFoodOrdersJson, new TypeReference<List<FoodOrder>>() {
+            });
+        } catch (Exception e) {
+            CustomAlert.warningAlert(allFoodOrdersJson);
+        }
+        return null;
     }
 }
