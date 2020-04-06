@@ -22,6 +22,7 @@ public class Constants {
     public static final int UNAUTHORIZED = 401;
     public static final int NOT_FOUND = 404;
     public static final int ATTRIBUTE_NOT_FOUND = 412;
+    public static final int ALL_BIKES_RESERVED = 414;
     public static final int ORDER_NOT_FOUND = 415;
     public static final int ID_NOT_FOUND = 416;
     public static final int HAS_ROOMS = 417;
@@ -39,5 +40,6 @@ public class Constants {
     public static final int MENU_NOT_FOUND = 429;
     public static final int DISH_NOT_FOUND = 430;
     public static final int INVALID_CONFIRMATION = 431;
+    public static final int MENU_ALREADY_EXISTS = 432;
     public static final int UNSUPPORTED_ENCODING = 502;
 }

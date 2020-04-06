@@ -64,6 +64,22 @@ public class UserServerCommunication {
     }
 
     /**
+     * Retrieves a boolean value from the server, false = no admin access, true = admin access.
+     * @return a boolean representing whether the account should see the admin button.
+     */
+    public static boolean isUserAdmin() {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/user/adminRole")).build();
+        HttpResponse<String> response;
+        try {
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return response.body().contains("true");
+    }
+
+    /**
      * Retrieves a boolean value from the server, false = not activated, true = activated.
      * @return a boolean representing whether the account is activated.
      */
@@ -84,11 +100,13 @@ public class UserServerCommunication {
      * @param email User's email.
      * @param name User's name.
      * @param surname User's surname.
+     * @param faculty User's faculty.
      * @param password User's password.
+     * @param study User's study.
      * @return the error message corresponding to the server's response.
      */
-    public static String addUser(String email, String name, String surname, String faculty, String password) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/user/add?email=" + URLEncoder.encode(email, StandardCharsets.UTF_8)  + "&name=" + URLEncoder.encode(name, StandardCharsets.UTF_8) + "&surname=" + URLEncoder.encode(surname, StandardCharsets.UTF_8) + "&faculty=" + URLEncoder.encode(faculty, StandardCharsets.UTF_8) + "&password=" + URLEncoder.encode(password, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).build();
+    public static String addUser(String email, String name, String surname, String faculty, String password, String study) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/user/add?email=" + URLEncoder.encode(email, StandardCharsets.UTF_8)  + "&name=" + URLEncoder.encode(name, StandardCharsets.UTF_8) + "&surname=" + URLEncoder.encode(surname, StandardCharsets.UTF_8) + "&faculty=" + URLEncoder.encode(faculty, StandardCharsets.UTF_8) + "&password=" + URLEncoder.encode(password, StandardCharsets.UTF_8) + "&study=" + URLEncoder.encode(study, StandardCharsets.UTF_8))).POST(HttpRequest.BodyPublishers.noBody()).build();
         return communicateAndReturnErrorMessage(request);
     }
 
@@ -132,7 +150,7 @@ public class UserServerCommunication {
                         if (!getAccountActivation()) {
                             ApplicationDisplay.changeScene("/ConfirmationSixDigits.fxml");
                         } else {
-                            ApplicationDisplay.changeScene("/mainMenu.fxml");
+                            ApplicationDisplay.changeScene("/MainMenu.fxml");
                         }
                         return ErrorMessages.getErrorMessage(200);
                     }
@@ -169,6 +187,16 @@ public class UserServerCommunication {
      */
     public static String getUser() {
         HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/user")).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Finds user for a specific room reservation.
+     * @param id = id of the room reservation.
+     * @return the body of the response from the server.
+     */
+    public static String findUserForReservation(int id) {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/room_reservation/user/" + id)).build();
         return communicateAndReturnBodyOfResponse(request);
     }
 }
