@@ -45,7 +45,7 @@ public class RestaurantHourService {
      */
     public int add(int restaurantId, long date, int startTimeS, int endTimeS) {
         Restaurant restaurant = restaurantService.find(restaurantId);
-        if (date >= 7) {
+        if (date > 7) {
             date = BuildingHourService.parse(date);
         }
         if (restaurant == null) {
