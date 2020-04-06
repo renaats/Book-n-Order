@@ -61,7 +61,7 @@ public class DatabaseBikeReservationController implements Initializable {
     @FXML
     private TableColumn<BikeReservation, String> colPastToBuilding;
     @FXML
-    private TableColumn<Bike, String> colBikeName;
+    private TableColumn<Bike, String> colBikeId;
     @FXML
     private TableColumn<Bike, String> colBikeBuilding;
     @FXML
@@ -90,7 +90,7 @@ public class DatabaseBikeReservationController implements Initializable {
         colPastTo.setCellValueFactory(new PropertyValueFactory<>("toTimeString"));
         colPastFromBuilding.setCellValueFactory(new PropertyValueFactory<>("fromBuildingName"));
         colPastToBuilding.setCellValueFactory(new PropertyValueFactory<>("toBuildingName"));
-        colBikeName.setCellValueFactory(new PropertyValueFactory<>("availableString"));
+        colBikeId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colBikeBuilding.setCellValueFactory(new PropertyValueFactory<>("locationName"));
 
         currentTable.setPlaceholder(new Label(""));

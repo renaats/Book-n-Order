@@ -116,7 +116,7 @@ public class FoodOrderController {
      */
     @Secured(USER)
     @GetMapping(path = "/past")
-    public Iterable<FoodOrder> getPastReservations(HttpServletRequest request) {
+    public Iterable<FoodOrder> getPastFoodOrders(HttpServletRequest request) {
         return foodOrderService.past(request);
     }
 
@@ -127,7 +127,7 @@ public class FoodOrderController {
      */
     @Secured(USER)
     @GetMapping(path = "/future")
-    public Iterable<FoodOrder> getFutureReservations(HttpServletRequest request) {
+    public Iterable<FoodOrder> getFutureFoodOrders(HttpServletRequest request) {
         return foodOrderService.future(request);
     }
 
@@ -138,7 +138,7 @@ public class FoodOrderController {
      */
     @Secured({ADMIN, RESTAURANT})
     @GetMapping(path = "/pastRestaurant")
-    public Iterable<FoodOrder> getPastReservationsRestaurant(@RequestParam int restaurantId) {
+    public Iterable<FoodOrder> getPastFoodOrdersRestaurant(@RequestParam int restaurantId) {
         return foodOrderService.pastForRestaurant(restaurantId);
     }
 
@@ -149,7 +149,7 @@ public class FoodOrderController {
      */
     @Secured({ADMIN, RESTAURANT})
     @GetMapping(path = "/futureRestaurant")
-    public Iterable<FoodOrder> getFutureReservationsRestaurant(@RequestParam int restaurantId) {
+    public Iterable<FoodOrder> getFutureFoodOrdersRestaurant(@RequestParam int restaurantId) {
         return foodOrderService.futureForRestaurant(restaurantId);
     }
 

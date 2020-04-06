@@ -57,7 +57,7 @@
     </TableView>
     <TableView fx:id="bikeTable" layoutX="118.0" layoutY="230.0" prefHeight="404.0" prefWidth="202.0" stylesheets="@Table.css">
         <columns>
-            <TableColumn fx:id="colBikeName" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" sortable="false" text="Bike ID" />
+            <TableColumn fx:id="colBikeId" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" sortable="false" text="Bike ID" />
             <TableColumn fx:id="colBikeBuilding" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" sortable="false" text="Building" />
         </columns>
     </TableView>

@@ -458,13 +458,8 @@ public class DatabaseRestaurantMenuController implements Initializable {
      */
     public void retrieveOwnedRestaurants() {
         try {
-            if (UserServerCommunication.getAdminButtonPermission()) {
-                restaurants = new ArrayList<>(Objects.requireNonNull(
-                        JsonMapper.restaurantListMapper(RestaurantServerCommunication.getRestaurants())));
-            } else {
-                restaurants = new ArrayList<>(Objects.requireNonNull(
-                        JsonMapper.restaurantListMapper(RestaurantServerCommunication.getOwnedRestaurants())));
-            }
+            restaurants = new ArrayList<>(Objects.requireNonNull(
+                    JsonMapper.restaurantListMapper(RestaurantServerCommunication.getOwnedRestaurants())));
         } catch (Exception e) {
             restaurants = new ArrayList<>();
         }
