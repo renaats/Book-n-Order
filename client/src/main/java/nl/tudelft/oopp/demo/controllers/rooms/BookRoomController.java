@@ -128,6 +128,10 @@ public class BookRoomController implements Initializable {
         buildingTableSelectListener();
     }
 
+    public void setSelectedRoom(Room selectedRoom) {
+        this.selectedRoom = selectedRoom;
+    }
+
     /**
      * Handles clicking the list button.
      */
@@ -342,10 +346,11 @@ public class BookRoomController implements Initializable {
                     reserveButton.setMaxHeight(24);
                     reserveButton.setOnAction(event -> {
                         try {
-                            SelectedRoom.setSelectedRoom(room);
-                            System.out.println(selectedRoom.getId());
-                            goToRoomCalendar();
-                        } catch (IOException e) {
+                            if (room != null) {
+                                setSelectedRoom(room);
+                                goToRoomCalendar();
+                            }
+                        } catch (IOException e){
                             e.printStackTrace();
                         }
                     });
