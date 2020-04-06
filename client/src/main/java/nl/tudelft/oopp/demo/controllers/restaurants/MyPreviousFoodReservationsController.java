@@ -63,12 +63,12 @@ public class MyPreviousFoodReservationsController implements Initializable {
             foodOrders = new ArrayList<>();
             foodOrders.add(null);
         }
-        
+
         Collections.sort(foodOrders);
         Collections.reverse(foodOrders);
 
         if (foodOrders.size() > 10) {
-            foodOrders = foodOrders.subList(0, 15);
+            foodOrders = foodOrders.subList(0, 10);
             foodOrderResult.addAll(foodOrders);
         } else {
             foodOrderResult.addAll(foodOrders);
