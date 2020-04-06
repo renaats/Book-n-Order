@@ -13,7 +13,7 @@ import javafx.beans.property.StringProperty;
 /**
  * Manages the BikeReservations object that is retrieved from the server
  */
-public class BikeReservation {
+public class BikeReservation implements Comparable {
     private Integer id;
     private Boolean active;
     private Bike bike;
@@ -152,6 +152,14 @@ public class BikeReservation {
         return new SimpleStringProperty(df.format(time));
     }
 
+    @Override
+    public int compareTo(Object o) {
+        long compareTime = ((RoomReservation)o).getFromTime().getTime();
+        if (this.getFromTime().getTime() > compareTime) {
+            return 1;
+        }
+        return -1;
+    }
 
     @Override
     public boolean equals(Object o) {

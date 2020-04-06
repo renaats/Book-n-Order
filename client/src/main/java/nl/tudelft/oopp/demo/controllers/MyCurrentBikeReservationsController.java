@@ -3,6 +3,7 @@ package nl.tudelft.oopp.demo.controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -68,6 +69,7 @@ public class MyCurrentBikeReservationsController implements Initializable {
                     bikeReservations.remove(bikeReservations.get(i));
                 }
             }
+            Collections.sort(bikeReservations);
         } catch (Exception e) {
             // Fakes the table having any entries, so the table shows up properly instead of "No contents".
             bikeReservations = new ArrayList<>();

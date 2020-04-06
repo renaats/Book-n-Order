@@ -6,17 +6,13 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.LongProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 /**
  * Manages the FoodOrder object that is retrieved from the server
  */
-public class FoodOrder {
+public class FoodOrder implements Comparable {
     private Integer id;
     private Boolean active;
     private Restaurant restaurant;
@@ -158,6 +154,15 @@ public class FoodOrder {
 
     public Set<Dish> getDishes() {
         return dishes;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        long compareTime = ((FoodOrder)o).getDeliveryTime().getTime();
+        if (this.getDeliveryTime().getTime() > compareTime) {
+            return 1;
+        }
+        return -1;
     }
 
     @Override
