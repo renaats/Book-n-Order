@@ -41,7 +41,7 @@ public class MyPreviousFoodReservationsController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         colRestaurant.setCellValueFactory(new PropertyValueFactory<>("getRestaurantName"));
         colDeliveryLoc.setCellValueFactory(new PropertyValueFactory<>("getDeliveryLocationName"));
-        colDate.setCellValueFactory(new PropertyValueFactory<>("getDeliveryDay"));
+        colDate.setCellValueFactory(new PropertyValueFactory<>("getDeliveryTime"));
         colYourFeedback.setCellValueFactory(new PropertyValueFactory<>("getYourFeedback"));
         loadDataIntoTable();
     }
