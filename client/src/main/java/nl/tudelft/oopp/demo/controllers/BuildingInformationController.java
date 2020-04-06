@@ -201,6 +201,10 @@ public class BuildingInformationController implements Initializable {
                 buildingSundayTo.setText(buildingHoursSunday.getEndTime().toString());
             }
         } catch (NullPointerException e) {
+            if (buildingRoomBook.getText().equals("Yes") || buildingRoomBook.getText().equals("No")) {
+                CustomAlert.warningAlert("Building has no building hours");
+                return;
+            }
             CustomAlert.warningAlert("Select a building to view its information.");
         }
     }
