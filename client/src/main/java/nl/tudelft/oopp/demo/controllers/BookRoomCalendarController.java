@@ -152,7 +152,7 @@ public class BookRoomCalendarController implements Initializable {
                 CustomAlert.warningAlert("Unfortunately booking a room in the past is impossible.");
             } else if (start.compareTo(startBuildingHours) < 0 || start.compareTo(endBuildingHours) > 0 || end.compareTo(endBuildingHours) > 0) {
                 e.getEntry().removeFromCalendar();
-                CustomAlert.warningAlert("Building is closed.");
+                CustomAlert.warningAlert("Building is closed at this hour.");
             } else {
                 entry.setTitle("New Booking");
                 fromTime.setText(start.toString());
@@ -198,12 +198,12 @@ public class BookRoomCalendarController implements Initializable {
 
                 if (ServerCommunication.addRoomReservation(SelectedRoom.getSelectedRoom().getId(), milliseconds1, milliseconds2)
                         .equals(ErrorMessages.getErrorMessage(308))) {
-                    CustomAlert.warningAlert("Slot is already booked. Please make sure you do not overlay another reservation entry.");
+                    CustomAlert.warningAlert("Slot is already booked. Please make sure you do not overlay another reservation.");
                 } else {
                     ApplicationDisplay.changeSceneWithVariables("/roomConfirmation.fxml", milliseconds1, milliseconds2);
                 }
             } catch (ParseException | IOException e) {
-                e.printStackTrace();
+                CustomAlert.errorAlert("Something went wrong! Could not reserve slot.");
             }
         }
     }
