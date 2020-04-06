@@ -166,7 +166,7 @@ public class BuildingInformationController implements Initializable {
                 buildingStreet.setText(chosenBuilding.getStreet());
                 buildingHouseNumber.setText(Integer.toString(chosenBuilding.getHouseNumber()));
                 buildingFaculty.setText(chosenBuilding.getFaculty());
-                if(chosenBuilding.hasRooms()) {
+                if (chosenBuilding.hasRooms()) {
                     buildingRoomBook.setText("Yes");
                 } else {
                     buildingRoomBook.setText("No");
