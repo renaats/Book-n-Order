@@ -55,8 +55,7 @@ public class MyCurrentFoodReservationsController implements Initializable {
         List<FoodOrder> foodOrders;
         try {
             String json = RestaurantServerCommunication.getAllFutureFoodOrders();
-            List<FoodOrder> foodOrders1 = JsonMapper.foodOrdersListMapper(json);
-            foodOrders = new ArrayList<>(foodOrders1);
+            foodOrders = JsonMapper.foodOrdersListMapper(json);
 
             Collections.sort(foodOrders);
         } catch (Exception e) {

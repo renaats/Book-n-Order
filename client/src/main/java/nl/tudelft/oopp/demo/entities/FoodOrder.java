@@ -54,8 +54,10 @@ public class FoodOrder implements Comparable {
      * @return String property, a property recognized by the tables.
      */
     public StringProperty getDeliveryLocationNameProperty() {
-        String name = getDeliveryLocation().getName();
-        return new SimpleStringProperty(name);
+        if (getDeliveryLocation() == null || getDeliveryLocation().getName() == null || getDeliveryLocation().getName().equals("")) {
+            return new SimpleStringProperty("Pick Up");
+        }
+        return new SimpleStringProperty(getDeliveryLocation().getName());
     }
 
     /**
