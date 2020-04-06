@@ -47,10 +47,10 @@
         </ImageView>
         <TableView fx:id="table" layoutX="163.0" layoutY="191.0" prefHeight="408.0" prefWidth="906.0">
             <columns>
-                <TableColumn fx:id="colFromTime" prefWidth="175" text="From (Time)" />
-                <TableColumn fx:id="colToTime" prefWidth="175" text="To (Time)" />
-                <TableColumn fx:id="colFromLoc" prefWidth="300" text="From (Location)" />
-                <TableColumn fx:id="colToLoc" prefWidth="254.0" text="To (Location)" />
+                <TableColumn fx:id="colFromTime" editable="false" maxWidth="175.0" minWidth="175.0" prefWidth="175" resizable="false" sortable="false" text="From (Time)" />
+                <TableColumn fx:id="colToTime" editable="false" maxWidth="175.0" minWidth="175.0" prefWidth="175" resizable="false" sortable="false" text="To (Time)" />
+                <TableColumn fx:id="colFromLoc" editable="false" maxWidth="300.0" minWidth="300.0" prefWidth="300" resizable="false" sortable="false" text="From (Location)" />
+                <TableColumn fx:id="colToLoc" editable="false" maxWidth="254.0" minWidth="254.0" prefWidth="254.0" resizable="false" sortable="false" text="To (Location)" />
             </columns>
         </TableView>
         <Text layoutX="420.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My Previous Bike Reservations">
