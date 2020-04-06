@@ -21,7 +21,7 @@ import nl.tudelft.oopp.demo.communication.RoomServerCommunication;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.RoomReservation;
 
-public class RoomCalendar extends CalendarView {
+public class RoomCalendarView extends CalendarView {
 
     private int roomId;
 
@@ -30,7 +30,7 @@ public class RoomCalendar extends CalendarView {
     /**
      * Constuctor for the Personal Calendar View
      */
-    public RoomCalendar(int roomId) {
+    public RoomCalendarView(int roomId) {
         this.roomId = roomId;
         displayCalendars();
     }
