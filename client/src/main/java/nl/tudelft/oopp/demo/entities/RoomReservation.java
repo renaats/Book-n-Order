@@ -114,7 +114,7 @@ public class RoomReservation implements Comparable {
     @Override
     public int compareTo(Object o) {
         long compareTime = ((RoomReservation)o).getFromTime().getTime();
-        return (int) (compareTime - this.fromTime.getTime());
+        return (int) (this.fromTime.getTime() - compareTime);
     }
 
     @Override
