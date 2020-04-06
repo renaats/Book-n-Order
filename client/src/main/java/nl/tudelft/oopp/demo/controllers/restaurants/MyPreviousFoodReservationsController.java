@@ -58,19 +58,14 @@ public class MyPreviousFoodReservationsController implements Initializable {
             String json = DishServerCommunication.getAllPreviousFoodOrders();
             List<FoodOrder> foodOrders1 = JsonMapper.foodOrdersListMapper(json);
             foodOrders = new ArrayList<>(foodOrders1);
-            for (int i = 0; i < foodOrders.size(); i++) {
-                if (!(foodOrders.get(i).getAppUser().getEmail()
-                        .equals(JsonMapper.appUserMapper(UserServerCommunication.getOwnUserInformation()).getEmail()))) {
-                    foodOrders.remove(foodOrders.get(i));
-                }
-            }
         } catch (Exception e) {
             // Fakes the table having any entries, so the table shows up properly instead of "No contents".
             foodOrders = new ArrayList<>();
             foodOrders.add(null);
         }
-
+        
         Collections.sort(foodOrders);
+        Collections.reverse(foodOrders);
 
         if (foodOrders.size() > 10) {
             foodOrders = foodOrders.subList(0, 15);
