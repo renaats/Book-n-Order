@@ -169,11 +169,6 @@ public class BuildingHourService {
         calendar.setTimeZone(TimeZone.getTimeZone("Europe/Amsterdam"));
         calendar.setTime(new Date(dateInMilliseconds));
         long day = calendar.get(Calendar.DAY_OF_WEEK);
-        if(day == 1) {
-            day = 7;
-        } else {
-            day = (day + 6) % 7;
-        }
         if (buildingHourRepository.existsByBuilding_IdAndDay(buildingId, day)) {
             return buildingHourRepository.findByBuilding_IdAndDay(buildingId, day);
         }
