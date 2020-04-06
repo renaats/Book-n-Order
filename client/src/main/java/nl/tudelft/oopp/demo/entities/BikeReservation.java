@@ -1,13 +1,17 @@
 package nl.tudelft.oopp.demo.entities;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 /**
  * Manages the BikeReservations object that is retrieved from the server
  */
-public class BikeReservation {
+public class BikeReservation implements Comparable {
     private Integer id;
     private Boolean active;
     private Bike bike;
@@ -99,6 +103,53 @@ public class BikeReservation {
         return toTime;
     }
 
+    /**
+     * Makes the table list the building name instead of the building object
+     * @return String property, a property recognized by the tables.
+     */
+    public StringProperty getFromBuildingNameProperty() {
+        String name = getFromBuilding().getName();
+        return new SimpleStringProperty(name);
+    }
+
+    /**
+     * Makes the table list the building name instead of the building object
+     * @return String property, a property recognized by the tables.
+     */
+    public StringProperty getToBuildingNameProperty() {
+        String name = getToBuilding().getName();
+        return new SimpleStringProperty(name);
+    }
+
+    /**
+     * Makes the table list the date in a readable way instead of the time object.
+     * @return String property, a property recognized by the tables.
+     */
+    public StringProperty getFromTimeProperty() {
+        Date time = getFromTime();
+        DateFormat df = new SimpleDateFormat("dd MMMMM yyyy HH:mm");
+        return new SimpleStringProperty(df.format(time));
+    }
+
+    /**
+     * Makes the table list the date in a readable way instead of the time object.
+     * @return String property, a property recognized by the tables.
+     */
+    public StringProperty getToTimeProperty() {
+        Date time = getToTime();
+        DateFormat df = new SimpleDateFormat("dd MMMMM yyyy HH:mm");
+        return new SimpleStringProperty(df.format(time));
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        long compareTime = ((BikeReservation)o).getFromTime().getTime();
+        if (this.getFromTime().getTime() > compareTime) {
+            return 1;
+        }
+        return -1;
+    }
+    
     public String getFromTimeString() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd  HH:mm");
         return simpleDateFormat.format(fromTime);
