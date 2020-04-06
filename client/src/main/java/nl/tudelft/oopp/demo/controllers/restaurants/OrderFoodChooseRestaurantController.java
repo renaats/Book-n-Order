@@ -56,86 +56,46 @@ public class OrderFoodChooseRestaurantController implements Initializable {
     private List<Allergy> currentAllergies;
     private List<Allergy> selectedDiets;
 
-    @FXML
-    public TableView<Restaurant> restaurantTable;
-    @FXML
-    public TableView<Dish> dishTable;
-    @FXML
-    public TableView<Dish> orderTable;
-    @FXML
-    public TableView<Allergy> allergyTable;
-    @FXML
-    public TableView<Allergy> allDietTable;
-    @FXML
-    public TableView<Allergy> selectedDietTable;
-    @FXML
-    private TableColumn<Restaurant,Integer> colRestaurantScore;
-    @FXML
-    public TableColumn<Restaurant, String> colRestaurantName;
-    @FXML
-    public TableColumn<Restaurant, Building> colRestaurantBuilding;
-    @FXML
-    public TableColumn<Dish, String> colDishName;
-    @FXML
-    public TableColumn<Dish, String> colDishPrice;
-    @FXML
-    public TableColumn<Dish, String> colOrderDishName;
-    @FXML
-    public TableColumn<Dish, String> colOrderPrice;
-    @FXML
-    public TableColumn<Dish, Integer> colOrderAmount;
-    @FXML
-    public TableColumn<Allergy, String> colAllergy;
-    @FXML
-    public TableColumn<Allergy, String> colAllDiet;
-    @FXML
-    public TableColumn<Allergy, String> colSelectedDiet;
-    @FXML
-    public ChoiceBox<String> buildingChoiceBox;
-    @FXML
-    public TextField restaurantName;
-    @FXML
-    public TextField dishName;
-    @FXML
-    public TextField fromPrice;
-    @FXML
-    public TextField toPrice;
-    @FXML
-    private Text pagesTextRestaurant;
-    @FXML
-    private Text pagesTextDish;
-    @FXML
-    private Text pagesTextOrder;
-    @FXML
-    private Text pagesTextAllergy;
-    @FXML
-    private Text pagesTextAllDiet;
-    @FXML
-    private Text pagesTextSelectedDiet;
-    @FXML
-    private AnchorPane anchorPane;
-    @FXML
-    private Text totalCost;
-    @FXML
-    private Button viewAllergyButton;
-    @FXML
-    private Button nextPageAllergyButton;
-    @FXML
-    private Button previousPageAllergyButton;
-    @FXML
-    private Button nextPageOrderButton;
-    @FXML
-    private Button previousPageOrderButton;
-    @FXML
-    private Button nextPageAllDietButton;
-    @FXML
-    private Button previousPageAllDietButton;
-    @FXML
-    private Button nextPageSelectedDietButton;
-    @FXML
-    private Button previousPageSelectedDietButton;
-    @FXML
-    private Button filterDietsButton;
+    @FXML public TableView<Restaurant> restaurantTable;
+    @FXML public TableView<Dish> dishTable;
+    @FXML public TableView<Dish> orderTable;
+    @FXML public TableView<Allergy> allergyTable;
+    @FXML public TableView<Allergy> allDietTable;
+    @FXML public TableView<Allergy> selectedDietTable;
+    @FXML public TableColumn<Restaurant, String> colRestaurantName;
+    @FXML public TableColumn<Restaurant, Integer> colRestaurantScore;
+    @FXML public TableColumn<Restaurant, Building> colRestaurantBuilding;
+    @FXML public TableColumn<Dish, String> colDishName;
+    @FXML public TableColumn<Dish, String> colDishPrice;
+    @FXML public TableColumn<Dish, String> colOrderDishName;
+    @FXML public TableColumn<Dish, String> colOrderPrice;
+    @FXML public TableColumn<Dish, Integer> colOrderAmount;
+    @FXML public TableColumn<Allergy, String> colAllergy;
+    @FXML public TableColumn<Allergy, String> colAllDiet;
+    @FXML public TableColumn<Allergy, String> colSelectedDiet;
+    @FXML public ChoiceBox<String> buildingChoiceBox;
+    @FXML public TextField restaurantName;
+    @FXML public TextField dishName;
+    @FXML public TextField fromPrice;
+    @FXML public TextField toPrice;
+    @FXML private Text pagesTextRestaurant;
+    @FXML private Text pagesTextDish;
+    @FXML private Text pagesTextOrder;
+    @FXML private Text pagesTextAllergy;
+    @FXML private Text pagesTextAllDiet;
+    @FXML private Text pagesTextSelectedDiet;
+    @FXML private AnchorPane anchorPane;
+    @FXML private Text totalCost;
+    @FXML private Button viewAllergyButton;
+    @FXML private Button nextPageAllergyButton;
+    @FXML private Button previousPageAllergyButton;
+    @FXML private Button nextPageOrderButton;
+    @FXML private Button previousPageOrderButton;
+    @FXML private Button nextPageAllDietButton;
+    @FXML private Button previousPageAllDietButton;
+    @FXML private Button nextPageSelectedDietButton;
+    @FXML private Button previousPageSelectedDietButton;
+    @FXML private Button filterDietsButton;
 
     private int restaurantPageNumber;
     private int totalRestaurantPages;
