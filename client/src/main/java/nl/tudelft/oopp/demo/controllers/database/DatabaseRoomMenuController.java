@@ -182,8 +182,8 @@ public class DatabaseRoomMenuController implements Initializable {
      */
     public void findRoom() {
         if (roomFindTextField.getText().isEmpty()) {
-           CustomAlert.warningAlert("Please provide an ID or name of the room.");
-           return;
+            CustomAlert.warningAlert("Please provide an ID or name of the room.");
+            return;
         }
         try {
             int id = Integer.parseInt(roomFindTextField.getText());

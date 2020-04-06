@@ -110,7 +110,7 @@ public class DatabaseRoomReservationController implements Initializable {
      * @throws IOException Should never throw the exception
      */
     public void goToRestaurantMenu() throws IOException {
-        ApplicationDisplay.changeScene("/DatabaseRestaurantMenu.fxml");
+        ApplicationDisplay.changeScene("/DatabaseRoomMenu.fxml");
     }
 
     /**

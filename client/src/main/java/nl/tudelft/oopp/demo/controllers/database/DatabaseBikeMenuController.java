@@ -167,8 +167,8 @@ public class DatabaseBikeMenuController implements Initializable {
                 table.setItems(bikeResult);
                 pagesText.setText("1 / 1 pages");
             }
-        } catch (Exception e) {
-            CustomAlert.errorAlert("No selection detected.");
+        } catch (NumberFormatException e) {
+            CustomAlert.warningAlert("Bike ID has to be an integer.");
         }
     }
 
