@@ -78,7 +78,7 @@ public class BikeReservationService {
 
         Bike bike = null;
         for (Bike loopBike: bikeRepository.findAll()) {
-            if (!loopBike.hasBikeReservationBetween(new Date(fromTimeMs), new Date(toTimeMs))) {
+            if (loopBike.isAvailable() && !loopBike.hasBikeReservationBetween(new Date(fromTimeMs), new Date(toTimeMs))) {
                 bike = loopBike;
                 break;
             }
