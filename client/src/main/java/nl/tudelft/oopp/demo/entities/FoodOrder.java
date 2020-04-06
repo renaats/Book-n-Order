@@ -23,8 +23,6 @@ public class FoodOrder implements Comparable {
     private boolean feedback;
     private boolean feedbackHasBeenGiven;
     private Set<DishOrder> dishOrders;
-    private boolean feedback;
-    private boolean feedbackHasBeenGiven;
 
     /** Creates a new instance of FoodOrder.
      * @param restaurant the restaurant at which the food order is placed.
