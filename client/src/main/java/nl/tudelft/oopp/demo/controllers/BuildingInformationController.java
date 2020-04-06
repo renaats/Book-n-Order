@@ -203,8 +203,8 @@ public class BuildingInformationController implements Initializable {
             }
         } catch (NullPointerException | JsonProcessingException e) {
             if (buildingMondayFrom.getText().equals(".") || buildingTuesdayFrom.getText().equals(".") || buildingWednesdayFrom.getText().equals(".")
-                    || buildingThursdayFrom.getText().equals(".") || buildingFridayFrom.getText().equals(".") || buildingSaturdayFrom.getText().equals(".")
-                    || buildingSundayFrom.getText().equals(".")) {
+                    || buildingThursdayFrom.getText().equals(".") || buildingFridayFrom.getText().equals(".")
+                    || buildingSaturdayFrom.getText().equals(".") || buildingSundayFrom.getText().equals(".")) {
                 CustomAlert.warningAlert("Building has no, or only some, building hours.");
                 return;
             }
