@@ -45,7 +45,7 @@
                 <Cursor fx:constant="HAND" />
             </cursor>
         </ImageView>
-        <TableView layoutX="327.0" layoutY="198.0" prefHeight="380.0" prefWidth="626.0">
+        <TableView fx:id="table" layoutX="332.0" layoutY="193.0" prefHeight="408.0" prefWidth="907.0">
             <columns>
                 <TableColumn fx:id="colRestaurant" prefWidth="285.6666564941406" text="Restaurant" />
                 <TableColumn fx:id="colDeliveryLoc" prefWidth="257.0" text="Delivery Location" />
