@@ -63,20 +63,20 @@
          <Font size="26.0" />
       </font>
    </Text>
-   <TableView fx:id="table" layoutX="732.0" layoutY="217.0" prefHeight="386.0" prefWidth="387.0" stylesheets="@Table.css">
+   <TableView fx:id="table" layoutX="664.0" layoutY="217.0" prefHeight="386.0" prefWidth="468.0" stylesheets="@Table.css">
      <columns>
-       <TableColumn fx:id="colName" maxWidth="129.0" prefWidth="129.0" text="Name" />
-       <TableColumn fx:id="colStreet" maxWidth="129.0" prefWidth="129.0" text="Street" />
-         <TableColumn fx:id="colHouseNumber" maxWidth="129.0" prefWidth="129.0" text="House Number" />
+       <TableColumn fx:id="colName" maxWidth="174.0" prefWidth="173.0" text="Name" />
+       <TableColumn fx:id="colStreet" maxWidth="220.0" prefWidth="180.0" text="Street" />
+         <TableColumn fx:id="colHouseNumber" maxWidth="141.0" prefWidth="112.0" text="House Number" />
      </columns>
    </TableView>
-   <Button fx:id="previousPageButton" layoutX="853.0" layoutY="614.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#previousPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&lt;&lt;" textFill="WHITE">
+   <Button fx:id="previousPageButton" layoutX="809.0" layoutY="614.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#previousPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&lt;&lt;" textFill="WHITE">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor>
    </Button>
-   <Text fx:id="pagesText" layoutX="910.0" layoutY="631.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0 / pages" />
-   <Button fx:id="nextPageButton" layoutX="981.0" layoutY="613.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#nextPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&gt;&gt;" textFill="WHITE">
+   <Text fx:id="pagesText" layoutX="888.0" layoutY="631.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0 / pages" />
+   <Button fx:id="nextPageButton" layoutX="979.0" layoutY="613.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#nextPage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #00a6d6;" text="&gt;&gt;" textFill="WHITE">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor>
@@ -261,7 +261,7 @@
          <Font size="14.0" />
       </font>
    </Text>
-   <Button fx:id="loadBuildingInfo" layoutX="1136.0" layoutY="287.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#showInformation" prefHeight="26.0" prefWidth="120.0" style="-fx-background-color: #00a6d6;" text="Load Building Info" textFill="WHITE">
+   <Button fx:id="loadBuildingInfo" layoutX="1143.0" layoutY="242.0" maxHeight="26.0" maxWidth="200.0" minHeight="25.0" minWidth="36.0" mnemonicParsing="false" onAction="#showInformation" prefHeight="26.0" prefWidth="120.0" style="-fx-background-color: #00a6d6;" text="Load Building Info" textFill="WHITE">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor>
