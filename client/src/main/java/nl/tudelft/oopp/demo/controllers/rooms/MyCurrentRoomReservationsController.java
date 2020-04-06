@@ -60,12 +60,7 @@ public class MyCurrentRoomReservationsController implements Initializable {
             String json = RoomServerCommunication.getAllFutureRoomReservations();
             List<RoomReservation> roomReservations1 = JsonMapper.roomReservationsListMapper(json);
             roomReservations = new ArrayList<>(roomReservations1);
-            for (int i = 0; i < roomReservations.size(); i++) {
-                if (!(roomReservations.get(i).getAppUser().getEmail()
-                        .equals(JsonMapper.appUserMapper(UserServerCommunication.getOwnUserInformation()).getEmail()))) {
-                    roomReservations.remove(roomReservations.get(i));
-                }
-            }
+
             Collections.sort(roomReservations);
         } catch (Exception e) {
             // Fakes the table having any entries, so the table shows up properly instead of "No contents".

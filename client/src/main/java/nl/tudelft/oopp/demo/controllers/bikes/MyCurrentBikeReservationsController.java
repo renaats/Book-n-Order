@@ -63,12 +63,7 @@ public class MyCurrentBikeReservationsController implements Initializable {
             String json = BikeServerCommunication.getAllFutureBikeReservations();
             List<BikeReservation> bikeReservations1 = JsonMapper.bikeReservationsListMapper(json);
             bikeReservations = new ArrayList<>(bikeReservations1);
-            for (int i = 0; i < bikeReservations.size(); i++) {
-                if (!(bikeReservations.get(i).getAppUser().getEmail()
-                        .equals(JsonMapper.appUserMapper(UserServerCommunication.getOwnUserInformation()).getEmail()))) {
-                    bikeReservations.remove(bikeReservations.get(i));
-                }
-            }
+            
             Collections.sort(bikeReservations);
         } catch (Exception e) {
             // Fakes the table having any entries, so the table shows up properly instead of "No contents".

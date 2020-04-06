@@ -57,17 +57,11 @@ public class MyCurrentFoodReservationsController implements Initializable {
             String json = RestaurantServerCommunication.getAllFutureFoodOrders();
             List<FoodOrder> foodOrders1 = JsonMapper.foodOrdersListMapper(json);
             foodOrders = new ArrayList<>(foodOrders1);
-            for (int i = 0; i < foodOrders.size(); i++) {
-                if (!(foodOrders.get(i).getAppUser().getEmail()
-                        .equals(JsonMapper.appUserMapper(UserServerCommunication.getOwnUserInformation()).getEmail()))) {
-                    foodOrders.remove(foodOrders.get(i));
-                }
-            }
+
             Collections.sort(foodOrders);
         } catch (Exception e) {
             // Fakes the table having any entries, so the table shows up properly instead of "No contents".
             foodOrders = new ArrayList<>();
-            foodOrders.add(null);
         }
         foodOrderResult.addAll(foodOrders);
         table.setItems(foodOrderResult);
