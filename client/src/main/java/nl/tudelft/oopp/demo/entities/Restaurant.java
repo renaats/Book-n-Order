@@ -1,9 +1,17 @@
 package nl.tudelft.oopp.demo.entities;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
+
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 /**
- * Manages the Restaurant object that is retrieved from the server
+ * Represents a restaurant. Holds all necessary information about the restaurant that is then stored in the database.
+ * Is uniquely identified by its id.
+ * Contains Building as a foreign key.
+ * Contains Menu as a foreign key.
  */
 public class Restaurant {
     private int id;
@@ -17,17 +25,21 @@ public class Restaurant {
      * Creates a new instance of Restaurant.
      * @param building = building in which restaurant is located.
      * @param name = name of the restaurant.
-     * @param menu = menu of the restaurant.
      */
-    public Restaurant(Building building, String name, String email, Menu menu) {
+    public Restaurant(Building building, String name, String email) {
         this.building = building;
         this.name = name;
         this.email = email;
-        this.menu = menu;
     }
 
     public Restaurant() {
 
+    }
+
+    Set<RestaurantHours> restaurantHours = new HashSet<>();
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setBuilding(Building building) {
@@ -44,10 +56,6 @@ public class Restaurant {
 
     public void setMenu(Menu menu) {
         this.menu = menu;
-    }
-
-    public Menu getMenu() {
-        return menu;
     }
 
     public int getId() {
@@ -72,6 +80,19 @@ public class Restaurant {
 
     public void setFeedbackCounter(int feedbackCounter) {
         this.feedbackCounter = feedbackCounter;
+    }
+    
+    public Menu getMenu() {
+        return menu;
+    }
+
+    /**
+     * Makes the table list the building name instead of the building object
+     * @return String property, a property recognized by the tables.
+     */
+    public StringProperty getBuildingNameProperty() {
+        String name = getBuilding().getName();
+        return new SimpleStringProperty(name);
     }
 
     @Override

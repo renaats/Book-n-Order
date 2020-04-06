@@ -63,6 +63,18 @@ public class DishController {
     }
 
     /**
+     * Remove an allergy from a dish.
+     * @param id = the id of the dish.
+     * @param allergyName = the name of the allergy.
+     */
+    @Secured({ADMIN, RESTAURANT})
+    @PostMapping(path = "/removeAllergy")
+    @ResponseBody
+    public int removeAllergy(@RequestParam int id, @RequestParam String allergyName) {
+        return dishService.removeAllergy(id, allergyName);
+    }
+
+    /**
      * Updates a specified attribute for a dish.
      * @param id = the id of the food order.
      * @param attribute = the attribute whose value is changed.
@@ -99,5 +111,28 @@ public class DishController {
     @ResponseBody
     public List<Dish> search(@RequestParam String query) {
         return dishService.search(query);
+    }
+
+    /**
+     * Lists all dishes.
+     * @return all dishes
+     */
+    @Secured(USER)
+    @GetMapping(path = "/all")
+    @ResponseBody
+    public Iterable<Dish> getAllDishes() {
+        return dishService.all();
+    }
+
+    /**
+     * Lists all dishes from a specific menu.
+     * @param menuId the id of the menu
+     * @return all dishes from the menu
+     */
+    @Secured(USER)
+    @GetMapping(path = "/fromMenu/{menuId}")
+    @ResponseBody
+    public Iterable<Dish> getAllDishesFromMenu(@PathVariable(value = "menuId") int menuId) {
+        return dishService.findByMenu(menuId);
     }
 }

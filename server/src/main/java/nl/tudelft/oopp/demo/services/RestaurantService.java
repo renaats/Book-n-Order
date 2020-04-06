@@ -4,6 +4,7 @@ import static nl.tudelft.oopp.demo.config.Constants.ADDED;
 import static nl.tudelft.oopp.demo.config.Constants.ADMIN;
 import static nl.tudelft.oopp.demo.config.Constants.ATTRIBUTE_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.BUILDING_NOT_FOUND;
+import static nl.tudelft.oopp.demo.config.Constants.DUPLICATE_NAME;
 import static nl.tudelft.oopp.demo.config.Constants.EXECUTED;
 import static nl.tudelft.oopp.demo.config.Constants.RESTAURANT_NOT_FOUND;
 import static nl.tudelft.oopp.demo.config.Constants.WRONG_CREDENTIALS;
@@ -70,6 +71,9 @@ public class RestaurantService {
         if (optionalBuilding.isEmpty()) {
             return BUILDING_NOT_FOUND;
         }
+        if (restaurantRepository.existsByName(name)) {
+            return DUPLICATE_NAME;
+        }
 
         Restaurant restaurant = new Restaurant();
         restaurant.setBuilding(optionalBuilding.get());
@@ -98,6 +102,9 @@ public class RestaurantService {
 
         switch (attribute) {
             case "name":
+                if (restaurantRepository.existsByName(value)) {
+                    return DUPLICATE_NAME;
+                }
                 restaurant.setName(value);
                 break;
             case "building":
@@ -153,6 +160,10 @@ public class RestaurantService {
         AppUser appUser = UserService.getAppUser(token, userRepository);
         if (appUser == null) {
             return null;
+        }
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        if (securityContext.getAuthentication().getAuthorities().contains(new SimpleGrantedAuthority(ADMIN))) {
+            return restaurantRepository.findAll();
         }
         return restaurantRepository.findAllByEmail(appUser.getEmail());
     }

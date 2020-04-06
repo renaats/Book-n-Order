@@ -1,5 +1,7 @@
 package nl.tudelft.oopp.demo.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
@@ -11,8 +13,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -57,8 +59,9 @@ public class FoodOrder {
     @Temporal(TemporalType.TIMESTAMP)
     private Date deliveryTime;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    private Set<Dish> dishes;
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "foodOrder")
+    private Set<DishOrder> dishOrders = new HashSet<>();
 
     private boolean feedback;
     private boolean feedbackHasBeenGiven;
@@ -78,6 +81,7 @@ public class FoodOrder {
         this.active = true;
         this.dishes = new HashSet<>();
         this.feedbackHasBeenGiven = false;
+        this.dishOrders = new HashSet<>();
     }
 
     public FoodOrder() {
@@ -104,12 +108,12 @@ public class FoodOrder {
         this.deliveryTime = deliveryTime;
     }
 
-    public void setDishes(Set<Dish> dishes) {
-        this.dishes = dishes;
+    public void setDishOrders(Set<DishOrder> dishOrders) {
+        this.dishOrders = dishOrders;
     }
 
-    public void addDish(Dish dish) {
-        dishes.add(dish);
+    public void addDishOrder(DishOrder dishOrder) {
+        dishOrders.add(dishOrder);
     }
 
     public Integer getId() {
@@ -136,8 +140,8 @@ public class FoodOrder {
         return deliveryTime;
     }
 
-    public Set<Dish> getDishes() {
-        return dishes;
+    public Set<DishOrder> getDishOrders() {
+        return dishOrders;
     }
 
     public Menu getMenu() {
@@ -178,6 +182,6 @@ public class FoodOrder {
                 && Objects.equals(appUser, that.appUser)
                 && Objects.equals(deliveryLocation, that.deliveryLocation)
                 && Objects.equals(deliveryTime, that.deliveryTime)
-                && Objects.equals(dishes, that.dishes);
+                && Objects.equals(dishOrders, that.dishOrders);
     }
 }

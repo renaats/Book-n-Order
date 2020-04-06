@@ -1,10 +1,22 @@
 package nl.tudelft.oopp.demo.communication;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URI;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
+import nl.tudelft.oopp.demo.authentication.AuthenticationKey;
 import nl.tudelft.oopp.demo.errors.ErrorMessages;
+import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
  * Controls all client to server communication
@@ -31,6 +43,9 @@ public class ServerCommunication {
         }
         if (response.statusCode() == 403) {
             return ErrorMessages.getErrorMessage(401);
+        }
+        if (Integer.parseInt(response.body()) >= 1000) {
+            return response.body();
         }
         return ErrorMessages.getErrorMessage(Integer.parseInt(response.body()));
     }

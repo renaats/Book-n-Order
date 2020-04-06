@@ -46,6 +46,7 @@ public class RoomController {
      * @param projector = boolean representing the availability of a projector.
      * @param capacity = the number of people this room fits.
      * @param plugs = the number of plugs in this room.
+     * @param status = the status of the room.
      * @return Error code
      */
     @Secured({ADMIN, BUILDING_ADMIN})
@@ -58,9 +59,10 @@ public class RoomController {
             @RequestParam boolean projector,
             @RequestParam int buildingId,
             @RequestParam int capacity,
-            @RequestParam int plugs) {
+            @RequestParam int plugs,
+            @RequestParam String status) {
         return roomService.add(name, URLDecoder.decode(studySpecific, StandardCharsets.UTF_8), screen,
-                projector, buildingId, capacity, plugs);
+                projector, buildingId, capacity, plugs, status);
     }
 
     /**
@@ -110,6 +112,18 @@ public class RoomController {
     @ResponseBody
     public Room findRoom(@PathVariable (value = "roomId") int id) {
         return roomService.find(id);
+    }
+
+    /**
+     * Retrieves a room with the specified name.
+     * @param name = the room name.
+     * @return Room that matches the name.
+     */
+    @Secured(USER)
+    @GetMapping(path = "/findName/{roomName}")
+    @ResponseBody
+    public Room findRoomByName(@PathVariable (value = "roomName") String name) {
+        return roomService.findByName(name);
     }
 
     /**

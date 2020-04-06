@@ -129,6 +129,16 @@ public class RoomReservation implements Comparable {
         return -1;
     }
 
+    public String getFromTimeString() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd  HH:mm");
+        return simpleDateFormat.format(fromTime);
+    }
+
+    public String getToTimeString() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd  HH:mm");
+        return simpleDateFormat.format(toTime);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -138,7 +148,7 @@ public class RoomReservation implements Comparable {
             return false;
         }
         RoomReservation that = (RoomReservation) o;
-        return active == this.active
+        return active == that.active
                 && Objects.equals(room, that.room)
                 && Objects.equals(appUser, that.appUser)
                 && Objects.equals(fromTime, that.fromTime)

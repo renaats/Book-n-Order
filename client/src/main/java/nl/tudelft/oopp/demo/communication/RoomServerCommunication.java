@@ -47,13 +47,14 @@ public class RoomServerCommunication {
      * @param projector does the room have a projector.
      * @param capacity capacity of the room in people.
      * @param plugs amount of available plugs.
+     * @param status status of the room.
      * @return the error message corresponding to the server's response.
      */
     public static String addRoom(String name,
                                  int buildingId, String studySpecific,
                                  boolean screen, boolean projector,
-                                 int capacity, int plugs) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room/add?name=" + URLEncoder.encode(name, StandardCharsets.UTF_8) + "&studySpecific=" + URLEncoder.encode(studySpecific, StandardCharsets.UTF_8) + "&screen=" + screen + "&projector=" + projector + "&buildingId=" + buildingId + "&capacity=" + capacity + "&plugs=" + plugs)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+                                 int capacity, int plugs, String status) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room/add?name=" + URLEncoder.encode(name, StandardCharsets.UTF_8) + "&studySpecific=" + URLEncoder.encode(studySpecific, StandardCharsets.UTF_8) + "&screen=" + screen + "&projector=" + projector + "&buildingId=" + buildingId + "&capacity=" + capacity + "&plugs=" + plugs + "&status=" + status)).POST(HttpRequest.BodyPublishers.noBody()).header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnErrorMessage(request);
     }
 
@@ -63,7 +64,7 @@ public class RoomServerCommunication {
      * @return A JSON list of rooms matching the query.
      */
     public static String filterRooms(String query) {
-        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/room/filter?query=" + query)).build();
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/room/filter?query=" + URLEncoder.encode(query, StandardCharsets.UTF_8))).build();
         return communicateAndReturnBodyOfResponse(request);
     }
 
@@ -74,6 +75,16 @@ public class RoomServerCommunication {
      */
     public static String findRoom(int roomId) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room/find/" + roomId)).GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Retrieves a room by given name.
+     * @param name = the name of the room.
+     * @return The body of the response from the server.
+     */
+    public static String findRoomByName(String name) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room/findName/" + URLEncoder.encode(name, StandardCharsets.UTF_8))).GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnBodyOfResponse(request);
     }
 
@@ -111,6 +122,26 @@ public class RoomServerCommunication {
      */
     public static String getAllPreviousRoomReservations() {
         HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/room_reservation/past")).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Retrieves all future and current room reservations for some room.
+     * @param roomId the id of the room.
+     * @return the body of the response from the server.
+     */
+    public static String getAllFutureRoomReservationsForRoom(int roomId) {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/room_reservation/futureAdmin?roomId=" + roomId)).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
+
+    /**
+     * Retrieves all previous room reservations for some room.
+     * @param roomId the id of the room.
+     * @return the body of the response from the server.
+     */
+    public static String getAllPreviousRoomReservationsForRoom(int roomId) {
+        HttpRequest request = HttpRequest.newBuilder().GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).uri(URI.create("http://localhost:8080/room_reservation/pastAdmin?roomId=" + roomId)).build();
         return communicateAndReturnBodyOfResponse(request);
     }
 
@@ -175,5 +206,15 @@ public class RoomServerCommunication {
     public static String deleteRoom(int id) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room/delete/" + id)).DELETE().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnErrorMessage(request);
+    }
+
+    /**
+     * Finds reservations for a specific room.
+     * @param id = id of the room.
+     * @return the body of the response from the server.
+     */
+    public static String findReservationForRoom(int id) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room_reservation/room/" + id)).GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
     }
 }

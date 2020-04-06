@@ -4,6 +4,7 @@ import com.calendarfx.model.Calendar;
 import com.calendarfx.model.CalendarSource;
 import com.calendarfx.model.Entry;
 import com.calendarfx.view.CalendarView;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -16,8 +17,8 @@ import java.util.List;
 import java.util.Objects;
 
 import nl.tudelft.oopp.demo.communication.BikeServerCommunication;
-import nl.tudelft.oopp.demo.communication.DishServerCommunication;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
+import nl.tudelft.oopp.demo.communication.RestaurantServerCommunication;
 import nl.tudelft.oopp.demo.communication.RoomServerCommunication;
 import nl.tudelft.oopp.demo.entities.BikeReservation;
 import nl.tudelft.oopp.demo.entities.FoodOrder;
@@ -30,7 +31,7 @@ public class PersonalCalendarView extends CalendarView {
     Calendar rentedBikes = new Calendar("Bike Rent");
 
     /**
-     * Constuctor for the Personal Calendar View
+     * Constructor for the Personal Calendar View
      */
     public PersonalCalendarView() {
         displayCalendars();
@@ -47,7 +48,7 @@ public class PersonalCalendarView extends CalendarView {
         try {
             String roomReservationJson = RoomServerCommunication.getAllActiveRoomReservations();
             roomReservationList = new ArrayList<>(Objects.requireNonNull(JsonMapper.roomReservationsListMapper(roomReservationJson)));
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | JsonProcessingException e) {
             roomReservationList = new ArrayList<>();
             roomReservationList.add(null);
         }
@@ -58,10 +59,11 @@ public class PersonalCalendarView extends CalendarView {
 
                 LocalTime startTime = convertToLocalTime(reservation.getFromTime());
                 LocalTime endTime = convertToLocalTime(reservation.getToTime());
-                LocalDate date = convertToLocalDate(reservation.getFromTime());
+                LocalDate fromDate = convertToLocalDate(reservation.getFromTime());
+                LocalDate toDate = convertToLocalDate(reservation.getToTime());
 
                 bookedEntry.setLocation(reservation.getRoom().getBuilding().getName());
-                bookedEntry.setInterval(date);
+                bookedEntry.setInterval(fromDate, toDate);
                 bookedEntry.setInterval(startTime, endTime);
                 bookedRooms.addEntry(bookedEntry);
             }
@@ -76,8 +78,8 @@ public class PersonalCalendarView extends CalendarView {
 
         try {
             foodOrderList = new ArrayList<>(Objects.requireNonNull(
-                    JsonMapper.foodOrdersListMapper(DishServerCommunication.getAllActiveFoodOrders())));
-        } catch (NullPointerException e) {
+                    JsonMapper.foodOrdersListMapper(RestaurantServerCommunication.getAllActiveFoodOrders())));
+        } catch (Exception e) {
             foodOrderList = new ArrayList<>();
             foodOrderList.add(null);
         }
@@ -90,8 +92,17 @@ public class PersonalCalendarView extends CalendarView {
                 LocalTime endTime = convertToLocalTime(foodOrder.getDeliveryTime());
                 LocalDate date = convertToLocalDate(foodOrder.getDeliveryTime());
 
-                bookedEntry.setLocation(foodOrder.getDeliveryLocation().getName());
-                bookedEntry.setInterval(date);
+                if (foodOrder.getDeliveryLocation() == null) {
+                    bookedEntry.setLocation(foodOrder.getRestaurant().getBuilding().getName());
+                } else {
+                    bookedEntry.setLocation(foodOrder.getDeliveryLocation().getName());
+                }
+
+                if (startTime.isAfter(endTime)) {
+                    bookedEntry.setInterval(date.minusDays(1), date);
+                } else {
+                    bookedEntry.setInterval(date);
+                }
                 bookedEntry.setInterval(startTime, endTime);
                 orderedFood.addEntry(bookedEntry);
             }
@@ -107,7 +118,7 @@ public class PersonalCalendarView extends CalendarView {
         try {
             String bikeReservationJson = BikeServerCommunication.getAllActiveBikeReservations();
             bikeReservationList = new ArrayList<>(Objects.requireNonNull(JsonMapper.bikeReservationsListMapper(bikeReservationJson)));
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | JsonProcessingException e) {
             bikeReservationList = new ArrayList<>();
             bikeReservationList.add(null);
         }
@@ -118,10 +129,11 @@ public class PersonalCalendarView extends CalendarView {
 
                 LocalTime startTime = convertToLocalTime(reservation.getFromTime());
                 LocalTime endTime = convertToLocalTime(reservation.getToTime());
-                LocalDate date = convertToLocalDate(reservation.getFromTime());
+                LocalDate fromDate = convertToLocalDate(reservation.getFromTime());
+                LocalDate toDate = convertToLocalDate(reservation.getToTime());
 
                 bookedEntry.setLocation(reservation.getFromBuilding().getName());
-                bookedEntry.setInterval(date);
+                bookedEntry.setInterval(fromDate, toDate);
                 bookedEntry.setInterval(startTime, endTime);
                 rentedBikes.addEntry(bookedEntry);
             }

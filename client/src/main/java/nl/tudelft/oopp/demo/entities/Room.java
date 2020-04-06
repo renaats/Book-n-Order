@@ -18,6 +18,7 @@ public class Room {
     private Building building;
     private String faculty;
     private String studySpecific;
+    private String status;
     private boolean projector;
     private boolean screen;
     private int capacity;
@@ -35,16 +36,18 @@ public class Room {
      * @param screen = whether the room has a screen.
      * @param capacity = number of people who can sit in the room.
      * @param plugs = number of plugs in the room.
+     * @param status = the status of the room.
      */
-    public Room(String name, Building building, String faculty, String studySpecific, boolean projector, boolean screen, int capacity, int plugs) {
+     
+    public Room(String name, Building building, String studySpecific, boolean projector, boolean screen, int capacity, int plugs, String status) {
         this.name = name;
         this.building = building;
-        this.faculty = faculty;
         this.studySpecific = studySpecific;
         this.projector = projector;
         this.screen = screen;
         this.capacity = capacity;
         this.plugs = plugs;
+        this.status = status;
     }
 
     public Room() {
@@ -87,6 +90,21 @@ public class Room {
         this.roomReservations = roomReservations;
     }
 
+    public void setStudySpecific(String studySpecific) {
+        this.studySpecific = studySpecific;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getStudySpecific() {
+        return studySpecific;
+    }
+
+    public String getStatus() {
+        return status;
+    }
 
     public Integer getId() {
         return id;
@@ -98,6 +116,10 @@ public class Room {
 
     public Building getBuilding() {
         return building;
+    }
+
+    public String getBuildingName() {
+        return building.getName();
     }
 
     /**
@@ -164,19 +186,19 @@ public class Room {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof Room)) {
             return false;
         }
         Room room = (Room) o;
-        return studySpecific == room.studySpecific
-                && projector == room.projector
+        return projector == room.projector
                 && screen == room.screen
                 && capacity == room.capacity
                 && plugs == room.plugs
+                && Objects.equals(id, room.id)
                 && Objects.equals(name, room.name)
                 && Objects.equals(building, room.building)
-                && Objects.equals(faculty, room.faculty)
+                && Objects.equals(studySpecific, room.studySpecific)
+                && Objects.equals(status, room.status)
                 && Objects.equals(roomReservations, room.roomReservations);
     }
-
 }

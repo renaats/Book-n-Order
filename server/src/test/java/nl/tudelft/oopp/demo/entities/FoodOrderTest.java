@@ -64,7 +64,7 @@ public class FoodOrderTest {
         deliveryLocation = new Building("EWI", "Mekelweg", "EWI", 4);
         buildingRepository.saveAndFlush(deliveryLocation);
 
-        appUser = new AppUser("l.j.jongejans@student.tudelft.nl", "1234", "Liselotte", "Jongejans", "EWI");
+        appUser = new AppUser("l.j.jongejans@student.tudelft.nl", "1234", "Liselotte", "Jongejans", "EWI", "CSE");
         appUser.setRoomReservations(new HashSet<>());
         userRepository.saveAndFlush(appUser);
 
@@ -155,6 +155,27 @@ public class FoodOrderTest {
     public void testGetActive() {
         foodOrder2 = foodOrderRepository.findAll().get(0);
         assertTrue(foodOrder2.isActive());
+    }
+
+    /**
+     * Tests the getter for the DishOrders.
+     */
+    @Test
+    public void testGetDishOrder() {
+        foodOrder = foodOrderRepository.findAll().get(0);
+        foodOrder.setDishOrders(new HashSet<>());
+        assertNotNull(foodOrder.getDishOrders());
+    }
+
+    /**
+     * Tests the addition of a DishOrders.
+     */
+    @Test
+    public void testAddDishOrder() {
+        foodOrder = foodOrderRepository.findAll().get(0);
+        foodOrder.setDishOrders(new HashSet<>());
+        foodOrder.addDishOrder(new DishOrder());
+        assertNotEquals(new HashSet<>(), foodOrder.getDishOrders());
     }
 
     /**
