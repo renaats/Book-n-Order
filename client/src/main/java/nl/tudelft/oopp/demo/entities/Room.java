@@ -14,10 +14,9 @@ import javafx.beans.property.StringProperty;
 public class Room {
 
     private Integer id;
-
     private String name;
-
     private Building building;
+    private String faculty;
     private String studySpecific;
     private String status;
     private boolean projector;
@@ -31,7 +30,7 @@ public class Room {
      * Creates a new instance of Room.
      * @param name = name of the room.
      * @param building = building in which room is situated.
-     * @param studySpecific = whether the room is study specific.
+     * @param studySpecific = whether the room is faculty specific.
      * @param projector = whether the room has a projector.
      * @param screen = whether the room has a screen.
      * @param capacity = number of people who can sit in the room.
@@ -59,6 +58,10 @@ public class Room {
 
     public void setBuilding(Building building) {
         this.building = building;
+    }
+
+    public void setFaculty(String faculty) {
+        this.faculty = faculty;
     }
 
     public void setProjector(boolean projector) {
@@ -120,6 +123,10 @@ public class Room {
     public StringProperty getBuildingNameProperty() {
         String name = getBuilding().getName();
         return new SimpleStringProperty(name);
+    }
+
+    public String getFaculty() {
+        return faculty;
     }
 
     public boolean isProjector() {
