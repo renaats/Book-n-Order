@@ -131,16 +131,18 @@ public class DatabaseAddBikeController implements Initializable {
     public void databaseAddBike() {
         int buildingId = -1;
         boolean buildingFound = false;
+        Building building = null;
 
         try {
             buildingId = Integer.parseInt(buildingIdTextField.getText());
-        } catch (NumberFormatException e) {
-            Building building = null;
+            building = JsonMapper.buildingMapper(BuildingServerCommunication.findBuilding(buildingId));
+        } catch (NumberFormatException | JsonProcessingException e) {
             if (!buildingIdTextField.getText().equals("")) {
                 try {
                     building = JsonMapper.buildingMapper(BuildingServerCommunication.findBuildingByName(buildingIdTextField.getText()));
                 } catch (JsonProcessingException ex) {
                     CustomAlert.errorAlert("Building not found.");
+                    return;
                 }
             } else {
                 CustomAlert.warningAlert("Please provide a building.");

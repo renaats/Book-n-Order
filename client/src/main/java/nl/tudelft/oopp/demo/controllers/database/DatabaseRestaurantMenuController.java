@@ -295,14 +295,14 @@ public class DatabaseRestaurantMenuController implements Initializable {
     @FXML
     private void toggleRestaurantList() {
         if (restaurantTableFlag) {
-            restaurantToggleButton.setText("Select");
+            restaurantToggleButton.setText(" Close");
             anchorPane.getChildren().add(restaurantTable);
             anchorPane.getChildren().add(restaurantPreviousPageButton);
             anchorPane.getChildren().add(restaurantPagesText);
             anchorPane.getChildren().add(restaurantNextPageButton);
             calculateRestaurantPages();
         } else {
-            restaurantToggleButton.setText(" Close");
+            restaurantToggleButton.setText(" Select");
             anchorPane.getChildren().remove(restaurantTable);
             anchorPane.getChildren().remove(restaurantPreviousPageButton);
             anchorPane.getChildren().remove(restaurantPagesText);

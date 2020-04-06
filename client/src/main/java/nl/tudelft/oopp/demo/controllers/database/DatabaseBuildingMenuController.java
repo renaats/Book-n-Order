@@ -108,6 +108,8 @@ public class DatabaseBuildingMenuController implements Initializable {
         loadDaysChoiceBox();
         daysChoiceBoxListener();
         datePickerListener();
+
+        facultyChoiceBox.setValue("");
     }
 
     /**
@@ -278,12 +280,20 @@ public class DatabaseBuildingMenuController implements Initializable {
             }
             // Various checks if the other fields are in order and the values are able to be used
             assert building != null;
+            if (nameFieldRead.getText().isEmpty()) {
+                CustomAlert.warningAlert("Please provide a building name.");
+                return;
+            }
             if (!building.getName().equals(nameFieldRead.getText())) {
                 String response = BuildingServerCommunication.updateBuilding(buildingId, "name", nameFieldRead.getText());
                 if (response.equals("Name already exists.")) {
                     CustomAlert.warningAlert("Name already exists.");
                     return;
                 }
+            }
+            if (streetFieldRead.getText().isEmpty()) {
+                CustomAlert.warningAlert("Please provide a street name.");
+                return;
             }
             if (!building.getStreet().equals(streetFieldRead.getText())) {
                 BuildingServerCommunication.updateBuilding(buildingId, "street", streetFieldRead.getText());

@@ -181,6 +181,10 @@ public class DatabaseRoomMenuController implements Initializable {
      * Takes care of finding a room by name or ID.
      */
     public void findRoom() {
+        if (roomFindTextField.getText().isEmpty()) {
+           CustomAlert.warningAlert("Please provide an ID or name of the room.");
+           return;
+        }
         try {
             int id = Integer.parseInt(roomFindTextField.getText());
             Room room = JsonMapper.roomMapper(RoomServerCommunication.findRoom(id));
