@@ -334,7 +334,7 @@ public class BookRoomController implements Initializable {
                         try {
                             goToRoomConfirmation();
                         } catch (IOException e) {
-                            e.printStackTrace();
+                            //Left empty
                         }
                     });
                     anchorPane.getChildren().add(reserveButton);

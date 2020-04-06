@@ -665,7 +665,6 @@ public class DatabaseRestaurantMenuController implements Initializable {
                 }
             }
         });
-
         datePicker.valueProperty().addListener((obs) -> daysChoiceBox.setValue(null));
 
         daysChoiceBox.getSelectionModel().selectedItemProperty().addListener((obs) -> {

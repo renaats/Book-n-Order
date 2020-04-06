@@ -35,7 +35,6 @@ public class ServerCommunication {
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
         } catch (Exception e) {
-            e.printStackTrace();
             return "Communication with server failed";
         }
         if (response.statusCode() != 200 && response.statusCode() != 201) {
@@ -60,7 +59,6 @@ public class ServerCommunication {
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
         } catch (Exception e) {
-            e.printStackTrace();
             return "Communication with server failed";
         }
         if (response.statusCode() != 200 && response.statusCode() != 201) {

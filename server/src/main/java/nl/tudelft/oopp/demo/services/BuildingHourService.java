@@ -47,7 +47,6 @@ public class BuildingHourService {
         try {
             return formatter.parse(formatter.format(new Date(dateInMilliseconds))).getTime();
         } catch (ParseException e) {
-            e.printStackTrace();
             return 0;
         }
     }

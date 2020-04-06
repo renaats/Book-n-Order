@@ -47,7 +47,7 @@ public class MyAccountController implements Initializable {
         try {
             showAdminButton = UserServerCommunication.getAdminButtonPermission();
         } catch (Exception e) {
-            e.printStackTrace();
+            //Left empty
         }
         if (!showAdminButton) {
             anchorPane.getChildren().remove(adminControl);

@@ -26,7 +26,8 @@ public class DatabaseRestaurantMenuAlertController {
     /**
      * Takes care of all the update values for a dish.
      */
-    public static void updateDishAlert(TextField dishIdFieldRead, TextField dishNameFieldRead, TextField dishPriceFieldRead, TextField dishImageTextField, TextArea dishDescriptionFieldRead, DatabaseRestaurantMenuController controller) {
+    public static void updateDishAlert(TextField dishIdFieldRead, TextField dishNameFieldRead, TextField dishPriceFieldRead,
+                                      TextField dishImageTextField, TextArea dishDescriptionFieldRead, DatabaseRestaurantMenuController controller) {
         int dishId = Integer.parseInt(dishIdFieldRead.getText());
         // Checks again if all fields and values are correct. And gives the user the appropriate error if not.
         try {
@@ -72,7 +73,8 @@ public class DatabaseRestaurantMenuAlertController {
     /**
      * Takes care of updating restaurant
      */
-    public static void updateRestaurantAlert(TextField idFieldRead, TextField locationFieldRead, TextField nameFieldRead, TextField ownerTextField, DatabaseRestaurantMenuController controller) {
+    public static void updateRestaurantAlert(TextField idFieldRead, TextField locationFieldRead, TextField nameFieldRead,
+                                             TextField ownerTextField, DatabaseRestaurantMenuController controller) {
         int buildingId;
         boolean buildingFound = false;
 

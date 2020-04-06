@@ -1,5 +1,7 @@
 package nl.tudelft.oopp.demo.controllers.restaurants;
 
+import static nl.tudelft.oopp.demo.controllers.generic.CalculatePages.calculatePages;
+
 import java.io.IOException;
 import java.net.URL;
 import java.text.DecimalFormat;
@@ -23,8 +25,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
-
 import javafx.util.Pair;
+
 import nl.tudelft.oopp.demo.communication.BuildingServerCommunication;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.RestaurantServerCommunication;
@@ -34,8 +36,6 @@ import nl.tudelft.oopp.demo.entities.Dish;
 import nl.tudelft.oopp.demo.entities.Restaurant;
 import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
-
-import static nl.tudelft.oopp.demo.controllers.generic.CalculatePages.calculatePages;
 
 /**
  * Loads the correct content into the FXML objects that need to display server information and
