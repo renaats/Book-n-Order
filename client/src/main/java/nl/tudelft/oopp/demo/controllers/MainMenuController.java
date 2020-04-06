@@ -2,10 +2,7 @@ package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
 
-import nl.tudelft.oopp.demo.communication.JsonMapper;
-import nl.tudelft.oopp.demo.user.UserInformation;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
-import nl.tudelft.oopp.demo.views.PersonalCalendar;
 
 /**
  * Loads the correct content into the FXML objects that need to display server information and
@@ -18,7 +15,7 @@ public class MainMenuController {
      * @throws IOException when it fails
      */
     public void calendarIcon() throws IOException {
-        ApplicationDisplay.changeScene("/PersonalCalendarView.fxml");
+        ApplicationDisplay.changeScene("/PersonalCalendar.fxml");
     }
 
     /**

@@ -26,7 +26,7 @@ import nl.tudelft.oopp.demo.entities.RoomReservation;
 import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.errors.ErrorMessages;
 
-public class PersonalCalendar extends CalendarView {
+public class PersonalCalendarView extends CalendarView {
 
     Calendar bookedRooms = new Calendar("Room Bookings");
     Calendar orderedFood = new Calendar("Food Orders");
@@ -37,7 +37,7 @@ public class PersonalCalendar extends CalendarView {
     /**
      * Constuctor for the Personal Calendar View
      */
-    public PersonalCalendar() {
+    public PersonalCalendarView() {
         displayCalendars();
         bookedRooms.addEventHandler(this::roomReservationCancellationHandler);
         orderedFood.addEventHandler(this::foodOrderCancellationHandler);
@@ -150,7 +150,7 @@ public class PersonalCalendar extends CalendarView {
     }
 
     /**
-     * Handles the event of entry removal. Cancels the reservation/order of the entry that was removed.
+     * Handles the event of entry removal. Cancels the room reservation of the entry that was removed.
      * @param event = the calendar event
      */
     public void roomReservationCancellationHandler(CalendarEvent event) {
@@ -161,7 +161,7 @@ public class PersonalCalendar extends CalendarView {
     }
 
     /**
-     * Handles the event of entry removal. Cancels the reservation/order of the entry that was removed.
+     * Handles the event of entry removal. Cancels the food order of the entry that was removed.
      * @param event = the calendar event
      */
     public void foodOrderCancellationHandler(CalendarEvent event) {
@@ -172,7 +172,7 @@ public class PersonalCalendar extends CalendarView {
     }
 
     /**
-     * Handles the event of entry removal. Cancels the reservation/order of the entry that was removed.
+     * Handles the event of entry removal. Cancels the bike reservation of the entry that was removed.
      * @param event = the calendar event
      */
     public void bikeReservationCancellationHandler(CalendarEvent event) {

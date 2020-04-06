@@ -11,19 +11,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.SubScene;
 
-import nl.tudelft.oopp.demo.communication.BikeServerCommunication;
-import nl.tudelft.oopp.demo.communication.DishServerCommunication;
-import nl.tudelft.oopp.demo.communication.RoomServerCommunication;
 import nl.tudelft.oopp.demo.entities.RoomReservation;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
-import nl.tudelft.oopp.demo.views.PersonalCalendar;
+import nl.tudelft.oopp.demo.views.PersonalCalendarView;
 
 /**
  * Loads the user's Personal Calendar into the application template and handles events regarding it.
  */
 public class PersonalCalendarController implements Initializable {
 
-    PersonalCalendar calendar = new PersonalCalendar();
+    PersonalCalendarView calendar = new PersonalCalendarView();
 
     Entry<RoomReservation> roomReservationEntry = null;
 
@@ -63,7 +60,7 @@ public class PersonalCalendarController implements Initializable {
      * @throws IOException this should not throw an exception.
      */
     public void goToBookRoom() throws IOException {
-        ApplicationDisplay.changeScene("/bookRoom.fxml");
+        ApplicationDisplay.changeScene("/BookRoom.fxml");
     }
 
     /**
@@ -79,7 +76,7 @@ public class PersonalCalendarController implements Initializable {
      * @throws IOException this should not throw an exception.
      */
     public void goToBikeReservation() throws IOException {
-        ApplicationDisplay.changeScene("/bikeReservations.fxml");
+        ApplicationDisplay.changeScene("/BikeReservations.fxml");
     }
 
     /**
