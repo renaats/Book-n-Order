@@ -54,9 +54,7 @@ public class MyPreviousRoomReservationsController implements Initializable {
         roomOrderResult.clear();
         List<RoomReservation> roomReservations;
         try {
-            String json = RoomServerCommunication.getAllPreviousRoomReservations();
-            List<RoomReservation> roomReservations1 = JsonMapper.roomReservationsListMapper(json);
-            roomReservations = new ArrayList<>(roomReservations1);
+            roomReservations = new ArrayList<>(JsonMapper.roomReservationsListMapper(RoomServerCommunication.getAllPreviousRoomReservations()));
         } catch (Exception e) {
             // Fakes the table having any entries, so the table shows up properly instead of "No contents".
             roomReservations = new ArrayList<>();
