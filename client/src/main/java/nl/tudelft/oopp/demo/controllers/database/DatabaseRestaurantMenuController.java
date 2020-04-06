@@ -571,9 +571,9 @@ public class DatabaseRestaurantMenuController implements Initializable {
                 assert dish != null;
                 if (dishList.get(i).getId() == (dish.getId())) {
                     deleteButton = new Button("Delete");
-                    deleteButton.setLayoutX(990);
+                    deleteButton.setLayoutX(973);
                     deleteButton.setLayoutY(179 + (24 * (i + 1)));
-                    deleteButton.setMinWidth(60);
+                    deleteButton.setMinWidth(50);
                     deleteButton.setStyle("-fx-background-color:  #CC5653; -fx-font-size:10; -fx-text-fill: white");
                     deleteButton.setMinHeight(20);
                     deleteButton.setOnAction(event -> {
@@ -650,9 +650,9 @@ public class DatabaseRestaurantMenuController implements Initializable {
                 assert allergy != null;
                 if (allergySelectedList.get(i).getAllergyName().equals(allergy.getAllergyName())) {
                     deleteButtonAllergies = new Button("Delete");
-                    deleteButtonAllergies.setLayoutX(980);
-                    deleteButtonAllergies.setLayoutY(462 + (24 * (i + 1)));
-                    deleteButtonAllergies.setMinWidth(60);
+                    deleteButtonAllergies.setLayoutX(1200);
+                    deleteButtonAllergies.setLayoutY(180 + (24 * (i + 1)));
+                    deleteButtonAllergies.setMinWidth(50);
                     deleteButtonAllergies.setStyle("-fx-background-color:  #CC5653; -fx-font-size:10; -fx-text-fill: white");
                     deleteButtonAllergies.setMinHeight(20);
                     deleteButtonAllergies.setOnAction(event -> {
@@ -937,6 +937,8 @@ public class DatabaseRestaurantMenuController implements Initializable {
                         CustomAlert.informationAlert("Successfully executed.");
                         // If exception, update building
                     } catch (JsonProcessingException e) {
+                        System.out.println(restaurantId);
+                        e.printStackTrace();
                         CustomAlert.informationAlert(RestaurantServerCommunication.addRestaurantHours(restaurantId, day, startTime, endTime));
                     }
                 } catch (NumberFormatException ex) {
@@ -954,7 +956,7 @@ public class DatabaseRestaurantMenuController implements Initializable {
                         CustomAlert.errorAlert("Opening hours cannot be later than closing hours.");
                         return;
                     }
-                    CustomAlert.informationAlert(BuildingServerCommunication.addBuildingHours(restaurantId, dateInMs, startTime, endTime));
+                    CustomAlert.informationAlert(RestaurantServerCommunication.addRestaurantHours(restaurantId, dateInMs, startTime, endTime));
                 } catch (NumberFormatException e) {
                     CustomAlert.warningAlert("Restaurant hours have to be an integer.");
                 }
@@ -981,37 +983,37 @@ public class DatabaseRestaurantMenuController implements Initializable {
                 datePicker.setValue(null);
             }
             if (!idFieldRead.getText().isEmpty()) {
-                int buildingId = Integer.parseInt(idFieldRead.getText());
+                int restaurantId = Integer.parseInt(idFieldRead.getText());
                 int day = 0;
                 if (dayName != null) {
                     switch (dayName) {
                         case "Monday":
                             day = 1;
-                            setStartAndEndTimeTextFields(buildingId, day);
+                            setStartAndEndTimeTextFields(restaurantId, day);
                             break;
                         case "Tuesday":
                             day = 2;
-                            setStartAndEndTimeTextFields(buildingId, day);
+                            setStartAndEndTimeTextFields(restaurantId, day);
                             break;
                         case "Wednesday":
                             day = 3;
-                            setStartAndEndTimeTextFields(buildingId, day);
+                            setStartAndEndTimeTextFields(restaurantId, day);
                             break;
                         case "Thursday":
                             day = 4;
-                            setStartAndEndTimeTextFields(buildingId, day);
+                            setStartAndEndTimeTextFields(restaurantId, day);
                             break;
                         case "Friday":
                             day = 5;
-                            setStartAndEndTimeTextFields(buildingId, day);
+                            setStartAndEndTimeTextFields(restaurantId, day);
                             break;
                         case "Saturday":
                             day = 6;
-                            setStartAndEndTimeTextFields(buildingId, day);
+                            setStartAndEndTimeTextFields(restaurantId, day);
                             break;
                         case "Sunday":
                             day = 7;
-                            setStartAndEndTimeTextFields(buildingId, day);
+                            setStartAndEndTimeTextFields(restaurantId, day);
                             break;
                         default:
                             CustomAlert.errorAlert("Day not recognized.");
@@ -1024,10 +1026,10 @@ public class DatabaseRestaurantMenuController implements Initializable {
 
     /**
      * Sets the start and end time text fields.
-     * @param buildingId building id.
+     * @param restaurantId restaurant id.
      * @param day the day of the week represented in int (1 - 7)
      */
-    public void setStartAndEndTimeTextFields(int buildingId, int day) {
+    public void setStartAndEndTimeTextFields(int restaurantId, int day) {
         try {
             RestaurantHours restaurantHours = JsonMapper.restaurantHoursMapper(
                     RestaurantServerCommunication.findRestaurantHoursByDay(restaurantId, day));
