@@ -158,9 +158,12 @@ class JsonMapperTest {
                 + "\"test\",\"street\":\"1\",\"houseNumber\":1},\"name\":\"TestRestaurant\","
                 + "\"menu\":null},\"startTime\":\"00:16:40\",\"endTime\":\"00:33:20\"}";
 
-        RestaurantHours restaurantHours = JsonMapper.restaurantHoursMapper(json);
-
-        assertEquals(restaurantHours, JsonMapper.restaurantHoursMapper(RestaurantServerCommunication.findRestaurantHours(1, 1)));
+        try {
+            RestaurantHours restaurantHours = JsonMapper.restaurantHoursMapper(json);
+            assertEquals(restaurantHours, JsonMapper.restaurantHoursMapper(RestaurantServerCommunication.findRestaurantHours(1, 1)));
+        } catch (Exception e) {
+            fail();
+        }
     }
 
     @Test

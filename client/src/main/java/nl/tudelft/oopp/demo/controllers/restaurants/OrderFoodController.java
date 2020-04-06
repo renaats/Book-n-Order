@@ -17,8 +17,8 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 
 import nl.tudelft.oopp.demo.communication.BuildingServerCommunication;
-import nl.tudelft.oopp.demo.communication.RestaurantServerCommunication;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
+import nl.tudelft.oopp.demo.communication.RestaurantServerCommunication;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Dish;
 import nl.tudelft.oopp.demo.entities.Restaurant;

@@ -12,10 +12,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 import nl.tudelft.oopp.demo.communication.RestaurantServerCommunication;
-import nl.tudelft.oopp.demo.communication.JsonMapper;
-import nl.tudelft.oopp.demo.communication.UserServerCommunication;
 import nl.tudelft.oopp.demo.entities.Menu;
-import nl.tudelft.oopp.demo.entities.Restaurant;
 import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 

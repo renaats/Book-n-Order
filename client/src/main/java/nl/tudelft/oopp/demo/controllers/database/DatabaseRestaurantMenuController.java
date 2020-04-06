@@ -18,18 +18,31 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
 import nl.tudelft.oopp.demo.communication.BuildingServerCommunication;
-import nl.tudelft.oopp.demo.communication.RestaurantServerCommunication;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
+import nl.tudelft.oopp.demo.communication.RestaurantServerCommunication;
 import nl.tudelft.oopp.demo.communication.UserServerCommunication;
-import nl.tudelft.oopp.demo.entities.*;
+import nl.tudelft.oopp.demo.entities.Allergy;
+import nl.tudelft.oopp.demo.entities.Building;
+import nl.tudelft.oopp.demo.entities.Dish;
 import nl.tudelft.oopp.demo.entities.Menu;
+import nl.tudelft.oopp.demo.entities.Menu;
+import nl.tudelft.oopp.demo.entities.Restaurant;
+import nl.tudelft.oopp.demo.entities.RestaurantHours;
 import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
@@ -494,7 +507,8 @@ public class DatabaseRestaurantMenuController implements Initializable {
      */
     public void retrieveAllAllergies() {
         try {
-            allergies = JsonMapper.allergiesListMapper(RestaurantServerCommunication.getAllergiesFromDish(Integer.parseInt(dishIdFieldRead.getText())));
+            allergies = JsonMapper.allergiesListMapper(
+                    RestaurantServerCommunication.getAllergiesFromDish(Integer.parseInt(dishIdFieldRead.getText())));
         } catch (Exception e) {
             allergies = new ArrayList<>();
         }
@@ -919,7 +933,8 @@ public class DatabaseRestaurantMenuController implements Initializable {
                             CustomAlert.errorAlert(response);
                             return;
                         }
-                        response = RestaurantServerCommunication.updateRestaurantHours(restaurantHours.getId(), "endtimes", Integer.toString(endTime));
+                        response = RestaurantServerCommunication.updateRestaurantHours(
+                                restaurantHours.getId(), "endtimes", Integer.toString(endTime));
                         if (!response.equals("Successfully executed.")) {
                             CustomAlert.errorAlert(response);
                             return;
@@ -1019,7 +1034,8 @@ public class DatabaseRestaurantMenuController implements Initializable {
      */
     public void setStartAndEndTimeTextFields(int buildingId, int day) {
         try {
-            RestaurantHours restaurantHours = JsonMapper.restaurantHoursMapper(RestaurantServerCommunication.findRestaurantHoursByDay(restaurantId, day));
+            RestaurantHours restaurantHours = JsonMapper.restaurantHoursMapper(
+                    RestaurantServerCommunication.findRestaurantHoursByDay(restaurantId, day));
             LocalTime startTime = restaurantHours.getStartTime();
             hoursStartTime.setText(Integer.toString(startTime.getHour()));
             minutesStartTime.setText(Integer.toString(startTime.getMinute()));

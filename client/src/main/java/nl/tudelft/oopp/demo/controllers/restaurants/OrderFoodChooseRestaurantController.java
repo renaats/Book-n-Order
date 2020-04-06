@@ -25,8 +25,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
 import nl.tudelft.oopp.demo.communication.BuildingServerCommunication;
-import nl.tudelft.oopp.demo.communication.RestaurantServerCommunication;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
+import nl.tudelft.oopp.demo.communication.RestaurantServerCommunication;
 import nl.tudelft.oopp.demo.entities.Allergy;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Dish;
@@ -501,7 +501,8 @@ public class OrderFoodChooseRestaurantController implements Initializable {
      */
     public void applyDishFilters() {
         try {
-            String filterString = "menu:" + JsonMapper.menuMapper(RestaurantServerCommunication.findMenuByRestaurant(selectedRestaurant.getId())).getId();
+            String filterString = "menu:" + JsonMapper.menuMapper(
+                    RestaurantServerCommunication.findMenuByRestaurant(selectedRestaurant.getId())).getId();
             if (!fromPrice.getText().equals("")) {
                 long filterPrice = Math.round((Double.parseDouble(fromPrice.getText())) * 100);
                 filterString += ",price>" + filterPrice;
