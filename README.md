@@ -21,17 +21,41 @@ Book 'n Order is a Java desktop application that allows students and employees o
 | ![]() | Alex De Los Santos | a.delossantossubirats@student.tudelft.nl |
 | ![]() | Renāts Jurševskis | r.jursevskis@student.tudelft.nl |
 
-## Setting up the development environment
+## Setting up the Development Environment
 Clone or download the repository. To run the project it is required to have the following added to your project structure of your desired IDE:
 
 [Java JDK 13](https://www.oracle.com/java/technologies/javase-jdk13-downloads.html) & [JavaFX-13](https://openjfx.io/).
 
+It is optional to have a [MYSQL](https://dev.mysql.com/) database. If you [install](https://dev.mysql.com/doc/mysql-installation-excerpt/5.7/en/), Please change the file name of `application.properties.example` to `application.properties` and create a MYSQL database called "OOPP". Fill in the required username and password of your database and the database should be up and running!
+
 If you are interested in contributing to our project, please follow use our [Checkstyle](config/checkstyle/checkstyle.xml) requirements. If you are using [CheckStyle-IDEA](https://plugins.jetbrains.com/plugin/1065-checkstyle-idea), it is then required to use version 8.25. Furthermore, it is essential that [Git LFS](https://git-lfs.github.com/) is installed. No further requirements!
 
 ## How to run it
-You can run the application directly from the IDE. To run the server side of the application, run `DatabaseApplication`. To run the client side, run `MainApp`.
+You can run the application directly from the IDE. To run the server side of the application, run `DatabaseApplication`. To run the client side, run `MainApp`. The `DatabaseApplication` will run a database locally and will be reset upon every reboot. Please know that you can set up a MYSQL database that is persistent. See 'Setting up a Development Environment'.
 
 Please do know that using the application requires a TuDelft email. Registering with any other email will be declined. If you own a TuDelft email you can register and a verification code will be send your way. After verifying yourself, you can use the app freely.
+
+For testing purposes we have added admin accounts:
+
+Username: staff@tudelft.nl;
+Password: 1234;
+Role: Staff
+
+Username: admin@tudelft.nl;
+Password: 1234;
+Role: Admin
+
+Username: building_admin@tudelft.nl;
+Password: 1234;
+Role: Building Admin
+
+Username: bike_admin@tudelft.nl;
+Password: 1234;
+Role: Bike Admin
+
+Username: restaurant@tudelft.nl;
+Password: 1234;
+Role: Restaurant Owner
 
 ## How to contribute to the project
 All help is always welcome. However, before making changes, please open an issue to discuss your suggested changes.
