@@ -1,5 +1,7 @@
 package nl.tudelft.oopp.demo.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Date;
 import java.util.Objects;
 
@@ -34,6 +36,7 @@ public class RoomReservation {
     @JoinColumn
     private Room room;
 
+    @JsonIgnore
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn

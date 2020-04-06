@@ -6,6 +6,7 @@ import static nl.tudelft.oopp.demo.config.Constants.USER;
 
 import javax.servlet.http.HttpServletRequest;
 
+import nl.tudelft.oopp.demo.entities.AppUser;
 import nl.tudelft.oopp.demo.entities.RoomReservation;
 import nl.tudelft.oopp.demo.services.RoomReservationService;
 
@@ -145,6 +146,17 @@ public class RoomReservationController {
     }
 
     /**
+     * Finds all active reservations for a specific room.
+     * @param id = the id of room the reservations are retreived for.
+     * @return a list all active room reservations for this room.
+     */
+    @Secured(USER)
+    @GetMapping(path = "/room/{id}")
+    public Iterable<RoomReservation> getReservationForRoom(@PathVariable(value = "id") int id) {
+        return roomReservationService.findForRoom(id);
+    }
+
+    /**
      * Cancels a room reservation if it was made by the user that sends the Http request.
      * @param request = the Http request that calls this method.
      * @param roomReservationId = the id of the target reservation.
@@ -154,5 +166,16 @@ public class RoomReservationController {
     @GetMapping(path = "/cancel/{id}")
     public int cancelReservation(HttpServletRequest request, @PathVariable(value = "id") int roomReservationId) {
         return roomReservationService.cancel(request, roomReservationId);
+    }
+
+    /**
+     * Finds user for a specific reservation.
+     * @param id = id of reservation for which we retrieve user.
+     * @return a user that corresponds to this reservation.
+     */
+    @Secured({ADMIN, BUILDING_ADMIN})
+    @GetMapping(path = "/user/{id}")
+    public AppUser findForReservation(@PathVariable int id) {
+        return roomReservationService.findForReservation(id);
     }
 }

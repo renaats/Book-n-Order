@@ -207,4 +207,14 @@ public class RoomServerCommunication {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room/delete/" + id)).DELETE().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
         return communicateAndReturnErrorMessage(request);
     }
+
+    /**
+     * Finds reservations for a specific room.
+     * @param id = id of the room.
+     * @return the body of the response from the server.
+     */
+    public static String findReservationForRoom(int id) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/room_reservation/room/" + id)).GET().header("Authorization", "Bearer " + AuthenticationKey.getBearerKey()).build();
+        return communicateAndReturnBodyOfResponse(request);
+    }
 }
