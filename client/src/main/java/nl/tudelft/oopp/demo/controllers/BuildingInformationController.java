@@ -167,10 +167,8 @@ public class BuildingInformationController implements Initializable {
                     } catch (JsonProcessingException e) {
                         e.printStackTrace();
                     }
+                    buildingMonday.setText("");
                     buildingMonday.setText(buildingHoursMonday.getStartTime().toString() + " - " + buildingHoursMonday.getEndTime().toString());
-                    if (buildingMonday.getText() == ".") {
-                        buildingMonday.setText("");
-                    }
                     BuildingHours buildingHoursTuesday = null;
                     try {
                         buildingHoursTuesday = JsonMapper.buildingHoursMapper(BuildingServerCommunication
@@ -178,10 +176,8 @@ public class BuildingInformationController implements Initializable {
                     } catch (JsonProcessingException e) {
                         e.printStackTrace();
                     }
+                    buildingTuesday.setText("");
                     buildingTuesday.setText(buildingHoursTuesday.getStartTime().toString() + " - " + buildingHoursTuesday.getEndTime().toString());
-                    if (buildingTuesday.getText() == ".") {
-                        buildingTuesday.setText("");
-                    }
                     BuildingHours buildingHoursWednesday = null;
                     try {
                         buildingHoursWednesday = JsonMapper.buildingHoursMapper(BuildingServerCommunication
@@ -189,10 +185,8 @@ public class BuildingInformationController implements Initializable {
                     } catch (JsonProcessingException e) {
                         e.printStackTrace();
                     }
+                    buildingWednesday.setText("");
                     buildingWednesday.setText(buildingHoursWednesday.getStartTime().toString() + " - " + buildingHoursWednesday.getEndTime().toString());
-                    if (buildingWednesday.getText() == ".") {
-                        buildingWednesday.setText("");
-                    }
                     BuildingHours buildingHoursThursday = null;
                     try {
                         buildingHoursThursday = JsonMapper.buildingHoursMapper(BuildingServerCommunication
@@ -200,10 +194,8 @@ public class BuildingInformationController implements Initializable {
                     } catch (JsonProcessingException e) {
                         e.printStackTrace();
                     }
+                    buildingThursday.setText("");
                     buildingThursday.setText(buildingHoursThursday.getStartTime().toString() + " - " + buildingHoursThursday.getEndTime().toString());
-                    if (buildingThursday.getText() == ".") {
-                        buildingThursday.setText("");
-                    }
                     BuildingHours buildingHoursFriday = null;
                     try {
                         buildingHoursFriday = JsonMapper.buildingHoursMapper(BuildingServerCommunication
@@ -211,10 +203,8 @@ public class BuildingInformationController implements Initializable {
                     } catch (JsonProcessingException e) {
                         e.printStackTrace();
                     }
+                    buildingFriday.setText("");
                     buildingFriday.setText(buildingHoursFriday.getStartTime().toString() + " - " + buildingHoursFriday.getEndTime().toString());
-                    if (buildingFriday.getText() == ".") {
-                        buildingFriday.setText("");
-                    }
                     BuildingHours buildingHoursSaturday = null;
                     try {
                         buildingHoursSaturday = JsonMapper.buildingHoursMapper(BuildingServerCommunication
@@ -222,10 +212,8 @@ public class BuildingInformationController implements Initializable {
                     } catch (JsonProcessingException e) {
                         e.printStackTrace();
                     }
+                    buildingSaturday.setText("");
                     buildingSaturday.setText(buildingHoursSaturday.getStartTime().toString() + " - " + buildingHoursSaturday.getEndTime().toString());
-                    if (buildingSaturday.getText() == ".") {
-                        buildingSaturday.setText("");
-                    }
                     BuildingHours buildingHoursSunday = null;
                     try {
                         buildingHoursSunday = JsonMapper.buildingHoursMapper(BuildingServerCommunication
@@ -233,10 +221,8 @@ public class BuildingInformationController implements Initializable {
                     } catch (JsonProcessingException e) {
                         e.printStackTrace();
                     }
+                    buildingSunday.setText("");
                     buildingSunday.setText(buildingHoursSunday.getStartTime().toString() + " - " + buildingHoursSunday.getEndTime().toString());
-                    if (buildingSunday.getText() == ".") {
-                        buildingSunday.setText("");
-                    }
                 }
             });
         }
