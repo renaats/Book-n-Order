@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" stylesheets="@Table.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.restaurants.MyPreviousFoodReservationsController">
+<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" stylesheets="@Table.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.restaurants.MyPreviousFoodReservationsController">
     <children>
         <ImageView fitHeight="720.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
             <image>
@@ -73,7 +73,7 @@
                 <Cursor fx:constant="HAND" />
             </cursor>
         </ImageView>
-      <Text layoutX="45.0" layoutY="290.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please select a food order&#10;and rate Your Experience&#10;with that order:" textAlignment="CENTER">
+      <Text layoutX="66.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select a food order and leave a thumbs up or thumbs down!" textAlignment="CENTER" wrappingWidth="230.5">
          <font>
             <Font size="24.0" />
          </font>
