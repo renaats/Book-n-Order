@@ -18,4 +18,6 @@ public interface DishRepository extends JpaRepository<Dish, Integer>, JpaSpecifi
     boolean existsByName(String allergyName);
 
     List<Dish> findAllByMenuId(int menuId);
+
+    boolean existsByNameAndMenuId(String name, int menuId);
 }

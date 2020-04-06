@@ -14,6 +14,7 @@ import javafx.scene.control.TextField;
 import nl.tudelft.oopp.demo.communication.RestaurantServerCommunication;
 import nl.tudelft.oopp.demo.entities.Menu;
 import nl.tudelft.oopp.demo.errors.CustomAlert;
+import nl.tudelft.oopp.demo.errors.ErrorMessages;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**
@@ -97,6 +98,11 @@ public class DatabaseAddDishController implements Initializable {
             return;
         }
         String image = imageTextField.getText();
-        CustomAlert.informationAlert(RestaurantServerCommunication.addDish(name, menuId, (int) price * 100, description, image));
+        String response = RestaurantServerCommunication.addDish(name, menuId, (int) price * 100, description, image);
+        if (response.equals(ErrorMessages.getErrorMessage(201))) {
+            CustomAlert.informationAlert(response);
+        } else {
+            CustomAlert.warningAlert(response);
+        }
     }
 }
