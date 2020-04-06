@@ -47,11 +47,11 @@
         </ImageView>
         <TableView fx:id="table" layoutX="135.0" layoutY="193.0" prefHeight="408.0" prefWidth="1010.0">
             <columns>
-            <TableColumn fx:id="colBikeNumber" prefWidth="109.33332824707031" text="Bike number" />
-                <TableColumn fx:id="colFromTime" prefWidth="241.33335876464844" text="From (Time)" />
-                <TableColumn fx:id="colToTime" prefWidth="218.33334350585938" text="To (Time)" />
-                <TableColumn fx:id="colFromLoc" prefWidth="257.0" text="From (Location)" />
-                <TableColumn fx:id="colToLoc" prefWidth="181.00006103515625" text="To (Location)" />
+            <TableColumn fx:id="colBikeNumber" editable="false" maxWidth="109.33332824707031" minWidth="109.33332824707031" prefWidth="109.33332824707031" resizable="false" sortable="false" text="Bike number" />
+                <TableColumn fx:id="colFromTime" editable="false" maxWidth="241.33335876464844" minWidth="241.33335876464844" prefWidth="241.33335876464844" resizable="false" sortable="false" text="From (Time)" />
+                <TableColumn fx:id="colToTime" editable="false" maxWidth="218.33334350585938" minWidth="218.33334350585938" prefWidth="218.33334350585938" resizable="false" sortable="false" text="To (Time)" />
+                <TableColumn fx:id="colFromLoc" editable="false" maxWidth="257.0" minWidth="257.0" prefWidth="257.0" resizable="false" sortable="false" text="From (Location)" />
+                <TableColumn fx:id="colToLoc" editable="false" maxWidth="181.00006103515625" minWidth="181.00006103515625" prefWidth="181.00006103515625" resizable="false" sortable="false" text="To (Location)" />
             </columns>
         </TableView>
         <Text layoutX="427.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My Current Bike Reservations">

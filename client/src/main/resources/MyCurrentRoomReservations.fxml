@@ -47,10 +47,10 @@
         </ImageView>
         <TableView fx:id="table" layoutX="217.0" layoutY="197.0" prefHeight="400.0" prefWidth="802.0">
             <columns>
-            <TableColumn fx:id="colBuilding" prefWidth="200" text="Building" />
-                <TableColumn fx:id="colRoom" prefWidth="200" text="Room" />
-                <TableColumn fx:id="colFromTime" prefWidth="200" text="From (Time)" />
-                <TableColumn fx:id="colToTime" prefWidth="200" text="To (Time)" />
+            <TableColumn fx:id="colBuilding" editable="false" minWidth="200.0" prefWidth="200" resizable="false" sortable="false" text="Building" />
+                <TableColumn fx:id="colRoom" editable="false" maxWidth="200.0" minWidth="200.0" prefWidth="200" resizable="false" sortable="false" text="Room" />
+                <TableColumn fx:id="colFromTime" editable="false" maxWidth="200.0" minWidth="200.0" prefWidth="200" sortable="false" text="From (Time)" />
+                <TableColumn fx:id="colToTime" editable="false" maxWidth="200.0" minWidth="200.0" prefWidth="200" resizable="false" sortable="false" text="To (Time)" />
             </columns>
         </TableView>
         <Text layoutX="392.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My Current Room Reservations">
