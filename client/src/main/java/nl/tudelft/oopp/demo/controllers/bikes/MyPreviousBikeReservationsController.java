@@ -67,7 +67,7 @@ public class MyPreviousBikeReservationsController implements Initializable {
         Collections.reverse(bikeReservations);
 
         if (bikeReservations.size() > 10) {
-            bikeReservations = bikeReservations.subList(0, 15);
+            bikeReservations = bikeReservations.subList(0, 10);
             bikeOrderResult.addAll(bikeReservations);
         } else {
             bikeOrderResult.addAll(bikeReservations);
