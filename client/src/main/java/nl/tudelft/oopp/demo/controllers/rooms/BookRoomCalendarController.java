@@ -11,9 +11,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
-import java.util.*;
+import java.util.Date;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
-import com.calendarfx.model.Interval;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -22,10 +23,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
 import nl.tudelft.oopp.demo.communication.RoomServerCommunication;
-import nl.tudelft.oopp.demo.entities.Building;
-import nl.tudelft.oopp.demo.entities.BuildingHours;
+import nl.tudelft.oopp.demo.communication.SelectedRoom;
 import nl.tudelft.oopp.demo.entities.RoomReservation;
-//import nl.tudelft.oopp.demo.communication.SelectedRoom;
 import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.errors.ErrorMessages;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
@@ -34,9 +33,12 @@ import nl.tudelft.oopp.demo.views.RoomCalendarView;
 public class BookRoomCalendarController implements Initializable {
 
     private int roomId;
-    private RoomCalendarView calendarView;
+    private RoomCalendarView calendarView = new RoomCalendarView(SelectedRoom.getSelectedRoom().getId());
     private Boolean isThereAnotherEntry = null;
     private Entry<RoomReservation> storedEntry = null;
+
+    URL location;
+    ResourceBundle resourceBundle;
 
     @FXML
     Button reserveSlot;
@@ -62,7 +64,9 @@ public class BookRoomCalendarController implements Initializable {
      * Renders calendar view with all already existing reservations.
      */
     public void showCal() {
-//        calendarView = new RoomCalendarView(SelectedRoom.getSelectedRoom().getId());
+        System.out.println(SelectedRoom.getSelectedRoom());
+        calendarView   = new RoomCalendarView(SelectedRoom.getSelectedRoom().getId());
+        System.out.println(SelectedRoom.getSelectedRoom().getId());
         EventHandler<CalendarEvent> handler = this::entryHandler;
         calendarView.getCalendars().get(0).addEventHandler(handler);
         calendarView.loadRoomReservations();
@@ -150,22 +154,22 @@ public class BookRoomCalendarController implements Initializable {
             CustomAlert.warningAlert("No slot selected");
         } else {
             SimpleDateFormat format = new SimpleDateFormat("EE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
-//            try {
-//                Date from = format.parse(dateFrom);
-//                Date until = format.parse(dateUntil);
-//                long milliseconds1 = from.getTime();
-//                long milliseconds2 = until.getTime();
+            try {
+                Date from = format.parse(dateFrom);
+                Date until = format.parse(dateUntil);
+                long milliseconds1 = from.getTime();
+                long milliseconds2 = until.getTime();
 
-//                    if (RoomServerCommunication.addRoomReservation(SelectedRoom.getSelectedRoom().getId(), milliseconds1, milliseconds2)
-//                            .equals(ErrorMessages.getErrorMessage(308))) {
-//                        CustomAlert.warningAlert("Slot is already booked. Please make sure you do not overlay another reservation entry.");
-//                    } else {
-//                        CustomAlert.informationAlert("Successfully Added!");
-//                        ApplicationDisplay.changeScene("/bookRoom.fxml");
-//                    }
-//            } catch (ParseException | IOException e) {
-//                e.printStackTrace();
-//            }
+                    if (RoomServerCommunication.addRoomReservation(SelectedRoom.getSelectedRoom().getId(), milliseconds1, milliseconds2)
+                            .equals(ErrorMessages.getErrorMessage(308))) {
+                        CustomAlert.warningAlert("Slot is already booked. Please make sure you do not overlay another reservation entry.");
+                    } else {
+                        CustomAlert.informationAlert("Successfully Added!");
+                        ApplicationDisplay.changeScene("/bookRoom.fxml");
+                    }
+            } catch (ParseException | IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -183,6 +187,8 @@ public class BookRoomCalendarController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        this.location = location;
+        resourceBundle = resources;
         reserveSlot.disarm();
         showCal();
         disableFields();

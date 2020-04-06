@@ -30,6 +30,7 @@ import javafx.scene.text.Text;
 import nl.tudelft.oopp.demo.communication.BuildingServerCommunication;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.RoomServerCommunication;
+import nl.tudelft.oopp.demo.communication.SelectedRoom;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.errors.CustomAlert;
@@ -208,8 +209,10 @@ public class BookRoomController implements Initializable {
      * @throws IOException the input will always be the same, so it should never throw an IO exception
      */
     public void goToRoomCalendar() throws IOException {
-//        SelectedRoom.setSelectedRoom(selectedRoom);
+        SelectedRoom.setSelectedRoom(selectedRoom);
+        System.out.println(selectedRoom.getId());
         FXMLLoader loader = new FXMLLoader();
+        System.out.println(getClass().getResource("/BookRoomCalendar.fxml"));
         loader.setLocation(getClass().getResource("/BookRoomCalendar.fxml"));
         Parent root = loader.load();
 
@@ -339,7 +342,8 @@ public class BookRoomController implements Initializable {
                     reserveButton.setMaxHeight(24);
                     reserveButton.setOnAction(event -> {
                         try {
-//                            SelectRoom.setSelectedRoom(selectedRoom);
+                            SelectedRoom.setSelectedRoom(room);
+                            System.out.println(selectedRoom.getId());
                             goToRoomCalendar();
                         } catch (IOException e) {
                             e.printStackTrace();
