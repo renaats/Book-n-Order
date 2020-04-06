@@ -15,11 +15,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-import nl.tudelft.oopp.demo.communication.RestaurantServerCommunication;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
+import nl.tudelft.oopp.demo.communication.RestaurantServerCommunication;
 import nl.tudelft.oopp.demo.communication.UserServerCommunication;
 import nl.tudelft.oopp.demo.entities.FoodOrder;
-import nl.tudelft.oopp.demo.errors.CustomAlert;
 import nl.tudelft.oopp.demo.views.ApplicationDisplay;
 
 /**

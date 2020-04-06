@@ -30,7 +30,6 @@ public class Room {
      * Creates a new instance of Room.
      * @param name = name of the room.
      * @param building = building in which room is situated.
-     * @param faculty = name of the faculty.
      * @param studySpecific = whether the room is faculty specific.
      * @param projector = whether the room has a projector.
      * @param screen = whether the room has a screen.
