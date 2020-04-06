@@ -38,7 +38,7 @@
             <Font size="16.0" />
         </font>
     </Text>
-    <Text layoutX="195.0" layoutY="210.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please select a building from the table to view that building's information, and then press the 'Load Building Info' button." wrappingWidth="295.0" AnchorPane.leftAnchor="195.0" AnchorPane.topAnchor="192.734375">
+    <Text layoutX="127.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please select a building from the table for which you want to view that building's information, and press the 'Load Building Info' button." wrappingWidth="361.4000244140625" AnchorPane.leftAnchor="127.0" AnchorPane.topAnchor="184.734375">
         <font>
             <Font size="16.0" />
         </font>
