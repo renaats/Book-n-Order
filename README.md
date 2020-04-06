@@ -1,5 +1,5 @@
 ﻿<a href="https://aimeos.org/">
-    <img src="https://i.imgur.com/SsMKBfp.png" alt="TuDelft Logo" title="Aimeos" align="right" height="60
+    <img src="https://i.imgur.com/SsMKBfp.png" alt="TuDelft Logo" title="TuDelft" align="right" height="60
     " />
 </a>
 
