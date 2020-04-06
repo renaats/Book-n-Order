@@ -11,8 +11,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -201,12 +204,16 @@ public class BookRoomController implements Initializable {
     }
 
     /**
-     * Go to the room confirmation screen when the reserve button is clicked.
-     *
+     * return to the reservations menu when the back arrow button is clicked.
      * @throws IOException the input will always be the same, so it should never throw an IO exception
      */
-    public void goToRoomConfirmation() throws IOException {
-        ApplicationDisplay.changeScene("/RoomConfirmation.fxml");
+    public void goToRoomCalendar() throws IOException {
+//        SelectedRoom.setSelectedRoom(selectedRoom);
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/BookRoomCalendar.fxml"));
+        Parent root = loader.load();
+
+        ApplicationDisplay.getPrimaryStage().setScene(new Scene(root));
     }
 
     /**
@@ -332,7 +339,8 @@ public class BookRoomController implements Initializable {
                     reserveButton.setMaxHeight(24);
                     reserveButton.setOnAction(event -> {
                         try {
-                            goToRoomConfirmation();
+//                            SelectRoom.setSelectedRoom(selectedRoom);
+                            goToRoomCalendar();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }

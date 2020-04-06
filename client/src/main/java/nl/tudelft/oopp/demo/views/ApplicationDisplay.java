@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 
+import com.sun.javafx.tk.TKStage;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -23,6 +24,10 @@ import nl.tudelft.oopp.demo.entities.Restaurant;
 public class ApplicationDisplay extends Application {
 
     private static Stage primaryStage;
+
+    public static Stage getPrimaryStage() {
+        return primaryStage;
+    }
 
     /**
      * Loads the initial view
