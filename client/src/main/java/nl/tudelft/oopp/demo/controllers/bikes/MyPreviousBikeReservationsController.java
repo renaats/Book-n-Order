@@ -57,14 +57,14 @@ public class MyPreviousBikeReservationsController implements Initializable {
         bikeOrderResult.clear();
         List<BikeReservation> bikeReservations;
         try {
-            List<BikeReservation> bikeReservations1 = JsonMapper.bikeReservationsListMapper(BikeServerCommunication.getAllPreviousBikeReservations());
-            bikeReservations = new ArrayList<>(bikeReservations1);
+            bikeReservations = new ArrayList<>(JsonMapper.bikeReservationsListMapper(BikeServerCommunication.getAllPreviousBikeReservations()));
         } catch (Exception e) {
             // Fakes the table having any entries, so the table shows up properly instead of "No contents".
             bikeReservations = new ArrayList<>();
         }
 
         Collections.sort(bikeReservations);
+        Collections.reverse(bikeReservations);
 
         if (bikeReservations.size() > 10) {
             bikeReservations = bikeReservations.subList(0, 15);
