@@ -11,11 +11,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -30,7 +27,6 @@ import javafx.scene.text.Text;
 import nl.tudelft.oopp.demo.communication.BuildingServerCommunication;
 import nl.tudelft.oopp.demo.communication.JsonMapper;
 import nl.tudelft.oopp.demo.communication.RoomServerCommunication;
-import nl.tudelft.oopp.demo.communication.SelectedRoom;
 import nl.tudelft.oopp.demo.entities.Building;
 import nl.tudelft.oopp.demo.entities.Room;
 import nl.tudelft.oopp.demo.errors.CustomAlert;
@@ -128,10 +124,6 @@ public class BookRoomController implements Initializable {
         buildingTableSelectListener();
     }
 
-    public void setSelectedRoom(Room selectedRoom) {
-        this.selectedRoom = selectedRoom;
-    }
-
     /**
      * Handles clicking the list button.
      */
@@ -209,16 +201,12 @@ public class BookRoomController implements Initializable {
     }
 
     /**
-     * return to the reservations menu when the back arrow button is clicked.
+     * Go to the room confirmation screen when the reserve button is clicked.
+     *
      * @throws IOException the input will always be the same, so it should never throw an IO exception
      */
-    public void goToRoomCalendar() throws IOException {
-        SelectedRoom.setSelectedRoom(selectedRoom);
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/BookRoomCalendar.fxml"));
-        Parent root = loader.load();
-
-        ApplicationDisplay.getPrimaryStage().setScene(new Scene(root));
+    public void goToRoomConfirmation() throws IOException {
+        ApplicationDisplay.changeScene("/RoomConfirmation.fxml");
     }
 
     /**
@@ -344,10 +332,7 @@ public class BookRoomController implements Initializable {
                     reserveButton.setMaxHeight(24);
                     reserveButton.setOnAction(event -> {
                         try {
-                            if (room != null) {
-                                setSelectedRoom(room);
-                                goToRoomCalendar();
-                            }
+                            goToRoomConfirmation();
                         } catch (IOException e) {
                             //Left empty
                         }
