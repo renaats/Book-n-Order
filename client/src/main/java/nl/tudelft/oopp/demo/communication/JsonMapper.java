@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
+import java.io.IOException;
 import java.util.List;
 
 import nl.tudelft.oopp.demo.entities.Allergy;
@@ -39,7 +40,12 @@ public class JsonMapper {
 
         ObjectMapper mapper = new ObjectMapper();
 
-        return mapper.readValue(buildingJson, Building.class);
+        try {
+            return mapper.readValue(buildingJson, Building.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
@@ -52,7 +58,12 @@ public class JsonMapper {
 
         ObjectMapper mapper = new ObjectMapper();
 
-        return mapper.readValue(menuJson, Menu.class);
+        try {
+            return mapper.readValue(menuJson, Menu.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
@@ -61,12 +72,17 @@ public class JsonMapper {
      * @param buildingsJson a JSON string representing a list.
      * @return A list filled with Buildings objects
      */
-    public static List<Building> buildingListMapper(String buildingsJson) throws JsonProcessingException {
+    public static List<Building> buildingListMapper(String buildingsJson) {
 
         ObjectMapper mapper = new ObjectMapper();
 
-        return mapper.readValue(buildingsJson, new TypeReference<>() {
-        });
+        try {
+            return mapper.readValue(buildingsJson, new TypeReference<>() {
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
@@ -79,8 +95,13 @@ public class JsonMapper {
 
         ObjectMapper mapper = new ObjectMapper();
 
-        return mapper.readValue(allergiesJson, new TypeReference<>() {
-        });
+        try {
+            return mapper.readValue(allergiesJson, new TypeReference<>() {
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
@@ -112,7 +133,12 @@ public class JsonMapper {
 
         ObjectMapper mapper = new ObjectMapper();
 
-        return mapper.readValue(roomsJson, new TypeReference<>(){});
+        try {
+            return mapper.readValue(roomsJson, new TypeReference<>(){});
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
@@ -181,8 +207,13 @@ public class JsonMapper {
     public static List<Restaurant> ownRestaurantMapper(String restaurantsJson) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
 
-        return mapper.readValue(restaurantsJson, new TypeReference<>() {
-        });
+        try {
+            return mapper.readValue(restaurantsJson, new TypeReference<>() {
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
@@ -195,7 +226,12 @@ public class JsonMapper {
 
         ObjectMapper mapper = new ObjectMapper();
 
-        return mapper.readValue(restaurantsJson, new TypeReference<>(){});
+        try {
+            return mapper.readValue(restaurantsJson, new TypeReference<>(){});
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
@@ -209,7 +245,12 @@ public class JsonMapper {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
 
-        return mapper.readValue(restaurantHoursJson, RestaurantHours.class);
+        try {
+            return mapper.readValue(restaurantHoursJson, RestaurantHours.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
@@ -223,7 +264,12 @@ public class JsonMapper {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
 
-        return mapper.readValue(buildingHourJson, BuildingHours.class);
+        try {
+            return mapper.readValue(buildingHourJson, BuildingHours.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
@@ -257,8 +303,13 @@ public class JsonMapper {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
 
-        return mapper.readValue(roomReservationsJson, new TypeReference<>() {
-        });
+        try {
+            return mapper.readValue(roomReservationsJson, new TypeReference<>() {
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
@@ -291,8 +342,13 @@ public class JsonMapper {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
 
-        return mapper.readValue(foodOrdersJson, new TypeReference<>() {
-        });
+        try {
+            return mapper.readValue(foodOrdersJson, new TypeReference<>() {
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
@@ -324,8 +380,13 @@ public class JsonMapper {
 
         ObjectMapper mapper = new ObjectMapper();
 
-        return mapper.readValue(bikesJson, new TypeReference<>() {
-        });
+        try {
+            return mapper.readValue(bikesJson, new TypeReference<>() {
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
@@ -359,8 +420,13 @@ public class JsonMapper {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
 
-        return mapper.readValue(bikeReservationsJson, new TypeReference<>() {
-        });
+        try {
+            return mapper.readValue(bikeReservationsJson, new TypeReference<>() {
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
@@ -373,8 +439,13 @@ public class JsonMapper {
 
         ObjectMapper mapper = new ObjectMapper();
 
-        return mapper.readValue(menusJson, new TypeReference<>() {
-        });
+        try {
+            return mapper.readValue(menusJson, new TypeReference<>() {
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
@@ -386,8 +457,13 @@ public class JsonMapper {
     public static List<Dish> dishListMapper(String dishesJson) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
 
-        return mapper.readValue(dishesJson, new TypeReference<>() {
-        });
+        try {
+            return mapper.readValue(dishesJson, new TypeReference<>() {
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
@@ -398,8 +474,13 @@ public class JsonMapper {
     public static List<DishOrder> dishOrderListMapper(String dishOrdersJson) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
 
-        return mapper.readValue(dishOrdersJson, new TypeReference<>() {
-        });
+        try {
+            return mapper.readValue(dishOrdersJson, new TypeReference<>() {
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
