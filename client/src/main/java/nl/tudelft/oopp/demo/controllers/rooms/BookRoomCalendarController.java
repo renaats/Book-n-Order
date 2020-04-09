@@ -199,7 +199,7 @@ public class BookRoomCalendarController implements Initializable {
                         .equals(ErrorMessages.getErrorMessage(308))) {
                     CustomAlert.warningAlert("Slot is already booked. Please make sure you do not overlay another reservation.");
                 } else {
-                    ApplicationDisplay.changeSceneWithVariables("/roomConfirmation.fxml", milliseconds1, milliseconds2);
+                    ApplicationDisplay.changeSceneWithVariables("/roomConfirmation.fxml", new Date(milliseconds1), new Date(milliseconds2));
                 }
             } catch (ParseException | IOException e) {
                 CustomAlert.errorAlert("Something went wrong! Could not reserve slot.");

@@ -82,6 +82,8 @@ public class ApplicationDisplay extends Application {
                     return new DatabaseAddDishController((Menu) variable1);
                 } else if (controllerClass == BikeReservationConfirmationController.class) {
                     return new BikeReservationConfirmationController((int[]) variable1, (long[]) variable2);
+                } else if (controllerClass == RoomConfirmationController.class) {
+                    return new RoomConfirmationController((Date) variable1, (Date) variable2);
                 } else {
                     return controllerClass.getDeclaredConstructor().newInstance();
                 }
