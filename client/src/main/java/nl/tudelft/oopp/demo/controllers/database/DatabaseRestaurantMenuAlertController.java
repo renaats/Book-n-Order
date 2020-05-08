@@ -226,7 +226,7 @@ public class DatabaseRestaurantMenuAlertController {
      * @return the day as a number.
      */
     public static int daySwitchCase(ChoiceBox<String> daysChoiceBox) {
-        switch (daysChoiceBox.getValue()) {
+        switch (daysChoiceBox.getSelectionModel().getSelectedItem()) {
             case "Monday":
                 return 1;
             case "Tuesday":
