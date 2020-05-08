@@ -1,1 +1,0 @@
-Go to https://dbdiagram.io/home and press launch to app or use this link: https://dbdiagram.io/d then copy paste the code from the DatabaseCode.txt file into the left sidebar. Now you can edit the RDBM! :)
