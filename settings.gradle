@@ -1,2 +1,2 @@
-rootProject.name = 'repository-template'
+rootProject.name = 'Book-n-Order'
 include 'client', 'server'
